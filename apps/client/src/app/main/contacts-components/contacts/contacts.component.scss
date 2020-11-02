@@ -1,0 +1,35 @@
+.container {
+  padding-left: 20vw;
+  padding-right: 20vw;
+  padding-bottom: 30%;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 45%;
+}
+
+.header {
+  flex: 100%;
+}
+
+h1 {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+a {
+  text-decoration: none;
+  color: #0D47A1;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 1250px) {
+  .container {
+    padding-right: 10vw;
+    padding-left: 10vw;
+  }
+}

@@ -1,0 +1,78 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title *ngIf="category === 'gadgets'; else photos"
+      >Gadget</mat-card-title
+    >
+
+    <ng-template #photos>
+      <mat-card-title>Foto</mat-card-title>
+    </ng-template>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-table [dataSource]="products">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+        <mat-cell *matCellDef="let product">{{ product.id }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Nome</mat-header-cell>
+        <mat-cell *matCellDef="let product">{{ product.name }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef>Descrizione</mat-header-cell>
+        <mat-cell *matCellDef="let product">{{ product.description }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef>Prezzo</mat-header-cell>
+        <mat-cell *matCellDef="let product">{{
+          product.price | currency: "EUR"
+        }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="sizes">
+        <mat-header-cell *matHeaderCellDef>Taglie</mat-header-cell>
+        <mat-cell *matCellDef="let product"
+          ><ng-container *ngFor="let size of product.sizes"
+            >{{ size }};
+          </ng-container></mat-cell
+        >
+      </ng-container>
+
+      <ng-container matColumnDef="colors">
+        <mat-header-cell *matHeaderCellDef>Colori</mat-header-cell>
+        <mat-cell *matCellDef="let product"
+          ><ng-container *ngFor="let color of product.colors"
+            ><span
+              [ngStyle]="{ 'background-color': color }"
+            ></span></ng-container
+        ></mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="options">
+        <mat-header-cell *matHeaderCellDef>Gestisci</mat-header-cell>
+        <mat-cell *matCellDef="let product"
+          ><button mat-button color="warn" (click)="deleteProduct(product.id)">
+            Cancella prodotto
+          </button></mat-cell
+        >
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <a
+      mat-raised-button
+      color="primary"
+      [routerLink]="['create']"
+    >
+      Aggiungi un prodotto
+    </a>
+  </mat-card-actions>
+</mat-card>

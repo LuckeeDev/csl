@@ -1,0 +1,88 @@
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Segnala un errore</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <mat-vertical-stepper [linear]="true" #stepper>
+          <mat-step
+            [stepControl]="form.get('firstStep')"
+            formGroupName="firstStep"
+          >
+            <ng-template matStepLabel>Informazioni generali</ng-template>
+            <mat-form-field>
+              <mat-label>Tipo di problema</mat-label>
+              <mat-select formControlName="category" required>
+                <mat-option
+                  *ngFor="let category of categories"
+                  [value]="category"
+                >
+                  {{ category }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div>
+              <button mat-stroked-button matStepperNext type="button">
+                Avanti
+              </button>
+            </div>
+          </mat-step>
+          <mat-step
+            [stepControl]="form.get('secondStep')"
+            formGroupName="secondStep"
+          >
+            <ng-template matStepLabel>Descrivi il problema</ng-template>
+            <mat-form-field>
+              <mat-label>Descrizione del problema</mat-label>
+              <textarea
+                matInput
+                formControlName="description"
+                required
+              ></textarea>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Informazioni aggiuntive</mat-label>
+              <textarea
+                matInput
+                placeholder="Piattaforma testata, browser, data..."
+                formControlName="context"
+                required
+              ></textarea>
+            </mat-form-field>
+            <div>
+              <button
+                mat-stroked-button
+                matStepperPrevious
+                type="button"
+                color="accent"
+              >
+                Indietro
+              </button>
+              <button mat-stroked-button matStepperNext type="button">
+                Avanti
+              </button>
+            </div>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Invia la segnalazione</ng-template>
+            <div>
+              <button
+                mat-stroked-button
+                color="accent"
+                matStepperPrevious
+                type="button"
+              >
+                Indietro
+              </button>
+              <button mat-raised-button color="primary" type="submit">
+                Invia
+              </button>
+            </div>
+          </mat-step>
+        </mat-vertical-stepper>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

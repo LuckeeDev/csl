@@ -1,0 +1,44 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Articoli</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-table [dataSource]="articles">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+        <mat-cell *matCellDef="let article">{{ article.id }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef>Titolo</mat-header-cell>
+        <mat-cell *matCellDef="let article">{{ article.title }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="options">
+        <mat-header-cell *matHeaderCellDef>Gestisci</mat-header-cell>
+        <mat-cell *matCellDef="let article"
+          ><button
+            mat-button
+            color="primary"
+            size="small"
+            [routerLink]="[article.id]"
+          >
+            Modifica
+          </button>
+          <button mat-button color="warn" (click)="deleteArticle(article.id)">
+            Cancella
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <a mat-raised-button color="primary" [routerLink]="['new']">
+      Aggiungi un articolo
+    </a>
+  </mat-card-actions>
+</mat-card>

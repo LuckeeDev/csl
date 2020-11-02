@@ -1,0 +1,35 @@
+<mat-form-field>
+  <mat-label>Cerca prodotto...</mat-label>
+  <input matInput type="text" [formControl]="search" />
+</mat-form-field>
+
+<div
+  class="container"
+  *ngIf="products && products.length > 0; else noProductFound"
+>
+  <mat-card
+    [routerLink]="[product.id]"
+    *ngFor="let product of (filteredProducts | async) || products"
+  >
+    <mat-card-header>
+      <mat-card-title>{{ product.name }}</mat-card-title>
+      <mat-card-subtitle>{{ product.description }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content *ngIf="coverImage(product.id)">
+      <img [src]="coverImage(product.id).url" />
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<ng-template #noProductFound>
+  <mat-card class="no-product-found">
+    <mat-card-header>
+      <mat-card-title
+        >Non abbiamo trovato nessun prodotto in questa
+        categoria!</mat-card-title
+      >
+      <mat-card-subtitle>Torna più tardi...</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+</ng-template>

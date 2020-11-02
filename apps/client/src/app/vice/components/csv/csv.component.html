@@ -1,0 +1,24 @@
+<div>
+  <input
+    type="file"
+    style="display: none"
+    (change)="upload.onCsvSelect($event)"
+    #selectFile
+  />
+  <button mat-stroked-button color="primary" (click)="selectFile.click()">
+    Scegli file
+  </button>
+
+  <!-- Show if the CSV has been selected -->
+  <div *ngIf="upload.readyToUploadCsv">
+    <p>Nome del file caricato: "{{ upload.csvFile.name }}"</p>
+    <button
+      mat-raised-button
+      color="primary"
+      size="small"
+      (click)="uploadCsv(upload.csvFile.name)"
+    >
+      Carica
+    </button>
+  </div>
+</div>

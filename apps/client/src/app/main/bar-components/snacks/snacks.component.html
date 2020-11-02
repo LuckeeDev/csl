@@ -1,0 +1,24 @@
+<h4>Prodotti</h4>
+<div class="container">
+  <ng-container *ngFor="let snack of snacks | async">
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title>{{ snack.name }}</mat-card-title>
+        <mat-card-subtitle
+          >Prezzo: {{ snack.price | currency: "EUR" }}, quantità rimanente:
+          {{ snack.maxQuantity }}</mat-card-subtitle
+        >
+      </mat-card-header>
+      <mat-card-content>{{ snack.description }}</mat-card-content>
+      <mat-card-actions
+        ><button
+          mat-stroked-button
+          color="primary"
+          (click)="addToCart(snack.id)"
+        >
+          <fa-icon [icon]="faPlus"></fa-icon>Aggiungi al carrello
+        </button></mat-card-actions
+      >
+    </mat-card>
+  </ng-container>
+</div>

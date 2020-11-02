@@ -22,5 +22,22 @@
       }
     }
   },
-  "projects": {}
+  "projects": {
+    "client": {
+      "tags": []
+    },
+    "client-e2e": {
+      "tags": [],
+      "implicitDependencies": ["client"]
+    },
+    "server": {
+      "tags": []
+    },
+    "shared": {
+      "tags": []
+    },
+    "ui": {
+      "tags": []
+    }
+  }
 }

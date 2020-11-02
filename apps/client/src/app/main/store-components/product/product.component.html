@@ -1,0 +1,53 @@
+<!-- Show if the product exists -->
+<div *ngIf="product; else noProductFound">
+  <!-- Show basic product info -->
+  <h3>{{ product.name }}</h3>
+  <p>{{ product.description }}</p>
+  <br />
+  <p>Prezzo: {{ product.price }} €</p>
+
+  <!-- Select quantity -->
+  <input nbInput type="number" matInput placeholder="Quante ne vuoi?" />
+
+  <!-- Select color -->
+  <!-- <div *ngIf="category === 'gadgets'" class="color-holder">
+    <span
+      *ngFor="let color of product.colors"
+      id="{{ color }}"
+      class="filled-circle"
+      [ngStyle]="{ 'background-color': color }"
+      (click)="selectColor(color)"
+    ></span>
+  </div> -->
+
+  <!-- Select size -->
+  <!-- <div *ngIf="category === 'gadgets'" class="sizes-holder">
+    <mat-form-field>
+      <mat-label>Taglia</mat-label>
+      <mat-select required #size (selectionChange)="selectSize(size.value)">
+        <mat-option *ngFor="let size of product.sizes" [value]="size">
+          {{ size }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div> -->
+
+  <!-- Show images -->
+  <div *ngFor="let link of imageLinks">
+    <img [src]="link" />
+  </div>
+
+  <!-- Button to order product -->
+  <button
+    nbButton
+    status="primary"
+    (click)="addToCart()"
+  >
+    Order product
+  </button>
+</div>
+
+<!-- Show if the product does not exist -->
+<ng-template #noProductFound>
+  Non abbiamo trovato nessun prodotto con questo nome!
+</ng-template>

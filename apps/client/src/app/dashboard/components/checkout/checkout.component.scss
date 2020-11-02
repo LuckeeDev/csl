@@ -1,0 +1,31 @@
+h4 {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+mat-card {
+  width: 40%;
+}
+
+button {
+  margin-top: 20px;
+}
+
+input {
+  border-radius: 6px;
+  margin-bottom: 6px;
+  padding: 12px;
+  border: 1px solid rgba(50, 50, 93, 0.1);
+  height: 44px;
+  font-size: 16px;
+  width: 100%;
+  background: white;
+}
+
+#card-error {
+  color: rgb(105, 115, 134);
+  text-align: left;
+  font-size: 13px;
+  line-height: 17px;
+  margin-top: 12px;
+}

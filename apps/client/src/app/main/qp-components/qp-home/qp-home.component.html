@@ -1,0 +1,41 @@
+<div class="container">
+  <h1 class="header">Articoli in evidenza</h1>
+
+  <mat-form-field class="search">
+    <mat-label>Cerca articoli...</mat-label>
+    <input matInput type="text" [formControl]="search" />
+  </mat-form-field>
+
+  <mat-card
+    matRipple
+    *ngFor="let article of (filteredArticles$ | async) || articles; let i = index"
+    [routerLink]="[article.id]"
+  >
+    <div
+      class="category"
+      [ngStyle]="{ 'background-color': article.category | categoryToColor }"
+    ></div>
+
+    <mat-card-content class="content">
+      <ng-container *ngIf="i % 2 === 0">
+        <img [src]="article.image" *ngIf="imageReady" class="cover even" />
+        <div class="text even">
+          <h1 class="title">{{ article.title }}</h1>
+          <p class="preview">{{ article.preview }}</p>
+          <p class="data">
+            Autore: {{ article.author }}
+          </p>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="i % 2 === 1">
+        <img [src]="article.image" *ngIf="imageReady" class="cover odd" />
+        <div class="text odd">
+          <h1 class="title">{{ article.title }}</h1>
+          <p class="preview">{{ article.preview }}</p>
+          <p class="data">Autore: {{ article.author }}</p>
+        </div>
+      </ng-container>
+    </mat-card-content>
+  </mat-card>
+</div>

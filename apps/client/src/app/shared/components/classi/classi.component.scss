@@ -1,0 +1,10 @@
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+mat-card {
+  cursor: pointer;
+  margin-right: 20px;
+  outline: none;
+}

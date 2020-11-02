@@ -1,0 +1,72 @@
+<ng-container *ngIf="(state$ | async).currentClass as currentClass">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title> {{ currentClass.id }}</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-table [dataSource]="currentClass.members">
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+          <mat-cell *matCellDef="let member">{{ member.email }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="roles">
+          <mat-header-cell *matHeaderCellDef>Ruoli</mat-header-cell>
+          <mat-cell *matCellDef="let member"
+            ><mat-form-field class="chip-list">
+              <mat-chip-list #chipList aria-label="Fruit selection">
+                <mat-chip
+                  *ngFor="let role of member.roles"
+                  [selectable]="true"
+                  [removable]="true"
+                  (removed)="remove(role.role, member.email)"
+                >
+                  {{ role.description }}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+                <input
+                  #roleInput
+                  [formControl]="roleCtrl"
+                  [matAutocomplete]="auto"
+                  [matChipInputFor]="chipList"
+                  placeholder="Ruoli..."
+                />
+              </mat-chip-list>
+              <mat-autocomplete
+                #auto="matAutocomplete"
+                (optionSelected)="selected($event, member.email, member.roles)"
+              >
+                <mat-option
+                  *ngFor="let role of filteredRoles | async"
+                  [value]="role.description"
+                >
+                  {{ role.description }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field></mat-cell
+          >
+        </ng-container>
+
+        <ng-container matColumnDef="credit">
+          <mat-header-cell *matHeaderCellDef>Credito</mat-header-cell>
+          <mat-cell *matCellDef="let member">{{
+            member.snackCredit | currency: "EUR"
+          }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="manage">
+          <mat-header-cell *matHeaderCellDef>Gestisci</mat-header-cell>
+          <mat-cell *matCellDef="let member"
+            ><button mat-button color="primary">
+              Aggiungi credito
+            </button></mat-cell
+          >
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+    </mat-card-content>
+  </mat-card>
+</ng-container>

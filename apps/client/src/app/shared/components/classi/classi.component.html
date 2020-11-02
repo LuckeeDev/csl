@@ -1,0 +1,17 @@
+<!-- Show if at least one class exists -->
+<div *ngIf="(state$ | async).classes as classes; else noClasses" class="cards">
+  <ng-container *ngFor="let class of classes">
+    <mat-card [routerLink]="[class.id]">
+      <mat-card-header>
+        <mat-card-title>{{ class.id }}</mat-card-title></mat-card-header
+      >
+    </mat-card>
+  </ng-container>
+</div>
+
+<!-- Show if no class is present -->
+<ng-template #noClasses>
+  <mat-card>
+    <mat-card-content> Non ci sono ancora classi! </mat-card-content>
+  </mat-card>
+</ng-template>

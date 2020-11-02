@@ -1,0 +1,79 @@
+// Container style
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+// General styles
+mat-card {
+  cursor: pointer;
+  outline: none;
+  margin-bottom: 30px;
+  width: 100%;
+  flex: 100%;
+  padding-top: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+h1 {
+  font-weight: 500;
+}
+
+.header {
+  flex: 75%;
+}
+
+.search {
+  flex: 25%;
+}
+
+.category {
+  height: 10px;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.cover {
+  width: 45%;
+  flex: 45%;
+  border-radius: 5px 0 0 5px;
+}
+
+.text {
+  flex: 50%;
+}
+
+.data {
+  color: rgba($color: #000000, $alpha: 0.6);
+}
+
+// Show if the index is even
+.cover.even {
+  order: 0;
+}
+
+.text.even {
+  order: 1;
+  margin-left: 5%;
+}
+
+// Show if the index is odd
+.cover.odd {
+  order: 1;
+  border-radius: 0 5px 5px 0;
+}
+
+.text.odd {
+  order: 0;
+  margin-right: 5%;
+}

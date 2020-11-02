@@ -1,0 +1,34 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.editor.json"
+    }
+  ],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@dashboard/*": ["src/app/dashboard/*"],
+      "@qp-admin/*": ["src/app/qp-admin/*"],
+      "@bar-admin/*": ["src/app/bar-admin/*"],
+      "@rappre/*": ["src/app/rappre/*"],
+      "@vice/*": ["src/app/vice/*"],
+      "@god/*": ["src/app/god/*"],
+      "@main/*": ["src/app/main/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@global/*": ["src/app/global/*"],
+      "@admin/*": ["src/app/admin/*"],
+      "@app/*": ["src/app/*"],
+      "@environments/*": ["src/environments/*"],
+      "@assets/*": ["src/assets/*"]
+    }
+  }
+}

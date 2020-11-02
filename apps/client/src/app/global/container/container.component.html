@@ -1,0 +1,122 @@
+<mat-sidenav-container>
+  <mat-sidenav #sidenav>
+    <mat-nav-list class="list">
+      <img
+        src="..\..\..\assets\img\logo.png"
+        alt="CSL Logo"
+        height="80"
+        width="80"
+        [routerLink]="['']"
+      />
+
+      <ng-container *ngFor="let element of links">
+        <a
+          mat-list-item
+          *ngIf="element.link === ''"
+          [routerLink]="[element.link]"
+          [routerLinkActive]="['sidebar-active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="sidenav.close()"
+        >
+          {{ element.title }}
+        </a>
+
+        <a
+          mat-list-item
+          *ngIf="element.link !== ''"
+          [routerLink]="[element.link]"
+          [routerLinkActive]="['sidebar-active']"
+          (click)="sidenav.close()"
+        >
+          {{ element.title }}
+        </a>
+      </ng-container>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <ul class="toolbar">
+        <li class="item toggle">
+          <button mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon>menu</mat-icon>
+          </button>
+        </li>
+
+        <li class="logo">
+          <img
+            src="..\..\..\assets\img\white-logo.png"
+            alt="CSL Logo"
+            height="80"
+            width="80"
+            [routerLink]="['']"
+          />
+        </li>
+
+        <div class="space"></div>
+
+        <div class="links">
+          <li *ngFor="let element of links" class="item">
+            <a
+              mat-button
+              *ngIf="element.link === ''"
+              [routerLink]="[element.link]"
+              [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{ exact: true }"
+              >{{ element.title }}</a
+            >
+
+            <a
+              mat-button
+              *ngIf="element.link !== ''"
+              [routerLink]="[element.link]"
+              [routerLinkActive]="['active']"
+              >{{ element.title }}</a
+            >
+          </li>
+        </div>
+
+        <li class="item button">
+          <button
+            mat-raised-button
+            *ngIf="auth.user$ | async as user; else login"
+            [routerLink]="['dashboard']"
+          >
+            {{ user.firstName }} {{ user.lastName }}
+            <img
+              class="profile"
+              [src]="user.photoURL"
+              referrerpolicy="no-referrer"
+            />
+          </button>
+
+          <ng-template #login>
+            <button mat-raised-button size="small" (click)="auth.signIn()">
+              Accedi
+              <img class="google" src="../../../assets/img/signInLogo.png" />
+            </button>
+          </ng-template>
+        </li>
+      </ul>
+    </mat-toolbar>
+
+    <div class="outlet">
+      <ng-content></ng-content>
+    </div>
+
+    <div class="footer">
+      <span class="footer-text">
+        Comitato Studentesco del Liceo Scientifico Statale "Filippo Lussana" <br>
+        via Angelo Maj 1, 24121 Bergamo (Bg) <br>
+        rapprestudenti@liceolussana.eu
+      </span>
+      
+      <span class="footer-text align-right">
+        <br>
+        Copyright 2020 - {{ currentYear }}©
+        <br>
+        lussanaweb@gmail.com
+      </span>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
