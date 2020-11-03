@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { DialogService } from '@global/ui/services/dialog/dialog.service';
+import { DialogService, ToastrService } from '@csl/ui';
 import { SnacksService } from '@global/services/snacks/snacks.service';
-import { ToastrService } from '@global/ui/services/toastr/toastr.service';
 import { Router } from '@angular/router';
 
 @Component({

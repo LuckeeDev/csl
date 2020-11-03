@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { fromEvent, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class DeviceService {
   constructor() {}
 

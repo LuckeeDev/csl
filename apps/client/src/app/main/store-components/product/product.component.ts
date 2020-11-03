@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { IProduct, IProductInCart } from '@csl/shared';
+import { IProduct } from '@csl/shared';
 import { ProductsService } from '@global/services/products/products.service';
 import { OrdersService } from '@global/services/orders/orders.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DialogService } from '@global/ui/services/dialog/dialog.service';
+import { DialogService } from '@csl/ui';
 
 @Component({
   selector: 'app-product',

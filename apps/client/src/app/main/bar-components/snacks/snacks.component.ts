@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ISnack } from '@csl/shared';
 import { SnacksService } from '@global/services/snacks/snacks.service';
-import { ToastrService } from '@global/ui/services/toastr/toastr.service';
-import { DialogService } from '@global/ui/services/dialog/dialog.service';
+import { DialogService, ToastrService } from '@csl/ui';
 
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 

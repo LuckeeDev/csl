@@ -5,7 +5,7 @@ import { QpAdminRoutingModule } from './qp-admin-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // UI Elements
-import { UiModule } from '@global/ui/ui.module';
+import { UiModule } from '@csl/ui';
 
 import { PipesModule } from '@global/pipes/pipes.module';
 

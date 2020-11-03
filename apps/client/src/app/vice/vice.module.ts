@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ViceRoutingModule } from './vice-routing.module';
 
 // UI Elements
-import { UiModule } from '@global/ui/ui.module';
+import { UiModule } from '@csl/ui';
 
 // Main page
 import { ViceComponent } from '@vice/vice.component';

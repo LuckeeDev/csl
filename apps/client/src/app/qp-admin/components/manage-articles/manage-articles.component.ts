@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IArticle } from '@csl/shared';
 import { ArticlesService } from '@global/services/articles/articles.service';
-import { DialogService } from '@global/ui/services/dialog/dialog.service';
-import { ToastrService } from '@global/ui/services/toastr/toastr.service';
+import { DialogService, ToastrService } from '@csl/ui';
 
 @Component({
   selector: 'app-manage-articles',

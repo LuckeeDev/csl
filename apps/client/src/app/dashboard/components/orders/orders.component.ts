@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { OrdersService } from '@global/services/orders/orders.service';
-import { ToastrService } from '@global/ui/services/toastr/toastr.service';
-import { DialogService } from '@global/ui/services/dialog/dialog.service';
+import { DialogService, ToastrService } from '@csl/ui';
 
 @Component({
   selector: 'app-orders',

@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ISnackOrder, ISnack } from '@csl/shared';
 import { SnacksService } from '@global/services/snacks/snacks.service';
-import { DialogService } from '@global/ui/services/dialog/dialog.service';
-import { ToastrService } from '@global/ui/services/toastr/toastr.service';
+import { DialogService, ToastrService } from '@csl/ui';
 import { AuthService } from '@global/services/auth/auth.service';
 
 @Component({

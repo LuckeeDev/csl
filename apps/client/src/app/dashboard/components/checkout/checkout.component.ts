@@ -7,8 +7,7 @@ import { IHttpRes, IPaymentIntentData } from '@csl/shared';
 import { loadStripe, Stripe, StripeCardElement } from '@stripe/stripe-js';
 
 import { OrdersService } from '@global/services/orders/orders.service';
-import { ToastrService } from '@global/ui/services/toastr/toastr.service';
-import { DialogService } from '@global/ui/services/dialog/dialog.service';
+import { DialogService, ToastrService } from '@csl/ui';
 
 @Component({
   selector: 'app-checkout',

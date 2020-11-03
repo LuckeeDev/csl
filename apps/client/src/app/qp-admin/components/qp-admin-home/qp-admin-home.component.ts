@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@global/services/auth/auth.service';
-import { DialogService } from '@global/ui/services/dialog/dialog.service';
+import { DialogService } from '@csl/ui';
 
 @Component({
   selector: 'app-qp-admin-home',

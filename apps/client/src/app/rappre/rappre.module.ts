@@ -5,7 +5,7 @@ import { RappreRoutingModule } from './rappre-routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 // UI Elements
-import { UiModule } from '@global/ui/ui.module';
+import { UiModule } from '@csl/ui';
 
 // Main page
 import { RappreComponent } from '@rappre/rappre.component';

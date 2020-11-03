@@ -3,7 +3,7 @@ import { State, Action, StateContext } from '@ngxs/store';
 import { IClass, IRole, TRole } from '@csl/shared';
 import { MembersService } from '@shared/services/members/members.service';
 import produce from 'immer';
-import { ToastrService } from '@global/ui/services/toastr/toastr.service';
+import { ToastrService } from '@csl/ui';
 
 export namespace Classes {
   export class Get {

@@ -13,7 +13,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 
 // UI Elements
-import { UiModule } from '@global/ui/ui.module';
+import { UiModule } from '@csl/ui';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';

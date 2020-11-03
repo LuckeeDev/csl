@@ -3,8 +3,7 @@ import { ProductsService } from '@global/services/products/products.service';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { IProduct } from '@csl/shared';
-import { DialogService } from '@global/ui/services/dialog/dialog.service';
-import { ToastrService } from '@global/ui/services/toastr/toastr.service';
+import { DialogService, ToastrService } from '@csl/ui';
 
 @Component({
   selector: 'app-manage-category',

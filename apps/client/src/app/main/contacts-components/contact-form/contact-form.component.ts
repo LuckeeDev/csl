@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DialogService } from '@global/ui/services/dialog/dialog.service';
+import { DialogService } from '@csl/ui';
 
 @Component({
   selector: 'app-contact-form',

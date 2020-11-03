@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 
 // UI Elements
-import { UiModule } from '@global/ui/ui.module';
+import { UiModule } from '@csl/ui';
 
 // Main page
 import { DashboardComponent } from '@dashboard/dashboard.component';

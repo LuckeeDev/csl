@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadService } from '@shared/services/upload/upload.service';
-import { DialogService } from '@global/ui/services/dialog/dialog.service';
-import { ToastrService } from '@global/ui/services/toastr/toastr.service';
+import { DialogService, ToastrService } from '@csl/ui';
 import { MatSnackBarRef } from '@angular/material/snack-bar';
 
 interface ICsvRes {

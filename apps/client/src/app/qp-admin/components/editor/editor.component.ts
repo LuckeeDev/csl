@@ -7,8 +7,7 @@ import List from '@editorjs/list';
 import Image from '@editorjs/image';
 
 import { ArticlesService } from '@global/services/articles/articles.service';
-import { DialogService } from '@global/ui/services/dialog/dialog.service';
-import { ToastrService } from '@global/ui/services/toastr/toastr.service';
+import { DialogService, ToastrService } from '@csl/ui';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 

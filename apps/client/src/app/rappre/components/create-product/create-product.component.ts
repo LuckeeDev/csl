@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UploadService } from 'src/app/shared/services/upload/upload.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
-import { ToastrService } from '@global/ui/services/toastr/toastr.service';
-import { DialogService } from '@global/ui/services/dialog/dialog.service';
+import { DialogService, ToastrService } from '@csl/ui';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({

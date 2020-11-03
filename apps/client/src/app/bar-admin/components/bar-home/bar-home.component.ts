@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DialogService } from '@global/ui/services/dialog/dialog.service';
+import { DialogService } from '@csl/ui';
 import { AuthService } from '@global/services/auth/auth.service';
 
 @Component({

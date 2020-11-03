@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { IDashboardLink } from '@csl/shared';
-import { DeviceService } from '@global/services/device/device.service';
+import { DeviceService } from '../../services/device/device.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

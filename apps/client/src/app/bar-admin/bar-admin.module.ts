@@ -9,7 +9,7 @@ import { NgxsModule } from '@ngxs/store';
 import { OrdersState } from '@bar-admin/store';
 
 // UI
-import { UiModule } from '@global/ui/ui.module';
+import { UiModule } from '@csl/ui';
 
 // Main page
 import { BarAdminComponent } from '@bar-admin/bar-admin.component';

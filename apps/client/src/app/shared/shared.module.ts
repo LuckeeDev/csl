@@ -9,7 +9,7 @@ import { NgxsModule } from '@ngxs/store';
 import { ClassState } from './store';
 
 // UI elements
-import { UiModule } from '@global/ui/ui.module';
+import { UiModule } from '@csl/ui';
 
 // Pipes module
 import { PipesModule } from '@global/pipes/pipes.module';

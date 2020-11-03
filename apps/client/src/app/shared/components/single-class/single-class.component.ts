@@ -12,9 +12,9 @@ import {
 } from '@angular/material/autocomplete';
 
 // Services
-import { MembersService } from '../../services/members/members.service';
+import { MembersService } from '@shared/services/members/members.service';
 import { AuthService } from '@global/services/auth/auth.service';
-import { ToastrService } from '@global/ui/services/toastr/toastr.service';
+import { ToastrService } from '@csl/ui';
 
 import { IRole, TRole } from '@csl/shared';
 import { Select, Store } from '@ngxs/store';
