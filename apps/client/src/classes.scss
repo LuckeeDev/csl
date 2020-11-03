@@ -1,0 +1,73 @@
+@import './styles.scss';
+
+// Create Sass color variables (will be available everywhere in the project)
+$primary: mat-color($client-primary);
+$success: #43a047;
+$accent: mat-color($client-accent);
+$warn: mat-color($client-warn);
+
+.dialog-padding {
+  .mat-dialog-container {
+    padding: 0;
+  }
+}
+
+.toastr-basic {
+  color: rgba($color: #fff, $alpha: 0.9);
+
+  button {
+    color: rgba($color: #fff, $alpha: 0.9);
+  }
+}
+
+.toastr-primary {
+  background-color: $primary;
+  color: rgba($color: #fff, $alpha: 0.9);
+
+  button {
+    color: rgba($color: #fff, $alpha: 0.9);
+  }
+}
+
+.toastr-success {
+  background-color: #43a047;
+  color: rgba($color: #fff, $alpha: 1);
+
+  button {
+    color: rgba($color: #fff, $alpha: 1);
+  }
+}
+
+.toastr-accent {
+  background-color: $accent;
+  color: rgba($color: #fff, $alpha: 1);
+
+  button {
+    color: rgba($color: #fff, $alpha: 1);
+  }
+}
+
+.toastr-warn {
+  background-color: $warn;
+  color: rgba($color: #fff, $alpha: 0.9);
+
+  button {
+    color: rgba($color: #fff, $alpha: 0.9);
+  }
+}
+
+.color-primary {
+  background-color: $primary;
+}
+
+.color-success {
+  background-color: $success;
+}
+
+.color-accent {
+  background-color: $accent;
+}
+
+.color-warn {
+  background-color: $warn;
+}

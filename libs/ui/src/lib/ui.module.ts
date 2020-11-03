@@ -40,7 +40,6 @@ import { MatColorDirective } from './directives/mat-color/mat-color.directive';
 
 @NgModule({
   declarations: [DialogComponent, DashboardModelComponent, MatColorDirective],
-  entryComponents: [DialogComponent],
   imports: [
     CommonModule,
     RouterModule,

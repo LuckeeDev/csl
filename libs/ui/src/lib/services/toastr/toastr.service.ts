@@ -9,6 +9,7 @@ export class ToastrService {
   show(data: IToastrData): MatSnackBarRef<any> {
     return this.snackBar.open(data.message, data.action || 'Chiudi', {
       duration: data.duration || 5000,
+      panelClass: `toastr-${data.color}`
     });
   }
 

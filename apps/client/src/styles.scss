@@ -20,11 +20,6 @@ $client-warn: mat-palette($mat-red);
 // Create the theme object (a Sass map containing all of the palettes).
 $client-theme: mat-light-theme($client-primary, $client-accent, $client-warn);
 
-// Create Sass color variables (will be available everywhere in the project)
-$primary: mat-color($client-primary);
-$accent: mat-color($client-accent);
-$warn: mat-color($client-warn);
-
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
@@ -32,21 +27,3 @@ $warn: mat-color($client-warn);
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-.dialog-padding {
-  .mat-dialog-container {
-      padding: 0;
-  }
-}
-
-.color-primary {
-  background-color: $primary;
-}
-
-.color-accent {
-  background-color: $accent;
-}
-
-.color-warn {
-  background-color: $warn;
-}
