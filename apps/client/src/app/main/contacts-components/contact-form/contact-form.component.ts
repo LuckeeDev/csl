@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DialogService } from '@csl/ui';
+import { DialogService, ToastrService } from '@csl/ui';
+import { IBugData } from '@csl/shared';
+import { ReportsService } from '@global/services/reports/reports.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contact-form',
@@ -13,7 +16,13 @@ export class ContactFormComponent implements OnInit {
 
   categories: string[] = ['Tecnico', 'Visivo', 'Altro'];
 
-  constructor(private fb: FormBuilder, private dialog: DialogService) {}
+  constructor(
+    private fb: FormBuilder,
+    private dialog: DialogService,
+    private toastr: ToastrService,
+    private reports: ReportsService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -37,7 +46,26 @@ export class ContactFormComponent implements OnInit {
         color: 'primary',
       })
       .subscribe(() => {
-        console.log(this.form.value);
+        const { firstStep, secondStep } = this.form.value;
+
+        const bugData: IBugData = {
+          category: firstStep.category,
+          description: secondStep.description,
+          context: secondStep.context,
+        };
+
+        this.reports.sendBugReport(bugData).subscribe((res) => {
+          if (res.success === true) {
+            this.toastr.show({
+              message: 'Segnalazione inviata',
+              color: 'success',
+            });
+          } else if (res.success === false) {
+            this.toastr.showError();
+          }
+
+          this.router.navigate(['..', 'contacts']);
+        });
       });
   }
 }

@@ -26,7 +26,7 @@ export class ContainerComponent implements OnInit {
     { title: 'PortArti', link: 'portarti' },
     { title: 'QP', link: 'qp' },
     { title: 'Store', link: 'store' },
-    { title: 'Bar', link: 'bar' },
+    { title: 'Contatti', link: 'contacts' },
   ];
 
   constructor(public auth: AuthService) {}

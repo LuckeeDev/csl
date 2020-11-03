@@ -19,6 +19,7 @@ import users from '@routes/users';
 import articles from '@routes/articles';
 import products from '@routes/products';
 import orders from '@routes/orders';
+import reports from '@routes/reports';
 import snacks from '@routes/snacks';
 
 // Connect to database
@@ -73,25 +74,14 @@ app.use(
   })
 );
 
-// Auth route
+// Routes
 app.use('/api/auth', auth);
-
-// Upload route
 app.use('/api/upload', upload);
-
-// Users route
 app.use('/api/users', users);
-
-// Articles route
 app.use('/api/articles', articles);
-
-// Products route
 app.use('/api/products', products);
-
-// Orders route
 app.use('/api/orders', orders);
-
-// Snacks route
+app.use('/api/reports', reports);
 app.use('/api/snacks', snacks);
 
 // Static folder

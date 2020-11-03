@@ -19,6 +19,7 @@ export class ToastrService {
       'Chiudi',
       {
         duration: 5000,
+        panelClass: 'toastr-warn'
       }
     );
   }

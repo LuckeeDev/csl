@@ -29,12 +29,13 @@
               </button>
             </div>
           </mat-step>
+
           <mat-step
             [stepControl]="form.get('secondStep')"
             formGroupName="secondStep"
           >
             <ng-template matStepLabel>Descrivi il problema</ng-template>
-            <mat-form-field>
+            <mat-form-field class="textarea">
               <mat-label>Descrizione del problema</mat-label>
               <textarea
                 matInput
@@ -42,7 +43,7 @@
                 required
               ></textarea>
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field class="textarea">
               <mat-label>Informazioni aggiuntive</mat-label>
               <textarea
                 matInput
@@ -65,6 +66,7 @@
               </button>
             </div>
           </mat-step>
+
           <mat-step>
             <ng-template matStepLabel>Invia la segnalazione</ng-template>
             <div>
