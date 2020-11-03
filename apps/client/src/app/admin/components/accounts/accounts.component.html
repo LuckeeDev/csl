@@ -1,0 +1,45 @@
+<form [formGroup]="accountForm" (ngSubmit)="createAccount(formElement)" class="container" #formElement>
+  <mat-form-field class="form-field email-input">
+    <mat-label>Email</mat-label>
+    <input matInput type="text" formControlName="email" />
+  </mat-form-field>
+
+  <mat-form-field class="form-field">
+    <mat-label>Nome</mat-label>
+    <input matInput type="text" formControlName="firstName" />
+  </mat-form-field>
+
+  <mat-form-field class="form-field">
+    <mat-label>Cognome</mat-label>
+    <input matInput type="text" formControlName="lastName" />
+  </mat-form-field>
+
+  <mat-form-field class="form-field">
+    <mat-label>Classe</mat-label>
+    <input matInput type="text" formControlName="classID" />
+  </mat-form-field>
+
+  <div class="submit-btn">
+    <button mat-raised-button [disabled]="accountForm.invalid" color="primary">
+      Aggiungi account
+    </button>
+  </div>
+</form>
+
+<div class="secondForm">
+  <mat-form-field class="email-input">
+    <mat-label>Email</mat-label>
+    <input matInput type="text" [formControl]="removeEmail" />
+  </mat-form-field>
+
+  <br>
+
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="removeAccount()"
+    [disabled]="removeEmail.invalid"
+  >
+    Rimuovi account
+  </button>
+</div>

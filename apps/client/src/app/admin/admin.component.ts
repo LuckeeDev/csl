@@ -9,7 +9,10 @@ import { IDashboardLink } from '@csl/shared';
 export class AdminComponent implements OnInit {
   links: IDashboardLink[] = [
     { link: '.', title: 'Home' },
+    { link: 'classi', title: 'Classi' },
     { link: 'accounts', title: 'Account' },
+    { link: 'csv', title: 'CSV' },
+    { link: 'reports', title: 'Segnalazioni' },
   ];
 
   constructor() {}

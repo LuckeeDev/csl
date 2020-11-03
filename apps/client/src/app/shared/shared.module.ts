@@ -15,15 +15,16 @@ import { UiModule } from '@csl/ui';
 import { PipesModule } from '@global/pipes/pipes.module';
 
 // Shared components
-import { ClassiComponent } from './components/classi/classi.component';
-import { SingleClassComponent } from './components/single-class/single-class.component';
+import { ClassiComponent } from '@shared/components/classi/classi.component';
+import { SingleClassComponent } from '@shared/components/single-class/single-class.component';
+import { CsvComponent } from '@shared/components/csv/csv.component';
 
 // Shared services
-import { MembersService } from './services/members/members.service';
-import { UploadService } from './services/upload/upload.service';
+import { MembersService } from '@shared/services/members/members.service';
+import { UploadService } from '@shared/services/upload/upload.service';
 
 @NgModule({
-  declarations: [ClassiComponent, SingleClassComponent],
+  declarations: [ClassiComponent, SingleClassComponent, CsvComponent],
   imports: [
     CommonModule,
     RouterModule,

@@ -6,13 +6,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { ViceComponent } from '@vice/vice.component';
 
 // Sub-components
-import { CsvComponent } from '@vice/components/csv/csv.component';
 import { CogeComponent } from '@vice/components/coge/coge.component';
-import { ViceHomeComponent } from './components/vice-home/vice-home.component';
+import { ViceHomeComponent } from '@vice/components/vice-home/vice-home.component';
 
 // Shared components
 import { ClassiComponent } from '@shared/components/classi/classi.component';
 import { SingleClassComponent } from '@shared/components/single-class/single-class.component';
+import { CsvComponent } from '@shared/components/csv/csv.component';
 
 const routes: Routes = [
   {

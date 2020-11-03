@@ -13,6 +13,7 @@ import * as http from 'http';
 import * as io from 'socket.io';
 
 // Routes
+import admin from '@routes/admin';
 import auth from '@routes/auth';
 import upload from '@routes/upload';
 import users from '@routes/users';
@@ -75,6 +76,7 @@ app.use(
 );
 
 // Routes
+app.use('/api/admin', admin);
 app.use('/api/auth', auth);
 app.use('/api/upload', upload);
 app.use('/api/users', users);

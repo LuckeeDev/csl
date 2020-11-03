@@ -10,7 +10,6 @@ import { UiModule } from '@csl/ui';
 import { ViceComponent } from '@vice/vice.component';
 
 // Sub-components
-import { CsvComponent } from '@vice/components/csv/csv.component';
 import { CogeComponent } from '@vice/components/coge/coge.component';
 
 // Shared module
@@ -18,7 +17,7 @@ import { SharedModule } from '@shared/shared.module';
 import { ViceHomeComponent } from './components/vice-home/vice-home.component';
 
 @NgModule({
-  declarations: [ViceComponent, CsvComponent, CogeComponent, ViceHomeComponent],
+  declarations: [ViceComponent, CogeComponent, ViceHomeComponent],
   imports: [CommonModule, ViceRoutingModule, SharedModule, UiModule],
 })
 export class ViceModule {}

@@ -1,10 +1,17 @@
 import mongoose, { Schema } from 'mongoose';
-import { TRole, IUser, IUserModel } from '@csl/shared';
+import {
+  TRole,
+  IUser,
+  IUserModel,
+  IHttpRes,
+  IAccount,
+} from '@csl/shared';
 
 // Stripe initialization
 import { environment as env } from '@environments/environment';
 import Stripe from 'stripe';
 import { Class, updateSnackCreditInClass } from '@controllers/classe';
+import { Order } from './order';
 const stripe = new Stripe(env.STRIPE_KEY, {
   apiVersion: '2020-08-27',
   typescript: true,
@@ -31,6 +38,73 @@ const UserSchema = new Schema(
 );
 
 export const User = mongoose.model<IUserModel>('user', UserSchema);
+
+// Create an account (for admin)
+export const createAccount = async (
+  account: IAccount
+): Promise<IHttpRes<any>> => {
+  console.log(account.email);
+  await Class.findOneAndUpdate(
+    { id: account.classID },
+    {
+      $push: {
+        members: { email: account.email, snackCredit: 0 },
+      },
+    }
+  )
+    .then()
+    .catch((err) => {
+      return {
+        success: false,
+        err,
+      };
+    });
+
+  return new User(account)
+    .save()
+    .then(() => {
+      return {
+        success: true,
+      };
+    })
+    .catch((err) => {
+      return {
+        success: false,
+        err,
+      };
+    });
+};
+
+// Remove an account (for admin)
+export const removeAccount = async (
+  email: IUser['email']
+): Promise<IHttpRes<any>> => {
+  const user = await User.findOneAndDelete({ email }).then();
+
+  const classe = await Class.findOne({ id: user.classID });
+
+  const elementToPull = classe.members.find((x) => x.email === email);
+
+  return Class.findOneAndUpdate(
+    { id: user.classID },
+    {
+      $pull: {
+        members: elementToPull,
+      },
+    }
+  )
+    .then(() => {
+      return {
+        success: true,
+      };
+    })
+    .catch((err) => {
+      return {
+        success: false,
+        err,
+      };
+    });
+};
 
 // Add a role to a user
 export const addRole = async (email: IUser['email'], role: TRole) => {

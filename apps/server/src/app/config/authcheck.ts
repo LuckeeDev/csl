@@ -5,6 +5,15 @@ function unauthorized(res: Response) {
   res.status(403).end();
 }
 
+// Checks if a user is admin
+export const isAdmin = (req: IRequest, res: Response, next: NextFunction) => {
+  if (req.user && req.user.isAdmin) {
+    next();
+  } else {
+    unauthorized(res);
+  }
+}
+
 // Checks if a user is either vice, rappre or bar
 export const isPowerful = (
   req: IRequest,

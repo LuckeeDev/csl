@@ -60,8 +60,6 @@ export class SingleClassComponent implements OnInit {
       )
     );
 
-    this.displayedColumns = ['email', 'roles'];
-
     this.classID = this.activated.snapshot.paramMap.get('classID');
 
     if (this.router.url.includes('bar-admin')) {
@@ -69,6 +67,8 @@ export class SingleClassComponent implements OnInit {
     } else if (this.router.url.includes('vice')) {
       this.displayedColumns = ['email'];
     } else if (this.router.url.includes('rappre')) {
+      this.displayedColumns = ['email', 'roles'];
+    } else if (this.router.url.includes('admin')) {
       this.displayedColumns = ['email', 'roles'];
     }
   }
@@ -95,11 +95,12 @@ export class SingleClassComponent implements OnInit {
     this.roleCtrl.setValue(null);
 
     if (roles.find((x) => x.role === role.role)) {
-      this.toastr.show({ message: 'Questo utente ha già questo ruolo!' });
+      this.toastr.show({ message: 'Questo utente ha già questo ruolo!', color: 'accent' });
     } else {
       this.store.dispatch(new Roles.Add(role, email)).subscribe(() => {
         this.toastr.show({
           message: `Ruolo aggiunto a ${email}`,
+          color: 'success',
           action: 'Chiudi',
           duration: 5000,
         });
@@ -111,6 +112,7 @@ export class SingleClassComponent implements OnInit {
     this.store.dispatch(new Roles.Remove(role, email)).subscribe(() => {
       this.toastr.show({
         message: `Ruolo rimosso da ${email}`,
+        color: 'accent'
       });
     });
   }

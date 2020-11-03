@@ -39,12 +39,14 @@ export class CsvComponent implements OnInit {
           if (success === true) {
             this.toastr.show({
               message: 'Account creati',
+              color: 'success',
               action: 'Chiudi',
               duration: 5000,
             });
           } else if (success === false && duplicates) {
             this.ref = this.toastr.show({
               message: `Mail duplicate trovate`,
+              color: 'warn',
               action: 'Copia email',
               duration: 15000,
             });
