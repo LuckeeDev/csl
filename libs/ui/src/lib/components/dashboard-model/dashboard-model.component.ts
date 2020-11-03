@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-dashboard-model',
+  selector: 'csl-dashboard-model',
   templateUrl: './dashboard-model.component.html',
   styleUrls: ['./dashboard-model.component.scss'],
 })

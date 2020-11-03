@@ -29,6 +29,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 // Components
 import { DialogComponent } from './components/dialog/dialog.component';
 import { DashboardModelComponent } from './components/dashboard-model/dashboard-model.component';
+import { AlertComponent } from './components/alert/alert.component';
 
 // Services
 import { ToastrService } from './services/toastr/toastr.service';
@@ -39,7 +40,7 @@ import { DeviceService } from './services/device/device.service';
 import { MatColorDirective } from './directives/mat-color/mat-color.directive';
 
 @NgModule({
-  declarations: [DialogComponent, DashboardModelComponent, MatColorDirective],
+  declarations: [DialogComponent, DashboardModelComponent, MatColorDirective, AlertComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -67,8 +68,8 @@ import { MatColorDirective } from './directives/mat-color/mat-color.directive';
   ],
   exports: [
     FontAwesomeModule,
-    DialogComponent,
     DashboardModelComponent,
+    AlertComponent,
     MatSnackBarModule,
     MatDialogModule,
     MatButtonModule,
