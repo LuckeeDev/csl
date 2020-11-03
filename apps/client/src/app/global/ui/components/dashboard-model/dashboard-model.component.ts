@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { ILink } from '@global/@types/dashboard';
+import { IDashboardLink } from '@csl/shared';
 import { DeviceService } from '@global/services/device/device.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./dashboard-model.component.scss'],
 })
 export class DashboardModelComponent implements OnInit {
-  @Input() links: ILink[];
+  @Input() links: IDashboardLink[];
 
   constructor(private device: DeviceService) {}
 

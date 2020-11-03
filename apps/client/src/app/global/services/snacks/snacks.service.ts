@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ISnack } from '@global/@types/snacks';
+import { ISnack } from '@csl/shared';
 import { SocketService } from '@global/services/socket/socket.service';
 
 @Injectable({

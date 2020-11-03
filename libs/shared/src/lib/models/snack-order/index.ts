@@ -9,6 +9,7 @@ export interface ISnackInCart {
 }
 
 export interface ISnackOrder {
+  _id: string;
   id: IUser['id'];
   cart: ISnackInCart[];
   date: string;
@@ -18,7 +19,7 @@ export interface ISnackOrder {
   name: string;
 }
 
-export interface SocketData {
+export interface ISocketData {
   change?: ISnackOrder;
   orders?: ISnackOrder[];
   classes?: string[];
@@ -26,5 +27,6 @@ export interface SocketData {
 }
 
 export interface ISnackOrderModel extends Document, ISnackOrder {
+  _id: string;
   id: string;
 }

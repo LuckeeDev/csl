@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IArticle } from '@global/@types/articles';
+import { IArticle } from '@csl/shared';
 import { ArticlesService } from '@global/services/articles/articles.service';
 import { DialogService } from '@global/ui/services/dialog/dialog.service';
 import { ToastrService } from '@global/ui/services/toastr/toastr.service';

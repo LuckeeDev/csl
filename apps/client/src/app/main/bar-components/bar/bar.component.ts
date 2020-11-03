@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ILink } from '@global/@types/dashboard';
+import { IDashboardLink } from '@csl/shared';
 
 @Component({
   selector: 'app-bar',
@@ -7,7 +7,7 @@ import { ILink } from '@global/@types/dashboard';
   styleUrls: ['./bar.component.scss'],
 })
 export class BarComponent implements OnInit {
-  links: ILink[] = [
+  links: IDashboardLink[] = [
     { link: '.', title: 'Prodotti' },
     { link: 'cart', title: 'Carrello' },
   ];

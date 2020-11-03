@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '@global/services/products/products.service';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { IProduct } from '@global/@types/product';
+import { IProduct } from '@csl/shared';
 import { DialogService } from '@global/ui/services/dialog/dialog.service';
 import { ToastrService } from '@global/ui/services/toastr/toastr.service';
 
@@ -68,7 +68,7 @@ export class ManageCategoryComponent implements OnInit {
         answer: 'Sì, elimina prodotto',
       })
       .subscribe((res) => {
-        this.productsService.deleteProduct(id, (res) => {
+        this.productsService.deleteProduct(id).subscribe((res) => {
           if (res.success === true) {
             this.toastr.show({
               message: 'Prodotto eliminato',

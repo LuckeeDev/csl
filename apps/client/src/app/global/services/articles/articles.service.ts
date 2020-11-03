@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IArticle } from '@global/@types/articles';
+import { IArticle } from '@csl/shared';
 import { OutputData } from '@editorjs/editorjs';
 import { AngularFireStorage } from '@angular/fire/storage';
 

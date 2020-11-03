@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ILink } from '@global/@types/dashboard';
+import { IDashboardLink } from '@csl/shared';
 
 @Component({
   selector: 'app-store',
@@ -7,7 +7,7 @@ import { ILink } from '@global/@types/dashboard';
   styleUrls: ['./store.component.scss'],
 })
 export class StoreComponent implements OnInit {
-  links: ILink[] = [
+  links: IDashboardLink[] = [
     { link: 'gadgets', title: 'Gadget' },
     { link: 'photos', title: 'Foto' },
   ];

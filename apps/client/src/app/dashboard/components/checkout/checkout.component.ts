@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { stripeKey } from '@environments/environment';
-import { PaymentIntentResponse } from '@global/@types/payments';
+import { IHttpRes, IPaymentIntentData } from '@csl/shared';
 
 import { loadStripe, Stripe, StripeCardElement } from '@stripe/stripe-js';
 
@@ -45,7 +45,7 @@ export class CheckoutComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.stripe = await loadStripe(stripeKey);
 
-    this.orders.createPaymentIntent(this.category).subscribe((res) => {
+    this.orders.createPaymentIntent(this.category).subscribe((res: IHttpRes<IPaymentIntentData>) => {
       if (res.success === false && res.err === 'no-orders') {
         this.toastr.show({
           message: 'Ordini non trovati!',
@@ -56,7 +56,7 @@ export class CheckoutComponent implements OnInit {
 
       if (res.success === true) {
         this.setupPaymentForm(res, this.stripe);
-      } else if (res.isConfirmed === false) {
+      } else if (res.data.isConfirmed === false) {
         this.isConfirmed = false;
       } else {
         this.isPaid = true;
@@ -64,8 +64,8 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  setupPaymentForm(res: PaymentIntentResponse, stripe: Stripe): void {
-    const { total, clientSecret, classID } = res;
+  setupPaymentForm(res: IHttpRes<IPaymentIntentData>, stripe: Stripe): void {
+    const { total, clientSecret, classID } = res.data;
     this.total = total;
     this.classID = classID;
     this.clientSecret = clientSecret;

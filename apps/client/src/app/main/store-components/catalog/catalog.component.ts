@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { IProduct } from '@global/@types/product';
+import { IProduct } from '@csl/shared';
 import { ProductsService } from '@global/services/products/products.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';

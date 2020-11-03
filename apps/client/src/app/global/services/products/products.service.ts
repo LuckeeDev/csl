@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IProduct } from '@global/@types/product';
+import { IHttpRes, IProduct } from '@csl/shared';
 
 @Injectable({
   providedIn: 'root',
@@ -17,11 +17,11 @@ export class ProductsService {
     return this.http.get<IProduct[]>('/api/products/photos');
   }
 
-  getProduct(id, callback) {
-    return this.http.post('/api/products/find', { id }).subscribe(callback);
+  getProduct(id: string) {
+    return this.http.post('/api/products/find', { id });
   }
 
-  deleteProduct(id: string, callback) {
-    return this.http.delete(`/api/products/${id}`).subscribe(callback);
+  deleteProduct(id: string): Observable<IHttpRes<any>> {
+    return this.http.delete<IHttpRes<any>>(`/api/products/${id}`);
   }
 }

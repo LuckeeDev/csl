@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { FormControl } from '@angular/forms';
-import { IArticle } from '@global/@types/articles';
+import { IArticle } from '@csl/shared';
 import { ArticlesService } from '@global/services/articles/articles.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';

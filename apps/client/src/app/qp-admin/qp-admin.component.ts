@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ILink } from '@global/@types/dashboard';
+import { IDashboardLink } from '@csl/shared';
 
 @Component({
   selector: 'app-qp-admin',
@@ -7,7 +7,7 @@ import { ILink } from '@global/@types/dashboard';
   styleUrls: ['./qp-admin.component.scss'],
 })
 export class QpAdminComponent implements OnInit {
-  links: ILink[] = [
+  links: IDashboardLink[] = [
     { link: '.', title: 'Home' },
     { link: 'editor', title: 'Articoli' },
   ];

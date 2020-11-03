@@ -6,18 +6,17 @@ import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class UploadService {
-  csvFile: any; // CSV file
-  readyToUploadCsv: boolean; // Condition to know if the upload is ready
+  csvFile: any;
+  readyToUploadCsv: boolean;
 
-  imgFiles: Array<any> = []; // Array of images for the product
-  readyToUploadImages: boolean; // Condition to know if the upload is ready
+  imgFiles: Array<any> = [];
+  readyToUploadImages: boolean;
 
-  working: boolean; // Condition to know if an upload is working
-  sizes: Array<any> = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL']; // Array of available sizes
+  working: boolean;
+  sizes: Array<any> = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
   constructor(private http: HttpClient, private storage: AngularFireStorage) {}
 
-  // Action to perform when a CSV is selected
   onCsvSelect(event) {
     if (event.target.files.length === 1) {
       const file = event.target.files[0];
@@ -26,7 +25,6 @@ export class UploadService {
     }
   }
 
-  // Upload the CSV to the server
   onCsvUpload() {
     this.working = true;
 
@@ -42,7 +40,6 @@ export class UploadService {
     );
   }
 
-  // Action to perform when an array of images is selected
   onImgSelect(event) {
     const files = event.target.files;
 
@@ -53,7 +50,6 @@ export class UploadService {
     this.readyToUploadImages = true;
   }
 
-  // Upload product to the server and images to Firebase
   async productUpload(form, category, callback) {
     this.working = true;
 

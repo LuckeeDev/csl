@@ -1,9 +1,8 @@
-import { ISnackOrder } from '@global/@types/snacks';
+import { ISnackOrder, ISocketData } from '@csl/shared';
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext } from '@ngxs/store';
 import { SnacksService } from '@global/services/snacks/snacks.service';
 import { Subscription } from 'rxjs';
-import { SocketData } from '@global/@types/snacks';
 import produce from 'immer';
 
 export namespace OrdersConnection {
@@ -32,7 +31,7 @@ export class OrdersState {
 
   @Action(OrdersConnection.Open)
   listen(ctx: StateContext<OrdersStateModel>) {
-    this.connection = this.snacks.socket$().subscribe((data: SocketData) => {
+    this.connection = this.snacks.socket$().subscribe((data: ISocketData) => {
       if (data.orders) {
         return ctx.setState({
           orders: data.orders,

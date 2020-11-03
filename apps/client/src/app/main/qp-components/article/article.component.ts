@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArticlesService } from '@global/services/articles/articles.service';
-import { IArticle } from '@global/@types/articles';
+import { IArticle } from '@csl/shared';
 import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({

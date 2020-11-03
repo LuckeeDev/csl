@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ILink } from '@global/@types/dashboard';
+import { IDashboardLink } from '@csl/shared';
 
 @Component({
   selector: 'app-admin',
@@ -7,7 +7,7 @@ import { ILink } from '@global/@types/dashboard';
   styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent implements OnInit {
-  links: ILink[] = [
+  links: IDashboardLink[] = [
     { link: '.', title: 'Home' },
     { link: 'accounts', title: 'Account' },
   ];

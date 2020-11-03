@@ -17,7 +17,7 @@ export interface IRole {
 interface IMember {
   email: IUser['email'];
   snackCredit: IUser['snackCredit'];
-  roles?: TRole[];
+  roles?: any[];
 }
 
 export interface IClass {

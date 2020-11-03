@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext } from '@ngxs/store';
-import { IClasse, IRole, TRole } from '@global/@types/classi';
+import { IClass, IRole, TRole } from '@csl/shared';
 import { MembersService } from '@shared/services/members/members.service';
 import produce from 'immer';
 import { ToastrService } from '@global/ui/services/toastr/toastr.service';
@@ -30,8 +30,8 @@ export namespace Roles {
 }
 
 export interface ClassStateModel {
-  classes: IClasse[];
-  currentClass: IClasse;
+  classes: IClass[];
+  currentClass: IClass;
 }
 
 @State<ClassStateModel>({

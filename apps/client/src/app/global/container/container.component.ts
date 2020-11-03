@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@global/services/auth/auth.service';
 
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { ILink } from '@global/@types/dashboard';
+import { IDashboardLink } from '@csl/shared';
 
 @Component({
   selector: 'app-container',
@@ -18,7 +18,7 @@ export class ContainerComponent implements OnInit {
 
   currentYear = new Date().getFullYear();
 
-  links: ILink[] = [
+  links: IDashboardLink[] = [
     { title: 'Home', link: '' },
     { title: 'Comitato', link: 'comitato' },
     { title: 'ASL', link: 'asl' },

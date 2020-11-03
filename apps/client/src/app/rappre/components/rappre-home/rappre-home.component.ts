@@ -13,7 +13,6 @@ export class RappreHomeComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  // Open modal to sign out
   signOut() {
     this.dialog
       .open({

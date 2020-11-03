@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ILink } from '@global/@types/dashboard';
+import { IDashboardLink } from '@csl/shared';
 
 @Component({
   selector: 'app-vice',
@@ -7,7 +7,7 @@ import { ILink } from '@global/@types/dashboard';
   styleUrls: ['./vice.component.scss'],
 })
 export class ViceComponent implements OnInit {
-  links: ILink[] = [
+  links: IDashboardLink[] = [
     { link: '.', title: 'Home' },
     { link: 'upload', title: 'Accounts' },
     { link: 'classi', title: 'Classi' },

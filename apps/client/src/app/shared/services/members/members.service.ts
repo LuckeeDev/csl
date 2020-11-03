@@ -1,20 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IClasse } from '@global/@types/classi';
+import { IClass } from '@csl/shared';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Injectable()
 export class MembersService {
-  classes: any; // All classes
-  currentClass: IClasse; // Class of the selected page
+  classes: any;
+  currentClass: IClass;
 
   constructor(private http: HttpClient) {}
 
-  // Get all classes
-  getClasses(): Observable<IClasse[]> {
-    return this.http.get<IClasse[]>('/api/users').pipe(
-      map((res: IClasse[]) => {
+  getClasses(): Observable<IClass[]> {
+    return this.http.get<IClass[]>('/api/users').pipe(
+      map((res: IClass[]) => {
         return res.sort((a, b) => {
           const yearA = a.id.charAt(0).toString();
           const yearB = b.id.charAt(0).toString();
@@ -31,10 +30,9 @@ export class MembersService {
     );
   }
 
-  // Get the class of the selected page
   getCurrentClass(classID: string) {
     if (!this.classes) {
-      this.http.get('/api/users').subscribe((res: IClasse[]) => {
+      this.http.get('/api/users').subscribe((res: IClass[]) => {
         this.classes = res.sort((a, b) => {
           const yearA = a.id.charAt(0).toString();
           const yearB = b.id.charAt(0).toString();
@@ -48,7 +46,7 @@ export class MembersService {
           return aCode - bCode;
         });
 
-        const currentClass: IClasse = this.classes.find(
+        const currentClass: IClass = this.classes.find(
           (obj) => obj.id == classID
         );
 
@@ -65,7 +63,7 @@ export class MembersService {
         this.currentClass = currentClass;
       });
     } else {
-      const currentClass: IClasse = this.classes.find(
+      const currentClass: IClass = this.classes.find(
         (obj) => obj.id == classID
       );
 
@@ -83,12 +81,10 @@ export class MembersService {
     }
   }
 
-  // Get roles of a specific user
   getRoles(email: string, callback): void {
     this.http.post('/api/users/getroles', { email }).subscribe(callback);
   }
 
-  // Add a role to a user
   addRole(email: string, role: string): Observable<any> {
     return this.http.post('/api/users/addrole', {
       email,
@@ -96,7 +92,6 @@ export class MembersService {
     });
   }
 
-  // Remove a role from a user
   removeRole(email: string, role: string): Observable<any> {
     return this.http.post('/api/users/removerole', {
       email,
@@ -104,7 +99,6 @@ export class MembersService {
     });
   }
 
-  // Update credit on a user (for bar)
   updateCredit(email: string, money: number) {
     return this.http.patch(`/api/users/manage/credit/${email}`, { money }).pipe(
       tap((res: any) => {

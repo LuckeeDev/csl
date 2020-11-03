@@ -47,7 +47,7 @@ export class OrdersComponent implements OnInit {
         answer: 'Conferma',
       })
       .subscribe((res) => {
-        this.orders.deleteProduct(product, (res) => {
+        this.orders.deleteProduct(product).subscribe((res) => {
           let { err, success } = res;
           if (
             success === false &&
@@ -80,7 +80,7 @@ export class OrdersComponent implements OnInit {
         answer: 'Conferma',
       })
       .subscribe((res) => {
-        this.orders.confirmOrder(this.category, (res) => {
+        this.orders.confirmOrder(this.category).subscribe((res) => {
           let { success } = res;
 
           if (success === true) {

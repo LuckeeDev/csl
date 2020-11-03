@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { ProductOptions, ProductResInterface } from '@global/@types/product';
+import { IProduct, IProductInCart } from '@csl/shared';
 import { ProductsService } from '@global/services/products/products.service';
 import { OrdersService } from '@global/services/orders/orders.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogService } from '@global/ui/services/dialog/dialog.service';
 
 @Component({
@@ -18,13 +18,7 @@ export class ProductComponent implements OnInit {
   imageLinks: string[] = [];
   category: string;
 
-  productOptions: ProductOptions = new ProductOptions();
-
-  orderForm = this.fb.group({
-    quantity: ['', Validators.required],
-    color: ['', Validators.required],
-    size: ['', Validators.required],
-  });
+  orderForm: FormGroup;
 
   loading: boolean;
 
@@ -35,31 +29,39 @@ export class ProductComponent implements OnInit {
     private ordersService: OrdersService,
     private fb: FormBuilder,
     private dialog: DialogService
-  ) {}
+  ) {
+    this.id = this.activated.snapshot.paramMap.get('productID');
+    this.category = this.activated.snapshot.paramMap.get('category');
 
-  // Get product on component initialization
+    this.orderForm = this.fb.group({
+      id: [this.id, Validators.required],
+      quantity: ['', Validators.required],
+      color: ['', Validators.required],
+      size: ['', Validators.required],
+    });
+  }
+
   ngOnInit(): void {
     this.activated.paramMap.subscribe((params) => {
-      this.id = params.get('productID');
-      this.category = params.get('category');
+      this.productsService
+        .getProduct(this.id)
+        .subscribe(async (res: IProduct) => {
+          this.product = res;
 
-      this.productsService.getProduct(this.id, async (res) => {
-        this.product = res;
+          const folder =
+            this.category === 'gadgets' ? 'gadgetImages' : 'photoImages';
 
-        const folder =
-          this.category === 'gadgets' ? 'gadgetImages' : 'photoImages';
+          const folderRef = this.storage.ref(`/${folder}/${this.product.id}`);
 
-        const folderRef = this.storage.ref(`/${folder}/${this.product.id}`);
-
-        await this.product.fileNames.forEach((fileName) => {
-          folderRef
-            .child(fileName)
-            .getDownloadURL()
-            .subscribe((res) => {
-              this.imageLinks.push(res);
-            });
+          await this.product.fileNames.forEach((fileName: string) => {
+            folderRef
+              .child(fileName)
+              .getDownloadURL()
+              .subscribe((res: string) => {
+                this.imageLinks.push(res);
+              });
+          });
         });
-      });
     });
   }
 
@@ -75,20 +77,16 @@ export class ProductComponent implements OnInit {
       })
       .subscribe((res) => {
         this.loading = true;
-        this.productOptions.id = this.id;
 
-        this.ordersService.addToCart(
-          this.productOptions,
-          (res: ProductResInterface) => {
-            if (res.success) {
-              console.log(res.msg);
-            } else {
-              alert(res.err);
-            }
-
-            this.loading = false;
+        this.ordersService.addToCart(this.orderForm.value).subscribe((res) => {
+          if (res.success) {
+            console.log(res.msg);
+          } else {
+            alert(res.err);
           }
-        );
+
+          this.loading = false;
+        });
       });
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogData } from '@global/@types/dialog';
+import { IDialogData } from '@csl/shared';
 import { DialogComponent } from '@global/ui/components/dialog/dialog.component';
 import { filter } from 'rxjs/operators';
 
@@ -8,7 +8,7 @@ import { filter } from 'rxjs/operators';
 export class DialogService {
   constructor(public dialogService: MatDialog) {}
 
-  open(data: DialogData) {
+  open(data: IDialogData) {
     const dialogRef = this.dialogService.open(DialogComponent, {
       data,
       panelClass: 'dialog-padding'

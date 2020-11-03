@@ -16,7 +16,7 @@ import { MembersService } from '../../services/members/members.service';
 import { AuthService } from '@global/services/auth/auth.service';
 import { ToastrService } from '@global/ui/services/toastr/toastr.service';
 
-import { IRole, TRole } from '@global/@types/classi';
+import { IRole, TRole } from '@csl/shared';
 import { Select, Store } from '@ngxs/store';
 import { Classes, ClassState, ClassStateModel, Roles } from '@shared/store';
 

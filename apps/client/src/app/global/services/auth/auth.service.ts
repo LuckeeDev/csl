@@ -1,22 +1,21 @@
-// Main imports
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { UserInterface } from '@app/global/@types/user';
-import { Observable, of } from 'rxjs';
+import { IUser } from '@csl/shared';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   // User object
-  user$: Observable<UserInterface>;
+  user$: Observable<IUser>;
 
   constructor(private http: HttpClient, private router: Router) {}
 
   // Get user
   getUser(): void {
-    this.user$ = this.http.get<UserInterface>('/api/auth/getprofile');
+    this.user$ = this.http.get<IUser>('/api/auth/getprofile');
   }
 
   // Sign in

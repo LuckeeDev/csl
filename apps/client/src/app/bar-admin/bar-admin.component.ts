@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ILink } from '@global/@types/dashboard';
+import { IDashboardLink } from '@csl/shared';
 import { Store } from '@ngxs/store';
 import { OrdersConnection } from './store';
 
@@ -9,7 +9,7 @@ import { OrdersConnection } from './store';
   styleUrls: ['./bar-admin.component.scss'],
 })
 export class BarAdminComponent implements OnInit, OnDestroy {
-  links: ILink[] = [
+  links: IDashboardLink[] = [
     { link: '.', title: 'Home' },
     { link: 'orders', title: 'Ordini' },
     { link: 'manage', title: 'Prodotti' },

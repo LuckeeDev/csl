@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ILink } from '@global/@types/dashboard';
+import { IDashboardLink } from '@csl/shared';
 
 @Component({
   selector: 'app-comitato',
@@ -7,7 +7,7 @@ import { ILink } from '@global/@types/dashboard';
   styleUrls: ['./comitato.component.scss']
 })
 export class ComitatoComponent implements OnInit {
-  links: ILink[] = [
+  links: IDashboardLink[] = [
     { link: 'commissione/arte', title: 'Commissione Arte' },
     { link: 'commissione/biblioteca', title: 'Commissione Biblioteca' },
     { link: 'commissione/cinema', title: 'Commissione Cinema' },

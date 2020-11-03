@@ -1,9 +1,9 @@
 import mongoose, { Schema } from 'mongoose';
 import { ISnackOrderModel, ISnackInCart, ISnack, IUser } from '@csl/shared';
-import { Snack } from '../snack';
+import { Snack } from '@controllers/snack';
+import { User } from '@controllers/user';
+import { Class } from '@controllers/classe';
 import { Server } from 'socket.io';
-import { User } from '../user';
-import { Class } from '../classe';
 
 const SnackOrderSchema = new Schema(
   {

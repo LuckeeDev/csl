@@ -33,14 +33,11 @@ router.get('/', authCheck, async (req: IRequest, res: Response) => {
 });
 
 // Add a product to the cart
-router.post(
-  '/add',
-  authCheck, async (req: IRequest, res: Response) => {
-    const result = await addToCart(req.body.product, req.user);
+router.post('/add', authCheck, async (req: IRequest, res: Response) => {
+  const result = await addToCart(req.body.product, req.user);
 
-    res.json(result);
-  }
-);
+  res.json(result);
+});
 
 // Confirm an order
 router.post('/confirm', authCheck, async (req: IRequest, res: Response) => {
@@ -88,16 +85,20 @@ router.post(
     if (!isConfirmed) {
       res.json({
         success: false,
-        isConfirmed: false,
+        data: {
+          isConfirmed: false,
+        },
       });
     }
 
     const isPaid = await verifyPaid(classID, req.body.category);
 
-    if (isPaid) {
+    if (isPaid === true) {
       res.json({
         success: false,
-        isPaid,
+        data: {
+          isPaid: true,
+        },
       });
     }
 
@@ -118,9 +119,11 @@ router.post(
     if (!isPaid && isConfirmed) {
       res.json({
         success: true,
-        clientSecret: paymentIntent.client_secret,
-        total: amount / 100,
-        classID: classID,
+        data: {
+          clientSecret: paymentIntent.client_secret,
+          total: amount / 100,
+          classID: classID,
+        },
       });
     }
   }

@@ -3,7 +3,6 @@ import { Select } from '@ngxs/store';
 import { OrdersState, OrdersStateModel } from '@bar-admin/store';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
 import { faCheck, faClock } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
