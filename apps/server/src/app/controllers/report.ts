@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { IBugData, IHttpRes, IReportModel, IUser } from '@csl/shared';
+import { IBugData, IHttpRes, IReport, IReportModel, IUser } from '@csl/shared';
 import { v4 } from 'uuid';
 
 const ReportSchema = new Schema(
@@ -50,4 +50,18 @@ export const reportBug = async (
         err,
       };
     });
+};
+
+export const getReports = async (): Promise<IHttpRes<IReportModel[]>> => {
+  return Report.find().then((data) => {
+    return {
+      success: true,
+      data
+    }
+  }).catch((err) => {
+    return {
+      success: false,
+      err
+    }
+  });
 };

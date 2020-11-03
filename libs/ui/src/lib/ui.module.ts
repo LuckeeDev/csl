@@ -25,6 +25,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatTabsModule } from '@angular/material/tabs';
 
 // Components
 import { DialogComponent } from './components/dialog/dialog.component';
@@ -40,7 +41,12 @@ import { DeviceService } from './services/device/device.service';
 import { MatColorDirective } from './directives/mat-color/mat-color.directive';
 
 @NgModule({
-  declarations: [DialogComponent, DashboardModelComponent, MatColorDirective, AlertComponent],
+  declarations: [
+    DialogComponent,
+    DashboardModelComponent,
+    MatColorDirective,
+    AlertComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -65,6 +71,7 @@ import { MatColorDirective } from './directives/mat-color/mat-color.directive';
     MatDividerModule,
     MatExpansionModule,
     MatStepperModule,
+    MatTabsModule,
   ],
   exports: [
     FontAwesomeModule,
@@ -90,6 +97,7 @@ import { MatColorDirective } from './directives/mat-color/mat-color.directive';
     MatDividerModule,
     MatExpansionModule,
     MatStepperModule,
+    MatTabsModule,
   ],
   providers: [ToastrService, DialogService, DeviceService],
 })

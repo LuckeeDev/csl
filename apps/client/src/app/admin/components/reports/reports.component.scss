@@ -1,0 +1,20 @@
+h3 {
+  font-weight: 500;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.report {
+  max-width: 500px;
+  width: 25%;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.alert-container {
+  margin-top: 20px;
+}

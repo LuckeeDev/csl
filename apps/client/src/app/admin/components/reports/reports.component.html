@@ -1,1 +1,85 @@
-<p>reports works!</p>
+<mat-tab-group>
+  <mat-tab label="Errori Tecnici">
+    <div class="card-container" *ngIf="technical.length > 0; else noTechnical">
+      <mat-card *ngFor="let report of technical" class="report">
+        <mat-card-header>
+          <mat-card-title>
+            {{ report.firstName }} {{ report.lastName }} - {{ report.classID }}
+          </mat-card-title>
+          <mat-card-subtitle>
+            {{ report.date }}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <h3>Descrizione</h3>
+          <p>{{ report.bug.description }}</p>
+
+          <h3>Contesto</h3>
+          <p>{{ report.bug.context }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <ng-template #noTechnical>
+      <div class="alert-container">
+        <csl-alert color="success">Nessun problema tecnico segnalato!</csl-alert>
+      </div>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab label="Bug Visivi">
+    <div class="card-container" *ngIf="visual.length > 0; else noVisual">
+      <mat-card *ngFor="let report of visual" class="report">
+        <mat-card-header>
+          <mat-card-title>
+            {{ report.firstName }} {{ report.lastName }} - {{ report.classID }}
+          </mat-card-title>
+          <mat-card-subtitle>
+            {{ report.date }}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <h3>Descrizione</h3>
+          <p>{{ report.bug.description }}</p>
+
+          <h3>Contesto</h3>
+          <p>{{ report.bug.context }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <ng-template #noVisual>
+      <div class="alert-container">
+        <csl-alert color="success">Nessun bug visivo segnalato!</csl-alert>
+      </div>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab label="Altro">
+    <div class="card-container" *ngIf="other.length > 0; else noOther">
+      <mat-card *ngFor="let report of other" class="report">
+        <mat-card-header>
+          <mat-card-title>
+            {{ report.firstName }} {{ report.lastName }} - {{ report.classID }}
+          </mat-card-title>
+          <mat-card-subtitle>
+            {{ report.date }}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <h3>Descrizione</h3>
+          <p>{{ report.bug.description }}</p>
+
+          <h3>Contesto</h3>
+          <p>{{ report.bug.context }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <ng-template #noOther>
+      <div class="alert-container">
+        <csl-alert color="success">Nessun altro problema segnalato!</csl-alert>
+      </div>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>
