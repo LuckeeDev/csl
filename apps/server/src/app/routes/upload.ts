@@ -2,9 +2,9 @@ import express from 'express';
 const router = express.Router();
 import { join } from 'path';
 import { tmpdir } from 'os';
-import csvUpload from '../config/csvupload';
-import { isVice } from '../config/authcheck';
-import { bucket } from '../config/firebase';
+import csvUpload from '@config/csvupload';
+import { isVice } from '@config/authcheck';
+import { bucket } from '@config/firebase';
 import fse from 'fs-extra';
 import { UploadedFile } from 'express-fileupload';
 

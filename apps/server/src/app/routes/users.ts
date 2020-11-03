@@ -1,8 +1,8 @@
 import { Request, Response, Router } from 'express';
 const router = Router();
-import { isRappre, isBar, isPowerful } from '../config/authcheck';
-import { addRole, removeRole, getRoles, updateCredit } from '../models/user';
-import { getClasses } from '../models/classe';
+import { isRappre, isBar, isPowerful } from '@config/authcheck';
+import { addRole, removeRole, getRoles, updateCredit } from '@controllers/user';
+import { getClasses } from '@controllers/classe';
 
 // Get all members in classes
 router.get('/', isPowerful, async (req: Request, res: Response) => {

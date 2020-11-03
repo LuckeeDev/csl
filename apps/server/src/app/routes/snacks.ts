@@ -1,18 +1,18 @@
 import { Router, Request, Response } from 'express';
 const router = Router();
-import { isBar, authCheck } from '../config/authcheck';
+import { isBar, authCheck } from '@config/authcheck';
 import {
   createSnack,
   deleteSnack,
   updateMaxQuantity,
   getSnacks,
-} from '../models/snack';
+} from '@controllers/snack';
 import {
   addSnackToCart,
   getSnacksCart,
   deleteSnackFromCart,
   confirmSnackOrder,
-} from '../models/snack-order';
+} from '@controllers/snack-order';
 
 router.get('/', authCheck, async (req: Request, res: Response) => {
   const result = await getSnacks();

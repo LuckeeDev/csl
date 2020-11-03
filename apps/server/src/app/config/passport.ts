@@ -1,7 +1,7 @@
 import passport from 'passport';
 import { environment as env } from '@environments/environment';
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-import { User } from '../models/user';
+import { User } from '@controllers/user';
 
 // Create user session
 passport.serializeUser((user: any, done: any) => {

@@ -1,7 +1,7 @@
 // Main imports
 import { Request, Response, Router } from 'express';
 const router = Router();
-import { authCheck, profileCheck, notAuthCheck } from '../config/authcheck';
+import { authCheck, profileCheck, notAuthCheck } from '@config/authcheck';
 import passport from 'passport';
 
 // Send to Google login screen

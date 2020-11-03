@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from 'express';
-import { IReqUser } from '../models/user/model';
+import { Response, NextFunction } from 'express';
+import { IRequest } from '@csl/shared';
 
 function unauthorized(res: Response) {
   res.status(403).end();
@@ -7,13 +7,11 @@ function unauthorized(res: Response) {
 
 // Checks if a user is either vice, rappre or bar
 export const isPowerful = (
-  req: Request,
+  req: IRequest,
   res: Response,
   next: NextFunction
 ) => {
-  const user: IReqUser = req.user!;
-
-  if (req.user && (user.isVice || user.isRappre || user.isBar)) {
+  if (req.user && (req.user.isVice || req.user.isRappre || req.user.isBar)) {
     next();
   } else {
     unauthorized(res);
@@ -21,10 +19,8 @@ export const isPowerful = (
 };
 
 // Checks if a user is Vice
-export const isVice = (req: Request, res: Response, next: NextFunction) => {
-  const user: IReqUser = req.user!;
-
-  if (user && user.isVice) {
+export const isVice = (req: IRequest, res: Response, next: NextFunction) => {
+  if (req.user && req.user.isVice) {
     next();
   } else {
     unauthorized(res);
@@ -32,10 +28,8 @@ export const isVice = (req: Request, res: Response, next: NextFunction) => {
 };
 
 // Checks if a user is rappre
-export const isRappre = (req: Request, res: Response, next: NextFunction) => {
-  const user: IReqUser = req.user!;
-
-  if (user && user.isRappre) {
+export const isRappre = (req: IRequest, res: Response, next: NextFunction) => {
+  if (req.user && req.user.isRappre) {
     next();
   } else {
     unauthorized(res);
@@ -43,10 +37,8 @@ export const isRappre = (req: Request, res: Response, next: NextFunction) => {
 };
 
 // Checks if a user is Qp
-export const isQp = (req: Request, res: Response, next: NextFunction) => {
-  const user: IReqUser = req.user!;
-
-  if (user && user.isQp) {
+export const isQp = (req: IRequest, res: Response, next: NextFunction) => {
+  if (req.user && req.user.isQp) {
     next();
   } else {
     unauthorized(res);
@@ -54,10 +46,8 @@ export const isQp = (req: Request, res: Response, next: NextFunction) => {
 };
 
 // Checks if a user is the bar admin
-export const isBar = (req: Request, res: Response, next: NextFunction) => {
-  const user: IReqUser = req.user!;
-
-  if (user && user.isBar) {
+export const isBar = (req: IRequest, res: Response, next: NextFunction) => {
+  if (req.user && req.user.isBar) {
     next();
   } else {
     unauthorized(res);
@@ -66,13 +56,11 @@ export const isBar = (req: Request, res: Response, next: NextFunction) => {
 
 // Checks if a user is a Rappre di Classe
 export const isRappreDiClasse = (
-  req: Request,
+  req: IRequest,
   res: Response,
   next: NextFunction
 ) => {
-  const user: IReqUser = req.user!;
-
-  if (user && user.isRappreDiClasse) {
+  if (req.user && req.user.isRappreDiClasse) {
     next();
   } else {
     unauthorized(res);
@@ -80,7 +68,7 @@ export const isRappreDiClasse = (
 };
 
 // Checks if a user is logged in and, if not, sends unauthorized response
-export const authCheck = (req: Request, res: Response, next: NextFunction) => {
+export const authCheck = (req: IRequest, res: Response, next: NextFunction) => {
   if (req.user) {
     next();
   } else {
@@ -90,7 +78,7 @@ export const authCheck = (req: Request, res: Response, next: NextFunction) => {
 
 // Checks if a user is logged in and, if not, sends a null response
 export const profileCheck = (
-  req: Request,
+  req: IRequest,
   res: Response,
   next: NextFunction
 ) => {
@@ -103,7 +91,7 @@ export const profileCheck = (
 
 // Checks if a user is not yet logged in
 export const notAuthCheck = (
-  req: Request,
+  req: IRequest,
   res: Response,
   next: NextFunction
 ) => {

@@ -1,17 +1,17 @@
 import { Request, Response, Router } from 'express';
 const router = Router();
-import { isQp, authCheck } from '../config/authcheck';
+import { isQp, authCheck } from '@config/authcheck';
 import {
   saveArticle,
   findArticle,
   getArticles,
   deleteArticle,
-} from '../models/article';
+} from '@controllers/article';
 import fse from 'fs-extra';
 import { tmpdir } from 'os';
 import { join } from 'path';
 import { UploadedFile } from 'express-fileupload';
-import { bucket } from '../config/firebase';
+import { bucket } from '@config/firebase';
 
 // Find a specific article via its ID
 router.get('/find/:id', authCheck, async (req: Request, res: Response) => {

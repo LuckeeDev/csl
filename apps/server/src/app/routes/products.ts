@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 const router = Router();
-import { isRappre, authCheck } from '../config/authcheck';
+import { isRappre, authCheck } from '@config/authcheck';
 import {
   getAllGadgets,
   createGadget,
@@ -8,7 +8,7 @@ import {
   createPhoto,
   findProduct,
   deleteProduct
-} from '../models/product';
+} from '@controllers/product';
 
 // Get all gadgets
 router.get('/gadgets', authCheck, async (req: Request, res: Response) => {

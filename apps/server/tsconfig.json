@@ -2,18 +2,6 @@
   "extends": "../../tsconfig.base.json",
   "files": [],
   "include": [],
-  "compilerOptions": {
-    "baseUrl": "./",
-    "paths": {
-      "@config/*": ["src/app/config/*"],
-      "@models/*": ["src/app/models/*"],
-      "@routes/*": ["src/app/routes/*"],
-      "@app/*": ["src/app/*"],
-      "@environments/*": ["src/environments/*"],
-      "@assets/*": ["src/assets/*"]
-    },
-    "allowSyntheticDefaultImports": true
-  },
   "references": [
     {
       "path": "./tsconfig.app.json"

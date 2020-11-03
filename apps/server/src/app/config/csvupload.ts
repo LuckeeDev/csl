@@ -1,7 +1,7 @@
 import csvtojson from 'csvtojson';
-import { User } from '../models/user';
-import { Class } from '../models/classe';
-import { UserInCsv } from '../models/user/model';
+import { User } from '@controllers/user';
+import { Class } from '@controllers/classe';
+import { IUserInCsv } from '@csl/shared';
 
 // Function to find duplicates
 const findDuplicates = (array: any) => {
@@ -26,7 +26,7 @@ const findDuplicates = (array: any) => {
 export default async (filePath: any) => {
   return csvtojson({ delimiter: 'auto' })
     .fromFile(filePath)
-    .then((json: UserInCsv[]) => {
+    .then((json: IUserInCsv[]) => {
       const emails = [];
 
       for (let obj of json) {

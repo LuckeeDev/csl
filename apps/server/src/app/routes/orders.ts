@@ -1,21 +1,21 @@
 // Main imports
-import { Request, Response, Router } from 'express';
+import { Response, Router } from 'express';
 const router = Router();
-import { IReqUser } from '../models/user/model';
-import { authCheck, isRappreDiClasse } from '../config/authcheck';
+import { IRequest } from '@csl/shared';
+import { authCheck, isRappreDiClasse } from '@config/authcheck';
 import {
   getAllOrders,
   confirmOrder,
   deleteFromCart,
   addToCart,
-} from '../models/order';
-import { getStripeID } from '../models/user';
+} from '@controllers/order';
+import { getStripeID } from '@controllers/user';
 import {
   updateTotal,
   verifyReady,
   verifyPaid,
   getTotal,
-} from '../models/classe';
+} from '@controllers/classe';
 
 // Stripe initialization
 import { environment as env } from '@environments/environment';
@@ -26,10 +26,8 @@ const stripe = new Stripe(env.STRIPE_KEY, {
 });
 
 // Get all orders of a user
-router.get('/', authCheck, async (req: Request, res: Response) => {
-  const user: IReqUser = req.user!;
-
-  const response = await getAllOrders(user.id);
+router.get('/', authCheck, async (req: IRequest, res: Response) => {
+  const response = await getAllOrders(req.user.id);
 
   res.json(response);
 });
@@ -37,38 +35,32 @@ router.get('/', authCheck, async (req: Request, res: Response) => {
 // Add a product to the cart
 router.post(
   '/add',
-  authCheck, async (req: Request, res: Response) => {
-    const user: IReqUser = req.user!;
-
-    const result = await addToCart(req.body.product, user); // Replace with user
+  authCheck, async (req: IRequest, res: Response) => {
+    const result = await addToCart(req.body.product, req.user);
 
     res.json(result);
   }
 );
 
 // Confirm an order
-router.post('/confirm', authCheck, async (req: Request, res: Response) => {
-  const user: IReqUser = req.user!;
+router.post('/confirm', authCheck, async (req: IRequest, res: Response) => {
+  const orderTotal = await confirmOrder(req.user.id, req.body.category);
 
-  const orderTotal = await confirmOrder(user.id, req.body.category);
-
-  const classTotal = await getTotal(user.classID!, req.body.category);
+  const classTotal = await getTotal(req.user.classID, req.body.category);
 
   const result = await updateTotal(
     orderTotal,
     classTotal,
     req.body.category,
-    user.classID!
+    req.user.classID
   );
 
   res.json(result);
 });
 
 // Delete an order
-router.post('/delete', authCheck, async (req: Request, res: Response) => {
-  const user: IReqUser = req.user!;
-
-  const result = await deleteFromCart(user.id, req.body.product);
+router.post('/delete', authCheck, async (req: IRequest, res: Response) => {
+  const result = await deleteFromCart(req.user.id, req.body.product);
 
   res.json(result);
 });
@@ -77,10 +69,8 @@ router.post('/delete', authCheck, async (req: Request, res: Response) => {
 router.post(
   '/create-payment-intent',
   isRappreDiClasse,
-  async (req: Request, res: Response) => {
-    const user: IReqUser = req.user!;
-
-    const classID = user.classID!;
+  async (req: IRequest, res: Response) => {
+    const classID = req.user.classID;
 
     const amount = await getTotal(classID, req.body.category);
 
@@ -91,7 +81,7 @@ router.post(
       });
     }
 
-    const stripeID = await getStripeID(user.id!);
+    const stripeID = await getStripeID(req.user.id);
 
     const isConfirmed = await verifyReady(classID, req.body.category);
 
@@ -117,7 +107,7 @@ router.post(
       description: `Pagamento di ${
         amount / 100
       }€ per la classe ${classID} nella categoria ${req.body.category}`,
-      receipt_email: user.email,
+      receipt_email: req.user.email,
       customer: stripeID,
       metadata: {
         Classe: classID,
