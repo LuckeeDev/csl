@@ -27,7 +27,7 @@
           <div class="text even">
             <h1 class="title">{{ article.title }}</h1>
             <p class="preview">{{ article.preview }}</p>
-            <p class="data">Autore: {{ article.author }}</p>
+            <p class="data">{{ article.author }} | {{ article.date }}</p>
           </div>
         </ng-container>
 
@@ -36,7 +36,7 @@
           <div class="text odd">
             <h1 class="title">{{ article.title }}</h1>
             <p class="preview">{{ article.preview }}</p>
-            <p class="data">Autore: {{ article.author }}</p>
+            <p class="data">{{ article.author }} | {{ article.date }}</p>
           </div>
         </ng-container>
       </mat-card-content>

@@ -37,6 +37,7 @@ export interface IArticle {
   category: string;
   estimatedTime: number;
   image: string;
+  date: string;
   preview?: string;
 }
 

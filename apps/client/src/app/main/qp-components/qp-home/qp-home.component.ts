@@ -42,7 +42,8 @@ export class QpHomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.articlesService.getArticles().subscribe((articles) => {
-      this.articles = articles;
+      // Revert to get articles in chronologic order
+      this.articles = articles.reverse();
 
       this.articles.forEach((article) => {
         article.preview = article.content.blocks.find(
