@@ -22,7 +22,12 @@
             "tsConfig": "apps/client/tsconfig.app.json",
             "aot": true,
             "assets": ["apps/client/src/favicon.ico", "apps/client/src/assets"],
-            "styles": ["apps/client/src/styles.scss", "apps/client/src/classes.scss"],
+            "styles": ["apps/client/src/styles.scss"],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "libs/ui/src/lib"
+              ]
+            },
             "scripts": [],
             "allowedCommonJsDependencies": ["firebase/app", "socket.io-client"]
           },
