@@ -39,13 +39,15 @@ import { DeviceService } from './services/device/device.service';
 
 // Directives
 import { MatColorDirective } from './directives/mat-color/mat-color.directive';
+import { RoundedDirective } from './directives/rounded/rounded.directive';
 
 @NgModule({
   declarations: [
     DialogComponent,
     DashboardModelComponent,
-    MatColorDirective,
     AlertComponent,
+    MatColorDirective,
+    RoundedDirective,
   ],
   imports: [
     CommonModule,
@@ -77,6 +79,8 @@ import { MatColorDirective } from './directives/mat-color/mat-color.directive';
     FontAwesomeModule,
     DashboardModelComponent,
     AlertComponent,
+    MatColorDirective,
+    RoundedDirective,
     MatSnackBarModule,
     MatDialogModule,
     MatButtonModule,
@@ -102,4 +106,5 @@ import { MatColorDirective } from './directives/mat-color/mat-color.directive';
   providers: [ToastrService, DialogService, DeviceService],
 })
 export class UiModule {}
+
 export { DialogService, ToastrService };
