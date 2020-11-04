@@ -38,6 +38,7 @@ export class ManageArticlesComponent implements OnInit {
           if (res.success === true) {
             this.toastr.show({
               message: 'Articolo eliminato',
+              color: 'accent',
               action: 'Chiudi',
               duration: 5000,
             });

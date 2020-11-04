@@ -128,6 +128,7 @@ export class EditorComponent implements OnInit, AfterViewInit {
               if (res.success === true) {
                 this.toastr.show({
                   message: 'Articolo salvato!',
+                  color: 'success',
                   action: 'Chiudi',
                   duration: 5000,
                 });
@@ -157,11 +158,19 @@ export class EditorComponent implements OnInit, AfterViewInit {
         if (!this.articleID) {
           this.editor.clear();
           this.metadata.reset();
+
+          this.toastr.show({
+            message: 'Articolo eliminato',
+            color: 'primary',
+          });
+
+          this.router.navigate(['..', 'qp-admin', 'editor'])
         } else if (this.articleID) {
           this.articlesService.delete(this.articleID).subscribe((res) => {
             if (res.success === true) {
               this.toastr.show({
                 message: 'Articolo eliminato',
+                color: 'accent',
                 action: 'Chiudi',
                 duration: 5000,
               });
@@ -188,6 +197,7 @@ export class EditorComponent implements OnInit, AfterViewInit {
 
         this.toastr.show({
           message: `File caricato`,
+          color: 'primary',
           action: 'Chiudi',
           duration: 5000,
         });

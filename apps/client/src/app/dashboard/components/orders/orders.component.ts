@@ -54,6 +54,7 @@ export class OrdersComponent implements OnInit {
           ) {
             this.toastr.show({
               message: 'Ordine già confermato',
+              color: 'accent',
               action: 'Chiudi',
               duration: 5000,
             });
@@ -62,6 +63,7 @@ export class OrdersComponent implements OnInit {
           } else {
             this.toastr.show({
               message: 'Ordine cancellato',
+              color: 'accent',
               action: 'Chiudi',
               duration: 5000,
             });
@@ -85,9 +87,12 @@ export class OrdersComponent implements OnInit {
           if (success === true) {
             this.toastr.show({
               message: 'Ordine confermato',
+              color: 'success',
               action: 'Chiudi',
               duration: 5000,
             });
+          } else if (success === false) {
+            this.toastr.showError();
           }
 
           this.orders.getOrders();

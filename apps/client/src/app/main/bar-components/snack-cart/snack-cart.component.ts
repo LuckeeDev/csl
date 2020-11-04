@@ -38,6 +38,7 @@ export class SnackCartComponent implements OnInit {
           if (res.success === true) {
             this.toastr.show({
               message: 'Prodotto eliminato',
+              color: 'accent',
               action: 'Chiudi',
               duration: 5000,
             });
@@ -46,6 +47,7 @@ export class SnackCartComponent implements OnInit {
           } else if (res.success === false && res.err === 'order-confirmed') {
             this.toastr.show({
               message: 'Ordine già confermato',
+              color: 'accent',
               action: 'Chiudi',
               duration: 5000,
             });
@@ -69,12 +71,14 @@ export class SnackCartComponent implements OnInit {
           if (res.success === true) {
             this.toastr.show({
               message: 'Ordine confermato',
+              color: 'success',
               action: 'Chiudi',
               duration: 5000,
             });
           } else if (res.success === false && res.err === 'no-credit') {
             this.toastr.show({
-              message: "C'è stato un errore",
+              message: "Non hai sufficiente credito!",
+              color: 'warn',
               action: 'Chiudi',
               duration: 5000,
             });

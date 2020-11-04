@@ -48,6 +48,7 @@ export class CheckoutComponent implements OnInit {
       if (res.success === false && res.err === 'no-orders') {
         this.toastr.show({
           message: 'Ordini non trovati!',
+          color: 'warn',
           action: 'Chiudi',
           duration: 5000,
         });
@@ -136,12 +137,13 @@ export class CheckoutComponent implements OnInit {
 
     this.toastr.show({
       message: 'Pagamento completato con successo, puoi tornare alla home',
+      color: 'success'
     });
   };
 
   showError(msg: string) {
     this.loading = false;
 
-    this.toastr.show({ message: msg, duration: 10000 });
+    this.toastr.show({ message: msg, color: 'warn', duration: 10000 });
   };
 }

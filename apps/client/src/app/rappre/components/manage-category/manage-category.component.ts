@@ -71,6 +71,7 @@ export class ManageCategoryComponent implements OnInit {
           if (res.success === true) {
             this.toastr.show({
               message: 'Prodotto eliminato',
+              color: 'accent',
               action: 'Chiudi',
               duration: 5000,
             });

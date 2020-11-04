@@ -44,6 +44,7 @@ export class ManageComponent implements OnInit {
         this.snacksService.deleteSnack(id).subscribe((res) => {
           this.toastr.show({
             message: 'Prodotto eliminato',
+            color: 'accent',
             action: 'Chiudi',
             duration: 5000,
           });
@@ -65,6 +66,7 @@ export class ManageComponent implements OnInit {
         this.snacksService.updateQuantity(id, quantity).subscribe((res) => {
           this.toastr.show({
             message: `Prodotto modificato`,
+            color: 'primary',
             action: 'Chiudi',
             duration: 5000,
           });

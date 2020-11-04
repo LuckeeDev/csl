@@ -39,6 +39,7 @@ export class SnacksComponent implements OnInit {
           if (res.success === true) {
             this.toastr.show({
               message: 'Articolo aggiunto',
+              color: 'success',
               action: 'Chiudi',
               duration: 5000,
             });
@@ -47,6 +48,7 @@ export class SnacksComponent implements OnInit {
           } else if (res.success === false && res.code === 'order-confirmed') {
             this.toastr.show({
               message: 'Hai già confermato il tuo ordine!',
+              color: 'accent',
               action: 'Chiudi',
               duration: 5000,
             });

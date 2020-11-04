@@ -18,14 +18,14 @@
         <mat-header-cell *matHeaderCellDef>Gestisci</mat-header-cell>
         <mat-cell *matCellDef="let article"
           ><button
-            mat-button
+            mat-stroked-button
             color="primary"
             size="small"
             [routerLink]="[article.id]"
           >
             Modifica
           </button>
-          <button mat-button color="warn" (click)="deleteArticle(article.id)">
+          <button mat-stroked-button color="warn" (click)="deleteArticle(article.id)">
             Cancella
           </button>
         </mat-cell>

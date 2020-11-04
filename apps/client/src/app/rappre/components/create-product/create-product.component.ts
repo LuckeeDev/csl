@@ -92,6 +92,7 @@ export class CreateProductComponent implements OnInit {
 
             this.toastr.show({
               message: 'Prodotto creato con successo',
+              color: 'success',
               action: 'Chiudi',
               duration: 5000,
             });
