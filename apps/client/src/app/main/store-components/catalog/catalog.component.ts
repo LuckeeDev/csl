@@ -63,6 +63,7 @@ export class CatalogComponent implements OnInit {
                 this.productCovers.push({ url, product: product.id })
               );
           });
+
           this.search.reset();
         });
       } else if (this.category === 'photos') {
@@ -77,6 +78,7 @@ export class CatalogComponent implements OnInit {
                 this.productCovers.push({ url, product: product.id })
               );
           });
+
           this.search.reset();
         });
       }

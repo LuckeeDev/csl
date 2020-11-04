@@ -14,7 +14,11 @@
 }
 
 // General styles
-mat-card {
+.alert {
+  width: 100%;
+}
+
+.article-preview {
   cursor: pointer;
   outline: none;
   margin-bottom: 30px;

@@ -10,6 +10,7 @@
   <mat-card
     [routerLink]="[product.id]"
     *ngFor="let product of (filteredProducts | async) || products"
+    class="product"
   >
     <mat-card-header>
       <mat-card-title>{{ product.name }}</mat-card-title>
@@ -20,16 +21,14 @@
       <img [src]="coverImage(product.id).url" />
     </mat-card-content>
   </mat-card>
+
+  <csl-alert color="primary" class="alert" *ngIf="(filteredProducts | async) && (filteredProducts | async).length === 0">
+    Nessun prodotto trovato!
+  </csl-alert>
 </div>
 
 <ng-template #noProductFound>
-  <mat-card class="no-product-found">
-    <mat-card-header>
-      <mat-card-title
-        >Non abbiamo trovato nessun prodotto in questa
-        categoria!</mat-card-title
-      >
-      <mat-card-subtitle>Torna più tardi...</mat-card-subtitle>
-    </mat-card-header>
-  </mat-card>
+  <csl-alert color="primary" class="alert">
+    Nessun prodotto trovato in questa categoria!
+  </csl-alert>
 </ng-template>
