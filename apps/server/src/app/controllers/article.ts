@@ -10,7 +10,7 @@ const ArticleSchema = new Schema(
     category: { type: String, required: true },
     estimatedTime: { type: Number },
     image: { type: String },
-    date: { type: String },
+    date: { type: Date },
   },
   { skipVersioning: true }
 );
@@ -24,9 +24,9 @@ export const saveArticle = async (article: IArticle, id: IArticle['id']) => {
   const { title, category, author, estimatedTime, content, image } = article;
 
   if (!exists) {
-    const today = new Date();
+    const date = new Date();
 
-    const date = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
+    // const date = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
 
     return new Article({
       content,

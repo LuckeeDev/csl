@@ -9,7 +9,7 @@ const ReportSchema = new Schema(
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     classID: { type: String, required: true },
-    date: { type: String, required: true },
+    date: { type: Date, required: true },
     bug: { type: Object },
   },
   { skipVersioning: true }
@@ -21,13 +21,7 @@ export const reportBug = async (
   user: IUser,
   bug: IBugData
 ): Promise<IHttpRes<any>> => {
-  const today = new Date();
-
-  const day = today.getDate();
-  const month = today.getMonth() + 1;
-  const year = today.getFullYear();
-
-  const date = `${day}-${month}-${year}`;
+  const date = new Date();
 
   return new Report({
     id: v4(),

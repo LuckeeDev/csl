@@ -13,7 +13,7 @@ export interface IReport {
   firstName: IUser['firstName'];
   lastName: IUser['lastName'];
   classID: IUser['classID'];
-  date: string;
+  date: Date;
   bug?: IBugData;
 }
 

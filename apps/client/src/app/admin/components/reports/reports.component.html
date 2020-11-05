@@ -1,13 +1,13 @@
 <mat-tab-group>
   <mat-tab label="Errori Tecnici">
-    <div class="card-container" *ngIf="technical.length > 0; else noTechnical">
+    <div class="card-container" *ngIf="technical && technical.length > 0; else noTechnical">
       <mat-card *ngFor="let report of technical" class="report">
         <mat-card-header>
           <mat-card-title>
             {{ report.firstName }} {{ report.lastName }} - {{ report.classID }}
           </mat-card-title>
           <mat-card-subtitle>
-            {{ report.date }}
+            {{ report.date | date: 'dd - MM - yy' }}
           </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
@@ -22,20 +22,22 @@
 
     <ng-template #noTechnical>
       <div class="alert-container">
-        <csl-alert color="success">Nessun problema tecnico segnalato!</csl-alert>
+        <csl-alert color="success"
+          >Nessun problema tecnico segnalato!</csl-alert
+        >
       </div>
     </ng-template>
   </mat-tab>
 
   <mat-tab label="Bug Visivi">
-    <div class="card-container" *ngIf="visual.length > 0; else noVisual">
+    <div class="card-container" *ngIf="visual && visual.length > 0; else noVisual">
       <mat-card *ngFor="let report of visual" class="report">
         <mat-card-header>
           <mat-card-title>
             {{ report.firstName }} {{ report.lastName }} - {{ report.classID }}
           </mat-card-title>
           <mat-card-subtitle>
-            {{ report.date }}
+            {{ report.date | date: 'dd - MM - yy' }}
           </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
@@ -56,14 +58,14 @@
   </mat-tab>
 
   <mat-tab label="Altro">
-    <div class="card-container" *ngIf="other.length > 0; else noOther">
+    <div class="card-container" *ngIf="other && other.length > 0; else noOther">
       <mat-card *ngFor="let report of other" class="report">
         <mat-card-header>
           <mat-card-title>
             {{ report.firstName }} {{ report.lastName }} - {{ report.classID }}
           </mat-card-title>
           <mat-card-subtitle>
-            {{ report.date }}
+            {{ report.date | date: 'dd - MM - yy' }}
           </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
