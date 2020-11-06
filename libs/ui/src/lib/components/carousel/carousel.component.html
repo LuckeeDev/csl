@@ -1,5 +1,4 @@
-<!-- carousel -->
-<div class="carousel">
+<mat-card class="carousel">
   <ng-container *ngFor="let image of carouselImages; let i = index">
     <img
       [src]="image.link"
@@ -11,11 +10,10 @@
     />
   </ng-container>
 
-  <!-- controls -->
-  <button class="control prev" (click)="previous()">
-    <span class="arrow left"></span>
+  <button mat-mini-fab color="basic" class="control prev" (click)="previous()">
+    <mat-icon>keyboard_arrow_left</mat-icon>
   </button>
-  <button class="control next" (click)="next()">
-    <span class="arrow right"></span>
+  <button mat-mini-fab color="basic" class="control next" (click)="next()">
+    <mat-icon>keyboard_arrow_right</mat-icon>
   </button>
-</div>
+</mat-card>
