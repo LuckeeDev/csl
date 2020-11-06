@@ -33,13 +33,13 @@
 // .color-holder {
 //     margin-left: $margin;
 //     margin-top: 30px;
-//     margin-bottom: 30px; 
+//     margin-bottom: 30px;
 // }
 
 // .sizes-holder {
 //     margin-left: $margin;
 //     margin-top: 30px;
-//     margin-bottom: 30px; 
+//     margin-bottom: 30px;
 // }
 
 // button {
@@ -50,3 +50,10 @@
 // .quantity-holder {
 //     margin-left: $margin;
 // }
+
+.carousel-container {
+  display: block;
+  height: 500px;
+  width: 500px;
+  padding: 2em;
+}

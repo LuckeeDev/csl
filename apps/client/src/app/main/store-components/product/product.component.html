@@ -1,13 +1,13 @@
 <!-- Show if the product exists -->
-<div *ngIf="product; else noProductFound">
+<div>
   <!-- Show basic product info -->
-  <h3>{{ product.name }}</h3>
+  <!-- <h3>{{ product.name }}</h3>
   <p>{{ product.description }}</p>
   <br />
-  <p>Prezzo: {{ product.price }} €</p>
+  <p>Prezzo: {{ product.price }} €</p> -->
 
   <!-- Select quantity -->
-  <input nbInput type="number" matInput placeholder="Quante ne vuoi?" />
+  <!-- <input nbInput type="number" matInput placeholder="Quante ne vuoi?" /> -->
 
   <!-- Select color -->
   <!-- <div *ngIf="category === 'gadgets'" class="color-holder">
@@ -33,21 +33,25 @@
   </div> -->
 
   <!-- Show images -->
-  <div *ngFor="let link of imageLinks">
+  <!-- <div *ngFor="let link of imageLinks">
     <img [src]="link" />
+  </div> -->
+
+  <div class="carousel-container" *ngIf="images && carouselReady">
+    <csl-carousel [images]="images"></csl-carousel>
   </div>
 
   <!-- Button to order product -->
-  <button
-    nbButton
+  <!-- <button
+    mat-raised-button
     status="primary"
     (click)="addToCart()"
   >
     Order product
-  </button>
+  </button> -->
 </div>
 
 <!-- Show if the product does not exist -->
-<ng-template #noProductFound>
+<!-- <ng-template #noProductFound>
   Non abbiamo trovato nessun prodotto con questo nome!
-</ng-template>
+</ng-template> -->

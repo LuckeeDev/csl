@@ -1,0 +1,21 @@
+<!-- carousel -->
+<div class="carousel">
+  <ng-container *ngFor="let image of carouselImages; let i = index">
+    <img
+      [src]="image.link"
+      class="slide"
+      [@carouselAnimation]="{
+        value: image.state,
+        params: image.params
+      }"
+    />
+  </ng-container>
+
+  <!-- controls -->
+  <button class="control prev" (click)="previous()">
+    <span class="arrow left"></span>
+  </button>
+  <button class="control next" (click)="next()">
+    <span class="arrow right"></span>
+  </button>
+</div>

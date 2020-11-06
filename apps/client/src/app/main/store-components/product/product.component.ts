@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { IProduct } from '@csl/shared';
+import { IImage, IProduct } from '@csl/shared';
 import { ProductsService } from '@global/services/products/products.service';
 import { OrdersService } from '@global/services/orders/orders.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -14,8 +14,8 @@ import { DialogService } from '@csl/ui';
 })
 export class ProductComponent implements OnInit {
   id: string;
-  product: any;
-  imageLinks: string[] = [];
+  product: IProduct;
+  images: IImage[];
   category: string;
 
   orderForm: FormGroup;
@@ -53,16 +53,22 @@ export class ProductComponent implements OnInit {
 
           const folderRef = this.storage.ref(`/${folder}/${this.product.id}`);
 
-          await this.product.fileNames.forEach((fileName: string) => {
+          this.images = [];
+
+          this.product.fileNames.forEach((fileName: string) => {
             folderRef
               .child(fileName)
               .getDownloadURL()
-              .subscribe((res: string) => {
-                this.imageLinks.push(res);
+              .subscribe((link: string) => {
+                this.images.push({ link });
               });
           });
         });
     });
+  }
+
+  get carouselReady(): boolean {
+    return this.images.length === this.product.fileNames.length;
   }
 
   // Add product to cart
