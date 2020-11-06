@@ -21,7 +21,6 @@ export class OrdersService {
 
   constructor(private http: HttpClient) {}
 
-  // Get all user's orders
   getOrders() {
     this.http.get('/api/orders').subscribe((res: IUserOrders) => {
       this.gadgets = res.gadgets;
@@ -32,15 +31,14 @@ export class OrdersService {
     });
   }
 
-  addToCart(product: IProductInCart): Observable<any> {
-    return this.http.post('/api/orders/add', { product });
+  addToCart(product: IProductInCart): Observable<IHttpRes<any>> {
+    return this.http.post<IHttpRes<any>>('/api/orders/add', { product });
   }
 
   confirmOrder(category): Observable<any> {
     return this.http.post('/api/orders/confirm', { category });
   }
 
-  // Delete a product from the cart
   deleteProduct(product: IProductInCart): Observable<any> {
     return this.http.post('/api/orders/delete', { product: product }).pipe(
       tap((res: any) => {
@@ -59,7 +57,6 @@ export class OrdersService {
     );
   }
 
-  // Retrieve a payment intent from the backend
   createPaymentIntent(
     category: string
   ): Observable<IHttpRes<IPaymentIntentData>> {

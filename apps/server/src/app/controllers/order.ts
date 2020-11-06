@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import { Product } from '@controllers/product';
-import { IOrder, IOrderModel, IProductInCart, IProduct, IUser } from '@csl/shared';
+import { IOrder, IOrderModel, IProductInCart, IProduct, IUser, IHttpRes } from '@csl/shared';
 
 const OrderSchema = new Schema(
   {
@@ -19,7 +19,7 @@ const OrderSchema = new Schema(
 export const Order = mongoose.model<IOrderModel>('order', OrderSchema);
 
 // Create a new order
-export const addToCart = async (product: IProductInCart, user: IUser) => {
+export const addToCart = async (product: IProductInCart, user: IUser): Promise<IHttpRes<any>> => {
   const productInDb = await Product.findOne({ id: product.id }).then(
     (res: IProduct | null) => {
       return {
@@ -32,7 +32,7 @@ export const addToCart = async (product: IProductInCart, user: IUser) => {
   const categoryConfirmed =
     productInDb.category === 'gadgets' ? 'gadgetsConfirmed' : 'photosConfirmed';
 
-  const result = await Order.findOne({
+  return Order.findOne({
     id: user.id,
   }).then((order: IOrder | null) => {
     if (!order) {
@@ -58,14 +58,13 @@ export const addToCart = async (product: IProductInCart, user: IUser) => {
         .then((res) => {
           return {
             success: true,
-            msg: 'Order created',
           };
         });
     } else if (order[categoryConfirmed] === true) {
       // Case in which the order for this category is already confirmed
       return {
         success: false,
-        msg: 'Order is already confirmed',
+        err: 'already-confirmed',
       };
     } else {
       // Case in which an order exists, is not confirmed but needs to be updated
@@ -85,13 +84,10 @@ export const addToCart = async (product: IProductInCart, user: IUser) => {
       ).then((res) => {
         return {
           success: true,
-          msg: 'Order updated',
         };
       });
     }
   });
-
-  return result;
 };
 
 // Confirm an order

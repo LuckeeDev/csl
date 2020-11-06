@@ -80,4 +80,16 @@ export class CarouselComponent implements OnInit {
     };
     this.carouselImages[this.slideIndex].state = 'in';
   }
+
+  slideTo(n: number) {
+    if (n > this.slideIndex) {
+      while(this.slideIndex !== n) {
+        this.next();
+      }
+    } else {
+      while(this.slideIndex !== n) {
+        this.previous();
+      }
+    }
+  }
 }

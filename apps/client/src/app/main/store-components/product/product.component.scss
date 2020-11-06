@@ -1,59 +1,99 @@
-// $margin: 10rem;
+// General styles
+h2 {
+  font-size: 24px;
+  margin-bottom: 0;
+}
 
-// h3 {
-//     margin-top: 2rem;
-//     margin-left: $margin;
-//     font-weight: bold;
-//     font-size: 20px;
-// }
+h4 {
+  font-size: 14px;
+  color: rgba($color: #000000, $alpha: 0.7);
+  margin-bottom: 0;
 
-// p {
-//     margin-left: $margin;
-//     margin-right: $margin;
-// }
+  &.label {
+    color: rgba($color: #000000, $alpha: 0.55);
+    flex: 100%;
+  }
+}
 
-// img {
-//     height: 200px;
-//     width: 200px;
-//     margin-left: $margin;
-// }
+p {
+  margin-top: 10px;
+}
 
-// $circle-dim: 40px;
-
-// .filled-circle {
-//     margin-left: 20px;
-//     height: $circle-dim;
-//     width: $circle-dim;
-//     border-radius: 50%;
-//     display: inline-block;
-//     border-color: #bbb;
-//     cursor: pointer;
-// }
-
-// .color-holder {
-//     margin-left: $margin;
-//     margin-top: 30px;
-//     margin-bottom: 30px;
-// }
-
-// .sizes-holder {
-//     margin-left: $margin;
-//     margin-top: 30px;
-//     margin-bottom: 30px;
-// }
-
-// button {
-//     margin-left: $margin;
-//     margin-top: 20px;
-// }
-
-// .quantity-holder {
-//     margin-left: $margin;
-// }
+// Specific styles
+.container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
 
 .carousel-container {
-  display: block;
+  display: flex;
+  width: 50%;
+}
+
+.data-container {
+  margin-top: 2em;
+}
+
+.carousel {
   height: 500px;
   width: 500px;
   padding: 2em;
+}
+
+.images {
+  margin-top: 2em;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.image {
+  width: 50px;
+  margin-bottom: 10px;
+  cursor: pointer;
+
+  &.selected {
+    border: 2px black solid;
+  }
+
+  img {
+    width: 100%;
+  }
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.quantity {
+  flex-basis: 50%;
+}
+
+.sizes {
+  flex-basis: 50%;
+}
+
+.colors {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.color {
+  padding: 0;
+  margin: 0;
+  width: 0;
+  height: 0;
+  padding-left: 50px;
+  padding-top: 30px;
+
+  cursor: pointer;
+
+  margin-right: 10px;
+}
+
+.order-btn {
+  margin-top: 40px;
+  flex: 100%;
 }

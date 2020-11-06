@@ -4,12 +4,19 @@ $success: #43a047;
 $accent: mat-color($client-accent);
 $warn: mat-color($client-warn);
 
+// Typography
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500
+}
+
+// Change dialog padding to add color bar at the top
 .dialog-padding {
   .mat-dialog-container {
     padding: 0;
   }
 }
 
+// Toastr classes
 .toastr-basic {
   color: rgba($color: #fff, $alpha: 0.9);
 
@@ -54,6 +61,7 @@ $warn: mat-color($client-warn);
   }
 }
 
+// Color classes
 .color-primary {
   background-color: $primary;
 }
