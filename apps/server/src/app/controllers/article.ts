@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { IArticleModel, IArticle } from '@csl/shared';
+import { IArticleModel, IArticle, IHttpRes } from '@csl/shared';
 
 const ArticleSchema = new Schema(
   {
@@ -17,16 +17,51 @@ const ArticleSchema = new Schema(
 
 export const Article = mongoose.model<IArticleModel>('article', ArticleSchema);
 
+export const getArticles = async (): Promise<IHttpRes<IArticle[]>> => {
+  return Article.find()
+    .then((data) => {
+      return {
+        success: true,
+        data,
+      };
+    })
+    .catch((err) => {
+      return {
+        success: false,
+        err,
+      };
+    });
+};
+
+export const getArticle = async (
+  id: IArticle['id']
+): Promise<IHttpRes<IArticle>> => {
+  return Article.findOne({ id })
+    .then((data) => {
+      return {
+        success: true,
+        data,
+      };
+    })
+    .catch((err) => {
+      return {
+        success: false,
+        err,
+      };
+    });
+};
+
 // Save a new article
-export const saveArticle = async (article: IArticle, id: IArticle['id']) => {
+export const saveArticle = async (
+  article: IArticle,
+  id: IArticle['id']
+): Promise<IHttpRes<any>> => {
   const exists = (await Article.findOne({ id })) ? true : false;
 
   const { title, category, author, estimatedTime, content, image } = article;
 
   if (!exists) {
     const date = new Date();
-
-    // const date = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
 
     return new Article({
       content,
@@ -42,7 +77,9 @@ export const saveArticle = async (article: IArticle, id: IArticle['id']) => {
       .then((res) => {
         return {
           success: true,
-          articleID: id,
+          data: {
+            articleID: id,
+          },
         };
       })
       .catch((err) => {
@@ -59,7 +96,9 @@ export const saveArticle = async (article: IArticle, id: IArticle['id']) => {
       .then((res) => {
         return {
           success: true,
-          articleID: id,
+          data: {
+            articleID: id,
+          },
         };
       })
       .catch((err) => {
@@ -71,7 +110,7 @@ export const saveArticle = async (article: IArticle, id: IArticle['id']) => {
   }
 };
 
-export const deleteArticle = async (id: IArticle['id']) => {
+export const deleteArticle = async (id: IArticle['id']): Promise<IHttpRes<any>> => {
   const res = await Article.findOneAndDelete({ id })
     .then((res) => {
       return {
@@ -84,20 +123,6 @@ export const deleteArticle = async (id: IArticle['id']) => {
         err,
       };
     });
-
-  return res;
-};
-
-// Find an article via its ID
-export const findArticle = async (id: IArticle['id']): Promise<IArticle> => {
-  const article = await Article.findOne({ id });
-
-  return article!;
-};
-
-// Get all articles
-export const getArticles = async () => {
-  const res = await Article.find();
 
   return res;
 };

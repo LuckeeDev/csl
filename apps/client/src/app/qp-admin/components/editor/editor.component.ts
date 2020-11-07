@@ -51,7 +51,9 @@ export class EditorComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.articlesService.getArticle(this.articleID).subscribe((article) => {
+    this.articlesService.getArticle(this.articleID).subscribe((res) => {
+      const article = res.data;
+
       if (article) {
         this.metadata.controls['category'].setValue(article.category);
         this.metadata.controls['title'].setValue(article.title);
@@ -134,7 +136,7 @@ export class EditorComponent implements OnInit, AfterViewInit {
                 });
 
                 if (!this.articleID) {
-                  this.router.navigate(['editor', res.articleID], {
+                  this.router.navigate(['editor', res.data.articleID], {
                     relativeTo: this.route.parent,
                   });
                 }
@@ -184,10 +186,10 @@ export class EditorComponent implements OnInit, AfterViewInit {
       });
   }
 
-  uploadCover(e) {
+  uploadCover(event) {
     this.ready = false;
 
-    const cover: File = e.target.files[0];
+    const cover: File = event.target.files[0];
 
     this.articlesService
       .uploadCover(cover)

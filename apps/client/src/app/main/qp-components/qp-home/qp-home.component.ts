@@ -31,7 +31,8 @@ export class QpHomeComponent implements OnInit {
           return this.articles.filter(
             (x) =>
               x.title.toLowerCase().includes(filterValue) ||
-              x.category.toLowerCase().includes(filterValue)
+              x.category.toLowerCase().includes(filterValue) ||
+              x.preview.toLowerCase().includes(filterValue)
           );
         } else {
           return this.articles.slice();
@@ -41,9 +42,9 @@ export class QpHomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.articlesService.getArticles().subscribe((articles) => {
-      // Revert to get articles in chronologic order
-      this.articles = articles.reverse();
+    this.articlesService.getArticles().subscribe((res) => {
+      // Reverse to get articles in chronologic order
+      this.articles = res.data.reverse();
 
       this.articles.forEach((article) => {
         article.preview = article.content.blocks.find(

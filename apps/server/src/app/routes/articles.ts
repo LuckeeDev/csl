@@ -3,7 +3,7 @@ const router = Router();
 import { isQp, authCheck } from '@config/authcheck';
 import {
   saveArticle,
-  findArticle,
+  getArticle,
   getArticles,
   deleteArticle,
 } from '@controllers/article';
@@ -13,19 +13,27 @@ import { join } from 'path';
 import { UploadedFile } from 'express-fileupload';
 import { bucket } from '@config/firebase';
 
-// Find a specific article via its ID
-router.get('/find/:id', authCheck, async (req: Request, res: Response) => {
-  const article = await findArticle(req.params.id);
-  res.json(article);
-});
-
-// Retrieve all articles from the database
 router.get('/', authCheck, async (req: Request, res: Response) => {
   const articles = await getArticles();
   res.json(articles);
 });
 
-// Upload an image to Firebase and return URL
+router.get('/:id', authCheck, async (req: Request, res: Response) => {
+  const article = await getArticle(req.params.id);
+  res.json(article);
+});
+
+router.post('/:id', isQp, async (req: Request, res: Response) => {
+  const result = await saveArticle(req.body.article, req.params.id);
+  res.json(result);
+});
+
+router.delete('/:id', isQp, async (req: Request, res: Response) => {
+  const result = await deleteArticle(req.params.id);
+  res.json(result);
+});
+
+// Images section
 router.post('/image', isQp, async (req: Request, res: Response) => {
   const files: any = req.files;
   const image: UploadedFile = files.image;
@@ -51,13 +59,6 @@ router.post('/image', isQp, async (req: Request, res: Response) => {
   });
 });
 
-// Save an article
-router.post('/:id', isQp, async (req: Request, res: Response) => {
-  const result = await saveArticle(req.body.article, req.params.id);
-  res.json(result);
-});
-
-// Retrieve image saved on the fs
 router.get(
   '/image/:fileName',
   authCheck,
@@ -65,11 +66,5 @@ router.get(
     res.sendFile(join(tmpdir(), 'qp', req.params.fileName));
   }
 );
-
-// Delete an article
-router.delete('/:id', isQp, async (req: Request, res: Response) => {
-  const result = await deleteArticle(req.params.id);
-  res.json(result);
-});
 
 export default router;

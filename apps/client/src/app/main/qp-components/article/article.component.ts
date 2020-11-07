@@ -23,8 +23,8 @@ export class ArticleComponent implements OnInit {
 
   // Get article content on component initialization
   ngOnInit() {
-    this.articles.getArticle(this.articleID).subscribe((res: IArticle) => {
-      this.article = res;
+    this.articles.getArticle(this.articleID).subscribe((res) => {
+      this.article = res.data;
 
       this.article.content.blocks.map(async (block) => {
         if (block.type === 'image') {

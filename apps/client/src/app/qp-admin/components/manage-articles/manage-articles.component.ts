@@ -20,8 +20,8 @@ export class ManageArticlesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.articlesService.getArticles().subscribe((articles) => {
-      this.articles = articles;
+    this.articlesService.getArticles().subscribe((res) => {
+      this.articles = res.data;
     });
   }
 
@@ -43,8 +43,8 @@ export class ManageArticlesComponent implements OnInit {
               duration: 5000,
             });
 
-            this.articlesService.getArticles().subscribe((articles) => {
-              this.articles = articles;
+            this.articlesService.getArticles().subscribe((res) => {
+              this.articles = res.data;
             });
           } else if (res.success === false) {
             this.toastr.showError();

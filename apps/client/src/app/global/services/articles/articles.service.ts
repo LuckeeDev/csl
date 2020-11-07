@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IArticle } from '@csl/shared';
+import { IArticle, IHttpRes } from '@csl/shared';
 import { OutputData } from '@editorjs/editorjs';
 import { AngularFireStorage } from '@angular/fire/storage';
 
@@ -19,12 +19,19 @@ interface IArticleForm {
 export class ArticlesService {
   constructor(private http: HttpClient, private afs: AngularFireStorage) {}
 
-  // Save a new article
+  getArticles(): Observable<IHttpRes<IArticle[]>> {
+    return this.http.get<IHttpRes<IArticle[]>>('/api/articles');
+  }
+  
+  getArticle(id: string): Observable<IHttpRes<IArticle>> {
+    return this.http.get<IHttpRes<IArticle>>(`/api/articles/${id}`);
+  }
+
   save(
     content: OutputData,
     form: IArticleForm,
     articleID?: IArticle['id']
-  ): Observable<any> {
+  ): Observable<IHttpRes<any>> {
     const { author, category, title, estimatedTime, image } = form;
     const id = articleID ?? title!.toLowerCase().replace(/ /g, '-');
 
@@ -37,7 +44,11 @@ export class ArticlesService {
       image
     };
 
-    return this.http.post(`/api/articles/${id}`, { article });
+    return this.http.post<IHttpRes<any>>(`/api/articles/${id}`, { article });
+  }
+
+  delete(id: IArticle['id']): Observable<IHttpRes<any>> {
+    return this.http.delete<IHttpRes<any>>(`/api/articles/${id}`);
   }
 
   uploadCover(file: File) {
@@ -45,18 +56,4 @@ export class ArticlesService {
     return ref.put(file);
   }
 
-  // Delete an article
-  delete(id: IArticle['id']): Observable<any> {
-    return this.http.delete(`/api/articles/${id}`);
-  }
-
-  // Get an article based on its ID
-  getArticle(id: string): Observable<IArticle> {
-    return this.http.get<IArticle>(`/api/articles/find/${id}`);
-  }
-
-  // Get all articles
-  getArticles(): Observable<IArticle[]> {
-    return this.http.get<IArticle[]>('/api/articles');
-  }
 }
