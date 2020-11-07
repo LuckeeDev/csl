@@ -97,3 +97,27 @@ p {
   margin-top: 40px;
   flex: 100%;
 }
+
+@media screen and (max-width: 1250px) {
+  .container {
+    flex-wrap: wrap;
+  }
+
+  .carousel-container {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .carousel {
+    width: 300px;
+    height: 300px;
+  }
+
+  .images {
+    flex-direction: row;
+  }
+
+  .image {
+    margin-right: 10px;
+  }
+}
