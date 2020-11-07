@@ -1,7 +1,6 @@
 // Main imports
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 
 // UI Elements
@@ -55,7 +54,6 @@ import { CarouselComponent } from './components/carousel/carousel.component';
   imports: [
     CommonModule,
     RouterModule,
-    BrowserAnimationsModule,
     FontAwesomeModule,
     MatSnackBarModule,
     MatDialogModule,
