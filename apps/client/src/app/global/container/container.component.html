@@ -56,9 +56,8 @@
         <div class="space"></div>
 
         <div class="links">
-          <li *ngFor="let element of links" class="item">
+          <li *ngFor="let element of links" class="nav-link">
             <a
-              mat-button
               *ngIf="element.link === ''"
               [routerLink]="[element.link]"
               [routerLinkActive]="['active']"
@@ -67,7 +66,6 @@
             >
 
             <a
-              mat-button
               *ngIf="element.link !== ''"
               [routerLink]="[element.link]"
               [routerLinkActive]="['active']"

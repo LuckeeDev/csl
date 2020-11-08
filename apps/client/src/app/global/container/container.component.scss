@@ -84,6 +84,35 @@ li.item.button {
   width: 50vw;
 }
 
+.nav-link {
+  a {
+    color: white;
+    text-decoration: none;
+    
+    -webkit-user-select: none;      
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    &::after {
+      content: '';
+      width: 0px;
+      height: 2px;
+      display: block;
+      background: white;
+      transition: width .1s ease-in-out;
+    }
+  
+    &:hover::after {
+      width: 100%;
+    }
+
+    &.active::after {
+      width: 100%;
+    }
+  }
+}
+
 .space {
   display: none;
 }
