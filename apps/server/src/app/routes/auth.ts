@@ -3,39 +3,38 @@ import { Request, Response, Router } from 'express';
 const router = Router();
 import { authCheck, profileCheck, notAuthCheck } from '@config/authcheck';
 import passport from 'passport';
+import { nextMiddelware } from '@config/login';
 
-// Send to Google login screen
-router.get(
-  '/',
-  notAuthCheck,
-  passport.authenticate('google', {
-    scope: ['profile', 'email'],
-  })
-);
+router.get('/', profileCheck, (req: Request, res: Response) => {
+  res.json(req.user);
+});
 
-// Redirect route for Google login
 router.get(
   '/redirect',
   passport.authenticate('google', { failureRedirect: './failure' }),
   (req: Request, res: Response) => {
-    res.redirect('/dashboard'); // This is to be changed
+    const returnTo: string[] = req.session.returnTo.split('+');
+
+    res.redirect(`/${returnTo.join('/')}`);
   }
 );
 
-// Login failure
 router.get('/failure', notAuthCheck, (req: Request, res: Response) => {
   res.redirect('/');
 });
 
-// Retrieve profile info
-router.get('/getprofile', profileCheck, (req: Request, res: Response) => {
-  res.json(req.user);
-});
-
-// Logout and delete session
 router.get('/logout', authCheck, (req: Request, res: Response) => {
   req.logout();
   res.redirect('/');
 });
+
+router.get(
+  '/:next',
+  notAuthCheck,
+  nextMiddelware,
+  passport.authenticate('google', {
+    scope: ['profile', 'email'],
+  })
+);
 
 export default router;

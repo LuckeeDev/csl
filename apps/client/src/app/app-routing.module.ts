@@ -121,6 +121,7 @@ const routes: Routes = [
     loadChildren: () => import('@admin/admin.module').then((m) => m.AdminModule),
   },
   { path: 'login', canActivate: [NotLoggedInGuard], component: LoginComponent },
+  { path: 'login/:next', canActivate: [NotLoggedInGuard], component: LoginComponent },
   { path: 'unauthorized', component: AccessForbiddenComponent },
   { path: '**', component: PageNotFoundComponent },
 ];

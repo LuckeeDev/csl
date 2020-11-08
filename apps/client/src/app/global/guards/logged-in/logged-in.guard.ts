@@ -27,12 +27,16 @@ export class LoggedInGuard implements CanActivate, CanLoad {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
+    const url = state.url.split('/');
+    url.shift();
+    const str = url.join('+');
+
     return this.auth.user$.pipe(
       map((user) => {
         if (user) {
           return true;
         } else {
-          return this.router.parseUrl('login');
+          return this.router.parseUrl(`login/${str}`);
         }
       })
     );
