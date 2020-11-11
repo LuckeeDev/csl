@@ -1,4 +1,4 @@
-interface ICommissione {
+export interface ICommissione {
   key: string;
   ref: string | string[];
   desc: string;
