@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IDashboardLink } from '@csl/shared';
 
 @Component({
-  selector: 'app-comitato',
+  selector: 'csl-comitato',
   templateUrl: './comitato.component.html',
   styleUrls: ['./comitato.component.scss']
 })

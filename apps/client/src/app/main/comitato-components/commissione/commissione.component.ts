@@ -4,6 +4,7 @@ import { CommissioniService } from '@global/services/commissioni/commissioni.ser
 import { ICommissione } from '@csl/shared';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'csl-commissione',
@@ -16,13 +17,30 @@ export class CommissioneComponent implements OnInit {
 
   constructor(
     private activated: ActivatedRoute,
-    private commissioni: CommissioniService
+    private commissioni: CommissioniService,
+    private afs: AngularFireStorage
   ) {}
 
   ngOnInit(): void {
     this.commissione$ = this.activated.paramMap.pipe(
       switchMap((params) => this.commissioni.getPage(params.get('id'))),
-      map((res) => res.data)
+      map((res) => res.data),
+      map((commissione) => {
+        commissione.page.blocks.map(async (block) => {
+          if (block.type === 'image') {
+            block.data.file.firebaseURL = await this.afs
+              .ref(`${block.data.file.firebasePath}`)
+              .getDownloadURL()
+              .toPromise();
+
+            return block;
+          } else {
+            return block;
+          }
+        });
+
+        return commissione;
+      })
     );
   }
 }

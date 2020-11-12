@@ -63,7 +63,7 @@ export class PageEditorComponent implements AfterViewInit {
             inlineToolbar: true,
             config: {
               endpoints: {
-                byFile: `/api/articles/image`,
+                byFile: `/api/commissioni/image`,
               },
             },
           },
