@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-editor',
+  selector: 'csl-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss'],
 })
@@ -71,6 +71,7 @@ export class EditorComponent implements OnInit, AfterViewInit {
           header: {
             class: Header,
             shortcut: 'CTRL+ALT+T',
+            inlineToolbar: true,
             config: {
               placeholder: 'Titolo',
               levels: [1, 2, 3],
@@ -80,6 +81,7 @@ export class EditorComponent implements OnInit, AfterViewInit {
           paragraph: {
             class: Paragraph,
             shortcut: 'CTRL+ALT+Q',
+            inlineToolbar: true,
             config: {
               placeholder: 'Testo',
             },
@@ -87,10 +89,12 @@ export class EditorComponent implements OnInit, AfterViewInit {
           list: {
             class: List,
             shortcut: 'CTRL+ALT+W',
+            inlineToolbar: true,
           },
           image: {
             class: Image,
             shortcut: 'CTRL+ALT+I',
+            inlineToolbar: true,
             config: {
               endpoints: {
                 byFile: `/api/articles/image`,
@@ -99,7 +103,57 @@ export class EditorComponent implements OnInit, AfterViewInit {
           },
         },
 
-        initialBlock: 'paragraph',
+        defaultBlock: 'paragraph',
+
+        i18n: {
+          messages: {
+            toolNames: {
+              Text: 'Paragrafo',
+              Heading: 'Titolo',
+              List: 'Elenco',
+              Image: 'Immagine',
+              Bold: 'Grassetto',
+              Italic: 'Corsivo',
+            },
+            tools: {
+              list: {
+                Ordered: 'Numerato',
+                Unordered: 'Non numerato',
+              },
+              image: {
+                'Select an Image': "Carica un'immagine",
+                'With border': 'Con bordo',
+                'Stretch image': 'Allarga immagine',
+                'With background': 'Con sfondo',
+              },
+              link: {
+                'Add a link': 'Aggiungi un link',
+              },
+            },
+            blockTunes: {
+              delete: { Delete: 'Elimina' },
+              moveUp: { 'Move up': 'Sposta su' },
+              moveDown: { 'Move down': 'Sposta giù' },
+            },
+            ui: {
+              blockTunes: {
+                toggler: {
+                  'Click to tune': 'Modifica',
+                },
+              },
+              inlineToolbar: {
+                converter: {
+                  'Convert to': 'Converti in',
+                },
+              },
+              toolbar: {
+                toolbox: {
+                  Add: 'Aggiungi',
+                },
+              },
+            },
+          },
+        },
 
         autofocus: true,
 
@@ -118,7 +172,7 @@ export class EditorComponent implements OnInit, AfterViewInit {
         answer: 'Sì, salva',
         color: 'primary',
       })
-      .subscribe((res) => {
+      .subscribe(() => {
         this.editor.save().then((content) => {
           this.saving = true;
 
@@ -156,7 +210,7 @@ export class EditorComponent implements OnInit, AfterViewInit {
         text: 'Non potrai più recuperarlo',
         color: 'warn',
       })
-      .subscribe((res) => {
+      .subscribe(() => {
         if (!this.articleID) {
           this.editor.clear();
           this.metadata.reset();

@@ -8,8 +8,6 @@ import { getCommissione } from '@controllers/commissione';
 router.get('/', isReferente, async (req: IRequest, res: Response) => {
   const result = await getCommissione(req.user.isReferente);
 
-  console.log(result);
-
   res.json(result);
 })
 
