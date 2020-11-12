@@ -23,6 +23,7 @@ import orders from '@routes/orders';
 import reports from '@routes/reports';
 import snacks from '@routes/snacks';
 import coge from '@routes/coge';
+import commissioni from '@routes/commissioni';
 
 // Connect to database
 mongoose.connect(env.DB_URI, {
@@ -87,6 +88,7 @@ app.use('/api/orders', orders);
 app.use('/api/reports', reports);
 app.use('/api/snacks', snacks);
 app.use('/api/coge', coge);
+app.use('/api/commissioni', commissioni);
 
 // Static folder
 app.use(express.static('./assets/public'));

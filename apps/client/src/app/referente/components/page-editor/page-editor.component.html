@@ -1,1 +1,19 @@
-<p>editor works!</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Gestisci la pagina della tua Commissione</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div id="editorjs"></div>
+  </mat-card-content>
+
+  <mat-card-actions class="actions">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="save()"
+    >
+      Salva pagina
+    </button>
+  </mat-card-actions>
+</mat-card>

@@ -10,7 +10,7 @@ import { IDashboardLink, IUser } from '@csl/shared';
 export class ReferenteComponent implements OnInit {
   links: IDashboardLink[] = [
     { title: 'Home', link: '.' },
-    { title: 'Gestisci pagina', link: 'Editor' },
+    { title: 'Gestisci pagina', link: 'editor' },
   ]
   commissione: IUser['isReferente'];
 

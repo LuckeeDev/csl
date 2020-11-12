@@ -2,6 +2,7 @@ export { IAccount } from './models/admin';
 export { IArticle, IArticleModel } from './models/article';
 export { IImage, ICarouselImage } from './models/carousel';
 export { TRole, IRole, IClass, IClassModel } from './models/classe';
+export { ICommissione, ICommissioneModel } from './models/commissione';
 export { ICourse, ICourseModel } from './models/course';
 export { IDashboardLink } from './models/dashboard';
 export { IDialogData } from './models/dialog';

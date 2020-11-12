@@ -76,6 +76,18 @@ export const isRappreDiClasse = (
   }
 };
 
+export const isReferente = (
+  req: IRequest,
+  res: Response, 
+  next: NextFunction
+) => {
+  if (req.user && req.user.isReferente) {
+    next();
+  } else {
+    unauthorized(res);
+  }
+}
+
 // Checks if a user is logged in and, if not, sends unauthorized response
 export const authCheck = (req: IRequest, res: Response, next: NextFunction) => {
   if (req.user) {
