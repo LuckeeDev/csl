@@ -3,7 +3,7 @@ const router = Router();
 
 import { authCheck, isReferente } from '@config/authcheck';
 import { ICommissione, IRequest } from '@csl/shared';
-import { getCommissione } from '@controllers/commissione';
+import { getCommissione, setPage } from '@controllers/commissione';
 
 router.get('/', isReferente, async (req: IRequest, res: Response) => {
   const result = await getCommissione(req.user.isReferente);
@@ -15,6 +15,12 @@ router.get('/:id', authCheck, async (req: IRequest, res: Response) => {
   const params: any = req.params;
   const id: ICommissione['id'] = params.id;
   const result = await getCommissione(id);
+
+  res.json(result);
+})
+
+router.patch('/', isReferente, async (req: IRequest, res: Response) => {
+  const result = await setPage(req.body.page, req.user);
 
   res.json(result);
 })

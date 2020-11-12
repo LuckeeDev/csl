@@ -16,4 +16,8 @@ export class CommissioniService {
       return this.http.get<IHttpRes<ICommissione>>(`/api/commissioni/${id}`);
     }
   }
+
+  savePage(page: ICommissione['page']): Observable<IHttpRes<any>> {
+    return this.http.patch<IHttpRes<any>>('/api/commissioni', { page });
+  }
 }

@@ -7,6 +7,9 @@ import Paragraph from '@editorjs/paragraph';
 import List from '@editorjs/list';
 import Image from '@editorjs/image';
 
+import { ICommissione } from '@csl/shared';
+import { DialogService, ToastrService } from '@csl/ui';
+
 @Component({
   selector: 'csl-editor',
   templateUrl: './page-editor.component.html',
@@ -15,7 +18,11 @@ import Image from '@editorjs/image';
 export class PageEditorComponent implements AfterViewInit {
   editor: EditorJS;
 
-  constructor(private commissioni: CommissioniService) {}
+  constructor(
+    private commissioni: CommissioniService,
+    private dialog: DialogService,
+    private toastr: ToastrService
+  ) {}
 
   ngAfterViewInit(): void {
     this.commissioni.getPage().subscribe((res) => {
@@ -120,6 +127,26 @@ export class PageEditorComponent implements AfterViewInit {
   }
 
   save() {
-    console.log('saved');
+    this.dialog
+      .open({
+        title: 'Salvare pagina?',
+        text: 'Potrai tornare quando vorrai per modificarla',
+        answer: 'Salva',
+        color: 'primary',
+      })
+      .subscribe(() => {
+        this.editor.save().then((page: ICommissione['page']) => {
+          this.commissioni.savePage(page).subscribe((res) => {
+            if (res.success) {
+              this.toastr.show({
+                color: 'success',
+                message: 'Pagina salvata',
+              });
+            } else {
+              this.toastr.showError();
+            }
+          });
+        });
+      });
   }
 }

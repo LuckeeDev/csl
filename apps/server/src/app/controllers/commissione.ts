@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { ICommissione, ICommissioneModel, IHttpRes } from '@csl/shared';
+import { ICommissione, ICommissioneModel, IHttpRes, IUser } from '@csl/shared';
 
 const CommissioneSchema = new Schema(
   {
@@ -30,5 +30,20 @@ export const getCommissione = async (id: ICommissione['id']): Promise<IHttpRes<I
       success: false,
       err
     };
+  }
+}
+
+export const setPage = async (page: ICommissione['page'], user: IUser): Promise<IHttpRes<any>> => {
+  try {
+    await Commissione.findOneAndUpdate({ id: user.isReferente }, { page });
+
+    return {
+      success: true
+    }
+  } catch (err) {
+    return {
+      success: false,
+      err
+    }
   }
 }
