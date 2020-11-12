@@ -22,9 +22,10 @@ import { CsvComponent } from '@shared/components/csv/csv.component';
 // Shared services
 import { MembersService } from '@shared/services/members/members.service';
 import { UploadService } from '@shared/services/upload/upload.service';
+import { CogeComponent } from './components/coge/coge.component';
 
 @NgModule({
-  declarations: [ClassiComponent, SingleClassComponent, CsvComponent],
+  declarations: [ClassiComponent, SingleClassComponent, CsvComponent, CogeComponent],
   imports: [
     CommonModule,
     RouterModule,

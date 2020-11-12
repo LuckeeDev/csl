@@ -6,6 +6,7 @@ import { RoleDescriptionPipe } from './roleDescription/role-description.pipe';
 import { ProductNamePipe } from './productName/product-name.pipe';
 import { ProductIdPipe } from './product-id/product-id.pipe';
 import { CategoryToColorPipe } from './category-to-color/category-to-color.pipe';
+import { CourseStatusPipe } from './course-status/course-status.pipe';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { CategoryToColorPipe } from './category-to-color/category-to-color.pipe'
     ProductNamePipe,
     ProductIdPipe,
     CategoryToColorPipe,
+    CourseStatusPipe,
   ],
   imports: [CommonModule],
   exports: [
@@ -22,6 +24,7 @@ import { CategoryToColorPipe } from './category-to-color/category-to-color.pipe'
     ProductNamePipe,
     ProductIdPipe,
     CategoryToColorPipe,
+    CourseStatusPipe
   ],
 })
 export class PipesModule {}

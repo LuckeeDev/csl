@@ -6,7 +6,7 @@ import { filter } from 'rxjs/operators';
 
 @Injectable()
 export class DialogService {
-  constructor(public dialogService: MatDialog) {}
+  constructor(private dialogService: MatDialog) {}
 
   open(data: IDialogData) {
     const dialogRef = this.dialogService.open(DialogComponent, {

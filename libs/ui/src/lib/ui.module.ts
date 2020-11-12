@@ -41,6 +41,7 @@ import { DeviceService } from './services/device/device.service';
 import { MatColorDirective } from './directives/mat-color/mat-color.directive';
 import { RoundedDirective } from './directives/rounded/rounded.directive';
 import { CarouselComponent } from './components/carousel/carousel.component';
+import { CreateCourseComponent } from './dashboard/components/create-course/create-course.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { CarouselComponent } from './components/carousel/carousel.component';
     MatColorDirective,
     RoundedDirective,
     CarouselComponent,
+    CreateCourseComponent,
   ],
   imports: [
     CommonModule,

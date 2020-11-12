@@ -1,7 +1,8 @@
 export { IAccount } from './models/admin';
 export { IArticle, IArticleModel } from './models/article';
-export { TRole, IRole, IClass, IClassModel } from './models/classe';
 export { IImage, ICarouselImage } from './models/carousel';
+export { TRole, IRole, IClass, IClassModel } from './models/classe';
+export { ICourse, ICourseModel } from './models/course';
 export { IDashboardLink } from './models/dashboard';
 export { IDialogData } from './models/dialog';
 export { IRequest } from './models/express';
