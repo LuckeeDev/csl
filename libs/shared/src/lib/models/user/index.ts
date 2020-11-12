@@ -22,6 +22,8 @@ export interface IUser {
     isRappreDiClasse?: boolean;
     isBar?: boolean;
     isAdmin?: boolean;
+
+    isReferente?: 'arte' | 'biblioteca' | 'cinema' | 'dibattito' | 'green' | 'feste' | 'lir' | 'musica' | 'omnia' | 'sport' | 'tutoring' | 'vale';
 }
 
 export interface IUserModel extends Document, IUser {

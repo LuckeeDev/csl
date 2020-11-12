@@ -1,17 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
-import {
-  TRole,
-  IUser,
-  IUserModel,
-  IHttpRes,
-  IAccount,
-} from '@csl/shared';
+import { TRole, IUser, IUserModel, IHttpRes, IAccount } from '@csl/shared';
 
 // Stripe initialization
 import { environment as env } from '@environments/environment';
 import Stripe from 'stripe';
 import { Class, updateSnackCreditInClass } from '@controllers/classe';
-import { Order } from './order';
 const stripe = new Stripe(env.STRIPE_KEY, {
   apiVersion: '2020-08-27',
   typescript: true,
@@ -33,6 +26,7 @@ const UserSchema = new Schema(
     isRappreDiClasse: { type: Boolean },
     isBar: { type: Boolean },
     isAdmin: { type: Boolean },
+    isReferente: { type: String },
   },
   { skipVersioning: true }
 );
