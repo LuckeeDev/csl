@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ICommissione, IHttpRes, IUser } from '@csl/shared';
+import { ICommissione, IHttpRes } from '@csl/shared';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class CommissioniService {
   constructor(private http: HttpClient) {}
 
-  getPage(id?: IUser['isReferente']): Observable<IHttpRes<ICommissione>> {
+  getPage(id?: string): Observable<IHttpRes<ICommissione>> {
     if (!id) {
       return this.http.get<IHttpRes<ICommissione>>('/api/commissioni');
     } else {

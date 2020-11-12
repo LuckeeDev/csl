@@ -1,5 +1,5 @@
 <!-- Show if at least one class exists -->
-<div *ngIf="(orders$ | async).classes as classes; else noOrders" class="cards">
+<div *ngIf="(orders$ | async).classes.length > 0 as classes; else noOrders" class="cards">
   <ng-container *ngFor="let class of classes">
     <mat-card [routerLink]="[class]">
       <mat-card-header>
@@ -10,4 +10,6 @@
 </div>
 
 <!-- Show if no class is present -->
-<ng-template #noOrders> Non ci sono ancora ordini! </ng-template>
+<ng-template #noOrders> 
+  <csl-alert color="primary">Non ci sono ancora ordini!</csl-alert>
+</ng-template>

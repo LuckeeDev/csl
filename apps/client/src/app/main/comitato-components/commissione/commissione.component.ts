@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-commissione',
+  selector: 'csl-commissione',
   templateUrl: './commissione.component.html',
   styleUrls: ['./commissione.component.scss'],
 })

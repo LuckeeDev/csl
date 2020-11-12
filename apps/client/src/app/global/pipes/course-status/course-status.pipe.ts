@@ -13,7 +13,7 @@ export class CourseStatusPipe implements PipeTransform {
       case 'WAITING':
         return {
           label: 'In attesa',
-          icon: 'watch_later',
+          icon: 'schedule',
           color: 'accent',
         };
       case 'APPROVED':
