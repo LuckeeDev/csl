@@ -2,10 +2,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+// Components
 import { ReferenteComponent } from '@referente/referente.component';
-
 import { ReferenteHomeComponent } from '@referente/components/referente-home/referente-home.component';
-import { PageEditorComponent } from '@referente/components/page-editor/page-editor.component';
+
+// Shared components
+import { PageEditorComponent } from '@shared/components/page-editor/page-editor.component';
 
 const routes: Routes = [
   {

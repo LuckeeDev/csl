@@ -13,6 +13,7 @@ import { CreateProductComponent } from '@rappre/components/create-product/create
 // Shared components
 import { ClassiComponent } from '@shared/components/classi/classi.component';
 import { SingleClassComponent } from '@shared/components/single-class/single-class.component';
+import { PageEditorComponent } from '@shared/components/page-editor/page-editor.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
       { path: '', component: RappreHomeComponent },
       { path: 'classi', component: ClassiComponent },
       { path: 'classi/:classID', component: SingleClassComponent },
+      { path: 'editor', component: PageEditorComponent },
       { path: ':category', component: ManageCategoryComponent },
       { path: ':category/create', component: CreateProductComponent },
     ],

@@ -18,6 +18,7 @@ import { PipesModule } from '@global/pipes/pipes.module';
 import { ClassiComponent } from '@shared/components/classi/classi.component';
 import { SingleClassComponent } from '@shared/components/single-class/single-class.component';
 import { CsvComponent } from '@shared/components/csv/csv.component';
+import { PageEditorComponent } from '@shared/components/page-editor/page-editor.component';
 
 // Shared services
 import { MembersService } from '@shared/services/members/members.service';
@@ -25,7 +26,7 @@ import { UploadService } from '@shared/services/upload/upload.service';
 import { CogeComponent } from './components/coge/coge.component';
 
 @NgModule({
-  declarations: [ClassiComponent, SingleClassComponent, CsvComponent, CogeComponent],
+  declarations: [ClassiComponent, SingleClassComponent, CsvComponent, CogeComponent, PageEditorComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -34,7 +35,7 @@ import { CogeComponent } from './components/coge/coge.component';
     PipesModule,
     NgxsModule.forFeature([ClassState]),
   ],
-  exports: [ClassiComponent, SingleClassComponent],
+  exports: [ClassiComponent, SingleClassComponent, CsvComponent, CogeComponent, PageEditorComponent],
   providers: [MembersService, UploadService],
 })
 export class SharedModule {}

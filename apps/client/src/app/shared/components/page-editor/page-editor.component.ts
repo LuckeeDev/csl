@@ -21,7 +21,7 @@ export class PageEditorComponent implements AfterViewInit {
   constructor(
     private commissioni: CommissioniService,
     private dialog: DialogService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {}
 
   ngAfterViewInit(): void {
