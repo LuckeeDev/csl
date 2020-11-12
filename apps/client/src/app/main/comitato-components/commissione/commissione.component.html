@@ -1,1 +1,34 @@
-<p>commissione works</p>
+<div class="container" *ngIf="commissione$ | async as commissione; else noPageYet">
+  <ng-container *ngFor="let block of commissione.page.blocks">
+    <ng-container [ngSwitch]="block.type">
+      <!-- Display in case the block type is header -->
+      <ng-container *ngSwitchCase="'header'">
+        <h1 class="header">{{ block.data.text }}</h1>
+      </ng-container>
+
+      <!-- Display in case the block type is image -->
+      <ng-container *ngSwitchCase="'image'">
+        <div class="img-container">
+          <img [src]="block.data.file.firebaseURL" class="image" />
+          <p class="caption">{{ block.data.caption }}</p>
+        </div>
+      </ng-container>
+
+      <!-- Display in case the block type is paragraph -->
+      <ng-container *ngSwitchCase="'paragraph'">
+        <p class="paragraph">{{ block.data.text }}</p>
+      </ng-container>
+
+      <!-- Display in case the block type is list -->
+      <ng-container *ngSwitchCase="'list'">
+        <ul class="list">
+          <li *ngFor="let element of block.data.items"></li>
+        </ul>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</div>
+
+<ng-template #noPageYet>
+  <csl-alert>Questa commissione non ha ancora una pagina personale! Torna più avanti...</csl-alert>
+</ng-template>

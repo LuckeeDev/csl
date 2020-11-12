@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CommissioniService } from '@global/services/commissioni/commissioni.service';
+import { ICommissione } from '@csl/shared';
+import { Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-commissione',
@@ -7,18 +11,18 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./commissione.component.scss'],
 })
 export class CommissioneComponent implements OnInit {
-  // commissioneData: ICommissione;
-  commissione: string;
+  commissione$: Observable<ICommissione>;
+  id: string;
 
-  constructor(private activated: ActivatedRoute) {}
+  constructor(
+    private activated: ActivatedRoute,
+    private commissioni: CommissioniService
+  ) {}
 
   ngOnInit(): void {
-    // this.activated.paramMap.subscribe((params) => {
-    //   this.commissione = params.get('commissione');
-
-    //   this.commissioneData = commissioni.find(
-    //     (x) => x.key === this.commissione
-    //   );
-    // });
+    this.commissione$ = this.activated.paramMap.pipe(
+      switchMap((params) => this.commissioni.getPage(params.get('id'))),
+      map((res) => res.data)
+    );
   }
 }

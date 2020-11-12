@@ -45,7 +45,7 @@ const routes: Routes = [
     component: ComitatoComponent,
     children: [
       { path: '', component: ComitatoHomeComponent },
-      { path: 'commissione/:commissione', component: CommissioneComponent },
+      { path: 'commissione/:id', component: CommissioneComponent },
     ],
   },
   { path: 'consulta', component: ConsultaComponent },
