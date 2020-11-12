@@ -4,10 +4,17 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ReferenteComponent } from '@referente/referente.component';
 
+import { ReferenteHomeComponent } from '@referente/components/referente-home/referente-home.component';
+import { PageEditorComponent } from '@referente/components/page-editor/page-editor.component';
+
 const routes: Routes = [
   {
     path: '',
-    component: ReferenteComponent
+    component: ReferenteComponent,
+    children: [
+      { path: '', component: ReferenteHomeComponent },
+      { path: 'editor', component: PageEditorComponent }
+    ]
   },
 ];
 
