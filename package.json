@@ -44,7 +44,7 @@
     "@editorjs/image": "^2.6.0",
     "@editorjs/list": "^1.6.1",
     "@editorjs/paragraph": "^2.8.0",
-    "@fortawesome/angular-fontawesome": "^0.6.1",
+    "@fortawesome/angular-fontawesome": "^0.8.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
     "@fortawesome/free-brands-svg-icons": "^5.13.0",
     "@fortawesome/free-regular-svg-icons": "^5.13.0",
