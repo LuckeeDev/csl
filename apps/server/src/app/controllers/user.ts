@@ -1,5 +1,12 @@
 import mongoose, { Schema } from 'mongoose';
-import { TRole, IUser, IUserModel, IHttpRes, IAccount } from '@csl/shared';
+import {
+  TRole,
+  IUser,
+  IUserModel,
+  IHttpRes,
+  IAccount,
+  ICommissione,
+} from '@csl/shared';
 
 // Stripe initialization
 import { environment as env } from '@environments/environment';
@@ -26,7 +33,22 @@ const UserSchema = new Schema(
     isRappreDiClasse: { type: Boolean },
     isBar: { type: Boolean },
     isAdmin: { type: Boolean },
-    isReferente: { type: String },
+    
+    isArte: { type: Boolean },
+    isBiblioteca: { type: Boolean },
+    isCinema: { type: Boolean },
+    isDibattito: { type: Boolean },
+    isGreen: { type: Boolean },
+    isFeste: { type: Boolean },
+    isLIR: { type: Boolean },
+    isMusica: { type: Boolean },
+    isOmnia: { type: Boolean },
+    isSport: { type: Boolean },
+    isTutoring: { type: Boolean },
+    isVale: { type: Boolean },
+    isAsl: { type: Boolean },
+    isConsulta: { type: Boolean },
+    isPortarti: { type: Boolean },
   },
   { skipVersioning: true }
 );
@@ -42,7 +64,7 @@ export const createAccount = async (
     { id: account.classID },
     {
       $push: {
-        members: { email: account.email, snackCredit: 0 },
+        members: { email: account.email, snackCredit: 0, roles: [] },
       },
     }
   )
@@ -101,19 +123,21 @@ export const removeAccount = async (
 };
 
 // Add a role to a user
-export const addRole = async (email: IUser['email'], role: TRole) => {
-  const classID = await User.findOneAndUpdate(
-    { email: email },
-    { [role]: true }
-  ).then((user) => {
-    return user!.classID;
-  });
+export const addRole = async (
+  email: IUser['email'],
+  role: TRole,
+) => {
+  const classID = await User.findOneAndUpdate({ email }, { [role]: true }).then(
+    (user) => {
+      return user.classID;
+    }
+  );
 
   return Class.findOne({ id: classID })
     .then((classe) => {
-      const member = classe!.members.find((x) => x.email === email);
+      const member = classe.members.find((x) => x.email === email);
 
-      member!.roles.push(role);
+      member.roles.push(role);
 
       return Class.findOneAndUpdate(
         { id: classID, members: { $elemMatch: { email } } },

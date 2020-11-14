@@ -21,7 +21,7 @@ import { Select, Store } from '@ngxs/store';
 import { Classes, ClassState, ClassStateModel, Roles } from '@shared/store';
 
 @Component({
-  selector: 'app-single-class',
+  selector: 'csl-single-class',
   templateUrl: './single-class.component.html',
   styleUrls: ['./single-class.component.scss'],
 })
@@ -40,6 +40,7 @@ export class SingleClassComponent implements OnInit {
       role: 'isRappreDiClasse',
     },
     { description: 'Direttore di QP', role: 'isQp' },
+    { description: 'Referente Sport', role: 'isSport' }
   ];
   filteredRoles: Observable<IRole[]>;
 

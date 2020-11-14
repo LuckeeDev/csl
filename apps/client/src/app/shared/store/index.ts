@@ -143,6 +143,8 @@ export class ClassState {
         return { role, description: "Rappresentante d'istituto" };
       case 'isRappreDiClasse':
         return { role, description: 'Rappresentante di classe' };
+      case 'isSport':
+        return { role, description: 'Referente Sport'}
     }
   }
 }

@@ -2,12 +2,30 @@ import { Document } from 'mongoose';
 import { IUser } from '../user';
 
 export type TRole =
+  // Admins
   | 'isQp'
   | 'isRappreDiClasse'
   | 'isRappre'
   | 'isVice'
   | 'isBar'
-  | 'isAdmin';
+  | 'isAdmin'
+
+  // Commissioni
+  | 'isArte'
+  | 'isBiblioteca'
+  | 'isCinema'
+  | 'isDibattito'
+  | 'isGreen'
+  | 'isFeste'
+  | 'isLIR'
+  | 'isMusica'
+  | 'isOmnia'
+  | 'isSport'
+  | 'isTutoring'
+  | 'isVale'
+  | 'isAsl'
+  | 'isConsulta'
+  | 'isPortarti';
 
 export interface IRole {
   description: string;

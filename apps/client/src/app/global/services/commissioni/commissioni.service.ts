@@ -9,12 +9,8 @@ import { HttpClient } from '@angular/common/http';
 export class CommissioniService {
   constructor(private http: HttpClient) {}
 
-  getPage(id?: string): Observable<IHttpRes<ICommissione>> {
-    if (!id) {
-      return this.http.get<IHttpRes<ICommissione>>('/api/commissioni');
-    } else {
-      return this.http.get<IHttpRes<ICommissione>>(`/api/commissioni/${id}`);
-    }
+  getPage(id: string): Observable<IHttpRes<ICommissione>> {
+    return this.http.get<IHttpRes<ICommissione>>(`/api/commissioni/${id}`);
   }
 
   savePage(page: ICommissione['page']): Observable<IHttpRes<any>> {

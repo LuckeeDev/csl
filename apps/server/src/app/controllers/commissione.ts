@@ -33,9 +33,9 @@ export const getCommissione = async (id: ICommissione['id']): Promise<IHttpRes<I
   }
 }
 
-export const setPage = async (page: ICommissione['page'], user: IUser): Promise<IHttpRes<any>> => {
+export const setPage = async (id: ICommissione['id'], page: ICommissione['page']): Promise<IHttpRes<any>> => {
   try {
-    await Commissione.findOneAndUpdate({ id: user.isReferente }, { page });
+    await Commissione.findOneAndUpdate({ id }, { page });
 
     return {
       success: true

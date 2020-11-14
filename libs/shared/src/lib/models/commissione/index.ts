@@ -1,5 +1,4 @@
 import { Document } from 'mongoose';
-import { IUser } from '../user';
 
 interface IFile {
   url: string;
@@ -31,12 +30,44 @@ interface IPage {
 }
 
 export interface ICommissione {
-  id: IUser['isReferente'];
+  id:
+    | 'arte'
+    | 'biblioteca'
+    | 'cinema'
+    | 'dibattito'
+    | 'green'
+    | 'feste'
+    | 'lir'
+    | 'musica'
+    | 'omnia'
+    | 'sport'
+    | 'tutoring'
+    | 'vale'
+    | 'comitato'
+    | 'asl'
+    | 'consulta'
+    | 'portarti';
   page: IPage;
   title: string;
   image: string;
 }
 
 export interface ICommissioneModel extends Document, ICommissione {
-  id: IUser['isReferente'];
+  id:
+    | 'arte'
+    | 'biblioteca'
+    | 'cinema'
+    | 'dibattito'
+    | 'green'
+    | 'feste'
+    | 'lir'
+    | 'musica'
+    | 'omnia'
+    | 'sport'
+    | 'tutoring'
+    | 'vale'
+    | 'comitato'
+    | 'asl'
+    | 'consulta'
+    | 'portarti';
 }

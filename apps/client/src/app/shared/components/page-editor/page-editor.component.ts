@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CommissioniService } from '@global/services/commissioni/commissioni.service';
 
 import EditorJS from '@editorjs/editorjs';
@@ -9,23 +9,32 @@ import Image from '@editorjs/image';
 
 import { ICommissione } from '@csl/shared';
 import { DialogService, ToastrService } from '@csl/ui';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'csl-editor',
   templateUrl: './page-editor.component.html',
   styleUrls: ['./page-editor.component.scss'],
 })
-export class PageEditorComponent implements AfterViewInit {
+export class PageEditorComponent implements AfterViewInit, OnInit {
   editor: EditorJS;
+
+  commissione: string;
 
   constructor(
     private commissioni: CommissioniService,
     private dialog: DialogService,
     private toastr: ToastrService,
+    private activated: ActivatedRoute
   ) {}
 
+  ngOnInit(): void {
+    this.commissione = this.activated.snapshot.paramMap.get('commissione');
+    console.log(this.commissione);
+  }
+
   ngAfterViewInit(): void {
-    this.commissioni.getPage().subscribe((res) => {
+    this.commissioni.getPage(this.commissione).subscribe((res) => {
       const data = res.data;
 
       this.editor = new EditorJS({

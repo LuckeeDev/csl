@@ -1,5 +1,5 @@
 import { Response, NextFunction } from 'express';
-import { IRequest } from '@csl/shared';
+import { ICommissione, IRequest } from '@csl/shared';
 
 function unauthorized(res: Response) {
   res.status(403).end();
@@ -76,12 +76,18 @@ export const isRappreDiClasse = (
   }
 };
 
+// Checks if a user isReferente of the referred commissione
 export const isReferente = (
   req: IRequest,
   res: Response, 
   next: NextFunction
 ) => {
-  if (req.user && req.user.isReferente) {
+  const params: any = req.params;
+  const commissione: ICommissione['id'] = params.id;
+
+  const role = `is${commissione.charAt(0).toUpperCase()}`
+
+  if (req.user && req.user[role]) {
     next();
   } else {
     unauthorized(res);

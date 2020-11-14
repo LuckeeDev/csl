@@ -23,23 +23,22 @@ export interface IUser {
   isBar?: boolean;
   isAdmin?: boolean;
 
-  isReferente?:
-    | 'arte'
-    | 'biblioteca'
-    | 'cinema'
-    | 'dibattito'
-    | 'green'
-    | 'feste'
-    | 'lir'
-    | 'musica'
-    | 'omnia'
-    | 'sport'
-    | 'tutoring'
-    | 'vale'
-    | 'comitato'
-    | 'asl'
-    | 'consulta'
-    | 'portarti';
+  // Commissioni
+  isArte?: boolean;
+  isBiblioteca?: boolean;
+  isCinema?: boolean;
+  isDibattito?: boolean;
+  isGreen?: boolean;
+  isFeste?: boolean;
+  isLIR?: boolean;
+  isMusica?: boolean;
+  isOmnia?: boolean;
+  isSport?: boolean;
+  isTutoring?: boolean;
+  isVale?: boolean;
+  isAsl?: boolean;
+  isConsulta?: boolean;
+  isPortarti?: boolean;
 }
 
 export interface IUserModel extends Document, IUser {
