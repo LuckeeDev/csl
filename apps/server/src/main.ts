@@ -5,12 +5,15 @@ import * as path from 'path';
 import * as mongoose from 'mongoose';
 import { environment as env } from '@environments/environment';
 import * as passport from 'passport';
-import '@config/passport';
 import * as fileUpload from 'express-fileupload';
 import cookieSession from 'cookie-session';
 import { webhookHandler } from '@config/webhook';
 import * as http from 'http';
 import * as io from 'socket.io';
+
+import '@config/passport';
+import { socketConfig } from '@config/socket';
+import { logger } from '@config/winston';
 
 // Routes
 import admin from '@routes/admin';
@@ -101,8 +104,7 @@ const port = env.PORT;
 const server = http.createServer(app);
 const socket = io(server, { path: '/api/socket' });
 
-import { config } from '@config/socket';
-config(socket);
+socketConfig(socket);
 
 server.listen(port, () => {
   console.log(`Server started on port ${port}`);
