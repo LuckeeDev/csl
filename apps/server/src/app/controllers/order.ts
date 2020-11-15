@@ -16,7 +16,7 @@ const OrderSchema = new Schema(
   { skipVersioning: true }
 );
 
-export const Order = mongoose.model<IOrderModel>('order', OrderSchema);
+export const Order = mongoose.model<IOrderModel>('order', OrderSchema, 'gadget-orders');
 
 // Create a new order
 export const addToCart = async (product: IProductInCart, user: IUser): Promise<IHttpRes<any>> => {

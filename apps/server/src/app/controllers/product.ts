@@ -20,7 +20,7 @@ const ProductSchema = new Schema(
   { versionKey: false }
 );
 
-export const Product = mongoose.model<IProductModel>('product', ProductSchema);
+export const Product = mongoose.model<IProductModel>('product', ProductSchema, 'gadgets');
 
 // Get all gadgets in the database
 export const getAllGadgets = async () => {

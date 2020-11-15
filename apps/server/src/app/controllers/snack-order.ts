@@ -20,7 +20,8 @@ const SnackOrderSchema = new Schema(
 
 export const SnackOrder = mongoose.model<ISnackOrderModel>(
   'snackorder',
-  SnackOrderSchema
+  SnackOrderSchema,
+  'snack-orders'
 );
 
 export const addSnackToCart = async (id: ISnack['id'], user: IUser) => {

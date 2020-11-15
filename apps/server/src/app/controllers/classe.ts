@@ -15,7 +15,7 @@ const ClassSchema = new Schema(
   { skipVersioning: true }
 );
 
-export const Class = mongoose.model<IClassModel>('class', ClassSchema);
+export const Class = mongoose.model<IClassModel>('class', ClassSchema, 'classi');
 
 // Get all classes in the database
 export const getClasses: any = async () => {
