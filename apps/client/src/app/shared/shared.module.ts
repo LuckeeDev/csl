@@ -23,7 +23,7 @@ import { PageEditorComponent } from '@shared/components/page-editor/page-editor.
 // Shared services
 import { MembersService } from '@shared/services/members/members.service';
 import { UploadService } from '@shared/services/upload/upload.service';
-import { CogeComponent } from './components/coge/coge.component';
+import { CogeComponent } from '@shared/components/coge/coge.component';
 
 @NgModule({
   declarations: [ClassiComponent, SingleClassComponent, CsvComponent, CogeComponent, PageEditorComponent],

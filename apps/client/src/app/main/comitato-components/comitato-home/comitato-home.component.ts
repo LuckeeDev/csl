@@ -22,18 +22,20 @@ export class ComitatoHomeComponent implements OnInit {
     this.comitato$ = this.commissioni.getPage('comitato').pipe(
       map((res) => res.data),
       map((comitato) => {
-        comitato.page.blocks.map(async (block) => {
-          if (block.type === 'image') {
-            block.data.file.firebaseURL = await this.afs
-              .ref(`${block.data.file.firebasePath}`)
-              .getDownloadURL()
-              .toPromise();
+        if (comitato && comitato.page) {
+          comitato.page.blocks.map(async (block) => {
+            if (block.type === 'image') {
+              block.data.file.firebaseURL = await this.afs
+                .ref(`${block.data.file.firebasePath}`)
+                .getDownloadURL()
+                .toPromise();
 
-            return block;
-          } else {
-            return block;
-          }
-        });
+              return block;
+            } else {
+              return block;
+            }
+          });
+        }
 
         return comitato;
       })

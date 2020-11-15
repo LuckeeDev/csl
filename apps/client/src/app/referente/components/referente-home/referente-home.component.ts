@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@global/services/auth/auth.service';
 import { DialogService } from '@csl/ui';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'csl-referente-home',
@@ -11,11 +10,9 @@ import { ActivatedRoute } from '@angular/router';
 export class ReferenteHomeComponent implements OnInit {
   commissione: string;
 
-  constructor(public auth: AuthService, private dialog: DialogService, private activated: ActivatedRoute) { }
+  constructor(public auth: AuthService, private dialog: DialogService) { }
 
   ngOnInit(): void {
-    this.commissione = this.activated.snapshot.paramMap.get('commissione');
-    console.log(this.commissione);
   }
 
   signOut() {
@@ -26,7 +23,7 @@ export class ReferenteHomeComponent implements OnInit {
         color: 'warn',
         answer: 'Sì, esci',
       })
-      .subscribe((res) => {
+      .subscribe(() => {
         this.auth.signOut();
       });
   }

@@ -10,18 +10,10 @@ import fse from 'fs-extra';
 import { join } from 'path';
 import { tmpdir } from 'os';
 
-// router.get('/', /*isReferente,*/ async (req: IRequest, res: Response) => {
-//   const result = await getCommissione(req.user);
-
-//   res.json(result);
-// })
-
 router.get('/:id', authCheck, async (req: IRequest, res: Response) => {
   const params: any = req.params;
   const id: ICommissione['id'] = params.id;
-  console.log(id);
   const result = await getCommissione(id);
-  console.log(result);
 
   res.json(result);
 })
@@ -35,7 +27,7 @@ router.patch('/:id', isReferente, async (req: IRequest, res: Response) => {
 })
 
 // Images
-router.post('/image', /*isReferente,*/ async (req: IRequest, res: Response) => {
+router.post('/image', isReferente, async (req: IRequest, res: Response) => {
   const files: any = req.files;
   const image: UploadedFile = files.image;
   const fileName = `${Date.now()}_${image.name}`;

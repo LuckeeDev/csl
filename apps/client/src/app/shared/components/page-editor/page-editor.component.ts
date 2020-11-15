@@ -9,7 +9,8 @@ import Image from '@editorjs/image';
 
 import { ICommissione } from '@csl/shared';
 import { DialogService, ToastrService } from '@csl/ui';
-import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '@global/services/auth/auth.service';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'csl-editor',
@@ -19,120 +20,129 @@ import { ActivatedRoute } from '@angular/router';
 export class PageEditorComponent implements AfterViewInit, OnInit {
   editor: EditorJS;
 
-  commissione: string;
+  commissione: ICommissione['id'];
 
   constructor(
     private commissioni: CommissioniService,
     private dialog: DialogService,
     private toastr: ToastrService,
-    private activated: ActivatedRoute
+    private auth: AuthService
   ) {}
 
-  ngOnInit(): void {
-    this.commissione = this.activated.snapshot.paramMap.get('commissione');
-    console.log(this.commissione);
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.commissioni.getPage(this.commissione).subscribe((res) => {
-      const data = res.data;
+    this.auth.user$
+      .pipe(
+        map(user => {
+          if (user.isRappre) {
+            return 'comitato';
+          } else {
+            return user.isReferente;
+          }
+        }),
+        tap((commissione) => (this.commissione = commissione)),
+        switchMap((commissione) => this.commissioni.getPage(commissione))
+      )
+      .subscribe((res) => {
+        const data = res.data;
 
-      this.editor = new EditorJS({
-        holder: 'editorjs',
+        this.editor = new EditorJS({
+          holder: 'editorjs',
 
-        data: data.page ? data.page : null,
+          data: data.page ? data.page : null,
 
-        tools: {
-          header: {
-            class: Header,
-            shortcut: 'CTRL+ALT+T',
-            inlineToolbar: true,
-            config: {
-              placeholder: 'Titolo',
-              levels: [1, 2, 3],
-              defaultLevel: 1,
+          tools: {
+            header: {
+              class: Header,
+              shortcut: 'CTRL+ALT+T',
+              inlineToolbar: true,
+              config: {
+                placeholder: 'Titolo',
+                levels: [1, 2, 3],
+                defaultLevel: 1,
+              },
             },
-          },
-          paragraph: {
-            class: Paragraph,
-            shortcut: 'CTRL+ALT+Q',
-            inlineToolbar: true,
-            config: {
-              placeholder: 'Paragrafo',
+            paragraph: {
+              class: Paragraph,
+              shortcut: 'CTRL+ALT+Q',
+              inlineToolbar: true,
+              config: {
+                placeholder: 'Paragrafo',
+              },
             },
-          },
-          list: {
-            class: List,
-            inlineToolbar: true,
-            shortcut: 'CTRL+ALT+W',
-          },
-          image: {
-            class: Image,
-            shortcut: 'CTRL+ALT+I',
-            inlineToolbar: true,
-            config: {
-              endpoints: {
-                byFile: `/api/commissioni/image`,
+            list: {
+              class: List,
+              inlineToolbar: true,
+              shortcut: 'CTRL+ALT+W',
+            },
+            image: {
+              class: Image,
+              shortcut: 'CTRL+ALT+I',
+              inlineToolbar: true,
+              config: {
+                endpoints: {
+                  byFile: `/api/commissioni/image`,
+                },
               },
             },
           },
-        },
 
-        i18n: {
-          messages: {
-            toolNames: {
-              Text: 'Paragrafo',
-              Heading: 'Titolo',
-              List: 'Elenco',
-              Image: 'Immagine',
-              Bold: 'Grassetto',
-              Italic: 'Corsivo',
-            },
-            tools: {
-              list: {
-                Ordered: 'Numerato',
-                Unordered: 'Non numerato',
+          i18n: {
+            messages: {
+              toolNames: {
+                Text: 'Paragrafo',
+                Heading: 'Titolo',
+                List: 'Elenco',
+                Image: 'Immagine',
+                Bold: 'Grassetto',
+                Italic: 'Corsivo',
               },
-              image: {
-                'Select an Image': "Carica un'immagine",
-                'With border': 'Con bordo',
-                'Stretch image': 'Allarga immagine',
-                'With background': 'Con sfondo',
+              tools: {
+                list: {
+                  Ordered: 'Numerato',
+                  Unordered: 'Non numerato',
+                },
+                image: {
+                  'Select an Image': "Carica un'immagine",
+                  'With border': 'Con bordo',
+                  'Stretch image': 'Allarga immagine',
+                  'With background': 'Con sfondo',
+                },
+                link: {
+                  'Add a link': 'Aggiungi un link',
+                },
               },
-              link: {
-                'Add a link': 'Aggiungi un link',
-              },
-            },
-            blockTunes: {
-              delete: { Delete: 'Elimina' },
-              moveUp: { 'Move up': 'Sposta su' },
-              moveDown: { 'Move down': 'Sposta giù' },
-            },
-            ui: {
               blockTunes: {
-                toggler: {
-                  'Click to tune': 'Modifica',
-                },
+                delete: { Delete: 'Elimina' },
+                moveUp: { 'Move up': 'Sposta su' },
+                moveDown: { 'Move down': 'Sposta giù' },
               },
-              inlineToolbar: {
-                converter: {
-                  'Convert to': 'Converti in',
+              ui: {
+                blockTunes: {
+                  toggler: {
+                    'Click to tune': 'Modifica',
+                  },
                 },
-              },
-              toolbar: {
-                toolbox: {
-                  Add: 'Aggiungi',
+                inlineToolbar: {
+                  converter: {
+                    'Convert to': 'Converti in',
+                  },
+                },
+                toolbar: {
+                  toolbox: {
+                    Add: 'Aggiungi',
+                  },
                 },
               },
             },
           },
-        },
 
-        defaultBlock: 'paragraph',
+          defaultBlock: 'paragraph',
 
-        autofocus: true,
+          autofocus: true,
+        });
       });
-    });
   }
 
   save() {
@@ -145,7 +155,7 @@ export class PageEditorComponent implements AfterViewInit, OnInit {
       })
       .subscribe(() => {
         this.editor.save().then((page: ICommissione['page']) => {
-          this.commissioni.savePage(page).subscribe((res) => {
+          this.commissioni.savePage(this.commissione, page).subscribe((res) => {
             if (res.success) {
               this.toastr.show({
                 color: 'success',

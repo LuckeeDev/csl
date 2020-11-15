@@ -12,7 +12,7 @@ export const isAdmin = (req: IRequest, res: Response, next: NextFunction) => {
   } else {
     unauthorized(res);
   }
-}
+};
 
 // Checks if a user is either vice, rappre or bar
 export const isPowerful = (
@@ -79,20 +79,22 @@ export const isRappreDiClasse = (
 // Checks if a user isReferente of the referred commissione
 export const isReferente = (
   req: IRequest,
-  res: Response, 
+  res: Response,
   next: NextFunction
 ) => {
   const params: any = req.params;
   const commissione: ICommissione['id'] = params.id;
 
-  const role = `is${commissione.charAt(0).toUpperCase()}`
-
-  if (req.user && req.user[role]) {
+  if (
+    req.user &&
+    ((commissione === 'comitato' && req.user.isRappre) ||
+      req.user.isReferente === commissione)
+  ) {
     next();
   } else {
     unauthorized(res);
   }
-}
+};
 
 // Checks if a user is logged in and, if not, sends unauthorized response
 export const authCheck = (req: IRequest, res: Response, next: NextFunction) => {

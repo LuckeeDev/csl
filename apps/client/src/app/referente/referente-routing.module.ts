@@ -14,8 +14,8 @@ const routes: Routes = [
     path: '',
     component: ReferenteComponent,
     children: [
-      { path: ':commissione', component: ReferenteHomeComponent },
-      { path: ':commissione/editor', component: PageEditorComponent }
+      { path: '', component: ReferenteHomeComponent },
+      { path: 'editor', component: PageEditorComponent }
     ]
   },
 ];
