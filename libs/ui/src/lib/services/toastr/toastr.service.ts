@@ -13,9 +13,9 @@ export class ToastrService {
     });
   }
 
-  showError(): MatSnackBarRef<any> {
+  showError(err?: string): MatSnackBarRef<any> {
     return this.snackBar.open(
-      'Sembra che ci sia stato un errore, riprovare più tardi',
+      err || 'Sembra che ci sia stato un errore, riprovare più tardi',
       'Chiudi',
       {
         duration: 5000,

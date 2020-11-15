@@ -10,22 +10,38 @@ export type TRole =
   | 'isBar'
   | 'isAdmin'
 
-  // Commissioni
-  | 'isArte'
-  | 'isBiblioteca'
-  | 'isCinema'
-  | 'isDibattito'
-  | 'isGreen'
-  | 'isFeste'
-  | 'isLIR'
-  | 'isMusica'
-  | 'isOmnia'
-  | 'isSport'
-  | 'isTutoring'
-  | 'isVale'
-  | 'isAsl'
-  | 'isConsulta'
-  | 'isPortarti';
+  | 'isReferente[arte]'
+  | 'isReferente[biblioteca]'
+  | 'isReferente[cinema]'
+  | 'isReferente[dibattito]'
+  | 'isReferente[green]'
+  | 'isReferente[feste]'
+  | 'isReferente[lir]'
+  | 'isReferente[musica]'
+  | 'isReferente[omnia]'
+  | 'isReferente[sport]'
+  | 'isReferente[tutoring]'
+  | 'isReferente[vale]'
+  | 'isReferente[asl]'
+  | 'isReferente[consulta]'
+  | 'isReferente[portarti]';
+  
+  // // Commissioni
+  // | 'isArte'
+  // | 'isBiblioteca'
+  // | 'isCinema'
+  // | 'isDibattito'
+  // | 'isGreen'
+  // | 'isFeste'
+  // | 'isLIR'
+  // | 'isMusica'
+  // | 'isOmnia'
+  // | 'isSport'
+  // | 'isTutoring'
+  // | 'isVale'
+  // | 'isAsl'
+  // | 'isConsulta'
+  // | 'isPortarti';
 
 export interface IRole {
   description: string;

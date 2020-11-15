@@ -40,8 +40,23 @@ export class SingleClassComponent implements OnInit {
       role: 'isRappreDiClasse',
     },
     { description: 'Direttore di QP', role: 'isQp' },
-    { description: 'Referente Sport', role: 'isSport' }
+    { description: 'Referente Arte', role: 'isReferente[arte]' },
+    { description: 'Referente ASL', role: 'isReferente[asl]' },
+    { description: 'Referente Biblioteca', role: 'isReferente[biblioteca]' },
+    { description: 'Referente Cinema', role: 'isReferente[cinema]' },
+    { description: 'Referente Consulta', role: 'isReferente[consulta]' },
+    { description: 'Referente Dibattito', role: 'isReferente[dibattito]' },
+    { description: 'Referente Green', role: 'isReferente[green]' },
+    { description: 'Referente Feste', role: 'isReferente[feste]' },
+    { description: 'Referente LIR', role: 'isReferente[lir]' },
+    { description: 'Referente Musica', role: 'isReferente[musica]' },
+    { description: 'Referente Omnia', role: 'isReferente[omnia]' },
+    { description: 'Referente PortArti', role: 'isReferente[portarti]' },
+    { description: 'Referente Sport', role: 'isReferente[sport]' },
+    { description: 'Referente Tutoring', role: 'isReferente[tutoring]' },
+    { description: 'Referente VALE', role: 'isReferente[vale]' },
   ];
+
   filteredRoles: Observable<IRole[]>;
 
   @ViewChild('roleInput') roleInput: ElementRef<HTMLInputElement>;
@@ -96,7 +111,12 @@ export class SingleClassComponent implements OnInit {
     this.roleCtrl.setValue(null);
 
     if (roles.find((x) => x.role === role.role)) {
-      this.toastr.show({ message: 'Questo utente ha già questo ruolo!', color: 'accent' });
+      this.toastr.show({
+        message: 'Questo utente ha già questo ruolo!',
+        color: 'accent',
+      });
+    } else if (roles.find((x) => x.role.includes('isReferente'))) {
+      this.toastr.showError('Impossibile aggiungere un altro ruolo da referente!');
     } else {
       this.store.dispatch(new Roles.Add(role, email)).subscribe(() => {
         this.toastr.show({
@@ -113,7 +133,7 @@ export class SingleClassComponent implements OnInit {
     this.store.dispatch(new Roles.Remove(role, email)).subscribe(() => {
       this.toastr.show({
         message: `Ruolo rimosso da ${email}`,
-        color: 'accent'
+        color: 'accent',
       });
     });
   }

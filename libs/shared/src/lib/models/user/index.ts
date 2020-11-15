@@ -1,4 +1,5 @@
 import { Document } from 'mongoose';
+import { ICommissione } from '../commissione';
 
 export interface IUserInCsv {
   email: string;
@@ -23,22 +24,7 @@ export interface IUser {
   isBar?: boolean;
   isAdmin?: boolean;
 
-  // Commissioni
-  isArte?: boolean;
-  isBiblioteca?: boolean;
-  isCinema?: boolean;
-  isDibattito?: boolean;
-  isGreen?: boolean;
-  isFeste?: boolean;
-  isLIR?: boolean;
-  isMusica?: boolean;
-  isOmnia?: boolean;
-  isSport?: boolean;
-  isTutoring?: boolean;
-  isVale?: boolean;
-  isAsl?: boolean;
-  isConsulta?: boolean;
-  isPortarti?: boolean;
+  isReferente?: ICommissione['id'];
 }
 
 export interface IUserModel extends Document, IUser {

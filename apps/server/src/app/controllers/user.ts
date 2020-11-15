@@ -1,12 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import {
-  TRole,
-  IUser,
-  IUserModel,
-  IHttpRes,
-  IAccount,
-  ICommissione,
-} from '@csl/shared';
+import { TRole, IUser, IUserModel, IHttpRes, IAccount } from '@csl/shared';
 
 // Stripe initialization
 import { environment as env } from '@environments/environment';
@@ -33,22 +26,8 @@ const UserSchema = new Schema(
     isRappreDiClasse: { type: Boolean },
     isBar: { type: Boolean },
     isAdmin: { type: Boolean },
-    
-    isArte: { type: Boolean },
-    isBiblioteca: { type: Boolean },
-    isCinema: { type: Boolean },
-    isDibattito: { type: Boolean },
-    isGreen: { type: Boolean },
-    isFeste: { type: Boolean },
-    isLIR: { type: Boolean },
-    isMusica: { type: Boolean },
-    isOmnia: { type: Boolean },
-    isSport: { type: Boolean },
-    isTutoring: { type: Boolean },
-    isVale: { type: Boolean },
-    isAsl: { type: Boolean },
-    isConsulta: { type: Boolean },
-    isPortarti: { type: Boolean },
+
+    isReferente: { type: String },
   },
   { skipVersioning: true }
 );
@@ -123,61 +102,78 @@ export const removeAccount = async (
 };
 
 // Add a role to a user
-export const addRole = async (
-  email: IUser['email'],
-  role: TRole,
-) => {
-  const classID = await User.findOneAndUpdate({ email }, { [role]: true }).then(
-    (user) => {
-      return user.classID;
-    }
-  );
+export const addRole = async (email: IUser['email'], role: TRole) => {
+  let updateQuery: { [key: string]: boolean | string };
 
-  return Class.findOne({ id: classID })
-    .then((classe) => {
+  if (role.includes('isReferente')) {
+    const regExp = /\[([^)]+)\]/;
+    const commissione = regExp.exec(role)[1];
+
+    updateQuery = { isReferente: commissione };
+  } else {
+    updateQuery = { [role]: true };
+  }
+
+  try {
+    const classID = await User.findOneAndUpdate({ email }, updateQuery).then(
+      (user) => user.classID
+    );
+
+    return Class.findOne({ id: classID }).then(async (classe) => {
       const member = classe.members.find((x) => x.email === email);
 
       member.roles.push(role);
 
-      return Class.findOneAndUpdate(
-        { id: classID, members: { $elemMatch: { email } } },
-        { 'members.$': member }
-      )
-        .then((res) => {
-          return {
-            success: true,
-          };
-        })
-        .catch((err) => {
-          return {
-            success: false,
-            err,
-          };
-        });
-    })
-    .catch((err) => {
-      return {
-        success: false,
-        err,
-      };
+      try {
+        await Class.findOneAndUpdate(
+          { id: classID, members: { $elemMatch: { email } } },
+          { 'members.$': member }
+        );
+
+        return {
+          success: true,
+        };
+      } catch (err) {
+        return {
+          success: false,
+          err,
+        };
+      }
     });
+  } catch (err) {
+    return {
+      success: false,
+      err,
+    };
+  }
 };
 
 // Remove a role from a user
 export const removeRole = async (email: IUser['email'], role: TRole) => {
+  let updateClassQuery: any;
+
+  if (role.includes('isReferente')) {
+    const regExp = /\[([^)]+)\]/;
+    const commissione = regExp.exec(role)[1];
+
+    updateClassQuery = { isReferente: commissione };
+  } else {
+    updateClassQuery = { [role]: true };
+  }
+
   const classID = await User.findOneAndUpdate(
     { email: email },
-    { $unset: { [role]: true } }
+    { $unset: updateClassQuery }
   ).then((user) => {
     return user!.classID;
   });
 
   return Class.findOne({ id: classID }).then((classe) => {
-    const member = classe!.members.find((x) => x.email === email);
+    const member = classe.members.find((x) => x.email === email);
 
-    const i = member!.roles.findIndex((x) => x === role);
+    const i = member.roles.findIndex((x) => x === role);
 
-    member!.roles.splice(i, 1);
+    member.roles.splice(i, 1);
 
     return Class.findOneAndUpdate(
       { id: classID, members: { $elemMatch: { email } } },
