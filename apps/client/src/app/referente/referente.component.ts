@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@global/services/auth/auth.service';
-import { IDashboardLink, IUser } from '@csl/shared';
-import { ActivatedRoute } from '@angular/router';
+import { ICommissione, IDashboardLink } from '@csl/shared';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'csl-referente',
@@ -13,12 +14,12 @@ export class ReferenteComponent implements OnInit {
     { title: 'Home', link: '.' },
     { title: 'Gestisci pagina', link: 'editor' },
   ]
-  commissione: string;
+  commissione$: Observable<ICommissione['id']>;
 
-  constructor(private activated: ActivatedRoute) { }
+  constructor(private auth: AuthService) { }
 
   ngOnInit(): void {
-    this.commissione = this.activated.snapshot.paramMap.get('commissione');
+    this.commissione$ = this.auth.user$.pipe(map(user => user.isReferente))
   }
 
 }

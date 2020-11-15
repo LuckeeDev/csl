@@ -11,6 +11,7 @@ import { ICommissione } from '@csl/shared';
 import { DialogService, ToastrService } from '@csl/ui';
 import { AuthService } from '@global/services/auth/auth.service';
 import { map, switchMap, tap } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'csl-editor',
@@ -26,7 +27,8 @@ export class PageEditorComponent implements AfterViewInit, OnInit {
     private commissioni: CommissioniService,
     private dialog: DialogService,
     private toastr: ToastrService,
-    private auth: AuthService
+    private auth: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -35,9 +37,9 @@ export class PageEditorComponent implements AfterViewInit, OnInit {
     this.auth.user$
       .pipe(
         map(user => {
-          if (user.isRappre) {
+          if (this.router.url.includes('rappre') && user.isRappre) {
             return 'comitato';
-          } else {
+          } else if (this.router.url.includes('referente')) {
             return user.isReferente;
           }
         }),
