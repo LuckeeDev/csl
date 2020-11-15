@@ -16,7 +16,7 @@ h1 {
   max-height: 600px;
   display: flex;
   justify-content: center;
-  flex-wrap: wrap
+  flex-wrap: wrap;
 }
 
 .image {
@@ -38,4 +38,12 @@ h1 {
   margin-left: 20vw;
   margin-right: 20vw;
   margin-top: 40px;
+}
+
+@media screen and (max-width: 1250px) {
+  .page {
+    margin-left: 10vw;
+    margin-right: 10vw;
+    margin-top: 20px;
+  }
 }
