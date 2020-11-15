@@ -1,6 +1,7 @@
 import winston from 'winston';
 import { MongoDB } from 'winston-mongodb';
 import { environment as env } from '@environments/environment';
+import { ILogMetadata } from '../../../../../libs/shared/src/lib/shared';
 
 const logger = winston.createLogger({
   transports: [
@@ -29,10 +30,10 @@ const logger = winston.createLogger({
   ],
 });
 
-export const saveEvent = (msg: string, metadata: { [key: string]: any }) => {
+export const saveEvent = (msg: string, metadata?: ILogMetadata) => {
   logger.log('info', msg, { metadata });
 };
 
-export const saveError = (err: string, metadata: { [key: string]: any }) => {
+export const saveError = (err: string, metadata?: ILogMetadata) => {
   logger.log('error', err, { metadata });
 };

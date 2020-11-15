@@ -21,7 +21,7 @@ router.get('/:id', authCheck, async (req: IRequest, res: Response) => {
 router.patch('/:id', isReferente, async (req: IRequest, res: Response) => {
   const params: any = req.params;
   const id: ICommissione['id'] = params.id;
-  const result = await setPage(id, req.body.page);
+  const result = await setPage(id, req.body.page, req.user);
 
   res.json(result);
 })
