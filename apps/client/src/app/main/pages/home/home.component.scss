@@ -1,10 +1,21 @@
 .background {
   position: absolute;
   z-index: -1;
+  height: 415px;
+  width: 100%;
+  overflow: hidden;
 
-  img {
+  .rectangle {
+    height: 115px;
     width: 100%;
-    height: auto;
+    background-color: #0d47a1;
+  }
+
+  .triangle {
+    width: 0;
+    height: 0;
+    border-top: 300px solid #0d47a1;
+    border-right: 100vw solid transparent;
   }
 }
 
@@ -70,7 +81,7 @@ h1 {
 
 .link {
   text-decoration: none;
-  color: #0D47A1;
+  color: #0d47a1;
   font-weight: 500;
 }
 
