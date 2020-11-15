@@ -2,7 +2,7 @@ import winston from 'winston';
 import { MongoDB } from 'winston-mongodb';
 import { environment as env } from '@environments/environment';
 
-export const logger = winston.createLogger({
+const logger = winston.createLogger({
   transports: [
     new MongoDB({
       level: 'info',
@@ -28,3 +28,11 @@ export const logger = winston.createLogger({
     }),
   ],
 });
+
+export const saveEvent = (msg: string, metadata: { [key: string]: any }) => {
+  logger.log('info', msg, { metadata });
+};
+
+export const saveError = (err: string, metadata: { [key: string]: any }) => {
+  logger.log('error', err, { metadata });
+};

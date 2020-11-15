@@ -13,7 +13,6 @@ import * as io from 'socket.io';
 
 import '@config/passport';
 import { socketConfig } from '@config/socket';
-import { logger } from '@config/winston';
 
 // Routes
 import admin from '@routes/admin';
