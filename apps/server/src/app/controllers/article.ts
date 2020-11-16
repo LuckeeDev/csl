@@ -116,7 +116,7 @@ export const changeArticlePublished = async (id: IArticle['id'], state: IArticle
   try {
     await Article.findOneAndUpdate({ id }, { published: state });
 
-    saveEvent(`Modificato stato dell'articolo ${id}`, {
+    saveEvent(`Modificato stato dell'articolo '${id}'`, {
       category: 'qp',
       user: user.email,
       newState: state,
@@ -126,7 +126,7 @@ export const changeArticlePublished = async (id: IArticle['id'], state: IArticle
       success: true,
     }
   } catch (err) {
-    saveError(`Errore durante il tentativo di modifica dello stato dell'articolo ${id}`, {
+    saveError(`Errore durante il tentativo di modifica dello stato dell'articolo '${id}'`, {
       category: 'qp',
       user: user.email,
       err 

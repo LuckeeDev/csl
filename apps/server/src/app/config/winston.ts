@@ -30,10 +30,10 @@ const logger = winston.createLogger({
   ],
 });
 
-export const saveEvent = (msg: string, metadata?: ILogMetadata) => {
+export const saveEvent = (msg: string, metadata: ILogMetadata) => {
   logger.log('info', msg, { metadata });
 };
 
-export const saveError = (err: string, metadata?: ILogMetadata) => {
-  logger.log('error', err, { metadata });
+export const saveError = (msg: string, metadata: ILogMetadata) => {
+  logger.log('error', msg, { metadata });
 };

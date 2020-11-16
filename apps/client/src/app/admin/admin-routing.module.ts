@@ -8,7 +8,8 @@ import { AdminComponent } from '@admin/admin.component';
 // Components
 import { AdminHomeComponent } from '@admin/components/admin-home/admin-home.component';
 import { AccountsComponent } from '@admin/components/accounts/accounts.component';
-import { ReportsComponent } from './components/reports/reports.component';
+import { ReportsComponent } from '@admin/components/reports/reports.component';
+import { LogsComponent } from '@admin/components/logs/logs.component';
 
 // Shared components
 import { ClassiComponent } from '@shared/components/classi/classi.component';
@@ -31,6 +32,8 @@ const routes: Routes = [
       { path: 'accounts', component: AccountsComponent },
       { path: 'csv', component: CsvComponent },
       { path: 'reports', component: ReportsComponent },
+      { path: 'errors', component: LogsComponent },
+      { path: 'events', component: LogsComponent },
     ],
   },
 ];

@@ -8,7 +8,7 @@ export { IDashboardLink } from './models/dashboard';
 export { IDialogData } from './models/dialog';
 export { IRequest } from './models/express';
 export { IHttpRes } from './models/http';
-export { ILogMetadata } from './models/log';
+export { ILogMetadata, ILog, ILogModel } from './models/log';
 export { IUserOrders, IProductInCart, IOrder, IOrderModel } from './models/order';
 export { IPaymentIntentData } from './models/payment';
 export { IProduct, IProductModel } from './models/product';

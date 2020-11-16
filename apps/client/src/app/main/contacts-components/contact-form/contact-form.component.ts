@@ -6,7 +6,7 @@ import { ReportsService } from '@global/services/reports/reports.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-contact-form',
+  selector: 'csl-contact-form',
   templateUrl: './contact-form.component.html',
   styleUrls: ['./contact-form.component.scss'],
 })

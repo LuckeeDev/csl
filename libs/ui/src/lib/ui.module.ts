@@ -27,6 +27,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 // Components
 import { DialogComponent } from './components/dialog/dialog.component';
@@ -80,6 +81,7 @@ import { CreateCourseComponent } from './dashboard/components/create-course/crea
     MatStepperModule,
     MatTabsModule,
     MatSlideToggleModule,
+    MatPaginatorModule
   ],
   exports: [
     FontAwesomeModule,
@@ -110,6 +112,7 @@ import { CreateCourseComponent } from './dashboard/components/create-course/crea
     MatStepperModule,
     MatTabsModule,
     MatSlideToggleModule,
+    MatPaginatorModule
   ],
   providers: [ToastrService, DialogService, DeviceService],
 })

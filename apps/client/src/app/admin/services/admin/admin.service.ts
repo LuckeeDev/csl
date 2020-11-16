@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IAccount, IHttpRes } from '@csl/shared';
+import { IAccount, IHttpRes, ILog } from '@csl/shared';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -13,5 +13,13 @@ export class AdminService {
 
   removeAccount(email: string): Observable<IHttpRes<any>> {
     return this.http.delete<IHttpRes<any>>(`/api/admin/accounts/${email}`);
+  }
+
+  getErrors(): Observable<IHttpRes<ILog[]>> {
+    return this.http.get<IHttpRes<ILog[]>>('/api/admin/errors');
+  }
+
+  getEvents(): Observable<IHttpRes<ILog[]>> {
+    return this.http.get<IHttpRes<ILog[]>>('/api/admin/events');
   }
 }

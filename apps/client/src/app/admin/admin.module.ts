@@ -11,12 +11,16 @@ import { SharedModule } from '@shared/shared.module';
 
 import { AdminHomeComponent } from '@admin/components/admin-home/admin-home.component';
 import { AccountsComponent } from '@admin/components/accounts/accounts.component';
+import { ReportsComponent } from '@admin/components/reports/reports.component';
+import { LogsComponent } from './components/logs/logs.component';
 
 import { AdminService } from '@admin/services/admin/admin.service';
-import { ReportsComponent } from './components/reports/reports.component';
+
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { MatPaginatorIntlIT } from '@admin/i18n/paginator';
 
 @NgModule({
-  declarations: [AdminComponent, AdminHomeComponent, AccountsComponent, ReportsComponent],
+  declarations: [AdminComponent, AdminHomeComponent, AccountsComponent, ReportsComponent, LogsComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -25,6 +29,6 @@ import { ReportsComponent } from './components/reports/reports.component';
     UiModule,
     SharedModule,
   ],
-  providers: [AdminService],
+  providers: [AdminService, { provide: MatPaginatorIntl, useClass: MatPaginatorIntlIT },],
 })
 export class AdminModule {}
