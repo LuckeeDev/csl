@@ -26,6 +26,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 // Components
 import { DialogComponent } from './components/dialog/dialog.component';
@@ -78,6 +79,7 @@ import { CreateCourseComponent } from './dashboard/components/create-course/crea
     MatExpansionModule,
     MatStepperModule,
     MatTabsModule,
+    MatSlideToggleModule,
   ],
   exports: [
     FontAwesomeModule,
@@ -107,6 +109,7 @@ import { CreateCourseComponent } from './dashboard/components/create-course/crea
     MatExpansionModule,
     MatStepperModule,
     MatTabsModule,
+    MatSlideToggleModule,
   ],
   providers: [ToastrService, DialogService, DeviceService],
 })

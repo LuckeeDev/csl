@@ -22,7 +22,7 @@ export class ArticlesService {
   getArticles(): Observable<IHttpRes<IArticle[]>> {
     return this.http.get<IHttpRes<IArticle[]>>('/api/articles');
   }
-  
+
   getArticle(id: string): Observable<IHttpRes<IArticle>> {
     return this.http.get<IHttpRes<IArticle>>(`/api/articles/${id}`);
   }
@@ -33,7 +33,7 @@ export class ArticlesService {
     articleID?: IArticle['id']
   ): Observable<IHttpRes<any>> {
     const { author, category, title, estimatedTime, image } = form;
-    const id = articleID ?? title!.toLowerCase().replace(/ /g, '-');
+    const id = articleID ?? title.toLowerCase().replace(/ /g, '-');
 
     const article = {
       content,
@@ -41,7 +41,7 @@ export class ArticlesService {
       category,
       title,
       estimatedTime,
-      image
+      image,
     };
 
     return this.http.post<IHttpRes<any>>(`/api/articles/${id}`, { article });
@@ -56,4 +56,12 @@ export class ArticlesService {
     return ref.put(file);
   }
 
+  changeArticlePublished(
+    id: IArticle['id'],
+    state: IArticle['published']
+  ): Observable<IHttpRes<any>> {
+    return this.http.patch<IHttpRes<any>>(`/api/articles/${id}/state`, {
+      state,
+    });
+  }
 }

@@ -6,12 +6,14 @@ import {
   getArticle,
   getArticles,
   deleteArticle,
+  changeArticlePublished,
 } from '@controllers/article';
 import fse from 'fs-extra';
 import { tmpdir } from 'os';
 import { join } from 'path';
 import { UploadedFile } from 'express-fileupload';
 import { bucket } from '@config/firebase';
+import { IRequest } from '../../../../../libs/shared/src/lib/shared';
 
 // Images
 router.post('/image', isQp, async (req: Request, res: Response) => {
@@ -76,5 +78,10 @@ router.delete('/:id', isQp, async (req: Request, res: Response) => {
   const result = await deleteArticle(req.params.id);
   res.json(result);
 });
+
+router.patch('/:id/state', isQp, async (req: IRequest, res: Response) => {
+  const result = await changeArticlePublished(req.params.id, req.body.state, req.user);
+  res.json(result);
+})
 
 export default router;

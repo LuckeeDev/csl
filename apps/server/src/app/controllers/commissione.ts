@@ -44,7 +44,7 @@ export const setPage = async (
   try {
     await Commissione.findOneAndUpdate({ id }, { page });
 
-    saveEvent(`Pagina della commissione ${id} modificata`, {
+    saveEvent(`Modificata la pagina della commissione ${id}`, {
       user: user.email,
       category: 'commissioni'
     });

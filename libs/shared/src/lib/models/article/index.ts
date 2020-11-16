@@ -38,6 +38,7 @@ export interface IArticle {
   estimatedTime: number;
   image: string;
   date: Date;
+  published: boolean;
   preview?: string;
 }
 

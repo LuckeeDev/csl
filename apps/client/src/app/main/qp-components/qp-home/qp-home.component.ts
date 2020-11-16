@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-qp-home',
+  selector: 'csl-qp-home',
   templateUrl: './qp-home.component.html',
   styleUrls: ['./qp-home.component.scss'],
 })
@@ -42,25 +42,34 @@ export class QpHomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.articlesService.getArticles().subscribe((res) => {
-      // Reverse to get articles in chronologic order
-      this.articles = res.data.reverse();
+    this.articlesService
+      .getArticles()
+      .pipe(
+        map((res) =>
+          res.data
+            .filter((article) => article.published === true)
+            // Reverse to get articles in chronologic order
+            .reverse()
+        )
+      )
+      .subscribe((articles) => {
+        this.articles = articles;
 
-      this.articles.forEach((article) => {
-        article.preview = article.content.blocks.find(
-          (block) => block.type === 'paragraph'
-        ).data.text;
-      });
+        this.articles.forEach((article) => {
+          article.preview = article.content.blocks.find(
+            (block) => block.type === 'paragraph'
+          ).data.text;
+        });
 
-      this.articles.forEach((article) => {
-        this.afs
-          .ref(`articles/covers/${article.image}`)
-          .getDownloadURL()
-          .subscribe((link) => {
-            this.imageReady = true;
-            article.image = link;
-          });
+        this.articles.forEach((article) => {
+          this.afs
+            .ref(`articles/covers/${article.image}`)
+            .getDownloadURL()
+            .subscribe((link) => {
+              this.imageReady = true;
+              article.image = link;
+            });
+        });
       });
-    });
   }
 }

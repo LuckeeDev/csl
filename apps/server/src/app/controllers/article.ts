@@ -1,5 +1,6 @@
-import mongoose, { Schema } from 'mongoose';
-import { IArticleModel, IArticle, IHttpRes } from '@csl/shared';
+import { Schema, model } from 'mongoose';
+import { IArticleModel, IArticle, IHttpRes, IUser } from '@csl/shared';
+import { saveError, saveEvent } from '@config/winston';
 
 const ArticleSchema = new Schema(
   {
@@ -10,12 +11,13 @@ const ArticleSchema = new Schema(
     category: { type: String, required: true },
     estimatedTime: { type: Number },
     image: { type: String },
+    published: { type: Boolean, default: false, required: true },
     date: { type: Date },
   },
   { skipVersioning: true }
 );
 
-export const Article = mongoose.model<IArticleModel>('article', ArticleSchema);
+export const Article = model<IArticleModel>('article', ArticleSchema);
 
 export const getArticles = async (): Promise<IHttpRes<IArticle[]>> => {
   return Article.find()
@@ -109,6 +111,28 @@ export const saveArticle = async (
       });
   }
 };
+
+export const changeArticlePublished = async (id: IArticle['id'], state: IArticle['published'], user: IUser): Promise<IHttpRes<any>> => {
+  try {
+    await Article.findOneAndUpdate({ id }, { published: state });
+
+    saveEvent(`Modificato stato dell'articolo ${id}`, {
+      category: 'qp',
+      user: user.email,
+      newState: state,
+    })
+
+    return {
+      success: true,
+    }
+  } catch (err) {
+    saveError(`Errore durante il tentativo di modifica dello stato dell'articolo ${id}`, {
+      category: 'qp',
+      user: user.email,
+      err 
+    })
+  }
+}
 
 export const deleteArticle = async (id: IArticle['id']): Promise<IHttpRes<any>> => {
   const res = await Article.findOneAndDelete({ id })

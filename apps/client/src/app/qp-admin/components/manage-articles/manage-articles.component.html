@@ -14,6 +14,13 @@
         <mat-cell *matCellDef="let article">{{ article.title }}</mat-cell>
       </ng-container>
 
+      <ng-container matColumnDef="published">
+        <mat-header-cell *matHeaderCellDef>Pubblicato</mat-header-cell>
+        <mat-cell *matCellDef="let article">
+          <mat-slide-toggle [checked]="article.published" class="toggle" color="primary" (change)="publishedChange($event, article.id)"></mat-slide-toggle>
+        </mat-cell>
+      </ng-container>
+
       <ng-container matColumnDef="options">
         <mat-header-cell *matHeaderCellDef>Gestisci</mat-header-cell>
         <mat-cell *matCellDef="let article"
@@ -26,7 +33,7 @@
             Modifica
           </button>
           <button mat-stroked-button color="warn" (click)="deleteArticle(article.id)">
-            Cancella
+            Elimina
           </button>
         </mat-cell>
       </ng-container>

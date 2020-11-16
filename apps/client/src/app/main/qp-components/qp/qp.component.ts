@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-qp',
+  selector: 'csl-qp',
   templateUrl: './qp.component.html',
   styleUrls: ['./qp.component.scss'],
 })

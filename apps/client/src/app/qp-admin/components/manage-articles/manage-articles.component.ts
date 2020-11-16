@@ -2,14 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { IArticle } from '@csl/shared';
 import { ArticlesService } from '@global/services/articles/articles.service';
 import { DialogService, ToastrService } from '@csl/ui';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
-  selector: 'app-manage-articles',
+  selector: 'csl-manage-articles',
   templateUrl: './manage-articles.component.html',
   styleUrls: ['./manage-articles.component.scss'],
 })
 export class ManageArticlesComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'title', 'options'];
+  displayedColumns: string[] = ['id', 'title', 'options', 'published'];
 
   articles: IArticle[];
 
@@ -33,7 +34,7 @@ export class ManageArticlesComponent implements OnInit {
         text: 'Non potrai più recuperarlo',
         color: 'warn',
       })
-      .subscribe((res) => {
+      .subscribe(() => {
         this.articlesService.delete(id).subscribe((res) => {
           if (res.success === true) {
             this.toastr.show({
@@ -43,13 +44,28 @@ export class ManageArticlesComponent implements OnInit {
               duration: 5000,
             });
 
-            this.articlesService.getArticles().subscribe((res) => {
-              this.articles = res.data;
+            this.articlesService.getArticles().subscribe((articles) => {
+              this.articles = articles.data;
             });
           } else if (res.success === false) {
             this.toastr.showError();
           }
         });
+      });
+  }
+
+  publishedChange(event: MatSlideToggleChange, id: IArticle['id']) {
+    this.articlesService
+      .changeArticlePublished(id, event.checked)
+      .subscribe((res) => {
+        if (res.success) {
+          this.toastr.show({
+            color: 'basic',
+            message: "Stato dell'articolo modificato con successo",
+          });
+        } else {
+          this.toastr.showError();
+        }
       });
   }
 }
