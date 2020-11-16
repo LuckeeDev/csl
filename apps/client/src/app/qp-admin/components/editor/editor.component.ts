@@ -5,6 +5,7 @@ import Header from '@editorjs/header';
 import Paragraph from '@editorjs/paragraph';
 import List from '@editorjs/list';
 import Image from '@editorjs/image';
+import HyperLink from 'editorjs-hyperlink';
 
 import { ArticlesService } from '@global/services/articles/articles.service';
 import { DialogService, ToastrService } from '@csl/ui';
@@ -71,7 +72,7 @@ export class EditorComponent implements OnInit, AfterViewInit {
           header: {
             class: Header,
             shortcut: 'CTRL+ALT+T',
-            inlineToolbar: true,
+            inlineToolbar: ['bold', 'italic', 'hyperlink'],
             config: {
               placeholder: 'Titolo',
               levels: [1, 2, 3],
@@ -81,7 +82,7 @@ export class EditorComponent implements OnInit, AfterViewInit {
           paragraph: {
             class: Paragraph,
             shortcut: 'CTRL+ALT+Q',
-            inlineToolbar: true,
+            inlineToolbar: ['bold', 'italic', 'hyperlink'],
             config: {
               placeholder: 'Testo',
             },
@@ -89,18 +90,21 @@ export class EditorComponent implements OnInit, AfterViewInit {
           list: {
             class: List,
             shortcut: 'CTRL+ALT+W',
-            inlineToolbar: true,
+            inlineToolbar: ['bold', 'italic', 'hyperlink'],
           },
           image: {
             class: Image,
             shortcut: 'CTRL+ALT+I',
-            inlineToolbar: true,
+            inlineToolbar: ['bold', 'italic', 'hyperlink'],
             config: {
               endpoints: {
                 byFile: `/api/articles/image`,
               },
             },
           },
+          hyperlink: {
+            class: HyperLink
+          }
         },
 
         defaultBlock: 'paragraph',
@@ -114,6 +118,7 @@ export class EditorComponent implements OnInit, AfterViewInit {
               Image: 'Immagine',
               Bold: 'Grassetto',
               Italic: 'Corsivo',
+              Hyperlink: 'Link'
             },
             tools: {
               list: {
@@ -129,6 +134,9 @@ export class EditorComponent implements OnInit, AfterViewInit {
               link: {
                 'Add a link': 'Aggiungi un link',
               },
+              hyperlink: {
+                'Save': 'Salva'
+              }
             },
             blockTunes: {
               delete: { Delete: 'Elimina' },

@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+  margin-top: 10px;
 }
 
 .data-text {
@@ -50,6 +51,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  margin-bottom: 10px;
 }
 
 .image {
@@ -61,7 +63,6 @@
 .caption {
   flex: 100%;
   color: rgba($color: #000000, $alpha: 0.6);
-  margin-bottom: 40px;
   margin-top: 10px;
 }
 
