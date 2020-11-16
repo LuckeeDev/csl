@@ -33,6 +33,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { DashboardModelComponent } from './components/dashboard-model/dashboard-model.component';
 import { AlertComponent } from './components/alert/alert.component';
+import { CarouselComponent } from './components/carousel/carousel.component';
+import { DashboardHomeComponent } from './components/dashboard-home/dashboard-home.component';
+import { CommissionePageComponent } from './components/commissione-page/commissione-page.component';
 
 // Services
 import { ToastrService } from './services/toastr/toastr.service';
@@ -42,9 +45,6 @@ import { DeviceService } from './services/device/device.service';
 // Directives
 import { MatColorDirective } from './directives/mat-color/mat-color.directive';
 import { RoundedDirective } from './directives/rounded/rounded.directive';
-import { CarouselComponent } from './components/carousel/carousel.component';
-import { CreateCourseComponent } from './dashboard/components/create-course/create-course.component';
-import { DashboardHomeComponent } from './components/dashboard-home/dashboard-home.component';
 
 @NgModule({
   declarations: [
@@ -54,8 +54,8 @@ import { DashboardHomeComponent } from './components/dashboard-home/dashboard-ho
     MatColorDirective,
     RoundedDirective,
     CarouselComponent,
-    CreateCourseComponent,
     DashboardHomeComponent,
+    CommissionePageComponent,
   ],
   imports: [
     CommonModule,
@@ -93,6 +93,7 @@ import { DashboardHomeComponent } from './components/dashboard-home/dashboard-ho
     RoundedDirective,
     CarouselComponent,
     DashboardHomeComponent,
+    CommissionePageComponent,
     MatSnackBarModule,
     MatDialogModule,
     MatButtonModule,
