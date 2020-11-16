@@ -35,6 +35,7 @@ import { QpAdminGuard } from '@global/guards/qp-admin/qp-admin.guard';
 import { BarAdminGuard } from '@global/guards/bar-admin/bar-admin.guard';
 import { AdminGuard } from '@global/guards/admin/admin.guard';
 import { NotLoggedInGuard } from '@global/guards/not-logged-in/not-logged-in.guard';
+import { ReferenteGuard } from '@global/guards/referente/referente.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -100,7 +101,7 @@ const routes: Routes = [
   },
   {
     path: 'referente',
-    // canLoad: [ReferenteGuard],
+    canLoad: [ReferenteGuard],
     loadChildren: () => 
       import('@referente/referente.module').then((m) => m.ReferenteModule),
   },
