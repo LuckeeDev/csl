@@ -13,3 +13,9 @@ span {
   cursor: pointer;
   outline: none;
 }
+
+@media screen and (max-width: 1250px) {
+  .outlet {
+    width: 80vw;
+  }
+}

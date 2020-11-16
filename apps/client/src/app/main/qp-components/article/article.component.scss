@@ -9,6 +9,7 @@ h1 {
 
 .header {
   flex: 100%;
+  font-size: 36px;
 }
 
 .img-container {
@@ -36,4 +37,10 @@ h1 {
 
 .paragraph {
   font-size: 16px;
+}
+
+@media screen and (max-width: 1250px) {
+  .img-container {
+    max-height: 200px;
+  }
 }
