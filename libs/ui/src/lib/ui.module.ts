@@ -44,6 +44,7 @@ import { MatColorDirective } from './directives/mat-color/mat-color.directive';
 import { RoundedDirective } from './directives/rounded/rounded.directive';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { CreateCourseComponent } from './dashboard/components/create-course/create-course.component';
+import { DashboardHomeComponent } from './components/dashboard-home/dashboard-home.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { CreateCourseComponent } from './dashboard/components/create-course/crea
     RoundedDirective,
     CarouselComponent,
     CreateCourseComponent,
+    DashboardHomeComponent,
   ],
   imports: [
     CommonModule,
@@ -90,6 +92,7 @@ import { CreateCourseComponent } from './dashboard/components/create-course/crea
     MatColorDirective,
     RoundedDirective,
     CarouselComponent,
+    DashboardHomeComponent,
     MatSnackBarModule,
     MatDialogModule,
     MatButtonModule,
