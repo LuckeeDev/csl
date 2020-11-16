@@ -1,14 +1,16 @@
 <div class="container">
-  <mat-card color="primary">
+  <mat-card color="primary" class="login-card">
     <mat-card-header>
-      <mat-card-title>Esegui il login</mat-card-title>
+      <mat-card-title>Questa pagina è protetta!</mat-card-title>
       <mat-card-subtitle>
-        In caso di successo, sarai re-indirizzato al contenuto a cui avevi
+        Esegui il login: in caso di successo, sarai re-indirizzato al contenuto a cui avevi
         tentato di accedere
       </mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
+      <img src="../../../../assets/svg/authenticate.svg" class="authenticate-img">
+
       <button mat-raised-button class="login-btn" (click)="signIn()">
         Accedi con Google<img
           src="../../../assets/img/signInLogo.png"
