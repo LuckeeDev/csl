@@ -71,8 +71,8 @@ router.post(
 
     const amount = await getTotal(classID, req.body.category);
 
-    if (amount <= 0) {
-      res.json({
+    if (amount < 1) {
+      return res.json({
         success: false,
         err: 'no-orders',
       });
@@ -83,7 +83,7 @@ router.post(
     const isConfirmed = await verifyReady(classID, req.body.category);
 
     if (!isConfirmed) {
-      res.json({
+      return res.json({
         success: false,
         data: {
           isConfirmed: false,
@@ -94,7 +94,7 @@ router.post(
     const isPaid = await verifyPaid(classID, req.body.category);
 
     if (isPaid === true) {
-      res.json({
+      return res.json({
         success: false,
         data: {
           isPaid: true,
@@ -117,7 +117,7 @@ router.post(
     });
 
     if (!isPaid && isConfirmed) {
-      res.json({
+      return res.json({
         success: true,
         data: {
           clientSecret: paymentIntent.client_secret,
