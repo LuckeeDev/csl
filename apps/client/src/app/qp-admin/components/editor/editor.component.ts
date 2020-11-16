@@ -220,7 +220,7 @@ export class EditorComponent implements OnInit, AfterViewInit {
             color: 'primary',
           });
 
-          this.router.navigate(['..', 'qp-admin', 'editor'])
+          this.router.navigate(['..', 'qp-admin', 'editor']);
         } else if (this.articleID) {
           this.articlesService.delete(this.articleID).subscribe((res) => {
             if (res.success === true) {

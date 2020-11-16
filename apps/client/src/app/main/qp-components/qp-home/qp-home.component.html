@@ -8,7 +8,6 @@
 
   <ng-container *ngIf="articles && articles.length > 0; else noArticles">
     <mat-card
-      matRipple
       *ngFor="
         let article of (filteredArticles$ | async) || articles;
         let i = index
@@ -22,21 +21,21 @@
       ></div>
 
       <mat-card-content class="content">
-        <ng-container *ngIf="i % 2 === 0">
-          <img [src]="article.image" *ngIf="imageReady" class="cover even" />
-          <div class="text even">
+        <ng-container>
+          <img
+            [src]="article.image"
+            *ngIf="imageReady"
+            class="cover"
+            [ngClass]="{ odd: i % 2 === 1, even: i % 2 === 0 }"
+          />
+          <div class="text" [ngClass]="{ odd: i % 2 === 1, even: i % 2 === 0 }">
             <h1 class="title">{{ article.title }}</h1>
-            <p class="preview">{{ article.preview }}</p>
-            <p class="data">{{ article.author }} | {{ article.date | date: 'dd - MM - yy' }}</p>
-          </div>
-        </ng-container>
-
-        <ng-container *ngIf="i % 2 === 1">
-          <img [src]="article.image" *ngIf="imageReady" class="cover odd" />
-          <div class="text odd">
-            <h1 class="title">{{ article.title }}</h1>
-            <p class="preview">{{ article.preview }}</p>
-            <p class="data">{{ article.author }} | {{ article.date }}</p>
+            <p class="preview" [innerHTML]="article.preview">
+              {{ article.preview }}
+            </p>
+            <p class="data">
+              {{ article.author }} | {{ article.date | date: 'dd / MM / yy' }}
+            </p>
           </div>
         </ng-container>
       </mat-card-content>
