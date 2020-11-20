@@ -5650,10 +5650,10 @@ ecdsa-sig-formatter@1.0.11, ecdsa-sig-formatter@^1.0.11:
   dependencies:
     safe-buffer "^5.0.1"
 
-editorjs-hyperlink@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/editorjs-hyperlink/-/editorjs-hyperlink-1.0.0.tgz#098bef13fb3241979252dc7ecf6978553b75d86d"
-  integrity sha512-53fej2DQ20bB+Kqw+WPEGT6JzxhV9LfCJ5vvTDKh58EVpNdtTdftxbCFfOwnX9jpi6Uzi9DY92UoT87DL0mi5A==
+editorjs-hyperlink@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/editorjs-hyperlink/-/editorjs-hyperlink-1.0.4.tgz#ab525ee44026426d8ca3a89102d9cef7d5aefa76"
+  integrity sha512-W1CvwlHytZ4jq5We1xzODjr+UqkRm5YvpOPNod3JQGIzHnjQUQF0FgtSgQ8JlDYwT4/4HPMkKEvrUYBjPI7m+A==
 
 ee-first@1.1.1:
   version "1.1.1"

@@ -103,7 +103,13 @@ export class EditorComponent implements OnInit, AfterViewInit {
             },
           },
           hyperlink: {
-            class: HyperLink
+            class: HyperLink,
+            config: {
+              availableTargets: ['_blank', '_self'],
+              availableRels: ['external'],
+              target: '_blank',
+              rel: 'external'
+            }
           }
         },
 
@@ -135,7 +141,9 @@ export class EditorComponent implements OnInit, AfterViewInit {
                 'Add a link': 'Aggiungi un link',
               },
               hyperlink: {
-                'Save': 'Salva'
+                'Save': 'Salva',
+                'Select target': 'Seleziona destinazione',
+                'Select rel': 'Seleziona relazione',
               }
             },
             blockTunes: {
