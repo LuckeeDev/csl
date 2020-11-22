@@ -24,9 +24,7 @@
             "assets": ["apps/client/src/favicon.ico", "apps/client/src/assets"],
             "styles": ["apps/client/src/styles.scss"],
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "libs/ui/src/lib"
-              ]
+              "includePaths": ["libs/ui/src/lib"]
             },
             "scripts": [],
             "allowedCommonJsDependencies": ["firebase/app", "socket.io-client"]
@@ -140,7 +138,11 @@
             "outputPath": "dist",
             "main": "apps/server/src/main.ts",
             "tsConfig": "apps/server/tsconfig.app.json",
-            "assets": ["apps/server/src/assets", "apps/server/src/public"]
+            "assets": [
+              "apps/server/src/public",
+              "apps/server/src/environments/.dev.env",
+              "apps/server/src/environments/.prod.env"
+            ]
           },
           "configurations": {
             "production": {

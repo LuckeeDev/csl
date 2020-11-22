@@ -1,9 +1,10 @@
 // Main imports
+import { environment as env } from '@environments/environment';
+
 import * as express from 'express';
 import * as cors from 'cors';
 import * as path from 'path';
 import * as mongoose from 'mongoose';
-import { environment as env } from '@environments/environment';
 import * as passport from 'passport';
 import * as fileUpload from 'express-fileupload';
 import cookieSession from 'cookie-session';
