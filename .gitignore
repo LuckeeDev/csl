@@ -1,7 +1,11 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist
+/dist/csl/maintenance
+/dist/csl/server
+/dist/csl/docker/db-rs1
+/dist/csl/docker/db-rs2
+/dist/csl/docker/db-rs3
 /tmp
 /out-tsc
 

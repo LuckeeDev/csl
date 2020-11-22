@@ -38,6 +38,9 @@
     },
     "ui": {
       "tags": []
+    },
+    "maintenance": {
+      "tags": []
     }
   }
 }

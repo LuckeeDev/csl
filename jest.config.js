@@ -4,5 +4,6 @@ module.exports = {
     '<rootDir>/apps/server',
     '<rootDir>/libs/shared',
     '<rootDir>/libs/ui',
+    '<rootDir>/apps/maintenance',
   ],
 };

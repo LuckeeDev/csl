@@ -135,16 +135,14 @@
         "build": {
           "builder": "@nrwl/node:build",
           "options": {
-            "outputPath": "dist/csl",
+            "outputPath": "dist/csl/server",
             "main": "apps/server/src/main.ts",
             "tsConfig": "apps/server/tsconfig.app.json",
             "assets": [
               "apps/server/src/public",
               "apps/server/src/environments/.dev.env",
               "apps/server/src/environments/.prod.env",
-              "apps/server/src/docker-compose.yml",
               "apps/server/src/Dockerfile",
-              "apps/server/src/docker",
               "apps/server/src/package.json"
             ]
           },
@@ -231,6 +229,60 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
+        }
+      }
+    },
+    "maintenance": {
+      "root": "apps/maintenance",
+      "sourceRoot": "apps/maintenance/src",
+      "projectType": "application",
+      "prefix": "maintenance",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/csl/maintenance",
+            "main": "apps/maintenance/src/main.ts",
+            "tsConfig": "apps/maintenance/tsconfig.app.json",
+            "assets": [
+              "apps/maintenance/src/public",
+              "apps/maintenance/src/Dockerfile",
+              "apps/maintenance/src/package.json"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": false,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/maintenance/src/environments/environment.ts",
+                  "with": "apps/maintenance/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "maintenance:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/maintenance/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/maintenance/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       }
     }

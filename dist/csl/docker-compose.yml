@@ -1,12 +1,19 @@
 version: '3'
 services:
   server:
-    build: .
+    build: ./server
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+
+  maintenance:
+    build: ./maintenance
     ports:
       - '3000:3000'
 
   db-rs1:
     image: 'mongo'
+    restart: unless-stopped
     volumes:
       - ./docker/rs1/data:/data/db
       - ./docker/setup:/setup
@@ -14,12 +21,14 @@ services:
 
   db-rs2:
     image: 'mongo'
+    restart: unless-stopped
     volumes:
       - ./docker/rs2/data:/data/db
     command: --replSet rs0
 
   db-rs3:
     image: 'mongo'
+    restart: unless-stopped
     volumes:
       - ./docker/rs3/data:/data/db
     command: --replSet rs0
