@@ -1,0 +1,32 @@
+{
+  "name": "csl-prod",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "[WARNING] exclusively use for production",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "private": true,
+  "dependencies": {
+    "@google-cloud/storage": "^5.4.0",
+    "@stripe/stripe-js": "^1.7.0",
+    "cookie-session": "^1.4.0",
+    "cors": "^2.8.5",
+    "csvtojson": "^2.0.10",
+    "dotenv": "^8.2.0",
+    "express": "4.17.1",
+    "express-fileupload": "^1.2.0",
+    "firebase": "^7.15.0",
+    "firebase-admin": "^8.13.0",
+    "fs-extra": "^9.0.1",
+    "mongoose": "^5.9.22",
+    "passport": "^0.4.1",
+    "passport-google-oauth": "^2.0.0",
+    "sharp": "^0.25.4",
+    "socket.io": "^2.3.0",
+    "stripe": "^8.69.0",
+    "uuid": "^8.3.1",
+    "winston": "^3.3.3",
+    "winston-mongodb": "^5.0.5"
+  }
+}

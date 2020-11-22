@@ -135,19 +135,23 @@
         "build": {
           "builder": "@nrwl/node:build",
           "options": {
-            "outputPath": "dist",
+            "outputPath": "dist/csl",
             "main": "apps/server/src/main.ts",
             "tsConfig": "apps/server/tsconfig.app.json",
             "assets": [
               "apps/server/src/public",
               "apps/server/src/environments/.dev.env",
-              "apps/server/src/environments/.prod.env"
+              "apps/server/src/environments/.prod.env",
+              "apps/server/src/docker-compose.yml",
+              "apps/server/src/Dockerfile",
+              "apps/server/src/docker",
+              "apps/server/src/package.json"
             ]
           },
           "configurations": {
             "production": {
               "optimization": true,
-              "extractLicenses": true,
+              "extractLicenses": false,
               "inspect": false,
               "fileReplacements": [
                 {

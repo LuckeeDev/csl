@@ -1,0 +1,25 @@
+version: '3'
+services:
+  server:
+    build: .
+    ports:
+      - '3000:3000'
+
+  db-rs1:
+    image: 'mongo'
+    volumes:
+      - ./docker/rs1/data:/data/db
+      - ./docker/setup:/setup
+    command: --replSet rs0
+
+  db-rs2:
+    image: 'mongo'
+    volumes:
+      - ./docker/rs2/data:/data/db
+    command: --replSet rs0
+
+  db-rs3:
+    image: 'mongo'
+    volumes:
+      - ./docker/rs3/data:/data/db
+    command: --replSet rs0

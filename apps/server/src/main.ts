@@ -1,7 +1,6 @@
 // Main imports
-import { environment as env } from '@environments/environment';
-
 import * as express from 'express';
+import { environment as env } from '@environments/environment';
 import * as cors from 'cors';
 import * as path from 'path';
 import * as mongoose from 'mongoose';
