@@ -15,7 +15,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/client",
+            "outputPath": "apps/server/src/public",
             "index": "apps/client/src/index.html",
             "main": "apps/client/src/main.ts",
             "polyfills": "apps/client/src/polyfills.ts",
@@ -137,10 +137,10 @@
         "build": {
           "builder": "@nrwl/node:build",
           "options": {
-            "outputPath": "dist/apps/server",
+            "outputPath": "dist",
             "main": "apps/server/src/main.ts",
             "tsConfig": "apps/server/tsconfig.app.json",
-            "assets": ["apps/server/src/assets"]
+            "assets": ["apps/server/src/assets", "apps/server/src/public"]
           },
           "configurations": {
             "production": {

@@ -93,9 +93,9 @@ app.use('/api/coge', coge);
 app.use('/api/commissioni', commissioni);
 
 // Static folder
-app.use(express.static('./assets/public'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use('*', (req: any, res: any) => {
-  res.sendFile(path.join(__dirname, 'assets', 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Start server and socket
