@@ -6,12 +6,12 @@ import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { IDashboardLink } from '@csl/shared';
 
 @Component({
-  selector: 'app-container',
+  selector: 'csl-container',
   templateUrl: './container.component.html',
   styleUrls: ['./container.component.scss'],
 })
 export class ContainerComponent implements OnInit {
-  toggled: boolean = false;
+  toggled = false;
 
   faBars = faBars;
   faTimes = faTimes;

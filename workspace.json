@@ -135,7 +135,7 @@
         "build": {
           "builder": "@nrwl/node:build",
           "options": {
-            "outputPath": "dist/csl/server",
+            "outputPath": "dist/server",
             "main": "apps/server/src/main.ts",
             "tsConfig": "apps/server/tsconfig.app.json",
             "assets": [
@@ -242,7 +242,7 @@
         "build": {
           "builder": "@nrwl/node:build",
           "options": {
-            "outputPath": "dist/csl/maintenance",
+            "outputPath": "dist/maintenance",
             "main": "apps/maintenance/src/main.ts",
             "tsConfig": "apps/maintenance/tsconfig.app.json",
             "assets": [

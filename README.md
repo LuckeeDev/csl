@@ -16,10 +16,10 @@ Fill with a list of used tools
 
 ## Istruzioni per la distribuzione
 
-Use this command from the `dist` directory to copy files to a remote location
+Use this command from the `csl` directory to copy files to a remote location
 
 ```
-pscp -P 22 -i C:\src\keys\csl-prod\ssh-csl-prod.ppk -r csl\* root@207.154.230.74:csl
+pscp -P 22 -i C:\src\keys\csl-prod\ssh-csl-prod.ppk -r dist\* root@207.154.230.74:../home/luckee/csl
 ```
 
 Then, inside the `csl` folder of the server, run
