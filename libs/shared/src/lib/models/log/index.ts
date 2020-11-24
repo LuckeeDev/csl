@@ -3,7 +3,7 @@ import { IUser } from '../user';
 
 export interface ILogMetadata {
   user: IUser['email'];
-  category: 'commissioni' | 'orders' | 'payments' | 'qp' | 'logs';
+  category: 'commissioni' | 'orders' | 'payments' | 'qp' | 'logs' | 'accounts';
   newState?: boolean;
   err?: string;
 }

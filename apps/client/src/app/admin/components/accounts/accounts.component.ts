@@ -10,19 +10,31 @@ import {
 import { DialogService, ToastrService } from '@csl/ui';
 
 const isClassID = (c: AbstractControl) => {
-  let CLASSID_REGEXP: RegExp = /^[0-9]{1}[A-Z]{1}/;
+  const CLASSID_REGEXP: RegExp = /^[0-9]{1}[A-Z]{1}/;
 
-  return CLASSID_REGEXP.test(c.value)
-    ? null
-    : {
+  if (c.value === 'admins') {
+    return null;
+  } else {
+    if (c.value.length !== 2) {
+      return {
         classID: {
           valid: false,
         },
       };
+    }
+
+    return CLASSID_REGEXP.test(c.value)
+      ? null
+      : {
+          classID: {
+            valid: false,
+          },
+        };
+  }
 };
 
 @Component({
-  selector: 'app-accounts',
+  selector: 'csl-accounts',
   templateUrl: './accounts.component.html',
   styleUrls: ['./accounts.component.scss'],
 })
@@ -34,8 +46,6 @@ export class AccountsComponent implements OnInit {
     classID: new FormControl('', [
       Validators.required,
       isClassID,
-      Validators.maxLength(2),
-      Validators.minLength(2),
     ]),
   });
 

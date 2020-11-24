@@ -16,7 +16,7 @@ router.get('/errors', isAdmin, async (req: IRequest, res: Response) => {
 });
 
 router.post('/accounts', isAdmin, async (req: IRequest, res: Response) => {
-  const result = await createAccount(req.body.account);
+  const result = await createAccount(req.body.account, req.user);
   res.json(result);
 });
 

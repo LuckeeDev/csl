@@ -5,6 +5,7 @@ import { TRole, IUser, IUserModel, IHttpRes, IAccount } from '@csl/shared';
 import { environment as env } from '@environments/environment';
 import Stripe from 'stripe';
 import { Class, updateSnackCreditInClass } from '@controllers/classe';
+import { saveError, saveEvent } from '@config/winston';
 const stripe = new Stripe(env.STRIPE_KEY, {
   apiVersion: '2020-08-27',
   typescript: true,
@@ -36,38 +37,57 @@ export const User = mongoose.model<IUserModel>('user', UserSchema);
 
 // Create an account (for admin)
 export const createAccount = async (
-  account: IAccount
+  account: IAccount,
+  user: IUser
 ): Promise<IHttpRes<any>> => {
-  console.log(account.email);
-  await Class.findOneAndUpdate(
-    { id: account.classID },
-    {
-      $push: {
-        members: { email: account.email, snackCredit: 0, roles: [] },
-      },
-    }
-  )
-    .then()
-    .catch((err) => {
-      return {
-        success: false,
-        err,
-      };
+  try {
+    await User.findOne({ email: account.email }).then((user) => {
+      if (!user) {
+        return new User(account).save().then();
+      }
+    })
+
+    await Class.findOne({ id: account.classID }).then((classe) => {
+      if (classe) {
+        return classe
+          .updateOne({
+            $push: {
+              members: { email: account.email, snackCredit: 0, roles: [] },
+            },
+          })
+          .then();
+      } else {
+        new Class({
+          id: account.classID,
+          members: [{ email: account.email, snackCredit: 0, roles: [] }],
+          membersCount: 1,
+        })
+          .save()
+          .then();
+      }
     });
 
-  return new User(account)
-    .save()
-    .then(() => {
-      return {
-        success: true,
-      };
-    })
-    .catch((err) => {
-      return {
-        success: false,
+    saveEvent(
+      `Manually created an account for ${account.firstName} ${account.lastName}`,
+      {
+        category: 'accounts',
+        user: user.email,
+      }
+    );
+
+    return {
+      success: true,
+    };
+  } catch (err) {
+    saveError(
+      `Error during the manual creation of an account for ${account.firstName} ${account.lastName}`,
+      {
+        category: 'accounts',
+        user: user.email,
         err,
-      };
-    });
+      }
+    );
+  }
 };
 
 // Remove an account (for admin)
@@ -85,6 +105,9 @@ export const removeAccount = async (
     {
       $pull: {
         members: elementToPull,
+      },
+      $inc: {
+        membersCount: -1,
       },
     }
   )
