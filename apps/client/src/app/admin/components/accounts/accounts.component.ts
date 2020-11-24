@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { DialogService, ToastrService } from '@csl/ui';
+import { switchMap } from 'rxjs/operators';
 
 const isClassID = (c: AbstractControl) => {
   const CLASSID_REGEXP: RegExp = /^[0-9]{1}[A-Z]{1}/;
@@ -43,10 +44,7 @@ export class AccountsComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
-    classID: new FormControl('', [
-      Validators.required,
-      isClassID,
-    ]),
+    classID: new FormControl('', [Validators.required, isClassID]),
   });
 
   removeEmail = new FormControl('', [Validators.required, Validators.email]);
@@ -67,20 +65,19 @@ export class AccountsComponent implements OnInit {
         color: 'primary',
         answer: 'Aggiungi',
       })
-      .subscribe(() => {
-        this.admin.createAccount(this.accountForm.value).subscribe((res) => {
-          if (res.success) {
-            this.toastr.show({
-              message: 'Account creato',
-              color: 'success',
-            });
-          } else if (res.success) {
-            this.toastr.showError();
-          }
+      .pipe(switchMap(() => this.admin.createAccount(this.accountForm.value)))
+      .subscribe((res) => {
+        if (res.success) {
+          this.toastr.show({
+            message: 'Account creato',
+            color: 'success',
+          });
+        } else if (res.success) {
+          this.toastr.showError();
+        }
 
-          this.accountForm.reset();
-          formElement.reset();
-        });
+        this.accountForm.reset();
+        formElement.reset();
       });
   }
 

@@ -13,7 +13,7 @@ import { tmpdir } from 'os';
 import { join } from 'path';
 import { UploadedFile } from 'express-fileupload';
 import { bucket } from '@config/firebase';
-import { IRequest } from '../../../../../libs/shared/src/lib/shared';
+import { IRequest } from '@csl/shared';
 
 // Images
 router.post('/image', isQp, async (req: Request, res: Response) => {

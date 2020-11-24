@@ -13,24 +13,29 @@ import { AngularFireStorage } from '@angular/fire/storage';
 export class AslComponent implements OnInit {
   asl$: Observable<ICommissione>;
 
-  constructor(private commissioni: CommissioniService, private afs: AngularFireStorage) {}
+  constructor(
+    private commissioni: CommissioniService,
+    private afs: AngularFireStorage
+  ) {}
 
   ngOnInit(): void {
     this.asl$ = this.commissioni.getPage('asl').pipe(
       map((res) => res.data),
       map((asl) => {
-        asl.page.blocks.map(async (block) => {
-          if (block.type === 'image') {
-            block.data.file.firebaseURL = await this.afs
-              .ref(`${block.data.file.firebasePath}`)
-              .getDownloadURL()
-              .toPromise();
+        if (asl && asl.page) {
+          asl.page.blocks.map(async (block) => {
+            if (block.type === 'image') {
+              block.data.file.firebaseURL = await this.afs
+                .ref(`${block.data.file.firebasePath}`)
+                .getDownloadURL()
+                .toPromise();
 
-            return block;
-          } else {
-            return block;
-          }
-        });
+              return block;
+            } else {
+              return block;
+            }
+          });
+        }
 
         return asl;
       })

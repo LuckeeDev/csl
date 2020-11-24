@@ -15,6 +15,7 @@ import { LogsComponent } from '@admin/components/logs/logs.component';
 import { ClassiComponent } from '@shared/components/classi/classi.component';
 import { SingleClassComponent } from '@shared/components/single-class/single-class.component';
 import { CsvComponent } from '@shared/components/csv/csv.component';
+import { CommissioniComponent } from './components/commissioni/commissioni.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,7 @@ const routes: Routes = [
         ],
       },
       { path: 'accounts', component: AccountsComponent },
+      { path: 'commissioni', component: CommissioniComponent },
       { path: 'csv', component: CsvComponent },
       { path: 'reports', component: ReportsComponent },
       { path: 'errors', component: LogsComponent },

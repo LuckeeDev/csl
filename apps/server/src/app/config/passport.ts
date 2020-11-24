@@ -24,27 +24,24 @@ passport.use(
       callbackURL: '/api/auth/redirect',
     },
     (accessToken: any, refreshToken: any, profile: any, done: any) => {
-      const googleID = profile.id;
+      const id = profile.id;
+      const photoURL = profile.photos[0].value;
+      const email = profile.emails[0].value;
 
-      User.findOne({ id: googleID }).then((user) => {
+      User.findOne({ id }).then(async (user) => {
         if (user) {
+          await user.updateOne({ photoURL });
+
           done(null, user);
         } else {
-          const email = profile.emails[0].value;
-          const rawPhotoURL = profile.photos[0].value;
-          const photoURL = rawPhotoURL.replace('photo.jpg', 's100-c/photo.jpg');
-
-          User.findOne({ email: email }).then(async (user) => {
+          User.findOne({ email }).then(async (user) => {
             if (user) {
-              await User.findOneAndUpdate(
-                { email: email },
-                {
-                  id: googleID,
-                  photoURL,
-                }
-              );
+              await user.updateOne({
+                id,
+                photoURL,
+              });
 
-              User.findOne({ id: googleID }).then((user) => {
+              User.findOne({ id }).then((user) => {
                 done(null, user);
               });
             } else {

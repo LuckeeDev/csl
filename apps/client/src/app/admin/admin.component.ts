@@ -11,6 +11,7 @@ export class AdminComponent implements OnInit {
     { link: '.', title: 'Home' },
     { link: 'classi', title: 'Classi' },
     { link: 'accounts', title: 'Account' },
+    { link: 'commissioni', title: 'Commissioni' },
     { link: 'csv', title: 'CSV' },
     { link: 'reports', title: 'Segnalazioni' },
     { link: 'errors', title: 'Errori' },

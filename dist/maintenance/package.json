@@ -1,0 +1,13 @@
+{
+  "name": "csl-maintenance",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "[WARNING] exclusively use for production",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "private": true,
+  "dependencies": {
+    "express": "4.17.1"
+  }
+}

@@ -46,21 +46,48 @@ export const setPage = async (
 
     saveEvent(`Modificata la pagina della commissione ${id}`, {
       user: user.email,
-      category: 'commissioni'
+      category: 'commissioni',
     });
 
     return {
       success: true,
     };
   } catch (err) {
-    saveError(`Errore durante la modifica della pagina della commissione ${id}`, {
-      user: user.email,
-      category: 'commissioni',
-      err,
-    })
+    saveError(
+      `Errore durante la modifica della pagina della commissione ${id}`,
+      {
+        user: user.email,
+        category: 'commissioni',
+        err,
+      }
+    );
 
     return {
       success: false,
     };
+  }
+};
+
+export const createCommissione = async (
+  commissione: ICommissione,
+  user: IUser
+) => {
+  try {
+    await new Commissione(commissione).save().then();
+
+    saveEvent(`Created commissione "${commissione.id}"`, {
+      user: user.email,
+      category: 'commissioni',
+    });
+
+    return {
+      success: true,
+    };
+  } catch (err) {
+    saveError(`Error during the creation of commissione "${commissione.id}"`, {
+      user: user.email,
+      category: 'commissioni',
+      err
+    });
   }
 };

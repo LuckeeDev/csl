@@ -4,6 +4,7 @@ import { IRequest } from '@csl/shared';
 import { isAdmin } from '@config/authcheck';
 import { createAccount, removeAccount } from '@controllers/user';
 import { getEvents, getErrors } from '@controllers/log';
+import { createCommissione } from '@controllers/commissione';
 
 router.get('/events', isAdmin, async (req: IRequest, res: Response) => {
   const result = await getEvents(req.user);
@@ -28,5 +29,10 @@ router.delete(
     res.json(result);
   }
 );
+
+router.post('/commissioni', isAdmin, async (req: IRequest, res: Response) => {
+  const result = await createCommissione(req.body.commissione, req.user);
+  res.json(result);
+});
 
 export default router;

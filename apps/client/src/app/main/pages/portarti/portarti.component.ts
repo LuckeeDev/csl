@@ -22,18 +22,20 @@ export class PortartiComponent implements OnInit {
     this.portarti$ = this.commissioni.getPage('portarti').pipe(
       map((res) => res.data),
       map((portarti) => {
-        portarti.page.blocks.map(async (block) => {
-          if (block.type === 'image') {
-            block.data.file.firebaseURL = await this.afs
-              .ref(`${block.data.file.firebasePath}`)
-              .getDownloadURL()
-              .toPromise();
+        if (portarti && portarti.page) {
+          portarti.page.blocks.map(async (block) => {
+            if (block.type === 'image') {
+              block.data.file.firebaseURL = await this.afs
+                .ref(`${block.data.file.firebasePath}`)
+                .getDownloadURL()
+                .toPromise();
 
-            return block;
-          } else {
-            return block;
-          }
-        });
+              return block;
+            } else {
+              return block;
+            }
+          });
+        }
 
         return portarti;
       })

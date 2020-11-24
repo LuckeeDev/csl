@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IAccount, IHttpRes, ILog } from '@csl/shared';
+import { IAccount, ICommissione, IHttpRes, ILog } from '@csl/shared';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -21,5 +21,13 @@ export class AdminService {
 
   getEvents(): Observable<IHttpRes<ILog[]>> {
     return this.http.get<IHttpRes<ILog[]>>('/api/admin/events');
+  }
+
+  createCommissione(form: ICommissione): Observable<IHttpRes<any>> {
+    const commissione = { ...form, page: { } };
+
+    return this.http.post<IHttpRes<any>>('/api/admin/commissioni', {
+      commissione,
+    });
   }
 }

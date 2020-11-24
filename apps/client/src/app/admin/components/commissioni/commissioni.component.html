@@ -1,0 +1,17 @@
+<form [formGroup]="commissioneForm" (ngSubmit)="createCommissione(formElement)" class="container" #formElement>
+  <mat-form-field class="form-field">
+    <mat-label>ID</mat-label>
+    <input matInput type="text" formControlName="id" />
+  </mat-form-field>
+
+  <mat-form-field class="form-field">
+    <mat-label>Nome</mat-label>
+    <input matInput type="text" formControlName="title" />
+  </mat-form-field>
+
+  <div class="submit-btn">
+    <button mat-raised-button [disabled]="commissioneForm.invalid" color="primary">
+      Crea commissione
+    </button>
+  </div>
+</form>

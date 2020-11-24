@@ -26,18 +26,20 @@ export class CommissioneComponent implements OnInit {
       switchMap((params) => this.commissioni.getPage(params.get('id'))),
       map((res) => res.data),
       map((commissione) => {
-        commissione.page.blocks.map(async (block) => {
-          if (block.type === 'image') {
-            block.data.file.firebaseURL = await this.afs
-              .ref(`${block.data.file.firebasePath}`)
-              .getDownloadURL()
-              .toPromise();
+        if (commissione && commissione.page) {
+          commissione.page.blocks.map(async (block) => {
+            if (block.type === 'image') {
+              block.data.file.firebaseURL = await this.afs
+                .ref(`${block.data.file.firebasePath}`)
+                .getDownloadURL()
+                .toPromise();
 
-            return block;
-          } else {
-            return block;
-          }
-        });
+              return block;
+            } else {
+              return block;
+            }
+          });
+        }
 
         return commissione;
       })

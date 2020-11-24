@@ -18,9 +18,10 @@ import { AdminService } from '@admin/services/admin/admin.service';
 
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatPaginatorIntlIT } from '@admin/i18n/paginator';
+import { CommissioniComponent } from './components/commissioni/commissioni.component';
 
 @NgModule({
-  declarations: [AdminComponent, AdminHomeComponent, AccountsComponent, ReportsComponent, LogsComponent],
+  declarations: [AdminComponent, AdminHomeComponent, AccountsComponent, ReportsComponent, LogsComponent, CommissioniComponent],
   imports: [
     CommonModule,
     FormsModule,
