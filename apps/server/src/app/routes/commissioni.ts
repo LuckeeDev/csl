@@ -10,7 +10,7 @@ import fse from 'fs-extra';
 import { join } from 'path';
 import { tmpdir } from 'os';
 
-router.get('/:id', authCheck, async (req: IRequest, res: Response) => {
+router.get('/:id', async (req: IRequest, res: Response) => {
   const params: any = req.params;
   const id: ICommissione['id'] = params.id;
   const result = await getCommissione(id);
@@ -53,7 +53,6 @@ router.post('/image', isReferente, async (req: IRequest, res: Response) => {
 
 router.get(
   '/image/:fileName',
-  authCheck,
   async (req: IRequest, res: Response) => {
     const firebasePath = `commissioni/images/${req.params.fileName}`;
 
