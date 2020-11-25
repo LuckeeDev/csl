@@ -1,9 +1,9 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist/docker/db-rs1
-/dist/docker/db-rs2
-/dist/docker/db-rs3
+/dist/docker/rs1
+/dist/docker/rs2
+/dist/docker/rs3
 /tmp
 /out-tsc
 
