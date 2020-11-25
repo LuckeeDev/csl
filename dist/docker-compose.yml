@@ -15,7 +15,7 @@ services:
     image: 'mongo'
     restart: unless-stopped
     volumes:
-      - ./docker/rs1/data:/data/db
+      - /mongo/rs1/data:/data/db
       - ./docker/setup:/setup
     command: --replSet rs0
 
@@ -23,12 +23,12 @@ services:
     image: 'mongo'
     restart: unless-stopped
     volumes:
-      - ./docker/rs2/data:/data/db
+      - /mongo/rs2/data:/data/db
     command: --replSet rs0
 
   db-rs3:
     image: 'mongo'
     restart: unless-stopped
     volumes:
-      - ./docker/rs3/data:/data/db
+      - /mongo/rs3/data:/data/db
     command: --replSet rs0
