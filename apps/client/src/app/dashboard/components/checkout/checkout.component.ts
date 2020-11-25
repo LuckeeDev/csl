@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { stripeKey } from '@environments/environment';
 import { IHttpRes, IPaymentIntentData } from '@csl/shared';
@@ -10,7 +10,7 @@ import { OrdersService } from '@global/services/orders/orders.service';
 import { DialogService, ToastrService } from '@csl/ui';
 
 @Component({
-  selector: 'app-checkout',
+  selector: 'csl-checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss'],
 })
@@ -31,37 +31,39 @@ export class CheckoutComponent implements OnInit {
 
   constructor(
     private orders: OrdersService,
-    private activated: ActivatedRoute,
     private toastr: ToastrService,
-    private dialog: DialogService
+    private dialog: DialogService,
+    private router: Router
   ) {
     this.isConfirmed = true;
     this.isPaid = false;
     this.loading = false;
-    this.category = this.activated.snapshot.paramMap.get('category');
+    this.category = this.router.url.includes('gadgets') ? 'gadgets' : 'photos';
   }
 
   async ngOnInit(): Promise<void> {
     this.stripe = await loadStripe(stripeKey);
 
-    this.orders.createPaymentIntent(this.category).subscribe((res: IHttpRes<IPaymentIntentData>) => {
-      if (res.success === false && res.err === 'no-orders') {
-        this.toastr.show({
-          message: 'Ordini non trovati!',
-          color: 'warn',
-          action: 'Chiudi',
-          duration: 5000,
-        });
-      }
+    this.orders
+      .createPaymentIntent(this.category)
+      .subscribe((res: IHttpRes<IPaymentIntentData>) => {
+        if (res.success === false && res.err === 'no-orders') {
+          this.toastr.show({
+            message: 'Ordini non trovati!',
+            color: 'warn',
+            action: 'Chiudi',
+            duration: 5000,
+          });
+        }
 
-      if (res.success === true) {
-        this.setupPaymentForm(res, this.stripe);
-      } else if (res.data.isConfirmed === false) {
-        this.isConfirmed = false;
-      } else {
-        this.isPaid = true;
-      }
-    });
+        if (res.success === true) {
+          this.setupPaymentForm(res, this.stripe);
+        } else if (res.data.isConfirmed === false) {
+          this.isConfirmed = false;
+        } else {
+          this.isPaid = true;
+        }
+      });
   }
 
   setupPaymentForm(res: IHttpRes<IPaymentIntentData>, stripe: Stripe): void {
@@ -137,13 +139,13 @@ export class CheckoutComponent implements OnInit {
 
     this.toastr.show({
       message: 'Pagamento completato con successo, puoi tornare alla home',
-      color: 'success'
+      color: 'success',
     });
-  };
+  }
 
   showError(msg: string) {
     this.loading = false;
 
     this.toastr.show({ message: msg, color: 'warn', duration: 10000 });
-  };
+  }
 }

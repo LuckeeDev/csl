@@ -10,6 +10,7 @@ export type TRole =
   | 'isBar'
   | 'isAdmin'
 
+  // Referenti
   | 'isReferente[arte]'
   | 'isReferente[biblioteca]'
   | 'isReferente[cinema]'
@@ -25,23 +26,6 @@ export type TRole =
   | 'isReferente[asl]'
   | 'isReferente[consulta]'
   | 'isReferente[portarti]';
-  
-  // // Commissioni
-  // | 'isArte'
-  // | 'isBiblioteca'
-  // | 'isCinema'
-  // | 'isDibattito'
-  // | 'isGreen'
-  // | 'isFeste'
-  // | 'isLIR'
-  // | 'isMusica'
-  // | 'isOmnia'
-  // | 'isSport'
-  // | 'isTutoring'
-  // | 'isVale'
-  // | 'isAsl'
-  // | 'isConsulta'
-  // | 'isPortarti';
 
 export interface IRole {
   description: string;

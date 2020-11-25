@@ -109,3 +109,17 @@ socketConfig(socket);
 server.listen(port, () => {
   console.log(`Server started on port ${port}`);
 });
+
+process.on('unhandledRejection', (err) => {
+  saveError('UnhandledRejection occurred, check db for more details', {
+    category: 'server',
+    err,
+  });
+});
+
+process.on('uncaughtException', (err) => {
+  saveError('UnhandledException occurred, check db for more details', {
+    category: 'server',
+    err,
+  });
+});

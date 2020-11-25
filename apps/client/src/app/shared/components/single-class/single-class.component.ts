@@ -70,14 +70,6 @@ export class SingleClassComponent implements OnInit {
     private router: Router,
     private store: Store
   ) {
-    this.filteredRoles = this.roleCtrl.valueChanges.pipe(
-      map((value: string | null) =>
-        value ? this._filter(value) : this.allRoles.slice()
-      )
-    );
-
-    this.classID = this.activated.snapshot.paramMap.get('classID');
-
     if (this.router.url.includes('bar-admin')) {
       this.displayedColumns = ['email', 'credit', 'manage'];
     } else if (this.router.url.includes('vice')) {
@@ -86,7 +78,30 @@ export class SingleClassComponent implements OnInit {
       this.displayedColumns = ['email', 'roles'];
     } else if (this.router.url.includes('admin')) {
       this.displayedColumns = ['email', 'roles'];
+
+      this.allRoles.push(
+        {
+          role: 'isRappre',
+          description: "Rappresentante d'Istituto",
+        },
+        {
+          role: 'isBar',
+          description: 'Barista',
+        },
+        {
+          role: 'isVice',
+          description: 'Vice',
+        }
+      );
     }
+
+    this.filteredRoles = this.roleCtrl.valueChanges.pipe(
+      map((value: string | null) =>
+        value ? this._filter(value) : this.allRoles.slice()
+      )
+    );
+
+    this.classID = this.activated.snapshot.paramMap.get('classID');
   }
 
   ngOnInit() {
@@ -116,7 +131,9 @@ export class SingleClassComponent implements OnInit {
         color: 'accent',
       });
     } else if (roles.find((x) => x.role.includes('isReferente'))) {
-      this.toastr.showError('Impossibile aggiungere un altro ruolo da referente!');
+      this.toastr.showError(
+        'Impossibile aggiungere un altro ruolo da referente!'
+      );
     } else {
       this.store.dispatch(new Roles.Add(role, email)).subscribe(() => {
         this.toastr.show({

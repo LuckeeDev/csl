@@ -41,7 +41,7 @@ export class ContactFormComponent implements OnInit {
       .open({
         title: 'Confermare invio modulo?',
         text:
-          'I tuoi dati non saranno condivisi con nessuno e riceverai una notifica appena sistemeremo il problema segnalato',
+          'Riceverai una notifica appena sistemeremo il problema segnalato',
         answer: 'Conferma',
         color: 'primary',
       })

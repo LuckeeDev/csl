@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { OrdersService } from '@global/services/orders/orders.service';
 import { DialogService, ToastrService } from '@csl/ui';
 
 @Component({
-  selector: 'app-orders',
+  selector: 'csl-orders',
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.scss'],
 })
@@ -14,21 +14,19 @@ export class OrdersComponent implements OnInit {
   displayedColumns: string[];
 
   constructor(
-    private activated: ActivatedRoute,
     private dialog: DialogService,
     private toastr: ToastrService,
-    public orders: OrdersService
+    public orders: OrdersService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.activated.paramMap.subscribe((params) => {
-      this.category = params.get('category');
+    this.category = this.router.url.includes('gadgets') ? 'gadgets' : 'photos';
 
-      this.displayedColumns =
-        this.category === 'gadgets'
-          ? ['name', 'quantity', 'size', 'color']
-          : ['name', 'quantity'];
-    });
+    this.displayedColumns =
+      this.category === 'gadgets'
+        ? ['name', 'quantity', 'size', 'color']
+        : ['name', 'quantity'];
 
     if (!this.orders[this.category]) {
       this.orders.getOrders();
@@ -45,9 +43,10 @@ export class OrdersComponent implements OnInit {
         color: 'warn',
         answer: 'Conferma',
       })
-      .subscribe((res) => {
+      .subscribe(() => {
         this.orders.deleteProduct(product).subscribe((res) => {
-          let { err, success } = res;
+          const { err, success } = res;
+
           if (
             success === false &&
             err === 'Your order has already been confirmed'
@@ -80,9 +79,9 @@ export class OrdersComponent implements OnInit {
         color: 'primary',
         answer: 'Conferma',
       })
-      .subscribe((res) => {
+      .subscribe(() => {
         this.orders.confirmOrder(this.category).subscribe((res) => {
-          let { success } = res;
+          const { success } = res;
 
           if (success === true) {
             this.toastr.show({

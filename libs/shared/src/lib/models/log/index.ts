@@ -2,10 +2,10 @@ import { Document } from 'mongoose';
 import { IUser } from '../user';
 
 export interface ILogMetadata {
-  user: IUser['email'];
-  category: 'commissioni' | 'orders' | 'payments' | 'qp' | 'logs' | 'accounts';
+  category: 'commissioni' | 'orders' | 'payments' | 'qp' | 'logs' | 'accounts' | 'server';
+  user?: IUser['email'];
   newState?: boolean;
-  err?: string;
+  err?: any;
 }
 
 export interface ILog {

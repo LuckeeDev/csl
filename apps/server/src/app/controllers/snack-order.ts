@@ -19,7 +19,7 @@ const SnackOrderSchema = new Schema(
 );
 
 export const SnackOrder = mongoose.model<ISnackOrderModel>(
-  'snackorder',
+  'snack-order',
   SnackOrderSchema,
   'snack-orders'
 );

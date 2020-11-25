@@ -1,4 +1,4 @@
-<ng-container *ngIf="(state$ | async).currentClass as currentClass">
+<ng-container *ngIf="(state$ | async).currentClass as currentClass; else noClassFound">
   <mat-card>
     <mat-card-header>
       <mat-card-title> {{ currentClass.id }}</mat-card-title>
@@ -70,3 +70,9 @@
     </mat-card-content>
   </mat-card>
 </ng-container>
+
+<ng-template #noClassFound>
+  <csl-alert color="primary">
+    Non abbiamo trovato nessuna classe con questo ID!
+  </csl-alert>
+</ng-template>

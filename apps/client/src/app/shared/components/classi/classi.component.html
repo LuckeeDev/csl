@@ -3,7 +3,7 @@
   <ng-container *ngFor="let class of classes">
     <mat-card [routerLink]="[class.id]">
       <mat-card-header>
-        <mat-card-title>{{ class.id }}</mat-card-title></mat-card-header
+        <mat-card-title>{{ class.id.toUpperCase() }}</mat-card-title></mat-card-header
       >
     </mat-card>
   </ng-container>

@@ -349,7 +349,7 @@ const updateSnackCreditInClass = (email, snackCredit, classID) => Object(tslib__
 /* harmony import */ var stripe__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(17);
 /* harmony import */ var stripe__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(stripe__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _controllers_classe__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5);
-/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(9);
+/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(8);
 
 
 // Stripe initialization
@@ -610,12 +610,6 @@ const environment = Object.assign({ production: true }, env);
 
 /***/ }),
 /* 8 */
-/***/ (function(module, exports) {
-
-module.exports = require("fs-extra");
-
-/***/ }),
-/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -666,6 +660,12 @@ const saveError = (msg, metadata) => {
     errorLogger.log('error', msg, { metadata });
 };
 
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+module.exports = require("fs-extra");
 
 /***/ }),
 /* 10 */
@@ -720,7 +720,7 @@ module.exports = require("passport");
 /* harmony import */ var path__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(path__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var os__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(11);
 /* harmony import */ var os__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(os__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var fs_extra__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(8);
+/* harmony import */ var fs_extra__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(9);
 /* harmony import */ var fs_extra__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(fs_extra__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var sharp__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(20);
 /* harmony import */ var sharp__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(sharp__WEBPACK_IMPORTED_MODULE_6__);
@@ -1139,7 +1139,7 @@ const SnackOrderSchema = new mongoose__WEBPACK_IMPORTED_MODULE_1__["Schema"]({
     name: { type: String, required: true },
     classID: { type: String, required: true },
 }, { versionKey: false });
-const SnackOrder = mongoose__WEBPACK_IMPORTED_MODULE_1___default.a.model('snackorder', SnackOrderSchema, 'snack-orders');
+const SnackOrder = mongoose__WEBPACK_IMPORTED_MODULE_1___default.a.model('snack-order', SnackOrderSchema, 'snack-orders');
 const addSnackToCart = (id, user) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function* () {
     const date = new Date();
     const day = date.getDate();
@@ -1354,7 +1354,7 @@ module.exports = require("stripe");
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9);
+/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
 
 
 
@@ -1500,7 +1500,7 @@ const deleteArticle = (id) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__await
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9);
+/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
 
 
 
@@ -1610,7 +1610,7 @@ module.exports = require("winston-mongodb");
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9);
+/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
 
 
 
@@ -2001,7 +2001,7 @@ const nextMiddelware = (req, res, next) => {
 /* harmony import */ var _config_csvupload__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(40);
 /* harmony import */ var _config_authcheck__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(1);
 /* harmony import */ var _config_firebase__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(10);
-/* harmony import */ var fs_extra__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(8);
+/* harmony import */ var fs_extra__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(9);
 /* harmony import */ var fs_extra__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(fs_extra__WEBPACK_IMPORTED_MODULE_7__);
 
 
@@ -2194,7 +2194,7 @@ router.patch('/manage/credit/:email', _config_authcheck__WEBPACK_IMPORTED_MODULE
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _config_authcheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
 /* harmony import */ var _controllers_article__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(18);
-/* harmony import */ var fs_extra__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(8);
+/* harmony import */ var fs_extra__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9);
 /* harmony import */ var fs_extra__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(fs_extra__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var os__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(11);
 /* harmony import */ var os__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(os__WEBPACK_IMPORTED_MODULE_5__);
@@ -2545,7 +2545,7 @@ router.post('/courses', _config_authcheck__WEBPACK_IMPORTED_MODULE_3__[/* authCh
 /* harmony import */ var _config_authcheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
 /* harmony import */ var _controllers_commissione__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(19);
 /* harmony import */ var _config_firebase__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(10);
-/* harmony import */ var fs_extra__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(8);
+/* harmony import */ var fs_extra__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(9);
 /* harmony import */ var fs_extra__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(fs_extra__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var path__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(4);
 /* harmony import */ var path__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(path__WEBPACK_IMPORTED_MODULE_6__);
@@ -2652,6 +2652,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _routes_snacks__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(47);
 /* harmony import */ var _routes_coge__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(48);
 /* harmony import */ var _routes_commissioni__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(49);
+/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(8);
 // Main imports
 
 
@@ -2667,6 +2668,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // Routes
+
 
 
 
@@ -2736,6 +2738,18 @@ const socket = socket_io__WEBPACK_IMPORTED_MODULE_10__(server, { path: '/api/soc
 Object(_config_socket__WEBPACK_IMPORTED_MODULE_12__[/* socketConfig */ "a"])(socket);
 server.listen(port, () => {
     console.log(`Server started on port ${port}`);
+});
+process.on('unhandledRejection', (err) => {
+    Object(_config_winston__WEBPACK_IMPORTED_MODULE_24__[/* saveError */ "a"])('UnhandledRejection occurred, check db for more details', {
+        category: 'server',
+        err,
+    });
+});
+process.on('uncaughtException', (err) => {
+    Object(_config_winston__WEBPACK_IMPORTED_MODULE_24__[/* saveError */ "a"])('UnhandledException occurred, check db for more details', {
+        category: 'server',
+        err,
+    });
 });
 
 

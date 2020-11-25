@@ -3,16 +3,16 @@
 
   <span activities-label>Le tue attività</span>
   <span activities>
-    <span>
-      Gestisci <a [routerLink]="['..', 'qp-admin']" class="link" *ngIf="user.isQp">Quinto Piano</a>
+    <span *ngIf="user.isQp">
+      Gestisci <a [routerLink]="['..', 'qp-admin']" class="link">Quinto Piano</a>
     </span>
     <br />
-    <span>
-      Gestisci la tua <a [routerLink]="['..', 'referente']" class="link" *ngIf="user.isReferente">Commissione</a>
+    <span *ngIf="user.isReferente">
+      Gestisci la tua <a [routerLink]="['..', 'referente']" class="link">Commissione</a>
     </span>
     <br />
-    <span>
-      Gestisci le <a [routerLink]="['..', 'rappre']" class="link" *ngIf="user.isRappre">attività della scuola</a>
+    <span *ngIf="user.isRappre">
+      Gestisci le <a [routerLink]="['..', 'rappre']" class="link">attività della scuola</a>
     </span>
     <br />
     <span *ngIf="!user.isRappre && !user.isReferente && !user.isQp"></span>

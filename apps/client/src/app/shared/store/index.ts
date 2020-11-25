@@ -47,13 +47,17 @@ export class ClassState {
       if (action.classID) {
         const currentClass = classes.find((x) => x.id === action.classID);
 
-        currentClass.members = currentClass.members.map((member) => {
-          if (member.roles) {
-            member.roles = member.roles.map((role) => this.transformRole(role));
-          }
+        if (currentClass) {
+          currentClass.members = currentClass.members.map((member) => {
+            if (member.roles) {
+              member.roles = member.roles.map((role) =>
+                this.transformRole(role)
+              );
+            }
 
-          return member;
-        });
+            return member;
+          });
+        }
 
         ctx.setState({
           classes,
@@ -77,13 +81,17 @@ export class ClassState {
       produce(ctx.getState(), (draft) => {
         const currentClass = draft.classes.find((x) => x.id === action.classID);
 
-        currentClass.members = currentClass.members.map((member) => {
-          if (member.roles) {
-            member.roles = member.roles.map((role) => this.transformRole(role));
-          }
+        if (currentClass) {
+          currentClass.members = currentClass.members.map((member) => {
+            if (member.roles) {
+              member.roles = member.roles.map((role) =>
+                this.transformRole(role)
+              );
+            }
 
-          return member;
-        });
+            return member;
+          });
+        }
 
         draft.currentClass = currentClass;
       })
@@ -177,6 +185,12 @@ export class ClassState {
         return { role, description: 'Referente Tutoring' };
       case 'isReferente[vale]':
         return { role, description: 'Referente VALE' };
+      case 'isRappre':
+        return { role, description: "Rappresentante d'Istituto" };
+      case 'isBar':
+        return { role, description: 'Barista' };
+      case 'isVice':
+        return { role, description: 'Vice' };
     }
   }
 }
