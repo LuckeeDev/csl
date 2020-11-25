@@ -13,6 +13,8 @@
     </span>
   </div>
 
+  <h1 class="h1">{{ article.title }}</h1>
+
   <ng-container *ngFor="let block of article.content.blocks">
     <ng-container [ngSwitch]="block.type">
       <!-- Display in case the block type is header -->

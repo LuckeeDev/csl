@@ -1,23 +1,28 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { IArticle } from '@csl/shared';
 
 @Pipe({
-  name: 'categoryToColor'
+  name: 'categoryToColor',
 })
 export class CategoryToColorPipe implements PipeTransform {
-
-  transform(value: unknown, ...args: unknown[]): unknown {
-    switch(value) {
-      case 'Cultura':
-        return '#672f00';
-      case 'Sport':
-        return '#00b41e';
+  transform(value: IArticle['category'], ...args: unknown[]): unknown {
+    switch (value) {
       case 'Lussana':
-        return '#0D47A1';
-      case 'Musica':
-        return '#d0d0d0';
-      case 'Cinema':
-        return '#009fff';
-    };
+        return '#0062ff';
+      case 'Italia':
+        return '#160084';
+      case 'Mondo':
+        return '#ffe100';
+      case 'Speciale':
+        return '#000000';
+      case 'Scienza & Tech':
+        return '#ff7300';
+      case 'Cultura':
+        return '#ffb3fa';
+      case 'Sport':
+        return '#1c9900';
+      case 'Svago':
+        return '#5a006e';
+    }
   }
-
 }

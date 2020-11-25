@@ -34,7 +34,15 @@ export interface IArticle {
   title: string;
   id: string;
   author: string;
-  category: string;
+  category:
+    | 'Lussana'
+    | 'Italia'
+    | 'Mondo'
+    | 'Speciale'
+    | 'Scienza & Tech'
+    | 'Cultura'
+    | 'Sport'
+    | 'Svago';
   estimatedTime: number;
   image: string;
   date: Date;

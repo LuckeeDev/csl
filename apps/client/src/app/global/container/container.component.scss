@@ -148,9 +148,22 @@ li.item.button {
   .footer {
     padding-left: 10vw;
     padding-right: 10vw;
+    display: block;
+    height: 100px;
+    position: relative;
+    margin-top: auto;
+    margin-bottom: auto;
+    line-height: 18px;
+    align-items: center;
   }
 
   .footer-text {
     font-size: 12px;
+  }
+
+  .version {
+    position: absolute;
+    right: 10vw;
+    bottom: 20px;
   }
 }

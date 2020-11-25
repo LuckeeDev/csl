@@ -11,6 +11,7 @@ import { ArticlesService } from '@global/services/articles/articles.service';
 import { DialogService, ToastrService } from '@csl/ui';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
+import { IArticle } from '../../../../../../../libs/shared/src/lib/shared';
 
 @Component({
   selector: 'csl-editor',
@@ -24,7 +25,7 @@ export class EditorComponent implements OnInit, AfterViewInit {
   saving: boolean;
   articleID: string;
 
-  categories: string[];
+  categories: IArticle['category'][];
 
   coverURL: string;
 
@@ -46,7 +47,16 @@ export class EditorComponent implements OnInit, AfterViewInit {
   ) {
     this.ready = false;
     this.articleID = this.route.snapshot.paramMap.get('articleID');
-    this.categories = ['Musica', 'Cultura', 'Cinema', 'Lussana', 'Sport'];
+    this.categories = [
+      'Lussana',
+      'Italia',
+      'Mondo',
+      'Speciale',
+      'Scienza & Tech',
+      'Cultura',
+      'Sport',
+      'Svago',
+    ];
   }
 
   ngOnInit(): void {}
@@ -108,9 +118,9 @@ export class EditorComponent implements OnInit, AfterViewInit {
               availableTargets: ['_blank', '_self'],
               availableRels: ['external'],
               target: '_blank',
-              rel: 'external'
-            }
-          }
+              rel: 'external',
+            },
+          },
         },
 
         defaultBlock: 'paragraph',
@@ -124,7 +134,7 @@ export class EditorComponent implements OnInit, AfterViewInit {
               Image: 'Immagine',
               Bold: 'Grassetto',
               Italic: 'Corsivo',
-              Hyperlink: 'Link'
+              Hyperlink: 'Link',
             },
             tools: {
               list: {
@@ -141,10 +151,10 @@ export class EditorComponent implements OnInit, AfterViewInit {
                 'Add a link': 'Aggiungi un link',
               },
               hyperlink: {
-                'Save': 'Salva',
+                Save: 'Salva',
                 'Select target': 'Seleziona destinazione',
                 'Select rel': 'Seleziona relazione',
-              }
+              },
             },
             blockTunes: {
               delete: { Delete: 'Elimina' },

@@ -28,6 +28,11 @@ a {
 }
 
 @media screen and (max-width: 1250px) {
+  .card {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
   .container {
     padding-right: 10vw;
     padding-left: 10vw;

@@ -16,7 +16,7 @@
       class="article-preview"
     >
       <div
-        class="category"
+        class="category-color"
         [ngStyle]="{ 'background-color': article.category | categoryToColor }"
       ></div>
 
@@ -30,6 +30,7 @@
           />
           <div class="text" [ngClass]="{ odd: i % 2 === 1, even: i % 2 === 0 }">
             <h1 class="title">{{ article.title }}</h1>
+            <span class="category-label">{{ article.category }}</span>
             <p class="preview" [innerHTML]="article.preview">
               {{ article.preview }}
             </p>
