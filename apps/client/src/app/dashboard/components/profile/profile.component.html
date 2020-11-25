@@ -1,8 +1,22 @@
-<csl-dashboard-home [user]="auth.user$ | async">
+<csl-dashboard-home *ngIf="auth.user$ | async as user" [user]="user">
   <span header>I tuoi dati</span>
 
   <span activities-label>Le tue attività</span>
-  <span activities>Questa sezione è ancora vuota! Torna più tardi...</span>
+  <span activities>
+    <span>
+      Gestisci <a [routerLink]="['..', 'qp-admin']" class="link" *ngIf="user.isQp">Quinto Piano</a>
+    </span>
+    <br />
+    <span>
+      Gestisci la tua <a [routerLink]="['..', 'referente']" class="link" *ngIf="user.isReferente">Commissione</a>
+    </span>
+    <br />
+    <span>
+      Gestisci le <a [routerLink]="['..', 'rappre']" class="link" *ngIf="user.isRappre">attività della scuola</a>
+    </span>
+    <br />
+    <span *ngIf="!user.isRappre && !user.isReferente && !user.isQp"></span>
+  </span>
 
   <button mat-raised-button color="warn" logout-btn (click)="signOut()">Esci</button>
 </csl-dashboard-home>
