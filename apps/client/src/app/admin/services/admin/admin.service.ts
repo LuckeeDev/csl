@@ -23,9 +23,21 @@ export class AdminService {
     return this.http.get<IHttpRes<ILog[]>>('/api/admin/events');
   }
 
-  createCommissione(commissione: ICommissione): Observable<IHttpRes<any>> {
-    return this.http.post<IHttpRes<any>>('/api/admin/commissioni', {
+  getCommissioni(): Observable<IHttpRes<ICommissione[]>> {
+    return this.http.get<IHttpRes<ICommissione[]>>('/api/admin/commissioni');
+  }
+
+  createCommissione(commissione: ICommissione): Observable<IHttpRes<ICommissione[]>> {
+    return this.http.post<IHttpRes<ICommissione[]>>('/api/admin/commissioni', {
       commissione,
     });
+  }
+
+  removeCommissione(
+    id: ICommissione['id']
+  ): Observable<IHttpRes<ICommissione[]>> {
+    return this.http.delete<IHttpRes<ICommissione[]>>(
+      `/api/admin/commissioni/${id}`
+    );
   }
 }

@@ -18,6 +18,15 @@ export const Commissione = mongoose.model<ICommissioneModel>(
   'commissioni'
 );
 
+export const getCommissioni = async (): Promise<IHttpRes<ICommissione[]>> => {
+  const commissioni = await Commissione.find();
+
+  return {
+    success: true,
+    data: commissioni,
+  };
+};
+
 export const getCommissione = async (
   id: ICommissione['id']
 ): Promise<IHttpRes<ICommissione>> => {
@@ -71,9 +80,11 @@ export const setPage = async (
 export const createCommissione = async (
   commissione: ICommissione,
   user: IUser
-) => {
+): Promise<IHttpRes<ICommissione[]>> => {
   try {
     await new Commissione(commissione).save().then();
+
+    const commissioni = await Commissione.find();
 
     saveEvent(`Created commissione "${commissione.id}"`, {
       user: user.email,
@@ -82,12 +93,44 @@ export const createCommissione = async (
 
     return {
       success: true,
+      data: commissioni,
     };
   } catch (err) {
     saveError(`Error during the creation of commissione "${commissione.id}"`, {
       user: user.email,
       category: 'commissioni',
-      err
+      err,
     });
+  }
+};
+
+export const removeCommissione = async (
+  id: ICommissione['id'],
+  user: IUser
+): Promise<IHttpRes<ICommissione[]>> => {
+  try {
+    await Commissione.findOneAndDelete({ id });
+
+    const commissioni = await Commissione.find();
+
+    saveEvent(`Removed commissione "${id}"`, {
+      category: 'commissioni',
+      user: user.id,
+    });
+
+    return {
+      success: true,
+      data: commissioni,
+    };
+  } catch (err) {
+    saveError(`Error during the deletion of commissione "${id}"`, {
+      err,
+      category: 'commissioni',
+      user: user.id,
+    });
+
+    return {
+      success: false,
+    };
   }
 };

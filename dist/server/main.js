@@ -333,6 +333,59 @@ const updateSnackCreditInClass = (email, snackCredit, classID) => Object(tslib__
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return saveEvent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return saveError; });
+/* harmony import */ var winston__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(24);
+/* harmony import */ var winston__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(winston__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var winston_mongodb__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(25);
+/* harmony import */ var winston_mongodb__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(winston_mongodb__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
+
+
+
+const eventLogger = winston__WEBPACK_IMPORTED_MODULE_0___default.a.createLogger({
+    transports: [
+        new winston_mongodb__WEBPACK_IMPORTED_MODULE_1__["MongoDB"]({
+            level: 'info',
+            db: _environments_environment__WEBPACK_IMPORTED_MODULE_2__[/* environment */ "a"].DB_URI,
+            options: {
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
+            },
+            collection: 'events',
+            name: 'info-transport',
+            tryReconnect: true,
+        }),
+    ],
+});
+const saveEvent = (msg, metadata) => {
+    eventLogger.log('info', msg, { metadata });
+};
+const errorLogger = winston__WEBPACK_IMPORTED_MODULE_0___default.a.createLogger({
+    transports: [
+        new winston_mongodb__WEBPACK_IMPORTED_MODULE_1__["MongoDB"]({
+            level: 'error',
+            db: _environments_environment__WEBPACK_IMPORTED_MODULE_2__[/* environment */ "a"].DB_URI,
+            options: {
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
+            },
+            collection: 'errors',
+            name: 'errors-transport',
+            tryReconnect: true,
+        }),
+    ],
+});
+const saveError = (msg, metadata) => {
+    errorLogger.log('error', msg, { metadata });
+};
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return User; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return createAccount; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return removeAccount; });
@@ -346,10 +399,10 @@ const updateSnackCreditInClass = (email, snackCredit, classID) => Object(tslib__
 /* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
-/* harmony import */ var stripe__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(17);
+/* harmony import */ var stripe__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(18);
 /* harmony import */ var stripe__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(stripe__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _controllers_classe__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5);
-/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(7);
+/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(6);
 
 
 // Stripe initialization
@@ -587,59 +640,6 @@ const updateCredit = (email, money) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__
     });
     return result;
 });
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return saveEvent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return saveError; });
-/* harmony import */ var winston__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(24);
-/* harmony import */ var winston__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(winston__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var winston_mongodb__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(25);
-/* harmony import */ var winston_mongodb__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(winston_mongodb__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
-
-
-
-const eventLogger = winston__WEBPACK_IMPORTED_MODULE_0___default.a.createLogger({
-    transports: [
-        new winston_mongodb__WEBPACK_IMPORTED_MODULE_1__["MongoDB"]({
-            level: 'info',
-            db: _environments_environment__WEBPACK_IMPORTED_MODULE_2__[/* environment */ "a"].DB_URI,
-            options: {
-                useNewUrlParser: true,
-                useUnifiedTopology: true,
-            },
-            collection: 'events',
-            name: 'info-transport',
-            tryReconnect: true,
-        }),
-    ],
-});
-const saveEvent = (msg, metadata) => {
-    eventLogger.log('info', msg, { metadata });
-};
-const errorLogger = winston__WEBPACK_IMPORTED_MODULE_0___default.a.createLogger({
-    transports: [
-        new winston_mongodb__WEBPACK_IMPORTED_MODULE_1__["MongoDB"]({
-            level: 'error',
-            db: _environments_environment__WEBPACK_IMPORTED_MODULE_2__[/* environment */ "a"].DB_URI,
-            options: {
-                useNewUrlParser: true,
-                useUnifiedTopology: true,
-            },
-            collection: 'errors',
-            name: 'errors-transport',
-            tryReconnect: true,
-        }),
-    ],
-});
-const saveError = (msg, metadata) => {
-    errorLogger.log('error', msg, { metadata });
-};
 
 
 /***/ }),
@@ -1123,7 +1123,7 @@ const deleteFromCart = (id, product) => Object(tslib__WEBPACK_IMPORTED_MODULE_0_
 /* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _controllers_snack__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(14);
-/* harmony import */ var _controllers_user__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6);
+/* harmony import */ var _controllers_user__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7);
 /* harmony import */ var _controllers_classe__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5);
 
 
@@ -1335,12 +1335,129 @@ const snackOrderConfig = (io) => {
 
 /***/ }),
 /* 17 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export Commissione */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getCommissioni; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getCommissione; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return setPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return createCommissione; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return removeCommissione; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6);
+
+
+
+const CommissioneSchema = new mongoose__WEBPACK_IMPORTED_MODULE_1__["Schema"]({
+    id: { type: String, required: true, unique: true },
+    title: { type: String, required: true },
+    page: { type: Object },
+    image: { type: String },
+}, { skipVersioning: true });
+const Commissione = mongoose__WEBPACK_IMPORTED_MODULE_1___default.a.model('commissione', CommissioneSchema, 'commissioni');
+const getCommissioni = () => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function* () {
+    const commissioni = yield Commissione.find();
+    return {
+        success: true,
+        data: commissioni,
+    };
+});
+const getCommissione = (id) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function* () {
+    try {
+        const commissione = yield Commissione.findOne({ id });
+        return {
+            success: true,
+            data: commissione,
+        };
+    }
+    catch (err) {
+        return {
+            success: false,
+            err,
+        };
+    }
+});
+const setPage = (id, page, user) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function* () {
+    try {
+        yield Commissione.findOneAndUpdate({ id }, { page });
+        Object(_config_winston__WEBPACK_IMPORTED_MODULE_2__[/* saveEvent */ "b"])(`Modificata la pagina della commissione ${id}`, {
+            user: user.email,
+            category: 'commissioni',
+        });
+        return {
+            success: true,
+        };
+    }
+    catch (err) {
+        Object(_config_winston__WEBPACK_IMPORTED_MODULE_2__[/* saveError */ "a"])(`Errore durante la modifica della pagina della commissione ${id}`, {
+            user: user.email,
+            category: 'commissioni',
+            err,
+        });
+        return {
+            success: false,
+        };
+    }
+});
+const createCommissione = (commissione, user) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function* () {
+    try {
+        yield new Commissione(commissione).save().then();
+        const commissioni = yield Commissione.find();
+        Object(_config_winston__WEBPACK_IMPORTED_MODULE_2__[/* saveEvent */ "b"])(`Created commissione "${commissione.id}"`, {
+            user: user.email,
+            category: 'commissioni',
+        });
+        return {
+            success: true,
+            data: commissioni,
+        };
+    }
+    catch (err) {
+        Object(_config_winston__WEBPACK_IMPORTED_MODULE_2__[/* saveError */ "a"])(`Error during the creation of commissione "${commissione.id}"`, {
+            user: user.email,
+            category: 'commissioni',
+            err,
+        });
+    }
+});
+const removeCommissione = (id, user) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function* () {
+    try {
+        yield Commissione.findOneAndDelete({ id });
+        const commissioni = yield Commissione.find();
+        Object(_config_winston__WEBPACK_IMPORTED_MODULE_2__[/* saveEvent */ "b"])(`Removed commissione "${id}"`, {
+            category: 'commissioni',
+            user: user.id,
+        });
+        return {
+            success: true,
+            data: commissioni,
+        };
+    }
+    catch (err) {
+        Object(_config_winston__WEBPACK_IMPORTED_MODULE_2__[/* saveError */ "a"])(`Error during the deletion of commissione "${id}"`, {
+            err,
+            category: 'commissioni',
+            user: user.id,
+        });
+        return {
+            success: false,
+        };
+    }
+});
+
+
+/***/ }),
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports = require("stripe");
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1354,7 +1471,7 @@ module.exports = require("stripe");
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
+/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6);
 
 
 
@@ -1488,88 +1605,6 @@ const deleteArticle = (id) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__await
 
 
 /***/ }),
-/* 19 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export Commissione */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getCommissione; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return setPage; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return createCommissione; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
-/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
-
-
-
-const CommissioneSchema = new mongoose__WEBPACK_IMPORTED_MODULE_1__["Schema"]({
-    id: { type: String, required: true, unique: true },
-    title: { type: String, required: true },
-    page: { type: Object },
-    image: { type: String },
-}, { skipVersioning: true });
-const Commissione = mongoose__WEBPACK_IMPORTED_MODULE_1___default.a.model('commissione', CommissioneSchema, 'commissioni');
-const getCommissione = (id) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function* () {
-    try {
-        const commissione = yield Commissione.findOne({ id });
-        return {
-            success: true,
-            data: commissione,
-        };
-    }
-    catch (err) {
-        return {
-            success: false,
-            err,
-        };
-    }
-});
-const setPage = (id, page, user) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function* () {
-    try {
-        yield Commissione.findOneAndUpdate({ id }, { page });
-        Object(_config_winston__WEBPACK_IMPORTED_MODULE_2__[/* saveEvent */ "b"])(`Modificata la pagina della commissione ${id}`, {
-            user: user.email,
-            category: 'commissioni',
-        });
-        return {
-            success: true,
-        };
-    }
-    catch (err) {
-        Object(_config_winston__WEBPACK_IMPORTED_MODULE_2__[/* saveError */ "a"])(`Errore durante la modifica della pagina della commissione ${id}`, {
-            user: user.email,
-            category: 'commissioni',
-            err,
-        });
-        return {
-            success: false,
-        };
-    }
-});
-const createCommissione = (commissione, user) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function* () {
-    try {
-        yield new Commissione(commissione).save().then();
-        Object(_config_winston__WEBPACK_IMPORTED_MODULE_2__[/* saveEvent */ "b"])(`Created commissione "${commissione.id}"`, {
-            user: user.email,
-            category: 'commissioni',
-        });
-        return {
-            success: true,
-        };
-    }
-    catch (err) {
-        Object(_config_winston__WEBPACK_IMPORTED_MODULE_2__[/* saveError */ "a"])(`Error during the creation of commissione "${commissione.id}"`, {
-            user: user.email,
-            category: 'commissioni',
-            err
-        });
-    }
-});
-
-
-/***/ }),
 /* 20 */
 /***/ (function(module, exports) {
 
@@ -1602,7 +1637,7 @@ module.exports = require("firebase-admin");
 /* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(21);
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7);
+/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6);
 
 
 
@@ -1699,7 +1734,7 @@ module.exports = require("winston-mongodb");
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
+/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6);
 
 
 
@@ -1857,7 +1892,7 @@ module.exports = require("cookie-session");
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8);
-/* harmony import */ var stripe__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(17);
+/* harmony import */ var stripe__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(18);
 /* harmony import */ var stripe__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(stripe__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _controllers_classe__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
 
@@ -1926,9 +1961,9 @@ const socketConfig = (socket) => {
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _config_authcheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
-/* harmony import */ var _controllers_user__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6);
+/* harmony import */ var _controllers_user__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7);
 /* harmony import */ var _controllers_log__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(26);
-/* harmony import */ var _controllers_commissione__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(19);
+/* harmony import */ var _controllers_commissione__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(17);
 
 
 const router = Object(express__WEBPACK_IMPORTED_MODULE_1__["Router"])();
@@ -1952,8 +1987,18 @@ router.delete('/accounts/:email', _config_authcheck__WEBPACK_IMPORTED_MODULE_2__
     const result = yield Object(_controllers_user__WEBPACK_IMPORTED_MODULE_3__[/* removeAccount */ "f"])(req.params.email);
     res.json(result);
 }));
+router.get('/commissioni', _config_authcheck__WEBPACK_IMPORTED_MODULE_2__[/* isAdmin */ "b"], (req, res) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function* () {
+    const result = yield Object(_controllers_commissione__WEBPACK_IMPORTED_MODULE_5__[/* getCommissioni */ "c"])();
+    res.json(result);
+}));
 router.post('/commissioni', _config_authcheck__WEBPACK_IMPORTED_MODULE_2__[/* isAdmin */ "b"], (req, res) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function* () {
     const result = yield Object(_controllers_commissione__WEBPACK_IMPORTED_MODULE_5__[/* createCommissione */ "a"])(req.body.commissione, req.user);
+    res.json(result);
+}));
+router.delete('/commissioni/:id', _config_authcheck__WEBPACK_IMPORTED_MODULE_2__[/* isAdmin */ "b"], (req, res) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function* () {
+    const params = req.params;
+    const id = params.id;
+    const result = yield Object(_controllers_commissione__WEBPACK_IMPORTED_MODULE_5__[/* removeCommissione */ "d"])(id, req.user);
     res.json(result);
 }));
 /* harmony default export */ __webpack_exports__["a"] = (router);
@@ -2070,7 +2115,7 @@ router.post('/csv', _config_authcheck__WEBPACK_IMPORTED_MODULE_5__[/* isVice */ 
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var csvtojson__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(41);
 /* harmony import */ var csvtojson__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(csvtojson__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _controllers_user__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6);
+/* harmony import */ var _controllers_user__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
 /* harmony import */ var _controllers_classe__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
 
 
@@ -2170,7 +2215,7 @@ module.exports = require("csvtojson");
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _config_authcheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
-/* harmony import */ var _controllers_user__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6);
+/* harmony import */ var _controllers_user__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7);
 /* harmony import */ var _controllers_classe__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5);
 
 
@@ -2216,7 +2261,7 @@ router.patch('/manage/credit/:email', _config_authcheck__WEBPACK_IMPORTED_MODULE
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _config_authcheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
-/* harmony import */ var _controllers_article__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(18);
+/* harmony import */ var _controllers_article__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(19);
 /* harmony import */ var fs_extra__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9);
 /* harmony import */ var fs_extra__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(fs_extra__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var os__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(11);
@@ -2349,10 +2394,10 @@ router.delete('/:id', _config_authcheck__WEBPACK_IMPORTED_MODULE_2__[/* isRappre
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _config_authcheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
 /* harmony import */ var _controllers_order__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(15);
-/* harmony import */ var _controllers_user__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(6);
+/* harmony import */ var _controllers_user__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(7);
 /* harmony import */ var _controllers_classe__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(5);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(8);
-/* harmony import */ var stripe__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(17);
+/* harmony import */ var stripe__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(18);
 /* harmony import */ var stripe__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(stripe__WEBPACK_IMPORTED_MODULE_7__);
 
 // Main imports
@@ -2570,7 +2615,7 @@ router.post('/courses', _config_authcheck__WEBPACK_IMPORTED_MODULE_3__[/* authCh
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _config_authcheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
-/* harmony import */ var _controllers_commissione__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(19);
+/* harmony import */ var _controllers_commissione__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(17);
 /* harmony import */ var _config_firebase__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(10);
 /* harmony import */ var fs_extra__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(9);
 /* harmony import */ var fs_extra__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(fs_extra__WEBPACK_IMPORTED_MODULE_5__);
@@ -2596,7 +2641,7 @@ router.get('/:id', (req, res) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__aw
 router.patch('/:id', _config_authcheck__WEBPACK_IMPORTED_MODULE_2__[/* isReferente */ "h"], (req, res) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function* () {
     const params = req.params;
     const id = params.id;
-    const result = yield Object(_controllers_commissione__WEBPACK_IMPORTED_MODULE_3__[/* setPage */ "c"])(id, req.body.page, req.user);
+    const result = yield Object(_controllers_commissione__WEBPACK_IMPORTED_MODULE_3__[/* setPage */ "e"])(id, req.body.page, req.user);
     res.json(result);
 }));
 // Images
@@ -2679,7 +2724,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _routes_snacks__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(47);
 /* harmony import */ var _routes_coge__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(48);
 /* harmony import */ var _routes_commissioni__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(49);
-/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(7);
+/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(6);
 // Main imports
 
 
@@ -2796,7 +2841,7 @@ module.exports = JSON.parse("{\"type\":\"service_account\",\"project_id\":\"cslu
 /* harmony import */ var passport__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
 /* harmony import */ var passport__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(passport__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
-/* harmony import */ var _controllers_user__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6);
+/* harmony import */ var _controllers_user__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7);
 
 
 

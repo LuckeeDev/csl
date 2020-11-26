@@ -1,6 +1,11 @@
-.container {
+.table {
+  width: 100%;
+}
+
+.form {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 20px;
 }
 
 .form-field {

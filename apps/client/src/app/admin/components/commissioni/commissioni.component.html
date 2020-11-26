@@ -1,17 +1,83 @@
-<form [formGroup]="commissioneForm" (ngSubmit)="createCommissione(formElement)" class="container" #formElement>
-  <mat-form-field class="form-field">
-    <mat-label>ID</mat-label>
-    <input matInput type="text" formControlName="id" />
-  </mat-form-field>
+<div>
+  <ng-container *ngIf="commissioni; else noCommissione">
+    <mat-card *ngIf="commissioni.length > 0; else noCommissione">
+      <mat-table [dataSource]="commissioni" class="table">
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+          <mat-cell *matCellDef="let commissione">
+            {{ commissione.id }}
+          </mat-cell>
+        </ng-container>
 
-  <mat-form-field class="form-field">
-    <mat-label>Nome</mat-label>
-    <input matInput type="text" formControlName="title" />
-  </mat-form-field>
+        <ng-container matColumnDef="title">
+          <mat-header-cell *matHeaderCellDef>Nome</mat-header-cell>
+          <mat-cell *matCellDef="let commissione">
+            {{ commissione.title }}
+          </mat-cell>
+        </ng-container>
 
-  <div class="submit-btn">
-    <button mat-raised-button [disabled]="commissioneForm.invalid" color="primary">
-      Crea commissione
-    </button>
-  </div>
-</form>
+        <ng-container matColumnDef="hasPage">
+          <mat-header-cell *matHeaderCellDef>Pagina creata</mat-header-cell>
+          <mat-cell *matCellDef="let commissione">
+            <ng-container *ngIf="commissione.page; else noPage">
+              <mat-icon color="primary">done</mat-icon>
+            </ng-container>
+
+            <ng-template #noPage>
+              <mat-icon color="accent">schedule</mat-icon>
+            </ng-template>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="manage">
+          <mat-header-cell *matHeaderCellDef>Gestisci</mat-header-cell>
+          <mat-cell *matCellDef="let commissione">
+            <button
+              mat-stroked-button
+              (click)="removeCommissione(commissione.id)"
+              color="warn"
+            >
+              Elimina
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+    </mat-card>
+  </ng-container>
+
+  <ng-template #noCommissione>
+    <csl-alert color="primary">
+      Nessuna Commissione trovata!
+    </csl-alert>
+  </ng-template>
+
+  <form
+    [formGroup]="commissioneForm"
+    (ngSubmit)="createCommissione(formElement)"
+    class="form"
+    #formElement
+  >
+    <mat-form-field class="form-field">
+      <mat-label>ID</mat-label>
+      <input matInput type="text" formControlName="id" />
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Nome</mat-label>
+      <input matInput type="text" formControlName="title" />
+    </mat-form-field>
+
+    <div class="submit-btn">
+      <button
+        mat-raised-button
+        [disabled]="commissioneForm.invalid"
+        color="primary"
+      >
+        Crea commissione
+      </button>
+    </div>
+  </form>
+</div>

@@ -44,7 +44,14 @@ export class ReportsComponent implements OnInit {
   }
 
   unsolved(category: IReport['bug']['category']): number | null {
-    const length = this[category].filter((x: IReport) => x.solved === false).length;
+    let length: number;
+
+    if (this[category]) {
+      length = this[category].filter((x: IReport) => x.solved === false)
+        .length;
+    } else {
+      length = 0;
+    }
 
     return length === 0 ? null : length;
   }

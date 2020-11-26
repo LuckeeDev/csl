@@ -1,9 +1,12 @@
 import { Router, Response } from 'express';
 const router = Router();
 
-import { authCheck, isReferente } from '@config/authcheck';
+import { isReferente } from '@config/authcheck';
 import { ICommissione, IRequest } from '@csl/shared';
-import { getCommissione, setPage } from '@controllers/commissione';
+import {
+  getCommissione,
+  setPage,
+} from '@controllers/commissione';
 import { bucket } from '@config/firebase';
 import { UploadedFile } from 'express-fileupload';
 import fse from 'fs-extra';
@@ -16,7 +19,7 @@ router.get('/:id', async (req: IRequest, res: Response) => {
   const result = await getCommissione(id);
 
   res.json(result);
-})
+});
 
 router.patch('/:id', isReferente, async (req: IRequest, res: Response) => {
   const params: any = req.params;
@@ -24,7 +27,7 @@ router.patch('/:id', isReferente, async (req: IRequest, res: Response) => {
   const result = await setPage(id, req.body.page, req.user);
 
   res.json(result);
-})
+});
 
 // Images
 router.post('/image', isReferente, async (req: IRequest, res: Response) => {
@@ -51,21 +54,18 @@ router.post('/image', isReferente, async (req: IRequest, res: Response) => {
   });
 });
 
-router.get(
-  '/image/:fileName',
-  async (req: IRequest, res: Response) => {
-    const firebasePath = `commissioni/images/${req.params.fileName}`;
+router.get('/image/:fileName', async (req: IRequest, res: Response) => {
+  const firebasePath = `commissioni/images/${req.params.fileName}`;
 
-    const workingDir = join(tmpdir(), 'commissioni');
-    const tmpFilePath = join(workingDir, req.params.fileName);
-    await fse.emptyDir(workingDir);
+  const workingDir = join(tmpdir(), 'commissioni');
+  const tmpFilePath = join(workingDir, req.params.fileName);
+  await fse.emptyDir(workingDir);
 
-    await bucket.file(firebasePath).download({
-      destination: tmpFilePath,
-    });
+  await bucket.file(firebasePath).download({
+    destination: tmpFilePath,
+  });
 
-    res.sendFile(tmpFilePath);
-  }
-);
+  res.sendFile(tmpFilePath);
+});
 
 export default router;

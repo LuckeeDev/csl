@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ICourse } from '../../../../../../../libs/shared/src/lib/shared';
+import { ICourse } from '@csl/shared';
 
 @Pipe({
   name: 'courseStatus',
