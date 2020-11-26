@@ -25,6 +25,11 @@ a {
   text-decoration: none;
   color: #0D47A1;
   font-weight: 500;
+
+  &.faq {
+    font-size: 16px;
+    margin-top: 16px;
+  }
 }
 
 @media screen and (max-width: 1250px) {

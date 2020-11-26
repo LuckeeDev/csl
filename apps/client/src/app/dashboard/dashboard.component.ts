@@ -9,9 +9,9 @@ import { IDashboardLink } from '@csl/shared';
 export class DashboardComponent implements OnInit {
   links: IDashboardLink[] = [
     { link: '.', title: 'Home' },
-    { link: 'coge', title: 'Cogestione' },
-    { link: 'orders', title: 'Ordini' },
-    { link: 'checkout', title: 'Pagamenti' },
+    // { link: 'coge', title: 'Cogestione' },
+    // { link: 'orders', title: 'Ordini' },
+    // { link: 'checkout', title: 'Pagamenti' },
   ];
 
   constructor() {}

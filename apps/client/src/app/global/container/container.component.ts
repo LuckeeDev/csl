@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { AuthService } from '@global/services/auth/auth.service';
 
@@ -11,6 +11,9 @@ import { IDashboardLink } from '@csl/shared';
   styleUrls: ['./container.component.scss'],
 })
 export class ContainerComponent implements OnInit {
+  @Input()
+  v: string;
+
   toggled = false;
 
   faBars = faBars;
@@ -25,7 +28,7 @@ export class ContainerComponent implements OnInit {
     { title: 'Consulta', link: 'consulta' },
     { title: 'PortArti', link: 'portarti' },
     { title: 'QP', link: 'qp' },
-    { title: 'Store', link: 'store' },
+    // { title: 'Store', link: 'store' },
     { title: 'Contatti', link: 'contacts' },
   ];
 

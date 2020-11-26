@@ -62,31 +62,31 @@ const routes: Routes = [
       { path: ':articleID', component: ArticleComponent },
     ],
   },
-  {
-    path: 'store',
-    canActivate: [LoggedInGuard],
-    component: StoreComponent,
-    children: [
-      { path: '', component: StoreHomeComponent },
-      {
-        path: ':category',
-        component: CatalogComponent,
-      },
-      {
-        path: ':category/:productID',
-        component: ProductComponent,
-      },
-    ],
-  },
-  {
-    path: 'bar',
-    canActivate: [LoggedInGuard],
-    component: BarComponent,
-    children: [
-      { path: '', component: SnacksComponent },
-      { path: 'cart', component: SnackCartComponent },
-    ],
-  },
+  // {
+  //   path: 'store',
+  //   canActivate: [LoggedInGuard],
+  //   component: StoreComponent,
+  //   children: [
+  //     { path: '', component: StoreHomeComponent },
+  //     {
+  //       path: ':category',
+  //       component: CatalogComponent,
+  //     },
+  //     {
+  //       path: ':category/:productID',
+  //       component: ProductComponent,
+  //     },
+  //   ],
+  // },
+  // {
+  //   path: 'bar',
+  //   canActivate: [LoggedInGuard],
+  //   component: BarComponent,
+  //   children: [
+  //     { path: '', component: SnacksComponent },
+  //     { path: 'cart', component: SnackCartComponent },
+  //   ],
+  // },
   {
     path: 'dashboard',
     canLoad: [LoggedInGuard],
@@ -105,12 +105,12 @@ const routes: Routes = [
     loadChildren: () => 
       import('@referente/referente.module').then((m) => m.ReferenteModule),
   },
-  {
-    path: 'bar-admin',
-    canLoad: [BarAdminGuard],
-    loadChildren: () =>
-      import('@bar-admin/bar-admin.module').then((m) => m.BarAdminModule),
-  },
+  // {
+  //   path: 'bar-admin',
+  //   canLoad: [BarAdminGuard],
+  //   loadChildren: () =>
+  //     import('@bar-admin/bar-admin.module').then((m) => m.BarAdminModule),
+  // },
   {
     path: 'rappre',
     canLoad: [RappreGuard],
