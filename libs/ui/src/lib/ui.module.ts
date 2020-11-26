@@ -28,6 +28,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatBadgeModule } from '@angular/material/badge';
 
 // Components
 import { DialogComponent } from './components/dialog/dialog.component';
@@ -83,7 +84,8 @@ import { RoundedDirective } from './directives/rounded/rounded.directive';
     MatStepperModule,
     MatTabsModule,
     MatSlideToggleModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatBadgeModule,
   ],
   exports: [
     FontAwesomeModule,
@@ -116,7 +118,8 @@ import { RoundedDirective } from './directives/rounded/rounded.directive';
     MatStepperModule,
     MatTabsModule,
     MatSlideToggleModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatBadgeModule,
   ],
   providers: [ToastrService, DialogService, DeviceService],
 })

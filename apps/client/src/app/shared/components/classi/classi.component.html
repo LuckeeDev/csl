@@ -1,17 +1,17 @@
-<!-- Show if at least one class exists -->
 <div *ngIf="(state$ | async).classes as classes; else noClasses" class="cards">
-  <ng-container *ngFor="let class of classes">
-    <mat-card [routerLink]="[class.id]">
-      <mat-card-header>
-        <mat-card-title>{{ class.id.toUpperCase() }}</mat-card-title></mat-card-header
-      >
-    </mat-card>
+  <ng-container *ngIf="classes.length > 0; else noClasses">
+    <ng-container *ngFor="let class of classes">
+      <mat-card [routerLink]="[class.id]" class="card">
+        <mat-card-header>
+          <mat-card-title>{{ class.id.toUpperCase() }}</mat-card-title>
+        </mat-card-header>
+      </mat-card>
+    </ng-container>
   </ng-container>
 </div>
 
-<!-- Show if no class is present -->
 <ng-template #noClasses>
-  <csl-alert color="primary">
+  <csl-alert color="primary" class="alert">
     Non ci sono ancora classi!
   </csl-alert>
 </ng-template>

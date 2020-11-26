@@ -4,6 +4,8 @@ import { DialogService, ToastrService } from '@csl/ui';
 import { IBugData } from '@csl/shared';
 import { ReportsService } from '@global/services/reports/reports.service';
 import { Router } from '@angular/router';
+import { AuthService } from '@global/services/auth/auth.service';
+import { isClassID } from '@global/validators';
 
 @Component({
   selector: 'csl-contact-form',
@@ -14,6 +16,8 @@ export class ContactFormComponent implements OnInit {
   isLinear = false;
   form: FormGroup;
 
+  isSignedIn: boolean;
+
   categories: string[] = ['Tecnico', 'Visivo', 'Altro'];
 
   constructor(
@@ -21,7 +25,8 @@ export class ContactFormComponent implements OnInit {
     private dialog: DialogService,
     private toastr: ToastrService,
     private reports: ReportsService,
-    private router: Router
+    private router: Router,
+    public auth: AuthService
   ) {}
 
   ngOnInit() {
@@ -33,15 +38,33 @@ export class ContactFormComponent implements OnInit {
         description: ['', Validators.required],
         context: ['', Validators.required],
       }),
+      contactInfo: this.fb.group({
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        classID: ['', [Validators.required, isClassID]],
+      }),
     });
+
+    this.auth.user$.subscribe((user) => {
+      if (user) {
+        this.isSignedIn = true;
+
+        this.form.removeControl('contactInfo');
+      } else {
+        this.isSignedIn = false;
+      }
+    });
+  }
+
+  log() {
+    console.log(this.form.value);
   }
 
   submit() {
     this.dialog
       .open({
         title: 'Confermare invio modulo?',
-        text:
-          'Riceverai una notifica appena sistemeremo il problema segnalato',
+        text: 'Riceverai una notifica appena risolveremo il problema segnalato',
         answer: 'Conferma',
         color: 'primary',
       })
@@ -49,12 +72,14 @@ export class ContactFormComponent implements OnInit {
         const { firstStep, secondStep } = this.form.value;
 
         const bugData: IBugData = {
-          category: firstStep.category,
-          description: secondStep.description,
-          context: secondStep.context,
+          ...firstStep,
+          ...secondStep,
         };
 
-        this.reports.sendBugReport(bugData).subscribe((res) => {
+        const contactInfo =
+          this.isSignedIn === false ? this.form.value.contactInfo : null;
+
+        this.reports.sendBugReport(bugData, contactInfo).subscribe((res) => {
           if (res.success === true) {
             this.toastr.show({
               message: 'Segnalazione inviata',

@@ -3,8 +3,12 @@
   flex-wrap: wrap;
 }
 
-mat-card {
+.card {
   cursor: pointer;
   margin-right: 20px;
   outline: none;
+}
+
+.alert {
+  width: 100%;
 }

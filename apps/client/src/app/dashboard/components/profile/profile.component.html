@@ -5,17 +5,20 @@
   <span activities>
     <span *ngIf="user.isQp">
       Gestisci <a [routerLink]="['..', 'qp-admin']" class="link">Quinto Piano</a>
+      <br />
     </span>
-    <br />
+    
     <span *ngIf="user.isReferente">
       Gestisci la tua <a [routerLink]="['..', 'referente']" class="link">Commissione</a>
+      <br />
     </span>
-    <br />
+    
     <span *ngIf="user.isRappre">
       Gestisci le <a [routerLink]="['..', 'rappre']" class="link">attività della scuola</a>
+      <br />
     </span>
-    <br />
-    <span *ngIf="!user.isRappre && !user.isReferente && !user.isQp"></span>
+    
+    <span *ngIf="!user.isRappre && !user.isReferente && !user.isQp">Questa sezione è ancora vuota! Torna più tardi...</span>
   </span>
 
   <button mat-raised-button color="warn" logout-btn (click)="signOut()">Esci</button>

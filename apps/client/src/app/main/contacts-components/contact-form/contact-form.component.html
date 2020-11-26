@@ -1,5 +1,5 @@
 <div class="container">
-  <mat-card>
+  <mat-card class="card">
     <mat-card-header>
       <mat-card-title>Segnala un errore</mat-card-title>
     </mat-card-header>
@@ -12,6 +12,7 @@
             formGroupName="firstStep"
           >
             <ng-template matStepLabel>Informazioni generali</ng-template>
+
             <mat-form-field>
               <mat-label>Tipo di problema</mat-label>
               <mat-select formControlName="category" required>
@@ -23,6 +24,7 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
+
             <div>
               <button mat-raised-button matStepperNext type="button">
                 Avanti
@@ -35,6 +37,7 @@
             formGroupName="secondStep"
           >
             <ng-template matStepLabel>Descrivi il problema</ng-template>
+
             <mat-form-field class="textarea">
               <mat-label>Descrizione del problema</mat-label>
               <textarea
@@ -43,6 +46,7 @@
                 required
               ></textarea>
             </mat-form-field>
+
             <mat-form-field class="textarea">
               <mat-label>Informazioni aggiuntive</mat-label>
               <textarea
@@ -52,6 +56,43 @@
                 required
               ></textarea>
             </mat-form-field>
+
+            <div>
+              <button
+                mat-raised-button
+                matStepperPrevious
+                type="button"
+              >
+                Indietro
+              </button>
+              <button mat-raised-button matStepperNext type="button" (click)="log()">
+                Avanti
+              </button>
+            </div>
+          </mat-step>
+
+          <mat-step
+            [stepControl]="form.get('contactInfo')"
+            formGroupName="contactInfo"
+            *ngIf="!isSignedIn"
+          >
+            <ng-template matStepLabel>Informazioni di contatto</ng-template>
+
+            <mat-form-field>
+              <mat-label>Nome</mat-label>
+              <input matInput formControlName="firstName" required />
+            </mat-form-field>
+            
+            <mat-form-field>
+              <mat-label>Cognome</mat-label>
+              <input matInput formControlName="lastName" required />
+            </mat-form-field>
+            
+            <mat-form-field>
+              <mat-label>Classe</mat-label>
+              <input matInput formControlName="classID" required />
+            </mat-form-field>
+            
             <div>
               <button
                 mat-raised-button
@@ -68,6 +109,7 @@
 
           <mat-step>
             <ng-template matStepLabel>Invia la segnalazione</ng-template>
+
             <div>
               <button
                 mat-raised-button
@@ -76,7 +118,7 @@
               >
                 Indietro
               </button>
-              <button mat-flat-button color="primary" type="submit">
+              <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">
                 Invia
               </button>
             </div>

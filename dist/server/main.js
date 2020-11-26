@@ -345,11 +345,11 @@ const updateSnackCreditInClass = (email, snackCredit, classID) => Object(tslib__
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
 /* harmony import */ var stripe__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(17);
 /* harmony import */ var stripe__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(stripe__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _controllers_classe__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5);
-/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(8);
+/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(7);
 
 
 // Stripe initialization
@@ -594,32 +594,13 @@ const updateCredit = (email, money) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return environment; });
-/* harmony import */ var dotenv__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(28);
-/* harmony import */ var dotenv__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(dotenv__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
-/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(path__WEBPACK_IMPORTED_MODULE_1__);
-
-
-const env = dotenv__WEBPACK_IMPORTED_MODULE_0__["config"]({
-    path: Object(path__WEBPACK_IMPORTED_MODULE_1__["join"])(__dirname, 'environments', '.prod.env'),
-}).parsed;
-env.COOKIE_KEYS = env.COOKIE_KEYS.split(';');
-const environment = Object.assign({ production: true }, env);
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return saveEvent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return saveError; });
-/* harmony import */ var winston__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(23);
+/* harmony import */ var winston__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(24);
 /* harmony import */ var winston__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(winston__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var winston_mongodb__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(24);
+/* harmony import */ var winston_mongodb__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(25);
 /* harmony import */ var winston_mongodb__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(winston_mongodb__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
 
 
 
@@ -659,6 +640,25 @@ const errorLogger = winston__WEBPACK_IMPORTED_MODULE_0___default.a.createLogger(
 const saveError = (msg, metadata) => {
     errorLogger.log('error', msg, { metadata });
 };
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return environment; });
+/* harmony import */ var dotenv__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(28);
+/* harmony import */ var dotenv__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(dotenv__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(path__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const env = dotenv__WEBPACK_IMPORTED_MODULE_0__["config"]({
+    path: Object(path__WEBPACK_IMPORTED_MODULE_1__["join"])(__dirname, 'environments', '.prod.env'),
+}).parsed;
+env.COOKIE_KEYS = env.COOKIE_KEYS.split(';');
+const environment = Object.assign({ production: true }, env);
 
 
 /***/ }),
@@ -1354,7 +1354,7 @@ module.exports = require("stripe");
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
+/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
 
 
 
@@ -1500,7 +1500,7 @@ const deleteArticle = (id) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__await
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
+/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
 
 
 
@@ -1589,18 +1589,107 @@ module.exports = require("firebase-admin");
 
 /***/ }),
 /* 23 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = require("winston");
+"use strict";
+/* unused harmony export Report */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return reportBug; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getReports; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return toggleSolved; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(21);
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7);
+
+
+
+
+const ReportSchema = new mongoose__WEBPACK_IMPORTED_MODULE_1__["Schema"]({
+    id: { type: String, required: true, unique: true },
+    user: { type: String },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    classID: { type: String, required: true },
+    date: { type: Date, required: true },
+    solved: { type: Boolean, default: false },
+    bug: { type: Object },
+}, { skipVersioning: true });
+const Report = mongoose__WEBPACK_IMPORTED_MODULE_1___default.a.model('report', ReportSchema);
+const reportBug = (user, bug) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function* () {
+    const date = new Date();
+    return new Report({
+        id: Object(uuid__WEBPACK_IMPORTED_MODULE_2__["v4"])(),
+        user: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        classID: user.classID,
+        date,
+        bug,
+    })
+        .save()
+        .then(() => {
+        return {
+            success: true,
+        };
+    })
+        .catch((err) => {
+        return {
+            success: false,
+            err,
+        };
+    });
+});
+const getReports = () => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function* () {
+    return Report.find()
+        .then((data) => {
+        return {
+            success: true,
+            data,
+        };
+    })
+        .catch((err) => {
+        return {
+            success: false,
+            err,
+        };
+    });
+});
+const toggleSolved = (id, solved) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function* () {
+    try {
+        yield Report.findOneAndUpdate({ id }, { solved });
+        return {
+            success: true,
+        };
+    }
+    catch (err) {
+        Object(_config_winston__WEBPACK_IMPORTED_MODULE_3__[/* saveError */ "a"])(`Error while toggling solved state on report ${id}`, {
+            category: 'reports',
+            err,
+        });
+        return {
+            success: false,
+        };
+    }
+});
+
 
 /***/ }),
 /* 24 */
 /***/ (function(module, exports) {
 
-module.exports = require("winston-mongodb");
+module.exports = require("winston");
 
 /***/ }),
 /* 25 */
+/***/ (function(module, exports) {
+
+module.exports = require("winston-mongodb");
+
+/***/ }),
+/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1610,7 +1699,7 @@ module.exports = require("winston-mongodb");
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
+/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
 
 
 
@@ -1659,72 +1748,6 @@ const getEvents = (user) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter
             success: false
         };
     }
-});
-
-
-/***/ }),
-/* 26 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export Report */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return reportBug; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getReports; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
-/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(21);
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_2__);
-
-
-
-const ReportSchema = new mongoose__WEBPACK_IMPORTED_MODULE_1__["Schema"]({
-    id: { type: String, required: true, unique: true },
-    user: { type: String, required: true },
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
-    classID: { type: String, required: true },
-    date: { type: Date, required: true },
-    bug: { type: Object },
-}, { skipVersioning: true });
-const Report = mongoose__WEBPACK_IMPORTED_MODULE_1___default.a.model('report', ReportSchema);
-const reportBug = (user, bug) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function* () {
-    const date = new Date();
-    return new Report({
-        id: Object(uuid__WEBPACK_IMPORTED_MODULE_2__["v4"])(),
-        user: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        classID: user.classID,
-        date,
-        bug,
-    })
-        .save()
-        .then(() => {
-        return {
-            success: true,
-        };
-    })
-        .catch((err) => {
-        return {
-            success: false,
-            err,
-        };
-    });
-});
-const getReports = () => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function* () {
-    return Report.find().then((data) => {
-        return {
-            success: true,
-            data
-        };
-    }).catch((err) => {
-        return {
-            success: false,
-            err
-        };
-    });
 });
 
 
@@ -1833,7 +1856,7 @@ module.exports = require("cookie-session");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return webhookHandler; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7);
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8);
 /* harmony import */ var stripe__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(17);
 /* harmony import */ var stripe__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(stripe__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _controllers_classe__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
@@ -1904,7 +1927,7 @@ const socketConfig = (socket) => {
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _config_authcheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
 /* harmony import */ var _controllers_user__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6);
-/* harmony import */ var _controllers_log__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(25);
+/* harmony import */ var _controllers_log__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(26);
 /* harmony import */ var _controllers_commissione__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(19);
 
 
@@ -2328,7 +2351,7 @@ router.delete('/:id', _config_authcheck__WEBPACK_IMPORTED_MODULE_2__[/* isRappre
 /* harmony import */ var _controllers_order__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(15);
 /* harmony import */ var _controllers_user__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(6);
 /* harmony import */ var _controllers_classe__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(5);
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(7);
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(8);
 /* harmony import */ var stripe__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(17);
 /* harmony import */ var stripe__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(stripe__WEBPACK_IMPORTED_MODULE_7__);
 
@@ -2432,7 +2455,7 @@ router.post('/create-payment-intent', _config_authcheck__WEBPACK_IMPORTED_MODULE
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _config_authcheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
-/* harmony import */ var _controllers_report__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(26);
+/* harmony import */ var _controllers_report__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(23);
 
 
 
@@ -2442,8 +2465,12 @@ router.get('/', _config_authcheck__WEBPACK_IMPORTED_MODULE_2__[/* isAdmin */ "b"
     const result = yield Object(_controllers_report__WEBPACK_IMPORTED_MODULE_3__[/* getReports */ "a"])();
     res.json(result);
 }));
-router.post('/bug', _config_authcheck__WEBPACK_IMPORTED_MODULE_2__[/* authCheck */ "a"], (req, res) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function* () {
-    const result = yield Object(_controllers_report__WEBPACK_IMPORTED_MODULE_3__[/* reportBug */ "b"])(req.user, req.body.bugData);
+router.patch('/solved', _config_authcheck__WEBPACK_IMPORTED_MODULE_2__[/* isAdmin */ "b"], (req, res) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function* () {
+    const result = yield Object(_controllers_report__WEBPACK_IMPORTED_MODULE_3__[/* toggleSolved */ "c"])(req.body.id, req.body.solved);
+    res.json(result);
+}));
+router.post('/bug', (req, res) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function* () {
+    const result = yield Object(_controllers_report__WEBPACK_IMPORTED_MODULE_3__[/* reportBug */ "b"])(req.user || req.body.contactInfo, req.body.bugData);
     res.json(result);
 }));
 /* harmony default export */ __webpack_exports__["a"] = (router);
@@ -2621,7 +2648,7 @@ module.exports = __webpack_require__(51);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7);
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8);
 /* harmony import */ var cors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(29);
 /* harmony import */ var cors__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(cors__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var path__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
@@ -2652,7 +2679,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _routes_snacks__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(47);
 /* harmony import */ var _routes_coge__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(48);
 /* harmony import */ var _routes_commissioni__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(49);
-/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(8);
+/* harmony import */ var _config_winston__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(7);
 // Main imports
 
 
@@ -2768,7 +2795,7 @@ module.exports = JSON.parse("{\"type\":\"service_account\",\"project_id\":\"cslu
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var passport__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
 /* harmony import */ var passport__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(passport__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
 /* harmony import */ var _controllers_user__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6);
 
 

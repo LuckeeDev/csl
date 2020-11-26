@@ -1,16 +1,21 @@
 import { Router, Response } from 'express';
 import { IRequest } from '@csl/shared';
-import { authCheck, isAdmin } from '@config/authcheck';
-import { getReports, reportBug } from '@controllers/report';
+import { isAdmin } from '@config/authcheck';
+import { getReports, reportBug, toggleSolved } from '@controllers/report';
 const router = Router();
 
 router.get('/', isAdmin, async (req: IRequest, res: Response) => {
   const result = await getReports();
   res.json(result);
-})
+});
 
-router.post('/bug', authCheck, async (req: IRequest, res: Response) => {
-  const result = await reportBug(req.user, req.body.bugData);
+router.patch('/solved', isAdmin, async (req: IRequest, res: Response) => {
+  const result = await toggleSolved(req.body.id, req.body.solved);
+  res.json(result);
+});
+
+router.post('/bug', async (req: IRequest, res: Response) => {
+  const result = await reportBug(req.user || req.body.contactInfo, req.body.bugData);
   res.json(result);
 });
 

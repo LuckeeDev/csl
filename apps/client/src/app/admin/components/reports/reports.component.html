@@ -1,6 +1,19 @@
 <mat-tab-group>
-  <mat-tab label="Errori Tecnici">
-    <div class="card-container" *ngIf="technical && technical.length > 0; else noTechnical">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <span
+        matBadge="{{ unsolved('technical') }}"
+        matBadgeOverlap="false"
+        matBadgeColor="accent"
+      >
+        Problemi tecnici
+      </span>
+    </ng-template>
+
+    <div
+      class="card-container"
+      *ngIf="technical && technical.length > 0; else noTechnical"
+    >
       <mat-card *ngFor="let report of technical" class="report">
         <mat-card-header>
           <mat-card-title>
@@ -9,6 +22,12 @@
           <mat-card-subtitle>
             {{ report.date | date: 'dd - MM - yy' }}
           </mat-card-subtitle>
+          <mat-checkbox
+            color="primary"
+            class="toggle-solved"
+            [checked]="report.solved"
+            (change)="toggleSolved($event, report.id)"
+          ></mat-checkbox>
         </mat-card-header>
         <mat-card-content>
           <h3>Descrizione</h3>
@@ -29,8 +48,21 @@
     </ng-template>
   </mat-tab>
 
-  <mat-tab label="Bug Visivi">
-    <div class="card-container" *ngIf="visual && visual.length > 0; else noVisual">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <span
+        matBadge="{{ unsolved('visual') }}"
+        matBadgeOverlap="false"
+        matBadgeColor="accent"
+      >
+        Bug visivi
+      </span>
+    </ng-template>
+
+    <div
+      class="card-container"
+      *ngIf="visual && visual.length > 0; else noVisual"
+    >
       <mat-card *ngFor="let report of visual" class="report">
         <mat-card-header>
           <mat-card-title>
@@ -39,6 +71,12 @@
           <mat-card-subtitle>
             {{ report.date | date: 'dd - MM - yy' }}
           </mat-card-subtitle>
+          <mat-checkbox
+            color="primary"
+            class="toggle-solved"
+            [checked]="report.solved"
+            (change)="toggleSolved($event, report.id)"
+          ></mat-checkbox>
         </mat-card-header>
         <mat-card-content>
           <h3>Descrizione</h3>
@@ -57,7 +95,17 @@
     </ng-template>
   </mat-tab>
 
-  <mat-tab label="Altro">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <span
+        matBadge="{{ unsolved('other') }}"
+        matBadgeOverlap="false"
+        matBadgeColor="accent"
+      >
+        Altro
+      </span>
+    </ng-template>
+
     <div class="card-container" *ngIf="other && other.length > 0; else noOther">
       <mat-card *ngFor="let report of other" class="report">
         <mat-card-header>
@@ -67,6 +115,12 @@
           <mat-card-subtitle>
             {{ report.date | date: 'dd - MM - yy' }}
           </mat-card-subtitle>
+          <mat-checkbox
+            color="primary"
+            class="toggle-solved"
+            [checked]="report.solved"
+            (change)="toggleSolved($event, report.id)"
+          ></mat-checkbox>
         </mat-card-header>
         <mat-card-content>
           <h3>Descrizione</h3>

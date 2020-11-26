@@ -14,9 +14,10 @@ export interface IReport {
   lastName: IUser['lastName'];
   classID: IUser['classID'];
   date: Date;
+  solved: boolean;
   bug?: IBugData;
 }
 
-export interface IReportModel extends Document {
+export interface IReportModel extends Document, IReport {
   id: string;
 }

@@ -23,9 +23,7 @@ export class AdminService {
     return this.http.get<IHttpRes<ILog[]>>('/api/admin/events');
   }
 
-  createCommissione(form: ICommissione): Observable<IHttpRes<any>> {
-    const commissione = { ...form, page: { } };
-
+  createCommissione(commissione: ICommissione): Observable<IHttpRes<any>> {
     return this.http.post<IHttpRes<any>>('/api/admin/commissioni', {
       commissione,
     });

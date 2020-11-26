@@ -1,7 +1,6 @@
 import { AdminService } from '@admin/services/admin/admin.service';
 import { Component, OnInit } from '@angular/core';
 import {
-  AbstractControl,
   FormControl,
   FormGroup,
   FormGroupDirective,
@@ -9,30 +8,7 @@ import {
 } from '@angular/forms';
 import { DialogService, ToastrService } from '@csl/ui';
 import { switchMap } from 'rxjs/operators';
-
-const isClassID = (c: AbstractControl) => {
-  const CLASSID_REGEXP: RegExp = /^[0-9]{1}[A-Z]{1}/;
-
-  if (c.value === 'admins') {
-    return null;
-  } else {
-    if (c.value.length !== 2) {
-      return {
-        classID: {
-          valid: false,
-        },
-      };
-    }
-
-    return CLASSID_REGEXP.test(c.value)
-      ? null
-      : {
-          classID: {
-            valid: false,
-          },
-        };
-  }
-};
+import { isClassID } from '@global/validators';
 
 @Component({
   selector: 'csl-accounts',
@@ -72,12 +48,11 @@ export class AccountsComponent implements OnInit {
             message: 'Account creato',
             color: 'success',
           });
+          formElement.resetForm();
+          this.accountForm.reset();
         } else if (res.success) {
           this.toastr.showError();
         }
-
-        this.accountForm.reset();
-        formElement.reset();
       });
   }
 
