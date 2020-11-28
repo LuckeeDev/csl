@@ -72,9 +72,16 @@
             un bug allo staff
           </p>
         </mat-expansion-panel>
+        
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>FAQ e privacy</mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>
+            Consulta le nostre <a [routerLink]="['..', 'faq']">FAQ</a> e la nostra <a [routerLink]="['..', 'privacy']">politica sulla privacy</a>
+          </p>
+        </mat-expansion-panel>
       </mat-accordion>
     </mat-card-content>
   </mat-card>
-
-  <a class="faq" [routerLink]="['..', 'faq']">Consulta le nostre FAQ</a>
 </div>

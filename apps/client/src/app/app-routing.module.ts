@@ -36,6 +36,7 @@ import { BarAdminGuard } from '@global/guards/bar-admin/bar-admin.guard';
 import { AdminGuard } from '@global/guards/admin/admin.guard';
 import { NotLoggedInGuard } from '@global/guards/not-logged-in/not-logged-in.guard';
 import { ReferenteGuard } from '@global/guards/referente/referente.guard';
+import { MdComponent } from '@shared/components/md/md.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -53,6 +54,7 @@ const routes: Routes = [
   { path: 'faq', component: FaqComponent },
   { path: 'contacts', component: ContactsComponent },
   { path: 'contacts/form', component: ContactFormComponent },
+  { path: 'privacy', component: MdComponent, data: { file: 'privacy.md', privacy: true } },
   {
     path: 'qp',
     canActivate: [LoggedInGuard],
@@ -102,7 +104,7 @@ const routes: Routes = [
   {
     path: 'referente',
     canLoad: [ReferenteGuard],
-    loadChildren: () => 
+    loadChildren: () =>
       import('@referente/referente.module').then((m) => m.ReferenteModule),
   },
   // {
@@ -125,10 +127,15 @@ const routes: Routes = [
   {
     path: 'admin',
     canLoad: [AdminGuard],
-    loadChildren: () => import('@admin/admin.module').then((m) => m.AdminModule),
+    loadChildren: () =>
+      import('@admin/admin.module').then((m) => m.AdminModule),
   },
   { path: 'login', canActivate: [NotLoggedInGuard], component: LoginComponent },
-  { path: 'login/:next', canActivate: [NotLoggedInGuard], component: LoginComponent },
+  {
+    path: 'login/:next',
+    canActivate: [NotLoggedInGuard],
+    component: LoginComponent,
+  },
   { path: 'unauthorized', component: AccessForbiddenComponent },
   { path: '**', component: PageNotFoundComponent },
 ];

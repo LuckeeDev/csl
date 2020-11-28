@@ -26,8 +26,10 @@
             "stylePreprocessorOptions": {
               "includePaths": ["libs/ui/src/lib"]
             },
-            "scripts": [],
-            "allowedCommonJsDependencies": ["firebase/app", "socket.io-client"]
+            "scripts": [
+              "node_modules/marked/lib/marked.js"
+            ],
+            "allowedCommonJsDependencies": ["firebase/app", "socket.io-client", "ng2-pdf-viewer"]
           },
           "configurations": {
             "production": {
@@ -140,6 +142,7 @@
             "tsConfig": "apps/server/tsconfig.app.json",
             "assets": [
               "apps/server/src/public",
+              "apps/server/src/assets",
               "apps/server/src/environments/.dev.env",
               "apps/server/src/environments/.prod.env",
               "apps/server/src/Dockerfile",

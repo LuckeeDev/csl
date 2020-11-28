@@ -13,7 +13,9 @@ export class ReferenteComponent implements OnInit {
   links: IDashboardLink[] = [
     { title: 'Home', link: '.' },
     { title: 'Gestisci pagina', link: 'editor' },
+    { title: 'Guida', link: 'guide' },
   ]
+
   commissione$: Observable<ICommissione['id']>;
 
   constructor(private auth: AuthService) { }

@@ -10,6 +10,7 @@ export class QpAdminComponent implements OnInit {
   links: IDashboardLink[] = [
     { link: '.', title: 'Home' },
     { link: 'editor', title: 'Articoli' },
+    { link: 'guide', title: 'Guida' },
   ];
 
   constructor() {}

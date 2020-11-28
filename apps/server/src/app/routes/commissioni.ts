@@ -30,7 +30,7 @@ router.patch('/:id', isReferente, async (req: IRequest, res: Response) => {
 });
 
 // Images
-router.post('/image', isReferente, async (req: IRequest, res: Response) => {
+router.post('/:id/image', isReferente, async (req: IRequest, res: Response) => {
   const files: any = req.files;
   const image: UploadedFile = files.image;
   const fileName = `${Date.now()}_${image.name}`;

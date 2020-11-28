@@ -11,6 +11,8 @@ import { ClassState } from './store';
 // UI elements
 import { UiModule } from '@csl/ui';
 
+import { MarkdownModule } from 'ngx-markdown';
+
 // Pipes module
 import { PipesModule } from '@global/pipes/pipes.module';
 
@@ -24,18 +26,20 @@ import { PageEditorComponent } from '@shared/components/page-editor/page-editor.
 import { MembersService } from '@shared/services/members/members.service';
 import { UploadService } from '@shared/services/upload/upload.service';
 import { CogeComponent } from '@shared/components/coge/coge.component';
+import { MdComponent } from '@shared/components/md/md.component';
 
 @NgModule({
-  declarations: [ClassiComponent, SingleClassComponent, CsvComponent, CogeComponent, PageEditorComponent],
+  declarations: [ClassiComponent, SingleClassComponent, CsvComponent, CogeComponent, PageEditorComponent, MdComponent],
   imports: [
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
     UiModule,
+    MarkdownModule.forChild(),
     PipesModule,
     NgxsModule.forFeature([ClassState]),
   ],
-  exports: [ClassiComponent, SingleClassComponent, CsvComponent, CogeComponent, PageEditorComponent],
+  exports: [ClassiComponent, SingleClassComponent, CsvComponent, CogeComponent, PageEditorComponent, MdComponent],
   providers: [MembersService, UploadService],
 })
 export class SharedModule {}

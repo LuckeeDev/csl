@@ -10,8 +10,8 @@ import Image from '@editorjs/image';
 import { ICommissione } from '@csl/shared';
 import { DialogService, ToastrService } from '@csl/ui';
 import { AuthService } from '@global/services/auth/auth.service';
-import { map, switchMap, tap } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import { map, switchMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'csl-editor',
@@ -43,8 +43,11 @@ export class PageEditorComponent implements AfterViewInit, OnInit {
             return user.isReferente;
           }
         }),
-        tap((commissione) => (this.commissione = commissione)),
-        switchMap((commissione) => this.commissioni.getPage(commissione))
+        switchMap((commissione) => {
+          this.commissione = commissione;
+
+          return this.commissioni.getPage(this.commissione);
+        })
       )
       .subscribe((res) => {
         const data = res.data;
@@ -84,7 +87,7 @@ export class PageEditorComponent implements AfterViewInit, OnInit {
               inlineToolbar: true,
               config: {
                 endpoints: {
-                  byFile: `/api/commissioni/image`,
+                  byFile: `/api/commissioni/${this.commissione}/image`,
                 },
               },
             },

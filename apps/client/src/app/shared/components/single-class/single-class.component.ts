@@ -130,7 +130,7 @@ export class SingleClassComponent implements OnInit {
         message: 'Questo utente ha già questo ruolo!',
         color: 'accent',
       });
-    } else if (roles.find((x) => x.role.includes('isReferente'))) {
+    } else if (roles.find((x) => x.role.includes('isReferente')) && role.role.includes('isReferente')) {
       this.toastr.showError(
         'Impossibile aggiungere un altro ruolo da referente!'
       );

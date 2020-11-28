@@ -8,6 +8,7 @@ import { ReferenteHomeComponent } from '@referente/components/referente-home/ref
 
 // Shared components
 import { PageEditorComponent } from '@shared/components/page-editor/page-editor.component';
+import { MdComponent } from '@shared/components/md/md.component';
 
 const routes: Routes = [
   {
@@ -15,8 +16,13 @@ const routes: Routes = [
     component: ReferenteComponent,
     children: [
       { path: '', component: ReferenteHomeComponent },
-      { path: 'editor', component: PageEditorComponent }
-    ]
+      { path: 'editor', component: PageEditorComponent },
+      {
+        path: 'guide',
+        component: MdComponent,
+        data: { file: 'referente-guide.md' },
+      },
+    ],
   },
 ];
 
