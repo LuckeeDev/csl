@@ -20,6 +20,7 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 
 import { MarkdownModule } from 'ngx-markdown';
+import { SharedModule } from '@shared/shared.module';
 
 // Store
 import { NgxsModule } from '@ngxs/store';
@@ -48,7 +49,7 @@ import { SnackCartComponent } from '@main/bar-components/snack-cart/snack-cart.c
 import { StoreHomeComponent } from '@main/store-components/store-home/store-home.component';
 import { QpHomeComponent } from '@main/qp-components/qp-home/qp-home.component';
 import { FaqComponent } from '@main/pages/faq/faq.component';
-import { ContactsComponent } from '@main/contacts-components/contacts/contacts.component';
+import { InfoComponent } from '@main/contacts-components/info/info.component';
 import { CommissioneComponent } from '@main/comitato-components/commissione/commissione.component';
 import { ComitatoHomeComponent } from '@main/comitato-components/comitato-home/comitato-home.component';
 import { ContactFormComponent } from '@main/contacts-components/contact-form/contact-form.component';
@@ -77,7 +78,7 @@ import { LoginComponent } from '@main/errors/login/login.component';
     StoreHomeComponent,
     QpHomeComponent,
     FaqComponent,
-    ContactsComponent,
+    InfoComponent,
     CommissioneComponent,
     ComitatoHomeComponent,
     ContactFormComponent,
@@ -92,6 +93,7 @@ import { LoginComponent } from '@main/errors/login/login.component';
     AngularFireStorageModule,
     UiModule,
     PipesModule,
+    SharedModule,
     HttpClientModule,
     NgxsModule.forRoot([], { developmentMode: !environment.production }),
     FontAwesomeModule,

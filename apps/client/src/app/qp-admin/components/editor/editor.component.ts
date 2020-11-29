@@ -11,7 +11,7 @@ import { ArticlesService } from '@global/services/articles/articles.service';
 import { DialogService, ToastrService } from '@csl/ui';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
-import { IArticle } from '../../../../../../../libs/shared/src/lib/shared';
+import { IArticle } from '@csl/shared';
 
 @Component({
   selector: 'csl-editor',

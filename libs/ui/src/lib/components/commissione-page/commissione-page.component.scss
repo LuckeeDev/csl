@@ -2,6 +2,14 @@ h1 {
   font-weight: 500;
 }
 
+.title {
+  font-size: 48px;
+  line-height: 48px;
+  flex: 100%;
+  margin-top: 5px;
+  margin-bottom: 30px;
+}
+
 .container {
   display: flex;
   flex-wrap: wrap;
@@ -16,22 +24,26 @@ h1 {
   max-height: 600px;
   display: flex;
   justify-content: center;
-  flex-wrap: wrap
+  flex-wrap: wrap;
 }
 
 .image {
-  height: 90%;
-  margin-left: auto;
-  margin-right: auto;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
 }
 
 .caption {
   flex: 100%;
+  text-align: center;
   color: #00000080;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .paragraph {
   font-size: 16px;
+  flex: 100%;
 }
 
 .alert {

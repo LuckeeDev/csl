@@ -21,7 +21,7 @@ import { SnackCartComponent } from '@main/bar-components/snack-cart/snack-cart.c
 import { StoreHomeComponent } from '@main/store-components/store-home/store-home.component';
 import { QpHomeComponent } from '@main/qp-components/qp-home/qp-home.component';
 import { FaqComponent } from '@main/pages/faq/faq.component';
-import { ContactsComponent } from '@main/contacts-components/contacts/contacts.component';
+import { InfoComponent } from '@main/contacts-components/info/info.component';
 import { CommissioneComponent } from '@main/comitato-components/commissione/commissione.component';
 import { ComitatoHomeComponent } from '@main/comitato-components/comitato-home/comitato-home.component';
 import { ContactFormComponent } from '@main/contacts-components/contact-form/contact-form.component';
@@ -52,8 +52,8 @@ const routes: Routes = [
   { path: 'consulta', component: ConsultaComponent },
   { path: 'portarti', component: PortartiComponent },
   { path: 'faq', component: FaqComponent },
-  { path: 'contacts', component: ContactsComponent },
-  { path: 'contacts/form', component: ContactFormComponent },
+  { path: 'info', component: InfoComponent, data: { file: 'student-guide.md' } },
+  { path: 'info/contacts', component: ContactFormComponent },
   { path: 'privacy', component: MdComponent, data: { file: 'privacy.md', privacy: true } },
   {
     path: 'qp',

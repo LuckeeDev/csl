@@ -2,6 +2,8 @@
   class="container"
   *ngIf="commissione | async as commissione; else noPageYet"
 >
+  <h1 class="title">{{ commissione.title }}</h1>
+
   <ng-container *ngIf="commissione.page as page; else noPageYet">
     <ng-container *ngFor="let block of page.blocks">
       <ng-container [ngSwitch]="block.type">

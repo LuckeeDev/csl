@@ -2,7 +2,7 @@
 
 ## Indicazioni generali
 
-Il login al pannello di controllo della piattaforma viene eseguito solo ed esclusivamente attraverso l’account Google quintopiano@liceolussana.eu, per questo è bene dedicare estrema attenzione alla corretta conservazione delle sue informazioni di accesso: chiunque cadesse in possesso delle credenziali di tale account sarebbe in grado di modificare, eliminare e creare articoli sulla piattaforma a proprio piacimento.
+Il login al pannello di controllo della piattaforma viene eseguito solo ed esclusivamente attraverso l’account Google _quintopiano@liceolussana.eu_, per questo è bene dedicare estrema attenzione alla corretta conservazione delle sue informazioni di accesso: chiunque cadesse in possesso delle credenziali di tale account sarebbe in grado di modificare, eliminare e creare articoli sulla piattaforma a proprio piacimento.
 
 Per qualsiasi problema o esigenza non esitare a contattare lo staff della piattaforma all’indirizzo mail lussanaweb@gmail.com.
 

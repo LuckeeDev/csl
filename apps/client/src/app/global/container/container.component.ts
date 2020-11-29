@@ -29,7 +29,7 @@ export class ContainerComponent implements OnInit {
     { title: 'PortArti', link: 'portarti' },
     { title: 'QP', link: 'qp' },
     // { title: 'Store', link: 'store' },
-    { title: 'Contatti', link: 'contacts' },
+    { title: 'Informazioni', link: 'info' },
   ];
 
   constructor(public auth: AuthService) {}

@@ -6,6 +6,7 @@ import Header from '@editorjs/header';
 import Paragraph from '@editorjs/paragraph';
 import List from '@editorjs/list';
 import Image from '@editorjs/image';
+import HyperLink from 'editorjs-hyperlink';
 
 import { ICommissione } from '@csl/shared';
 import { DialogService, ToastrService } from '@csl/ui';
@@ -36,7 +37,7 @@ export class PageEditorComponent implements AfterViewInit, OnInit {
   ngAfterViewInit(): void {
     this.auth.user$
       .pipe(
-        map(user => {
+        map((user) => {
           if (this.router.url.includes('rappre') && user.isRappre) {
             return 'comitato';
           } else if (this.router.url.includes('referente')) {
@@ -61,7 +62,7 @@ export class PageEditorComponent implements AfterViewInit, OnInit {
             header: {
               class: Header,
               shortcut: 'CTRL+ALT+T',
-              inlineToolbar: true,
+              inlineToolbar: ['bold', 'italic', 'hyperlink'],
               config: {
                 placeholder: 'Titolo',
                 levels: [1, 2, 3],
@@ -71,27 +72,38 @@ export class PageEditorComponent implements AfterViewInit, OnInit {
             paragraph: {
               class: Paragraph,
               shortcut: 'CTRL+ALT+Q',
-              inlineToolbar: true,
+              inlineToolbar: ['bold', 'italic', 'hyperlink'],
               config: {
-                placeholder: 'Paragrafo',
+                placeholder: 'Testo',
               },
             },
             list: {
               class: List,
-              inlineToolbar: true,
               shortcut: 'CTRL+ALT+W',
+              inlineToolbar: ['bold', 'italic', 'hyperlink'],
             },
             image: {
               class: Image,
               shortcut: 'CTRL+ALT+I',
-              inlineToolbar: true,
+              inlineToolbar: ['bold', 'italic', 'hyperlink'],
               config: {
                 endpoints: {
-                  byFile: `/api/commissioni/${this.commissione}/image`,
+                  byFile: `/api/articles/image`,
                 },
               },
             },
+            hyperlink: {
+              class: HyperLink,
+              config: {
+                availableTargets: ['_blank', '_self'],
+                availableRels: ['external'],
+                target: '_blank',
+                rel: 'external',
+              },
+            },
           },
+
+          defaultBlock: 'paragraph',
 
           i18n: {
             messages: {
@@ -102,6 +114,7 @@ export class PageEditorComponent implements AfterViewInit, OnInit {
                 Image: 'Immagine',
                 Bold: 'Grassetto',
                 Italic: 'Corsivo',
+                Hyperlink: 'Link',
               },
               tools: {
                 list: {
@@ -116,6 +129,11 @@ export class PageEditorComponent implements AfterViewInit, OnInit {
                 },
                 link: {
                   'Add a link': 'Aggiungi un link',
+                },
+                hyperlink: {
+                  Save: 'Salva',
+                  'Select target': 'Seleziona destinazione',
+                  'Select rel': 'Seleziona relazione',
                 },
               },
               blockTunes: {
@@ -142,8 +160,6 @@ export class PageEditorComponent implements AfterViewInit, OnInit {
               },
             },
           },
-
-          defaultBlock: 'paragraph',
 
           autofocus: true,
         });

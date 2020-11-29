@@ -16,8 +16,13 @@
   flex: 100%;
 }
 
+.divider {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  width: 100%;
+}
+
 h1 {
-  font-size: 18px;
   font-weight: 500;
 }
 
@@ -39,7 +44,7 @@ a {
   }
 
   .container {
-    padding-right: 10vw;
-    padding-left: 10vw;
+    padding-right: 5vw;
+    padding-left: 5vw;
   }
 }
