@@ -9,20 +9,20 @@
       <ng-container [ngSwitch]="block.type">
         <!-- Display in case the block type is header -->
         <ng-container *ngSwitchCase="'header'">
-          <h1 class="header">{{ block.data.text }}</h1>
+          <h1 class="header" [innerHTML]="block.data.text"></h1>
         </ng-container>
 
         <!-- Display in case the block type is image -->
         <ng-container *ngSwitchCase="'image'">
           <div class="img-container">
             <img [src]="block.data.file.firebaseURL" class="image" />
-            <p class="caption">{{ block.data.caption }}</p>
+            <p class="caption" [innerHTML]="block.data.caption"></p>
           </div>
         </ng-container>
 
         <!-- Display in case the block type is paragraph -->
         <ng-container *ngSwitchCase="'paragraph'">
-          <p class="paragraph">{{ block.data.text }}</p>
+          <p class="paragraph" [innerHTML]="block.data.text"></p>
         </ng-container>
 
         <!-- Display in case the block type is list -->
