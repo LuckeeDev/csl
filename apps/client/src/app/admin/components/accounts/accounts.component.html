@@ -25,21 +25,3 @@
     </button>
   </div>
 </form>
-
-<div class="secondForm">
-  <mat-form-field class="email-input">
-    <mat-label>Email</mat-label>
-    <input matInput type="text" [formControl]="removeEmail" />
-  </mat-form-field>
-
-  <br>
-
-  <button
-    mat-raised-button
-    color="warn"
-    (click)="removeAccount()"
-    [disabled]="removeEmail.invalid"
-  >
-    Rimuovi account
-  </button>
-</div>

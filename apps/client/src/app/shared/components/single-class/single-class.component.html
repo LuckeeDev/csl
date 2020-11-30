@@ -1,11 +1,13 @@
-<ng-container *ngIf="(state$ | async).currentClass as currentClass; else noClassFound">
+<ng-container
+  *ngIf="(state$ | async).currentClass as currentClass; else noClassFound"
+>
   <mat-card>
     <mat-card-header>
       <mat-card-title> {{ currentClass.id.toUpperCase() }}</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
-      <mat-table [dataSource]="currentClass.members">
+      <mat-table [dataSource]="currentClass.members" class="table">
         <ng-container matColumnDef="email">
           <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
           <mat-cell *matCellDef="let member">{{ member.email }}</mat-cell>
@@ -51,17 +53,32 @@
         <ng-container matColumnDef="credit">
           <mat-header-cell *matHeaderCellDef>Credito</mat-header-cell>
           <mat-cell *matCellDef="let member">{{
-            member.snackCredit | currency: "EUR"
+            member.snackCredit | currency: 'EUR'
           }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="manage">
           <mat-header-cell *matHeaderCellDef>Gestisci</mat-header-cell>
-          <mat-cell *matCellDef="let member"
-            ><button mat-button color="primary">
+          <mat-cell *matCellDef="let member">
+            <button mat-button color="primary">
               Aggiungi credito
-            </button></mat-cell
-          >
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+          <div>
+            <mat-header-cell *matHeaderCellDef>Gestisci</mat-header-cell>
+            <mat-cell *matCellDef="let member">
+              <button
+                mat-stroked-button
+                color="warn"
+                (click)="removeAccount(member.email)"
+              >
+                Elimina
+              </button>
+            </mat-cell>
+          </div>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

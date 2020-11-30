@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext } from '@ngxs/store';
-import { IClass, IHttpRes, IRole, TRole } from '@csl/shared';
+import { IClass, IHttpRes, IRole, IUser, TRole } from '@csl/shared';
 import { MembersService } from '@shared/services/members/members.service';
 import produce from 'immer';
 import { ToastrService } from '@csl/ui';
@@ -29,6 +29,13 @@ export namespace Roles {
   }
 }
 
+export namespace Accounts {
+  export class Remove {
+    static readonly type = '[Accounts] Remove';
+    constructor(public email: IUser['email']) {}
+  }
+}
+
 export interface ClassStateModel {
   classes: IClass[];
   currentClass: IClass;
@@ -51,7 +58,7 @@ export class ClassState {
           currentClass.members = currentClass.members.map((member) => {
             if (member.roles) {
               member.roles = member.roles.map((role) =>
-                this.transformRole(role)
+                this._transformRole(role)
               );
             }
 
@@ -85,7 +92,7 @@ export class ClassState {
           currentClass.members = currentClass.members.map((member) => {
             if (member.roles) {
               member.roles = member.roles.map((role) =>
-                this.transformRole(role)
+                this._transformRole(role)
               );
             }
 
@@ -142,7 +149,26 @@ export class ClassState {
     });
   }
 
-  private transformRole(role: TRole) {
+  @Action(Accounts.Remove)
+  removeAccount(ctx: StateContext<ClassStateModel>, action: Accounts.Remove) {
+    this.members.removeAccount(action.email).subscribe((res) => {
+      if (res.success) {
+        ctx.setState(
+          produce(ctx.getState(), (draft) => {
+            const i = draft.currentClass.members.findIndex(
+              (x) => x.email === action.email
+            );
+
+            draft.currentClass.members.splice(i, 1);
+          })
+        );
+      } else if (res.success) {
+        this.toastr.showError();
+      }
+    });
+  }
+
+  private _transformRole(role: TRole) {
     switch (role) {
       case 'isVice':
         return {

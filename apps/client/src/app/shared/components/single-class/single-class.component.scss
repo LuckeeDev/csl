@@ -1,7 +1,12 @@
-table {
+.table {
   width: 100%;
 }
 
 .chip-list {
   width: 100%;
+}
+
+.mat-column-delete {
+  max-width: 200px;
+  margin-left: 10px;
 }

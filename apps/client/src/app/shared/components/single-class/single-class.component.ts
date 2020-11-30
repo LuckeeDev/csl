@@ -14,11 +14,11 @@ import {
 // Services
 import { MembersService } from '@shared/services/members/members.service';
 import { AuthService } from '@global/services/auth/auth.service';
-import { ToastrService } from '@csl/ui';
+import { DialogService, ToastrService } from '@csl/ui';
 
-import { IRole, TRole } from '@csl/shared';
+import { IRole, IUser, TRole } from '@csl/shared';
 import { Select, Store } from '@ngxs/store';
-import { Classes, ClassState, ClassStateModel, Roles } from '@shared/store';
+import { Accounts, Classes, ClassState, ClassStateModel, Roles } from '@shared/store';
 
 @Component({
   selector: 'csl-single-class',
@@ -33,6 +33,8 @@ export class SingleClassComponent implements OnInit {
   displayedColumns: string[];
 
   roleCtrl = new FormControl();
+
+  page: 'rappre' | 'admin' | 'bar-admin' | 'vice';
 
   allRoles: IRole[] = [
     {
@@ -68,16 +70,21 @@ export class SingleClassComponent implements OnInit {
     private toastr: ToastrService,
     public auth: AuthService,
     private router: Router,
-    private store: Store
+    private store: Store,
+    private dialog: DialogService
   ) {
     if (this.router.url.includes('bar-admin')) {
+      this.page = 'bar-admin';
       this.displayedColumns = ['email', 'credit', 'manage'];
     } else if (this.router.url.includes('vice')) {
+      this.page = 'vice';
       this.displayedColumns = ['email'];
     } else if (this.router.url.includes('rappre')) {
+      this.page = 'rappre';
       this.displayedColumns = ['email', 'roles'];
     } else if (this.router.url.includes('admin')) {
-      this.displayedColumns = ['email', 'roles'];
+      this.page = 'admin';
+      this.displayedColumns = ['email', 'roles', 'delete'];
 
       this.allRoles.push(
         {
@@ -130,7 +137,10 @@ export class SingleClassComponent implements OnInit {
         message: 'Questo utente ha già questo ruolo!',
         color: 'accent',
       });
-    } else if (roles.find((x) => x.role.includes('isReferente')) && role.role.includes('isReferente')) {
+    } else if (
+      roles.find((x) => x.role.includes('isReferente')) &&
+      role.role.includes('isReferente')
+    ) {
       this.toastr.showError(
         'Impossibile aggiungere un altro ruolo da referente!'
       );
@@ -147,12 +157,34 @@ export class SingleClassComponent implements OnInit {
   }
 
   remove(role: TRole, email: string): void {
-    this.store.dispatch(new Roles.Remove(role, email)).subscribe(() => {
-      this.toastr.show({
-        message: `Ruolo rimosso da ${email}`,
-        color: 'accent',
+    if (this.page !== 'admin' && (role === 'isBar' || role === 'isRappre' || role === 'isVice')) {
+      this.toastr.showError('Non sei autorizzato a rimuovere questo ruolo!');
+    } else {
+      this.store.dispatch(new Roles.Remove(role, email)).subscribe(() => {
+        this.toastr.show({
+          message: `Ruolo rimosso da ${email}`,
+          color: 'accent',
+        });
       });
-    });
+    }
+  }
+
+  removeAccount(email: IUser['email']) {
+    this.dialog
+      .open({
+        title: 'Rimuovere account?',
+        text: `L'account associato alla mail ${email} sarà eliminato e con esso tutti i suoi dati`,
+        color: 'accent',
+        answer: 'Sì, rimuovi',
+      })
+      .subscribe(() => {
+        this.store.dispatch(new Accounts.Remove(email)).subscribe((res) => {
+          this.toastr.show({
+            message: 'Account rimosso',
+            color: 'accent',
+          });
+        });
+      });
   }
 
   private _filter(value: string): IRole[] {

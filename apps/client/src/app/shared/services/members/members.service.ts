@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IClass } from '@csl/shared';
+import { IAccount, IClass, IHttpRes } from '@csl/shared';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Injectable()
 export class MembersService {
-  classes: any;
+  classes: IClass[];
   currentClass: IClass;
 
   constructor(private http: HttpClient) {}
@@ -79,6 +79,14 @@ export class MembersService {
 
       this.currentClass = currentClass;
     }
+  }
+
+  createAccount(account: IAccount): Observable<IHttpRes<any>> {
+    return this.http.post<IHttpRes<any>>('/api/admin/accounts', { account });
+  }
+
+  removeAccount(email: string): Observable<IHttpRes<any>> {
+    return this.http.delete<IHttpRes<any>>(`/api/admin/accounts/${email}`);
   }
 
   getRoles(email: string, callback): void {

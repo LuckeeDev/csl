@@ -1,4 +1,3 @@
-import { AdminService } from '@admin/services/admin/admin.service';
 import { Component, OnInit } from '@angular/core';
 import {
   FormControl,
@@ -9,6 +8,7 @@ import {
 import { DialogService, ToastrService } from '@csl/ui';
 import { switchMap } from 'rxjs/operators';
 import { isClassID } from '@global/validators';
+import { MembersService } from '@shared/services/members/members.service';
 
 @Component({
   selector: 'csl-accounts',
@@ -23,11 +23,9 @@ export class AccountsComponent implements OnInit {
     classID: new FormControl('', [Validators.required, isClassID]),
   });
 
-  removeEmail = new FormControl('', [Validators.required, Validators.email]);
-
   constructor(
     private dialog: DialogService,
-    private admin: AdminService,
+    private members: MembersService,
     private toastr: ToastrService
   ) {}
 
@@ -41,42 +39,19 @@ export class AccountsComponent implements OnInit {
         color: 'primary',
         answer: 'Aggiungi',
       })
-      .pipe(switchMap(() => this.admin.createAccount(this.accountForm.value)))
+      .pipe(switchMap(() => this.members.createAccount(this.accountForm.value)))
       .subscribe((res) => {
         if (res.success) {
           this.toastr.show({
             message: 'Account creato',
             color: 'success',
           });
+          
           formElement.resetForm();
           this.accountForm.reset();
         } else if (res.success) {
           this.toastr.showError();
         }
-      });
-  }
-
-  removeAccount() {
-    this.dialog
-      .open({
-        title: 'Rimuovere account?',
-        text: `L'account associato alla mail ${this.removeEmail.value} sarà eliminato e con esso tutti i suoi dati`,
-        color: 'accent',
-        answer: 'Sì, rimuovi',
-      })
-      .subscribe(() => {
-        this.admin.removeAccount(this.removeEmail.value).subscribe((res) => {
-          if (res.success) {
-            this.toastr.show({
-              message: 'Account rimosso',
-              color: 'accent',
-            });
-          } else if (res.success) {
-            this.toastr.showError();
-          }
-
-          this.removeEmail.reset();
-        });
       });
   }
 }
