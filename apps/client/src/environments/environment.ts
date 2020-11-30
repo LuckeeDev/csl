@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: 'AIzaSyBQj_6jme7hFZB5FLdmI1nA3vitLVnH0VE',
+    apiKey: 'AIzaSyB-Y9KDDlS6Q2TYXu1IqjeQaK7NipxOSDk',
     authDomain: 'cslussana.firebaseapp.com',
     databaseURL: 'https://cslussana.firebaseio.com',
     projectId: 'cslussana',

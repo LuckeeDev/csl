@@ -271,22 +271,20 @@ export class EditorComponent implements OnInit, AfterViewInit {
 
     const cover: File = event.target.files[0];
 
-    this.articlesService
-      .uploadCover(cover)
-      .then(async (res) => {
-        this.ready = true;
-        this.metadata.controls['image'].setValue(res.metadata.name);
+    this.articlesService.uploadCover(cover).subscribe((res) => {
+      this.ready = true;
+      if (res.success) {
+        this.metadata.controls['image'].setValue(res.data);
 
         this.toastr.show({
           message: `File caricato`,
-          color: 'primary',
+          color: 'basic',
           action: 'Chiudi',
           duration: 5000,
         });
-      })
-      .catch((err) => {
-        this.ready = true;
+      } else {
         this.toastr.showError();
-      });
+      }
+    });
   }
 }

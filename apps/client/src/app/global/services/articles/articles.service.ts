@@ -52,8 +52,10 @@ export class ArticlesService {
   }
 
   uploadCover(file: File) {
-    const ref = this.afs.ref(`articles/covers/${Date.now()}_${file.name}`);
-    return ref.put(file);
+    const formData = new FormData();
+    formData.append('cover', file);
+    
+    return this.http.post<IHttpRes<IArticle['image']>>('/api/articles/cover', formData);
   }
 
   changeArticlePublished(
