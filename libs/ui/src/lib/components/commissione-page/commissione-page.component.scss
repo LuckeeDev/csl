@@ -6,8 +6,13 @@ h1 {
   font-size: 48px;
   line-height: 48px;
   flex: 100%;
-  margin-top: 5px;
+  margin-top: 10px;
   margin-bottom: 30px;
+}
+
+:host ::ng-deep a { 
+  color: #0D47A1;
+  font-weight: 500;
 }
 
 .container {

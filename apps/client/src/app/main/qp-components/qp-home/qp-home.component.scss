@@ -16,6 +16,11 @@
 }
 
 // General styles
+:host ::ng-deep a { 
+  color: #0D47A1;
+  font-weight: 500;
+}
+
 .alert {
   width: 100%;
 }
