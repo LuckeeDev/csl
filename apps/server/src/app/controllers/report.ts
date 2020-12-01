@@ -7,8 +7,7 @@ const ReportSchema = new Schema(
   {
     id: { type: String, required: true, unique: true },
     user: { type: String },
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
+    name: { type: String, required: true },
     classID: { type: String, required: true },
     date: { type: Date, required: true },
     solved: { type: Boolean, default: false },
@@ -28,8 +27,7 @@ export const reportBug = async (
   return new Report({
     id: v4(),
     user: user.id,
-    firstName: user.firstName,
-    lastName: user.lastName,
+    name: user.name,
     classID: user.classID,
     date,
     bug,
@@ -41,9 +39,13 @@ export const reportBug = async (
       };
     })
     .catch((err) => {
+      saveError('Error occurred while reporting a bug', {
+        category: 'reports',
+        err
+      })
+
       return {
         success: false,
-        err,
       };
     });
 };

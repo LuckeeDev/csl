@@ -17,7 +17,7 @@
       <mat-card *ngFor="let report of technical" class="report">
         <mat-card-header>
           <mat-card-title>
-            {{ report.firstName }} {{ report.lastName }} - {{ report.classID }}
+            {{ report.name }} - {{ report.classID.toUpperCase() }}
           </mat-card-title>
           <mat-card-subtitle>
             {{ report.date | date: 'dd - MM - yy' }}
@@ -66,7 +66,7 @@
       <mat-card *ngFor="let report of visual" class="report">
         <mat-card-header>
           <mat-card-title>
-            {{ report.firstName }} {{ report.lastName }} - {{ report.classID }}
+            {{ report.name }} - {{ report.classID.toUpperCase() }}
           </mat-card-title>
           <mat-card-subtitle>
             {{ report.date | date: 'dd - MM - yy' }}
@@ -110,7 +110,7 @@
       <mat-card *ngFor="let report of other" class="report">
         <mat-card-header>
           <mat-card-title>
-            {{ report.firstName }} {{ report.lastName }} - {{ report.classID }}
+            {{ report.name }} - {{ report.classID.toUpperCase() }}
           </mat-card-title>
           <mat-card-subtitle>
             {{ report.date | date: 'dd - MM - yy' }}

@@ -2,17 +2,15 @@ import { Document } from 'mongoose';
 import { ICommissione } from '../commissione';
 
 export interface IUserInCsv {
-  email: string;
   classe: string;
   nome: string;
-  cognome: string;
+  email: string;
 }
 
 export interface IUser {
   id: string;
   email: string;
-  firstName: string;
-  lastName: string;
+  name: string;
   classID: string;
   snackCredit: number;
   photoURL: string;

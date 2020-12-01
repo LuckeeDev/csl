@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 import { join } from 'path';
 import { tmpdir } from 'os';
-import csvUpload from '@config/csvupload';
+import { uploadCSV } from '@config/csvupload';
 import { isVice } from '@config/authcheck';
 import { bucket } from '@config/firebase';
 import fse from 'fs-extra';
@@ -23,7 +23,7 @@ router.post('/csv', isVice, async (req, res) => {
 
     await csv.mv(tmpFilePath);
 
-    const csvResult = await csvUpload(tmpFilePath).then((result) => {
+    const csvResult = await uploadCSV(tmpFilePath).then((result) => {
       return result;
     });
 

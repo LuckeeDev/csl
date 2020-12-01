@@ -6,6 +6,6 @@ Conserviamo esclusivamente informazioni non sensibili volte all'identificazione 
 
 ## [EN] Cookie and privacy policy
 
-We store cookies exclusively for authentication purposes, no device or personal info is stored
+We use cookies exclusively for authentication purposes, no device or personal info is stored
 
 We exclusively store non-sensitive info to identify the user

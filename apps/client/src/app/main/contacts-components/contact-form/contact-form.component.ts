@@ -39,8 +39,7 @@ export class ContactFormComponent implements OnInit {
         context: ['', Validators.required],
       }),
       contactInfo: this.fb.group({
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
+        name: ['', Validators.required],
         classID: ['', [Validators.required, isClassID]],
       }),
     });
@@ -89,7 +88,7 @@ export class ContactFormComponent implements OnInit {
             this.toastr.showError();
           }
 
-          this.router.navigate(['..', 'contacts']);
+          this.router.navigate(['..', 'info']);
         });
       });
   }

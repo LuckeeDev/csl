@@ -60,7 +60,7 @@ export const addSnackToCart = async (id: ISnack['id'], user: IUser) => {
           date: today,
           total: snack!.price,
           classID: user.classID,
-          name: `${user.firstName} ${user.lastName}`,
+          name: user.name,
         })
           .save()
           .then((res) => {

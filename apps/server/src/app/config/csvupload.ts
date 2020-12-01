@@ -2,13 +2,13 @@ import csvtojson from 'csvtojson';
 import { User } from '@controllers/user';
 import { Class } from '@controllers/classe';
 import { IUserInCsv } from '@csl/shared';
+import { saveEvent } from './winston';
 
-// Function to find duplicates
-const findDuplicates = (array: any) => {
-  var object: any = {};
-  var result: any = [];
+function findDuplicates(array: IUserInCsv['email'][]) {
+  var object = {};
+  var result = [];
 
-  array.forEach((item: any) => {
+  array.forEach((item) => {
     if (!object[item]) object[item] = 0;
     object[item] += 1;
   });
@@ -20,72 +20,99 @@ const findDuplicates = (array: any) => {
   }
 
   return result;
-};
+}
 
-// Function to upload CSV to database
-export default async (filePath: any) => {
-  return csvtojson({ delimiter: 'auto' })
-    .fromFile(filePath)
-    .then((json: IUserInCsv[]) => {
-      const emails = [];
+function processJSON(person: IUserInCsv) {
+  const email = person.email.split('.');
 
-      for (let obj of json) {
-        emails.push(obj.email);
+  // The email address is always made up of 4 parts
+  email.splice(2, 2);
+
+  email.reverse();
+
+  const name = email
+    .map((string) => {
+      const newString = string.split('_');
+
+      return newString;
+    })
+    .reduce((a, b) => a.concat(b), [])
+    .map((string) => {
+      const regex = /\d/g;
+
+      if (regex.test(string)) {
+        string = string.slice(0, -1);
       }
 
-      const duplicates = findDuplicates(emails);
+      return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    })
+    .join(' ');
 
-      if (duplicates.length > 0) {
-        return { success: false, duplicates };
-      } else {
-        const classes = [];
+  person.nome = name;
 
-        for (let account of json) {
-          let newUser = {
-            email: account.email,
-            firstName: account.nome,
-            lastName: account.cognome,
-            classID: account.classe,
-          };
+  return person;
+}
 
-          let classObj = classes.find((x) => x.classID === newUser.classID);
+export async function uploadCSV(filePath: string) {
+  const json: IUserInCsv[] = await csvtojson({ delimiter: 'auto' }).fromFile(
+    filePath
+  );
 
-          if (classObj) {
-            let classIndex = classes.indexOf(classObj);
-            classes[classIndex].members.push({
-              email: newUser.email,
-              snackCredit: 0,
-              roles: [],
-            });
-          } else {
-            classes.push({
-              classID: newUser.classID,
-              members: [{ email: newUser.email, snackCredit: 0, roles: [] }],
-            });
-          }
+  const emails = [];
 
-          User.findOne({ email: newUser.email }).then((user: any) => {
-            if (!user) {
-              new User(newUser).save();
-            }
-          });
-        }
+  for (let obj of json) {
+    emails.push(obj.email);
+  }
 
-        classes.forEach((classObj) => {
-          Class.findOne({ classID: classObj.classID }).then((classDoc: any) => {
-            if (!classDoc) {
-              new Class({
-                id: classObj.classID,
-                members: classObj.members,
-                membersCount: classObj.members.length,
-                gadgetTotal: 0,
-                photoTotal: 0,
-              }).save();
-            }
-          });
+  const duplicates = findDuplicates(emails);
+
+  if (duplicates.length > 0) {
+    return { success: false, duplicates };
+  } else {
+    // Process CSV content to get name from email
+    json.map(processJSON);
+
+    const classes = [];
+
+    for (const account of json) {
+      const newUser = {
+        email: account.email,
+        name: account.nome,
+        classID: account.classe,
+      };
+
+      const classObj = classes.find((x) => x.classID === newUser.classID);
+
+      if (classObj) {
+        const classIndex = classes.indexOf(classObj);
+
+        classes[classIndex].members.push({
+          email: newUser.email,
+          snackCredit: 0,
+          roles: [],
         });
-
-        return { success: true };
+      } else {
+        classes.push({
+          classID: newUser.classID,
+          members: [{ email: newUser.email, snackCredit: 0, roles: [] }],
+        });
       }
+
+      new User(newUser).save();
+    }
+
+    classes.forEach((classObj) => {
+      new Class({
+        id: classObj.classID,
+        members: classObj.members,
+        membersCount: classObj.members.length,
+      }).save();
     });
-};
+
+    saveEvent('Created accounts for the school through a CSV file', {
+      category: 'accounts',
+    })
+
+    return { success: true };
+  }
+}

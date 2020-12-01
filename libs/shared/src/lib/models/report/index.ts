@@ -10,8 +10,7 @@ export interface IBugData {
 export interface IReport {
   id: string;
   user: IUser['id'];
-  firstName: IUser['firstName'];
-  lastName: IUser['lastName'];
+  name: IUser['name'];
   classID: IUser['classID'];
   date: Date;
   solved: boolean;

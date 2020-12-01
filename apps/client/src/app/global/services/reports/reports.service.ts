@@ -4,8 +4,7 @@ import { IBugData, IHttpRes, IReport } from '@csl/shared';
 import { Observable } from 'rxjs';
 
 interface IContactInfo {
-  firstName: string;
-  lastName: string;
+  name: string;
   classID: string;
 }
 

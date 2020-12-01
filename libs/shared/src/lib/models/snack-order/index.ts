@@ -16,7 +16,7 @@ export interface ISnackOrder {
   total: number;
   confirmed: boolean;
   classID: string;
-  name: string;
+  name: IUser['name'];
 }
 
 export interface ISocketData {

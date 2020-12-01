@@ -15,8 +15,7 @@ const UserSchema = new Schema(
   {
     id: { type: String },
     email: { type: String, required: true, unique: true },
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
+    name: { type: String, required: true },
     classID: { type: String },
     snackCredit: { type: Number, default: 0 },
     photoURL: { type: String },
@@ -68,7 +67,7 @@ export const createAccount = async (
     });
 
     saveEvent(
-      `Manually created an account for ${account.firstName} ${account.lastName}`,
+      `Manually created an account for ${account.name}`,
       {
         category: 'accounts',
         user: user.email,
@@ -80,7 +79,7 @@ export const createAccount = async (
     };
   } catch (err) {
     saveError(
-      `Error during the manual creation of an account for ${account.firstName} ${account.lastName}`,
+      `Error during the manual creation of an account for ${account.name}`,
       {
         category: 'accounts',
         user: user.email,
@@ -246,7 +245,7 @@ export const getStripeID = async (
     } else if (user) {
       return stripe.customers
         .create({
-          name: `${user.firstName} ${user.lastName}`,
+          name: `${user.name}`,
           email: `${user.email}`,
           description: `Rappresentante della ${user.classID}`,
         })

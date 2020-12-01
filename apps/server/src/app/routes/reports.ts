@@ -15,6 +15,7 @@ router.patch('/solved', isAdmin, async (req: IRequest, res: Response) => {
 });
 
 router.post('/bug', async (req: IRequest, res: Response) => {
+  console.log(req.user || req.body.contactInfo);
   const result = await reportBug(req.user || req.body.contactInfo, req.body.bugData);
   res.json(result);
 });
