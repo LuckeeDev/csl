@@ -18,8 +18,7 @@ import { MembersService } from '@shared/services/members/members.service';
 export class AccountsComponent implements OnInit {
   accountForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    firstName: new FormControl('', Validators.required),
-    lastName: new FormControl('', Validators.required),
+    name: new FormControl('', Validators.required),
     classID: new FormControl('', [Validators.required, isClassID]),
   });
 
