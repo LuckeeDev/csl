@@ -40,6 +40,7 @@ import { MdComponent } from '@shared/components/md/md.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'login-failed', component: HomeComponent },
   { path: 'asl', component: AslComponent },
   {
     path: 'comitato',

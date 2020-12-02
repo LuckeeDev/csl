@@ -22,7 +22,6 @@ export class EditorComponent implements OnInit, AfterViewInit {
   editor: EditorJS;
 
   ready: boolean;
-  saving: boolean;
   articleID: string;
 
   categories: IArticle['category'][];
@@ -97,11 +96,11 @@ export class EditorComponent implements OnInit, AfterViewInit {
               placeholder: 'Testo',
             },
           },
-          // list: {
-          //   class: List,
-          //   shortcut: 'CTRL+ALT+W',
-          //   inlineToolbar: ['bold', 'italic', 'hyperlink'],
-          // },
+          list: {
+            class: List,
+            shortcut: 'CTRL+ALT+W',
+            inlineToolbar: ['bold', 'italic', 'hyperlink'],
+          },
           image: {
             class: Image,
             shortcut: 'CTRL+ALT+I',
@@ -190,6 +189,14 @@ export class EditorComponent implements OnInit, AfterViewInit {
     });
   }
 
+  get originalImageName(): string {
+    const imageName: string = this.metadata.value.image;
+    const nameArray = imageName.split('_');
+    nameArray.shift();
+
+    return nameArray.join('_');
+  }
+
   save() {
     this.dialog
       .open({
@@ -200,13 +207,9 @@ export class EditorComponent implements OnInit, AfterViewInit {
       })
       .subscribe(() => {
         this.editor.save().then((content) => {
-          this.saving = true;
-
           this.articlesService
             .save(content, this.metadata.value, this.articleID)
             .subscribe((res) => {
-              this.saving = false;
-
               if (res.success === true) {
                 this.toastr.show({
                   message: 'Articolo salvato!',
@@ -243,7 +246,7 @@ export class EditorComponent implements OnInit, AfterViewInit {
 
           this.toastr.show({
             message: 'Articolo eliminato',
-            color: 'primary',
+            color: 'basic',
           });
 
           this.router.navigate(['..', 'qp-admin', 'editor']);
@@ -252,7 +255,7 @@ export class EditorComponent implements OnInit, AfterViewInit {
             if (res.success === true) {
               this.toastr.show({
                 message: 'Articolo eliminato',
-                color: 'accent',
+                color: 'basic',
                 action: 'Chiudi',
                 duration: 5000,
               });

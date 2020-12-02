@@ -37,8 +37,8 @@
 
       <!-- Display in case the block type is list -->
       <ng-container *ngSwitchCase="'list'">
-        <ul class="list">
-          <li *ngFor="let element of block.data.items"></li>
+        <ul class="list" [ngClass]="block.data.style">
+          <li *ngFor="let item of block.data.items" [innerHTML]="item"></li>
         </ul>
       </ng-container>
     </ng-container>

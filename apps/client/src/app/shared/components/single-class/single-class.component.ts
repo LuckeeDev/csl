@@ -148,7 +148,7 @@ export class SingleClassComponent implements OnInit {
       this.store.dispatch(new Roles.Add(role, email)).subscribe(() => {
         this.toastr.show({
           message: `Ruolo aggiunto a ${email}`,
-          color: 'success',
+          color: 'basic',
           action: 'Chiudi',
           duration: 5000,
         });
@@ -163,7 +163,7 @@ export class SingleClassComponent implements OnInit {
       this.store.dispatch(new Roles.Remove(role, email)).subscribe(() => {
         this.toastr.show({
           message: `Ruolo rimosso da ${email}`,
-          color: 'accent',
+          color: 'basic',
         });
       });
     }
@@ -174,7 +174,7 @@ export class SingleClassComponent implements OnInit {
       .open({
         title: 'Rimuovere account?',
         text: `L'account associato alla mail ${email} sarà eliminato e con esso tutti i suoi dati`,
-        color: 'accent',
+        color: 'warn',
         answer: 'Sì, rimuovi',
       })
       .subscribe(() => {

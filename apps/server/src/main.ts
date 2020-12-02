@@ -1,7 +1,6 @@
 // Main imports
 import * as express from 'express';
 import { environment as env } from '@environments/environment';
-import * as cors from 'cors';
 import * as path from 'path';
 import * as mongoose from 'mongoose';
 import * as passport from 'passport';
@@ -56,14 +55,11 @@ app.use(
   })
 );
 
-// CORS middleware
-app.use(cors());
-
 // Initialize passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Receive webhooks from Stripe
+// Receive webhooks from Stripe [might need to add CORS (allowing only Stripe) to this route]
 app.post(
   '/api/webhook',
   express.raw({ type: 'application/json' }),

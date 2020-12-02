@@ -15,6 +15,10 @@ export class AdminService {
     return this.http.get<IHttpRes<ILog[]>>('/api/admin/events');
   }
 
+  emptyLogs(type: 'events' | 'errors'): Observable<IHttpRes<any>> {
+    return this.http.delete<IHttpRes<any>>(`/api/admin/${type}`);
+  }
+
   getCommissioni(): Observable<IHttpRes<ICommissione[]>> {
     return this.http.get<IHttpRes<ICommissione[]>>('/api/admin/commissioni');
   }

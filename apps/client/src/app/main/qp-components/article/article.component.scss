@@ -77,3 +77,18 @@
   flex: 100%;
   text-align: justify;
 }
+
+.list {
+  font-size: 16px;
+  line-height: 22px;
+  flex: 100%;
+  text-align: justify;
+
+  &.ordered {
+    list-style-type: decimal;
+  }
+
+  &.unordered {
+    list-style-type: disc;
+  }
+}

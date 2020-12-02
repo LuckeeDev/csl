@@ -20,7 +20,7 @@ router.get(
 );
 
 router.get('/failure', notAuthCheck, (req: Request, res: Response) => {
-  res.redirect('/');
+  res.redirect('/login-failed');
 });
 
 router.get('/logout', authCheck, (req: Request, res: Response) => {

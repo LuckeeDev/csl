@@ -21,20 +21,38 @@ export const getErrors = async (user: IUser) => {
 
     return {
       success: true,
-      data: errors
-    }
+      data: errors,
+    };
   } catch (err) {
     saveError("Error during errors' retrieving", {
       category: 'logs',
       user: user.email,
-      err: err
-    })
+      err: err,
+    });
 
     return {
-      success: false
-    }
+      success: false,
+    };
   }
-}
+};
+
+export const emptyErrors = async () => {
+  try {
+    await Error.remove({});
+
+    return {
+      success: true,
+    };
+  } catch (err) {
+    saveError('Error occurred while emptying errors', {
+      category: 'logs',
+    });
+
+    return {
+      success: false,
+    };
+  }
+};
 
 export const getEvents = async (user: IUser) => {
   try {
@@ -42,17 +60,35 @@ export const getEvents = async (user: IUser) => {
 
     return {
       success: true,
-      data: events
-    }
+      data: events,
+    };
   } catch (err) {
     saveError("Error during events' retrieving", {
       category: 'logs',
       user: user.email,
-      err: err
-    })
+      err: err,
+    });
 
     return {
-      success: false
-    }
+      success: false,
+    };
   }
-}
+};
+
+export const emptyEvents = async () => {
+  try {
+    await Event.remove({});
+
+    return {
+      success: true,
+    };
+  } catch (err) {
+    saveError('Error occurred while emptying events', {
+      category: 'logs',
+    });
+
+    return {
+      success: false,
+    };
+  }
+};

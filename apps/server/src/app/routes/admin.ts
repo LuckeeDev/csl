@@ -3,16 +3,35 @@ const router = Router();
 import { ICommissione, IRequest } from '@csl/shared';
 import { isAdmin } from '@config/authcheck';
 import { createAccount, removeAccount } from '@controllers/user';
-import { getEvents, getErrors } from '@controllers/log';
-import { createCommissione, getCommissioni, removeCommissione } from '@controllers/commissione';
+import {
+  getEvents,
+  getErrors,
+  emptyEvents,
+  emptyErrors,
+} from '@controllers/log';
+import {
+  createCommissione,
+  getCommissioni,
+  removeCommissione,
+} from '@controllers/commissione';
 
 router.get('/events', isAdmin, async (req: IRequest, res: Response) => {
   const result = await getEvents(req.user);
   res.json(result);
 });
 
+router.delete('/events', isAdmin, async (req: IRequest, res: Response) => {
+  const result = await emptyEvents();
+  res.json(result);
+});
+
 router.get('/errors', isAdmin, async (req: IRequest, res: Response) => {
   const result = await getErrors(req.user);
+  res.json(result);
+});
+
+router.delete('/errors', isAdmin, async (req: IRequest, res: Response) => {
+  const result = await emptyErrors();
   res.json(result);
 });
 
@@ -40,12 +59,16 @@ router.post('/commissioni', isAdmin, async (req: IRequest, res: Response) => {
   res.json(result);
 });
 
-router.delete('/commissioni/:id', isAdmin, async (req: IRequest, res: Response) => {
-  const params: any = req.params;
-  const id: ICommissione['id'] = params.id;
-  const result = await removeCommissione(id, req.user);
+router.delete(
+  '/commissioni/:id',
+  isAdmin,
+  async (req: IRequest, res: Response) => {
+    const params: any = req.params;
+    const id: ICommissione['id'] = params.id;
+    const result = await removeCommissione(id, req.user);
 
-  res.json(result);
-})
+    res.json(result);
+  }
+);
 
 export default router;

@@ -77,11 +77,11 @@ export class PageEditorComponent implements AfterViewInit, OnInit {
                 placeholder: 'Testo',
               },
             },
-            // list: {
-            //   class: List,
-            //   shortcut: 'CTRL+ALT+W',
-            //   inlineToolbar: ['bold', 'italic', 'hyperlink'],
-            // },
+            list: {
+              class: List,
+              shortcut: 'CTRL+ALT+W',
+              inlineToolbar: ['bold', 'italic', 'hyperlink'],
+            },
             image: {
               class: Image,
               shortcut: 'CTRL+ALT+I',

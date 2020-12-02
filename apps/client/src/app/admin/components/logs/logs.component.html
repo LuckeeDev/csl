@@ -1,5 +1,5 @@
 <mat-card>
-  <table mat-table [dataSource]="dataSource">
+  <table mat-table [dataSource]="dataSource" class="table">
     <ng-container matColumnDef="time">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Timestamp</th>
       <td mat-cell *matCellDef="let event">
@@ -17,4 +17,7 @@
   </table>
 
   <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+  <button mat-stroked-button color="warn" class="clear" (click)="emptyLogs()">
+    Svuota log
+  </button>
 </mat-card>

@@ -1,3 +1,11 @@
-table {
+.table {
   width: 100%;
+  position: relative;
+}
+
+.clear {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  margin-left: 2.5%;
 }

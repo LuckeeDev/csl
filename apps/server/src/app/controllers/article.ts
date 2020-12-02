@@ -76,7 +76,7 @@ export const saveArticle = async (
       date,
     })
       .save()
-      .then((res) => {
+      .then(() => {
         return {
           success: true,
           data: {
@@ -93,9 +93,9 @@ export const saveArticle = async (
   } else if (exists) {
     return Article.findOneAndUpdate(
       { id },
-      { content, title, category, author, estimatedTime }
+      { content, title, category, author, estimatedTime, image }
     )
-      .then((res) => {
+      .then(() => {
         return {
           success: true,
           data: {
