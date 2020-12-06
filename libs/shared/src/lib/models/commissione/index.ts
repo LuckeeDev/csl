@@ -50,6 +50,7 @@ export interface ICommissione {
   page: IPage;
   title: string;
   image: string;
+  files: string[];
 }
 
 export interface ICommissioneModel extends Document, ICommissione {

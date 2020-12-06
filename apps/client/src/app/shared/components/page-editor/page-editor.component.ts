@@ -22,7 +22,17 @@ import { Router } from '@angular/router';
 export class PageEditorComponent implements AfterViewInit, OnInit {
   editor: EditorJS;
 
-  commissione: ICommissione['id'];
+  id: ICommissione['id'];
+  commissione: ICommissione;
+
+  displayedColumns: string[] = ['name', 'manage'];
+
+  getDisplayName(file: string): string {
+    const nameArray = file.split('_');
+    nameArray.shift();
+
+    return nameArray.join('_');
+  }
 
   constructor(
     private commissioni: CommissioniService,
@@ -45,18 +55,18 @@ export class PageEditorComponent implements AfterViewInit, OnInit {
           }
         }),
         switchMap((commissione) => {
-          this.commissione = commissione;
+          this.id = commissione;
 
-          return this.commissioni.getPage(this.commissione);
+          return this.commissioni.getPage(this.id);
         })
       )
       .subscribe((res) => {
-        const data = res.data;
+        this.commissione = res.data;
 
         this.editor = new EditorJS({
           holder: 'editorjs',
 
-          data: data.page ? data.page : null,
+          data: this.commissione.page ? this.commissione.page : null,
 
           tools: {
             header: {
@@ -88,7 +98,7 @@ export class PageEditorComponent implements AfterViewInit, OnInit {
               inlineToolbar: ['bold', 'italic', 'hyperlink'],
               config: {
                 endpoints: {
-                  byFile: `/api/articles/image`,
+                  byFile: `/api/commissioni/${this.id}/image`,
                 },
               },
             },
@@ -166,6 +176,45 @@ export class PageEditorComponent implements AfterViewInit, OnInit {
       });
   }
 
+  uploadPDF(e) {
+    const pdf = e.target.files[0];
+
+    this.commissioni.uploadPDF(pdf, this.id).subscribe((res) => {
+      if (res.success) {
+        this.commissione.files = res.data;
+
+        this.toastr.show({
+          color: 'basic',
+          message: 'PDF caricato con successo'
+        });
+      } else {
+        this.toastr.showError();
+      }
+    });
+  }
+
+  deletePDF(file: string) {
+    this.dialog.open({
+      title: `Eliminare il file?`,
+      text: 'Questa azione non potrà più essere annullata',
+      answer: 'Sì, elimina',
+      color: 'warn'
+    }).pipe(
+      switchMap(() => this.commissioni.deletePDF(file, this.id))
+    ).subscribe((res) => {
+      if (res.success) {
+        this.commissione.files = res.data;
+
+        this.toastr.show({
+          color: 'basic',
+          message: `File rimosso con successo`,
+        });
+      } else {
+        this.toastr.showError();
+      }
+    })
+  }
+
   save() {
     this.dialog
       .open({
@@ -176,7 +225,7 @@ export class PageEditorComponent implements AfterViewInit, OnInit {
       })
       .subscribe(() => {
         this.editor.save().then((page: ICommissione['page']) => {
-          this.commissioni.savePage(this.commissione, page).subscribe((res) => {
+          this.commissioni.savePage(this.id, page).subscribe((res) => {
             if (res.success) {
               this.toastr.show({
                 color: 'success',

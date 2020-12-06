@@ -1,6 +1,11 @@
 import mongoose, { Schema } from 'mongoose';
 import { ICommissione, ICommissioneModel, IHttpRes, IUser } from '@csl/shared';
 import { saveError, saveEvent } from '@config/winston';
+import { UploadedFile } from 'express-fileupload';
+import { join } from 'path';
+import { tmpdir } from 'os';
+import fse from 'fs-extra';
+import { bucket } from '@config/firebase';
 
 const CommissioneSchema = new Schema(
   {
@@ -8,6 +13,7 @@ const CommissioneSchema = new Schema(
     title: { type: String, required: true },
     page: { type: Object },
     image: { type: String },
+    files: { type: Array, default: [] },
   },
   { skipVersioning: true }
 );
@@ -134,3 +140,70 @@ export const removeCommissione = async (
     };
   }
 };
+
+export const uploadPDF = async (pdf: UploadedFile, commissione: ICommissione['id']) => {
+  try {
+    const fileName = `${Date.now()}_${pdf.name}`;
+    const workingDir = join(tmpdir(), 'commissioni');
+    const tmpFilePath = join(workingDir, fileName);
+    const firebasePath = `commissioni/pdf/${commissione}/${fileName}`;
+    await fse.ensureDir(workingDir);
+
+    await pdf.mv(tmpFilePath);
+
+    await bucket.upload(tmpFilePath, {
+      destination: firebasePath,
+    });
+
+    const files = await Commissione.findOneAndUpdate(
+      { id: commissione },
+      { $push: { files: fileName } },
+      { new: true }
+    ).then((c) => c.files);
+
+    saveEvent(`Uploaded file "${pdf.name} for "${commissione}"`, {
+      category: 'commissioni',
+    });
+
+    return {
+      success: true,
+      data: files,
+    };
+  } catch (err) {
+    saveError(`Error during the upload of a PDF`, {
+      err,
+      category: 'commissioni',
+    });
+
+    return {
+      success: false,
+    };
+  }
+}
+
+export const deletePDF = async (pdf: string, commissione: ICommissione['id']) => {
+  try {
+    const files = await Commissione.findOneAndUpdate(
+      { id: commissione },
+      { $pull: { files: pdf } },
+      { new: true }
+    ).then((c) => c.files);
+
+    saveEvent(`Removed "${pdf} from "${commissione}"`, {
+      category: 'commissioni',
+    });
+
+    return {
+      success: true,
+      data: files,
+    }
+  } catch (err) {
+    saveError(`Error occurred while removing "${pdf}" from "${commissione}"`, {
+      category: 'commissioni'
+    });
+
+    return {
+      success: false,
+    }
+  }
+}

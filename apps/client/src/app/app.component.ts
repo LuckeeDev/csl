@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@global/services/auth/auth.service';
 
 @Component({
-  selector: 'app-root',
+  selector: 'csl-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  v = 'v0.2.3';
+  v = 'v1.0.0';
 
   constructor(private auth: AuthService) {}
 

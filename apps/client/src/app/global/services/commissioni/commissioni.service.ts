@@ -16,4 +16,23 @@ export class CommissioniService {
   savePage(id: ICommissione['id'], page: ICommissione['page']): Observable<IHttpRes<any>> {
     return this.http.patch<IHttpRes<any>>(`/api/commissioni/${id}`, { page });
   }
+
+  uploadPDF(file: File, id: ICommissione['id']): Observable<IHttpRes<ICommissione['files']>> {
+    const formData = new FormData();
+    formData.append('pdf', file);
+
+    return this.http.post<IHttpRes<ICommissione['files']>>(
+      `/api/commissioni/${id}/pdf`,
+      formData
+    );
+  }
+
+  deletePDF(
+    file: string,
+    id: ICommissione['id']
+  ): Observable<IHttpRes<ICommissione['files']>> {
+    return this.http.delete<IHttpRes<ICommissione['files']>>(
+      `/api/commissioni/${id}/pdf/${file}`
+    );
+  }
 }

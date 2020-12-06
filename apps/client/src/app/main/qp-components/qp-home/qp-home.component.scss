@@ -16,7 +16,7 @@
 }
 
 // General styles
-:host ::ng-deep a { 
+:host ::ng-deep a {
   color: #0D47A1;
   font-weight: 500;
 }
@@ -40,8 +40,17 @@ h1 {
   font-weight: 500;
 }
 
+.title {
+  font-size: 48px;
+  line-height: 48px;
+  flex: 100%;
+  margin-top: 10px;
+}
+
 .header {
   flex: 75%;
+  margin-top: 20px;
+  font-weight: 500;
 }
 
 .search {

@@ -1,4 +1,7 @@
+<!--suppress HtmlFormInputWithoutLabel -->
 <div class="container">
+  <h1 class="title">Quinto Piano</h1>
+
   <h1 class="header">Articoli in evidenza</h1>
 
   <mat-form-field class="search">
@@ -27,6 +30,7 @@
             *ngIf="imageReady"
             class="cover"
             [ngClass]="{ odd: i % 2 === 1, even: i % 2 === 0 }"
+            alt="Immagine di copertina dell'articolo"
           />
           <div class="text" [ngClass]="{ odd: i % 2 === 1, even: i % 2 === 0 }">
             <h1 class="title">{{ article.title }}</h1>

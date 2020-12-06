@@ -5,7 +5,8 @@ import { isReferente } from '@config/authcheck';
 import { ICommissione, IRequest } from '@csl/shared';
 import {
   getCommissione,
-  setPage,
+  setPage, uploadPDF,
+  deletePDF
 } from '@controllers/commissione';
 import { bucket } from '@config/firebase';
 import { UploadedFile } from 'express-fileupload';
@@ -25,6 +26,30 @@ router.patch('/:id', isReferente, async (req: IRequest, res: Response) => {
   const params: any = req.params;
   const id: ICommissione['id'] = params.id;
   const result = await setPage(id, req.body.page, req.user);
+
+  res.json(result);
+});
+
+// PDFs
+router.post('/:id/pdf', isReferente, async (req: IRequest, res: Response) => {
+  const files: { [key: string]: UploadedFile } = req.files;
+  const pdf: UploadedFile = files.pdf;
+
+  const params: any = req.params;
+  const commissione: ICommissione['id'] = params.id;
+
+  const result = await uploadPDF(pdf, commissione);
+
+  res.json(result);
+});
+
+router.delete('/:id/pdf/:file', isReferente, async (req: IRequest, res: Response) => {
+  const params: any = req.params;
+
+  const pdf: string = params.file;
+  const commissione: ICommissione['id'] = params.id;
+
+  const result = await deletePDF(pdf, commissione);
 
   res.json(result);
 });
