@@ -1,3 +1,16 @@
+// MD styles
+:host ::ng-deep a {
+  text-decoration: none;
+  color: #0D47A1;
+  font-weight: 500;
+}
+
+:host ::ng-deep h1 {
+  font-weight: 500;
+}
+
+// General styles
+
 .container {
   padding-left: 20vw;
   padding-right: 20vw;

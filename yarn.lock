@@ -2584,6 +2584,11 @@
   dependencies:
     "@types/express" "*"
 
+"@types/pdfjs-dist@^2.1.4":
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/@types/pdfjs-dist/-/pdfjs-dist-2.1.6.tgz#58e2372d6e65f1d59b1ec3632eb2ac34e36622f7"
+  integrity sha512-atQ3Dqgc3uKjNu9lCW/G7jhl875iXVErkSWoH8gEqMEpHP+GSuhkxAEaEImZCefeolz1tvWNGcZ/0/jCaVM9EQ==
+
 "@types/prettier@^2.0.0":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.1.5.tgz#b6ab3bba29e16b821d84e09ecfaded462b816b00"
@@ -9833,6 +9838,15 @@ next-tick@~1.0.0:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
+ng2-pdf-viewer@^6.3.2:
+  version "6.3.2"
+  resolved "https://registry.yarnpkg.com/ng2-pdf-viewer/-/ng2-pdf-viewer-6.3.2.tgz#07189207893ceb4c086e9b6ebd74fdbb31982af1"
+  integrity sha512-H2tBhDd+Lq6CUzK2g54HsCcZDR2wTn1sDjYqKY3yF0Ydasl2R5ppCKynZBU/zge4EKvmHglJI120FbQMpJKDYQ==
+  dependencies:
+    "@types/pdfjs-dist" "^2.1.4"
+    pdfjs-dist "^2.4.456"
+    tslib "^1.10.0"
+
 ngx-markdown@^11.0.0:
   version "11.0.0"
   resolved "https://registry.yarnpkg.com/ngx-markdown/-/ngx-markdown-11.0.0.tgz#31c36e25272993917c94194771f7ad3f78188b17"
@@ -10579,6 +10593,11 @@ pbkdf2@^3.0.3:
     ripemd160 "^2.0.1"
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
+
+pdfjs-dist@^2.4.456:
+  version "2.5.207"
+  resolved "https://registry.yarnpkg.com/pdfjs-dist/-/pdfjs-dist-2.5.207.tgz#b5e8c19627be64269cd3fb6df3eaaf45ddffe7b6"
+  integrity sha512-xGDUhnCYPfHy+unMXCLCJtlpZaaZ17Ew3WIL0tnSgKFUZXHAPD49GO9xScyszSsQMoutNDgRb+rfBXIaX/lJbw==
 
 pend@~1.2.0:
   version "1.2.0"

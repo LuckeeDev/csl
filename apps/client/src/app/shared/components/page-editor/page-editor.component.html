@@ -11,7 +11,7 @@
 
     <mat-table *ngIf="commissione" [dataSource]="commissione.files" class="table">
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>File</mat-header-cell>
         <mat-cell *matCellDef="let file">{{ getDisplayName(file) }}</mat-cell>
       </ng-container>
 

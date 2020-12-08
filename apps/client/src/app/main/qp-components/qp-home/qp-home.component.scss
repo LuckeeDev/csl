@@ -113,3 +113,30 @@ h1 {
   order: 0;
   margin-right: 5%;
 }
+
+@media screen and (max-width: 1250px) {
+  .content {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .cover {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .text {
+    margin: 0;
+    flex: 100%;
+
+    &.even, &.odd {
+      margin: 0;
+    }
+
+    padding: 0 20px;
+  }
+
+  .data {
+    position: relative;
+  }
+}

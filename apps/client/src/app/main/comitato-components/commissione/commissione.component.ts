@@ -23,22 +23,39 @@ export class CommissioneComponent implements OnInit {
 
   ngOnInit(): void {
     this.commissione$ = this.activated.paramMap.pipe(
-      switchMap((params) => this.commissioni.getPage(params.get('id'))),
+      switchMap((params) => {
+        this.id = params.get('id');
+        return this.commissioni.getPage(this.id);
+      }),
       map((res) => res.data),
       map((commissione) => {
-        if (commissione && commissione.page) {
-          commissione.page.blocks.map(async (block) => {
-            if (block.type === 'image') {
-              block.data.file.firebaseURL = await this.afs
-                .ref(`${block.data.file.firebasePath}`)
-                .getDownloadURL()
-                .toPromise();
+        if (commissione) {
+          if (commissione.page) {
+            commissione.page.blocks.map(async (block) => {
+              if (block.type === 'image') {
+                block.data.file.firebaseURL = await this.afs
+                  .ref(`${block.data.file.firebasePath}`)
+                  .getDownloadURL()
+                  .toPromise();
 
-              return block;
-            } else {
-              return block;
-            }
-          });
+                return block;
+              } else {
+                return block;
+              }
+            });
+          }
+
+          if (commissione.files.length > 0) {
+            commissione.files.forEach(async (file, index: number) => {
+                commissione.files[index] = await this.afs
+                  .ref(
+                  `commissioni/pdf/${this.id}/${file}`
+                  )
+                  .getDownloadURL()
+                  .toPromise();
+              }
+            );
+          }
         }
 
         return commissione;

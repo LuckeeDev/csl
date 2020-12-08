@@ -30,6 +30,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatBadgeModule } from '@angular/material/badge';
 
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 // Components
 import { DialogComponent } from './components/dialog/dialog.component';
 import { DashboardModelComponent } from './components/dashboard-model/dashboard-model.component';
@@ -61,6 +63,7 @@ import { RoundedDirective } from './directives/rounded/rounded.directive';
   imports: [
     CommonModule,
     RouterModule,
+    PdfViewerModule,
     FontAwesomeModule,
     MatSnackBarModule,
     MatDialogModule,

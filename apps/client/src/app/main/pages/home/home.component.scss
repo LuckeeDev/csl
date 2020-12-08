@@ -44,7 +44,7 @@
   margin: auto;
   color: #fafafa;
   text-align: center;
-  line-height: 60px;
+  line-height: 80px;
 }
 
 .button-container {
@@ -95,6 +95,7 @@ h1 {
 @media screen and (max-width: 1250px) {
   .title {
     font-size: 60px;
+    line-height: 60px;
   }
 
   .content {

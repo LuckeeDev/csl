@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommissioniService } from '@global/services/commissioni/commissioni.service';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { ICommissione } from '@csl/shared';
 import { AngularFireStorage } from '@angular/fire/storage';
 
@@ -22,20 +22,36 @@ export class AslComponent implements OnInit {
     this.asl$ = this.commissioni.getPage('asl').pipe(
       map((res) => res.data),
       map((asl) => {
-        if (asl && asl.page) {
-          asl.page.blocks.map(async (block) => {
-            if (block.type === 'image') {
-              block.data.file.firebaseURL = await this.afs
-                .ref(`${block.data.file.firebasePath}`)
+        if (asl) {
+          if (asl.page) {
+            asl.page.blocks.map(async (block) => {
+              if (block.type === 'image') {
+                block.data.file.firebaseURL = await this.afs
+                  .ref(`${block.data.file.firebasePath}`)
+                  .getDownloadURL()
+                  .toPromise();
+
+                return block;
+              } else {
+                return block;
+              }
+            });
+          }
+
+          if (asl.files.length > 0) {
+            asl.files.map(async (file) => {
+              const url: string = await this.afs
+                .ref(`commissioni/pdf/asl/${file}`)
                 .getDownloadURL()
+                .pipe(tap(res => console.log(res)))
                 .toPromise();
 
-              return block;
-            } else {
-              return block;
-            }
-          });
+              return url;
+            });
+          }
         }
+
+        console.log(asl);
 
         return asl;
       })
