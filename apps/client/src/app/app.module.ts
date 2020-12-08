@@ -11,6 +11,7 @@ import { environment } from '@environments/environment';
 // Firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAnalyticsModule, ScreenTrackingService } from '@angular/fire/analytics';
 
 // UI Elements
 import { UiModule } from '@csl/ui';
@@ -54,7 +55,6 @@ import { CommissioneComponent } from '@main/comitato-components/commissione/comm
 import { ComitatoHomeComponent } from '@main/comitato-components/comitato-home/comitato-home.component';
 import { ContactFormComponent } from '@main/contacts-components/contact-form/contact-form.component';
 import { LoginComponent } from '@main/errors/login/login.component';
-import { AngularFireAnalyticsModule, DEBUG_MODE, ScreenTrackingService } from '@angular/fire/analytics';
 
 @NgModule({
   declarations: [
@@ -105,7 +105,9 @@ import { AngularFireAnalyticsModule, DEBUG_MODE, ScreenTrackingService } from '@
     MarkdownModule.forRoot(),
   ],
   entryComponents: [],
-  providers: [],
+  providers: [
+    ScreenTrackingService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
