@@ -122,7 +122,11 @@ h1 {
 
   .cover {
     width: 100%;
-    border-radius: 0;
+
+    &.even, &.odd {
+      order: 0;
+      border-radius: 0;
+    }
   }
 
   .text {

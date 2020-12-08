@@ -54,6 +54,7 @@ import { CommissioneComponent } from '@main/comitato-components/commissione/comm
 import { ComitatoHomeComponent } from '@main/comitato-components/comitato-home/comitato-home.component';
 import { ContactFormComponent } from '@main/contacts-components/contact-form/contact-form.component';
 import { LoginComponent } from '@main/errors/login/login.component';
+import { AngularFireAnalyticsModule, DEBUG_MODE, ScreenTrackingService } from '@angular/fire/analytics';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { LoginComponent } from '@main/errors/login/login.component';
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig, 'CSLussana'),
     AngularFireStorageModule,
+    AngularFireAnalyticsModule,
     UiModule,
     PipesModule,
     SharedModule,
