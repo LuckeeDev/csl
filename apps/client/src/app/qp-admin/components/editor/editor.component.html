@@ -10,7 +10,7 @@
     <h4>Metadati</h4>
     <form [formGroup]="metadata" class="form-container">
       <mat-form-field class="input">
-        <mat-label for="category">Categoria</mat-label>
+        <mat-label>Categoria</mat-label>
         <mat-select
           id="category"
           placeholder="Selezionare categoria..."
@@ -28,7 +28,6 @@
           matInput
           id="title"
           type="text"
-          matInput
           formControlName="title"
         />
       </mat-form-field>
@@ -39,7 +38,6 @@
           matInput
           id="author"
           type="text"
-          matInput
           formControlName="author"
         />
       </mat-form-field>

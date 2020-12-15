@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IUser } from '@csl/shared';
+import { IHttpRes, IUser } from '@csl/shared';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -9,10 +11,19 @@ import { Observable } from 'rxjs';
 export class AuthService {
   user$: Observable<IUser>;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private fireAuth: AngularFireAuth) {}
 
   getUser(): void {
-    this.user$ = this.http.get<IUser>('/api/auth');
+    this.user$ = this.http.get<IHttpRes<{ user: IUser, token: string }>>('/api/auth')
+      .pipe(
+        map((res) => {
+          if (res) {
+            this.fireAuth.signInWithCustomToken(res.data.token).then();
+
+            return res.data.user;
+          }
+        })
+      );
   }
 
   signIn(next?: string): void {
@@ -20,6 +31,8 @@ export class AuthService {
   }
 
   signOut(): void {
-    window.location.replace('/api/auth/logout');
+    this.fireAuth.signOut().then(() => {
+      window.location.replace('/api/auth/logout');
+    });
   }
 }

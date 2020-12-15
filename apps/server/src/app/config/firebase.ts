@@ -9,3 +9,5 @@ admin.initializeApp({
 
 // Export variable for Firebase bucket
 export const bucket = admin.storage().bucket();
+
+export const fireAuth = admin.auth();

@@ -12,6 +12,7 @@ import { environment } from '@environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAnalyticsModule, ScreenTrackingService } from '@angular/fire/analytics';
+import { AngularFireAuthModule, USE_EMULATOR as USE_AUTH_EMULATOR } from '@angular/fire/auth';
 
 // UI Elements
 import { UiModule } from '@csl/ui';
@@ -93,6 +94,7 @@ import { LoginComponent } from '@main/errors/login/login.component';
     AngularFireModule.initializeApp(environment.firebaseConfig, 'CSLussana'),
     AngularFireStorageModule,
     AngularFireAnalyticsModule,
+    AngularFireAuthModule,
     UiModule,
     PipesModule,
     SharedModule,
@@ -107,6 +109,7 @@ import { LoginComponent } from '@main/errors/login/login.component';
   entryComponents: [],
   providers: [
     ScreenTrackingService,
+    { provide: USE_AUTH_EMULATOR, useValue: environment.useEmulators ? ['localhost', 9099] : undefined },
   ],
   bootstrap: [AppComponent],
 })

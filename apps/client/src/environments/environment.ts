@@ -10,6 +10,7 @@ export const environment = {
     appId: '1:1009075509409:web:6e81c5a15c1331d7abb8e0',
     measurementId: 'G-NBEJZMQWCP',
   },
+  useEmulators: true,
 };
 
 export const googleClientID =
