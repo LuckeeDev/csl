@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "nx": "nx",
     "server:dev": "nx serve server",
     "client:dev": "nx serve client",
+    "fire": "firebase emulators:start",
     "maintenance:dev": "nx serve maintenance",
     "app:build": "nx build client --prod && nx build server --prod",
     "maintenance:build": "nx build maintenance --prod",
