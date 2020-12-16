@@ -51,13 +51,6 @@ export class ArticlesService {
     return this.http.delete<IHttpRes<any>>(`/api/articles/${id}`);
   }
 
-  uploadCover(file: File) {
-    const formData = new FormData();
-    formData.append('cover', file);
-    
-    return this.http.post<IHttpRes<IArticle['image']>>('/api/articles/cover', formData);
-  }
-
   changeArticlePublished(
     id: IArticle['id'],
     state: IArticle['published']

@@ -31,18 +31,18 @@ export const getAllGadgets = async () => {
 
 // Create a new gadget
 export const createGadget = async (product: IProduct) => {
-  let { id, name, description, price, fileNames, colors, sizes } = product;
-  let category = 'gadgets';
+  const { id, name, description, price, fileNames, colors, sizes } = product;
+  const category = 'gadgets';
 
   const workingDir = join(tmpdir(), 'images');
   fse.ensureDir(workingDir);
 
   const uploadPromises = fileNames.map(async (tmpFileName: any) => {
-    let tmpFilePath = join(workingDir, tmpFileName);
-    let pngFileName = tmpFileName.split('.').shift() + '.png';
-    let pngFilePath = join(workingDir, pngFileName);
-    let newFileName = `500@${pngFileName}`;
-    let newFilePath = join(workingDir, newFileName);
+    const tmpFilePath = join(workingDir, tmpFileName);
+    const pngFileName = tmpFileName.split('.').shift() + '.png';
+    const pngFilePath = join(workingDir, pngFileName);
+    const newFileName = `500@${pngFileName}`;
+    const newFilePath = join(workingDir, newFileName);
 
     await bucket.file(`gadgetImages/raw/${tmpFileName}`).download({
       destination: tmpFilePath,
@@ -68,7 +68,7 @@ export const createGadget = async (product: IProduct) => {
 
   fse.remove(workingDir);
 
-  fileNames = fileNames.map((fileName: any) => {
+  const newFileNames = fileNames.map((fileName: any) => {
     return `500@${fileName.split('.').shift()}.png`;
   });
 
@@ -78,12 +78,12 @@ export const createGadget = async (product: IProduct) => {
     description,
     category,
     price,
-    fileNames,
+    fileNames: newFileNames,
     colors,
     sizes,
   })
     .save()
-    .then((res: any) => {
+    .then(() => {
       return { success: true };
     })
     .catch((err: any) => {
@@ -100,18 +100,18 @@ export const getAllPhotos = async () => {
 
 // Create a new photo product
 export const createPhoto = async (product: IProduct) => {
-  let { id, name, description, price, fileNames } = product;
-  let category = 'photos';
+  const { id, name, description, price, fileNames } = product;
+  const category = 'photos';
 
   const workingDir = join(tmpdir(), 'images');
   fse.ensureDir(workingDir);
 
   const uploadPromises = fileNames.map(async (tmpFileName: any) => {
-    let tmpFilePath = join(workingDir, tmpFileName);
-    let pngFileName = tmpFileName.split('.').shift() + '.png';
-    let pngFilePath = join(workingDir, pngFileName);
-    let newFileName = `500@${pngFileName}`;
-    let newFilePath = join(workingDir, newFileName);
+    const tmpFilePath = join(workingDir, tmpFileName);
+    const pngFileName = tmpFileName.split('.').shift() + '.png';
+    const pngFilePath = join(workingDir, pngFileName);
+    const newFileName = `500@${pngFileName}`;
+    const newFilePath = join(workingDir, newFileName);
 
     await bucket.file(`photoImages/raw/${tmpFileName}`).download({
       destination: tmpFilePath,
@@ -137,7 +137,7 @@ export const createPhoto = async (product: IProduct) => {
 
   fse.remove(workingDir);
 
-  fileNames = fileNames.map((fileName: any) => {
+  const newFileNames = fileNames.map((fileName: any) => {
     return `500@${fileName.split('.').shift()}.png`;
   });
 
@@ -147,13 +147,13 @@ export const createPhoto = async (product: IProduct) => {
     description,
     category,
     price,
-    fileNames,
+    fileNames: newFileNames,
   })
     .save()
-    .then((res: any) => {
+    .then(() => {
       return { success: true };
     })
-    .catch((err: any) => {
+    .catch((err) => {
       return { err };
     });
 };
@@ -168,7 +168,7 @@ export const findProduct = async (id: IProduct['id']) => {
 // Delete product based on product ID
 export const deleteProduct = async (id: IProduct['id']) => {
   const result = await Product.findOneAndDelete({ id })
-    .then((res) => {
+    .then(() => {
       return {
         success: true,
       };

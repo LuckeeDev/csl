@@ -1,11 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import { ICommissione, ICommissioneModel, IHttpRes, IUser } from '@csl/shared';
 import { saveError, saveEvent } from '@config/winston';
-import { UploadedFile } from 'express-fileupload';
-import { join } from 'path';
-import { tmpdir } from 'os';
-import fse from 'fs-extra';
-import { bucket } from '@config/firebase';
 
 const CommissioneSchema = new Schema(
   {
@@ -141,27 +136,15 @@ export const removeCommissione = async (
   }
 };
 
-export const uploadPDF = async (pdf: UploadedFile, commissione: ICommissione['id']) => {
+export const addPDF = async (pdf: string, commissione: ICommissione['id']) => {
   try {
-    const fileName = `${Date.now()}_${pdf.name}`;
-    const workingDir = join(tmpdir(), 'commissioni');
-    const tmpFilePath = join(workingDir, fileName);
-    const firebasePath = `commissioni/pdf/${commissione}/${fileName}`;
-    await fse.ensureDir(workingDir);
-
-    await pdf.mv(tmpFilePath);
-
-    await bucket.upload(tmpFilePath, {
-      destination: firebasePath,
-    });
-
     const files = await Commissione.findOneAndUpdate(
       { id: commissione },
-      { $push: { files: fileName } },
+      { $push: { files: pdf } },
       { new: true }
     ).then((c) => c.files);
 
-    saveEvent(`Uploaded file "${pdf.name} for "${commissione}"`, {
+    saveEvent(`Uploaded file "${pdf} for "${commissione}"`, {
       category: 'commissioni',
     });
 
@@ -181,7 +164,7 @@ export const uploadPDF = async (pdf: UploadedFile, commissione: ICommissione['id
   }
 }
 
-export const deletePDF = async (pdf: string, commissione: ICommissione['id']) => {
+export const removePDF = async (pdf: string, commissione: ICommissione['id']) => {
   try {
     const files = await Commissione.findOneAndUpdate(
       { id: commissione },

@@ -17,11 +17,11 @@ export class AuthService {
     this.user$ = this.http.get<IHttpRes<{ user: IUser, token: string }>>('/api/auth')
       .pipe(
         map((res) => {
-          if (res) {
+          if (res.success) {
             this.fireAuth.signInWithCustomToken(res.data.token).then();
-
-            return res.data.user;
           }
+
+          return res.data.user;
         })
       );
   }

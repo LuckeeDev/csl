@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IArticle } from '@csl/shared';
+// @ts-ignore
 import { ArticlesService } from '@global/services/articles/articles.service';
 import { DialogService, ToastrService } from '@csl/ui';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
@@ -39,7 +40,7 @@ export class ManageArticlesComponent implements OnInit {
           if (res.success === true) {
             this.toastr.show({
               message: 'Articolo eliminato',
-              color: 'accent',
+              color: 'basic',
               action: 'Chiudi',
               duration: 5000,
             });

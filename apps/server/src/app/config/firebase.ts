@@ -1,4 +1,5 @@
 import admin from 'firebase-admin';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 export const serviceAccount = require('./firebaseCredentials.json');
 
 // Initialize Firebase

@@ -5,8 +5,9 @@ import { isReferente } from '@config/authcheck';
 import { ICommissione, IRequest } from '@csl/shared';
 import {
   getCommissione,
-  setPage, uploadPDF,
-  deletePDF
+  setPage,
+  addPDF,
+  removePDF,
 } from '@controllers/commissione';
 import { bucket } from '@config/firebase';
 import { UploadedFile } from 'express-fileupload';
@@ -32,13 +33,12 @@ router.patch('/:id', isReferente, async (req: IRequest, res: Response) => {
 
 // PDFs
 router.post('/:id/pdf', isReferente, async (req: IRequest, res: Response) => {
-  const files: { [key: string]: UploadedFile } = req.files;
-  const pdf: UploadedFile = files.pdf;
+  const pdf: string = req.body.pdf;
 
   const params: any = req.params;
   const commissione: ICommissione['id'] = params.id;
 
-  const result = await uploadPDF(pdf, commissione);
+  const result = await addPDF(pdf, commissione);
 
   res.json(result);
 });
@@ -49,7 +49,7 @@ router.delete('/:id/pdf/:file', isReferente, async (req: IRequest, res: Response
   const pdf: string = params.file;
   const commissione: ICommissione['id'] = params.id;
 
-  const result = await deletePDF(pdf, commissione);
+  const result = await removePDF(pdf, commissione);
 
   res.json(result);
 });
@@ -61,7 +61,7 @@ router.post('/:id/image', isReferente, async (req: IRequest, res: Response) => {
   const fileName = `${Date.now()}_${image.name}`;
   const workingDir = join(tmpdir(), 'commissioni');
   const tmpFilePath = join(workingDir, fileName);
-  const firebasePath = `commissioni/images/${fileName}`;
+  const firebasePath = `commissioni/${req.params.id}/images/${fileName}`;
   await fse.emptyDir(workingDir);
 
   await image.mv(tmpFilePath);
@@ -73,14 +73,14 @@ router.post('/:id/image', isReferente, async (req: IRequest, res: Response) => {
   res.json({
     success: '1',
     file: {
-      url: `/api/commissioni/image/${fileName}`,
+      url: `/api/commissioni/${req.params.id}/image/${fileName}`,
       firebasePath,
     },
   });
 });
 
-router.get('/image/:fileName', async (req: IRequest, res: Response) => {
-  const firebasePath = `commissioni/images/${req.params.fileName}`;
+router.get('/:id/image/:fileName', async (req: IRequest, res: Response) => {
+  const firebasePath = `commissioni/${req.params.id}/images/${req.params.fileName}`;
 
   const workingDir = join(tmpdir(), 'commissioni');
   const tmpFilePath = join(workingDir, req.params.fileName);

@@ -84,15 +84,15 @@ export const addSnackToCart = async (id: ISnack['id'], user: IUser) => {
 
         if (typeof index !== 'undefined') {
           const quantityQuery = `cart.${index}.quantity`;
-          let update = {
-            $inc: { [quantityQuery]: 1, total: snack!.price },
+          const update = {
+            $inc: { [quantityQuery]: 1, total: snack.price },
           };
 
           return SnackOrder.findOneAndUpdate(
             { id: user.id, date: today },
             update
           )
-            .then((res) => {
+            .then(() => {
               return { success: true };
             })
             .catch((err) => {
@@ -249,7 +249,9 @@ export const snackOrderConfig = (io: Server) => {
   SnackOrder.watch([], {
     fullDocument: 'updateLookup',
   }).on('change', (change: any) => {
-    if (change.operationType === 'insert' || 'replace') {
+    if (
+      change.operationType === 'insert' || change.operationType === 'replace'
+    ) {
       io.to('Bar Admin').emit('Orders', {
         change: change.fullDocument,
         operationType: change.operationType,

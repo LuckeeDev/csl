@@ -105,19 +105,6 @@ export const authCheck = (req: IRequest, res: Response, next: NextFunction) => {
   }
 };
 
-// Checks if a user is logged in and, if not, sends a null response
-export const profileCheck = (
-  req: IRequest,
-  res: Response,
-  next: NextFunction
-) => {
-  if (req.user) {
-    next();
-  } else {
-    res.send(null);
-  }
-};
-
 // Checks if a user is not yet logged in
 export const notAuthCheck = (
   req: IRequest,

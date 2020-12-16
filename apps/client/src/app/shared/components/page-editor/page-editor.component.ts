@@ -13,6 +13,7 @@ import { DialogService, ToastrService } from '@csl/ui';
 import { AuthService } from '@global/services/auth/auth.service';
 import { map, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'csl-editor',
@@ -22,7 +23,6 @@ import { Router } from '@angular/router';
 export class PageEditorComponent implements AfterViewInit, OnInit {
   editor: EditorJS;
 
-  id: ICommissione['id'];
   commissione: ICommissione;
 
   displayedColumns: string[] = ['name', 'manage'];
@@ -39,7 +39,8 @@ export class PageEditorComponent implements AfterViewInit, OnInit {
     private dialog: DialogService,
     private toastr: ToastrService,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private afs: AngularFireStorage,
   ) {}
 
   ngOnInit(): void {}
@@ -54,11 +55,7 @@ export class PageEditorComponent implements AfterViewInit, OnInit {
             return user.isReferente;
           }
         }),
-        switchMap((commissione) => {
-          this.id = commissione;
-
-          return this.commissioni.getPage(this.id);
-        })
+        switchMap((id) => this.commissioni.getPage(id))
       )
       .subscribe((res) => {
         this.commissione = res.data;
@@ -98,7 +95,7 @@ export class PageEditorComponent implements AfterViewInit, OnInit {
               inlineToolbar: ['bold', 'italic', 'hyperlink'],
               config: {
                 endpoints: {
-                  byFile: `/api/commissioni/${this.id}/image`,
+                  byFile: `/api/commissioni/${this.commissione.id}/image`,
                 },
               },
             },
@@ -179,18 +176,29 @@ export class PageEditorComponent implements AfterViewInit, OnInit {
   uploadPDF(e) {
     const pdf = e.target.files[0];
 
-    this.commissioni.uploadPDF(pdf, this.id).subscribe((res) => {
-      if (res.success) {
-        this.commissione.files = res.data;
+    const fileName = `${Date.now()}_${pdf.name}`;
 
-        this.toastr.show({
-          color: 'basic',
-          message: 'PDF caricato con successo'
-        });
-      } else {
+    this.afs
+      .ref(`commissioni/${this.commissione.id}/pdf/${fileName}`)
+      .put(pdf)
+      .then(() => {
+        this.commissioni.addPDF(fileName, this.commissione.id)
+          .subscribe((res) => {
+            if (res.success) {
+              this.commissione.files = res.data;
+
+              this.toastr.show({
+                color: 'basic',
+                message: 'PDF caricato con successo',
+              });
+            } else {
+              this.toastr.showError();
+            }
+          });
+      })
+      .catch(() => {
         this.toastr.showError();
-      }
-    });
+      });
   }
 
   deletePDF(file: string) {
@@ -200,7 +208,7 @@ export class PageEditorComponent implements AfterViewInit, OnInit {
       answer: 'Sì, elimina',
       color: 'warn'
     }).pipe(
-      switchMap(() => this.commissioni.deletePDF(file, this.id))
+      switchMap(() => this.commissioni.removePDF(file, this.commissione.id))
     ).subscribe((res) => {
       if (res.success) {
         this.commissione.files = res.data;
@@ -225,7 +233,7 @@ export class PageEditorComponent implements AfterViewInit, OnInit {
       })
       .subscribe(() => {
         this.editor.save().then((page: ICommissione['page']) => {
-          this.commissioni.savePage(this.id, page).subscribe((res) => {
+          this.commissioni.savePage(this.commissione.id, page).subscribe((res) => {
             if (res.success) {
               this.toastr.show({
                 color: 'success',

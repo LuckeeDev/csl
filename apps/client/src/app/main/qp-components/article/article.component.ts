@@ -5,7 +5,7 @@ import { IArticle } from '@csl/shared';
 import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
-  selector: 'app-article',
+  selector: 'csl-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
 })

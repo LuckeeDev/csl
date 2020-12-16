@@ -7,11 +7,13 @@ import List from '@editorjs/list';
 import Image from '@editorjs/image';
 import HyperLink from 'editorjs-hyperlink';
 
+// @ts-ignore
 import { ArticlesService } from '@global/services/articles/articles.service';
 import { DialogService, ToastrService } from '@csl/ui';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { IArticle } from '@csl/shared';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'csl-editor',
@@ -42,7 +44,8 @@ export class EditorComponent implements OnInit, AfterViewInit {
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private afs: AngularFireStorage,
   ) {
     this.ready = false;
     this.articleID = this.route.snapshot.paramMap.get('articleID');
@@ -269,15 +272,16 @@ export class EditorComponent implements OnInit, AfterViewInit {
       });
   }
 
-  uploadCover(event) {
-    this.ready = false;
-
+  uploadCover(event): void {
     const cover: File = event.target.files[0];
 
-    this.articlesService.uploadCover(cover).subscribe((res) => {
-      this.ready = true;
-      if (res.success) {
-        this.metadata.controls['image'].setValue(res.data);
+    const fileName = `${Date.now()}_${cover.name}`;
+
+    this.afs
+      .ref(`articles/covers/${fileName}`)
+      .put(cover)
+      .then(() => {
+        this.metadata.controls['image'].setValue(fileName);
 
         this.toastr.show({
           message: `File caricato`,
@@ -285,9 +289,9 @@ export class EditorComponent implements OnInit, AfterViewInit {
           action: 'Chiudi',
           duration: 5000,
         });
-      } else {
+      })
+      .catch(() => {
         this.toastr.showError();
-      }
-    });
+      });
   }
 }

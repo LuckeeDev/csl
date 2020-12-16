@@ -14,40 +14,8 @@ import { join } from 'path';
 import { UploadedFile } from 'express-fileupload';
 import { bucket } from '@config/firebase';
 import { IRequest } from '@csl/shared';
-import { saveError } from '@config/winston';
 
 // Images
-router.post('/cover', isQp, async (req: Request, res: Response) => {
-  try {
-    const files: any = req.files;
-    const cover: UploadedFile = files.cover;
-    const fileName = `${Date.now()}_${cover.name}`;
-    const workingDir = join(tmpdir(), 'qp');
-    const tmpFilePath = join(workingDir, fileName);
-    const firebasePath = `articles/covers/${fileName}`;
-    await fse.emptyDir(workingDir);
-
-    await cover.mv(tmpFilePath);
-
-    await bucket.upload(tmpFilePath, {
-      destination: firebasePath,
-    });
-
-    res.json({
-      success: true,
-      data: fileName,
-    });
-  } catch (err) {
-    saveError(`Error while uploading cover to Firebase`, {
-      category: 'qp',
-    });
-
-    res.json({
-      success: false,
-    });
-  }
-});
-
 router.post('/image', isQp, async (req: Request, res: Response) => {
   const files: any = req.files;
   const image: UploadedFile = files.image;
