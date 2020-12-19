@@ -7,9 +7,7 @@ import { AuthService } from '@global/services/auth/auth.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  // TODO: Add custom toastr to show use of cookies,
-  //  add http interceptor for 413 (request-entity-too-large) and 403 (unauthorized)
-  v = 'v1.1.0';
+  v = 'v1.1.1';
 
   constructor(private auth: AuthService) {}
 

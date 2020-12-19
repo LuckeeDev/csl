@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from '@environments/environment';
 
@@ -56,6 +56,9 @@ import { CommissioneComponent } from '@main/comitato-components/commissione/comm
 import { ComitatoHomeComponent } from '@main/comitato-components/comitato-home/comitato-home.component';
 import { ContactFormComponent } from '@main/contacts-components/contact-form/contact-form.component';
 import { LoginComponent } from '@main/errors/login/login.component';
+
+// Interceptors
+import { ResCodeInterceptor } from '@global/http/res-code.interceptor';
 
 @NgModule({
   declarations: [
@@ -109,7 +112,15 @@ import { LoginComponent } from '@main/errors/login/login.component';
   entryComponents: [],
   providers: [
     ScreenTrackingService,
-    { provide: USE_AUTH_EMULATOR, useValue: environment.useEmulators ? ['localhost', 9099] : undefined },
+    {
+      provide: USE_AUTH_EMULATOR,
+      useValue: environment.useEmulators ? ['localhost', 9099] : undefined
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ResCodeInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

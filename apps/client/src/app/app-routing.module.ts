@@ -41,17 +41,18 @@ import { MdComponent } from '@shared/components/md/md.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login-failed', component: HomeComponent },
-  { path: 'asl', component: AslComponent },
+  { path: 'asl', canActivate: [LoggedInGuard], component: AslComponent },
   {
     path: 'comitato',
     component: ComitatoComponent,
+    canActivate: [LoggedInGuard],
     children: [
       { path: '', component: ComitatoHomeComponent },
       { path: 'commissione/:id', component: CommissioneComponent },
     ],
   },
-  { path: 'consulta', component: ConsultaComponent },
-  { path: 'portarti', component: PortartiComponent },
+  { path: 'consulta', canActivate: [LoggedInGuard], component: ConsultaComponent },
+  { path: 'portarti', canActivate: [LoggedInGuard], component: PortartiComponent },
   { path: 'faq', component: FaqComponent },
   { path: 'info', component: InfoComponent, data: { file: 'student-guide.md' } },
   { path: 'info/contacts', component: ContactFormComponent },
