@@ -20,6 +20,7 @@ import { CogeComponent } from './components/coge/coge.component';
 // Pipes
 import { PipesModule } from '@global/pipes/pipes.module';
 import { CreateCourseComponent } from './components/create-course/create-course.component';
+import { OrientamentoComponent } from './components/orientamento/orientamento.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { CreateCourseComponent } from './components/create-course/create-course.
     CheckoutComponent,
     CogeComponent,
     CreateCourseComponent,
+    OrientamentoComponent,
   ],
   imports: [
     CommonModule,
