@@ -59,6 +59,7 @@ import { LoginComponent } from '@main/errors/login/login.component';
 
 // Interceptors
 import { ResCodeInterceptor } from '@global/http/res-code.interceptor';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -108,6 +109,7 @@ import { ResCodeInterceptor } from '@global/http/res-code.interceptor';
     LoadingBarRouterModule,
     LoadingBarHttpClientModule,
     MarkdownModule.forRoot(),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   entryComponents: [],
   providers: [

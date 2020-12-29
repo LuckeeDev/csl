@@ -1,0 +1,138 @@
+{
+  "configVersion": 1,
+  "timestamp": 1609285351030,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/1.38066b6324377c89ee6d.js",
+        "/10.7bf4cbaeac982af2f018.js",
+        "/11.6eb073206eb6fc97e3b5.js",
+        "/12.46c33db1da21cac29c1a.js",
+        "/13.198217b1d968a5dc7037.js",
+        "/14.46a157241b5686eac336.js",
+        "/3.baabe398adf4bc62f17c.js",
+        "/7.994c665d638cad1b25aa.js",
+        "/8.91a66590e3527f74d5b7.js",
+        "/9.0b879dd9314163d3835c.js",
+        "/common.9253bd11728f4242bdd5.js",
+        "/favicon.ico",
+        "/index.html",
+        "/main.60d05afe1fbde3f2c8e9.js",
+        "/manifest.webmanifest",
+        "/polyfills.7861d05e8f0c6c78d9f0.js",
+        "/runtime.e894263cd4382370e143.js",
+        "/scripts.3cbf00aec1e857014265.js",
+        "/styles.45909c4f1f72474cf0d4.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/assets/icons/icon-128x128.png",
+        "/assets/icons/icon-144x144.png",
+        "/assets/icons/icon-152x152.png",
+        "/assets/icons/icon-192x192.png",
+        "/assets/icons/icon-384x384.png",
+        "/assets/icons/icon-512x512.png",
+        "/assets/icons/icon-72x72.png",
+        "/assets/icons/icon-96x96.png",
+        "/assets/img/logo.png",
+        "/assets/img/pages/rappre.jpeg",
+        "/assets/img/signInLogo.png",
+        "/assets/img/white-logo.png",
+        "/assets/svg/articles.svg",
+        "/assets/svg/authenticate.svg",
+        "/assets/svg/background.svg",
+        "/assets/svg/cancel.svg",
+        "/assets/svg/faq.svg",
+        "/assets/svg/forbidden.svg",
+        "/assets/svg/gadgets.svg",
+        "/assets/svg/home.svg",
+        "/assets/svg/lir.svg",
+        "/assets/svg/notfound.svg",
+        "/assets/svg/pay.svg",
+        "/assets/svg/photos.svg",
+        "/assets/svg/shopping.svg"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/1.38066b6324377c89ee6d.js": "8f5a3914fa0daefa730ba9f246f07e9956dd3a00",
+    "/10.7bf4cbaeac982af2f018.js": "f961736e2475bc2e152637e68cecb7d3b0381650",
+    "/11.6eb073206eb6fc97e3b5.js": "b8b983619fe3e1b041a82a18f93113c5c5c10b86",
+    "/12.46c33db1da21cac29c1a.js": "b0f579045ba590c00c39150964879909f0aa107e",
+    "/13.198217b1d968a5dc7037.js": "d56f53ade7e950f9b6dbbbb3f5852973a5cd2479",
+    "/14.46a157241b5686eac336.js": "d9d1f4992938d402111d4238b9e93b656a016145",
+    "/3.baabe398adf4bc62f17c.js": "54f2964fd72b90b3c1888169d79f8b22d13b29de",
+    "/7.994c665d638cad1b25aa.js": "81036ca662fe42d01fc4725e778b66fa9657e698",
+    "/8.91a66590e3527f74d5b7.js": "1c823c1e941db35256835edd8729dce1b8e4cf3d",
+    "/9.0b879dd9314163d3835c.js": "82c362a64d16b62c1569b99b1153beae5a1b6ebf",
+    "/assets/icons/icon-128x128.png": "b2e0dbbe12f656d65a1317b1fb0fe6de432faac6",
+    "/assets/icons/icon-144x144.png": "a40142bff7f78b5003ecccf49353a9938b6bb9d7",
+    "/assets/icons/icon-152x152.png": "b0fc4e35df937eeb15f75af14fda42fdb436eed6",
+    "/assets/icons/icon-192x192.png": "11f283bd628eb559f74477ed36eedc2046e1df76",
+    "/assets/icons/icon-384x384.png": "272217504b2277a67c2652be26359526a7cfcf7f",
+    "/assets/icons/icon-512x512.png": "7a6aefab2b162fe893266b0a1241d6293749bf33",
+    "/assets/icons/icon-72x72.png": "2d407efa2b8eea2895d1e5a26eb36ebff8f66835",
+    "/assets/icons/icon-96x96.png": "6eff60c537c60f804d4c802300ee88298cec1b8e",
+    "/assets/img/logo.png": "8208049989e3f63db0b5b4e9901d7944a553381e",
+    "/assets/img/pages/rappre.jpeg": "81c71ab0814bf3b8f46858e779bad870d22f5929",
+    "/assets/img/signInLogo.png": "60ac99b608bfdfca59adead960a5a26f3143d64b",
+    "/assets/img/white-logo.png": "77a50f47a1550c9c92ac4b2e9410f695c3cf4ad1",
+    "/assets/svg/articles.svg": "3c78d4df92f151577c34dacc062cae4323542999",
+    "/assets/svg/authenticate.svg": "6449a24afcd83b1f8103f94867ba00889c605dfd",
+    "/assets/svg/background.svg": "d08323f0f31eec42a7fb1486289b6bb32714ea4b",
+    "/assets/svg/cancel.svg": "7e25e762d062489f88c66320e6021693d2028072",
+    "/assets/svg/faq.svg": "85a9a079ff43d139eb8547812671d6fbb0dfafdb",
+    "/assets/svg/forbidden.svg": "339a7b0a110e4cf5cf5906af77f098a8ac857218",
+    "/assets/svg/gadgets.svg": "01f01a6d52e7b108144abeeb22dbc0e89ea64437",
+    "/assets/svg/home.svg": "b6678c88eadbeea23e29ce22a0ef621ad7ac1e92",
+    "/assets/svg/lir.svg": "9d61d3818eeb6747abb566fe5c6491fdcf57728f",
+    "/assets/svg/notfound.svg": "c754ebdcf87e687e0c6ef0677a99903844373e11",
+    "/assets/svg/pay.svg": "305e68477c56fe2e947b50e689fb5ac7c6e26539",
+    "/assets/svg/photos.svg": "0567c6ef1f91103142248f3f43fd32a7afa6b2a9",
+    "/assets/svg/shopping.svg": "e54f20bf2201bb3d0c3a1d2171e7c061cd190d2e",
+    "/common.9253bd11728f4242bdd5.js": "8968a5301f72c9bd8d3134be3b659a24a5f6cda4",
+    "/favicon.ico": "2569261c0d45ebd98ee915526bbfc19ce7dbc328",
+    "/index.html": "f4cdc8f8fa96a9d53018cd4fbc1907e1354228f0",
+    "/main.60d05afe1fbde3f2c8e9.js": "e166f639f24bc8fcb3e2e1b97a2e275f080c5c41",
+    "/manifest.webmanifest": "9a932d81b1b735c38f613954895ecc37cc6142c6",
+    "/polyfills.7861d05e8f0c6c78d9f0.js": "39bb4601036b1833652b4bf626db0537f1a62d9b",
+    "/runtime.e894263cd4382370e143.js": "21bf0cf02b998d8d7b5b4547e93485855c7d69b0",
+    "/scripts.3cbf00aec1e857014265.js": "8c30b6fa31b6f7785d9ddbf0747384ba4c8a3f3c",
+    "/styles.45909c4f1f72474cf0d4.css": "cf461cf293e181fb82d9e3763929d2fe168e9d2b"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ]
+}

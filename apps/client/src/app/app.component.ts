@@ -7,7 +7,7 @@ import { AuthService } from '@global/services/auth/auth.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  v = 'v1.1.1';
+  v = 'v1.2.0';
 
   constructor(private auth: AuthService) {}
 
