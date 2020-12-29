@@ -12,6 +12,7 @@ import { OrdersComponent } from '@dashboard/components/orders/orders.component';
 import { CheckoutComponent } from '@dashboard/components/checkout/checkout.component';
 import { CogeComponent } from '@dashboard/components/coge/coge.component';
 import { CreateCourseComponent } from './components/create-course/create-course.component';
+import { OrientamentoComponent } from '@dashboard/components/orientamento/orientamento.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
     component: DashboardComponent,
     children: [
       { path: '', component: ProfileComponent },
+      { path: 'orientamento', component: OrientamentoComponent },
       // { path: 'coge', component: CogeComponent },
       // { path: 'coge/create', component: CreateCourseComponent },
       // { path: 'orders', component: CategoryComponent },
