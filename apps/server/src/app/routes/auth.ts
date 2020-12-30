@@ -6,8 +6,10 @@ import passport from 'passport';
 import { nextMiddelware } from '@config/login';
 import { fireAuth } from '@config/firebase';
 import { IRequest } from '@csl/shared';
+import { environment } from '@environments/environment';
 
 router.get('/', async (req: IRequest, res: Response) => {
+  console.log('request received', req.user);
   const user = req.user;
 
   if (user) {
@@ -35,23 +37,27 @@ router.get('/', async (req: IRequest, res: Response) => {
   }
 });
 
+router.get('/profile', (req, res) => {
+  res.send(req.user);
+})
+
 router.get(
   '/redirect',
   passport.authenticate('google', { failureRedirect: './failure' }),
   (req: Request, res: Response) => {
     const returnTo: string[] = req.session.returnTo.split('+');
 
-    res.redirect(`/${returnTo.join('/')}`);
+    res.redirect(`/auth/profile`);
   }
 );
 
 router.get('/failure', notAuthCheck, (req: Request, res: Response) => {
-  res.redirect('/login-failed');
+  res.redirect(`${environment.client}/login-failed`);
 });
 
 router.get('/logout', authCheck, (req: Request, res: Response) => {
   req.logout();
-  res.redirect('/');
+  res.redirect(`${environment.client}`);
 });
 
 router.get(

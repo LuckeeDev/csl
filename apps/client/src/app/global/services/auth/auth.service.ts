@@ -4,6 +4,7 @@ import { IHttpRes, IUser } from '@csl/shared';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { environment } from '@environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class AuthService {
   constructor(private http: HttpClient, private fireAuth: AngularFireAuth) {}
 
   getUser(): void {
-    this.user$ = this.http.get<IHttpRes<{ user: IUser, token: string }>>('/api/auth')
+    this.user$ = this.http.get<IHttpRes<{ user: IUser, token: string }>>('/auth')
       .pipe(
         map((res) => {
           if (res.success) {
@@ -29,12 +30,12 @@ export class AuthService {
   }
 
   signIn(next?: string): void {
-    window.location.replace(`/api/auth/${next || 'dashboard'}`);
+    window.location.replace(`${environment.api}/auth/${next || 'dashboard'}`);
   }
 
   signOut(): void {
     this.fireAuth.signOut().then(() => {
-      window.location.replace('/api/auth/logout');
+      window.location.replace(`${environment.api}/auth/logout`);
     });
   }
 }

@@ -10,16 +10,16 @@ export class CommissioniService {
   constructor(private http: HttpClient) {}
 
   getPage(id: string): Observable<IHttpRes<ICommissione>> {
-    return this.http.get<IHttpRes<ICommissione>>(`/api/commissioni/${id}`);
+    return this.http.get<IHttpRes<ICommissione>>(`/commissioni/${id}`);
   }
 
   savePage(id: ICommissione['id'], page: ICommissione['page']): Observable<IHttpRes<any>> {
-    return this.http.patch<IHttpRes<any>>(`/api/commissioni/${id}`, { page });
+    return this.http.patch<IHttpRes<any>>(`/commissioni/${id}`, { page });
   }
 
   addPDF(pdf: string, id: ICommissione['id']): Observable<IHttpRes<ICommissione['files']>> {
     return this.http.post<IHttpRes<ICommissione['files']>>(
-      `/api/commissioni/${id}/pdf`,
+      `/commissioni/${id}/pdf`,
       { pdf },
     );
   }
@@ -29,7 +29,7 @@ export class CommissioniService {
     id: ICommissione['id']
   ): Observable<IHttpRes<ICommissione['files']>> {
     return this.http.delete<IHttpRes<ICommissione['files']>>(
-      `/api/commissioni/${id}/pdf/${file}`
+      `/commissioni/${id}/pdf/${file}`
     );
   }
 }

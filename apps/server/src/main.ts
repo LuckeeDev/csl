@@ -81,25 +81,25 @@ app.get('/api', (req, res) => {
 });
 
 // Routes
-app.use('/api/admin', admin);
-app.use('/api/auth', auth);
-app.use('/api/upload', upload);
-app.use('/api/users', users);
-app.use('/api/articles', articles);
-app.use('/api/products', products);
-app.use('/api/orders', orders);
-app.use('/api/reports', reports);
-app.use('/api/snacks', snacks);
-app.use('/api/coge', coge);
-app.use('/api/commissioni', commissioni);
+app.use('/admin', admin);
+app.use('/auth', auth);
+app.use('/upload', upload);
+app.use('/users', users);
+app.use('/articles', articles);
+app.use('/products', products);
+app.use('/orders', orders);
+app.use('/reports', reports);
+app.use('/snacks', snacks);
+app.use('/coge', coge);
+app.use('/commissioni', commissioni);
 
 // Static folder
-app.use('/api/assets', express.static(path.join(__dirname, 'assets')));
+app.use(express.static(path.join(__dirname, 'assets')));
 app.get('/', (req, res) => {
-  res.send('Hi from the api!');
+  res.send('hi from the api');
 });
 app.get('*', (req, res) => {
-  res.redirect('/');
+  res.redirect(env.client);
 });
 
 // Start server and socket
