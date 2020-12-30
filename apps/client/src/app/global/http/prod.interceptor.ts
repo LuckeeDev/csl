@@ -10,13 +10,11 @@ export class ProdInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const prodRequest = environment.production ? new HttpRequest(
-      req.method,
-      `https://api.cslussana.com${req.url}`,
-      req.body
-    ) : null;
+    const prodRequest = !environment.production ? req.clone({
+      url: `https://api.cslussana.com${req.url}`
+    }) : null;
 
-    console.log(prodRequest?.url);
+    console.log(prodRequest?.url, prodRequest?.method);
     return next.handle(req);
   }
 }

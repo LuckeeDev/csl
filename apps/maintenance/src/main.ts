@@ -1,20 +1,13 @@
-import * as express from 'express';
-import { join } from 'path';
+import { enableProdMode } from '@angular/core';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-const app = express();
+import { AppModule } from './app/app.module';
+import { environment } from './environments/environment';
 
-app.use(express.static(join(__dirname, 'public')));
+if (environment.production) {
+  enableProdMode();
+}
 
-app.get('/', (req, res) => {
-  res.sendFile(join(__dirname, 'public', 'index.html'));
-});
-
-app.get('*', (req, res) => {
-  res.redirect('/');
-});
-
-const port = 3000;
-
-app.listen(port, () => {
-  console.log(`Maintenance started on port 3000`);
-});
+platformBrowserDynamic()
+  .bootstrapModule(AppModule)
+  .catch((err) => console.error(err));
