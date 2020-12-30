@@ -16,7 +16,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "apps/server/src/public",
+            "outputPath": "dist/client",
             "index": "apps/client/src/index.html",
             "main": "apps/client/src/main.ts",
             "polyfills": "apps/client/src/polyfills.ts",
@@ -25,7 +25,9 @@
             "assets": [
               "apps/client/src/favicon.ico",
               "apps/client/src/assets",
-              "apps/client/src/manifest.webmanifest"
+              "apps/client/src/manifest.webmanifest",
+              "apps/client/src/package.json",
+              "apps/client/src/Dockerfile"
             ],
             "styles": ["apps/client/src/styles.scss"],
             "stylePreprocessorOptions": {
@@ -123,7 +125,6 @@
             "main": "apps/server/src/main.ts",
             "tsConfig": "apps/server/tsconfig.app.json",
             "assets": [
-              "apps/server/src/public",
               "apps/server/src/assets",
               "apps/server/src/environments/.dev.env",
               "apps/server/src/environments/.prod.env",
@@ -239,7 +240,9 @@
             "aot": true,
             "assets": [
               "apps/maintenance/src/favicon.ico",
-              "apps/maintenance/src/assets"
+              "apps/maintenance/src/assets",
+              "apps/maintenance/src/Dockerfile",
+              "apps/maintenance/src/package.json"
             ],
             "styles": ["apps/maintenance/src/styles.scss"],
             "scripts": []

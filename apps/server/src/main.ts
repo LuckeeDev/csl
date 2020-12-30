@@ -95,9 +95,11 @@ app.use('/api/commissioni', commissioni);
 
 // Static folder
 app.use('/api/assets', express.static(path.join(__dirname, 'assets')));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('*', (req: any, res: any) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+app.get('/', (req, res) => {
+  res.send('Hi from the api!');
+});
+app.get('*', (req, res) => {
+  res.redirect('/');
 });
 
 // Start server and socket
