@@ -11,7 +11,6 @@ passport.serializeUser((user: any, done: any) => {
 
 // Decrypt session and find user
 passport.deserializeUser((id, done) => {
-  console.log(id);
   User.findOne({ id: id }).then((user) => {
     done(null, user);
   });

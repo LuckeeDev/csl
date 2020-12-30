@@ -9,7 +9,6 @@ import { IRequest } from '@csl/shared';
 import { environment } from '@environments/environment';
 
 router.get('/', async (req: IRequest, res: Response) => {
-  console.log('request received', req.user);
   const user = req.user;
 
   if (user) {
@@ -37,17 +36,13 @@ router.get('/', async (req: IRequest, res: Response) => {
   }
 });
 
-router.get('/profile', (req, res) => {
-  res.send(req.user);
-})
-
 router.get(
   '/redirect',
   passport.authenticate('google', { failureRedirect: './failure' }),
   (req: Request, res: Response) => {
     const returnTo: string[] = req.session.returnTo.split('+');
 
-    res.redirect(`/auth/profile`);
+    res.redirect(`${environment.client}/${returnTo.join('/')}`);
   }
 );
 

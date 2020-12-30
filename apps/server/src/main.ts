@@ -9,6 +9,7 @@ import cookieSession from 'cookie-session';
 import { webhookHandler } from '@config/webhook';
 import * as http from 'http';
 import * as io from 'socket.io';
+import * as cors from 'cors';
 
 import '@config/passport';
 import { socketConfig } from '@config/socket';
@@ -47,6 +48,11 @@ mongoose.connection.on('error', (err: any) => {
 // Declare Express app
 const app = express();
 
+app.use(cors({
+  origin: ['http://localhost:4200', 'https://cslussana-test.tk'],
+  credentials: true,
+}));
+
 // Cookie session middleware
 app.use(
   cookieSession({
@@ -59,7 +65,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Receive webhooks from Stripe [might need to add CORS (allowing only Stripe) to this route]
+// Receive webhooks from Stripe [might need to add CORS, allowing Stripe, to this route]
 app.post(
   '/api/webhook',
   express.raw({ type: 'application/json' }),
@@ -93,11 +99,9 @@ app.use('/snacks', snacks);
 app.use('/coge', coge);
 app.use('/commissioni', commissioni);
 
+
 // Static folder
 app.use(express.static(path.join(__dirname, 'assets')));
-app.get('/', (req, res) => {
-  res.send('hi from the api');
-});
 app.get('*', (req, res) => {
   res.redirect(env.client);
 });

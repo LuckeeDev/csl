@@ -60,7 +60,7 @@ import { LoginComponent } from '@main/errors/login/login.component';
 
 // Interceptors
 import { ResCodeInterceptor } from '@global/http/res-code.interceptor';
-import { ProdInterceptor } from '@global/http/prod.interceptor';
+import { ApiInterceptor } from '@global/http/api.interceptor';
 
 @NgModule({
   declarations: [
@@ -126,7 +126,7 @@ import { ProdInterceptor } from '@global/http/prod.interceptor';
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: ProdInterceptor,
+      useClass: ApiInterceptor,
       multi: true,
     },
   ],
