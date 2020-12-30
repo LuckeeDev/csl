@@ -9,7 +9,7 @@ import { ToastrService } from '@csl/ui';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  v = 'v1.2.2';
+  v = 'v1.2.3';
 
   @HostListener('window:beforeinstallprompt', ['$event'])
   onBeforeInstallPrompt(e) {
