@@ -9,15 +9,28 @@
   </div>
 
   <div class="button-container">
-    <a
+    <button
       mat-stroked-button
       rounded
       color="primary"
       class="discover-btn"
-      [routerLink]="['comitato']"
+      (click)="installPrompt()"
+      *ngIf="app.isInstalled === false; else alreadyInstalled"
     >
-      Scopri di più
-    </a>
+      Installa l'app
+    </button>
+
+    <ng-template #alreadyInstalled>
+      <a
+        mat-stroked-button
+        rounded
+        color="primary"
+        class="discover-btn"
+        [routerLink]="['comitato']"
+      >
+        Scopri di più
+      </a>
+    </ng-template>
   </div>
 
   <div class="content">

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { environment } from '@environments/environment';
 
 @Component({
   selector: 'csl-md',
@@ -18,8 +17,7 @@ export class MdComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.path = `${environment.api}/md/${this.data.file}`;
+    this.path = `/md/${this.data.file}`;
     this.privacy = this.data.privacy;
   }
-
 }

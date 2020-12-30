@@ -9,6 +9,7 @@
     "server:build": "nx build server --prod",
     "client:build": "nx build client --prod",
     "maintenance:build": "nx build maintenance --prod",
+    "client:serve:prod": "http-server --port 4200 dist/client",
     "fire": "firebase emulators:start",
     "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
   },
@@ -105,6 +106,7 @@
     "cypress": "^4.1.0",
     "eslint": "7.10.0",
     "eslint-config-prettier": "6.0.0",
+    "http-server": "^0.12.3",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
     "jest": "26.2.2",
