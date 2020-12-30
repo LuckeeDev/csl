@@ -7,6 +7,7 @@ import { AppComponent } from '@app/app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from '@environments/environment';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 // Firebase
 import { AngularFireModule } from '@angular/fire';
@@ -59,7 +60,7 @@ import { LoginComponent } from '@main/errors/login/login.component';
 
 // Interceptors
 import { ResCodeInterceptor } from '@global/http/res-code.interceptor';
-import { ServiceWorkerModule } from '@angular/service-worker';
+import { ProdInterceptor } from '@global/http/prod.interceptor';
 
 @NgModule({
   declarations: [
@@ -121,6 +122,11 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ResCodeInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ProdInterceptor,
       multi: true,
     },
   ],

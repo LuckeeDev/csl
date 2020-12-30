@@ -76,6 +76,10 @@ app.use(
   })
 );
 
+app.get('/api', (req, res) => {
+  res.send('hi from the api');
+});
+
 // Routes
 app.use('/api/admin', admin);
 app.use('/api/auth', auth);

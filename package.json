@@ -5,7 +5,7 @@
   "scripts": {
     "server:dev": "nx serve server",
     "client:dev": "nx serve client",
-    "client:prod:watch": "nx build client --prod --watch",
+    "client:prod": "nx build client --prod",
     "fire": "firebase emulators:start",
     "maintenance:dev": "nx serve maintenance",
     "app:build": "nx build client --prod && nx build server --prod",
