@@ -19,8 +19,7 @@ export class UploadService {
 
   onCsvSelect(event) {
     if (event.target.files.length === 1) {
-      const file = event.target.files[0];
-      this.csvFile = file;
+      this.csvFile = event.target.files[0];
       this.readyToUploadCsv = true;
     }
   }
@@ -31,7 +30,7 @@ export class UploadService {
     const formData = new FormData();
     formData.append('viceCsv', this.csvFile);
 
-    return this.http.post('/api/upload/csv', formData).pipe(
+    return this.http.post('/upload/csv', formData).pipe(
       tap((res) => {
         this.readyToUploadCsv = false;
         this.csvFile = null;
@@ -43,7 +42,7 @@ export class UploadService {
   onImgSelect(event) {
     const files = event.target.files;
 
-    for (let file of files) {
+    for (const file of files) {
       this.imgFiles.push(file);
     }
 
@@ -63,7 +62,7 @@ export class UploadService {
     if (category === 'gadgets') {
       const availableSizes = Object.entries(sizes);
 
-      for (let [key, value] of availableSizes) {
+      for (const [key, value] of availableSizes) {
         if (value === true) {
           selectedSizes.push(key);
         }
@@ -71,7 +70,7 @@ export class UploadService {
     }
 
     const uploadPromises = files.map((file) => {
-      let path =
+      const path =
         category === 'gadgets'
           ? `gadgetImages/raw/${file.name}`
           : `photoImages/raw/${file.name}`;
@@ -83,7 +82,7 @@ export class UploadService {
 
     if (category === 'gadgets') {
       this.http
-        .post(`/api/products/create-gadgets`, {
+        .post(`/products/create-gadgets`, {
           id,
           name,
           description,
@@ -96,7 +95,7 @@ export class UploadService {
         .subscribe(callback);
     } else if (category === 'photos') {
       this.http
-        .post(`/api/products/create-photos`, {
+        .post(`/products/create-photos`, {
           id,
           name,
           description,

@@ -6,6 +6,12 @@ services:
     ports:
       - '3000:3000'
 
+  client:
+    build: ./client
+    restart: unless-stopped
+    ports:
+      - '3001:3001'
+
   maintenance:
     build: ./maintenance
     ports:

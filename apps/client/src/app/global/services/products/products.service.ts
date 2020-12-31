@@ -10,18 +10,18 @@ export class ProductsService {
   constructor(private http: HttpClient) {}
 
   getGadgets(): Observable<IProduct[]> {
-    return this.http.get<IProduct[]>('/api/products/gadgets');
+    return this.http.get<IProduct[]>('/products/gadgets');
   }
 
   getPhotos(): Observable<IProduct[]> {
-    return this.http.get<IProduct[]>('/api/products/photos');
+    return this.http.get<IProduct[]>('/products/photos');
   }
 
   getProduct(id: string) {
-    return this.http.post('/api/products/find', { id });
+    return this.http.post('/products/find', { id });
   }
 
   deleteProduct(id: string): Observable<IHttpRes<any>> {
-    return this.http.delete<IHttpRes<any>>(`/api/products/${id}`);
+    return this.http.delete<IHttpRes<any>>(`/products/${id}`);
   }
 }

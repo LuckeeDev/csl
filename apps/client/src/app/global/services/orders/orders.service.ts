@@ -22,7 +22,7 @@ export class OrdersService {
   constructor(private http: HttpClient) {}
 
   getOrders() {
-    this.http.get('/api/orders').subscribe((res: IUserOrders) => {
+    this.http.get('/orders').subscribe((res: IUserOrders) => {
       this.gadgets = res.gadgets;
       this.photos = res.photos;
 
@@ -32,24 +32,24 @@ export class OrdersService {
   }
 
   addToCart(product: IProductInCart): Observable<IHttpRes<any>> {
-    return this.http.post<IHttpRes<any>>('/api/orders/add', { product });
+    return this.http.post<IHttpRes<any>>('/orders/add', { product });
   }
 
   confirmOrder(category): Observable<any> {
-    return this.http.post('/api/orders/confirm', { category });
+    return this.http.post('/orders/confirm', { category });
   }
 
   deleteProduct(product: IProductInCart): Observable<any> {
-    return this.http.post('/api/orders/delete', { product: product }).pipe(
+    return this.http.post('/orders/delete', { product: product }).pipe(
       tap((res: any) => {
         if (res.success === true) {
           if (product.size && product.color) {
             this.gadgets = this.gadgets.filter(
-              (value: IProductInCart) => value != product
+              (value: IProductInCart) => value !== product
             );
           } else {
             this.photos = this.photos.filter(
-              (value: IProductInCart) => value != product
+              (value: IProductInCart) => value !== product
             );
           }
         }
@@ -61,7 +61,7 @@ export class OrdersService {
     category: string
   ): Observable<IHttpRes<IPaymentIntentData>> {
     return this.http.post<IHttpRes<IPaymentIntentData>>(
-      '/api/orders/create-payment-intent',
+      '/orders/create-payment-intent',
       { category }
     );
   }

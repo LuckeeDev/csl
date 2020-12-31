@@ -11,10 +11,10 @@ export class CogeService {
   constructor(private http: HttpClient) { }
 
   createCourse(course: ICourse): Observable<IHttpRes<any>> {
-    return this.http.post<IHttpRes<any>>('/api/coge/courses', { course });
+    return this.http.post<IHttpRes<any>>('/coge/courses', { course });
   }
 
   getCourses(): Observable<IHttpRes<ICourse[]>> {
-    return this.http.get<IHttpRes<ICourse[]>>('/api/coge/courses');
+    return this.http.get<IHttpRes<ICourse[]>>('/coge/courses');
   }
 }

@@ -10,7 +10,7 @@ export class MembersService {
 
   getClasses(): Observable<IClass[]> {
     return this.http
-      .get<IClass[]>('/api/users', {
+      .get<IClass[]>('/users', {
         headers: {
           ignoreLoadingBar: '',
         },
@@ -35,7 +35,7 @@ export class MembersService {
 
   createAccount(account: IAccount): Observable<IHttpRes<any>> {
     return this.http.post<IHttpRes<any>>(
-      '/api/admin/accounts',
+      '/admin/accounts',
       { account },
       {
         headers: {
@@ -46,7 +46,7 @@ export class MembersService {
   }
 
   removeAccount(email: string): Observable<IHttpRes<any>> {
-    return this.http.delete<IHttpRes<any>>(`/api/admin/accounts/${email}`, {
+    return this.http.delete<IHttpRes<any>>(`/admin/accounts/${email}`, {
       headers: {
         ignoreLoadingBar: '',
       },
@@ -55,7 +55,7 @@ export class MembersService {
 
   addRole(email: string, role: string): Observable<any> {
     return this.http.post(
-      '/api/users/addrole',
+      '/users/addrole',
       {
         email,
         role,
@@ -70,7 +70,7 @@ export class MembersService {
 
   removeRole(email: string, role: string): Observable<any> {
     return this.http.post(
-      '/api/users/removerole',
+      '/users/removerole',
       {
         email,
         role,

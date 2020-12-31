@@ -9,6 +9,7 @@ import cookieSession from 'cookie-session';
 import { webhookHandler } from '@config/webhook';
 import * as http from 'http';
 import * as io from 'socket.io';
+import * as cors from 'cors';
 
 import '@config/passport';
 import { socketConfig } from '@config/socket';
@@ -47,6 +48,11 @@ mongoose.connection.on('error', (err: any) => {
 // Declare Express app
 const app = express();
 
+app.use(cors({
+  origin: ['http://localhost:4200', 'https://cslussana-test.tk'],
+  credentials: true,
+}));
+
 // Cookie session middleware
 app.use(
   cookieSession({
@@ -59,7 +65,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Receive webhooks from Stripe [might need to add CORS (allowing only Stripe) to this route]
+// Receive webhooks from Stripe [might need to add CORS, allowing Stripe, to this route]
 app.post(
   '/api/webhook',
   express.raw({ type: 'application/json' }),
@@ -76,24 +82,28 @@ app.use(
   })
 );
 
+app.get('/api', (req, res) => {
+  res.send('hi from the api');
+});
+
 // Routes
-app.use('/api/admin', admin);
-app.use('/api/auth', auth);
-app.use('/api/upload', upload);
-app.use('/api/users', users);
-app.use('/api/articles', articles);
-app.use('/api/products', products);
-app.use('/api/orders', orders);
-app.use('/api/reports', reports);
-app.use('/api/snacks', snacks);
-app.use('/api/coge', coge);
-app.use('/api/commissioni', commissioni);
+app.use('/admin', admin);
+app.use('/auth', auth);
+app.use('/upload', upload);
+app.use('/users', users);
+app.use('/articles', articles);
+app.use('/products', products);
+app.use('/orders', orders);
+app.use('/reports', reports);
+app.use('/snacks', snacks);
+app.use('/coge', coge);
+app.use('/commissioni', commissioni);
+
 
 // Static folder
-app.use('/api/assets', express.static(path.join(__dirname, 'assets')));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('*', (req: any, res: any) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+app.use(express.static(path.join(__dirname, 'assets')));
+app.get('*', (req, res) => {
+  res.redirect(env.client);
 });
 
 // Start server and socket

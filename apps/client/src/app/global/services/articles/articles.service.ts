@@ -20,11 +20,11 @@ export class ArticlesService {
   constructor(private http: HttpClient, private afs: AngularFireStorage) {}
 
   getArticles(): Observable<IHttpRes<IArticle[]>> {
-    return this.http.get<IHttpRes<IArticle[]>>('/api/articles');
+    return this.http.get<IHttpRes<IArticle[]>>('/articles');
   }
 
   getArticle(id: string): Observable<IHttpRes<IArticle>> {
-    return this.http.get<IHttpRes<IArticle>>(`/api/articles/${id}`);
+    return this.http.get<IHttpRes<IArticle>>(`/articles/${id}`);
   }
 
   save(
@@ -44,18 +44,18 @@ export class ArticlesService {
       image,
     };
 
-    return this.http.post<IHttpRes<any>>(`/api/articles/${id}`, { article });
+    return this.http.post<IHttpRes<any>>(`/articles/${id}`, { article });
   }
 
   delete(id: IArticle['id']): Observable<IHttpRes<any>> {
-    return this.http.delete<IHttpRes<any>>(`/api/articles/${id}`);
+    return this.http.delete<IHttpRes<any>>(`/articles/${id}`);
   }
 
   changeArticlePublished(
     id: IArticle['id'],
     state: IArticle['published']
   ): Observable<IHttpRes<any>> {
-    return this.http.patch<IHttpRes<any>>(`/api/articles/${id}/state`, {
+    return this.http.patch<IHttpRes<any>>(`/articles/${id}/state`, {
       state,
     });
   }

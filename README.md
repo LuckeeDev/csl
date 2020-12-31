@@ -18,15 +18,20 @@ Fill with a list of used tools
 
 Remove `server` and `maintenance` directories from the server.
 
-Use this command from the `csl` directory to upload the main server files to a remote location...
+Use this command from the `csl` directory to upload the server files to a remote location...
 
-```
-pscp -P 22 -i C:\src\keys\csl-prod\ssh-csl-prod.ppk -r dist\server\* root@207.154.230.74:../home/luckee/csl/server
+```shell
+pscp -P 22 -i C:\src\keys\csl-prod\ssh-csl-prod.ppk -r dist\server\* root@207.154.230.74:/home/luckee/csl/server
 ```
 
-...or this command to upload the maintenance server files
+...this command to upload the client files...
+```shell
+pscp -P 22 -i C:\src\keys\csl-prod\ssh-csl-prod.ppk -r dist\client\* root@207.154.230.74:/home/luckee/csl/client
 ```
-pscp -P 22 -i C:\src\keys\csl-prod\ssh-csl-prod.ppk -r dist\maintenance* root@207.154.230.74:../home/luckee/csl/maintenance
+
+...or this command to upload the maintenance files
+```shell
+pscp -P 22 -i C:\src\keys\csl-prod\ssh-csl-prod.ppk -r dist\maintenance\* root@207.154.230.74:/home/luckee/csl/maintenance
 ```
 
 Then, inside the `csl` folder of the server, run

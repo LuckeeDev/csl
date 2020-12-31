@@ -17,8 +17,7 @@ export class MdComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.path = `/api/assets/md/${this.data.file}`;
+    this.path = `/md/${this.data.file}`;
     this.privacy = this.data.privacy;
   }
-
 }

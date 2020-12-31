@@ -4,10 +4,10 @@
   "license": "MIT",
   "description": "[WARNING] exclusively use for production",
   "scripts": {
-    "start": "node main.js"
+    "start": "http-server --port 3001"
   },
   "private": true,
-  "dependencies": {
-    "express": "4.17.1"
+  "devDependencies": {
+    "http-server": "^0.12.3"
   }
 }

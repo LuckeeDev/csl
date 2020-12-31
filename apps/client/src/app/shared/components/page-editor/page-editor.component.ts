@@ -14,6 +14,7 @@ import { AuthService } from '@global/services/auth/auth.service';
 import { map, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'csl-editor',
@@ -95,7 +96,7 @@ export class PageEditorComponent implements AfterViewInit, OnInit {
               inlineToolbar: ['bold', 'italic', 'hyperlink'],
               config: {
                 endpoints: {
-                  byFile: `/api/commissioni/${this.commissione.id}/image`,
+                  byFile: `${environment.api}/commissioni/${this.commissione.id}/image`,
                 },
               },
             },

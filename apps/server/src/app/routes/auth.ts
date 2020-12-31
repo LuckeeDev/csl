@@ -6,6 +6,7 @@ import passport from 'passport';
 import { nextMiddelware } from '@config/login';
 import { fireAuth } from '@config/firebase';
 import { IRequest } from '@csl/shared';
+import { environment } from '@environments/environment';
 
 router.get('/', async (req: IRequest, res: Response) => {
   const user = req.user;
@@ -41,17 +42,17 @@ router.get(
   (req: Request, res: Response) => {
     const returnTo: string[] = req.session.returnTo.split('+');
 
-    res.redirect(`/${returnTo.join('/')}`);
+    res.redirect(`${environment.client}/${returnTo.join('/')}`);
   }
 );
 
 router.get('/failure', notAuthCheck, (req: Request, res: Response) => {
-  res.redirect('/login-failed');
+  res.redirect(`${environment.client}/login-failed`);
 });
 
 router.get('/logout', authCheck, (req: Request, res: Response) => {
   req.logout();
-  res.redirect('/');
+  res.redirect(`${environment.client}`);
 });
 
 router.get(

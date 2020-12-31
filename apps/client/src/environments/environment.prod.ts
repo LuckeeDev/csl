@@ -11,6 +11,7 @@ export const environment = {
     measurementId: 'G-NBEJZMQWCP',
   },
   useEmulators: false,
+  api: 'https://api.cslussana-test.tk'
 };
 
 export const googleClientID =

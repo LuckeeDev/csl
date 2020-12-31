@@ -9,6 +9,7 @@ env.COOKIE_KEYS = env.COOKIE_KEYS.split(';');
 
 export const environment = {
   production: true,
+  client: 'https://cslussana-test.tk',
 
   ...env,
 };

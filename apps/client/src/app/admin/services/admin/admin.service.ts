@@ -8,23 +8,23 @@ export class AdminService {
   constructor(private http: HttpClient) {}
 
   getErrors(): Observable<IHttpRes<ILog[]>> {
-    return this.http.get<IHttpRes<ILog[]>>('/api/admin/errors');
+    return this.http.get<IHttpRes<ILog[]>>('/admin/errors');
   }
 
   getEvents(): Observable<IHttpRes<ILog[]>> {
-    return this.http.get<IHttpRes<ILog[]>>('/api/admin/events');
+    return this.http.get<IHttpRes<ILog[]>>('/admin/events');
   }
 
   emptyLogs(type: 'events' | 'errors'): Observable<IHttpRes<any>> {
-    return this.http.delete<IHttpRes<any>>(`/api/admin/${type}`);
+    return this.http.delete<IHttpRes<any>>(`/admin/${type}`);
   }
 
   getCommissioni(): Observable<IHttpRes<ICommissione[]>> {
-    return this.http.get<IHttpRes<ICommissione[]>>('/api/admin/commissioni');
+    return this.http.get<IHttpRes<ICommissione[]>>('/admin/commissioni');
   }
 
   createCommissione(commissione: ICommissione): Observable<IHttpRes<ICommissione[]>> {
-    return this.http.post<IHttpRes<ICommissione[]>>('/api/admin/commissioni', {
+    return this.http.post<IHttpRes<ICommissione[]>>('/admin/commissioni', {
       commissione,
     });
   }
@@ -33,7 +33,7 @@ export class AdminService {
     id: ICommissione['id']
   ): Observable<IHttpRes<ICommissione[]>> {
     return this.http.delete<IHttpRes<ICommissione[]>>(
-      `/api/admin/commissioni/${id}`
+      `/admin/commissioni/${id}`
     );
   }
 }

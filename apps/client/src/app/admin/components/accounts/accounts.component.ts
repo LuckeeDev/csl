@@ -45,7 +45,7 @@ export class AccountsComponent implements OnInit {
             message: 'Account creato',
             color: 'success',
           });
-          
+
           formElement.resetForm();
           this.accountForm.reset();
         } else if (res.success) {

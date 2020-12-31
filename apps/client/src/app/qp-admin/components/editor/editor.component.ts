@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { IArticle } from '@csl/shared';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'csl-editor',
@@ -110,7 +111,7 @@ export class EditorComponent implements OnInit, AfterViewInit {
             inlineToolbar: ['bold', 'italic', 'hyperlink'],
             config: {
               endpoints: {
-                byFile: `/api/articles/image`,
+                byFile: `${environment.api}/articles/image`,
               },
             },
           },

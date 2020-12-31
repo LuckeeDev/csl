@@ -23,18 +23,18 @@ export class ReportsService {
     contactInfo: IContactInfo
   ): Observable<IHttpRes<any>> {
     if (contactInfo) {
-      return this.http.post<IHttpRes<any>>('/api/reports/bug', { bugData, contactInfo });
+      return this.http.post<IHttpRes<any>>('/reports/bug', { bugData, contactInfo });
     } else {
-      return this.http.post<IHttpRes<any>>('/api/reports/bug', { bugData });
+      return this.http.post<IHttpRes<any>>('/reports/bug', { bugData });
     }
   }
 
   getReports(): Observable<IHttpRes<IReport[]>> {
-    return this.http.get<IHttpRes<IReport[]>>('/api/reports');
+    return this.http.get<IHttpRes<IReport[]>>('/reports');
   }
 
   toggleSolved(id: IReport['id'], solved: IReport['solved']) {
-    return this.http.patch<IHttpRes<any>>(`/api/reports/solved`, {
+    return this.http.patch<IHttpRes<any>>(`/reports/solved`, {
       id,
       solved,
     });

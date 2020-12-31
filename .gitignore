@@ -3,6 +3,7 @@
 # compiled output
 dist/server
 dist/maintenance
+dist/client
 /tmp
 /out-tsc
 
