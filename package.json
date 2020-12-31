@@ -3,21 +3,23 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "admin:dev": "nx serve admin",
+    "bar:dev": "nx serve bar",
     "api:dev": "nx serve api",
     "client:dev": "nx serve client",
     "maintenance:dev": "nx serve maintenance",
-    "admin:dev": "nx serve admin",
+    "admin:build": "nx build admin --prod",
+    "bar:build": "nx build bar --prod",
     "api:build": "nx build api --prod",
     "client:build": "nx build client --prod",
     "maintenance:build": "nx build maintenance --prod",
-    "admin:build": "nx build admin --prod",
+    "admin:prod": "http-server --port 4200 dist/admin",
+    "bar:prod": "http-server --port 4200 dist/bar",
     "api:prod": "node dist/api/main.js",
     "client:prod": "http-server --port 4200 dist/client",
     "maintenance:prod": "http-server --port 4200 dist/maintenance",
-    "admin:prod": "http-server --port 4200 dist/admin",
     "fire": "firebase emulators:start",
-    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
-    "e2e": "ng e2e"
+    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
   },
   "private": true,
   "dependencies": {

@@ -334,8 +334,17 @@
             "polyfills": "apps/admin/src/polyfills.ts",
             "tsConfig": "apps/admin/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/admin/src/favicon.ico", "apps/admin/src/assets"],
+            "assets": [
+              "apps/admin/src/favicon.ico",
+              "apps/admin/src/assets",
+              "apps/admin/src/manifest.webmanifest",
+              "apps/admin/src/package.json",
+              "apps/admin/src/Dockerfile"
+            ],
             "styles": ["apps/admin/src/styles.scss"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["libs/ui/src/lib"]
+            },
             "scripts": []
           },
           "configurations": {
@@ -364,7 +373,9 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "apps/admin/ngsw-config.json"
             }
           }
         },
@@ -400,6 +411,109 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/admin/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "bar": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "skipTests": true
+        }
+      },
+      "root": "apps/bar",
+      "sourceRoot": "apps/bar/src",
+      "prefix": "csl",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/bar",
+            "index": "apps/bar/src/index.html",
+            "main": "apps/bar/src/main.ts",
+            "polyfills": "apps/bar/src/polyfills.ts",
+            "tsConfig": "apps/bar/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/bar/src/favicon.ico",
+              "apps/bar/src/assets",
+              "apps/bar/src/manifest.webmanifest",
+              "apps/bar/src/package.json",
+              "apps/bar/src/Dockerfile"
+            ],
+            "styles": ["apps/bar/src/styles.scss"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["libs/ui/src/lib"]
+            },
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/bar/src/environments/environment.ts",
+                  "with": "apps/bar/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "apps/bar/ngsw-config.json"
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "bar:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "bar:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "bar:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/bar/tsconfig.app.json",
+              "apps/bar/tsconfig.spec.json",
+              "apps/bar/tsconfig.editor.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/bar/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/bar/jest.config.js",
             "passWithNoTests": true
           }
         }
