@@ -11,7 +11,8 @@ export class DialogService {
   open(data: IDialogData) {
     const dialogRef = this.dialogService.open(DialogComponent, {
       data,
-      panelClass: 'dialog-padding'
+      panelClass: 'dialog-padding',
+      disableClose: data.disableClose || false,
     });
 
     return dialogRef.afterClosed().pipe(filter((x) => x === true));

@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { AuthService } from '@global/services/auth/auth.service';
-import { AppService } from '@global/services/app/app.service';
+import { SwService } from '@global/services/sw/sw.service';
 import { ToastrService } from '@csl/ui';
 
 @Component({
@@ -9,19 +9,19 @@ import { ToastrService } from '@csl/ui';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  v = 'v1.2.4';
+  v = 'v1.2.5';
 
   @HostListener('window:beforeinstallprompt', ['$event'])
   onBeforeInstallPrompt(e) {
     e.preventDefault();
 
-    this.app.installPrompt = e;
-    this.app.isInstalled = false;
+    this.sw.installPrompt = e;
+    this.sw.isInstalled = false;
   }
 
   @HostListener('window:appinstalled', ['$event'])
   onAppInstalled() {
-    this.app.isInstalled = true;
+    this.sw.isInstalled = true;
 
     this.toastr.show({
       message: 'App installata con successo',
@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private app: AppService,
+    private sw: SwService,
     private toastr: ToastrService
   ) {}
 

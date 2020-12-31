@@ -15,7 +15,7 @@
       color="primary"
       class="discover-btn"
       (click)="installPrompt()"
-      *ngIf="app.isInstalled === false; else alreadyInstalled"
+      *ngIf="sw.isInstalled === false; else alreadyInstalled"
     >
       Installa l'app
     </button>
@@ -45,7 +45,7 @@
     <mat-divider></mat-divider>
 
     <div class="section">
-      <img src="../../../assets/svg/articles.svg" class="image" />
+      <img src="../../../assets/svg/articles.svg" class="image" alt="Articoli" />
       <div class="text">
         <h1>Quinto Piano, rinnovato</h1>
         <p>
@@ -84,7 +84,7 @@
 <!--    <mat-divider></mat-divider>-->
 
     <div class="section">
-      <img src="../../../assets/svg/faq.svg" class="image" />
+      <img src="../../../assets/svg/faq.svg" class="image" alt="Domande frequenti" />
       <div class="text">
         <h1>Hai qualche dubbio?</h1>
         <p>

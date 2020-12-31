@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IDialogData } from '@csl/shared';
 
 @Component({
-  selector: 'app-dialog',
+  selector: 'csl-dialog',
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.scss'],
 })

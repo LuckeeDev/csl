@@ -1,0 +1,13 @@
+{
+  "name": "csl-admin",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "[WARNING] exclusively use for production",
+  "scripts": {
+    "start": "http-server --port 3000"
+  },
+  "private": true,
+  "devDependencies": {
+    "http-server": "^0.12.3"
+  }
+}

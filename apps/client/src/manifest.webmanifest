@@ -2,7 +2,7 @@
   "name": "Comitato Studentesco Lussana",
   "short_name": "CSL",
   "theme_color": "#0D47A1",
-  "background_color": "#FAFAFA",
+  "background_color": "#FFFFFF",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",

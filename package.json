@@ -6,14 +6,18 @@
     "api:dev": "nx serve api",
     "client:dev": "nx serve client",
     "maintenance:dev": "nx serve maintenance",
+    "admin:dev": "nx serve admin",
     "api:build": "nx build api --prod",
     "client:build": "nx build client --prod",
     "maintenance:build": "nx build maintenance --prod",
+    "admin:build": "nx build admin --prod",
     "api:prod": "node dist/api/main.js",
     "client:prod": "http-server --port 4200 dist/client",
     "maintenance:prod": "http-server --port 4200 dist/maintenance",
+    "admin:prod": "http-server --port 4200 dist/admin",
     "fire": "firebase emulators:start",
-    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
+    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {

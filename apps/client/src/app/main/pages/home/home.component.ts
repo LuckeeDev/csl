@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from '@csl/ui';
-import { AppService } from '@global/services/app/app.service';
+import { SwService } from '@global/services/sw/sw.service';
 
 @Component({
   selector: 'csl-home',
@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private router: Router,
     private toastr: ToastrService,
-    public app: AppService
+    public sw: SwService
   ) {
     this.loginState = this.router.url.includes('login-failed') ? 'failed' : null;
   }
@@ -31,6 +31,6 @@ export class HomeComponent implements OnInit {
   }
 
   installPrompt() {
-    this.app.installPrompt.prompt();
+    this.sw.installPrompt.prompt();
   }
 }

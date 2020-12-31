@@ -1,6 +1,12 @@
 version: '3'
 services:
   # Web services
+  admin:
+    build: ./admin
+    restart: unless-stopped
+    ports:
+      - '6000:3000'
+
   api:
     build: ./api
     restart: unless-stopped

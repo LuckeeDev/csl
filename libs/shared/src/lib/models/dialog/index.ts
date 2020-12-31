@@ -3,4 +3,5 @@ export interface IDialogData {
   text: string;
   color: 'primary' | 'accent' | 'warn';
   answer: string;
+  disableClose?: boolean;
 }

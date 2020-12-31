@@ -5,7 +5,7 @@ import { DialogService } from '@csl/ui';
 @Injectable({
   providedIn: 'root'
 })
-export class AppService {
+export class SwService {
   public installPrompt;
   public isInstalled: boolean;
 
@@ -20,7 +20,8 @@ export class AppService {
       color: 'primary',
       answer: 'Aggiorna',
       text: "Vuoi aggiornare l'app? Se confermi, l'applicazione verrà riavviata e sarà disponibile nella nuova versione",
-      title: "Aggiornamento disponibile"
+      title: "Aggiornamento disponibile",
+      disableClose: true,
     }).subscribe(() => {
       this.updates.activateUpdate().then(() => document.location.reload());
     });
