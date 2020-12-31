@@ -3,7 +3,9 @@
 # compiled output
 dist/server
 dist/maintenance
+dist/oldversion
 dist/client
+dist/api
 /tmp
 /out-tsc
 

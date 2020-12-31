@@ -5,15 +5,15 @@ import { IUserInCsv } from '@csl/shared';
 import { saveEvent } from './winston';
 
 function findDuplicates(array: IUserInCsv['email'][]) {
-  var object = {};
-  var result = [];
+  const object = {};
+  const result = [];
 
   array.forEach((item) => {
     if (!object[item]) object[item] = 0;
     object[item] += 1;
   });
 
-  for (var prop in object) {
+  for (const prop in object) {
     if (object[prop] >= 2) {
       result.push(prop);
     }
@@ -60,7 +60,7 @@ export async function uploadCSV(filePath: string) {
 
   const emails = [];
 
-  for (let obj of json) {
+  for (const obj of json) {
     emails.push(obj.email);
   }
 

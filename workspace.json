@@ -29,11 +29,17 @@
               "apps/client/src/package.json",
               "apps/client/src/Dockerfile"
             ],
-            "styles": ["apps/client/src/styles.scss"],
+            "styles": [
+              "apps/client/src/styles.scss"
+            ],
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/ui/src/lib"]
+              "includePaths": [
+                "libs/ui/src/lib"
+              ]
             },
-            "scripts": ["node_modules/marked/lib/marked.js"],
+            "scripts": [
+              "node_modules/marked/lib/marked.js"
+            ],
             "allowedCommonJsDependencies": [
               "firebase/app",
               "socket.io-client",
@@ -98,69 +104,16 @@
               "apps/client/tsconfig.spec.json",
               "apps/client/tsconfig.editor.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/client/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/client/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/client/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "server": {
-      "root": "apps/server",
-      "sourceRoot": "apps/server/src",
-      "projectType": "application",
-      "prefix": "server",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/server",
-            "main": "apps/server/src/main.ts",
-            "tsConfig": "apps/server/tsconfig.app.json",
-            "assets": [
-              "apps/server/src/assets",
-              "apps/server/src/environments/.dev.env",
-              "apps/server/src/environments/.prod.env",
-              "apps/server/src/Dockerfile",
-              "apps/server/src/package.json"
-            ]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": false,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/server/src/environments/environment.ts",
-                  "with": "apps/server/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "server:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/server/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/server/jest.config.js",
             "passWithNoTests": true
           }
         }
@@ -175,7 +128,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/shared/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/shared/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -200,7 +155,10 @@
               "libs/ui/tsconfig.lib.json",
               "libs/ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/ui/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/ui/**/*"
+            ]
           }
         },
         "test": {
@@ -243,7 +201,9 @@
               "apps/maintenance/src/Dockerfile",
               "apps/maintenance/src/package.json"
             ],
-            "styles": ["apps/maintenance/src/styles.scss"],
+            "styles": [
+              "apps/maintenance/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -301,13 +261,74 @@
               "apps/maintenance/tsconfig.spec.json",
               "apps/maintenance/tsconfig.editor.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/maintenance/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/maintenance/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/maintenance/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api": {
+      "root": "apps/api",
+      "sourceRoot": "apps/api/src",
+      "projectType": "application",
+      "prefix": "server",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/api",
+            "main": "apps/api/src/main.ts",
+            "tsConfig": "apps/api/tsconfig.app.json",
+            "assets": [
+              "apps/api/src/assets",
+              "apps/api/src/environments/.dev.env",
+              "apps/api/src/environments/.prod.env",
+              "apps/api/src/Dockerfile",
+              "apps/api/src/package.json"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": false,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/api/src/environments/environment.ts",
+                  "with": "apps/api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "api:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/api/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/api/jest.config.js",
             "passWithNoTests": true
           }
         }

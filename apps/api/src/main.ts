@@ -49,7 +49,7 @@ mongoose.connection.on('error', (err: any) => {
 const app = express();
 
 app.use(cors({
-  origin: ['http://localhost:4200', 'https://cslussana-test.tk'],
+  origin: ['http://localhost:4200', 'https://cslussana.com', 'https://beta.cslussana.com'],
   credentials: true,
 }));
 

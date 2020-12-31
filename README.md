@@ -21,7 +21,7 @@ Remove `server` and `maintenance` directories from the server.
 Use this command from the `csl` directory to upload the server files to a remote location...
 
 ```shell
-pscp -P 22 -i C:\src\keys\csl-prod\ssh-csl-prod.ppk -r dist\server\* root@207.154.230.74:/home/luckee/csl/server
+pscp -P 22 -i C:\src\keys\csl-prod\ssh-csl-prod.ppk -r dist\api\* root@207.154.230.74:/home/luckee/csl/api
 ```
 
 ...this command to upload the client files...
