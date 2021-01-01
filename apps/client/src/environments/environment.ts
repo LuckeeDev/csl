@@ -12,7 +12,7 @@ export const environment = {
   },
   useEmulators: false,
   api: 'http://localhost:3000',
-  client: 'http://localhost:4200'
+  client: 'http://localhost:4200',
 };
 
 export const googleClientID =

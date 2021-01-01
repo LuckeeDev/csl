@@ -12,3 +12,5 @@ admin.initializeApp({
 export const bucket = admin.storage().bucket();
 
 export const fireAuth = admin.auth();
+
+export const messaging = admin.messaging();

@@ -10,13 +10,14 @@ import { webhookHandler } from '@config/webhook';
 import * as http from 'http';
 import * as io from 'socket.io';
 import * as cors from 'cors';
-
 import '@config/passport';
 import { socketConfig } from '@config/socket';
+import { saveError } from '@config/winston';
 
 // Routes
 import admin from '@routes/admin';
 import auth from '@routes/auth';
+import fire from '@routes/fire';
 import upload from '@routes/upload';
 import users from '@routes/users';
 import articles from '@routes/articles';
@@ -26,7 +27,6 @@ import reports from '@routes/reports';
 import snacks from '@routes/snacks';
 import coge from '@routes/coge';
 import commissioni from '@routes/commissioni';
-import { saveError } from '@config/winston';
 
 // Connect to database
 mongoose.connect(env.DB_URI, {
@@ -89,6 +89,7 @@ app.get('/api', (req, res) => {
 // Routes
 app.use('/admin', admin);
 app.use('/auth', auth);
+app.use('/fire', fire);
 app.use('/upload', upload);
 app.use('/users', users);
 app.use('/articles', articles);

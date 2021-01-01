@@ -43,15 +43,12 @@ export class AslComponent implements OnInit {
               const url: string = await this.afs
                 .ref(`commissioni/pdf/asl/${file}`)
                 .getDownloadURL()
-                .pipe(tap(res => console.log(res)))
                 .toPromise();
 
               return url;
             });
           }
         }
-
-        console.log(asl);
 
         return asl;
       })

@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { IArticleModel, IArticle, IHttpRes, IUser } from '@csl/shared';
 import { saveError, saveEvent } from '@config/winston';
+import { messaging } from '@config/firebase';
 
 const ArticleSchema = new Schema(
   {
@@ -112,9 +113,26 @@ export const saveArticle = async (
   }
 };
 
-export const changeArticlePublished = async (id: IArticle['id'], state: IArticle['published'], user: IUser): Promise<IHttpRes<any>> => {
+export const changeArticlePublished = async (
+  id: IArticle['id'],
+  state: IArticle['published'],
+  user: IUser
+): Promise<IHttpRes<any>> => {
   try {
-    await Article.findOneAndUpdate({ id }, { published: state });
+    const article = await Article.findOneAndUpdate(
+      { id },
+      { published: state }
+      );
+
+    if (state === true) {
+      await messaging.send({
+        notification: {
+          title: 'Nuovo articolo pubblicato',
+          body: `L'articolo "${article.title}" è ora disponibile nella pagina di Quinto Piano, corri a leggerlo!`,
+        },
+        topic: 'global',
+      });
+    }
 
     saveEvent(`Modificato stato dell'articolo '${id}'`, {
       category: 'qp',
@@ -129,7 +147,7 @@ export const changeArticlePublished = async (id: IArticle['id'], state: IArticle
     saveError(`Errore durante il tentativo di modifica dello stato dell'articolo '${id}'`, {
       category: 'qp',
       user: user.email,
-      err 
+      err
     })
   }
 }

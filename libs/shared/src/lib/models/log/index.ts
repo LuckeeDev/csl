@@ -2,7 +2,7 @@ import { Document } from 'mongoose';
 import { IUser } from '../user';
 
 export interface ILogMetadata {
-  category: 'commissioni' | 'orders' | 'payments' | 'qp' | 'logs' | 'accounts' | 'server' | 'reports';
+  category: 'commissioni' | 'orders' | 'payments' | 'qp' | 'logs' | 'accounts' | 'server' | 'reports' | 'firebase';
   user?: IUser['email'];
   newState?: boolean;
   err?: any;
@@ -15,4 +15,4 @@ export interface ILog {
   meta: ILogMetadata;
 }
 
-export interface ILogModel extends Document {}
+export interface ILogModel extends Document, ILog {}

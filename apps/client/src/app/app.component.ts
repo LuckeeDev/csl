@@ -9,7 +9,7 @@ import { ToastrService } from '@csl/ui';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  v = 'v1.2.6';
+  v = 'v1.2.7';
 
   @HostListener('window:beforeinstallprompt', ['$event'])
   onBeforeInstallPrompt(e) {
@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private sw: SwService,
+    public sw: SwService,
     private toastr: ToastrService
   ) {}
 

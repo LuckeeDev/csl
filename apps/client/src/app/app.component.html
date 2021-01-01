@@ -1,4 +1,8 @@
-<ngx-loading-bar [includeSpinner]="false" color="white"></ngx-loading-bar>
+<ngx-loading-bar
+  [includeSpinner]="false"
+  color="white"
+  *ngIf="sw.isStandalone !== true"
+></ngx-loading-bar>
 
 <csl-container [v]="v">
   <router-outlet></router-outlet>

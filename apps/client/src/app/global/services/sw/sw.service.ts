@@ -3,6 +3,10 @@ import { SwPush, SwUpdate } from '@angular/service-worker';
 import { DialogService, ToastrService } from '@csl/ui';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { environment } from '@environments/environment';
+import { filter, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { IHttpRes } from '@csl/shared';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +14,21 @@ import { environment } from '@environments/environment';
 export class SwService {
   public installPrompt;
   public isInstalled: boolean;
+  public isStandalone: boolean;
 
   constructor(
     private readonly updates: SwUpdate,
     private push: SwPush,
+    private http: HttpClient,
     private dialog: DialogService,
     private toastr: ToastrService,
     private afm: AngularFireMessaging
   ) {
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      this.isStandalone = true;
+      console.log('%cSW:%c Standalone', 'background: #222; color: #fff', 'color: #00CC25');
+    }
+
     this.updates.available.subscribe(() => {
       this.showAppUpdateAlert();
     });
@@ -46,12 +57,27 @@ export class SwService {
   }
 
   requestPermission() {
-    this.afm.requestPermission.subscribe();
+    this.afm.requestPermission.pipe(
+      switchMap(() => this.afm.getToken),
+      switchMap((token) => this.subscribeToGlobalTopic(token)),
+    ).subscribe((res) => {
+      console.log('%cSW:%c Notifiche attivate', 'background: #222; color: #fff', 'color: #00CC25');
+    }, () => {
+      console.log('%cSW:%c Notifiche bloccate', 'background: #222; color: #fff', 'color: #EB1A28');
+    });
   }
 
   receiveMessages() {
     this.push.messages.subscribe();
 
     this.push.notificationClicks.subscribe();
+  }
+
+  subscribeToGlobalTopic(token: string): Observable<IHttpRes<any>> {
+    return this.http.post<IHttpRes<any>>(
+      '/fire/topics/global',
+      { token },
+      { headers: { ignoreLoadingBar: ''}}
+      );
   }
 }
