@@ -3,6 +3,7 @@
   "short_name": "CSL",
   "theme_color": "#0D47A1",
   "background_color": "#FFFFFF",
+  "gcm_sender_id": "103953800507",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",

@@ -11,7 +11,8 @@ export const environment = {
     measurementId: 'G-NBEJZMQWCP',
   },
   useEmulators: false,
-  api: 'http://localhost:3000'
+  api: 'http://localhost:3000',
+  client: 'http://localhost:4200'
 };
 
 export const googleClientID =

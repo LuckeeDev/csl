@@ -14,6 +14,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAnalyticsModule, ScreenTrackingService } from '@angular/fire/analytics';
 import { AngularFireAuthModule, USE_EMULATOR as USE_AUTH_EMULATOR } from '@angular/fire/auth';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
 
 // UI Elements
 import { UiModule } from '@csl/ui';
@@ -100,6 +101,7 @@ import { ApiInterceptor } from '@global/http/api.interceptor';
     AngularFireStorageModule,
     AngularFireAnalyticsModule,
     AngularFireAuthModule,
+    AngularFireMessagingModule,
     UiModule,
     PipesModule,
     SharedModule,

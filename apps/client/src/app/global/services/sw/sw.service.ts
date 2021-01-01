@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { SwUpdate } from '@angular/service-worker';
-import { DialogService } from '@csl/ui';
+import { SwPush, SwUpdate } from '@angular/service-worker';
+import { DialogService, ToastrService } from '@csl/ui';
+import { AngularFireMessaging } from '@angular/fire/messaging';
+import { environment } from '@environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +11,26 @@ export class SwService {
   public installPrompt;
   public isInstalled: boolean;
 
-  constructor(private readonly updates: SwUpdate, private dialog: DialogService) {
+  constructor(
+    private readonly updates: SwUpdate,
+    private push: SwPush,
+    private dialog: DialogService,
+    private toastr: ToastrService,
+    private afm: AngularFireMessaging
+  ) {
     this.updates.available.subscribe(() => {
       this.showAppUpdateAlert();
     });
+
+    navigator.serviceWorker
+      .getRegistration(environment.client)
+      .then(
+        (sw) => this.afm.useServiceWorker(sw)
+      );
+
+    this.requestPermission();
+
+    this.receiveMessages();
   }
 
   showAppUpdateAlert() {
@@ -25,5 +43,15 @@ export class SwService {
     }).subscribe(() => {
       this.updates.activateUpdate().then(() => document.location.reload());
     });
+  }
+
+  requestPermission() {
+    this.afm.requestPermission.subscribe();
+  }
+
+  receiveMessages() {
+    this.push.messages.subscribe();
+
+    this.push.notificationClicks.subscribe();
   }
 }
