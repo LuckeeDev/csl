@@ -67,11 +67,15 @@ li.item.button {
   margin-left: 5%;
 }
 
-.profile {
-  width: 20px;
-  height: 20px;
-  border-radius: 10px;
-  margin-left: 5px;
+.profile-link {
+  font-size: 14px;
+
+  .profile {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    margin-left: 5px;
+  }
 }
 
 .links {

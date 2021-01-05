@@ -75,21 +75,23 @@
         </div>
 
         <li class="item button">
-          <button
+          <a
             mat-raised-button
             *ngIf="auth.user$ | async as user; else login"
             [routerLink]="['dashboard']"
+            class="profile-link"
           >
             {{ user.name }}
             <img
               class="profile"
               [src]="user.photoURL"
               referrerpolicy="no-referrer"
+              alt="Immagine del profilo"
             />
-          </button>
+          </a>
 
           <ng-template #login>
-            <button mat-raised-button size="small" (click)="auth.signIn()">
+            <button mat-raised-button (click)="auth.signIn()">
               Accedi
               <img class="google" src="../../../assets/img/signInLogo.png" />
             </button>
