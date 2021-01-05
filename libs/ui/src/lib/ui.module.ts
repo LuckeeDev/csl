@@ -21,7 +21,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatRippleModule } from '@angular/material/core';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -48,6 +48,7 @@ import { DeviceService } from './services/device/device.service';
 // Directives
 import { MatColorDirective } from './directives/mat-color/mat-color.directive';
 import { RoundedDirective } from './directives/rounded/rounded.directive';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,8 @@ import { RoundedDirective } from './directives/rounded/rounded.directive';
     MatSlideToggleModule,
     MatPaginatorModule,
     MatBadgeModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   exports: [
     FontAwesomeModule,
@@ -123,6 +126,8 @@ import { RoundedDirective } from './directives/rounded/rounded.directive';
     MatSlideToggleModule,
     MatPaginatorModule,
     MatBadgeModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   providers: [ToastrService, DialogService, DeviceService],
 })

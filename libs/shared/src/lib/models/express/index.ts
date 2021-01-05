@@ -1,6 +1,7 @@
 import { Request } from 'express';
 import { IUser } from '../user';
 
-export interface IRequest extends Request {
-  user: IUser
+export interface IRequest<BodyType = any> extends Request {
+  user: IUser;
+  body: BodyType;
 }

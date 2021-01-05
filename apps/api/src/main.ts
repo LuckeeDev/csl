@@ -27,6 +27,7 @@ import reports from '@routes/reports';
 import snacks from '@routes/snacks';
 import coge from '@routes/coge';
 import commissioni from '@routes/commissioni';
+import orientamento from '@routes/orientamento';
 
 // Connect to database
 mongoose.connect(env.DB_URI, {
@@ -99,6 +100,7 @@ app.use('/reports', reports);
 app.use('/snacks', snacks);
 app.use('/coge', coge);
 app.use('/commissioni', commissioni);
+app.use('/orientamento', orientamento);
 
 
 // Static folder

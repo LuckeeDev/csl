@@ -11,6 +11,7 @@ export class RappreComponent implements OnInit {
     { link: '.', title: 'Home' },
     { link: 'classi', title: 'Classi' },
     { link: 'editor', title: 'Gestisci pagina' },
+    { link: 'orientamento', title: 'Orientamento' },
     // { link: 'gadgets', title: 'Gadget' },
     // { link: 'photos', title: 'Foto' },
   ];

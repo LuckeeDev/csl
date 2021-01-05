@@ -20,6 +20,9 @@ import { SharedModule } from '@shared/shared.module';
 
 // Pipes
 import { PipesModule } from '@global/pipes/pipes.module';
+import { CreateEventComponent } from './components/create-event/create-event.component';
+import { EventPreviewComponent } from './components/event-preview/event-preview.component';
+import { OrientamentoComponent } from './components/orientamento/orientamento.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,9 @@ import { PipesModule } from '@global/pipes/pipes.module';
     ManageCategoryComponent,
     CreateProductComponent,
     RappreHomeComponent,
+    CreateEventComponent,
+    EventPreviewComponent,
+    OrientamentoComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,76 @@
+<div class="container">
+  <form
+    [formGroup]="event"
+    (ngSubmit)="createEvent(formElement)"
+    #formElement
+    class="form"
+  >
+    <mat-form-field class="title-input">
+      <mat-label>Titolo</mat-label>
+      <input matInput type="text" formControlName="title" />
+    </mat-form-field>
+
+    <div class="break"></div>
+
+    <mat-form-field class="desc-container">
+      <mat-label>Descrizione</mat-label>
+      <textarea
+        matInput
+        formControlName="description"
+        class="desc-input"
+      ></textarea>
+    </mat-form-field>
+
+    <div class="break"></div>
+
+    <mat-form-field appearance="fill" class="date-input">
+      <mat-label>Scegli una data</mat-label>
+
+      <input matInput [matDatepicker]="picker" formControlName="date" >
+
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="signup-input">
+      <mat-label>Inserisci un link per l'iscrizione</mat-label>
+      <input
+        matInput
+        formControlName="signup"
+        placeholder="Es: https://cslussana.com"
+      />
+    </mat-form-field>
+
+    <div class="break"></div>
+
+    <input type="file" #fileInput (change)="uploadFile($event)" hidden />
+
+    <button
+      mat-raised-button
+      (click)="fileInput.click()"
+      type="button"
+      class="cover-input"
+    >
+      Aggiungi copertina
+    </button>
+
+    <div class="break"></div>
+
+    <button
+      mat-flat-button
+      color="primary"
+      [disabled]="event.invalid"
+      type="submit"
+    >
+      Crea evento
+    </button>
+  </form>
+
+  <csl-event-preview
+    [event]="event.value"
+    [previewURL]="url"
+    class="preview"
+  >
+
+  </csl-event-preview>
+</div>

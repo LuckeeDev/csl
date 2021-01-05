@@ -1,0 +1,27 @@
+<mat-card class="card">
+  <mat-card-content>
+    <h1 class="title">{{ event.title || "Anteprima dell'evento" }}</h1>
+    <p>{{ event.description }}</p>
+
+    <p *ngIf="event.date">Data dell'evento: {{ event.date | date: 'dd / MM / yy' }}</p>
+
+
+    <ng-container *ngIf="event.cover">
+      <img
+        [src]="bypassURLSanitizer(previewURL)"
+        alt="Anteprima dell'immagine"
+        class="image-preview"
+      />
+    </ng-container>
+
+    <a
+      *ngIf="event.signup !== ''"
+      mat-flat-button
+      color="primary"
+      [href]="event.signup"
+      target="_blank"
+    >
+      Iscriviti
+    </a>
+  </mat-card-content>
+</mat-card>
