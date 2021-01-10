@@ -5,7 +5,7 @@
     In collaborazione con Agl - Comitato Orientamento
   </span>
 
-  <div class="grid">
+  <div class="grid" *ngIf="events; else noEventFound">
     <mat-card *ngFor="let event of events" class="card">
       <h2 class="title">{{ event.title }}</h2>
 
@@ -39,3 +39,9 @@
     </mat-card>
   </div>
 </div>
+
+<ng-template #noEventFound>
+  <csl-alert color="primary">
+    <span>Nessun evento in programma per ora! Torna più avanti...</span>
+  </csl-alert>
+</ng-template>

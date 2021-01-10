@@ -9,13 +9,14 @@
   font-weight: 500;
 }
 
+:host ::ng-deep h3 {
+  font-weight: 500;
+}
+
 // General styles
 
 .container {
-  padding-left: 20vw;
-  padding-right: 20vw;
-  padding-bottom: 30%;
-  padding-top: 20px;
+  padding: 20px 20vw 30%;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;

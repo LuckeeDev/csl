@@ -8,6 +8,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from '@environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { registerLocaleData } from '@angular/common';
 import ITLocaleData from '@angular/common/locales/it';
 
 // Firebase
@@ -63,7 +64,6 @@ import { LoginComponent } from '@main/errors/login/login.component';
 // Interceptors
 import { ResCodeInterceptor } from '@global/http/res-code.interceptor';
 import { ApiInterceptor } from '@global/http/api.interceptor';
-import { registerLocaleData } from '@angular/common';
 
 registerLocaleData(ITLocaleData);
 

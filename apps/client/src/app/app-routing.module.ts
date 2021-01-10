@@ -26,6 +26,7 @@ import { CommissioneComponent } from '@main/comitato-components/commissione/comm
 import { ComitatoHomeComponent } from '@main/comitato-components/comitato-home/comitato-home.component';
 import { ContactFormComponent } from '@main/contacts-components/contact-form/contact-form.component';
 import { LoginComponent } from '@main/errors/login/login.component';
+import { MdComponent } from '@shared/components/md/md.component';
 
 // Guards
 import { RappreGuard } from '@global/guards/rappre/rappre.guard';
@@ -36,7 +37,6 @@ import { BarAdminGuard } from '@global/guards/bar-admin/bar-admin.guard';
 import { AdminGuard } from '@global/guards/admin/admin.guard';
 import { NotLoggedInGuard } from '@global/guards/not-logged-in/not-logged-in.guard';
 import { ReferenteGuard } from '@global/guards/referente/referente.guard';
-import { MdComponent } from '@shared/components/md/md.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
