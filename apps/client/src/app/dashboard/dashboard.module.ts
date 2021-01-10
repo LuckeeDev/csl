@@ -21,6 +21,7 @@ import { CogeComponent } from './components/coge/coge.component';
 import { PipesModule } from '@global/pipes/pipes.module';
 import { CreateCourseComponent } from './components/create-course/create-course.component';
 import { OrientamentoComponent } from './components/orientamento/orientamento.component';
+import { EventComponent } from './components/event/event.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { OrientamentoComponent } from './components/orientamento/orientamento.co
     CogeComponent,
     CreateCourseComponent,
     OrientamentoComponent,
+    EventComponent,
   ],
   imports: [
     CommonModule,

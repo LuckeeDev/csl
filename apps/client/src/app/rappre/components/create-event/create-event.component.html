@@ -10,10 +10,16 @@
       <input matInput type="text" formControlName="title" />
     </mat-form-field>
 
+    <mat-form-field class="preview-input">
+      <mat-label>Anteprima</mat-label>
+      <input matInput type="text" formControlName="preview" />
+      <mat-hint>Scrivi pochi dettagli per descrivere l'evento</mat-hint>
+    </mat-form-field>
+
     <div class="break"></div>
 
     <mat-form-field class="desc-container">
-      <mat-label>Descrizione</mat-label>
+      <mat-label>Dettagli</mat-label>
       <textarea
         matInput
         formControlName="description"
@@ -43,7 +49,13 @@
 
     <div class="break"></div>
 
-    <input type="file" #fileInput (change)="uploadFile($event)" hidden />
+    <input
+      type="file"
+      #fileInput
+      (change)="uploadFile($event)"
+      hidden
+      accept="image/jpeg,image/png"
+    />
 
     <button
       mat-raised-button
@@ -70,7 +82,5 @@
     [event]="event.value"
     [previewURL]="url"
     class="preview"
-  >
-
-  </csl-event-preview>
+  ></csl-event-preview>
 </div>

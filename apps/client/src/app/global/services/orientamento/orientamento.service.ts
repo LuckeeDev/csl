@@ -10,9 +10,8 @@ export class OrientamentoService {
 
   constructor(private http: HttpClient) { }
 
-  getEvent(id: IEvent['id']): Observable<IHttpRes<IEvent | IEvent[]>> {
-    return this.http
-      .get<IHttpRes<IEvent | IEvent[]>>(`/orientamento/${id}`);
+  getEvent(id: IEvent['id']): Observable<IHttpRes<IEvent>> {
+    return this.http.get<IHttpRes<IEvent>>(`/orientamento/${id}`);
   }
 
   getEvents(): Observable<IHttpRes<IEvent[]>> {

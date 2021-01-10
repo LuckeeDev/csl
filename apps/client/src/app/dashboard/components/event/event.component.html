@@ -1,0 +1,26 @@
+<div *ngIf="event | async as event; else noEventFound">
+  <h1 class="header">{{ event.title }}</h1>
+  <span class="preview">{{ event.preview }}</span>
+
+  <p>{{ event.description }}</p>
+
+  <a
+    [href]="event.signup"
+    mat-raised-button
+    color="primary"
+    target="_blank"
+  >
+    Iscriviti
+
+    <mat-icon [inline]="true">open_in_new</mat-icon>
+  </a>
+</div>
+
+<ng-template #noEventFound>
+  <csl-alert color="primary">
+    <span>
+      Nessun evento trovato con questo ID!
+      Torna alla <a routerLink=".." class="link">pagina dell'Orientamento</a>
+    </span>
+  </csl-alert>
+</ng-template>

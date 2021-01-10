@@ -5,6 +5,7 @@ export interface IEvent {
   date: Date;
   title: string;
   description: string;
+  preview: string;
   cover: string;
   signup: string;
 }

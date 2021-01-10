@@ -13,7 +13,7 @@ interface ICover {
 }
 
 @Component({
-  selector: 'app-catalog',
+  selector: 'csl-catalog',
   templateUrl: './catalog.component.html',
   styleUrls: ['./catalog.component.scss'],
 })

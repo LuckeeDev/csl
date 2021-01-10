@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogService, ToastrService } from '@csl/ui';
 
 @Component({
-  selector: 'app-product',
+  selector: 'csl-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss'],
 })
@@ -97,7 +97,7 @@ export class ProductComponent implements OnInit {
         answer: 'Conferma',
         color: 'primary',
       })
-      .subscribe((res) => {
+      .subscribe(() => {
         this.ordersService.addToCart(this.orderForm.value).subscribe((res) => {
           if (res.success) {
             this.toastr.show({

@@ -7,12 +7,8 @@ import { DashboardComponent } from '@dashboard/dashboard.component';
 
 // Sub-components
 import { ProfileComponent } from '@dashboard/components/profile/profile.component';
-import { CategoryComponent } from '@dashboard/components/category/category.component';
-import { OrdersComponent } from '@dashboard/components/orders/orders.component';
-import { CheckoutComponent } from '@dashboard/components/checkout/checkout.component';
-import { CogeComponent } from '@dashboard/components/coge/coge.component';
-import { CreateCourseComponent } from './components/create-course/create-course.component';
 import { OrientamentoComponent } from '@dashboard/components/orientamento/orientamento.component';
+import { EventComponent } from './components/event/event.component';
 
 const routes: Routes = [
   {
@@ -21,6 +17,7 @@ const routes: Routes = [
     children: [
       { path: '', component: ProfileComponent },
       { path: 'orientamento', component: OrientamentoComponent },
+      { path: 'orientamento/:id', component: EventComponent },
       // { path: 'coge', component: CogeComponent },
       // { path: 'coge/create', component: CreateCourseComponent },
       // { path: 'orders', component: CategoryComponent },

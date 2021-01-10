@@ -1,7 +1,9 @@
 <mat-card class="card">
   <mat-card-content>
     <h1 class="title">{{ event.title || "Anteprima dell'evento" }}</h1>
-    <p>{{ event.description }}</p>
+    <span class="preview">{{ event.preview }}</span>
+
+    <p class="description">{{ event.description }}</p>
 
     <p *ngIf="event.date">Data dell'evento: {{ event.date | date: 'dd / MM / yy' }}</p>
 

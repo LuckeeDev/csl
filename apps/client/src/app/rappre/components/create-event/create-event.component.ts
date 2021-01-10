@@ -17,6 +17,7 @@ export class CreateEventComponent implements OnInit {
   event = new FormGroup({
     title: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
+    preview: new FormControl('', Validators.required),
     date: new FormControl('', Validators.required),
     cover: new FormControl('', Validators.required),
     signup: new FormControl('', [
@@ -42,7 +43,7 @@ export class CreateEventComponent implements OnInit {
     this.cover = e.target.files[0];
 
     this.event.patchValue({
-      cover: this.cover.name,
+      cover: `${Date.now()}_${this.cover.name}`,
     });
 
     this.url = URL.createObjectURL(this.cover);
@@ -56,7 +57,7 @@ export class CreateEventComponent implements OnInit {
       color: 'primary',
     }).subscribe(() => {
       this.afs
-        .upload(`orientamento/covers/${Date.now()}_${this.cover.name}`, this.cover)
+        .upload(`orientamento/covers/${this.event.value.cover}`, this.cover)
         .then(() => {
           this.orientamento
             .createEvent(this.event.value)
