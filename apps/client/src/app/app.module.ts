@@ -1,13 +1,14 @@
 // Main imports
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from '@environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import ITLocaleData from '@angular/common/locales/it';
 
 // Firebase
 import { AngularFireModule } from '@angular/fire';
@@ -62,6 +63,9 @@ import { LoginComponent } from '@main/errors/login/login.component';
 // Interceptors
 import { ResCodeInterceptor } from '@global/http/res-code.interceptor';
 import { ApiInterceptor } from '@global/http/api.interceptor';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(ITLocaleData);
 
 @NgModule({
   declarations: [
@@ -131,6 +135,10 @@ import { ApiInterceptor } from '@global/http/api.interceptor';
       useClass: ApiInterceptor,
       multi: true,
     },
+    {
+      provide: LOCALE_ID,
+      useValue: 'it',
+    }
   ],
   bootstrap: [AppComponent],
 })

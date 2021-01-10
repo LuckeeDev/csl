@@ -1,0 +1,43 @@
+<mat-card>
+  <ng-content select="[header]"></ng-content>
+
+  <mat-card-content>
+    <mat-table [dataSource]="data">
+      <ng-container *ngFor="let column of columns">
+        <ng-container
+          *ngIf="column.type === 'data'"
+          [matColumnDef]="column.id"
+        >
+          <mat-header-cell *matHeaderCellDef>{{ column.label }}</mat-header-cell>
+          <mat-cell *matCellDef="let entry">{{ entry.data[column.id] }}</mat-cell>
+        </ng-container>
+
+        <ng-container
+          *ngIf="column.type === 'actions'"
+          [matColumnDef]="column.id"
+        >
+          <mat-header-cell *matHeaderCellDef>{{ column.label }}</mat-header-cell>
+          <mat-cell *matCellDef="let entry">
+            <button
+              mat-stroked-button
+              [color]="action.type"
+              *ngFor="let action of entry.actions"
+              (click)="emit({ id: entry.id, action: action.id })"
+            >
+              {{ action.label }}
+            </button>
+          </mat-cell>
+        </ng-container>
+      </ng-container>
+
+      <mat-header-row
+        *matHeaderRowDef="displayedColumns"
+      ></mat-header-row>
+      <mat-row
+        *matRowDef="let row; columns: displayedColumns"
+      ></mat-row>
+    </mat-table>
+  </mat-card-content>
+
+  <ng-content select="[links]"></ng-content>
+</mat-card>

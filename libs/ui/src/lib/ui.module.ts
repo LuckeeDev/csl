@@ -49,6 +49,7 @@ import { DeviceService } from './services/device/device.service';
 import { MatColorDirective } from './directives/mat-color/mat-color.directive';
 import { RoundedDirective } from './directives/rounded/rounded.directive';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { DataTableComponent } from './components/data-table/data-table.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     CarouselComponent,
     DashboardHomeComponent,
     CommissionePageComponent,
+    DataTableComponent,
   ],
   imports: [
     CommonModule,
@@ -102,6 +104,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     CarouselComponent,
     DashboardHomeComponent,
     CommissionePageComponent,
+    DataTableComponent,
     MatSnackBarModule,
     MatDialogModule,
     MatButtonModule,

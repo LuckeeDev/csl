@@ -5,6 +5,7 @@ export { TRole, IRole, IClass, IClassModel } from './models/classe';
 export { ICommissione, ICommissioneModel } from './models/commissione';
 export { ICourse, ICourseModel } from './models/course';
 export { IDashboardLink } from './models/dashboard';
+export { CSLDataTableAction, CSLDataTableSource, CSLDataTableDisplayedColumns, CSLDataTableEvent } from './models/data-table';
 export { IDialogData } from './models/dialog';
 export { IEvent, IEventModel } from './models/events';
 export { IRequest } from './models/express';

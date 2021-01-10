@@ -62,3 +62,26 @@ export const createEvent = async (event: IEvent): Promise<IHttpRes<IEvent>> => {
     }
   }
 }
+
+export const deleteEvent = async (id: string): Promise<IHttpRes<any>> => {
+  try {
+    const event = await Event.findOneAndDelete({ id });
+
+    saveEvent(`Eliminato l'evento "${event.title}`, {
+      category: 'orientamento',
+    });
+
+    return {
+      success: true,
+    }
+  } catch(err) {
+    saveError(`Errore durante l'eliminazione dell'evento con ID "${id}"`, {
+      category: 'orientamento',
+    });
+
+    return {
+      success: false,
+      err,
+    }
+  }
+}

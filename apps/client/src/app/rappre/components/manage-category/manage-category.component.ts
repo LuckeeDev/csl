@@ -6,7 +6,7 @@ import { IProduct } from '@csl/shared';
 import { DialogService, ToastrService } from '@csl/ui';
 
 @Component({
-  selector: 'app-manage-category',
+  selector: 'csl-manage-category',
   templateUrl: './manage-category.component.html',
   styleUrls: ['./manage-category.component.scss'],
 })
@@ -66,7 +66,7 @@ export class ManageCategoryComponent implements OnInit {
         color: 'warn',
         answer: 'Sì, elimina prodotto',
       })
-      .subscribe((res) => {
+      .subscribe(() => {
         this.productsService.deleteProduct(id).subscribe((res) => {
           if (res.success === true) {
             this.toastr.show({
@@ -79,11 +79,11 @@ export class ManageCategoryComponent implements OnInit {
             if (this.category === 'gadgets') {
               this.productsService
                 .getGadgets()
-                .subscribe((res) => (this.products = res));
+                .subscribe((gadgets) => (this.products = gadgets));
             } else if (this.category === 'photos') {
               this.productsService
                 .getPhotos()
-                .subscribe((res) => (this.products = res));
+                .subscribe((photos) => (this.products = photos));
             }
           } else if (res.success === false) {
             this.toastr.showError();

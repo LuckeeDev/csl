@@ -10,16 +10,20 @@ export class OrientamentoService {
 
   constructor(private http: HttpClient) { }
 
-  getEvent(id?: IEvent['id']): Observable<IHttpRes<IEvent | IEvent[]>> {
+  getEvent(id: IEvent['id']): Observable<IHttpRes<IEvent | IEvent[]>> {
     return this.http
-      .get<IHttpRes<IEvent | IEvent[]>>(
-        id
-        ? '/orientamento'
-        : `/orientamento/${id}`
-      );
+      .get<IHttpRes<IEvent | IEvent[]>>(`/orientamento/${id}`);
+  }
+
+  getEvents(): Observable<IHttpRes<IEvent[]>> {
+    return this.http.get<IHttpRes<IEvent[]>>('/orientamento');
   }
 
   createEvent(event: IEvent): Observable<IHttpRes<IEvent>> {
     return this.http.post<IHttpRes<IEvent>>('/orientamento', { event });
+  }
+
+  deleteEvent(id: IEvent['id']) {
+    return this.http.delete<IHttpRes<any>>(`/orientamento/${id}`);
   }
 }
