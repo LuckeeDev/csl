@@ -38,16 +38,16 @@ export class AslComponent implements OnInit {
             });
           }
 
-          if (asl.files.length > 0) {
-            asl.files.map(async (file) => {
-              const url: string = await this.afs
-                .ref(`commissioni/pdf/asl/${file}`)
-                .getDownloadURL()
-                .toPromise();
-
-              return url;
-            });
-          }
+          // if (asl.files.length > 0) {
+          //   asl.files.map(async (file) => {
+          //     const url: string = await this.afs
+          //       .ref(`commissioni/pdf/asl/${file}`)
+          //       .getDownloadURL()
+          //       .toPromise();
+          //
+          //     return url;
+          //   });
+          // }
         }
 
         return asl;

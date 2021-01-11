@@ -45,17 +45,17 @@ export class CommissioneComponent implements OnInit {
             });
           }
 
-          if (commissione.files.length > 0) {
-            commissione.files.forEach(async (file, index: number) => {
-                commissione.files[index] = await this.afs
-                  .ref(
-                  `commissioni/pdf/${this.id}/${file}`
-                  )
-                  .getDownloadURL()
-                  .toPromise();
-              }
-            );
-          }
+          // if (commissione.files.length > 0) {
+          //   commissione.files.forEach(async (file, index: number) => {
+          //       commissione.files[index] = await this.afs
+          //         .ref(
+          //         `commissioni/pdf/${this.id}/${file}`
+          //         )
+          //         .getDownloadURL()
+          //         .toPromise();
+          //     }
+          //   );
+          // }
         }
 
         return commissione;
