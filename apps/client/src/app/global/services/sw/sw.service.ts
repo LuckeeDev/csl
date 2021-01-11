@@ -82,4 +82,8 @@ export class SwService {
       { headers: { ignoreLoadingBar: ''}}
       );
   }
+
+  checkForUpdates() {
+    this.updates.checkForUpdate().catch(() => console.log('SW are disabled'));
+  }
 }

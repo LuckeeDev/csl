@@ -5,7 +5,7 @@
     In collaborazione con Agl - Comitato Orientamento
   </span>
 
-  <div class="grid" *ngIf="events; else noEventFound">
+  <div class="grid" *ngIf="events.length > 0; else noEventFound">
     <mat-card *ngFor="let event of events" class="card">
       <h2 class="title">{{ event.title }}</h2>
 

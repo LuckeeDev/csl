@@ -25,9 +25,7 @@
             "assets": [
               "apps/client/src/favicon.ico",
               "apps/client/src/assets",
-              "apps/client/src/manifest.webmanifest",
-              "apps/client/src/package.json",
-              "apps/client/src/Dockerfile"
+              "apps/client/src/manifest.webmanifest"
             ],
             "styles": ["apps/client/src/styles.scss"],
             "stylePreprocessorOptions": {
@@ -183,9 +181,7 @@
             "aot": true,
             "assets": [
               "apps/maintenance/src/favicon.ico",
-              "apps/maintenance/src/assets",
-              "apps/maintenance/src/Dockerfile",
-              "apps/maintenance/src/package.json"
+              "apps/maintenance/src/assets"
             ],
             "styles": ["apps/maintenance/src/styles.scss"],
             "scripts": []
@@ -337,9 +333,7 @@
             "assets": [
               "apps/admin/src/favicon.ico",
               "apps/admin/src/assets",
-              "apps/admin/src/manifest.webmanifest",
-              "apps/admin/src/package.json",
-              "apps/admin/src/Dockerfile"
+              "apps/admin/src/manifest.webmanifest"
             ],
             "styles": ["apps/admin/src/styles.scss"],
             "stylePreprocessorOptions": {
@@ -440,9 +434,7 @@
             "assets": [
               "apps/bar/src/favicon.ico",
               "apps/bar/src/assets",
-              "apps/bar/src/manifest.webmanifest",
-              "apps/bar/src/package.json",
-              "apps/bar/src/Dockerfile"
+              "apps/bar/src/manifest.webmanifest"
             ],
             "styles": ["apps/bar/src/styles.scss"],
             "stylePreprocessorOptions": {

@@ -2,14 +2,19 @@ import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from '@global/services/auth/auth.service';
 import { DialogService } from '@csl/ui';
+import { SwService } from '@global/services/sw/sw.service';
 
 @Component({
-  selector: 'app-profile',
+  selector: 'csl-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  constructor(public auth: AuthService, private dialog: DialogService) {}
+  constructor(
+    public auth: AuthService,
+    private dialog: DialogService,
+    public sw: SwService,
+  ) {}
 
   ngOnInit(): void {}
 
