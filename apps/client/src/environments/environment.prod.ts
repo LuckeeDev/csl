@@ -13,7 +13,7 @@ export const environment = {
   useEmulators: false,
   api: 'https://api.cslussana.com',
   // api: 'http://localhost:3000',
-  client: 'https://beta.cslussana.com',
+  client: 'https://cslussana.com',
   // client: 'http://localhost:4200',
 };
 

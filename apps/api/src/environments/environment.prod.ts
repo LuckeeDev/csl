@@ -9,7 +9,7 @@ env.COOKIE_KEYS = env.COOKIE_KEYS.split(';');
 
 export const environment = {
   production: true,
-  client: 'https://beta.cslussana.com',
+  client: 'https://cslussana.com',
 
   ...env,
 };
