@@ -25,7 +25,8 @@
             "assets": [
               "apps/client/src/favicon.ico",
               "apps/client/src/assets",
-              "apps/client/src/manifest.webmanifest"
+              "apps/client/src/manifest.webmanifest",
+              "apps/client/src/robots.txt"
             ],
             "styles": ["apps/client/src/styles.scss"],
             "stylePreprocessorOptions": {
@@ -333,7 +334,8 @@
             "assets": [
               "apps/admin/src/favicon.ico",
               "apps/admin/src/assets",
-              "apps/admin/src/manifest.webmanifest"
+              "apps/admin/src/manifest.webmanifest",
+              "apps/admin/src/robots.txt"
             ],
             "styles": ["apps/admin/src/styles.scss"],
             "stylePreprocessorOptions": {
@@ -434,7 +436,8 @@
             "assets": [
               "apps/bar/src/favicon.ico",
               "apps/bar/src/assets",
-              "apps/bar/src/manifest.webmanifest"
+              "apps/bar/src/manifest.webmanifest",
+              "apps/bar/src/robots.txt"
             ],
             "styles": ["apps/bar/src/styles.scss"],
             "stylePreprocessorOptions": {
