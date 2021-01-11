@@ -1,9 +1,9 @@
 <div class="container">
   <h1 class="header">Eventi programmati</h1>
 
-  <span class="credits">
-    In collaborazione con Agl - Comitato Orientamento
-  </span>
+  <p class="credits">
+    In collaborazione con AGL - Comitato Orientamento
+  </p>
 
   <div class="grid" *ngIf="events.length > 0; else noEventFound">
     <mat-card *ngFor="let event of events" class="card">
@@ -41,7 +41,7 @@
 </div>
 
 <ng-template #noEventFound>
-  <csl-alert color="primary">
+  <csl-alert color="primary" class="alert">
     <span>Nessun evento in programma per ora! Torna più avanti...</span>
   </csl-alert>
 </ng-template>

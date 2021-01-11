@@ -1,6 +1,6 @@
 <div *ngIf="event | async as event; else noEventFound">
   <h1 class="header">{{ event.title }}</h1>
-  <span class="preview">{{ event.preview }}</span>
+  <p class="preview">{{ event.preview }}</p>
 
   <p>{{ event.description }}</p>
 

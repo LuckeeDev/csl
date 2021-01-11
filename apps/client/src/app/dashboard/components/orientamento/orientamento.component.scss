@@ -17,8 +17,6 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-gap: 1rem;
-
-  margin-top: 10px;
 }
 
 .container {
@@ -33,4 +31,6 @@
 .credits {
   margin-top: 0;
   color: #8f8f8f;
+
+  margin-bottom: 10px;
 }
