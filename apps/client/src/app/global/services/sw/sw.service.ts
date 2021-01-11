@@ -15,6 +15,7 @@ export class SwService {
   public installPrompt;
   public isInstalled: boolean;
   public isStandalone: boolean;
+  public loading = false;
 
   constructor(
     private readonly updates: SwUpdate,
@@ -84,6 +85,13 @@ export class SwService {
   }
 
   checkForUpdates() {
-    this.updates.checkForUpdate().catch(() => console.log('SW are disabled'));
+    this.loading = true;
+
+    this.updates.checkForUpdate()
+      .then(() => this.loading = false)
+      .catch(() => {
+        console.log('SW are disabled');
+        this.loading = false;
+      });
   }
 }

@@ -22,14 +22,21 @@
   </span>
 
   <span logout-btn>
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="sw.checkForUpdates()"
-      class="check-for-updates"
-    >
-      Controlla aggiornamenti
-    </button>
+    <span class="button-container">
+      <span class="spinner-container" *ngIf="sw.loading">
+        <mat-spinner diameter="24" color="basic"></mat-spinner>
+      </span>
+
+      <button
+        mat-raised-button
+        [disabled]="sw.loading"
+        (click)="sw.checkForUpdates()"
+        color="primary"
+        class="check-for-updates"
+      >
+        Controlla aggiornamenti
+      </button>
+    </span>
 
     <button
       mat-raised-button
