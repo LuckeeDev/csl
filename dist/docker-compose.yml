@@ -1,40 +1,11 @@
 version: '3'
 services:
   # Web services
-  admin:
-    build: ./admin
-    restart: unless-stopped
-    ports:
-      - '6000:3000'
-
   api:
     build: ./api
     restart: unless-stopped
     ports:
       - '3000:3000'
-
-  bar:
-    build: ./bar
-    restart: unless-stopped
-    ports:
-      - '7000:3000'
-
-  beta:
-    build: ./beta
-    restart: unless-stopped
-    ports:
-      - '4000:3000'
-
-  client:
-    build: ./client
-    restart: unless-stopped
-    ports:
-      - '5000:3000'
-
-  maintenance:
-    build: ./maintenance
-    ports:
-      - '5000:3000'
 
   # Database services
   db-rs1:
