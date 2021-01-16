@@ -8,6 +8,7 @@ dist/client
 dist/maintenance
 dist/oldversion
 dist/server
+dist/cypress
 /tmp
 /out-tsc
 
