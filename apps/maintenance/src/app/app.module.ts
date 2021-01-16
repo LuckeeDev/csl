@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
     BrowserModule,
     RouterModule.forRoot([
       { path: '**', redirectTo: '' },
-    ], { initialNavigation: 'enabled' }),
+    ], { initialNavigation: 'enabled', relativeLinkResolution: 'legacy' }),
   ],
   providers: [],
   bootstrap: [AppComponent],

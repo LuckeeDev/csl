@@ -28,11 +28,17 @@
               "apps/client/src/manifest.webmanifest",
               "apps/client/src/robots.txt"
             ],
-            "styles": ["apps/client/src/styles.scss"],
+            "styles": [
+              "apps/client/src/styles.scss"
+            ],
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/ui/src/lib"]
+              "includePaths": [
+                "libs/ui/src/lib"
+              ]
             },
-            "scripts": ["node_modules/marked/lib/marked.js"],
+            "scripts": [
+              "node_modules/marked/lib/marked.js"
+            ],
             "allowedCommonJsDependencies": [
               "firebase/app",
               "socket.io-client",
@@ -50,7 +56,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -70,7 +75,10 @@
               "serviceWorker": true,
               "ngswConfigPath": "apps/client/ngsw-config.json"
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -97,7 +105,10 @@
               "apps/client/tsconfig.spec.json",
               "apps/client/tsconfig.editor.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/client/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/client/**/*"
+            ]
           }
         },
         "test": {
@@ -105,7 +116,10 @@
           "options": {
             "jestConfig": "apps/client/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/apps/client"
+          ]
         }
       }
     },
@@ -118,7 +132,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/shared/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/shared/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -126,7 +142,10 @@
           "options": {
             "jestConfig": "libs/shared/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/shared"
+          ]
         }
       }
     },
@@ -143,7 +162,10 @@
               "libs/ui/tsconfig.lib.json",
               "libs/ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/ui/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/ui/**/*"
+            ]
           }
         },
         "test": {
@@ -151,7 +173,10 @@
           "options": {
             "jestConfig": "libs/ui/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/ui"
+          ]
         }
       },
       "schematics": {
@@ -184,7 +209,9 @@
               "apps/maintenance/src/favicon.ico",
               "apps/maintenance/src/assets"
             ],
-            "styles": ["apps/maintenance/src/styles.scss"],
+            "styles": [
+              "apps/maintenance/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -215,7 +242,10 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -242,7 +272,10 @@
               "apps/maintenance/tsconfig.spec.json",
               "apps/maintenance/tsconfig.editor.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/maintenance/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/maintenance/**/*"
+            ]
           }
         },
         "test": {
@@ -250,7 +283,10 @@
           "options": {
             "jestConfig": "apps/maintenance/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/apps/maintenance"
+          ]
         }
       }
     },
@@ -287,7 +323,10 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@nrwl/node:execute",
@@ -298,7 +337,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/api/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/api/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -306,7 +347,10 @@
           "options": {
             "jestConfig": "apps/api/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/apps/api"
+          ]
         }
       }
     },
@@ -337,9 +381,13 @@
               "apps/admin/src/manifest.webmanifest",
               "apps/admin/src/robots.txt"
             ],
-            "styles": ["apps/admin/src/styles.scss"],
+            "styles": [
+              "apps/admin/src/styles.scss"
+            ],
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/ui/src/lib"]
+              "includePaths": [
+                "libs/ui/src/lib"
+              ]
             },
             "scripts": []
           },
@@ -373,7 +421,10 @@
               "serviceWorker": true,
               "ngswConfigPath": "apps/admin/ngsw-config.json"
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -400,7 +451,10 @@
               "apps/admin/tsconfig.spec.json",
               "apps/admin/tsconfig.editor.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/admin/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/admin/**/*"
+            ]
           }
         },
         "test": {
@@ -408,7 +462,10 @@
           "options": {
             "jestConfig": "apps/admin/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/apps/admin"
+          ]
         }
       }
     },
@@ -439,9 +496,13 @@
               "apps/bar/src/manifest.webmanifest",
               "apps/bar/src/robots.txt"
             ],
-            "styles": ["apps/bar/src/styles.scss"],
+            "styles": [
+              "apps/bar/src/styles.scss"
+            ],
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/ui/src/lib"]
+              "includePaths": [
+                "libs/ui/src/lib"
+              ]
             },
             "scripts": []
           },
@@ -475,7 +536,10 @@
               "serviceWorker": true,
               "ngswConfigPath": "apps/bar/ngsw-config.json"
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -502,7 +566,10 @@
               "apps/bar/tsconfig.spec.json",
               "apps/bar/tsconfig.editor.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/bar/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/bar/**/*"
+            ]
           }
         },
         "test": {
@@ -510,7 +577,10 @@
           "options": {
             "jestConfig": "apps/bar/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/apps/bar"
+          ]
         }
       }
     }
