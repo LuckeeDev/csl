@@ -13,7 +13,7 @@ services:
     restart: unless-stopped
     volumes:
       - /mongo/rs1/data:/data/db
-      - ./docker/setup:/setup
+      - ./db:/setup
     command: --replSet rs0
 
   db-rs2:

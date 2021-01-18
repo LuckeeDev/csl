@@ -1,14 +1,7 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-dist/admin
-dist/api
-dist/bar
-dist/client
-dist/maintenance
-dist/oldversion
-dist/server
-dist/cypress
+/dist
 /tmp
 /out-tsc
 
