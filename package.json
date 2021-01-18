@@ -102,7 +102,6 @@
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "4.3.0",
     "@typescript-eslint/parser": "4.3.0",
-    "codelyzer": "6.0.1",
     "cypress": "^4.1.0",
     "eslint": "7.10.0",
     "eslint-config-prettier": "^7.1.0",
@@ -125,7 +124,6 @@
     "protractor": "7.0.0",
     "ts-jest": "26.4.0",
     "ts-node": "9.1.1",
-    "tslint": "6.1.3",
     "typescript": "~4.0.3"
   }
 }

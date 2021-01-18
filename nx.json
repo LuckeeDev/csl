@@ -1,7 +1,7 @@
 {
   "npmScope": "csl",
   "affected": {
-    "defaultBase": "master"
+    "defaultBase": "main"
   },
   "implicitDependencies": {
     "workspace.json": "*",
@@ -10,7 +10,6 @@
       "devDependencies": "*"
     },
     "tsconfig.base.json": "*",
-    "tslint.json": "*",
     ".eslintrc.json": "*",
     "nx.json": "*"
   },
