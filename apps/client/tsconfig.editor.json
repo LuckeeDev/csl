@@ -3,6 +3,8 @@
   "include": ["**/*.ts"],
   "compilerOptions": {
     "types": ["jest", "node"],
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
       "@dashboard/*": ["src/app/dashboard/*"],
