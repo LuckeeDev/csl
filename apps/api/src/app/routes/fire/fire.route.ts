@@ -1,12 +1,11 @@
-import { Response, Router } from 'express';
+import { Request, Response, Router } from 'express';
 import { messaging } from '@config/firebase';
-import { IRequest } from '@csl/shared';
 import { saveError } from '@config/winston';
 const router = Router();
 
 router.post(
   '/topics/global',
-  async (req: IRequest, res: Response) => {
+  async (req: Request<{ token: string }>, res: Response) => {
     try {
       await messaging.subscribeToTopic(req.body.token, 'global');
 
@@ -26,4 +25,4 @@ router.post(
     }
 });
 
-export default router;
+export { router as fire };

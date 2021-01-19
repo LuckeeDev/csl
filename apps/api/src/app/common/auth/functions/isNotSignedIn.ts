@@ -1,10 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
 
-export const nextMiddelware = (
+export function isNotSignedIn(
   req: Request,
   res: Response,
   next: NextFunction
-) => {
-  req.session.returnTo = req.params.next;
-  next();
+) {
+  if (req.user) {
+    res.redirect('../dashboard');
+  } else {
+    next();
+  }
 };

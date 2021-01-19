@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 const router = Router();
-import { isRappre, isBar, isPowerful } from '@config/authcheck';
+import { isRappre, isBar, isPowerful } from '@common/auth';
 import { addRole, removeRole, getRoles, updateCredit } from '@controllers/user';
 import { getClasses } from '@controllers/classe';
 
@@ -29,9 +29,13 @@ router.post('/getroles', isRappre, async (req: Request, res: Response) => {
 });
 
 // Update credit of a user
-router.patch('/manage/credit/:email', isBar, async (req: Request, res: Response) => {
-  const result = await updateCredit(req.params.email, req.body.money);
-  res.json(result);
-})
+router.patch(
+  '/manage/credit/:email',
+  isBar,
+  async (req: Request, res: Response) => {
+    const result = await updateCredit(req.params.email, req.body.money);
+    res.json(result);
+  }
+);
 
-export default router;
+export { router as users };

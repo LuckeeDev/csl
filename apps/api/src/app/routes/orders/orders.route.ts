@@ -1,8 +1,7 @@
 // Main imports
-import { Response, Router } from 'express';
+import { Request, Response, Router } from 'express';
 const router = Router();
-import { IRequest } from '@csl/shared';
-import { authCheck, isRappreDiClasse } from '@config/authcheck';
+import { isSignedIn, isRappreDiClasse } from '@common/auth';
 import {
   getAllOrders,
   confirmOrder,
@@ -26,21 +25,21 @@ const stripe = new Stripe(env.STRIPE_KEY, {
 });
 
 // Get all orders of a user
-router.get('/', authCheck, async (req: IRequest, res: Response) => {
+router.get('/', isSignedIn, async (req: Request, res: Response) => {
   const response = await getAllOrders(req.user.id);
 
   res.json(response);
 });
 
 // Add a product to the cart
-router.post('/add', authCheck, async (req: IRequest, res: Response) => {
+router.post('/add', isSignedIn, async (req: Request, res: Response) => {
   const result = await addToCart(req.body.product, req.user);
 
   res.json(result);
 });
 
 // Confirm an order
-router.post('/confirm', authCheck, async (req: IRequest, res: Response) => {
+router.post('/confirm', isSignedIn, async (req: Request, res: Response) => {
   const orderTotal = await confirmOrder(req.user.id, req.body.category);
 
   const classTotal = await getTotal(req.user.classID, req.body.category);
@@ -56,7 +55,7 @@ router.post('/confirm', authCheck, async (req: IRequest, res: Response) => {
 });
 
 // Delete an order
-router.post('/delete', authCheck, async (req: IRequest, res: Response) => {
+router.post('/delete', isSignedIn, async (req: Request, res: Response) => {
   const result = await deleteFromCart(req.user.id, req.body.product);
 
   res.json(result);
@@ -66,7 +65,7 @@ router.post('/delete', authCheck, async (req: IRequest, res: Response) => {
 router.post(
   '/create-payment-intent',
   isRappreDiClasse,
-  async (req: IRequest, res: Response) => {
+  async (req: Request, res: Response) => {
     const classID = req.user.classID;
 
     const amount = await getTotal(classID, req.body.category);
@@ -129,4 +128,4 @@ router.post(
   }
 );
 
-export default router;
+export { router as orders };

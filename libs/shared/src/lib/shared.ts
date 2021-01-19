@@ -8,7 +8,6 @@ export { IDashboardLink } from './models/dashboard';
 export { CSLDataTableAction, CSLDataTableSource, CSLDataTableDisplayedColumns, CSLDataTableEvent } from './models/data-table';
 export { IDialogData } from './models/dialog';
 export { IEvent, IEventModel } from './models/events';
-export { IRequest } from './models/express';
 export { IHttpRes } from './models/http';
 export { ILogMetadata, ILog, ILogModel } from './models/log';
 export { IUserOrders, IProductInCart, IOrder, IOrderModel } from './models/order';

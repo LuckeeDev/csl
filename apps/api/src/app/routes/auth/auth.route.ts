@@ -1,14 +1,13 @@
 // Main imports
 import { Request, Response, Router } from 'express';
 const router = Router();
-import { authCheck, notAuthCheck } from '@config/authcheck';
+import { isSignedIn, isNotSignedIn } from '@common/auth';
 import passport from 'passport';
 import { nextMiddelware } from '@config/login';
 import { fireAuth } from '@config/firebase';
-import { IRequest } from '@csl/shared';
 import { environment } from '@environments/environment';
 
-router.get('/', async (req: IRequest, res: Response) => {
+router.get('/', async (req: Request, res: Response) => {
   const user = req.user;
 
   if (user) {
@@ -46,22 +45,22 @@ router.get(
   }
 );
 
-router.get('/failure', notAuthCheck, (req: Request, res: Response) => {
+router.get('/failure', isNotSignedIn, (req: Request, res: Response) => {
   res.redirect(`${environment.client}/login-failed`);
 });
 
-router.get('/logout', authCheck, (req: Request, res: Response) => {
+router.get('/logout', isSignedIn, (req: Request, res: Response) => {
   req.logout();
   res.redirect(`${environment.client}`);
 });
 
 router.get(
   '/:next',
-  notAuthCheck,
+  isNotSignedIn,
   nextMiddelware,
   passport.authenticate('google', {
     scope: ['profile', 'email'],
   })
 );
 
-export default router;
+export { router as auth };

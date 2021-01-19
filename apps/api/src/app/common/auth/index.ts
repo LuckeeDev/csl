@@ -1,0 +1,10 @@
+export { isAdmin } from './functions/isAdmin';
+export { isBar } from './functions/isBar';
+export { isNotSignedIn } from './functions/isNotSignedIn';
+export { isPowerful } from './functions/isPowerful';
+export { isQp } from './functions/isQp';
+export { isRappre } from './functions/isRappre';
+export { isRappreDiClasse } from './functions/isRappreDiClasse';
+export { isReferente } from './functions/isReferente';
+export { isSignedIn } from './functions/isSignedIn';
+export { isVice } from './functions/isVice';

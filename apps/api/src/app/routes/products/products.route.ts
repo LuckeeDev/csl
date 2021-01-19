@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 const router = Router();
-import { isRappre, authCheck } from '@config/authcheck';
+import { isRappre, isSignedIn } from '@common/auth';
 import {
   getAllGadgets,
   createGadget,
@@ -9,33 +9,34 @@ import {
   findProduct,
   deleteProduct
 } from '@controllers/product';
+import { IProduct } from '@csl/shared';
 
 // Get all gadgets
-router.get('/gadgets', authCheck, async (req: Request, res: Response) => {
+router.get('/gadgets', isSignedIn, async (req: Request, res: Response) => {
   const result = await getAllGadgets();
   res.json(result);
 });
 
 // Create a new gadget
-router.post('/create-gadgets', isRappre, async (req: Request, res: Response) => {
+router.post('/create-gadgets', isRappre, async (req: Request<IProduct>, res: Response) => {
   const result = await createGadget(req.body);
   res.json(result);
 });
 
 // Get all photo products
-router.get('/photos', authCheck, async (req: Request, res: Response) => {
+router.get('/photos', isSignedIn, async (req: Request, res: Response) => {
   const result = await getAllPhotos();
   res.json(result);
 });
 
 // Create a new photo product
-router.post('/create-photos', isRappre, async (req: Request, res: Response) => {
+router.post('/create-photos', isRappre, async (req: Request<IProduct>, res: Response) => {
   const result = await createPhoto(req.body);
   res.json(result);
 });
 
 // Find a product via its ID
-router.post('/find', authCheck, async (req: Request, res: Response) => {
+router.post('/find', isSignedIn, async (req: Request, res: Response) => {
   const result = await findProduct(req.body.id);
   res.json(result);
 });
@@ -48,4 +49,4 @@ router.delete('/:id', isRappre, async (req: Request, res: Response) => {
   res.json(result);
 });
 
-export default router;
+export { router as products };

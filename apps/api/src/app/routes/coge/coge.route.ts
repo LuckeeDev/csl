@@ -1,19 +1,18 @@
-import { Response, Router } from 'express';
-import { IRequest } from '@csl/shared';
+import { Request, Response, Router } from 'express';
 const router = Router();
 import { createCourse, getCourses } from '@controllers/course';
-import { authCheck } from '@config/authcheck';
+import { isSignedIn } from '@common/auth';
 
-router.get('/courses', authCheck, async (req: IRequest, res: Response) => {
+router.get('/courses', isSignedIn, async (req: Request, res: Response) => {
   const result = await getCourses(req.user);
 
   res.json(result);
-})
+});
 
-router.post('/courses', authCheck, async (req: IRequest, res: Response) => {
+router.post('/courses', isSignedIn, async (req: Request, res: Response) => {
   const result = await createCourse(req.body.course, req.user);
 
   res.json(result);
-})
+});
 
-export default router;
+export { router as coge };

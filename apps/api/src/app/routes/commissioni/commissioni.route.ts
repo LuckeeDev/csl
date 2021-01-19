@@ -1,8 +1,8 @@
-import { Router, Response } from 'express';
+import { Router, Response, Request } from 'express';
 const router = Router();
 
-import { isReferente } from '@config/authcheck';
-import { ICommissione, IRequest } from '@csl/shared';
+import { isReferente } from '@common/auth';
+import { ICommissione } from '@csl/shared';
 import {
   getCommissione,
   setPage,
@@ -15,7 +15,7 @@ import fse from 'fs-extra';
 import { join } from 'path';
 import { tmpdir } from 'os';
 
-router.get('/:id', async (req: IRequest, res: Response) => {
+router.get('/:id', async (req: Request, res: Response) => {
   const params: any = req.params;
   const id: ICommissione['id'] = params.id;
   const result = await getCommissione(id);
@@ -23,7 +23,7 @@ router.get('/:id', async (req: IRequest, res: Response) => {
   res.json(result);
 });
 
-router.patch('/:id', isReferente, async (req: IRequest, res: Response) => {
+router.patch('/:id', isReferente, async (req: Request, res: Response) => {
   const params: any = req.params;
   const id: ICommissione['id'] = params.id;
   const result = await setPage(id, req.body.page, req.user);
@@ -32,7 +32,7 @@ router.patch('/:id', isReferente, async (req: IRequest, res: Response) => {
 });
 
 // PDFs
-router.post('/:id/pdf', isReferente, async (req: IRequest, res: Response) => {
+router.post('/:id/pdf', isReferente, async (req: Request, res: Response) => {
   const pdf: string = req.body.pdf;
 
   const params: any = req.params;
@@ -43,7 +43,7 @@ router.post('/:id/pdf', isReferente, async (req: IRequest, res: Response) => {
   res.json(result);
 });
 
-router.delete('/:id/pdf/:file', isReferente, async (req: IRequest, res: Response) => {
+router.delete('/:id/pdf/:file', isReferente, async (req: Request, res: Response) => {
   const params: any = req.params;
 
   const pdf: string = params.file;
@@ -55,7 +55,7 @@ router.delete('/:id/pdf/:file', isReferente, async (req: IRequest, res: Response
 });
 
 // Images
-router.post('/:id/image', isReferente, async (req: IRequest, res: Response) => {
+router.post('/:id/image', isReferente, async (req: Request, res: Response) => {
   const files: any = req.files;
   const image: UploadedFile = files.image;
   const fileName = `${Date.now()}_${image.name}`;
@@ -79,7 +79,7 @@ router.post('/:id/image', isReferente, async (req: IRequest, res: Response) => {
   });
 });
 
-router.get('/:id/image/:fileName', async (req: IRequest, res: Response) => {
+router.get('/:id/image/:fileName', async (req: Request, res: Response) => {
   const firebasePath = `commissioni/${req.params.id}/images/${req.params.fileName}`;
 
   const workingDir = join(tmpdir(), 'commissioni');
@@ -93,4 +93,4 @@ router.get('/:id/image/:fileName', async (req: IRequest, res: Response) => {
   res.sendFile(tmpFilePath);
 });
 
-export default router;
+export { router as commissioni };

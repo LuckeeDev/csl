@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 const router = Router();
-import { isQp, authCheck } from '@config/authcheck';
+import { isQp, isSignedIn } from '@common/auth';
 import {
   saveArticle,
   getArticle,
@@ -13,7 +13,6 @@ import { tmpdir } from 'os';
 import { join } from 'path';
 import { UploadedFile } from 'express-fileupload';
 import { bucket } from '@config/firebase';
-import { IRequest } from '@csl/shared';
 
 // Images
 router.post('/image', isQp, async (req: Request, res: Response) => {
@@ -42,7 +41,7 @@ router.post('/image', isQp, async (req: Request, res: Response) => {
 
 router.get(
   '/image/:fileName',
-  authCheck,
+  isSignedIn,
   async (req: Request, res: Response) => {
     const firebasePath = `articles/images/${req.params.fileName}`;
 
@@ -59,12 +58,12 @@ router.get(
 );
 
 // Article operations
-router.get('/', authCheck, async (req: Request, res: Response) => {
+router.get('/', isSignedIn, async (req: Request, res: Response) => {
   const articles = await getArticles();
   res.json(articles);
 });
 
-router.get('/:id', authCheck, async (req: Request, res: Response) => {
+router.get('/:id', isSignedIn, async (req: Request, res: Response) => {
   const article = await getArticle(req.params.id);
   res.json(article);
 });
@@ -79,7 +78,7 @@ router.delete('/:id', isQp, async (req: Request, res: Response) => {
   res.json(result);
 });
 
-router.patch('/:id/state', isQp, async (req: IRequest, res: Response) => {
+router.patch('/:id/state', isQp, async (req: Request, res: Response) => {
   const result = await changeArticlePublished(
     req.params.id,
     req.body.state,
@@ -88,4 +87,4 @@ router.patch('/:id/state', isQp, async (req: IRequest, res: Response) => {
   res.json(result);
 });
 
-export default router;
+export { router as articles };

@@ -3,7 +3,7 @@ const router = express.Router();
 import { join } from 'path';
 import { tmpdir } from 'os';
 import { uploadCSV } from '@config/csvupload';
-import { isVice } from '@config/authcheck';
+import { isVice } from '@common/auth';
 import { bucket } from '@config/firebase';
 import fse from 'fs-extra';
 import { UploadedFile } from 'express-fileupload';
@@ -37,4 +37,4 @@ router.post('/csv', isVice, async (req, res) => {
   }
 });
 
-export default router;
+export { router as upload };

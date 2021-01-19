@@ -11,12 +11,12 @@ const stripe = new Stripe(env.STRIPE_KEY, {
 import { setPaid } from '@controllers/classe';
 
 export async function webhookHandler(
-  req: Request,
+  req: Request<string | Buffer>,
   res: Response
 ): Promise<void> {
-  const sig: any = req.headers['stripe-signature'];
+  const sig = req.headers['stripe-signature'];
 
-  let event;
+  let event: any;
 
   try {
     event = stripe.webhooks.constructEvent(req.body, sig, env.WEBHOOK_SECRET);

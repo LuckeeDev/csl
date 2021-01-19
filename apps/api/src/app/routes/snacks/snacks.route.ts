@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 const router = Router();
-import { isBar, authCheck } from '@config/authcheck';
+import { isBar, isSignedIn } from '@common/auth';
 import {
   createSnack,
   deleteSnack,
@@ -14,38 +14,34 @@ import {
   confirmSnackOrder,
 } from '@controllers/snack-order';
 
-router.get('/', authCheck, async (req: Request, res: Response) => {
+router.get('/', isSignedIn, async (req: Request, res: Response) => {
   const result = await getSnacks();
 
   res.json(result);
 });
 
-router.get('/cart', authCheck, async (req: Request, res: Response) => {
-  const user: any = req.user!;
-
-  const result = await getSnacksCart(user.id);
+router.get('/cart', isSignedIn, async (req: Request, res: Response) => {
+  const result = await getSnacksCart(req.user.id);
 
   res.json(result);
 });
 
-router.post('/cart', authCheck, async (req: Request, res: Response) => {
-  const user: any = req.user!;
-
-  const result = await addSnackToCart(req.body.id, user);
+router.post('/cart', isSignedIn, async (req: Request, res: Response) => {
+  const result = await addSnackToCart(req.body.id, req.user);
 
   res.json(result);
 });
 
-router.delete('/cart/:id', authCheck, async (req: Request, res: Response) => {
-  const user: any = req.user!;
+router.delete('/cart/:id', isSignedIn, async (req: Request, res: Response) => {
+  const user: any = req.user;
 
   const result = await deleteSnackFromCart(req.params.id, user.id);
 
   res.json(result);
 });
 
-router.get('/cart/confirm', authCheck, async (req: Request, res: Response) => {
-  const user: any = req.user!;
+router.get('/cart/confirm', isSignedIn, async (req: Request, res: Response) => {
+  const user: any = req.user;
 
   const result = await confirmSnackOrder(user);
 
@@ -70,4 +66,4 @@ router.patch('/manage/:id', isBar, async (req: Request, res: Response) => {
   res.json(result);
 });
 
-export default router;
+export { router as snacks };
