@@ -5,7 +5,7 @@ import { TRole, IUser, IUserModel, IHttpRes, IAccount } from '@csl/shared';
 import { environment as env } from '@environments/environment';
 import Stripe from 'stripe';
 import { Class, updateSnackCreditInClass } from '@controllers/classe';
-import { saveError, saveEvent } from '@config/winston';
+import { saveError, saveEvent } from '@common/logs';
 const stripe = new Stripe(env.STRIPE_KEY, {
   apiVersion: '2020-08-27',
   typescript: true,
@@ -44,7 +44,7 @@ export const createAccount = async (
       if (!user) {
         return new User(account).save().then();
       }
-    })
+    });
 
     await Class.findOne({ id: account.classID }).then((classe) => {
       if (classe) {
@@ -66,13 +66,10 @@ export const createAccount = async (
       }
     });
 
-    saveEvent(
-      `Manually created an account for ${account.name}`,
-      {
-        category: 'accounts',
-        user: user.email,
-      }
-    );
+    saveEvent(`Manually created an account for ${account.name}`, {
+      category: 'accounts',
+      user: user.email,
+    });
 
     return {
       success: true,

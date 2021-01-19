@@ -1,4 +1,4 @@
-import { saveError } from '@config/winston';
+import { saveError } from '@common/logs';
 
 export function setupErrors() {
   process.on('unhandledRejection', (err) => {

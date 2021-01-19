@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import { ICommissione, ICommissioneModel, IHttpRes, IUser } from '@csl/shared';
-import { saveError, saveEvent } from '@config/winston';
+import { saveError, saveEvent } from '@common/logs';
 
 const CommissioneSchema = new Schema(
   {
@@ -162,9 +162,12 @@ export const addPDF = async (pdf: string, commissione: ICommissione['id']) => {
       success: false,
     };
   }
-}
+};
 
-export const removePDF = async (pdf: string, commissione: ICommissione['id']) => {
+export const removePDF = async (
+  pdf: string,
+  commissione: ICommissione['id']
+) => {
   try {
     const files = await Commissione.findOneAndUpdate(
       { id: commissione },
@@ -179,14 +182,14 @@ export const removePDF = async (pdf: string, commissione: ICommissione['id']) =>
     return {
       success: true,
       data: files,
-    }
+    };
   } catch (err) {
     saveError(`Error occurred while removing "${pdf}" from "${commissione}"`, {
-      category: 'commissioni'
+      category: 'commissioni',
     });
 
     return {
       success: false,
-    }
+    };
   }
-}
+};

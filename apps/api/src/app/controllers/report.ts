@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 import { IBugData, IHttpRes, IReport, IReportModel, IUser } from '@csl/shared';
 import { v4 } from 'uuid';
-import { saveError } from '@config/winston';
+import { saveError } from '@common/logs';
 
 const ReportSchema = new Schema(
   {
@@ -41,8 +41,8 @@ export const reportBug = async (
     .catch((err) => {
       saveError('Error occurred while reporting a bug', {
         category: 'reports',
-        err
-      })
+        err,
+      });
 
       return {
         success: false,

@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { IArticleModel, IArticle, IHttpRes, IUser } from '@csl/shared';
-import { saveError, saveEvent } from '@config/winston';
+import { saveError, saveEvent } from '@common/logs';
 import { messaging } from '@common/firebase';
 
 const ArticleSchema = new Schema(

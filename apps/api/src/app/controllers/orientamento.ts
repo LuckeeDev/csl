@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { IEvent, IEventModel, IHttpRes } from '@csl/shared';
 import { v4 } from 'uuid';
-import { saveError, saveEvent } from '@config/winston';
+import { saveError, saveEvent } from '@common/logs';
 
 const EventSchema = new Schema({
   id: { type: String, required: true, unique: true },
@@ -19,23 +19,23 @@ const Event = model<IEventModel>(
   'orientamento-events'
 );
 
-export const getEvent = async (id?: IEvent['id']): Promise<IHttpRes<IEvent | IEvent[]>> => {
+export const getEvent = async (
+  id?: IEvent['id']
+): Promise<IHttpRes<IEvent | IEvent[]>> => {
   try {
-    const data = id
-      ? await Event.findOne({ id })
-      : await Event.find();
+    const data = id ? await Event.findOne({ id }) : await Event.find();
 
     return {
       success: true,
       data,
     };
-  } catch(err) {
+  } catch (err) {
     return {
       success: false,
-      err
-    }
+      err,
+    };
   }
-}
+};
 
 export const createEvent = async (event: IEvent): Promise<IHttpRes<IEvent>> => {
   try {
@@ -50,8 +50,8 @@ export const createEvent = async (event: IEvent): Promise<IHttpRes<IEvent>> => {
     return {
       success: true,
       data,
-    }
-  } catch(err) {
+    };
+  } catch (err) {
     saveError(`Errore durante la creazione di un evento`, {
       category: 'orientamento',
       err,
@@ -60,9 +60,9 @@ export const createEvent = async (event: IEvent): Promise<IHttpRes<IEvent>> => {
     return {
       success: false,
       err,
-    }
+    };
   }
-}
+};
 
 export const deleteEvent = async (id: string): Promise<IHttpRes<any>> => {
   try {
@@ -74,8 +74,8 @@ export const deleteEvent = async (id: string): Promise<IHttpRes<any>> => {
 
     return {
       success: true,
-    }
-  } catch(err) {
+    };
+  } catch (err) {
     saveError(`Errore durante l'eliminazione dell'evento con ID "${id}"`, {
       category: 'orientamento',
     });
@@ -83,6 +83,6 @@ export const deleteEvent = async (id: string): Promise<IHttpRes<any>> => {
     return {
       success: false,
       err,
-    }
+    };
   }
-}
+};

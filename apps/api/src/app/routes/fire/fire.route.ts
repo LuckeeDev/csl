@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 import { messaging } from '@common/firebase';
-import { saveError } from '@config/winston';
+import { saveError } from '@common/logs';
 const router = Router();
 
 router.post(

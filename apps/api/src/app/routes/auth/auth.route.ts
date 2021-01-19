@@ -3,7 +3,7 @@ import { Request, Response, Router } from 'express';
 const router = Router();
 import { isSignedIn, isNotSignedIn } from '@common/auth';
 import passport from 'passport';
-import { nextMiddelware } from '@config/login';
+import { loginMiddleware } from '@common/middlewares';
 import { fireAuth } from '@common/firebase';
 import { environment } from '@environments/environment';
 
@@ -57,7 +57,7 @@ router.get('/logout', isSignedIn, (req: Request, res: Response) => {
 router.get(
   '/:next',
   isNotSignedIn,
-  nextMiddelware,
+  loginMiddleware,
   passport.authenticate('google', {
     scope: ['profile', 'email'],
   })

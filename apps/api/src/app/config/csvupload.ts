@@ -2,7 +2,7 @@ import csvtojson from 'csvtojson';
 import { User } from '@controllers/user';
 import { Class } from '@controllers/classe';
 import { IUserInCsv } from '@csl/shared';
-import { saveEvent } from './winston';
+import { saveEvent } from '@common/logs';
 
 function findDuplicates(array: IUserInCsv['email'][]) {
   const object = {};
@@ -111,7 +111,7 @@ export async function uploadCSV(filePath: string) {
 
     saveEvent('Created accounts for the school through a CSV file', {
       category: 'accounts',
-    })
+    });
 
     return { success: true };
   }

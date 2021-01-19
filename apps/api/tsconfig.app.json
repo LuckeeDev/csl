@@ -7,6 +7,8 @@
     "paths": {
       "@controllers/*": ["src/app/controllers/*"],
       "@config/*": ["src/app/config/*"],
+      "@common/middlewares": ["src/app/common/middlewares"],
+      "@common/logs": ["src/app/common/logs"],
       "@common/firebase": ["src/app/common/firebase"],
       "@common/auth": ["src/app/common/auth"],
       "@routes": ["src/app/routes"],

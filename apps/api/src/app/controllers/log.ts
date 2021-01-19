@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { ILogModel, IUser } from '@csl/shared';
-import { saveError } from '@config/winston';
+import { saveError } from '@common/logs';
 
 const LogSchema = new Schema(
   {
