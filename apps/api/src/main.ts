@@ -2,7 +2,6 @@
 import * as express from 'express';
 import { environment as env } from '@environments/environment';
 import * as path from 'path';
-import * as mongoose from 'mongoose';
 import * as passport from 'passport';
 import * as fileUpload from 'express-fileupload';
 import cookieSession from 'cookie-session';
@@ -13,6 +12,7 @@ import * as cors from 'cors';
 import '@config/passport';
 import { socketConfig } from '@config/socket';
 import { saveError } from '@config/winston';
+import './app/db';
 
 // Routes
 import admin from '@routes/admin';
@@ -29,22 +29,6 @@ import coge from '@routes/coge';
 import commissioni from '@routes/commissioni';
 import orientamento from '@routes/orientamento';
 
-// Connect to database
-mongoose.connect(env.DB_URI, {
-  // Avoid deprecation warning
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-  useCreateIndex: true,
-});
-
-mongoose.connection.on('connected', () => {
-  console.log(`Connected to database: ${env.DB_URI}`);
-});
-
-mongoose.connection.on('error', (err: any) => {
-  console.log(`Database error: ${err}`);
-});
 
 // Declare Express app
 const app = express();
