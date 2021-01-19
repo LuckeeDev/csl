@@ -46,6 +46,6 @@ router.delete('/:id', isRappre, async (req: Request, res: Response) => {
   const result = await deleteProduct(id);
   
   res.json(result);
-})
+});
 
 export default router;

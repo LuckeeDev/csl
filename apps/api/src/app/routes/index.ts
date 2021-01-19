@@ -1,0 +1,13 @@
+export { default as admin } from './admin/admin.route';
+export { default as articles } from './articles/articles.route';
+export { default as auth } from './auth/auth.route';
+export { default as coge } from './coge/coge.route';
+export { default as commissioni } from './commissioni/commissioni.route';
+export { default as fire } from './fire/fire.route';
+export { default as orders } from './orders/orders.route';
+export { default as orientamento } from './orientamento/orientamento.route';
+export { default as products } from './products/products.route';
+export { default as reports } from './reports/reports.route';
+export { default as snacks } from './snacks/snacks.route';
+export { default as upload } from './upload/upload.route';
+export { default as users } from './users/users.route';

@@ -2,19 +2,21 @@ import { Application, static as staticPath } from 'express';
 import { join } from 'path';
 import { environment as env } from '@environments/environment';
 
-import admin from '@routes/admin';
-import auth from '@routes/auth';
-import fire from '@routes/fire';
-import upload from '@routes/upload';
-import users from '@routes/users';
-import articles from '@routes/articles';
-import products from '@routes/products';
-import orders from '@routes/orders';
-import reports from '@routes/reports';
-import snacks from '@routes/snacks';
-import coge from '@routes/coge';
-import commissioni from '@routes/commissioni';
-import orientamento from '@routes/orientamento';
+import {
+  admin,
+  articles,
+  auth,
+  coge,
+  commissioni,
+  fire,
+  orientamento,
+  orders,
+  products,
+  reports,
+  snacks,
+  upload,
+  users,
+} from '@routes';
 
 export function setupRoutes(app: Application) {
   // Setup main routes
