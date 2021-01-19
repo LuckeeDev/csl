@@ -12,7 +12,7 @@ import fse from 'fs-extra';
 import { tmpdir } from 'os';
 import { join } from 'path';
 import { UploadedFile } from 'express-fileupload';
-import { bucket } from '@config/firebase';
+import { bucket } from '@common/firebase';
 
 // Images
 router.post('/image', isQp, async (req: Request, res: Response) => {

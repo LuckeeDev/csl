@@ -1,6 +1,6 @@
 import admin from 'firebase-admin';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-export const serviceAccount = require('./firebaseCredentials.json');
+export const serviceAccount = require('./firebase.credentials.json');
 
 // Initialize Firebase
 admin.initializeApp({
@@ -8,7 +8,7 @@ admin.initializeApp({
   storageBucket: 'cslussana.appspot.com',
 });
 
-// Export variable for Firebase bucket
+// Export variables for Firebase
 export const bucket = admin.storage().bucket();
 
 export const fireAuth = admin.auth();

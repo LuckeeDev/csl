@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { bucket } from '@config/firebase';
+import { bucket } from '@common/firebase';
 import { join } from 'path';
 import { tmpdir } from 'os';
 import fse from 'fs-extra';
@@ -20,7 +20,11 @@ const ProductSchema = new Schema(
   { versionKey: false }
 );
 
-export const Product = mongoose.model<IProductModel>('product', ProductSchema, 'gadgets');
+export const Product = mongoose.model<IProductModel>(
+  'product',
+  ProductSchema,
+  'gadgets'
+);
 
 // Get all gadgets in the database
 export const getAllGadgets = async () => {

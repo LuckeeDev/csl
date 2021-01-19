@@ -41,5 +41,5 @@ Thumbs.db
 # Firebase logs
 *.log
 
-# NX Migrations
-migrations.json
+# Private credentials
+*.credentials.*

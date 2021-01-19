@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { IArticleModel, IArticle, IHttpRes, IUser } from '@csl/shared';
 import { saveError, saveEvent } from '@config/winston';
-import { messaging } from '@config/firebase';
+import { messaging } from '@common/firebase';
 
 const ArticleSchema = new Schema(
   {
@@ -122,7 +122,7 @@ export const changeArticlePublished = async (
     const article = await Article.findOneAndUpdate(
       { id },
       { published: state }
-      );
+    );
 
     if (state === true) {
       await messaging.send({
@@ -138,21 +138,26 @@ export const changeArticlePublished = async (
       category: 'qp',
       user: user.email,
       newState: state,
-    })
+    });
 
     return {
       success: true,
-    }
+    };
   } catch (err) {
-    saveError(`Errore durante il tentativo di modifica dello stato dell'articolo '${id}'`, {
-      category: 'qp',
-      user: user.email,
-      err
-    })
+    saveError(
+      `Errore durante il tentativo di modifica dello stato dell'articolo '${id}'`,
+      {
+        category: 'qp',
+        user: user.email,
+        err,
+      }
+    );
   }
-}
+};
 
-export const deleteArticle = async (id: IArticle['id']): Promise<IHttpRes<any>> => {
+export const deleteArticle = async (
+  id: IArticle['id']
+): Promise<IHttpRes<any>> => {
   const res = await Article.findOneAndDelete({ id })
     .then((res) => {
       return {

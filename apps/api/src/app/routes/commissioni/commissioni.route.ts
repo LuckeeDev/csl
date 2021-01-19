@@ -9,7 +9,7 @@ import {
   addPDF,
   removePDF,
 } from '@controllers/commissione';
-import { bucket } from '@config/firebase';
+import { bucket } from '@common/firebase';
 import { UploadedFile } from 'express-fileupload';
 import fse from 'fs-extra';
 import { join } from 'path';
@@ -43,16 +43,20 @@ router.post('/:id/pdf', isReferente, async (req: Request, res: Response) => {
   res.json(result);
 });
 
-router.delete('/:id/pdf/:file', isReferente, async (req: Request, res: Response) => {
-  const params: any = req.params;
+router.delete(
+  '/:id/pdf/:file',
+  isReferente,
+  async (req: Request, res: Response) => {
+    const params: any = req.params;
 
-  const pdf: string = params.file;
-  const commissione: ICommissione['id'] = params.id;
+    const pdf: string = params.file;
+    const commissione: ICommissione['id'] = params.id;
 
-  const result = await removePDF(pdf, commissione);
+    const result = await removePDF(pdf, commissione);
 
-  res.json(result);
-});
+    res.json(result);
+  }
+);
 
 // Images
 router.post('/:id/image', isReferente, async (req: Request, res: Response) => {

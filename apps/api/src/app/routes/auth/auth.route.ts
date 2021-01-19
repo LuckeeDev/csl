@@ -4,7 +4,7 @@ const router = Router();
 import { isSignedIn, isNotSignedIn } from '@common/auth';
 import passport from 'passport';
 import { nextMiddelware } from '@config/login';
-import { fireAuth } from '@config/firebase';
+import { fireAuth } from '@common/firebase';
 import { environment } from '@environments/environment';
 
 router.get('/', async (req: Request, res: Response) => {

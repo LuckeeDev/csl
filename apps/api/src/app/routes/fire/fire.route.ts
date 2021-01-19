@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express';
-import { messaging } from '@config/firebase';
+import { messaging } from '@common/firebase';
 import { saveError } from '@config/winston';
 const router = Router();
 
@@ -15,14 +15,15 @@ router.post(
     } catch (err) {
       saveError('Error while subscribing user to "global" topic', {
         err,
-        category: 'firebase'
+        category: 'firebase',
       });
 
       res.json({
         success: false,
-        err
+        err,
       });
     }
-});
+  }
+);
 
 export { router as fire };
