@@ -8,7 +8,7 @@ import {
   setPage,
   addPDF,
   removePDF,
-} from '@controllers/commissione';
+} from '@controllers';
 import { bucket } from '@common/firebase';
 import { UploadedFile } from 'express-fileupload';
 import fse from 'fs-extra';

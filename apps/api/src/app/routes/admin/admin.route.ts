@@ -1,18 +1,17 @@
 import { Request, Response, Router } from 'express';
 const router = Router();
 import { ICommissione } from '@csl/shared';
-import { createAccount, removeAccount } from '@controllers/user';
 import {
+  createAccount,
+  removeAccount,
   getEvents,
   getErrors,
   emptyEvents,
   emptyErrors,
-} from '@controllers/log';
-import {
   createCommissione,
   getCommissioni,
   removeCommissione,
-} from '@controllers/commissione';
+} from '@controllers';
 import { isAdmin } from '@common/auth';
 
 router.get('/events', isAdmin, async (req: Request, res: Response) => {

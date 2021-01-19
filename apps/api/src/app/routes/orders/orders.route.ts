@@ -7,14 +7,12 @@ import {
   confirmOrder,
   deleteFromCart,
   addToCart,
-} from '@controllers/order';
-import { getStripeID } from '@controllers/user';
-import {
+  getStripeID,
   updateTotal,
   verifyReady,
   verifyPaid,
   getTotal,
-} from '@controllers/classe';
+} from '@controllers';
 
 // Stripe initialization
 import { environment as env } from '@environments/environment';

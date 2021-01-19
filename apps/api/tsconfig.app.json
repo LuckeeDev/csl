@@ -5,7 +5,7 @@
     "types": ["node", "express", "./src/@types"],
     "baseUrl": ".",
     "paths": {
-      "@controllers/*": ["src/app/controllers/*"],
+      "@controllers": ["src/app/controllers"],
       "@common/utils": ["src/app/common/utils"],
       "@common/middlewares": ["src/app/common/middlewares"],
       "@common/logs": ["src/app/common/logs"],

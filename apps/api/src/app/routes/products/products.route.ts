@@ -8,7 +8,7 @@ import {
   createPhoto,
   findProduct,
   deleteProduct
-} from '@controllers/product';
+} from '@controllers';
 import { IProduct } from '@csl/shared';
 
 // Get all gadgets

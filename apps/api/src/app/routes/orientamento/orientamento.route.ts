@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 import { IEvent } from '@csl/shared';
-import { getEvent, createEvent, deleteEvent } from '@controllers/orientamento';
+import { getEvent, createEvent, deleteEvent } from '@controllers';
 import { isSignedIn, isRappre } from '@common/auth';
 const router = Router();
 

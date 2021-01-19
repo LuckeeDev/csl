@@ -4,7 +4,7 @@ import { Class, User } from '@models';
 // Stripe initialization
 import { environment as env } from '@environments/environment';
 import Stripe from 'stripe';
-import { updateSnackCreditInClass } from '@controllers/classe';
+import { updateSnackCreditInClass } from '../classe/classe.controller';
 import { saveError, saveEvent } from '@common/logs';
 const stripe = new Stripe(env.STRIPE_KEY, {
   apiVersion: '2020-08-27',

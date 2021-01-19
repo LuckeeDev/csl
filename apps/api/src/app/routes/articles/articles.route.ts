@@ -7,7 +7,7 @@ import {
   getArticles,
   deleteArticle,
   changeArticlePublished,
-} from '@controllers/article';
+} from '@controllers';
 import fse from 'fs-extra';
 import { tmpdir } from 'os';
 import { join } from 'path';

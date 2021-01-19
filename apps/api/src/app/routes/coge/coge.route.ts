@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 const router = Router();
-import { createCourse, getCourses } from '@controllers/course';
+import { createCourse, getCourses } from '@controllers';
 import { isSignedIn } from '@common/auth';
 
 router.get('/courses', isSignedIn, async (req: Request, res: Response) => {

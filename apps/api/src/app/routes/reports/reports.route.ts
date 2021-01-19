@@ -1,6 +1,6 @@
 import { Router, Response, Request } from 'express';
 import { isAdmin } from '@common/auth';
-import { getReports, reportBug, toggleSolved } from '@controllers/report';
+import { getReports, reportBug, toggleSolved } from '@controllers';
 const router = Router();
 
 router.get('/', isAdmin, async (req: Request, res: Response) => {

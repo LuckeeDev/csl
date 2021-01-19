@@ -8,7 +8,7 @@ const stripe = new Stripe(env.STRIPE_KEY, {
   typescript: true,
 });
 
-import { setPaid } from '@controllers/classe';
+import { setPaid } from '@controllers';
 
 export async function webhookHandler(
   req: Request<string | Buffer>,

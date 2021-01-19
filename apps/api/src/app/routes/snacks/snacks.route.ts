@@ -6,13 +6,11 @@ import {
   deleteSnack,
   updateMaxQuantity,
   getSnacks,
-} from '@controllers/snack';
-import {
   addSnackToCart,
   getSnacksCart,
   deleteSnackFromCart,
   confirmSnackOrder,
-} from '@controllers/snack-order';
+} from '@controllers';
 
 router.get('/', isSignedIn, async (req: Request, res: Response) => {
   const result = await getSnacks();
