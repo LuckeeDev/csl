@@ -1,5 +1,4 @@
 // Main imports
-import '@config/passport';
 import { environment as env } from '@environments/environment';
 import * as http from 'http';
 import * as io from 'socket.io';

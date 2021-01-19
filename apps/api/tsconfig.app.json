@@ -6,7 +6,7 @@
     "baseUrl": ".",
     "paths": {
       "@controllers/*": ["src/app/controllers/*"],
-      "@config/*": ["src/app/config/*"],
+      "@common/utils": ["src/app/common/utils"],
       "@common/middlewares": ["src/app/common/middlewares"],
       "@common/logs": ["src/app/common/logs"],
       "@common/firebase": ["src/app/common/firebase"],

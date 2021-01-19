@@ -4,7 +4,7 @@ import { environment as env } from '@environments/environment';
 import * as passport from 'passport';
 import cookieSession from 'cookie-session';
 import * as fileUpload from 'express-fileupload';
-import { webhookHandler } from '@config/webhook';
+import { webhookHandler } from '@common/utils';
 
 export function setupApp(app: Application) {
   app.use(

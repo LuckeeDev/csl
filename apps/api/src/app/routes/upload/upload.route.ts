@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 import { join } from 'path';
 import { tmpdir } from 'os';
-import { uploadCSV } from '@config/csvupload';
+import { uploadCSV } from '@common/utils';
 import { isVice } from '@common/auth';
 import { bucket } from '@common/firebase';
 import fse from 'fs-extra';

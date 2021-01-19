@@ -35,7 +35,7 @@ export function setupRoutes(app: Application) {
   app.use('/orientamento', orientamento);
 
   // Static folder
-  app.use(staticPath(join(__dirname, 'assets')));
+  app.use(staticPath(join(__dirname, 'static')));
 
   // Fallback to client
   app.get('*', (req, res) => {
