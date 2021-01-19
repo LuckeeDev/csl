@@ -1,6 +1,5 @@
 import csvtojson from 'csvtojson';
-import { User } from '@controllers/user';
-import { Class } from '@controllers/classe';
+import { User, Class } from '@models';
 import { IUserInCsv } from '@csl/shared';
 import { saveEvent } from '@common/logs';
 

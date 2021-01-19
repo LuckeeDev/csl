@@ -1,30 +1,16 @@
-import mongoose, { Schema } from 'mongoose';
-import { Product } from '@controllers/product';
-import { IOrder, IOrderModel, IProductInCart, IProduct, IUser, IHttpRes } from '@csl/shared';
-
-const OrderSchema = new Schema(
-  {
-    id: { type: String, required: true, unique: true },
-    gadgets: { type: Array, required: true, default: [] },
-    photos: { type: Array, required: true, default: [] },
-    gadgetTotal: { type: Number, required: true, default: 0 },
-    photoTotal: { type: Number, required: true, default: 0 },
-    gadgetsConfirmed: { type: Boolean, required: true, default: false },
-    photosConfirmed: { type: Boolean, required: true, default: false },
-    classID: { type: String, required: true },
-  },
-  { skipVersioning: true }
-);
-
-export const Order = mongoose.model<IOrderModel>('order', OrderSchema, 'gadget-orders');
+import { IOrder, IProductInCart, IProduct, IUser, IHttpRes } from '@csl/shared';
+import { Order, Product } from '@models';
 
 // Create a new order
-export const addToCart = async (product: IProductInCart, user: IUser): Promise<IHttpRes<any>> => {
+export const addToCart = async (
+  product: IProductInCart,
+  user: IUser
+): Promise<IHttpRes<any>> => {
   const productInDb = await Product.findOne({ id: product.id }).then(
     (res: IProduct | null) => {
       return {
-        price: res!.price * product.quantity * 100,
-        category: res!.category,
+        price: res.price * product.quantity * 100,
+        category: res.category,
       };
     }
   );
@@ -55,7 +41,7 @@ export const addToCart = async (product: IProductInCart, user: IUser): Promise<I
         classID: user.classID,
       })
         .save()
-        .then((res) => {
+        .then(() => {
           return {
             success: true,
           };
@@ -81,7 +67,7 @@ export const addToCart = async (product: IProductInCart, user: IUser): Promise<I
       return Order.findOneAndUpdate(
         { id: user.id },
         { $push: { [productInDb.category]: product }, gadgetTotal, photoTotal }
-      ).then((res) => {
+      ).then(() => {
         return {
           success: true,
         };
@@ -123,8 +109,6 @@ export const getAllOrders = async (id: any) => {
 export const deleteFromCart = async (id: any, product: any) => {
   const productInDb: IProduct = await Product.findOne({
     id: product.id,
-  }).then((res) => {
-    return res!;
   });
 
   const category = productInDb.category;
@@ -134,11 +118,11 @@ export const deleteFromCart = async (id: any, product: any) => {
 
   const newTotal: number | false = await Order.findOne({ id }).then(
     async (res) => {
-      if (res![categoryConfirmed] === true) {
+      if (res[categoryConfirmed] === true) {
         return false;
       }
 
-      const productInCart = res![category].find(
+      const productInCart = res[category].find(
         (obj) =>
           obj.id == product.id &&
           obj.size == product.size &&
@@ -146,9 +130,9 @@ export const deleteFromCart = async (id: any, product: any) => {
           obj.quantity == product.quantity
       );
 
-      const quantity = productInCart!.quantity;
+      const quantity = productInCart.quantity;
       const oldTotal =
-        category === 'gadgets' ? res!.gadgetTotal : res!.photoTotal;
+        category === 'gadgets' ? res.gadgetTotal : res.photoTotal;
 
       return oldTotal - singlePrice * quantity * 100;
     }
@@ -177,7 +161,7 @@ export const deleteFromCart = async (id: any, product: any) => {
       [totalToChange]: newTotal,
     }
   )
-    .then((res) => {
+    .then(() => {
       return {
         success: true,
         msg: 'Order deleted',

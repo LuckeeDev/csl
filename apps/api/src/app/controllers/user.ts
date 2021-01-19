@@ -1,38 +1,15 @@
-import mongoose, { Schema } from 'mongoose';
-import { TRole, IUser, IUserModel, IHttpRes, IAccount } from '@csl/shared';
+import { TRole, IUser, IHttpRes, IAccount } from '@csl/shared';
+import { Class, User } from '@models';
 
 // Stripe initialization
 import { environment as env } from '@environments/environment';
 import Stripe from 'stripe';
-import { Class, updateSnackCreditInClass } from '@controllers/classe';
+import { updateSnackCreditInClass } from '@controllers/classe';
 import { saveError, saveEvent } from '@common/logs';
 const stripe = new Stripe(env.STRIPE_KEY, {
   apiVersion: '2020-08-27',
   typescript: true,
 });
-
-const UserSchema = new Schema(
-  {
-    id: { type: String },
-    email: { type: String, required: true, unique: true },
-    name: { type: String, required: true },
-    classID: { type: String },
-    snackCredit: { type: Number, default: 0 },
-    photoURL: { type: String },
-    stripeID: { type: String },
-    isVice: { type: Boolean },
-    isRappre: { type: Boolean },
-    isQp: { type: Boolean },
-    isRappreDiClasse: { type: Boolean },
-    isBar: { type: Boolean },
-    isAdmin: { type: Boolean },
-
-    isReferente: { type: String },
-  },
-  { skipVersioning: true }
-);
-
-export const User = mongoose.model<IUserModel>('user', UserSchema);
 
 // Create an account (for admin)
 export const createAccount = async (
@@ -184,7 +161,7 @@ export const removeRole = async (email: IUser['email'], role: TRole) => {
     { email: email },
     { $unset: updateClassQuery }
   ).then((user) => {
-    return user!.classID;
+    return user.classID;
   });
 
   return Class.findOne({ id: classID }).then((classe) => {
@@ -198,7 +175,7 @@ export const removeRole = async (email: IUser['email'], role: TRole) => {
       { id: classID, members: { $elemMatch: { email } } },
       { 'members.$': member }
     )
-      .then((res) => {
+      .then(() => {
         return {
           success: true,
         };
@@ -250,9 +227,7 @@ export const getStripeID = async (
           const newID = await User.findOneAndUpdate(
             { id },
             { stripeID: customer.id }
-          ).then((res: any) => {
-            return customer.id;
-          });
+          ).then(() => customer.id);
 
           return newID;
         });
@@ -269,13 +244,13 @@ export const updateCredit = async (
 ) => {
   const result = await User.findOne({ email })
     .then(async (user) => {
-      const snackCredit = money + user!.snackCredit;
-      const classID = user!.classID;
+      const snackCredit = money + user.snackCredit;
+      const classID = user.classID;
 
       await updateSnackCreditInClass(email, snackCredit, classID);
 
       return await User.findOneAndUpdate({ email }, { snackCredit })
-        .then((res) => {
+        .then(() => {
           return {
             success: true,
           };

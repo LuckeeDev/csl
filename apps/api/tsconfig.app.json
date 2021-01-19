@@ -11,6 +11,7 @@
       "@common/logs": ["src/app/common/logs"],
       "@common/firebase": ["src/app/common/firebase"],
       "@common/auth": ["src/app/common/auth"],
+      "@models": ["src/app/models"],
       "@routes": ["src/app/routes"],
       "@core": ["src/app/core"],
       "@assets/*": ["src/assets/*"],

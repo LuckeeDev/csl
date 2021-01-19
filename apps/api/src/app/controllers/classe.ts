@@ -1,21 +1,5 @@
-import mongoose, { Schema } from 'mongoose';
-import { Order } from '@controllers/order';
-import { IClass, IClassModel, IUser, IProduct } from '@csl/shared';
-
-const ClassSchema = new Schema(
-  {
-    id: { type: String, required: true, unique: true },
-    members: { type: Array, required: true },
-    membersCount: { type: Number, required: true },
-    gadgetTotal: { type: Number, required: true, default: 0 },
-    gadgetPaid: { type: Boolean, required: true, default: false },
-    photoTotal: { type: Number, required: true, default: 0 },
-    photoPaid: { type: Boolean, required: true, default: false },
-  },
-  { skipVersioning: true }
-);
-
-export const Class = mongoose.model<IClassModel>('class', ClassSchema, 'classi');
+import { IClass, IUser, IProduct } from '@csl/shared';
+import { Class, Order } from '@models';
 
 // Get all classes in the database
 export const getClasses: any = async () => {
@@ -37,7 +21,7 @@ export const updateTotal = async (
     { id },
     { [totalToUpdate]: classTotal + orderTotal }
   )
-    .then((res: any) => {
+    .then(() => {
       return {
         success: true,
         msg: 'Order confirmed',
@@ -88,7 +72,6 @@ export const verifyReady = async (
     const isNotConfirmed = res.find(
       (obj: any) => obj[confirmedCategory] === false
     );
-    // const result = !isNotConfirmed;
 
     return !isNotConfirmed;
   });
@@ -112,7 +95,7 @@ export const updateSnackCreditInClass = async (
   classID: IUser['classID']
 ) => {
   await Class.findOne({ id: classID }).then(async (classe) => {
-    const member = classe!.members.find((x) => x.email === email);
+    const member = classe.members.find((x) => x.email === email);
 
     await Class.updateOne(
       { id: classID, members: member },

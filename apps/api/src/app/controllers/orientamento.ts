@@ -1,23 +1,7 @@
-import { Schema, model } from 'mongoose';
-import { IEvent, IEventModel, IHttpRes } from '@csl/shared';
+import { IEvent, IHttpRes } from '@csl/shared';
 import { v4 } from 'uuid';
 import { saveError, saveEvent } from '@common/logs';
-
-const EventSchema = new Schema({
-  id: { type: String, required: true, unique: true },
-  title: { type: String, required: true },
-  description: { type: String, required: true },
-  preview: { type: String, required: true },
-  date: { type: Date, required: true },
-  cover: { type: String, required: true },
-  signup: { type: String, required: true },
-});
-
-const Event = model<IEventModel>(
-  'orientamento-event',
-  EventSchema,
-  'orientamento-events'
-);
+import { OrientamentoEvent as Event } from '@models';
 
 export const getEvent = async (
   id?: IEvent['id']

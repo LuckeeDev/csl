@@ -1,22 +1,7 @@
-import mongoose, { Schema } from 'mongoose';
 import { IBugData, IHttpRes, IReport, IReportModel, IUser } from '@csl/shared';
 import { v4 } from 'uuid';
 import { saveError } from '@common/logs';
-
-const ReportSchema = new Schema(
-  {
-    id: { type: String, required: true, unique: true },
-    user: { type: String },
-    name: { type: String, required: true },
-    classID: { type: String, required: true },
-    date: { type: Date, required: true },
-    solved: { type: Boolean, default: false },
-    bug: { type: Object },
-  },
-  { skipVersioning: true }
-);
-
-export const Report = mongoose.model<IReportModel>('report', ReportSchema);
+import { Report } from '@models';
 
 export const reportBug = async (
   user: IUser,

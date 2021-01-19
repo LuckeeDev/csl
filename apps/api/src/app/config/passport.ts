@@ -2,7 +2,7 @@ import passport from 'passport';
 import { environment as env } from '@environments/environment';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-import { User } from '@controllers/user';
+import { User } from '@models';
 
 // Create user session
 passport.serializeUser((user: any, done: any) => {

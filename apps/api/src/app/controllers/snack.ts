@@ -1,23 +1,10 @@
-import mongoose, { Schema } from 'mongoose';
-import { ISnack, ISnackModel } from '@csl/shared';
-
-const SnackSchema = new Schema(
-  {
-    id: { type: String, required: true, unique: true },
-    name: { type: String, required: true },
-    description: { type: String, required: true },
-    price: { type: Number, required: true },
-    maxQuantity: { type: Number, required: true },
-  },
-  { versionKey: false }
-);
-
-export const Snack = mongoose.model<ISnackModel>('snack', SnackSchema);
+import { ISnack } from '@csl/shared';
+import { Snack } from '@models';
 
 export const createSnack = (snack: ISnack) => {
   return new Snack(snack)
     .save()
-    .then((res) => {
+    .then(() => {
       return {
         success: true,
       };
@@ -32,7 +19,7 @@ export const createSnack = (snack: ISnack) => {
 
 export const deleteSnack = (id: ISnack['id']) => {
   return Snack.findOneAndDelete({ id })
-    .then((res) => {
+    .then(() => {
       return {
         success: true,
       };
@@ -50,7 +37,7 @@ export const updateMaxQuantity = async (
   id: ISnack['id']
 ) => {
   const result = await Snack.findOneAndUpdate({ id }, { maxQuantity })
-    .then((res) => {
+    .then(() => {
       return { success: true };
     })
     .catch((err) => {

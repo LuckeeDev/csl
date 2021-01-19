@@ -1,30 +1,10 @@
-import mongoose, { Schema } from 'mongoose';
 import { bucket } from '@common/firebase';
 import { join } from 'path';
 import { tmpdir } from 'os';
 import fse from 'fs-extra';
 import sharp from 'sharp';
-import { IProduct, IProductModel } from '@csl/shared';
-
-const ProductSchema = new Schema(
-  {
-    id: { type: String, required: true, unique: true },
-    name: { type: String, required: true },
-    description: { type: String, required: true },
-    category: { type: String, required: true },
-    price: { type: Number, required: true },
-    fileNames: { type: Array, required: true },
-    colors: { type: Array },
-    sizes: { type: Array },
-  },
-  { versionKey: false }
-);
-
-export const Product = mongoose.model<IProductModel>(
-  'product',
-  ProductSchema,
-  'gadgets'
-);
+import { IProduct } from '@csl/shared';
+import { Product } from '@models';
 
 // Get all gadgets in the database
 export const getAllGadgets = async () => {

@@ -1,28 +1,6 @@
-import mongoose, { Schema } from 'mongoose';
-import { ISnackOrderModel, ISnackInCart, ISnack, IUser } from '@csl/shared';
-import { Snack } from '@controllers/snack';
-import { User } from '@controllers/user';
-import { Class } from '@controllers/classe';
+import { ISnackInCart, ISnack, IUser } from '@csl/shared';
+import { Class, SnackOrder, Snack, User } from '@models';
 import { Server } from 'socket.io';
-
-const SnackOrderSchema = new Schema(
-  {
-    id: { type: String, required: true },
-    cart: { type: Array, required: true },
-    date: { type: String, required: true },
-    total: { type: Number, required: true },
-    confirmed: { type: Boolean, required: true, default: false },
-    name: { type: String, required: true },
-    classID: { type: String, required: true },
-  },
-  { versionKey: false }
-);
-
-export const SnackOrder = mongoose.model<ISnackOrderModel>(
-  'snack-order',
-  SnackOrderSchema,
-  'snack-orders'
-);
 
 export const addSnackToCart = async (id: ISnack['id'], user: IUser) => {
   const date = new Date();

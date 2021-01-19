@@ -1,19 +1,6 @@
-import { Schema, model } from 'mongoose';
-import { ILogModel, IUser } from '@csl/shared';
+import { IUser } from '@csl/shared';
 import { saveError } from '@common/logs';
-
-const LogSchema = new Schema(
-  {
-    timestamp: { type: Date, required: true },
-    level: { type: String, required: true },
-    message: { type: String, required: true },
-    metadata: { type: Object, required: true },
-  },
-  { skipVersioning: true }
-);
-
-const Error = model<ILogModel>('error', LogSchema, 'errors');
-const Event = model<ILogModel>('event', LogSchema, 'events');
+import { Error, Event } from '@models';
 
 export const getErrors = async (user: IUser) => {
   try {

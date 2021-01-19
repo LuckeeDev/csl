@@ -1,24 +1,7 @@
-import { Schema, model } from 'mongoose';
-import { IArticleModel, IArticle, IHttpRes, IUser } from '@csl/shared';
-import { saveError, saveEvent } from '@common/logs';
 import { messaging } from '@common/firebase';
-
-const ArticleSchema = new Schema(
-  {
-    id: { type: String, required: true, unique: true },
-    title: { type: String, required: true },
-    content: { type: Object, required: true },
-    author: { type: String, required: true },
-    category: { type: String, required: true },
-    estimatedTime: { type: Number },
-    image: { type: String },
-    published: { type: Boolean, default: false, required: true },
-    date: { type: Date },
-  },
-  { skipVersioning: true }
-);
-
-export const Article = model<IArticleModel>('article', ArticleSchema);
+import { IArticle, IHttpRes, IUser } from '@csl/shared';
+import { Article } from '@models';
+import { saveError, saveEvent } from '@common/logs';
 
 export const getArticles = async (): Promise<IHttpRes<IArticle[]>> => {
   return Article.find()
@@ -159,7 +142,7 @@ export const deleteArticle = async (
   id: IArticle['id']
 ): Promise<IHttpRes<any>> => {
   const res = await Article.findOneAndDelete({ id })
-    .then((res) => {
+    .then(() => {
       return {
         success: true,
       };

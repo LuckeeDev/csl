@@ -1,23 +1,6 @@
-import mongoose, { Schema } from 'mongoose';
-import { ICommissione, ICommissioneModel, IHttpRes, IUser } from '@csl/shared';
+import { ICommissione, IHttpRes, IUser } from '@csl/shared';
 import { saveError, saveEvent } from '@common/logs';
-
-const CommissioneSchema = new Schema(
-  {
-    id: { type: String, required: true, unique: true },
-    title: { type: String, required: true },
-    page: { type: Object },
-    image: { type: String },
-    files: { type: Array, default: [] },
-  },
-  { skipVersioning: true }
-);
-
-export const Commissione = mongoose.model<ICommissioneModel>(
-  'commissione',
-  CommissioneSchema,
-  'commissioni'
-);
+import { Commissione } from '@models';
 
 export const getCommissioni = async (): Promise<IHttpRes<ICommissione[]>> => {
   const commissioni = await Commissione.find();
