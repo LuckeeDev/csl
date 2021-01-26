@@ -2,13 +2,13 @@ import express from 'express';
 const router = express.Router();
 import { join } from 'path';
 import { tmpdir } from 'os';
-import { uploadCSV } from '@common/utils';
+import { uploadCSV, uploadTeacherCSV } from '@common/utils';
 import { isVice } from '@common/auth';
 import { bucket } from '@common/firebase';
 import fse from 'fs-extra';
 import { UploadedFile } from 'express-fileupload';
 
-// Upload CSV file
+// Upload CSV file for students
 router.post('/csv', isVice, async (req, res) => {
   if (!req.files) {
     res.json({ uploadError: true });
@@ -26,6 +26,33 @@ router.post('/csv', isVice, async (req, res) => {
     const csvResult = await uploadCSV(tmpFilePath).then((result) => {
       return result;
     });
+
+    await bucket.upload(tmpFilePath, {
+      destination: `csv/${fileName}`,
+    });
+
+    fse.remove(workingDir);
+
+    res.json(csvResult);
+  }
+});
+
+// Upload CSV file for teachers
+router.post('/teachers', isVice, async (req, res) => {
+  if (!req.files) {
+    res.json({ uploadError: true });
+  } else {
+    const files: any = req.files;
+    const csv: UploadedFile = files.viceCsv;
+    const fileName = `${Date.now()}_${csv.name}`;
+    const workingDir = join(tmpdir(), 'csv');
+    const tmpFilePath = join(workingDir, fileName);
+
+    fse.ensureDir(workingDir);
+
+    await csv.mv(tmpFilePath);
+
+    const csvResult = await uploadTeacherCSV(tmpFilePath);
 
     await bucket.upload(tmpFilePath, {
       destination: `csv/${fileName}`,

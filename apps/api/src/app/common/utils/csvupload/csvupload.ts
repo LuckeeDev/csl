@@ -1,7 +1,7 @@
 import csvtojson from 'csvtojson';
 import { User, Class } from '@models';
 import { IUserInCsv } from '@csl/shared';
-import { saveEvent } from '@common/logs';
+import { saveError, saveEvent } from '@common/logs';
 
 function findDuplicates(array: IUserInCsv['email'][]) {
   const object = {};
@@ -68,7 +68,6 @@ export async function uploadCSV(filePath: string) {
   if (duplicates.length > 0) {
     return { success: false, duplicates };
   } else {
-    // Process CSV content to get name from email
     json.map(processJSON);
 
     const classes = [];
@@ -113,5 +112,90 @@ export async function uploadCSV(filePath: string) {
     });
 
     return { success: true };
+  }
+}
+
+interface ITeacherInCsv {
+  email: string;
+  name: string;
+  classID: 'teachers';
+}
+
+function processTeacherJSON(person: ITeacherInCsv): ITeacherInCsv {
+  const email = person.email;
+
+  const accountName = person.email.split('@')[0];
+
+  function getName(accountName: string) {
+    return accountName.includes('.') ? accountName.split('.')[0] : accountName;
+  }
+
+  const name =
+    getName(accountName).charAt(0).toUpperCase() +
+    getName(accountName).slice(1);
+
+  return {
+    email,
+    name,
+    classID: 'teachers',
+  };
+}
+
+export async function uploadTeacherCSV(filePath: string) {
+  try {
+    const json: ITeacherInCsv[] = await csvtojson({
+      delimiter: 'auto',
+    }).fromFile(filePath);
+
+    const emails = [];
+
+    for (const obj of json) {
+      emails.push(obj.email);
+    }
+
+    const processedJSON = json.map(processTeacherJSON);
+
+    const classes = [];
+
+    for (const account of processedJSON) {
+      const classObj = classes.find((x) => x.classID === account.classID);
+
+      if (classObj) {
+        const classIndex = classes.indexOf(classObj);
+
+        classes[classIndex].members.push({
+          email: account.email,
+          snackCredit: 0,
+          roles: [],
+        });
+      } else {
+        classes.push({
+          classID: account.classID,
+          members: [{ email: account.email, snackCredit: 0, roles: [] }],
+        });
+      }
+
+      new User(account).save();
+    }
+
+    classes.forEach((classObj) => {
+      new Class({
+        id: classObj.classID,
+        members: classObj.members,
+        membersCount: classObj.members.length,
+      }).save();
+    });
+
+    saveEvent('Creati gli account per i professori', {
+      category: 'accounts',
+    });
+
+    return { success: true };
+  } catch (err) {
+    saveError('Errore durante la creazione degli account dei professori', {
+      category: 'accounts',
+    });
+
+    return { success: false, err };
   }
 }
