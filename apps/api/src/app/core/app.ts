@@ -40,7 +40,7 @@ export function setupApp(app: Application) {
     })
   );
 
-  app.get('/', (req, res) => {
-    res.send(`Welcome to the API: current version is ${PackageJSON.version}`);
+  app.get('/version', (req, res) => {
+    res.send(`Current version is ${PackageJSON.version}`);
   });
 }
