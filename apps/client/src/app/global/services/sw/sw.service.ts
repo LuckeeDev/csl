@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SwPush, SwUpdate } from '@angular/service-worker';
-import { DialogService, ToastrService } from '@csl/ui';
+import { DialogService } from '@csl/ui';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { environment } from '@environments/environment';
 import { switchMap } from 'rxjs/operators';
@@ -22,7 +22,6 @@ export class SwService {
     private push: SwPush,
     private http: HttpClient,
     private dialog: DialogService,
-    private toastr: ToastrService,
     private afm: AngularFireMessaging
   ) {
     if (environment.production) {
@@ -63,7 +62,7 @@ export class SwService {
     this.afm.requestPermission.pipe(
       switchMap(() => this.afm.getToken),
       switchMap((token) => this.subscribeToGlobalTopic(token)),
-    ).subscribe((res) => {
+    ).subscribe(() => {
       console.log('%cSW:%c Notifiche attivate', 'background: #222; color: #fff', 'color: #00CC25');
     }, () => {
       console.log('%cSW:%c Notifiche bloccate', 'background: #222; color: #fff', 'color: #EB1A28');

@@ -3,6 +3,7 @@ import { AuthService } from '@global/services/auth/auth.service';
 import { SwService } from '@global/services/sw/sw.service';
 import { ToastrService } from '@csl/ui';
 import PackageJSON from '../../../../package.json';
+import { PageService } from '@global/services/page/page.service';
 
 @Component({
   selector: 'csl-root',
@@ -33,10 +34,12 @@ export class AppComponent implements OnInit {
   constructor(
     private auth: AuthService,
     public sw: SwService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private page: PageService,
   ) {}
 
   ngOnInit(): void {
     this.auth.getUser();
+    this.page.setupTitleChange();
   }
 }
