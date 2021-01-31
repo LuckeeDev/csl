@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UploadService } from '@shared/services/upload/upload.service';
 import { DialogService, ToastrService } from '@csl/ui';
 import { MatSnackBarRef } from '@angular/material/snack-bar';
@@ -9,11 +9,11 @@ interface ICsvRes {
 }
 
 @Component({
-  selector: 'app-csv',
+  selector: 'csl-csv',
   templateUrl: './csv.component.html',
   styleUrls: ['./csv.component.scss'],
 })
-export class CsvComponent implements OnInit {
+export class CsvComponent {
   ref: MatSnackBarRef<any>;
 
   constructor(
@@ -21,8 +21,6 @@ export class CsvComponent implements OnInit {
     private dialog: DialogService,
     private toastr: ToastrService
   ) {}
-
-  ngOnInit(): void {}
 
   uploadCsv(file: string) {
     this.dialog
@@ -32,7 +30,7 @@ export class CsvComponent implements OnInit {
         answer: 'Conferma',
         color: 'primary',
       })
-      .subscribe((res) => {
+      .subscribe(() => {
         this.upload.onCsvUpload().subscribe((res: ICsvRes) => {
           const { success, duplicates } = res;
 

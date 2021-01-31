@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -15,7 +15,7 @@ import { MembersService } from '@shared/services/members/members.service';
   templateUrl: './accounts.component.html',
   styleUrls: ['./accounts.component.scss'],
 })
-export class AccountsComponent implements OnInit {
+export class AccountsComponent {
   accountForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     name: new FormControl('', Validators.required),
@@ -27,8 +27,6 @@ export class AccountsComponent implements OnInit {
     private members: MembersService,
     private toastr: ToastrService
   ) {}
-
-  ngOnInit(): void {}
 
   createAccount(formElement: FormGroupDirective) {
     this.dialog
@@ -48,7 +46,7 @@ export class AccountsComponent implements OnInit {
 
           formElement.resetForm();
           this.accountForm.reset();
-        } else if (res.success) {
+        } else {
           this.toastr.showError();
         }
       });

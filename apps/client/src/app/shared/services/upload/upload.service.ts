@@ -8,6 +8,7 @@ import { tap } from 'rxjs/operators';
 export class UploadService {
   csvFile: any;
   readyToUploadCsv: boolean;
+  csvType: 'teachers' | 'students';
 
   imgFiles: Array<any> = [];
   readyToUploadImages: boolean;
@@ -17,11 +18,10 @@ export class UploadService {
 
   constructor(private http: HttpClient, private storage: AngularFireStorage) {}
 
-  onCsvSelect(event) {
-    if (event.target.files.length === 1) {
-      this.csvFile = event.target.files[0];
-      this.readyToUploadCsv = true;
-    }
+  onCsvSelect(event, csvType: 'teachers' | 'students') {
+    this.csvFile = event.target.files[0];
+    this.readyToUploadCsv = true;
+    this.csvType = csvType;
   }
 
   onCsvUpload() {
@@ -30,11 +30,12 @@ export class UploadService {
     const formData = new FormData();
     formData.append('viceCsv', this.csvFile);
 
-    return this.http.post('/upload/csv', formData).pipe(
-      tap((res) => {
+    return this.http.post(`/upload/${this.csvType}`, formData).pipe(
+      tap(() => {
         this.readyToUploadCsv = false;
         this.csvFile = null;
         this.working = false;
+        this.csvType = undefined;
       })
     );
   }

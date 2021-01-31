@@ -9,7 +9,7 @@ import fse from 'fs-extra';
 import { UploadedFile } from 'express-fileupload';
 
 // Upload CSV file for students
-router.post('/csv', isVice, async (req, res) => {
+router.post('/students', isVice, async (req, res) => {
   if (!req.files) {
     res.json({ uploadError: true });
   } else {

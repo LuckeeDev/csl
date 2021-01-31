@@ -1,15 +1,28 @@
 <div>
+  <h1>Carica account per gli studenti</h1>
+
   <input
     type="file"
     style="display: none"
-    (change)="upload.onCsvSelect($event)"
+    (change)="upload.onCsvSelect($event, 'students')"
     #selectFile
   />
   <button mat-stroked-button color="primary" (click)="selectFile.click()">
     Scegli file
   </button>
 
-  <!-- Show if the CSV has been selected -->
+  <h1>Carica account per i professori</h1>
+
+  <input
+    type="file"
+    style="display: none"
+    (change)="upload.onCsvSelect($event, 'teachers')"
+    #selectProfFile
+  />
+  <button mat-stroked-button color="primary" (click)="selectProfFile.click()">
+    Scegli file
+  </button>
+  
   <div *ngIf="upload.readyToUploadCsv">
     <p>Nome del file caricato: "{{ upload.csvFile.name }}"</p>
     <button
