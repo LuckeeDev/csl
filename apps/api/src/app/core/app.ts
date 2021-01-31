@@ -5,6 +5,7 @@ import * as passport from 'passport';
 import cookieSession from 'cookie-session';
 import * as fileUpload from 'express-fileupload';
 import { webhookHandler } from '@common/utils';
+import PackageJSON from '../../../../../package.json';
 
 export function setupApp(app: Application) {
   app.use(
@@ -38,4 +39,8 @@ export function setupApp(app: Application) {
       createParentPath: true,
     })
   );
+
+  app.get('/', (req, res) => {
+    res.send(`Welcome to the API: current version is ${PackageJSON.version}`);
+  });
 }

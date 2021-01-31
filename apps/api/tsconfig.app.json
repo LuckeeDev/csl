@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "types": ["node", "express", "./src/@types"],
+    "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
       "@controllers": ["src/app/controllers"],
