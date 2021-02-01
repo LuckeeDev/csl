@@ -5,6 +5,5 @@ module.exports = {
     '<rootDir>/libs/shared',
     '<rootDir>/libs/ui',
     '<rootDir>/apps/maintenance',
-    '<rootDir>/apps/bike',
   ],
 };
