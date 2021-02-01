@@ -354,7 +354,7 @@
           "outputs": ["{options.outputPath}"],
           "options": {
             "root": "apps/bike",
-            "outputPath": "dist/apps/bike"
+            "outputPath": "dist/bike"
           },
           "configurations": {
             "production": {}
