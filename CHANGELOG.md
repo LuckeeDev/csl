@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.6.1](https://github.com/LuckeeDev/csl/compare/v1.6.0...v1.6.1) (2021-02-01)
+
+
+### Bug Fixes
+
+* **dist:** changed bike output path ([e2e170c](https://github.com/LuckeeDev/csl/commit/e2e170c51fe9e8f138d7ddf8869be2d4b87a2072))
+
+
+
 # [1.6.0](https://github.com/LuckeeDev/csl/compare/v1.5.0...v1.6.0) (2021-02-01)
 
 
