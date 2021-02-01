@@ -43,3 +43,6 @@ Thumbs.db
 
 # Private credentials
 *.credentials.*
+
+# Makefile
+Makefile
