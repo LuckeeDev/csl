@@ -1,15 +1,19 @@
-import * as dotenv from 'dotenv';
-import { join } from 'path';
-
-const env: { [key: string]: any } = dotenv.config({
-  path: join(__dirname, 'environments', '.prod.env'),
-}).parsed;
-
-env.COOKIE_KEYS = env.COOKIE_KEYS.split(';');
+import credentials from './prod.credentials.json';
 
 export const environment = {
   production: true,
   client: 'https://cslussana.com',
 
-  ...env,
+  PORT: 3000,
+  DB_URI: credentials.DB_URI,
+
+  ENVIRONMENT: 'prod',
+
+  GOOGLE_CLIENT_ID: credentials.google.CLIENT_ID ?? process.env.GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET: credentials.google.CLIENT_SECRET ?? process.env.GOOGLE_CLIENT_SECRET,
+
+  COOKIE_KEYS: credentials.COOKIE_KEYS ?? process.env.COOKIE_KEYS.split(';'),
+
+  WEBHOOK_SECRET: credentials.stripe.WEBHOOK_SECRET ?? process.env.WEBHOOK_SECRET,
+  STRIPE_KEY: credentials.stripe.STRIPE_KEY ?? process.env.STRIPE_KEY,
 };

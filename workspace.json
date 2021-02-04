@@ -314,14 +314,11 @@
         "build": {
           "builder": "@nrwl/node:build",
           "options": {
-            "generatePackageJson": true,
             "outputPath": "dist/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
             "assets": [
               "apps/api/src/static",
-              "apps/api/src/environments/.dev.env",
-              "apps/api/src/environments/.prod.env",
               "apps/api/src/Dockerfile"
             ]
           },
