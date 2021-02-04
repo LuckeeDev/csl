@@ -1,20 +1,38 @@
-name: Deploy to dokku
+name: Deploy App
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - v*
 
 jobs:
-  deploy:
-    name: Deploy
+  dokku-deploy:
+    name: Deploy to Dokku
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - id: deploy
-        name: Deploy to dokku
-        uses: idoberko2/dokku-deploy-github-action@v1
+      - uses: idoberko2/dokku-deploy-github-action@v1
         with:
           ssh-private-key: ${{ secrets.DOKKU_SSH_KEY }}
           dokku-host: 'cslussana-test.tk'
           app-name: 'api'
+  vercel-deploy:
+    name: Deploy client to Vercel
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+  vercel-glp-deploy:
+    name: Deploy GLP to Vercel
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_GLP_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_GLP_PROJECT_ID }}
