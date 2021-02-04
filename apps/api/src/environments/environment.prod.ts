@@ -2,7 +2,7 @@ export const environment = {
   production: true,
   client: 'https://cslussana.com',
 
-  PORT: 3000,
+  PORT: process.env.PORT,
   DB_URI: process.env.DB_URI,
 
   ENVIRONMENT: 'prod',
