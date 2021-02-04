@@ -1,7 +1,7 @@
 import admin from 'firebase-admin';
 import { environment as env } from '@environments/environment';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const serviceAccount = env.production ? env.FIREBASE_SERVICE_ACCOUNT : require('./firebase.credentials.json');
+const serviceAccount = env.FIREBASE_SERVICE_ACCOUNT;
 
 // Initialize Firebase
 admin.initializeApp({

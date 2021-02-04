@@ -16,4 +16,6 @@ export const environment: { [x: string]: any } = {
 
   WEBHOOK_SECRET: credentials.stripe.WEBHOOK_SECRET,
   STRIPE_KEY: credentials.stripe.STRIPE_KEY,
+
+  FIREBASE_SERVICE_ACCOUNT: require('./firebase.credentials.json'),
 };
