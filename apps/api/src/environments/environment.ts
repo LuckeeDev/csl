@@ -1,5 +1,3 @@
-import credentials from './dev.credentials.json';
-
 export const environment: { [x: string]: any } = {
   production: false,
   client: 'http://localhost:4200',
@@ -9,13 +7,13 @@ export const environment: { [x: string]: any } = {
 
   ENVIRONMENT: 'dev',
 
-  GOOGLE_CLIENT_ID: credentials.google.CLIENT_ID,
-  GOOGLE_CLIENT_SECRET: credentials.google.CLIENT_SECRET,
+  GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
 
-  COOKIE_KEYS: credentials.COOKIE_KEYS,
+  COOKIE_KEYS: process.env.COOKIE_KEYS.split(';'),
 
-  WEBHOOK_SECRET: credentials.stripe.WEBHOOK_SECRET,
-  STRIPE_KEY: credentials.stripe.STRIPE_KEY,
+  WEBHOOK_SECRET: process.env.WEBHOOK_SECRET,
+  STRIPE_KEY: process.env.STRIPE_KEY,
 
-  FIREBASE_SERVICE_ACCOUNT: require('./firebase.credentials.json'),
+  FIREBASE_SERVICE_ACCOUNT: process.env.FIREBASE_SERVICE_ACCOUNT,
 };
