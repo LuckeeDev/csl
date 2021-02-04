@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.6.3](https://github.com/LuckeeDev/csl/compare/v1.6.2...v1.6.3) (2021-02-04)
+
+
+### Bug Fixes
+
+* **vercel:** :wrench: changed path regexp ([19bd9c1](https://github.com/LuckeeDev/csl/commit/19bd9c1fc0ce771b016948d74c9c02d442f45fed))
+
+
+
 ## [1.6.2](https://github.com/LuckeeDev/csl/compare/v1.6.1...v1.6.2) (2021-02-04)
 
 
