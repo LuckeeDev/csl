@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.6.4](https://github.com/LuckeeDev/csl/compare/v1.6.3...v1.6.4) (2021-02-04)
+
+
+### Bug Fixes
+
+* **vercel:** :wrench: trying another rewrite path ([0878b17](https://github.com/LuckeeDev/csl/commit/0878b17e4fd351f8a4fda93f218d9b65f8158947))
+
+
+
 ## [1.6.3](https://github.com/LuckeeDev/csl/compare/v1.6.2...v1.6.3) (2021-02-04)
 
 
