@@ -20,3 +20,5 @@ export const environment: { [x: string]: any } = {
   FIREBASE_PRIVATE_KEY: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
   FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID,
 };
+
+console.log(environment.FIREBASE_PRIVATE_KEY);
