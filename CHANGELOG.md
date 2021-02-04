@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.6.6](https://github.com/LuckeeDev/csl/compare/v1.6.5...v1.6.6) (2021-02-04)
+
+
+### Bug Fixes
+
+* **vercel:** :wrench: added custom build configuration ([760fcf1](https://github.com/LuckeeDev/csl/commit/760fcf1fe22d98be5d20fe20178e65ad903c02b1))
+
+
+
 ## [1.6.5](https://github.com/LuckeeDev/csl/compare/v1.6.4...v1.6.5) (2021-02-04)
 
 
