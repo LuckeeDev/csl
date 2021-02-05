@@ -35,11 +35,12 @@ export class AppComponent implements OnInit {
     private auth: AuthService,
     public sw: SwService,
     private toastr: ToastrService,
-    private page: PageService,
+    private page: PageService
   ) {}
 
   ngOnInit(): void {
     this.auth.getUser();
+
     this.page.setupTitleChange();
   }
 }
