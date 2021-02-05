@@ -6,8 +6,8 @@ on:
       - v*
 
 jobs:
-  app-deploy:
-    name: Deploy to Digital Ocean
+  api-deploy:
+    name: Deploy API to Digital Ocean
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
@@ -19,8 +19,8 @@ jobs:
       - run: yarn nx build api --prod
       - run: pm2 restart api
 
-  checkChangesInClient:
-    name: Check for changes in client app
+  client-deploy:
+    name: Deploy app to Netlify
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -28,12 +28,7 @@ jobs:
       uses: netlify/actions/diff-includes@master
       with:
         args: apps/client
-
-  build:
-    runs-on: ubuntu-latest
-    steps:
     - name: Build and deploy client
-      needs: checkChangesInClient
       uses: netlify/actions/build@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
