@@ -1,4 +1,4 @@
-name: Deploy App
+name: Deploy
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   api-deploy:
-    name: Deploy API to Digital Ocean
+    name: API
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
@@ -15,17 +15,27 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - run: yarn install
-      - run: yarn nx build api --prod
-      - run: pm2 restart api
+      - name: Install dependencies
+        run: yarn install
+      - name: Build
+        run: yarn nx build api --prod
+      - name: Restart service
+        run: pm2 restart api
 
   client-deploy:
-    name: Deploy app to Netlify
+    name: Client
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Build and deploy client
+    - name: Build
       uses: netlify/actions/build@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+    - name: Deploy
+      uses: netlify/actions/cli@master
+      with:
+        args: deploy --prod
+      env:
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
