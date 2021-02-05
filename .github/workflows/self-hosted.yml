@@ -2,8 +2,8 @@ name: Deploy App
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - v*
 
 jobs:
   app-deploy:
@@ -17,3 +17,25 @@ jobs:
           node-version: 12.x
       - run: yarn install
       - run: yarn nx build api --prod
+      - run: pm2 restart api
+
+  checkChangesInClient:
+    name: Check for changes in client app
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Check changes in client
+      uses: netlify/actions/diff-includes@master
+      with:
+        args: apps/client
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Build and deploy client
+      needs: checkChangesInClient
+      uses: netlify/actions/build@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        BUILD_DIR: apps/client
