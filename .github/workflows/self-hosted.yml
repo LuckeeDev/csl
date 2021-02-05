@@ -17,4 +17,3 @@ jobs:
           node-version: 12.x
       - run: yarn install
       - run: yarn nx build api --prod
-      - run: pm2 restart api
