@@ -4,8 +4,7 @@
   "license": "MIT",
   "scripts": {
     "nx": "nx",
-    "fire": "firebase emulators:start",
-    "build": "nx build api --prod"
+    "fire": "firebase emulators:start"
   },
   "private": true,
   "dependencies": {
