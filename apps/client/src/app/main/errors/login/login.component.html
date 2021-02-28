@@ -1,22 +1,21 @@
 <div class="container">
-  <div color="primary" class="login-card">
-    <div>
-      <h1>Questa pagina è protetta!</h1>
-      <p>
-        Esegui il login: in caso di successo, sarai re-indirizzato al contenuto a cui avevi
-        tentato di accedere
-      </p>
-    </div>
+	<h1 class="header">Questa pagina è protetta!</h1>
+	<p class="paragraph">
+		Esegui il login: in caso di successo, sarai re-indirizzato al contenuto
+		a cui avevi tentato di accedere
+	</p>
 
-    <div>
-      <img src="../../../../assets/svg/authenticate.svg" class="authenticate-img">
+	<div class="image-container">
+		<img
+			src="../../../../assets/svg/authenticate.svg"
+			class="authenticate-img"
+		/>
+	</div>
 
-      <button mat-raised-button class="login-btn" (click)="signIn()">
-        Accedi con Google<img
-          src="../../../assets/img/signInLogo.png"
-          class="google"
-        />
-      </button>
-    </div>
-  </div>
+	<button mat-raised-button class="login-btn" (click)="signIn()">
+		Accedi con Google<img
+			src="../../../assets/img/signInLogo.png"
+			class="google"
+		/>
+	</button>
 </div>

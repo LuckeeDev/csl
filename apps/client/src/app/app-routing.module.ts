@@ -29,6 +29,10 @@ import { QpAdminGuard } from '@global/guards/qp-admin/qp-admin.guard';
 import { AdminGuard } from '@global/guards/admin/admin.guard';
 import { NotLoggedInGuard } from '@global/guards/not-logged-in/not-logged-in.guard';
 import { ReferenteGuard } from '@global/guards/referente/referente.guard';
+import { StoreComponent } from './main/store-components/store/store.component';
+import { StoreHomeComponent } from './main/store-components/store-home/store-home.component';
+import { CatalogComponent } from './main/store-components/catalog/catalog.component';
+import { ProductComponent } from './main/store-components/product/product.component';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent },
@@ -87,22 +91,22 @@ const routes: Routes = [
 			{ path: ':articleID', component: ArticleComponent },
 		],
 	},
-	// {
-	//   path: 'store',
-	//   canActivate: [LoggedInGuard],
-	//   component: StoreComponent,
-	//   children: [
-	//     { path: '', component: StoreHomeComponent },
-	//     {
-	//       path: ':category',
-	//       component: CatalogComponent,
-	//     },
-	//     {
-	//       path: ':category/:productID',
-	//       component: ProductComponent,
-	//     },
-	//   ],
-	// },
+	{
+		path: 'store',
+		canActivate: [LoggedInGuard],
+		component: StoreComponent,
+		children: [
+			{ path: '', component: StoreHomeComponent },
+			{
+				path: ':category',
+				component: CatalogComponent,
+			},
+			{
+				path: ':category/:productID',
+				component: ProductComponent,
+			},
+		],
+	},
 	// {
 	//   path: 'bar',
 	//   canActivate: [LoggedInGuard],
@@ -117,7 +121,9 @@ const routes: Routes = [
 		data: { title: 'Dashboard' },
 		canLoad: [LoggedInGuard],
 		loadChildren: () =>
-			import('@dashboard/dashboard.module').then((m) => m.DashboardModule),
+			import('@dashboard/dashboard.module').then(
+				(m) => m.DashboardModule
+			),
 	},
 	{
 		path: 'qp-admin',
@@ -131,7 +137,9 @@ const routes: Routes = [
 		data: { title: 'Referente' },
 		canLoad: [ReferenteGuard],
 		loadChildren: () =>
-			import('@referente/referente.module').then((m) => m.ReferenteModule),
+			import('@referente/referente.module').then(
+				(m) => m.ReferenteModule
+			),
 	},
 	// {
 	//   path: 'bar-admin',
@@ -150,7 +158,8 @@ const routes: Routes = [
 		path: 'vice',
 		data: { title: 'Vice' },
 		canLoad: [ViceGuard],
-		loadChildren: () => import('@vice/vice.module').then((m) => m.ViceModule),
+		loadChildren: () =>
+			import('@vice/vice.module').then((m) => m.ViceModule),
 	},
 	{
 		path: 'admin',
@@ -180,7 +189,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-	imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+	imports: [
+		RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
+	],
 	exports: [RouterModule],
 })
 export class AppRoutingModule {}
