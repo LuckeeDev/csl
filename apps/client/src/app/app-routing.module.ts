@@ -2,6 +2,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+// Views
+import { CogeViewComponent } from '@/views/coge/coge-view.component';
+
 // Components
 import { AslComponent } from '@main/pages/asl/asl.component';
 import { ComitatoComponent } from '@main/comitato-components/comitato/comitato.component';
@@ -39,156 +42,160 @@ import { NotLoggedInGuard } from '@global/guards/not-logged-in/not-logged-in.gua
 import { ReferenteGuard } from '@global/guards/referente/referente.guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'login-failed', component: HomeComponent },
-  {
-    path: 'asl',
-    canActivate: [LoggedInGuard],
-    component: AslComponent,
-    data: { title: 'ASL' },
-  },
-  {
-    path: 'comitato',
-    data: { title: 'Comitato' },
-    component: ComitatoComponent,
-    canActivate: [LoggedInGuard],
-    children: [
-      { path: '', component: ComitatoHomeComponent },
-      { path: 'commissione/:id', component: CommissioneComponent },
-    ],
-  },
-  {
-    path: 'consulta',
-    data: { title: 'Consulta' },
-    canActivate: [LoggedInGuard],
-    component: ConsultaComponent,
-  },
-  {
-    path: 'portarti',
-    data: { title: 'PortArti' },
-    canActivate: [LoggedInGuard],
-    component: PortartiComponent,
-  },
-  { path: 'faq', data: { title: 'FAQ' }, component: FaqComponent },
-  {
-    path: 'info',
-    component: InfoComponent,
-    data: { file: 'student-guide.md', title: 'Info' },
-  },
-  {
-    path: 'info/contacts',
-    component: ContactFormComponent,
-    data: { title: 'Contattaci' },
-  },
-  {
-    path: 'privacy',
-    component: MdComponent,
-    data: { file: 'privacy.md', privacy: true, title: 'Privacy' },
-  },
-  {
-    path: 'qp',
-    data: { title: 'QP' },
-    canActivate: [LoggedInGuard],
-    component: QpComponent,
-    children: [
-      { path: '', component: QpHomeComponent },
-      { path: ':articleID', component: ArticleComponent },
-    ],
-  },
-  // {
-  //   path: 'store',
-  //   canActivate: [LoggedInGuard],
-  //   component: StoreComponent,
-  //   children: [
-  //     { path: '', component: StoreHomeComponent },
-  //     {
-  //       path: ':category',
-  //       component: CatalogComponent,
-  //     },
-  //     {
-  //       path: ':category/:productID',
-  //       component: ProductComponent,
-  //     },
-  //   ],
-  // },
-  // {
-  //   path: 'bar',
-  //   canActivate: [LoggedInGuard],
-  //   component: BarComponent,
-  //   children: [
-  //     { path: '', component: SnacksComponent },
-  //     { path: 'cart', component: SnackCartComponent },
-  //   ],
-  // },
-  {
-    path: 'dashboard',
-    data: { title: 'Dashboard' },
-    canLoad: [LoggedInGuard],
-    loadChildren: () =>
-      import('@dashboard/dashboard.module').then((m) => m.DashboardModule),
-  },
-  {
-    path: 'qp-admin',
-    data: { title: 'QP Admin' },
-    canLoad: [QpAdminGuard],
-    loadChildren: () =>
-      import('@qp-admin/qp-admin.module').then((m) => m.QpAdminModule),
-  },
-  {
-    path: 'referente',
-    data: { title: 'Referente' },
-    canLoad: [ReferenteGuard],
-    loadChildren: () =>
-      import('@referente/referente.module').then((m) => m.ReferenteModule),
-  },
-  // {
-  //   path: 'bar-admin',
-  //   canLoad: [BarAdminGuard],
-  //   loadChildren: () =>
-  //     import('@bar-admin/bar-admin.module').then((m) => m.BarAdminModule),
-  // },
-  {
-    path: 'rappre',
-    data: { title: 'Rappre' },
-    canLoad: [RappreGuard],
-    loadChildren: () =>
-      import('@rappre/rappre.module').then((m) => m.RappreModule),
-  },
-  {
-    path: 'vice',
-    data: { title: 'Vice' },
-    canLoad: [ViceGuard],
-    loadChildren: () => import('@vice/vice.module').then((m) => m.ViceModule),
-  },
-  {
-    path: 'admin',
-    data: { title: 'Admin' },
-    canLoad: [AdminGuard],
-    loadChildren: () =>
-      import('@admin/admin.module').then((m) => m.AdminModule),
-  },
-  {
-    path: 'login',
-    data: { title: 'Login' },
-    canActivate: [NotLoggedInGuard],
-    component: LoginComponent,
-  },
-  {
-    path: 'login/:next',
-    data: { title: 'Login' },
-    canActivate: [NotLoggedInGuard],
-    component: LoginComponent,
-  },
-  {
-    path: 'unauthorized',
-    data: { title: 'Errore' },
-    component: AccessForbiddenComponent,
-  },
-  { path: '**', data: { title: '404' }, component: PageNotFoundComponent },
+	{ path: '', component: HomeComponent },
+	{ path: 'login-failed', component: HomeComponent },
+	{
+		path: 'asl',
+		canActivate: [LoggedInGuard],
+		component: AslComponent,
+		data: { title: 'ASL' },
+	},
+	{
+		path: 'comitato',
+		data: { title: 'Comitato' },
+		component: ComitatoComponent,
+		canActivate: [LoggedInGuard],
+		children: [
+			{ path: '', component: ComitatoHomeComponent },
+			{ path: 'commissione/:id', component: CommissioneComponent },
+		],
+	},
+	{
+		path: 'consulta',
+		data: { title: 'Consulta' },
+		canActivate: [LoggedInGuard],
+		component: ConsultaComponent,
+	},
+	{
+		path: 'portarti',
+		data: { title: 'PortArti' },
+		canActivate: [LoggedInGuard],
+		component: PortartiComponent,
+	},
+	{ path: 'faq', data: { title: 'FAQ' }, component: FaqComponent },
+	{
+		path: 'info',
+		component: InfoComponent,
+		data: { file: 'student-guide.md', title: 'Info' },
+	},
+	{
+		path: 'info/contacts',
+		component: ContactFormComponent,
+		data: { title: 'Contattaci' },
+	},
+	{
+		path: 'privacy',
+		component: MdComponent,
+		data: { file: 'privacy.md', privacy: true, title: 'Privacy' },
+	},
+	{
+		path: 'qp',
+		data: { title: 'QP' },
+		canActivate: [LoggedInGuard],
+		component: QpComponent,
+		children: [
+			{ path: '', component: QpHomeComponent },
+			{ path: ':articleID', component: ArticleComponent },
+		],
+	},
+	{
+		path: 'coge',
+		component: CogeViewComponent,
+	},
+	// {
+	//   path: 'store',
+	//   canActivate: [LoggedInGuard],
+	//   component: StoreComponent,
+	//   children: [
+	//     { path: '', component: StoreHomeComponent },
+	//     {
+	//       path: ':category',
+	//       component: CatalogComponent,
+	//     },
+	//     {
+	//       path: ':category/:productID',
+	//       component: ProductComponent,
+	//     },
+	//   ],
+	// },
+	// {
+	//   path: 'bar',
+	//   canActivate: [LoggedInGuard],
+	//   component: BarComponent,
+	//   children: [
+	//     { path: '', component: SnacksComponent },
+	//     { path: 'cart', component: SnackCartComponent },
+	//   ],
+	// },
+	{
+		path: 'dashboard',
+		data: { title: 'Dashboard' },
+		canLoad: [LoggedInGuard],
+		loadChildren: () =>
+			import('@dashboard/dashboard.module').then((m) => m.DashboardModule),
+	},
+	{
+		path: 'qp-admin',
+		data: { title: 'QP Admin' },
+		canLoad: [QpAdminGuard],
+		loadChildren: () =>
+			import('@qp-admin/qp-admin.module').then((m) => m.QpAdminModule),
+	},
+	{
+		path: 'referente',
+		data: { title: 'Referente' },
+		canLoad: [ReferenteGuard],
+		loadChildren: () =>
+			import('@referente/referente.module').then((m) => m.ReferenteModule),
+	},
+	// {
+	//   path: 'bar-admin',
+	//   canLoad: [BarAdminGuard],
+	//   loadChildren: () =>
+	//     import('@bar-admin/bar-admin.module').then((m) => m.BarAdminModule),
+	// },
+	{
+		path: 'rappre',
+		data: { title: 'Rappre' },
+		canLoad: [RappreGuard],
+		loadChildren: () =>
+			import('@rappre/rappre.module').then((m) => m.RappreModule),
+	},
+	{
+		path: 'vice',
+		data: { title: 'Vice' },
+		canLoad: [ViceGuard],
+		loadChildren: () => import('@vice/vice.module').then((m) => m.ViceModule),
+	},
+	{
+		path: 'admin',
+		data: { title: 'Admin' },
+		canLoad: [AdminGuard],
+		loadChildren: () =>
+			import('@admin/admin.module').then((m) => m.AdminModule),
+	},
+	{
+		path: 'login',
+		data: { title: 'Login' },
+		canActivate: [NotLoggedInGuard],
+		component: LoginComponent,
+	},
+	{
+		path: 'login/:next',
+		data: { title: 'Login' },
+		canActivate: [NotLoggedInGuard],
+		component: LoginComponent,
+	},
+	{
+		path: 'unauthorized',
+		data: { title: 'Errore' },
+		component: AccessForbiddenComponent,
+	},
+	{ path: '**', data: { title: '404' }, component: PageNotFoundComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
-  exports: [RouterModule],
+	imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+	exports: [RouterModule],
 })
 export class AppRoutingModule {}

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { AuthService } from '@global/services/auth/auth.service';
 
@@ -10,7 +10,7 @@ import { IDashboardLink } from '@csl/shared';
   templateUrl: './container.component.html',
   styleUrls: ['./container.component.scss'],
 })
-export class ContainerComponent implements OnInit {
+export class ContainerComponent {
   @Input()
   v: string;
 
@@ -28,11 +28,10 @@ export class ContainerComponent implements OnInit {
     { title: 'Consulta', link: 'consulta' },
     { title: 'PortArti', link: 'portarti' },
     { title: 'QP', link: 'qp' },
+    { title: 'Coge', link: 'coge' },
     // { title: 'Store', link: 'store' },
     { title: 'Informazioni', link: 'info' },
   ];
 
   constructor(public auth: AuthService) {}
-
-  ngOnInit(): void {}
 }

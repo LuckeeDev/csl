@@ -14,8 +14,14 @@ import ITLocaleData from '@angular/common/locales/it';
 // Firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
-import { AngularFireAnalyticsModule, ScreenTrackingService } from '@angular/fire/analytics';
-import { AngularFireAuthModule, USE_EMULATOR as USE_AUTH_EMULATOR } from '@angular/fire/auth';
+import {
+	AngularFireAnalyticsModule,
+	ScreenTrackingService,
+} from '@angular/fire/analytics';
+import {
+	AngularFireAuthModule,
+	USE_EMULATOR as USE_AUTH_EMULATOR,
+} from '@angular/fire/auth';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 
 // UI Elements
@@ -60,6 +66,7 @@ import { CommissioneComponent } from '@main/comitato-components/commissione/comm
 import { ComitatoHomeComponent } from '@main/comitato-components/comitato-home/comitato-home.component';
 import { ContactFormComponent } from '@main/contacts-components/contact-form/contact-form.component';
 import { LoginComponent } from '@main/errors/login/login.component';
+import { CogeViewComponent } from '@/views/coge/coge-view.component';
 
 // Interceptors
 import { ResCodeInterceptor } from '@global/http/res-code.interceptor';
@@ -68,78 +75,81 @@ import { ApiInterceptor } from '@global/http/api.interceptor';
 registerLocaleData(ITLocaleData);
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ContainerComponent,
-    AslComponent,
-    ComitatoComponent,
-    ConsultaComponent,
-    HomeComponent,
-    PortartiComponent,
-    QpComponent,
-    PageNotFoundComponent,
-    ArticleComponent,
-    StoreComponent,
-    ProductComponent,
-    AccessForbiddenComponent,
-    CatalogComponent,
-    LoginComponent,
-    SnacksComponent,
-    BarComponent,
-    SnackCartComponent,
-    StoreHomeComponent,
-    QpHomeComponent,
-    FaqComponent,
-    InfoComponent,
-    CommissioneComponent,
-    ComitatoHomeComponent,
-    ContactFormComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig, 'CSLussana'),
-    AngularFireStorageModule,
-    AngularFireAnalyticsModule,
-    AngularFireAuthModule,
-    AngularFireMessagingModule,
-    UiModule,
-    PipesModule,
-    SharedModule,
-    HttpClientModule,
-    NgxsModule.forRoot([], { developmentMode: !environment.production }),
-    FontAwesomeModule,
-    LoadingBarModule,
-    LoadingBarRouterModule,
-    LoadingBarHttpClientModule,
-    MarkdownModule.forRoot(),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-  ],
-  entryComponents: [],
-  providers: [
-    ScreenTrackingService,
-    {
-      provide: USE_AUTH_EMULATOR,
-      useValue: environment.useEmulators ? ['localhost', 9099] : undefined
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ResCodeInterceptor,
-      multi: true,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ApiInterceptor,
-      multi: true,
-    },
-    {
-      provide: LOCALE_ID,
-      useValue: 'it',
-    }
-  ],
-  bootstrap: [AppComponent],
+	declarations: [
+		AppComponent,
+		ContainerComponent,
+		AslComponent,
+		ComitatoComponent,
+		ConsultaComponent,
+		HomeComponent,
+		PortartiComponent,
+		QpComponent,
+		PageNotFoundComponent,
+		ArticleComponent,
+		StoreComponent,
+		ProductComponent,
+		AccessForbiddenComponent,
+		CatalogComponent,
+		LoginComponent,
+		SnacksComponent,
+		BarComponent,
+		SnackCartComponent,
+		StoreHomeComponent,
+		QpHomeComponent,
+		FaqComponent,
+		InfoComponent,
+		CommissioneComponent,
+		ComitatoHomeComponent,
+		ContactFormComponent,
+		CogeViewComponent,
+	],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		BrowserAnimationsModule,
+		FormsModule,
+		ReactiveFormsModule,
+		AngularFireModule.initializeApp(environment.firebaseConfig, 'CSLussana'),
+		AngularFireStorageModule,
+		AngularFireAnalyticsModule,
+		AngularFireAuthModule,
+		AngularFireMessagingModule,
+		UiModule,
+		PipesModule,
+		SharedModule,
+		HttpClientModule,
+		NgxsModule.forRoot([], { developmentMode: !environment.production }),
+		FontAwesomeModule,
+		LoadingBarModule,
+		LoadingBarRouterModule,
+		LoadingBarHttpClientModule,
+		MarkdownModule.forRoot(),
+		ServiceWorkerModule.register('ngsw-worker.js', {
+			enabled: environment.production,
+		}),
+	],
+	entryComponents: [],
+	providers: [
+		ScreenTrackingService,
+		{
+			provide: USE_AUTH_EMULATOR,
+			useValue: environment.useEmulators ? ['localhost', 9099] : undefined,
+		},
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: ResCodeInterceptor,
+			multi: true,
+		},
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: ApiInterceptor,
+			multi: true,
+		},
+		{
+			provide: LOCALE_ID,
+			useValue: 'it',
+		},
+	],
+	bootstrap: [AppComponent],
 })
 export class AppModule {}
