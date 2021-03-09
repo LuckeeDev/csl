@@ -10,9 +10,9 @@ export type CSLDataTableSource<T = any> = {
   actions?: CSLDataTableAction[];
 }[];
 
-export type CSLDataTableDisplayedColumns = {
+export type CSLDataTableDisplayedColumns<T = string> = {
   label: string;
-  id: string;
+  id: T | 'manage';
   type: 'data' | 'actions';
 }[]
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IDashboardLink } from '@csl/shared';
 
 @Component({
@@ -6,16 +6,12 @@ import { IDashboardLink } from '@csl/shared';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
   links: IDashboardLink[] = [
     { link: '.', title: 'Home' },
     { link: 'orientamento', title: 'Orientamento' },
-    // { link: 'coge', title: 'Cogestione' },
+    { link: 'coge', title: 'Cogestione' },
     // { link: 'orders', title: 'Ordini' },
     // { link: 'checkout', title: 'Pagamenti' },
   ];
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

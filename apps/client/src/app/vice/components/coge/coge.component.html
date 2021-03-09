@@ -1,3 +1,7 @@
-<csl-alert color="accent">
-  Questa sezione non è ancora pronta! Torni più tardi...
-</csl-alert>
+<div>
+	<csl-data-table
+		[data]="dataSource$ | async"
+		(actionClick)="log($event)"
+		[columns]="displayedColumns"
+	></csl-data-table>
+</div>

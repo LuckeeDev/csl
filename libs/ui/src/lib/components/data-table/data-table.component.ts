@@ -26,8 +26,6 @@ export class DataTableComponent implements OnInit {
   @Output()
   actionClick = new EventEmitter<CSLDataTableEvent<any>>();
 
-  constructor() { }
-
   ngOnInit(): void {
     this.displayedColumns = this.columns.map((column) => column.id);
   }

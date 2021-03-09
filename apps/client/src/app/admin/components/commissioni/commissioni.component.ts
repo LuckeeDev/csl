@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
-  FormGroupDirective,
   Validators,
 } from '@angular/forms';
 import { DialogService, ToastrService } from '@csl/ui';
@@ -37,7 +36,7 @@ export class CommissioniComponent implements OnInit {
       .subscribe((commissioni) => (this.commissioni = commissioni));
   }
 
-  createCommissione(formElement: FormGroupDirective) {
+  createCommissione(formElement: HTMLFormElement) {
     this.dialog
       .open({
         title: 'Confermi la creazione della Commissione?',
