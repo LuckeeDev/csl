@@ -10,15 +10,14 @@ export const createCourse = async (
 	const id = v4();
 	const owner = user.id;
 
-	const { title, description, notes, duration, slots, speakers } = courseData;
+	const { title, description, category, slot, speakers } = courseData;
 
 	return new Course({
 		id,
 		title,
 		description,
-		notes,
-		duration,
-		slots,
+		category,
+		slot,
 		owner,
 		speakers,
 	})

@@ -3,7 +3,7 @@ export const environment: { [x: string]: any } = {
   client: 'http://localhost:4200',
 
   PORT: process.env.PORT,
-  DB_URI: 'mongodb://localhost:27017/csl',
+  DB_URI: process.env.DB_URI,
 
   ENVIRONMENT: 'dev',
 

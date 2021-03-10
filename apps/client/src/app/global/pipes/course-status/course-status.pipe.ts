@@ -1,13 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ICourse } from '@csl/shared';
 
 @Pipe({
   name: 'courseStatus',
 })
 export class CourseStatusPipe implements PipeTransform {
   transform(
-    value: ICourse['status'],
-    ...args: unknown[]
+    value: string
   ): { label: string; icon: string; color: 'accent' | 'warn' | 'primary' } {
     switch (value) {
       case 'WAITING':

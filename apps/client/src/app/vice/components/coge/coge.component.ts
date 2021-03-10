@@ -26,9 +26,7 @@ export class CogeComponent implements OnInit {
 		{ type: 'data', id: 'title', label: 'Titolo' },
 		{ type: 'data', id: 'description', label: 'Descrizione' },
 		{ type: 'data', id: 'speakers', label: 'Descrizione' },
-		{ type: 'data', id: 'duration', label: 'Descrizione' },
 		{ type: 'data', id: 'id', label: 'Descrizione' },
-		{ type: 'data', id: 'notes', label: 'Descrizione' },
 		{ type: 'actions', id: 'manage', label: 'Gestisci' },
 	];
 
