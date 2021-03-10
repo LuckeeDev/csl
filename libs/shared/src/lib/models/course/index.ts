@@ -6,12 +6,16 @@ export interface ICourse {
 	title: string;
 	description: string;
 	category: string;
-	slot: string;
+	slot: 'a' | 'b' | 'c' | 'd' | 'e' | 'f';
 	owner: IUser['id'];
 	speakers: {
 		name: IUser['name'];
 		classID: IUser['classID'];
 	}[];
+	signups: IUser['email'][];
+	option1: number;
+	option2: number;
+	option3: number;
 }
 
 export interface ICourseModel extends Document, ICourse {

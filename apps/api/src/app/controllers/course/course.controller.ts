@@ -1,6 +1,6 @@
 import { ICourse, IHttpRes, IUser } from '@csl/shared';
 import { v4 } from 'uuid';
-import { Course } from '@models';
+import { Course, User } from '@models';
 import { saveError } from '@common/logs';
 
 export const createCourse = async (
@@ -20,6 +20,7 @@ export const createCourse = async (
 		slot,
 		owner,
 		speakers,
+		signups: [],
 	})
 		.save()
 		.then(() => {
@@ -35,20 +36,20 @@ export const createCourse = async (
 		});
 };
 
-export const getCourses = (user: IUser): Promise<IHttpRes<ICourse[]>> => {
-	return Course.find({ owner: user.id })
-		.then((courses) => {
-			return {
-				success: true,
-				data: courses,
-			};
-		})
-		.catch((err) => {
-			return {
-				success: false,
-				err,
-			};
-		});
+export const getCourses = async (user: IUser): Promise<IHttpRes<ICourse[]>> => {
+	try {
+		const courses = await Course.find({ owner: user.id });
+
+		return {
+			success: true,
+			data: courses,
+		};
+	} catch (err) {
+		return {
+			success: false,
+			err,
+		};
+	}
 };
 
 export const getAllCourses = async (): Promise<IHttpRes<ICourse[]>> => {
@@ -62,6 +63,44 @@ export const getAllCourses = async (): Promise<IHttpRes<ICourse[]>> => {
 	} catch (err) {
 		saveError('Error while retrieving all the courses', {
 			err,
+			category: 'coge',
+		});
+
+		return {
+			success: false,
+			err,
+		};
+	}
+};
+
+export const signUpToCourse = async (
+	user: IUser,
+	{ courses, slot }: { courses: ICourse['id'][]; slot: ICourse['slot'] }
+): Promise<IHttpRes<void>> => {
+	try {
+		const coursesPromises = courses.map((course, i) => {
+			const fieldToIncrement = `option${i + 1}`;
+
+			return Course.findOneAndUpdate(
+				{ id: course },
+				{ $inc: { [fieldToIncrement]: 1 } }
+			);
+		});
+
+		await Promise.all(coursesPromises);
+
+		const courseUpdateIndex = `courses.${slot}`;
+
+		await User.findOneAndUpdate(
+			{ id: user.id },
+			{ [courseUpdateIndex]: courses }
+		);
+
+		return {
+			success: true,
+		};
+	} catch (err) {
+		saveError('Error while signing up to coge courses', {
 			category: 'coge',
 		});
 
