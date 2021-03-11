@@ -33,15 +33,11 @@
 
 	<mat-label class="checkboxes-label">Fasce preferite</mat-label>
 
-	<ng-container *ngFor="let slot of availableSlots">
-		<mat-checkbox
-			(change)="checkboxChange($event, slot)"
-			color="primary"
-			class="checkbox"
-		>
+	<mat-radio-group formControlName="slot">
+		<mat-radio-button *ngFor="let slot of availableSlots" [value]="slot">
 			{{ slot }}
-		</mat-checkbox>
-	</ng-container>
+		</mat-radio-button>
+	</mat-radio-group>
 
 	<div class="break"></div>
 

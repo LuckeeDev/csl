@@ -16,7 +16,7 @@ export class CreateCourseComponent {
 		description: ['', Validators.required],
 		notes: [''],
 		duration: ['', Validators.required],
-		slots: [[], Validators.required],
+		slot: ['', Validators.required],
 		speakers: this._fb.array([]),
 	});
 
