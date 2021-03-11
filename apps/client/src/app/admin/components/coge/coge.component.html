@@ -1,51 +1,7 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Corsi di cui sei proprietario</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <table mat-table [dataSource]="courses$ | async">
-      <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef>Titolo</th>
-        <td mat-cell *matCellDef="let course">{{ course.title }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef>Descrizione</th>
-        <td mat-cell *matCellDef="let course">{{ course.description }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="duration">
-        <th mat-header-cell *matHeaderCellDef>Durata</th>
-        <td mat-cell *matCellDef="let course">{{ course.duration }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="slots">
-        <th mat-header-cell *matHeaderCellDef>Fasce richieste</th>
-        <td mat-cell *matCellDef="let course">{{ course.slots.join(', ') }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="speakers">
-        <th mat-header-cell *matHeaderCellDef>Relatori</th>
-        <td mat-cell *matCellDef="let course">
-          {{ course.speakers.join(', ') }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef>Stato</th>
-        <td mat-cell *matCellDef="let course">
-          {{ course.status }}
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
-
-    <mat-card-actions class="actions">
-      <a mat-raised-button color="primary" [routerLink]="['create']">
-        Nuovo corso
-      </a>
-    </mat-card-actions>
-  </mat-card-content>
-</mat-card>
+<csl-data-table
+	[data]="dataSource$ | async"
+	[columns]="displayedColumns"
+	(actionClick)="eventHandler($event)"
+>
+	<h1 header>Corsi di cui sei proprietario</h1>
+</csl-data-table>

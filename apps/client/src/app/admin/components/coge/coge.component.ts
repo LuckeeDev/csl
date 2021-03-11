@@ -1,21 +1,57 @@
 import { Component, OnInit } from '@angular/core';
 import { CogeService } from '@global/services/coge/coge.service';
-import { ICourse } from '@csl/shared';
-import { map } from 'rxjs/operators';
+import {
+	CSLDataTableAction,
+	CSLDataTableDisplayedColumns,
+	CSLDataTableSource,
+	ICourse,
+} from '@csl/shared';
+import { filter, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'csl-coge',
-  templateUrl: './coge.component.html',
-  styleUrls: ['./coge.component.scss'],
+	selector: 'csl-coge',
+	templateUrl: './coge.component.html',
+	styleUrls: ['./coge.component.scss'],
 })
 export class CogeComponent implements OnInit {
-  courses$: Observable<ICourse[]>;
-  displayedColumns = ['title', 'description', 'duration', 'slots', 'speakers', 'status'];
+	dataSource$: Observable<CSLDataTableSource<ICourse>>;
 
-  constructor(private coge: CogeService) {}
+	courses$: Observable<ICourse[]>;
 
-  ngOnInit(): void {
-    this.courses$ = this.coge.getCourses().pipe(map(res => res.data));
-  }
+	actions: CSLDataTableAction[] = [
+		{
+			id: 'DELETE',
+			label: 'Elimina Evento',
+			type: 'warn',
+		},
+	];
+
+	displayedColumns: CSLDataTableDisplayedColumns<keyof ICourse> = [
+		{ type: 'data', id: 'title', label: 'Titolo' },
+		{ type: 'data', id: 'description', label: 'Descrizione' },
+		{ type: 'data', id: 'category', label: 'Categoria' },
+		{ type: 'data', id: 'slot', label: 'Fascia' },
+		{ type: 'data', id: 'notes', label: 'Note' },
+		{ type: 'actions', id: 'manage', label: 'Gestisci' },
+	];
+
+	constructor(private coge: CogeService) {}
+
+	ngOnInit(): void {
+		this.dataSource$ = this.coge.getCourses().pipe(
+			filter(({ success }) => success),
+			map(({ data }) =>
+				data.map((course) => ({
+					id: course.id,
+					data: course,
+					actions: this.actions,
+				}))
+			)
+		);
+	}
+
+	eventHandler(e) {
+		console.log(e);
+	}
 }
