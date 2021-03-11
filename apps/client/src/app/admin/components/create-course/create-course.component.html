@@ -24,14 +24,19 @@
 	</mat-form-field>
 
 	<mat-form-field class="input">
-		<mat-label>Durata</mat-label>
-		<mat-select formControlName="duration">
-			<mat-option [value]="1">1 Fascia</mat-option>
-			<mat-option [value]="2">2 Fasce</mat-option>
+		<mat-label>Tipologia di corso</mat-label>
+
+		<mat-select formControlName="category">
+			<mat-option
+				*ngFor="let category of availableCategories"
+				[value]="category"
+			>
+				{{ category }}
+			</mat-option>
 		</mat-select>
 	</mat-form-field>
 
-	<mat-label class="checkboxes-label">Fasce preferite</mat-label>
+	<mat-label class="checkboxes-label">Fascia assegnata</mat-label>
 
 	<mat-radio-group formControlName="slot">
 		<mat-radio-button *ngFor="let slot of availableSlots" [value]="slot">

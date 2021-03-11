@@ -15,12 +15,19 @@ export class CreateCourseComponent {
 		title: ['', Validators.required],
 		description: ['', Validators.required],
 		notes: [''],
-		duration: ['', Validators.required],
 		slot: ['', Validators.required],
+		category: ['', Validators.required],
 		speakers: this._fb.array([], Validators.required),
 	});
 
 	availableSlots = ['a', 'b', 'c', 'd', 'e', 'f'];
+	availableCategories: ICourse['category'][] = [
+		'Approfondimento',
+		'Cineforum',
+		'Dibattito',
+		'Seminario',
+		'Tempo libero',
+	];
 
 	constructor(
 		private _fb: FormBuilder,
