@@ -12,28 +12,27 @@ export const createCourse = async (
 
 	const { title, description, category, slot, speakers } = courseData;
 
-	return new Course({
-		id,
-		title,
-		description,
-		category,
-		slot,
-		owner,
-		speakers,
-		signups: [],
-	})
-		.save()
-		.then(() => {
-			return {
-				success: true,
-			};
+	try {
+		await new Course({
+			id,
+			title,
+			description,
+			category,
+			slot,
+			owner,
+			speakers,
 		})
-		.catch((err) => {
-			return {
-				success: false,
-				err,
-			};
-		});
+			.save();
+			
+		return {
+			success: true,
+		};
+	} catch (err) {
+		return {
+			success: false,
+			err,
+		};
+	}
 };
 
 export const getCourses = async (user: IUser): Promise<IHttpRes<ICourse[]>> => {
