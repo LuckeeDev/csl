@@ -9,6 +9,7 @@ const CourseSchema = new Schema({
 	slot: { type: String, required: true },
 	owner: { type: String, required: true },
 	speakers: { type: Array, required: true },
+	notes: { type: String },
 	signups: { type: Array },
 	option1: { type: Number },
 	option2: { type: Number },

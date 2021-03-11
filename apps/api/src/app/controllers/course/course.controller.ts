@@ -10,7 +10,7 @@ export const createCourse = async (
 	const id = v4();
 	const owner = user.id;
 
-	const { title, description, category, slot, speakers } = courseData;
+	const { title, description, category, slot, speakers, notes } = courseData;
 
 	try {
 		await new Course({
@@ -21,9 +21,9 @@ export const createCourse = async (
 			slot,
 			owner,
 			speakers,
-		})
-			.save();
-			
+			notes,
+		}).save();
+
 		return {
 			success: true,
 		};

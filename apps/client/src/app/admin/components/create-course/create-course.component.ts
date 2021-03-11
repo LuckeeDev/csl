@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CogeService } from '@global/services/coge/coge.service';
 import { IHttpRes, ICourse } from '@csl/shared';
 import { DialogService, ToastrService } from '@csl/ui';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
 	selector: 'csl-create-course',
@@ -34,7 +34,8 @@ export class CreateCourseComponent {
 		private coge: CogeService,
 		private toastr: ToastrService,
 		private router: Router,
-		private dialog: DialogService
+		private dialog: DialogService,
+		private route: ActivatedRoute
 	) {}
 
 	get speakers() {
@@ -59,21 +60,22 @@ export class CreateCourseComponent {
 				answer: 'Sì, crea',
 			})
 			.subscribe(() => {
-				console.log(this.courseForm.value);
-				// this.coge
-				// 	.createCourse(this.courseForm.value)
-				// 	.subscribe((res: IHttpRes<any>) => {
-				// 		if (res.success === true) {
-				// 			this.toastr.show({
-				// 				color: 'success',
-				// 				message: 'Corso creato con successo',
-				// 			});
+				this.coge
+					.createCourse(this.courseForm.value)
+					.subscribe((res: IHttpRes<any>) => {
+						if (res.success === true) {
+							this.toastr.show({
+								color: 'success',
+								message: 'Corso creato con successo',
+							});
 
-				// 			this.router.navigate(['..', 'dashboard', 'coge']);
-				// 		} else {
-				// 			this.toastr.showError();
-				// 		}
-				// 	});
+							this.router.navigate(['..'], {
+								relativeTo: this.route,
+							});
+						} else {
+							this.toastr.showError();
+						}
+					});
 			});
 	}
 

@@ -17,6 +17,7 @@ export interface ICourse {
 		name: IUser['name'];
 		classID: IUser['classID'];
 	}[];
+	notes: string;
 	signups: IUser['email'][];
 	option1: number;
 	option2: number;
