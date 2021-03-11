@@ -1,50 +1,79 @@
 <csl-alert color="primary" class="alert">
-  Leggi attentamente il regolamento e le linee guida riguardanti la Cogestione prima di proporre un corso!
+	Leggi attentamente il regolamento e le linee guida riguardanti la Cogestione
+	prima di proporre un corso!
 </csl-alert>
 
 <form [formGroup]="courseForm" (ngSubmit)="onSubmit()" class="form">
-  <h1>Informazioni principali</h1>
-  <mat-form-field class="input">
-    <mat-label>Titolo del corso</mat-label>
-    <input matInput type="text" formControlName="title" />
-  </mat-form-field>
+	<h1>Informazioni principali</h1>
+	<mat-form-field class="input">
+		<mat-label>Titolo del corso</mat-label>
+		<input matInput type="text" formControlName="title" />
+	</mat-form-field>
 
-  <mat-form-field class="input">
-    <mat-label>Descrizione del corso</mat-label>
-    <textarea matInput formControlName="description"></textarea>
-  </mat-form-field>
+	<mat-form-field class="input">
+		<mat-label>Descrizione del corso</mat-label>
+		<textarea matInput formControlName="description"></textarea>
+	</mat-form-field>
 
-  <div class="break"></div>
+	<div class="break"></div>
 
-  <h1>Dettagli</h1>
-  <mat-form-field class="input">
-    <mat-label>Note</mat-label>
-    <textarea matInput formControlName="notes"></textarea>
-  </mat-form-field>
+	<h1>Dettagli</h1>
+	<mat-form-field class="input">
+		<mat-label>Note</mat-label>
+		<textarea matInput formControlName="notes"></textarea>
+	</mat-form-field>
 
-  <mat-form-field class="input">
-    <mat-label>Durata</mat-label>
-    <mat-select formControlName="duration">
-      <mat-option [value]="1">1 Fascia</mat-option>
-      <mat-option [value]="2">2 Fasce</mat-option>
-    </mat-select>
-  </mat-form-field>
+	<mat-form-field class="input">
+		<mat-label>Durata</mat-label>
+		<mat-select formControlName="duration">
+			<mat-option [value]="1">1 Fascia</mat-option>
+			<mat-option [value]="2">2 Fasce</mat-option>
+		</mat-select>
+	</mat-form-field>
 
-  <mat-label class="checkboxes-label">Fasce preferite</mat-label>
-  
-  <ng-container *ngFor="let slot of availableSlots">
-    <mat-checkbox
-      (change)="checkboxChange($event, slot)"
-      color="primary"
-      class="checkbox"
-    >
-      {{ slot }}
-    </mat-checkbox>
-  </ng-container>
+	<mat-label class="checkboxes-label">Fasce preferite</mat-label>
 
-  <div class="break"></div>
+	<ng-container *ngFor="let slot of availableSlots">
+		<mat-checkbox
+			(change)="checkboxChange($event, slot)"
+			color="primary"
+			class="checkbox"
+		>
+			{{ slot }}
+		</mat-checkbox>
+	</ng-container>
 
-  <button mat-raised-button color="primary" class="submit" [disabled]="courseForm.invalid">
-    Crea corso
-  </button>
+	<div class="break"></div>
+
+	<ng-container formArrayName="speakers">
+		<button type="button" mat-raised-button (click)="addSpeaker()">
+			Add speaker
+		</button>
+
+		<div
+			*ngFor="let speaker of speakers.controls; let i = index"
+			[formGroup]="speaker"
+		>
+			<mat-form-field>
+				<mat-label>Nome</mat-label>
+				<input matInput formControlName="name" />
+			</mat-form-field>
+
+			<mat-form-field>
+				<mat-label>Classe</mat-label>
+				<input matInput formControlName="classID" />
+			</mat-form-field>
+		</div>
+	</ng-container>
+
+	<div class="break"></div>
+
+	<button
+		mat-raised-button
+		color="primary"
+		class="submit"
+		[disabled]="courseForm.invalid"
+	>
+		Crea corso
+	</button>
 </form>

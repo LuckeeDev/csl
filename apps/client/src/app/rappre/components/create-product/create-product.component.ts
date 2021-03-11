@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UploadService } from '@shared/services/upload/upload.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
@@ -10,11 +10,11 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './create-product.component.html',
   styleUrls: ['./create-product.component.scss'],
 })
-export class CreateProductComponent implements OnInit {
+export class CreateProductComponent {
   faTimes = faTimes;
 
   category: string;
-  sizes: Array<String> = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL'];
+  sizes: string[] = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
   productForm = this.fb.group({
     name: ['', Validators.required],
@@ -53,8 +53,6 @@ export class CreateProductComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
-
   // Get colors in Form Group
   get colors() {
     return this.productForm.get('colors') as FormArray;
@@ -66,7 +64,7 @@ export class CreateProductComponent implements OnInit {
   }
 
   // Remove a color from the form array
-  removeColor(i) {
+  removeColor(i: number) {
     this.colors.removeAt(i);
   }
 
