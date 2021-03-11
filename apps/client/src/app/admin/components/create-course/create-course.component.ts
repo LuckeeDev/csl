@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CogeService } from '@global/services/coge/coge.service';
-import { IHttpRes } from '@csl/shared';
+import { IHttpRes, ICourse } from '@csl/shared';
 import { DialogService, ToastrService } from '@csl/ui';
 import { Router } from '@angular/router';
 
@@ -17,10 +17,10 @@ export class CreateCourseComponent {
 		notes: [''],
 		duration: ['', Validators.required],
 		slot: ['', Validators.required],
-		speakers: this._fb.array([]),
+		speakers: this._fb.array([], Validators.required),
 	});
 
-	availableSlots = ['A', 'B', 'C', 'D', 'E', 'F'];
+	availableSlots = ['a', 'b', 'c', 'd', 'e', 'f'];
 
 	constructor(
 		private _fb: FormBuilder,
@@ -52,20 +52,21 @@ export class CreateCourseComponent {
 				answer: 'Sì, crea',
 			})
 			.subscribe(() => {
-				this.coge
-					.createCourse(this.courseForm.value)
-					.subscribe((res: IHttpRes<any>) => {
-						if (res.success === true) {
-							this.toastr.show({
-								color: 'success',
-								message: 'Corso creato con successo',
-							});
+				console.log(this.courseForm.value);
+				// this.coge
+				// 	.createCourse(this.courseForm.value)
+				// 	.subscribe((res: IHttpRes<any>) => {
+				// 		if (res.success === true) {
+				// 			this.toastr.show({
+				// 				color: 'success',
+				// 				message: 'Corso creato con successo',
+				// 			});
 
-							this.router.navigate(['..', 'dashboard', 'coge']);
-						} else {
-							this.toastr.showError();
-						}
-					});
+				// 			this.router.navigate(['..', 'dashboard', 'coge']);
+				// 		} else {
+				// 			this.toastr.showError();
+				// 		}
+				// 	});
 			});
 	}
 

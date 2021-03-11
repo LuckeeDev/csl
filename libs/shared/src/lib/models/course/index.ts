@@ -5,7 +5,12 @@ export interface ICourse {
 	id: string;
 	title: string;
 	description: string;
-	category: string;
+	category:
+		| 'Seminario'
+		| 'Approfondimento'
+		| 'Tempo libero'
+		| 'Dibattito'
+		| 'Cineforum';
 	slot: 'a' | 'b' | 'c' | 'd' | 'e' | 'f';
 	owner: IUser['id'];
 	speakers: {

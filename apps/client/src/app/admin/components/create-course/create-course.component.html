@@ -35,7 +35,7 @@
 
 	<mat-radio-group formControlName="slot">
 		<mat-radio-button *ngFor="let slot of availableSlots" [value]="slot">
-			{{ slot }}
+			{{ slot.toUpperCase() }}
 		</mat-radio-button>
 	</mat-radio-group>
 
