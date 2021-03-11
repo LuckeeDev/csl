@@ -13,6 +13,8 @@ import { AdminHomeComponent } from '@admin/components/admin-home/admin-home.comp
 import { AccountsComponent } from '@admin/components/accounts/accounts.component';
 import { ReportsComponent } from '@admin/components/reports/reports.component';
 import { LogsComponent } from './components/logs/logs.component';
+import { CreateCourseComponent } from '@/admin/components/create-course/create-course.component';
+import { CogeComponent } from '@/admin/components/coge/coge.component';
 
 import { AdminService } from '@admin/services/admin/admin.service';
 
@@ -21,15 +23,27 @@ import { MatPaginatorIntlIT } from '@admin/i18n/paginator';
 import { CommissioniComponent } from './components/commissioni/commissioni.component';
 
 @NgModule({
-  declarations: [AdminComponent, AdminHomeComponent, AccountsComponent, ReportsComponent, LogsComponent, CommissioniComponent],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AdminRoutingModule,
-    UiModule,
-    SharedModule,
-  ],
-  providers: [AdminService, { provide: MatPaginatorIntl, useClass: MatPaginatorIntlIT },],
+	declarations: [
+		AdminComponent,
+		AdminHomeComponent,
+		AccountsComponent,
+		ReportsComponent,
+		LogsComponent,
+		CommissioniComponent,
+		CreateCourseComponent,
+		CogeComponent,
+	],
+	imports: [
+		CommonModule,
+		FormsModule,
+		ReactiveFormsModule,
+		AdminRoutingModule,
+		UiModule,
+		SharedModule,
+	],
+	providers: [
+		AdminService,
+		{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlIT },
+	],
 })
 export class AdminModule {}

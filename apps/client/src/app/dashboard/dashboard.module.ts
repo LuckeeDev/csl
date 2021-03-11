@@ -15,11 +15,9 @@ import { ProfileComponent } from '@dashboard/components/profile/profile.componen
 import { CategoryComponent } from '@dashboard/components/category/category.component';
 import { OrdersComponent } from '@dashboard/components/orders/orders.component';
 import { CheckoutComponent } from '@dashboard/components/checkout/checkout.component';
-import { CogeComponent } from './components/coge/coge.component';
 
 // Pipes
 import { PipesModule } from '@global/pipes/pipes.module';
-import { CreateCourseComponent } from './components/create-course/create-course.component';
 import { OrientamentoComponent } from './components/orientamento/orientamento.component';
 import { EventComponent } from './components/event/event.component';
 
@@ -30,8 +28,6 @@ import { EventComponent } from './components/event/event.component';
     CategoryComponent,
     OrdersComponent,
     CheckoutComponent,
-    CogeComponent,
-    CreateCourseComponent,
     OrientamentoComponent,
     EventComponent,
   ],

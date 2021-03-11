@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CogeService } from '@global/services/coge/coge.service';
 import { IHttpRes } from '@csl/shared';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './create-course.component.html',
   styleUrls: ['./create-course.component.scss'],
 })
-export class CreateCourseComponent implements OnInit {
+export class CreateCourseComponent {
   courseForm: FormGroup = this._fb.group({
     title: ['', Validators.required],
     description: ['', Validators.required],
@@ -29,8 +29,6 @@ export class CreateCourseComponent implements OnInit {
     private router: Router,
     private dialog: DialogService
   ) {}
-
-  ngOnInit(): void {}
 
   onSubmit() {
     this.dialog

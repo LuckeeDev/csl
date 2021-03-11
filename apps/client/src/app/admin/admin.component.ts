@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IDashboardLink } from '@csl/shared';
 
 @Component({
@@ -6,7 +6,7 @@ import { IDashboardLink } from '@csl/shared';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss'],
 })
-export class AdminComponent implements OnInit {
+export class AdminComponent {
   links: IDashboardLink[] = [
     { link: '.', title: 'Home' },
     { link: 'csv', title: 'CSV' },
@@ -16,9 +16,6 @@ export class AdminComponent implements OnInit {
     { link: 'reports', title: 'Segnalazioni' },
     { link: 'errors', title: 'Errori' },
     { link: 'events', title: 'Eventi' },
+    { link: 'coge', title: 'Coge' },
   ];
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }
