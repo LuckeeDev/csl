@@ -1,17 +1,11 @@
 {
   "extends": "../../.eslintrc.json",
-  "ignorePatterns": [
-    "!**/*"
-  ],
+  "ignorePatterns": ["!**/*"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "apps/client/tsconfig.*?.json"
-        ]
+        "project": ["apps/client/tsconfig.*?.json"]
       },
       "rules": {
         "@angular-eslint/component-selector": [
@@ -48,9 +42,7 @@
       ]
     },
     {
-      "files": [
-        "*.html"
-      ],
+      "files": ["*.html"],
       "rules": {},
       "extends": [
         "plugin:@nrwl/nx/angular-template",
