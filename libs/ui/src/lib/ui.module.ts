@@ -40,11 +40,13 @@ import { AlertComponent } from './components/alert/alert.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { DashboardHomeComponent } from './components/dashboard-home/dashboard-home.component';
 import { CommissionePageComponent } from './components/commissione-page/commissione-page.component';
+import { InfoDialogComponent } from './components/info-dialog/info-dialog.component';
 
 // Services
 import { ToastrService } from './services/toastr/toastr.service';
 import { DialogService } from './services/dialog/dialog.service';
 import { DeviceService } from './services/device/device.service';
+import { InfoDialogService } from './services/info-dialog/info-dialog.service';
 
 // Directives
 import { MatColorDirective } from './directives/mat-color/mat-color.directive';
@@ -63,6 +65,7 @@ import { DataTableComponent } from './components/data-table/data-table.component
 		DashboardHomeComponent,
 		CommissionePageComponent,
 		DataTableComponent,
+		InfoDialogComponent,
 	],
 	imports: [
 		CommonModule,
@@ -135,8 +138,8 @@ import { DataTableComponent } from './components/data-table/data-table.component
 		MatNativeDateModule,
 		MatRadioModule,
 	],
-	providers: [ToastrService, DialogService, DeviceService],
+	providers: [ToastrService, DialogService, DeviceService, InfoDialogService],
 })
 export class UiModule {}
 
-export { DialogService, ToastrService };
+export { DialogService, ToastrService, InfoDialogService };

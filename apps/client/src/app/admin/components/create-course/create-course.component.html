@@ -53,7 +53,7 @@
 
 		<div
 			*ngFor="let speaker of speakers.controls; let i = index"
-			[formGroup]="speaker"
+			[formGroupName]="i"
 		>
 			<mat-form-field>
 				<mat-label>Nome</mat-label>

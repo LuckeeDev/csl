@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+
+<mat-dialog-content class="mat-typography">
+	<ng-container *ngFor="let section of data.content">
+		<h3>{{ section.header }}</h3>
+
+		<p>{{ section.paragraph }}</p>
+	</ng-container>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+	<button mat-button mat-dialog-close>Chiudi</button>
+	<button mat-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>
+		Conferma
+	</button>
+</mat-dialog-actions>
