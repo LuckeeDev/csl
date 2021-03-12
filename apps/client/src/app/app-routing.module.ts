@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Views
-import { CogeViewComponent } from '@/views/coge/coge-view.component';
+import { CogeView } from '@/views/coge/coge.view';
 
 // Components
 import { AslComponent } from '@main/pages/asl/asl.component';
@@ -100,7 +100,7 @@ const routes: Routes = [
 	},
 	{
 		path: 'coge',
-		component: CogeViewComponent,
+		component: CogeView,
 	},
 	// {
 	//   path: 'store',

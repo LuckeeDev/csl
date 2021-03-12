@@ -66,7 +66,7 @@ import { CommissioneComponent } from '@main/comitato-components/commissione/comm
 import { ComitatoHomeComponent } from '@main/comitato-components/comitato-home/comitato-home.component';
 import { ContactFormComponent } from '@main/contacts-components/contact-form/contact-form.component';
 import { LoginComponent } from '@main/errors/login/login.component';
-import { CogeViewComponent } from '@/views/coge/coge-view.component';
+import { CogeView } from '@/views/coge/coge.view';
 
 // Interceptors
 import { ResCodeInterceptor } from '@global/http/res-code.interceptor';
@@ -101,7 +101,7 @@ registerLocaleData(ITLocaleData);
 		CommissioneComponent,
 		ComitatoHomeComponent,
 		ContactFormComponent,
-		CogeViewComponent,
+		CogeView,
 	],
 	imports: [
 		BrowserModule,

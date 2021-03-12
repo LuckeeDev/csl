@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CogeViewComponent } from './coge-view.component';
+import { CogeView } from './coge.view';
 
-describe('CogeComponent', () => {
-  let component: CogeViewComponent;
-  let fixture: ComponentFixture<CogeViewComponent>;
+describe('CogeView', () => {
+  let component: CogeView;
+  let fixture: ComponentFixture<CogeView>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CogeViewComponent ]
+      declarations: [ CogeView ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CogeViewComponent);
+    fixture = TestBed.createComponent(CogeView);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

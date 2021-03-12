@@ -1,0 +1,24 @@
+<mat-tab-group class="tab-group">
+	<ng-container *ngFor="let slot of (slots$ | async)">
+		<mat-tab [label]="slot.toUpperCase()" class="tab">
+			<div *ngIf="courses$ | async as courses" class="table-container">
+				<csl-data-table
+					*ngIf="courses[slot].length > 0; else noCoursesFound"
+					[data]="courses[slot]"
+					[columns]="displayedColumns"
+					class="table"
+				>
+					<h1 header>Corsi in fascia {{ slot.toUpperCase() }}</h1>
+				</csl-data-table>
+
+				<ng-template #noCoursesFound>
+					<div class="alert-container">
+						<csl-alert color="primary">
+							Non ci sono corsi in questa fascia!
+						</csl-alert>
+					</div>
+				</ng-template>
+			</div>
+		</mat-tab>
+	</ng-container>
+</mat-tab-group>
