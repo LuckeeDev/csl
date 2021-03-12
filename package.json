@@ -9,7 +9,8 @@
 		"release": "nx run workspace:version",
 		"create:view": "nx g @nrwl/angular:component --type view",
 		"create:component": "nx g @nrwl/angular:component",
-		"create:service": "nx g @nrwl/angular:service"
+		"create:service": "nx g @nrwl/angular:service",
+		"postinstall": "ngcc --properties es2015 browser module main"
 	},
 	"private": true,
 	"dependencies": {
