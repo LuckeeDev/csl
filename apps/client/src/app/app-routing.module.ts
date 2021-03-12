@@ -101,6 +101,7 @@ const routes: Routes = [
 	{
 		path: 'coge',
 		component: CogeView,
+		canActivate: [LoggedInGuard],
 	},
 	// {
 	//   path: 'store',
