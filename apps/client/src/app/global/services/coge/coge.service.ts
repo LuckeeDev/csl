@@ -3,13 +3,18 @@ import { Injectable } from '@angular/core';
 import { ICourse, IHttpRes } from '@csl/shared';
 import { Observable } from 'rxjs';
 
+interface CourseInSlot {
+	id: ICourse['id'];
+	label: ICourse['title'];
+}
+
 interface SignupDirty {
 	dirty: boolean;
 }
 
 type SignupSlots = Record<
 	ICourse['slot'],
-	[ICourse['id']?, ICourse['id']?, ICourse['id']?]
+	[CourseInSlot?, CourseInSlot?, CourseInSlot?]
 >;
 
 interface SignupDraft extends SignupDirty, SignupSlots {}
@@ -44,13 +49,18 @@ export class CogeService {
 		return this.http.get<IHttpRes<ICourse[]>>('/coge');
 	}
 
-	subscribeToCourse(id: string, slot: string): Observable<IHttpRes<void>> {
-		return this.http.post<IHttpRes<void>>('/coge/signup', { course: id, slot });
+	subscribeToCourses(slot: ICourse['slot']): Observable<IHttpRes<void>> {
+		const courses = this.draft[slot].map(({ id }) => id);
+		
+		return this.http.post<IHttpRes<void>>('/coge/signup', {
+			courses,
+			slot,
+		});
 	}
 
-	pushToDraft(id: string, slot: ICourse['slot']) {
-		if (!this.draft[slot].includes(id)) {
-			this.draft[slot].push(id);
+	pushToDraft(course: CourseInSlot, slot: ICourse['slot']) {
+		if (!this.draft[slot].find(({ id }) => id === course.id)) {
+			this.draft[slot].push(course);
 			this.draft.dirty = true;
 		}
 	}

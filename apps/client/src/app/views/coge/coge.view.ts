@@ -103,8 +103,11 @@ export class CogeView implements OnInit {
 					filter((confirmation) => confirmation),
 					switchMap(() => course$)
 				)
-				.subscribe(({ id }) =>
-					this.coge.pushToDraft(id, numberToLetter(this.currentIndex))
+				.subscribe(({ id, title }) =>
+					this.coge.pushToDraft(
+						{ id, label: title },
+						numberToLetter(this.currentIndex)
+					)
 				);
 		}
 	}

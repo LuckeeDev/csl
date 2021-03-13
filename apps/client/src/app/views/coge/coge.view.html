@@ -18,7 +18,20 @@
 					<h1 header>Corsi in fascia {{ slot.toUpperCase() }}</h1>
 				</csl-data-table>
 
-				<csl-drag-drop-list [(data)]="signupDraft[slot]"></csl-drag-drop-list>
+				<div class="drag-drop">
+					<h1>Le tue scelte per la fascia {{ slot.toUpperCase() }}</h1>
+
+					<csl-drag-drop-list [(data)]="signupDraft[slot]"></csl-drag-drop-list>
+					
+					<button
+						mat-flat-button
+						color="primary"
+						class="confirm"
+						[disabled]="signupDraft[slot].length !== 3"
+					>
+						Conferma corsi
+					</button>
+				</div>
 			</div>
 
 			<ng-template #noCoursesFound>

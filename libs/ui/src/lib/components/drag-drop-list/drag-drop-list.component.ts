@@ -1,6 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
+interface Data {
+	id: string;
+	label: string;
+}
+
 @Component({
 	selector: 'csl-drag-drop-list',
 	templateUrl: './drag-drop-list.component.html',
@@ -8,7 +13,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 })
 export class DragDropListComponent {
 	@Input()
-	data: unknown[];
+	data: Data[];
 
 	@Output()
 	dataChange = new EventEmitter();
