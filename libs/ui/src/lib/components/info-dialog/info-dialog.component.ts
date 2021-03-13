@@ -9,6 +9,8 @@ interface ContentSection {
 export interface InfoDialogData {
 	title: string;
 	content: ContentSection[];
+	confirm?: string;
+	cancel?: string;
 }
 
 @Component({

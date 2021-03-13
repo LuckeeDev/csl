@@ -11,8 +11,8 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-	<button mat-button mat-dialog-close>Chiudi</button>
+	<button mat-button mat-dialog-close>{{ data.cancel || 'Chiudi' }}</button>
 	<button mat-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>
-		Conferma
+		{{ data.confirm || 'Conferma' }}
 	</button>
 </mat-dialog-actions>

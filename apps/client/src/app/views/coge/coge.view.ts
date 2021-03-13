@@ -1,4 +1,5 @@
 import { CogeService } from '@/global/services/coge/coge.service';
+import { numberToLetter } from '@/utils/numberToLetter';
 import { Component, OnInit } from '@angular/core';
 import {
 	CSLDataTableAction,
@@ -9,7 +10,7 @@ import {
 } from '@csl/shared';
 import { InfoDialogService } from '@csl/ui';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 
 type Courses = Record<ICourse['slot'], CSLDataTableSource<ICourse>>;
 
@@ -61,30 +62,37 @@ export class CogeView implements OnInit {
 	}
 
 	handleEvent(e: CSLDataTableEvent<Action>) {
-		const course = this.courses$.pipe(
+		const course$ = this.courses$.pipe(
 			map((courses) => courses.find((course) => course.id === e.id))
 		);
 
 		if (e.action === 'DETAILS') {
-			course.subscribe((currentCourse) => {
-				this.info.open({
-					title: currentCourse.title,
-					content: [
-						{
-							header: 'Categoria',
-							paragraph: currentCourse.category,
-						},
-						{ header: 'Descrizione', paragraph: currentCourse.description },
-						{
-							header: 'Relatori',
-							paragraph: currentCourse.speakers
-								.map(({ name, classID }) => `${name} - ${classID}`)
-								.join('<br />'),
-						},
-						{ header: 'Note', paragraph: currentCourse.notes },
-					],
-				});
-			});
+			course$
+				.pipe(
+					switchMap((currentCourse) => {
+						return this.info.open({
+							confirm: 'Aggiungi',
+							title: currentCourse.title,
+							content: [
+								{
+									header: 'Categoria',
+									paragraph: currentCourse.category,
+								},
+								{ header: 'Descrizione', paragraph: currentCourse.description },
+								{
+									header: 'Relatori',
+									paragraph: currentCourse.speakers
+										.map(({ name, classID }) => `${name} - ${classID}`)
+										.join('<br />'),
+								},
+								{ header: 'Note', paragraph: currentCourse.notes },
+							],
+						});
+					}),
+					filter((confirmation) => confirmation),
+					switchMap(() => course$),
+				)
+				.subscribe(({ id }) => this.coge.pushToDraft(id, numberToLetter(this.currentIndex)));
 		}
 	}
 
