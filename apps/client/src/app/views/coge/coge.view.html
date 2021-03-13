@@ -5,15 +5,21 @@
 		class="tab"
 	>
 		<div *ngIf="dataSource$ | async as dataSource" class="table-container">
-			<csl-data-table
+			<div
+				class="courses-wrapper"
 				*ngIf="dataSource[slot].length > 0; else noCoursesFound"
-				[data]="dataSource[slot]"
-				[columns]="displayedColumns"
-				(actionClick)="handleEvent($event)"
-				class="table"
 			>
-				<h1 header>Corsi in fascia {{ slot.toUpperCase() }}</h1>
-			</csl-data-table>
+				<csl-data-table
+					[data]="dataSource[slot]"
+					[columns]="displayedColumns"
+					(actionClick)="handleEvent($event)"
+					class="table"
+				>
+					<h1 header>Corsi in fascia {{ slot.toUpperCase() }}</h1>
+				</csl-data-table>
+
+				<csl-drag-drop-list [(data)]="signupDraft[slot]"></csl-drag-drop-list>
+			</div>
 
 			<ng-template #noCoursesFound>
 				<div class="alert-container">
@@ -23,9 +29,5 @@
 				</div>
 			</ng-template>
 		</div>
-	</mat-tab>
-
-	<mat-tab label="I miei corsi">
-		<p *ngFor="let course of signupDraft.a">{{ course }}</p>
 	</mat-tab>
 </mat-tab-group>

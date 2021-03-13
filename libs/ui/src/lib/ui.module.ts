@@ -30,6 +30,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
@@ -41,6 +44,8 @@ import { CarouselComponent } from './components/carousel/carousel.component';
 import { DashboardHomeComponent } from './components/dashboard-home/dashboard-home.component';
 import { CommissionePageComponent } from './components/commissione-page/commissione-page.component';
 import { InfoDialogComponent } from './components/info-dialog/info-dialog.component';
+import { DataTableComponent } from './components/data-table/data-table.component';
+import { DragDropListComponent } from './components/drag-drop-list/drag-drop-list.component';
 
 // Services
 import { ToastrService } from './services/toastr/toastr.service';
@@ -51,8 +56,6 @@ import { InfoDialogService } from './services/info-dialog/info-dialog.service';
 // Directives
 import { MatColorDirective } from './directives/mat-color/mat-color.directive';
 import { RoundedDirective } from './directives/rounded/rounded.directive';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { DataTableComponent } from './components/data-table/data-table.component';
 
 @NgModule({
 	declarations: [
@@ -66,6 +69,7 @@ import { DataTableComponent } from './components/data-table/data-table.component
 		CommissionePageComponent,
 		DataTableComponent,
 		InfoDialogComponent,
+		DragDropListComponent,
 	],
 	imports: [
 		CommonModule,
@@ -99,6 +103,7 @@ import { DataTableComponent } from './components/data-table/data-table.component
 		MatDatepickerModule,
 		MatNativeDateModule,
 		MatRadioModule,
+		DragDropModule,
 	],
 	exports: [
 		FontAwesomeModule,
@@ -110,6 +115,7 @@ import { DataTableComponent } from './components/data-table/data-table.component
 		DashboardHomeComponent,
 		CommissionePageComponent,
 		DataTableComponent,
+		DragDropListComponent,
 		MatSnackBarModule,
 		MatDialogModule,
 		MatButtonModule,

@@ -1,0 +1,5 @@
+<div cdkDropList (cdkDropListDropped)="drop($event)">
+	<mat-card *ngFor="let element of data; let i = index" cdkDrag>
+		Scelta {{ i + 1 }}: {{ element }}
+	</mat-card>
+</div>
