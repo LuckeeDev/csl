@@ -22,4 +22,9 @@ export class DragDropListComponent {
 		moveItemInArray(this.data, event.previousIndex, event.currentIndex);
 		this.dataChange.emit(this.data);
 	}
+
+	remove(element: Data) {
+		const newData = this.data.filter(({ id }) => id !== element.id);
+		this.dataChange.emit(newData);
+	}
 }

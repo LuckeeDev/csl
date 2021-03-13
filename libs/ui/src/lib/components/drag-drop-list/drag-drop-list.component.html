@@ -5,7 +5,7 @@
 		class="drag-card"
 	>
 		<b>Scelta {{ i + 1 }}</b>: {{ element.label }}
-		<button mat-icon-button color="warn" class="del-btn">
+		<button mat-icon-button color="warn" class="del-btn" (click)="remove(element)">
 			<mat-icon>close</mat-icon>
 		</button>
 	</mat-card>
