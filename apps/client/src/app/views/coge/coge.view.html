@@ -1,11 +1,12 @@
-<mat-tab-group class="tab-group">
+<mat-tab-group class="tab-group" [(selectedIndex)]="currentIndex">
 	<ng-container *ngFor="let slot of (slots$ | async)">
 		<mat-tab [label]="slot.toUpperCase()" class="tab">
-			<div *ngIf="courses$ | async as courses" class="table-container">
+			<div *ngIf="dataSource$ | async as dataSource" class="table-container">
 				<csl-data-table
-					*ngIf="courses[slot].length > 0; else noCoursesFound"
-					[data]="courses[slot]"
+					*ngIf="dataSource[slot].length > 0; else noCoursesFound"
+					[data]="dataSource[slot]"
 					[columns]="displayedColumns"
+					(actionClick)="handleEvent($event)"
 					class="table"
 				>
 					<h1 header>Corsi in fascia {{ slot.toUpperCase() }}</h1>
