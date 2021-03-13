@@ -1,25 +1,31 @@
 <mat-tab-group class="tab-group" [(selectedIndex)]="currentIndex">
-	<ng-container *ngFor="let slot of (slots$ | async)">
-		<mat-tab [label]="slot.toUpperCase()" class="tab">
-			<div *ngIf="dataSource$ | async as dataSource" class="table-container">
-				<csl-data-table
-					*ngIf="dataSource[slot].length > 0; else noCoursesFound"
-					[data]="dataSource[slot]"
-					[columns]="displayedColumns"
-					(actionClick)="handleEvent($event)"
-					class="table"
-				>
-					<h1 header>Corsi in fascia {{ slot.toUpperCase() }}</h1>
-				</csl-data-table>
+	<mat-tab
+		*ngFor="let slot of (slots$ | async)"
+		[label]="slot.toUpperCase()"
+		class="tab"
+	>
+		<div *ngIf="dataSource$ | async as dataSource" class="table-container">
+			<csl-data-table
+				*ngIf="dataSource[slot].length > 0; else noCoursesFound"
+				[data]="dataSource[slot]"
+				[columns]="displayedColumns"
+				(actionClick)="handleEvent($event)"
+				class="table"
+			>
+				<h1 header>Corsi in fascia {{ slot.toUpperCase() }}</h1>
+			</csl-data-table>
 
-				<ng-template #noCoursesFound>
-					<div class="alert-container">
-						<csl-alert color="primary">
-							Non ci sono corsi in questa fascia!
-						</csl-alert>
-					</div>
-				</ng-template>
-			</div>
-		</mat-tab>
-	</ng-container>
+			<ng-template #noCoursesFound>
+				<div class="alert-container">
+					<csl-alert color="primary">
+						Non ci sono corsi in questa fascia!
+					</csl-alert>
+				</div>
+			</ng-template>
+		</div>
+	</mat-tab>
+
+	<mat-tab label="I miei corsi">
+		<p *ngFor="let course of signupDraft.a">{{ course }}</p>
+	</mat-tab>
 </mat-tab-group>

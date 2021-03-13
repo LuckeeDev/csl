@@ -1,6 +1,6 @@
 import { CogeService } from '@/global/services/coge/coge.service';
 import { numberToLetter } from '@/utils/numberToLetter';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import {
 	CSLDataTableAction,
 	CSLDataTableDisplayedColumns,
@@ -37,6 +37,13 @@ export class CogeView implements OnInit {
 		{ type: 'actions', id: 'manage', label: 'Dettagli' },
 	];
 
+	@HostListener('window:beforeunload', ['$event'])
+	handleClose(e: BeforeUnloadEvent) {
+		if (this.coge.draft.dirty) {
+			e.returnValue = false;
+		}
+	}
+
 	constructor(private coge: CogeService, private info: InfoDialogService) {}
 
 	ngOnInit(): void {
@@ -59,6 +66,10 @@ export class CogeView implements OnInit {
 		this.slots$ = this.dataSource$.pipe(
 			map((courses) => Object.keys(courses) as ICourse['slot'][])
 		);
+	}
+
+	get signupDraft() {
+		return this.coge.draft;
 	}
 
 	handleEvent(e: CSLDataTableEvent<Action>) {
@@ -90,9 +101,11 @@ export class CogeView implements OnInit {
 						});
 					}),
 					filter((confirmation) => confirmation),
-					switchMap(() => course$),
+					switchMap(() => course$)
 				)
-				.subscribe(({ id }) => this.coge.pushToDraft(id, numberToLetter(this.currentIndex)));
+				.subscribe(({ id }) =>
+					this.coge.pushToDraft(id, numberToLetter(this.currentIndex))
+				);
 		}
 	}
 

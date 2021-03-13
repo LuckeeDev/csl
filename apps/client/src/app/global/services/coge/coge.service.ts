@@ -3,10 +3,16 @@ import { Injectable } from '@angular/core';
 import { ICourse, IHttpRes } from '@csl/shared';
 import { Observable } from 'rxjs';
 
-type SignupDraft = Record<
+interface SignupDirty {
+	dirty: boolean;
+}
+
+type SignupSlots = Record<
 	ICourse['slot'],
 	[ICourse['id']?, ICourse['id']?, ICourse['id']?]
 >;
+
+interface SignupDraft extends SignupDirty, SignupSlots {}
 
 const defaultDraft: SignupDraft = {
 	a: [],
@@ -15,6 +21,7 @@ const defaultDraft: SignupDraft = {
 	d: [],
 	e: [],
 	f: [],
+	dirty: false,
 };
 
 @Injectable({
@@ -44,6 +51,7 @@ export class CogeService {
 	pushToDraft(id: string, slot: ICourse['slot']) {
 		if (!this.draft[slot].includes(id)) {
 			this.draft[slot].push(id);
+			this.draft.dirty = true;
 		}
 	}
 }
