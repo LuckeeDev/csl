@@ -74,7 +74,7 @@ export const getAllCourses = async (): Promise<IHttpRes<ICourse[]>> => {
 
 export const signUpToCourse = async (
 	user: IUser,
-	{ courses, slot }: { courses: ICourse['id'][]; slot: ICourse['slot'] }
+	{ courses, slot }: { courses: [ICourse['id'], ICourse['id'], ICourse['id']]; slot: ICourse['slot'] }
 ): Promise<IHttpRes<void>> => {
 	try {
 		const coursesPromises = courses.map((course, i) => {
