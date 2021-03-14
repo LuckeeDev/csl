@@ -28,18 +28,40 @@ import { UploadService } from '@shared/services/upload/upload.service';
 import { CogeComponent } from '@shared/components/coge/coge.component';
 import { MdComponent } from '@shared/components/md/md.component';
 
+// I18N
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { MatPaginatorIntlIT } from './i18n/paginator';
+
 @NgModule({
-  declarations: [ClassiComponent, SingleClassComponent, CsvComponent, CogeComponent, PageEditorComponent, MdComponent],
-  imports: [
-    CommonModule,
-    RouterModule,
-    ReactiveFormsModule,
-    UiModule,
-    MarkdownModule.forChild(),
-    PipesModule,
-    NgxsModule.forFeature([ClassState]),
-  ],
-  exports: [ClassiComponent, SingleClassComponent, CsvComponent, CogeComponent, PageEditorComponent, MdComponent],
-  providers: [MembersService, UploadService],
+	declarations: [
+		ClassiComponent,
+		SingleClassComponent,
+		CsvComponent,
+		CogeComponent,
+		PageEditorComponent,
+		MdComponent,
+	],
+	imports: [
+		CommonModule,
+		RouterModule,
+		ReactiveFormsModule,
+		UiModule,
+		MarkdownModule.forChild(),
+		PipesModule,
+		NgxsModule.forFeature([ClassState]),
+	],
+	exports: [
+		ClassiComponent,
+		SingleClassComponent,
+		CsvComponent,
+		CogeComponent,
+		PageEditorComponent,
+		MdComponent,
+	],
+	providers: [
+		MembersService,
+		UploadService,
+		{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlIT },
+	],
 })
 export class SharedModule {}

@@ -1,14 +1,20 @@
 // Main imports
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+	AfterViewInit,
+	Component,
+	ElementRef,
+	OnInit,
+	ViewChild,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 
 // UI elements
 import {
-  MatAutocomplete,
-  MatAutocompleteSelectedEvent,
+	MatAutocomplete,
+	MatAutocompleteSelectedEvent,
 } from '@angular/material/autocomplete';
 
 // Services
@@ -16,208 +22,232 @@ import { MembersService } from '@shared/services/members/members.service';
 import { AuthService } from '@global/services/auth/auth.service';
 import { DialogService, ToastrService } from '@csl/ui';
 
-import { IRole, IUser, TRole } from '@csl/shared';
+import { IClass, IRole, IUser, TRole } from '@csl/shared';
 import { Select, Store } from '@ngxs/store';
-import { Accounts, Classes, ClassState, ClassStateModel, Roles } from '@shared/store';
+import {
+	Accounts,
+	Classes,
+	ClassState,
+	ClassStateModel,
+	Roles,
+} from '@shared/store';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
-  selector: 'csl-single-class',
-  templateUrl: './single-class.component.html',
-  styleUrls: ['./single-class.component.scss'],
+	selector: 'csl-single-class',
+	templateUrl: './single-class.component.html',
+	styleUrls: ['./single-class.component.scss'],
 })
-export class SingleClassComponent implements OnInit {
-  @Select(ClassState)
-  state$: Observable<ClassStateModel>;
+export class SingleClassComponent implements OnInit, AfterViewInit {
+	@Select(ClassState)
+	state$: Observable<ClassStateModel>;
 
-  classID: string;
-  displayedColumns: string[];
+	dataSource: MatTableDataSource<IClass['members'][0]>;
 
-  roleCtrl = new FormControl();
+	classID: string;
+	displayedColumns: string[];
 
-  page: 'rappre' | 'admin' | 'bar-admin' | 'vice';
+	roleCtrl = new FormControl();
 
-  allRoles: IRole[] = [
-    {
-      description: 'Rappresentante di classe',
-      role: 'isRappreDiClasse',
-    },
-    { description: 'Direttore di QP', role: 'isQp' },
-    { description: 'Referente Arte', role: 'isReferente[arte]' },
-    { description: 'Referente ASL', role: 'isReferente[asl]' },
-    { description: 'Referente Biblioteca', role: 'isReferente[biblioteca]' },
-    { description: 'Referente Cinema', role: 'isReferente[cinema]' },
-    { description: 'Referente Consulta', role: 'isReferente[consulta]' },
-    { description: 'Referente Dibattito', role: 'isReferente[dibattito]' },
-    { description: 'Referente Green', role: 'isReferente[green]' },
-    { description: 'Referente Feste', role: 'isReferente[feste]' },
-    { description: 'Referente LIR', role: 'isReferente[lir]' },
-    { description: 'Referente Musica', role: 'isReferente[musica]' },
-    { description: 'Referente Omnia', role: 'isReferente[omnia]' },
-    { description: 'Referente PortArti', role: 'isReferente[portarti]' },
-    { description: 'Referente Sport', role: 'isReferente[sport]' },
-    { description: 'Referente Tutoring', role: 'isReferente[tutoring]' },
-    { description: 'Referente VALE', role: 'isReferente[vale]' },
-  ];
+	page: 'rappre' | 'admin' | 'bar-admin' | 'vice';
 
-  filteredRoles: Observable<IRole[]>;
+	allRoles: IRole[] = [
+		{
+			description: 'Rappresentante di classe',
+			role: 'isRappreDiClasse',
+		},
+		{ description: 'Direttore di QP', role: 'isQp' },
+		{ description: 'Referente Arte', role: 'isReferente[arte]' },
+		{ description: 'Referente ASL', role: 'isReferente[asl]' },
+		{ description: 'Referente Biblioteca', role: 'isReferente[biblioteca]' },
+		{ description: 'Referente Cinema', role: 'isReferente[cinema]' },
+		{ description: 'Referente Consulta', role: 'isReferente[consulta]' },
+		{ description: 'Referente Dibattito', role: 'isReferente[dibattito]' },
+		{ description: 'Referente Green', role: 'isReferente[green]' },
+		{ description: 'Referente Feste', role: 'isReferente[feste]' },
+		{ description: 'Referente LIR', role: 'isReferente[lir]' },
+		{ description: 'Referente Musica', role: 'isReferente[musica]' },
+		{ description: 'Referente Omnia', role: 'isReferente[omnia]' },
+		{ description: 'Referente PortArti', role: 'isReferente[portarti]' },
+		{ description: 'Referente Sport', role: 'isReferente[sport]' },
+		{ description: 'Referente Tutoring', role: 'isReferente[tutoring]' },
+		{ description: 'Referente VALE', role: 'isReferente[vale]' },
+	];
 
-  @ViewChild('roleInput') roleInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto') matAutocomplete: MatAutocomplete;
+	filteredRoles: Observable<IRole[]>;
 
-  constructor(
-    private activated: ActivatedRoute,
-    public members: MembersService,
-    private toastr: ToastrService,
-    public auth: AuthService,
-    private router: Router,
-    private store: Store,
-    private dialog: DialogService
-  ) {
-    if (this.router.url.includes('bar-admin')) {
-      this.page = 'bar-admin';
-      this.displayedColumns = ['email', 'credit', 'manage'];
-    } else if (this.router.url.includes('vice')) {
-      this.page = 'vice';
-      this.displayedColumns = ['email'];
-    } else if (this.router.url.includes('rappre')) {
-      this.page = 'rappre';
-      this.displayedColumns = ['email', 'roles'];
-    } else if (this.router.url.includes('admin')) {
-      this.page = 'admin';
-      this.displayedColumns = ['email', 'roles', 'delete'];
+	@ViewChild(MatPaginator) paginator: MatPaginator;
 
-      this.allRoles.push(
-        {
-          role: 'isRappre',
-          description: "Rappresentante d'Istituto",
-        },
-        {
-          role: 'isBar',
-          description: 'Barista',
-        },
-        {
-          role: 'isVice',
-          description: 'Vice',
-        }
-      );
-    }
+	@ViewChild('roleInput') roleInput: ElementRef<HTMLInputElement>;
+	@ViewChild('auto') matAutocomplete: MatAutocomplete;
 
-    this.filteredRoles = this.roleCtrl.valueChanges.pipe(
-      map((value: string | null) =>
-        value ? this._filter(value) : this.allRoles.slice()
-      )
-    );
+	constructor(
+		private activated: ActivatedRoute,
+		public members: MembersService,
+		private toastr: ToastrService,
+		public auth: AuthService,
+		private router: Router,
+		private store: Store,
+		private dialog: DialogService
+	) {
+		if (this.router.url.includes('bar-admin')) {
+			this.page = 'bar-admin';
+			this.displayedColumns = ['email', 'credit', 'manage'];
+		} else if (this.router.url.includes('vice')) {
+			this.page = 'vice';
+			this.displayedColumns = ['email'];
+		} else if (this.router.url.includes('rappre')) {
+			this.page = 'rappre';
+			this.displayedColumns = ['email', 'roles'];
+		} else if (this.router.url.includes('admin')) {
+			this.page = 'admin';
+			this.displayedColumns = ['email', 'roles', 'delete'];
 
-    this.classID = this.activated.snapshot.paramMap.get('classID');
-  }
+			this.allRoles.push(
+				{
+					role: 'isRappre',
+					description: "Rappresentante d'Istituto",
+				},
+				{
+					role: 'isBar',
+					description: 'Barista',
+				},
+				{
+					role: 'isVice',
+					description: 'Vice',
+				}
+			);
+		}
 
-  ngOnInit() {
-    this.state$.pipe(take(1)).subscribe((state) => {
-      if (state.classes) {
-        this.store.dispatch(new Classes.GetCurrent(this.classID));
-      } else {
-        this.store.dispatch(new Classes.Get(this.classID));
-      }
-    });
-  }
+		this.filteredRoles = this.roleCtrl.valueChanges.pipe(
+			map((value: string | null) =>
+				value ? this._filter(value) : this.allRoles.slice()
+			)
+		);
 
-  selected(
-    event: MatAutocompleteSelectedEvent,
-    email: string,
-    roles: IRole[]
-  ): void {
-    const value = event.option.viewValue;
-    const role = this.allRoles.find((x) => x.description === value);
+		this.classID = this.activated.snapshot.paramMap.get('classID');
+	}
 
-    this.roleInput.nativeElement.value = '';
-    this.roleCtrl.setValue(null);
+	ngOnInit() {
+		this.state$.pipe(take(1)).subscribe((state) => {
+			if (state.classes) {
+				this.store.dispatch(new Classes.GetCurrent(this.classID));
+			} else {
+				this.store.dispatch(new Classes.Get(this.classID));
+			}
+		});
+	}
 
-    if (roles.find((x) => x.role === role.role)) {
-      this.toastr.show({
-        message: 'Questo utente ha già questo ruolo!',
-        color: 'accent',
-      });
-    } else if (
-      roles.find((x) => x.role.includes('isReferente')) &&
-      role.role.includes('isReferente')
-    ) {
-      this.toastr.showError(
-        'Impossibile aggiungere un altro ruolo da referente!'
-      );
-    } else {
-      this.store.dispatch(new Roles.Add(role, email)).subscribe(() => {
-        this.toastr.show({
-          message: `Ruolo aggiunto a ${email}`,
-          color: 'basic',
-          action: 'Chiudi',
-          duration: 5000,
-        });
-      });
-    }
-  }
+	ngAfterViewInit() {
+		this.state$
+			.pipe(filter((state) => (state.currentClass ? true : false)))
+			.subscribe(({ currentClass: { members } }) => {
+				this.dataSource = new MatTableDataSource(members);
+				this.dataSource.paginator = this.paginator;
+			});
+	}
 
-  remove(role: TRole, email: string): void {
-    if (this.page !== 'admin' && (role === 'isBar' || role === 'isRappre' || role === 'isVice')) {
-      this.toastr.showError('Non sei autorizzato a rimuovere questo ruolo!');
-    } else {
-      this.store.dispatch(new Roles.Remove(role, email)).subscribe(() => {
-        this.toastr.show({
-          message: `Ruolo rimosso da ${email}`,
-          color: 'basic',
-        });
-      });
-    }
-  }
+	selected(
+		event: MatAutocompleteSelectedEvent,
+		email: string,
+		roles: IRole[]
+	): void {
+		const value = event.option.viewValue;
+		const role = this.allRoles.find((x) => x.description === value);
 
-  removeAccount(email: IUser['email']) {
-    this.dialog
-      .open({
-        title: 'Rimuovere account?',
-        text: `L'account associato alla mail ${email} sarà eliminato e con esso tutti i suoi dati`,
-        color: 'warn',
-        answer: 'Sì, rimuovi',
-      })
-      .subscribe(() => {
-        this.store.dispatch(new Accounts.Remove(email)).subscribe((res) => {
-          this.toastr.show({
-            message: 'Account rimosso',
-            color: 'accent',
-          });
-        });
-      });
-  }
+		this.roleInput.nativeElement.value = '';
+		this.roleCtrl.setValue(null);
 
-  private _filter(value: string): IRole[] {
-    const filterValue = value.toLowerCase();
+		if (roles.find((x) => x.role === role.role)) {
+			this.toastr.show({
+				message: 'Questo utente ha già questo ruolo!',
+				color: 'accent',
+			});
+		} else if (
+			roles.find((x) => x.role.includes('isReferente')) &&
+			role.role.includes('isReferente')
+		) {
+			this.toastr.showError(
+				'Impossibile aggiungere un altro ruolo da referente!'
+			);
+		} else {
+			this.store.dispatch(new Roles.Add(role, email)).subscribe(() => {
+				this.toastr.show({
+					message: `Ruolo aggiunto a ${email}`,
+					color: 'basic',
+					action: 'Chiudi',
+					duration: 5000,
+				});
+			});
+		}
+	}
 
-    return this.allRoles.filter(
-      (x) => x.description.toLowerCase().indexOf(filterValue) === 0
-    );
-  }
+	remove(role: TRole, email: string): void {
+		if (
+			this.page !== 'admin' &&
+			(role === 'isBar' || role === 'isRappre' || role === 'isVice')
+		) {
+			this.toastr.showError('Non sei autorizzato a rimuovere questo ruolo!');
+		} else {
+			this.store.dispatch(new Roles.Remove(role, email)).subscribe(() => {
+				this.toastr.show({
+					message: `Ruolo rimosso da ${email}`,
+					color: 'basic',
+				});
+			});
+		}
+	}
 
-  // // Update user credit (for bar)
-  // updateCredit(email: string, money: number) {
-  //   this.dialogService
-  //     .open({
-  //       title: 'Sei sicuro?',
-  //       text: 'Potrai comunque modificare il credito in seguito',
-  //       color: 'primary',
-  //       answer: 'Sì, modifica credito',
-  //     })
-  //     .subscribe((res) => {
-  //       this.members
-  //         .updateCredit(email, Number(money))
-  //         .subscribe((res: any) => {
-  //           if (res.success === true) {
-  //             this.toastr.show({
-  //               message: 'Credito modificato',
-  //               action: `Chiudi`,
-  //               duration: 5000,
-  //             });
-  //           } else if (res.success === false) {
-  //             this.toastr.showError();
-  //           }
-  //         });
-  //     });
-  // }
+	removeAccount(email: IUser['email']) {
+		this.dialog
+			.open({
+				title: 'Rimuovere account?',
+				text: `L'account associato alla mail ${email} sarà eliminato e con esso tutti i suoi dati`,
+				color: 'warn',
+				answer: 'Sì, rimuovi',
+			})
+			.subscribe(() => {
+				this.store.dispatch(new Accounts.Remove(email)).subscribe(() => {
+					this.toastr.show({
+						message: 'Account rimosso',
+						color: 'accent',
+					});
+				});
+			});
+	}
+
+	private _filter(value: string): IRole[] {
+		const filterValue = value.toLowerCase();
+
+		return this.allRoles.filter(
+			(x) => x.description.toLowerCase().indexOf(filterValue) === 0
+		);
+	}
+
+	// // Update user credit (for bar)
+	// updateCredit(email: string, money: number) {
+	//   this.dialogService
+	//     .open({
+	//       title: 'Sei sicuro?',
+	//       text: 'Potrai comunque modificare il credito in seguito',
+	//       color: 'primary',
+	//       answer: 'Sì, modifica credito',
+	//     })
+	//     .subscribe((res) => {
+	//       this.members
+	//         .updateCredit(email, Number(money))
+	//         .subscribe((res: any) => {
+	//           if (res.success === true) {
+	//             this.toastr.show({
+	//               message: 'Credito modificato',
+	//               action: `Chiudi`,
+	//               duration: 5000,
+	//             });
+	//           } else if (res.success === false) {
+	//             this.toastr.showError();
+	//           }
+	//         });
+	//     });
+	// }
 }

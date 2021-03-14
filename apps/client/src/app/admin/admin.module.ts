@@ -18,8 +18,6 @@ import { CogeComponent } from '@/admin/components/coge/coge.component';
 
 import { AdminService } from '@admin/services/admin/admin.service';
 
-import { MatPaginatorIntl } from '@angular/material/paginator';
-import { MatPaginatorIntlIT } from '@admin/i18n/paginator';
 import { CommissioniComponent } from './components/commissioni/commissioni.component';
 
 @NgModule({
@@ -41,9 +39,6 @@ import { CommissioniComponent } from './components/commissioni/commissioni.compo
 		UiModule,
 		SharedModule,
 	],
-	providers: [
-		AdminService,
-		{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlIT },
-	],
+	providers: [AdminService],
 })
 export class AdminModule {}
