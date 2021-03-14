@@ -8,7 +8,7 @@ import {
 	CSLDataTableSource,
 	ICourse,
 } from '@csl/shared';
-import { InfoDialogService } from '@csl/ui';
+import { DialogService, InfoDialogService, ToastrService } from '@csl/ui';
 import { Observable } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 
@@ -44,7 +44,12 @@ export class CogeView implements OnInit {
 		}
 	}
 
-	constructor(private coge: CogeService, private info: InfoDialogService) {}
+	constructor(
+		private coge: CogeService,
+		private info: InfoDialogService,
+		private dialog: DialogService,
+		private toastr: ToastrService
+	) {}
 
 	ngOnInit(): void {
 		this.courses$ = this.coge.getAllCourses().pipe(
@@ -110,6 +115,27 @@ export class CogeView implements OnInit {
 					)
 				);
 		}
+	}
+
+	confirmDraft(slot: ICourse['slot']) {
+		this.dialog
+			.open({
+				title: `Confermi la tua iscrizione ai corsi in fascia ${slot}?`,
+				text: 'Non potrai più modificare la tua scelta',
+				answer: 'Sì, conferma',
+				color: 'primary',
+			})
+			.pipe(switchMap(() => this.coge.subscribeToCourses(slot)))
+			.subscribe((res) => {
+				if (res.success === true) {
+					this.toastr.show({
+						color: 'success',
+						message: `Iscrizione confermata ai corsi della fascia ${slot}`,
+					});
+				} else {
+					this.toastr.showError();
+				}
+			});
 	}
 
 	private _onlySlot(onlySlot: ICourse['slot'], data: ICourse[]) {

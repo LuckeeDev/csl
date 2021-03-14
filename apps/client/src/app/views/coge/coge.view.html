@@ -28,6 +28,7 @@
 						color="primary"
 						class="confirm"
 						[disabled]="signupDraft[slot].length !== 3"
+						(click)="confirmDraft(slot)"
 					>
 						Conferma corsi
 					</button>
