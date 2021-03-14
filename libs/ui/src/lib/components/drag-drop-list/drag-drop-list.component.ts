@@ -15,6 +15,9 @@ export class DragDropListComponent {
 	@Input()
 	data: Data[];
 
+	@Input()
+	disableDrag = false;
+
 	@Output()
 	dataChange = new EventEmitter();
 
