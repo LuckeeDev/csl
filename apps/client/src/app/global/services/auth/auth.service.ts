@@ -18,7 +18,7 @@ export class AuthService {
     this.user$ = this.http.get<IHttpRes<{ user: IUser, token: string }>>('/auth')
       .pipe(
         map((res) => {
-          if (res.success) {
+          if (res.success === true) {
             this.fireAuth.signInWithCustomToken(res.data.token).then();
 
             return res.data.user;
