@@ -1,14 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ICourse, IHttpRes, IUser } from '@csl/shared';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 
 interface CourseInSlot {
 	id: ICourse['id'];
 	label: ICourse['title'];
-	confirmed?: boolean;
 }
 
 interface SignupStatus {
@@ -42,23 +41,32 @@ export class CogeService {
 	availableCourses: ICourse[];
 
 	constructor(private http: HttpClient, private auth: AuthService) {
-		this.auth.user$
-			.pipe(
-				map((user) => user.courses),
-				map((courses) => {
-					return Object.entries(
-						courses
-					) /* as [ICourse['slot'], ICourse['id']][] */;
-				})
-			)
-			.subscribe({
-				next: (entries: [ICourse['slot'], Courses][]) => {
-					for (const [slot, courses] of entries) {
-						this.draft[slot].courses = courses;
-						this.draft[slot].confirmed = true;
-					}
-				},
-			});
+		const courses$ = this.auth.user$.pipe(
+			map((user) => user.courses),
+			map((courses) => {
+				return Object.entries(courses) as [
+					ICourse['slot'],
+					[ICourse['id'], ICourse['id'], ICourse['id']]
+				][];
+			})
+		);
+
+		forkJoin({
+			entries: courses$,
+			availableCourses: this.getAllCourses().pipe(map(({ data }) => data)),
+		}).subscribe({
+			next: ({ entries, availableCourses }) => {
+				for (const [slot, ids] of entries) {
+					const courses: Courses = ids.map((id) => ({
+						id,
+						label: availableCourses.find((course) => course.id === id).title,
+					})) as Courses;
+
+					this.draft[slot].courses = courses;
+					this.draft[slot].confirmed = true;
+				}
+			},
+		});
 	}
 
 	createCourse(course: ICourse): Observable<IHttpRes<any>> {
@@ -70,9 +78,7 @@ export class CogeService {
 	}
 
 	getAllCourses(): Observable<IHttpRes<ICourse[]>> {
-		return this.http
-			.get<IHttpRes<ICourse[]>>('/coge')
-			.pipe(tap(({ data: courses }) => (this.availableCourses = courses)));
+		return this.http.get<IHttpRes<ICourse[]>>('/coge');
 	}
 
 	subscribeToCourses(slot: ICourse['slot']): Observable<IHttpRes<void>> {
