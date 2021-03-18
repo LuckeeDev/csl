@@ -24,7 +24,6 @@ type Action = 'DETAILS';
 export class CogeView implements OnInit {
 	currentIndex: number;
 
-	courses$: Observable<ICourse[]>;
 	dataSource$: Observable<Courses>;
 	slots$: Observable<ICourse['slot'][]>;
 
@@ -52,12 +51,8 @@ export class CogeView implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.courses$ = this.coge.getAllCourses().pipe(
-			filter(({ success }) => success),
-			map(({ data }) => data)
-		);
-
-		this.dataSource$ = this.courses$.pipe(
+		this.dataSource$ = this.coge.availableCourses$.pipe(
+			filter((courses) => courses !== null),
 			map((courses) => ({
 				a: this._convertToDataSource(this._onlySlot('a', courses)),
 				b: this._convertToDataSource(this._onlySlot('b', courses)),
@@ -78,7 +73,7 @@ export class CogeView implements OnInit {
 	}
 
 	handleEvent(e: CSLDataTableEvent<Action>) {
-		const course$ = this.courses$.pipe(
+		const course$ = this.coge.availableCourses$.pipe(
 			map((courses) => courses.find((course) => course.id === e.id))
 		);
 

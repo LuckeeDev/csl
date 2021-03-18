@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ICourse, IHttpRes, IUser } from '@csl/shared';
-import { forkJoin, Observable } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 
@@ -38,9 +38,13 @@ const defaultDraft: SignupDraft = {
 })
 export class CogeService {
 	draft: SignupDraft = defaultDraft;
-	availableCourses: ICourse[];
+
+	availableCourses$: Observable<ICourse[]>;
+	private availableCoursesSubject$: BehaviorSubject<ICourse[]> = new BehaviorSubject(null);
 
 	constructor(private http: HttpClient, private auth: AuthService) {
+		this.availableCourses$ = this.availableCoursesSubject$.asObservable();
+
 		const courses$ = this.auth.user$.pipe(
 			map((user) => user.courses),
 			map((courses) => {
@@ -56,6 +60,8 @@ export class CogeService {
 			availableCourses: this.getAllCourses().pipe(map(({ data }) => data)),
 		}).subscribe({
 			next: ({ entries, availableCourses }) => {
+				this.availableCoursesSubject$.next(availableCourses);
+
 				for (const [slot, ids] of entries) {
 					const courses: Courses = ids.map((id) => ({
 						id,
