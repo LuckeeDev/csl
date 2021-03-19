@@ -46,7 +46,7 @@ export class CogeService {
 		this.availableCourses$ = this.availableCoursesSubject$.asObservable();
 
 		const courses$ = this.auth.user$.pipe(
-			map((user) => user.courses),
+			map((user) => user.courses ? user.courses : []),
 			map((courses) => {
 				return Object.entries(courses) as [
 					ICourse['slot'],

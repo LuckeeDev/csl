@@ -20,3 +20,13 @@
 		margin-top: 10px;
 	}
 }
+
+@media screen and (max-width: 768px) {
+	.courses-wrapper {
+		flex-wrap: wrap;
+
+		.darg-drop {
+			margin-top: 50px;
+		}
+	}
+}

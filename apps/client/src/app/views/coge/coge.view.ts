@@ -96,6 +96,16 @@ export class CogeView implements OnInit {
 										.map(({ name, classID }) => `${name} - ${classID}`)
 										.join('<br />'),
 								},
+								{
+									header: 'Iscritti',
+									paragraph: `
+										Come prima opzione: ${currentCourse.option1.length}
+										<br />
+										Come seconda opzione: ${currentCourse.option2.length}
+										<br />
+										Come terza opzione: ${currentCourse.option3.length}
+									`,
+								},
 								{ header: 'Note', paragraph: currentCourse.notes },
 							],
 						});

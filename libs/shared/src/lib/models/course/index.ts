@@ -19,9 +19,9 @@ export interface ICourse {
 	}[];
 	notes: string;
 	signups: IUser['email'][];
-	option1: number;
-	option2: number;
-	option3: number;
+	option1: IUser['id'][];
+	option2: IUser['id'][];
+	option3: IUser['id'][];
 }
 
 export interface ICourseModel extends Document, ICourse {
