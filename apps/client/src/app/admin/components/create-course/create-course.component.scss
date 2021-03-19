@@ -1,34 +1,42 @@
 h1 {
-  font-weight: 500;
-  flex: 100%;
+	font-weight: 500;
+	flex: 100%;
 }
 
 .form {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  margin-top: 20px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	margin-top: 20px;
+
+	.speakers {
+		width: 100%;
+
+		.speaker-field {
+			margin-right: 20px;
+		}
+	}
 }
 
 .break {
-  flex-basis: 100%;
-  height: 0;
+	flex-basis: 100%;
+	height: 0;
 }
 
 .input {
-  margin-right: 20px;
-  flex: 1;
+	margin-right: 20px;
+	flex: 1;
 }
 
 .checkboxes-label {
-  margin-right: 20px;
-  color: rgba($color: #000000, $alpha: 0.6)
+	margin-right: 20px;
+	color: rgba($color: #000000, $alpha: 0.6);
 }
 
 .checkbox {
-  margin-right: 10px;
+	margin-right: 10px;
 }
 
 .submit {
-  margin-top: 10px;
+	margin-top: 10px;
 }

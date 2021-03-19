@@ -54,13 +54,14 @@
 		<div
 			*ngFor="let speaker of speakers.controls; let i = index"
 			[formGroupName]="i"
+			class="speakers"
 		>
-			<mat-form-field>
+			<mat-form-field class="speaker-field">
 				<mat-label>Nome</mat-label>
 				<input matInput formControlName="name" />
 			</mat-form-field>
 
-			<mat-form-field>
+			<mat-form-field class="speaker-field">
 				<mat-label>Classe</mat-label>
 				<input matInput formControlName="classID" />
 			</mat-form-field>
