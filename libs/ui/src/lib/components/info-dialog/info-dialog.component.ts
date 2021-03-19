@@ -11,6 +11,7 @@ export interface InfoDialogData {
 	content: ContentSection[];
 	confirm?: string;
 	cancel?: string;
+	confirmDisabled?: boolean;
 }
 
 @Component({

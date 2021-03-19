@@ -84,6 +84,7 @@ export class CogeView implements OnInit {
 						return this.info.open({
 							confirm: 'Aggiungi',
 							title: currentCourse.title,
+							confirmDisabled: this.signupDraft[currentCourse.slot].confirmed,
 							content: [
 								{
 									header: 'Categoria',
