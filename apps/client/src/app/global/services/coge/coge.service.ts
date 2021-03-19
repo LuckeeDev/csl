@@ -40,13 +40,15 @@ export class CogeService {
 	draft: SignupDraft = defaultDraft;
 
 	availableCourses$: Observable<ICourse[]>;
-	private availableCoursesSubject$: BehaviorSubject<ICourse[]> = new BehaviorSubject(null);
+	private availableCoursesSubject$: BehaviorSubject<
+		ICourse[]
+	> = new BehaviorSubject([]);
 
 	constructor(private http: HttpClient, private auth: AuthService) {
 		this.availableCourses$ = this.availableCoursesSubject$.asObservable();
 
 		const courses$ = this.auth.user$.pipe(
-			map((user) => user.courses ? user.courses : []),
+			map((user) => (user.courses ? user.courses : [])),
 			map((courses) => {
 				return Object.entries(courses) as [
 					ICourse['slot'],
@@ -77,6 +79,10 @@ export class CogeService {
 
 	createCourse(course: ICourse): Observable<IHttpRes<any>> {
 		return this.http.post<IHttpRes<any>>('/coge/courses', { course });
+	}
+
+	getCourse(id: ICourse['id']): Observable<IHttpRes<ICourse>> {
+		return this.http.get<IHttpRes<ICourse>>(`/coge/courses/${id}`);
 	}
 
 	getCourses(): Observable<IHttpRes<ICourse[]>> {

@@ -3,11 +3,15 @@ import { CogeService } from '@global/services/coge/coge.service';
 import {
 	CSLDataTableAction,
 	CSLDataTableDisplayedColumns,
+	CSLDataTableEvent,
 	CSLDataTableSource,
 	ICourse,
 } from '@csl/shared';
-import { filter, map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { InfoDialogService } from '@csl/ui';
+
+type TableAction = 'DETAILS';
 
 @Component({
 	selector: 'csl-coge',
@@ -19,11 +23,11 @@ export class CogeComponent implements OnInit {
 
 	courses$: Observable<ICourse[]>;
 
-	actions: CSLDataTableAction[] = [
+	actions: CSLDataTableAction<TableAction>[] = [
 		{
-			id: 'DELETE',
-			label: 'Elimina Evento',
-			type: 'warn',
+			id: 'DETAILS',
+			label: 'Dettagli',
+			type: 'primary',
 		},
 	];
 
@@ -36,22 +40,62 @@ export class CogeComponent implements OnInit {
 		{ type: 'actions', id: 'manage', label: 'Gestisci' },
 	];
 
-	constructor(private coge: CogeService) {}
+	constructor(private coge: CogeService, private info: InfoDialogService) {}
 
 	ngOnInit(): void {
-		this.dataSource$ = this.coge.getCourses().pipe(
-			filter(({ success }) => success),
-			map(({ data }) =>
-				data.map((course) => ({
-					id: course.id,
-					data: course,
-					actions: this.actions,
-				}))
+		this.dataSource$ = this.coge.availableCourses$.pipe(
+			map((courses) =>
+				courses
+					? courses.map((course) => ({
+							id: course.id,
+							data: course,
+							actions: this.actions,
+					  }))
+					: []
 			)
 		);
 	}
 
-	eventHandler(e) {
-		console.log(e);
+	eventHandler(e: CSLDataTableEvent<TableAction>) {
+		const course$ = this.coge.availableCourses$.pipe(
+			map((courses) => courses.find((course) => course.id === e.id))
+		);
+
+		if (e.action === 'DETAILS') {
+			course$
+				.pipe(
+					switchMap((currentCourse) => {
+						return this.info.open({
+							confirm: 'Conferma',
+							title: currentCourse.title,
+							content: [
+								{
+									header: 'Categoria',
+									paragraph: currentCourse.category,
+								},
+								{ header: 'Descrizione', paragraph: currentCourse.description },
+								{
+									header: 'Relatori',
+									paragraph: currentCourse.speakers
+										.map(({ name, classID }) => `${name} - ${classID}`)
+										.join('<br />'),
+								},
+								{
+									header: 'Iscritti',
+									paragraph: `
+										Come prima opzione: ${currentCourse.option1.length}
+										<br />
+										Come seconda opzione: ${currentCourse.option2.length}
+										<br />
+										Come terza opzione: ${currentCourse.option3.length}
+									`,
+								},
+								{ header: 'Note', paragraph: currentCourse.notes },
+							],
+						});
+					})
+				)
+				.subscribe();
+		}
 	}
 }

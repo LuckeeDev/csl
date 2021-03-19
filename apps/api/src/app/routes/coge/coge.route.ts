@@ -5,6 +5,7 @@ import {
 	getAllCourses,
 	getCourses,
 	signUpToCourse,
+	getCourse,
 } from '@controllers';
 import { isAdmin, isSignedIn } from '@common/auth';
 
@@ -16,6 +17,12 @@ router.get('/', isSignedIn, async (req: Request, res: Response) => {
 
 router.get('/courses', isSignedIn, async (req: Request, res: Response) => {
 	const result = await getCourses(req.user);
+
+	res.json(result);
+});
+
+router.get('/courses/:id', isSignedIn, async (req: Request, res: Response) => {
+	const result = await getCourse(req.params.id);
 
 	res.json(result);
 });

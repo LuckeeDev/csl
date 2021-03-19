@@ -35,6 +35,28 @@ export const createCourse = async (
 	}
 };
 
+export const getCourse = async (
+	id: ICourse['id']
+): Promise<IHttpRes<ICourse>> => {
+	try {
+		const course = await Course.findOne({ id });
+
+		return {
+			success: true,
+			data: course,
+		};
+	} catch (err) {
+		saveError(`Error while getting course with ID "${id}"`, {
+			category: 'coge',
+			err,
+		});
+
+		return {
+			success: false,
+		};
+	}
+};
+
 export const getCourses = async (user: IUser): Promise<IHttpRes<ICourse[]>> => {
 	try {
 		const courses = await Course.find({ owner: user.id });
