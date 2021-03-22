@@ -2,6 +2,30 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [1.7.0](https://github.com/LuckeeDev/csl/compare/v1.6.15...v1.7.0) (2021-03-22)
+
+
+### Bug Fixes
+
+* added pagination to data table ([ebdfdd5](https://github.com/LuckeeDev/csl/commit/ebdfdd562cfef28f82a81cb87278da5ea4bc2dbf))
+* minor ui fixes ([13faad1](https://github.com/LuckeeDev/csl/commit/13faad161aded4b4c9c763cc04feff375e25071a))
+* prevent user from adding a course if the slot is already confirmed ([580dba6](https://github.com/LuckeeDev/csl/commit/580dba6e950ded29a7c9ee70443f114c486799c5))
+
+
+### Features
+
+* added info dialog, minor fixes ([a4b5a9c](https://github.com/LuckeeDev/csl/commit/a4b5a9c616c2e14e8d34ae97651339ca29ee2761))
+* change way signups work ([2fa5e69](https://github.com/LuckeeDev/csl/commit/2fa5e695d566bbee1856c4cb1ec88ee9bf7e70a2))
+* confirm course subscription ([eeff28a](https://github.com/LuckeeDev/csl/commit/eeff28aa7703eeec5b101bff2971058692d16a1f))
+* disable drag on drag drop list ([cafcd82](https://github.com/LuckeeDev/csl/commit/cafcd823196a62e682d66125a7263441f478c764))
+* drag and drop to reorder courses preference ([8b07028](https://github.com/LuckeeDev/csl/commit/8b07028106e787c52f1aa11b2561e8a26a63fe51))
+* info dialog for courses ([e178730](https://github.com/LuckeeDev/csl/commit/e178730684dcda8e3527b13026fd115554855ed8))
+* push to signup draft ([31df3f7](https://github.com/LuckeeDev/csl/commit/31df3f7b73404f9d5c0f002fcae7a2c5c1e94e12))
+* remove course choice ([b1ecc63](https://github.com/LuckeeDev/csl/commit/b1ecc63ea737f36f0734392942c34a6f0a19e7c1))
+* retrieve courses from the backend ([958eda0](https://github.com/LuckeeDev/csl/commit/958eda084a0b24472c7f77804de51dd5ffffba2e))
+
+
+
 ## [1.6.15](https://github.com/LuckeeDev/csl/compare/v1.6.14...v1.6.15) (2021-02-05)
 
 

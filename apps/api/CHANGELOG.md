@@ -2,6 +2,27 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [1.7.0](https://github.com/LuckeeDev/csl/compare/v1.6.15...v1.7.0) (2021-03-22)
+
+
+### Bug Fixes
+
+* last fixes before deployment ([fb19d70](https://github.com/LuckeeDev/csl/commit/fb19d70cc10955134b25df7a0ddfcbe8d220ddb8))
+* made course creation exclusive to admin ([37cc9a8](https://github.com/LuckeeDev/csl/commit/37cc9a83abf53bcb0575ead1d87355ba205aa372))
+* og:image ([a36599f](https://github.com/LuckeeDev/csl/commit/a36599f029bc1f50aac032572a0e17257a90c882))
+* show course details in admin page ([58d9553](https://github.com/LuckeeDev/csl/commit/58d95538720edec700d9815d54c3aa215efd27b3))
+* show courses subscription count in the ui ([af83823](https://github.com/LuckeeDev/csl/commit/af83823df1532ee21dbc563e0e4c1a23be4ce8ee))
+
+
+### Features
+
+* change way signups work ([2fa5e69](https://github.com/LuckeeDev/csl/commit/2fa5e695d566bbee1856c4cb1ec88ee9bf7e70a2))
+* course sign up ([1546acf](https://github.com/LuckeeDev/csl/commit/1546acfcfb2fa192ec9c77ad8631a418decd5d0f))
+* create courses from the admin dashboard ([ac7c7d9](https://github.com/LuckeeDev/csl/commit/ac7c7d91d2a6e2cccb6570b160af38e78a2a9dee))
+* retrieve courses from the backend ([958eda0](https://github.com/LuckeeDev/csl/commit/958eda084a0b24472c7f77804de51dd5ffffba2e))
+
+
+
 ## [1.6.15](https://github.com/LuckeeDev/csl/compare/v1.6.14...v1.6.15) (2021-02-05)
 
 
