@@ -7,7 +7,7 @@ import {
 	CSLDataTableSource,
 	ICourse,
 } from '@csl/shared';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { InfoDialogService } from '@csl/ui';
 
@@ -52,8 +52,7 @@ export class CogeComponent implements OnInit {
 							actions: this.actions,
 					  }))
 					: []
-			),
-			tap(console.log)
+			)
 		);
 	}
 
