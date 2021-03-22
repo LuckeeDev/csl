@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.8.10](https://github.com/LuckeeDev/csl/compare/v1.8.9...v1.8.10) (2021-03-22)
+
+
+### Bug Fixes
+
+* prevent selecting if slot is confirmed ([95cff80](https://github.com/LuckeeDev/csl/commit/95cff8014c7496dc8a85adee3c3adb24ef011c49))
+
+
+
 ## [1.8.9](https://github.com/LuckeeDev/csl/compare/v1.8.8...v1.8.9) (2021-03-22)
 
 
