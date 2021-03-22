@@ -31,6 +31,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSortModule } from '@angular/material/sort';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
@@ -104,6 +105,7 @@ import { RoundedDirective } from './directives/rounded/rounded.directive';
 		MatNativeDateModule,
 		MatRadioModule,
 		DragDropModule,
+		MatSortModule,
 	],
 	exports: [
 		FontAwesomeModule,
@@ -143,6 +145,7 @@ import { RoundedDirective } from './directives/rounded/rounded.directive';
 		MatDatepickerModule,
 		MatNativeDateModule,
 		MatRadioModule,
+		MatSortModule,
 	],
 	providers: [ToastrService, DialogService, DeviceService, InfoDialogService],
 })

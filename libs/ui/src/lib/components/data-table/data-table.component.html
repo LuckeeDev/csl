@@ -2,24 +2,26 @@
 	<ng-content select="[header]"></ng-content>
 
 	<mat-card-content>
-		<mat-table [dataSource]="data">
+		<mat-table [dataSource]="data" matSort>
 			<ng-container *ngFor="let column of columns">
 				<ng-container *ngIf="column.type === 'data'" [matColumnDef]="column.id">
-					<mat-header-cell *matHeaderCellDef>{{
-						column.label
-					}}</mat-header-cell>
-					<mat-cell *matCellDef="let entry">{{
-						entry.data[column.id]
-					}}</mat-cell>
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						{{ column.label }}
+					</mat-header-cell>
+					
+					<mat-cell *matCellDef="let entry">
+						{{ entry.data[column.id] }}
+					</mat-cell>
 				</ng-container>
 
 				<ng-container
 					*ngIf="column.type === 'actions'"
 					[matColumnDef]="column.id"
 				>
-					<mat-header-cell *matHeaderCellDef>{{
-						column.label
-					}}</mat-header-cell>
+					<mat-header-cell *matHeaderCellDef>
+						{{ column.label }}
+					</mat-header-cell>
+
 					<mat-cell *matCellDef="let entry">
 						<button
 							mat-stroked-button

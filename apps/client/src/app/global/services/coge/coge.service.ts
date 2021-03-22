@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ICourse, IHttpRes } from '@csl/shared';
-import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 
@@ -52,11 +52,11 @@ export class CogeService {
 			})
 		);
 
-		forkJoin({
-			entries: courses$,
-			availableCourses: this.getAllCourses().pipe(map(({ data }) => data)),
-		}).subscribe({
-			next: ({ entries, availableCourses }) => {
+		combineLatest([
+			courses$,
+			this.getAllCourses().pipe(map(({ data }) => data)),
+		]).subscribe({
+			next: ([entries, availableCourses]) => {
 				this.availableCoursesSubject$.next(availableCourses);
 
 				for (const [slot, id] of entries) {

@@ -8,6 +8,7 @@ import {
 	ViewChild,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {
 	CSLDataTableAction,
@@ -28,6 +29,8 @@ export class DataTableComponent implements OnInit, AfterViewInit {
 
 	@ViewChild(MatPaginator)
 	paginator: MatPaginator;
+	@ViewChild(MatSort)
+	sort: MatSort;
 
 	@Input()
 	data: CSLDataTableSource;
@@ -48,6 +51,7 @@ export class DataTableComponent implements OnInit, AfterViewInit {
 
 	ngAfterViewInit(): void {
 		this.dataSource.paginator = this.paginator;
+		this.dataSource.sort = this.sort;
 	}
 
 	emit(value: CSLDataTableEvent) {
