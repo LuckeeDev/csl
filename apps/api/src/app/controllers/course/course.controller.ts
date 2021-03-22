@@ -114,22 +114,49 @@ export const signUpToCourse = async (
 	}
 ): Promise<IHttpRes<void>> => {
 	try {
-		await Course.findOneAndUpdate(
-			{ id: course },
-			{ $push: { signups: { id: user.id, name: user.name } } }
+		const newCourse = await Course.findOneAndUpdate(
+			{
+				$or: [
+					{
+						id: course,
+						max: 2000,
+					},
+					{
+						id: course,
+						signupsCount: { $lte: 100 },
+					},
+					{
+						id: course,
+						signupsCount: { $exists: false },
+					},
+				],
+			},
+			{
+				$push: { signups: { id: user.id, name: user.name } },
+				$inc: { signupsCount: 1 },
+			},
+			{ upsert: true }
 		);
 
-		const courseUpdateIndex = `courses.${slot}`;
+		if (newCourse.signupsCount === newCourse.max) {
+			return {
+				success: false,
+			};
+		} else {
+			const courseUpdateIndex = `courses.${slot}`;
 
-		await User.findOneAndUpdate(
-			{ id: user.id },
-			{ [courseUpdateIndex]: course }
-		);
+			await User.findOneAndUpdate(
+				{ id: user.id },
+				{ [courseUpdateIndex]: course }
+			);
 
-		return {
-			success: true,
-		};
+			return {
+				success: true,
+			};
+		}
 	} catch (err) {
+		console.log(err);
+
 		saveError('Error while signing up to coge courses', {
 			category: 'coge',
 		});

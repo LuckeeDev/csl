@@ -24,6 +24,7 @@ export interface ICourse {
 	}[];
 	notes: string;
 	signups: Signup[];
+	signupsCount: number;
 	max: number;
 }
 

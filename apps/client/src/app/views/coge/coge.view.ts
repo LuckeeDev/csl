@@ -22,7 +22,7 @@ type Action = 'DETAILS' | 'ADD';
 	styleUrls: ['./coge.view.scss'],
 })
 export class CogeView implements OnInit {
-	currentIndex: number;
+	currentIndex = 0;
 
 	dataSource$: Observable<Courses>;
 	slots$: Observable<ICourse['slot'][]>;
@@ -44,7 +44,7 @@ export class CogeView implements OnInit {
 			(now.getDate() >= 22,
 			now.getMonth() >= 2,
 			now.getFullYear() >= 2021,
-			now.getHours() >= 18)
+			now.getHours() >= 19)
 		) {
 			return true;
 		} else {
@@ -103,7 +103,7 @@ export class CogeView implements OnInit {
 	confirmDraft(slot: ICourse['slot']) {
 		this.dialog
 			.open({
-				title: `Confermi la tua iscrizione ai corsi in fascia ${slot}?`,
+				title: `Confermi la tua iscrizione al corso in fascia ${slot}?`,
 				text: 'Non potrai più modificare la tua scelta',
 				answer: 'Sì, conferma',
 				color: 'primary',
@@ -113,10 +113,10 @@ export class CogeView implements OnInit {
 				if (res.success === true) {
 					this.toastr.show({
 						color: 'success',
-						message: `Iscrizione confermata ai corsi della fascia ${slot}`,
+						message: `Iscrizione confermata al corso della fascia ${slot}`,
 					});
 				} else {
-					this.toastr.showError();
+					this.toastr.showError("Errore durante l'iscrizione al corso.");
 				}
 			});
 	}
