@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.7.8](https://github.com/LuckeeDev/csl/compare/v1.7.7...v1.7.8) (2021-03-22)
+
+
+### Performance Improvements
+
+* :zap: save user and prevent repeating api call ([d9cd3df](https://github.com/LuckeeDev/csl/commit/d9cd3dfba152ba09f6fdf0aa0565f56dab9eda50))
+
+
+
 ## [1.7.7](https://github.com/LuckeeDev/csl/compare/v1.7.6...v1.7.7) (2021-03-22)
 
 
