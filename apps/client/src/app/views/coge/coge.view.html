@@ -19,7 +19,7 @@
 				</csl-data-table>
 
 				<div class="drag-drop">
-					<h1>Le tue scelte per la fascia {{ slot.toUpperCase() }}</h1>
+					<h1>La tua scelta per la fascia {{ slot.toUpperCase() }}</h1>
 
 					<csl-drag-drop-list
 						[(data)]="signupDraft[slot].courses"
@@ -33,7 +33,7 @@
 						[disabled]="signupDraft[slot].courses.length !== 3 || signupDraft[slot].confirmed === true"
 						(click)="confirmDraft(slot)"
 					>
-						Conferma corsi
+						Conferma
 					</button>
 				</div>
 			</div>

@@ -14,7 +14,7 @@ import { filter, map, switchMap } from 'rxjs/operators';
 
 type Courses = Record<ICourse['slot'], CSLDataTableSource<ICourse>>;
 
-type Action = 'DETAILS';
+type Action = 'DETAILS' | 'ADD';
 
 @Component({
 	selector: 'csl-coge',
@@ -28,7 +28,8 @@ export class CogeView implements OnInit {
 	slots$: Observable<ICourse['slot'][]>;
 
 	actions: CSLDataTableAction<Action>[] = [
-		{ type: 'primary', id: 'DETAILS', label: 'Dettagli del corso' },
+		{ type: 'basic', id: 'DETAILS', label: 'Dettagli del corso' },
+		{ type: 'primary', id: 'ADD', label: 'Aggiungi' },
 	];
 
 	displayedColumns: CSLDataTableDisplayedColumns<keyof ICourse> = [
@@ -78,48 +79,9 @@ export class CogeView implements OnInit {
 		);
 
 		if (e.action === 'DETAILS') {
-			course$
-				.pipe(
-					switchMap((currentCourse) => {
-						return this.info.open({
-							confirm: 'Aggiungi',
-							title: currentCourse.title,
-							confirmDisabled: this.signupDraft[currentCourse.slot].confirmed,
-							content: [
-								{
-									header: 'Categoria',
-									paragraph: currentCourse.category,
-								},
-								{ header: 'Descrizione', paragraph: currentCourse.description },
-								{
-									header: 'Relatori',
-									paragraph: currentCourse.speakers
-										.map(({ name, classID }) => `${name} - ${classID}`)
-										.join('<br />'),
-								},
-								{
-									header: 'Iscritti',
-									paragraph: `
-										Come prima opzione: ${currentCourse.option1.length}
-										<br />
-										Come seconda opzione: ${currentCourse.option2.length}
-										<br />
-										Come terza opzione: ${currentCourse.option3.length}
-									`,
-								},
-								{ header: 'Note', paragraph: currentCourse.notes },
-							],
-						});
-					}),
-					filter((confirmation) => confirmation),
-					switchMap(() => course$)
-				)
-				.subscribe(({ id, title }) =>
-					this.coge.pushToDraft(
-						{ id, label: title },
-						numberToLetter(this.currentIndex)
-					)
-				);
+			this._handleDetails(course$);
+		} else if (e.action === 'ADD') {
+			this._handleAdd(course$);
 		}
 	}
 
@@ -154,5 +116,51 @@ export class CogeView implements OnInit {
 			data: course,
 			actions: this.actions,
 		}));
+	}
+
+	private _handleAdd(course$: Observable<ICourse>) {
+		course$.subscribe({
+			next: ({ id, title }) => {
+				this._pushToDraft(id, title);
+			}
+		});
+	}
+
+	private _handleDetails(course$: Observable<ICourse>) {
+		course$
+			.pipe(
+				switchMap((currentCourse) => {
+					return this.info.open({
+						confirm: 'Aggiungi',
+						title: currentCourse.title,
+						confirmDisabled: this.signupDraft[currentCourse.slot].confirmed,
+						content: [
+							{
+								header: 'Categoria',
+								paragraph: currentCourse.category,
+							},
+							{ header: 'Descrizione', paragraph: currentCourse.description },
+							{
+								header: 'Relatori',
+								paragraph: currentCourse.speakers
+									.map(({ name, classID }) => `${name} - ${classID}`)
+									.join('<br />'),
+							},
+							{
+								header: 'Iscritti',
+								paragraph: `${currentCourse.option2.length} / ${100 - currentCourse.speakers.length}`,
+							},
+							{ header: 'Note', paragraph: currentCourse.notes },
+						],
+					});
+				}),
+				filter((confirmation) => confirmation),
+				switchMap(() => course$)
+			)
+			.subscribe(({ id, title }) => this._pushToDraft(id, title));
+	}
+
+	private _pushToDraft(id: string, label: string) {
+		this.coge.pushToDraft({ id, label }, numberToLetter(this.currentIndex));
 	}
 }
