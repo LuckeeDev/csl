@@ -11,16 +11,20 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
+      - uses: technote-space/get-diff-action@v4
+        with:
+            PATTERNS: |
+              apps/api/src/**
       - name: Use Node.js v12.x
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
       - name: Install dependencies
-        if: git diff --quiet HEAD~1 main -- apps/api/src
+        if: env.GIT_DIFF
         run: SKIP_POSTINSTALL=1 yarn install
       - name: Build
-        if: git diff --quiet HEAD~1 main -- apps/api/src
+        if: env.GIT_DIFF
         run: yarn nx build api --prod
       - name: Restart service
-        if: git diff --quiet HEAD~1 main -- apps/api/src
+        if: env.GIT_DIFF
         run: pm2 restart api
