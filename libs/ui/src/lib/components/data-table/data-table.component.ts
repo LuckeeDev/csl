@@ -24,8 +24,7 @@ import {
 })
 export class DataTableComponent implements OnInit, AfterViewInit {
 	displayedColumns: string[];
-
-	private dataSource: MatTableDataSource<CSLDataTableSource[0]>;
+	dataSource: MatTableDataSource<CSLDataTableSource[0]>;
 
 	@ViewChild(MatPaginator)
 	paginator: MatPaginator;
@@ -33,7 +32,9 @@ export class DataTableComponent implements OnInit, AfterViewInit {
 	sort: MatSort;
 
 	@Input()
-	data: CSLDataTableSource;
+	set data(data: CSLDataTableSource) {
+		this.dataSource.data = data;
+	}
 
 	@Input()
 	columns: CSLDataTableDisplayedColumns;
@@ -44,9 +45,12 @@ export class DataTableComponent implements OnInit, AfterViewInit {
 	@Output()
 	actionClick = new EventEmitter<CSLDataTableEvent<any>>();
 
+	constructor() {
+		this.dataSource = new MatTableDataSource([]);
+	}
+
 	ngOnInit(): void {
 		this.displayedColumns = this.columns.map((column) => column.id);
-		this.dataSource = new MatTableDataSource(this.data);
 	}
 
 	ngAfterViewInit(): void {
