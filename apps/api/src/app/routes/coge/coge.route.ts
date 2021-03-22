@@ -35,7 +35,7 @@ router.post('/courses', isAdmin, async (req: Request, res: Response) => {
 
 router.post('/signup', isSignedIn, async (req: Request, res: Response) => {
 	const result = await signUpToCourse(req.user, {
-		courses: req.body.courses,
+		course: req.body.course,
 		slot: req.body.slot,
 	});
 

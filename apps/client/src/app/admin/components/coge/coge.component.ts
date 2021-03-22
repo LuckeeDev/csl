@@ -82,13 +82,9 @@ export class CogeComponent implements OnInit {
 								},
 								{
 									header: 'Iscritti',
-									paragraph: `
-										Come prima opzione: ${currentCourse.option1.length}
-										<br />
-										Come seconda opzione: ${currentCourse.option2.length}
-										<br />
-										Come terza opzione: ${currentCourse.option3.length}
-									`,
+									paragraph: `${currentCourse.signups.length} / ${
+										100 - currentCourse.speakers.length
+									}`,
 								},
 								{ header: 'Note', paragraph: currentCourse.notes },
 							],

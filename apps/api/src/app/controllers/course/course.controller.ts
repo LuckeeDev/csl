@@ -97,30 +97,24 @@ export const getAllCourses = async (): Promise<IHttpRes<ICourse[]>> => {
 export const signUpToCourse = async (
 	user: IUser,
 	{
-		courses,
+		course,
 		slot,
 	}: {
-		courses: [ICourse['id'], ICourse['id'], ICourse['id']];
+		course: ICourse['id'];
 		slot: ICourse['slot'];
 	}
 ): Promise<IHttpRes<void>> => {
 	try {
-		const coursesPromises = courses.map((course, i) => {
-			const fieldToUpdate = `option${i + 1}`;
-
-			return Course.findOneAndUpdate(
-				{ id: course },
-				{ $push: { [fieldToUpdate]: user.id } }
-			);
-		});
-
-		await Promise.all(coursesPromises);
+		await Course.findOneAndUpdate(
+			{ id: course },
+			{ $push: { signups: { id: user.id, name: user.name } } }
+		);
 
 		const courseUpdateIndex = `courses.${slot}`;
 
 		await User.findOneAndUpdate(
 			{ id: user.id },
-			{ [courseUpdateIndex]: courses }
+			{ [courseUpdateIndex]: course }
 		);
 
 		return {

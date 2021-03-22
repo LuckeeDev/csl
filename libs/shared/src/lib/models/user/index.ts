@@ -2,12 +2,12 @@ import { Document } from 'mongoose';
 import { ICommissione } from '../commissione';
 
 interface UserCourses {
-	a: [string, string, string];
-	b: [string, string, string];
-	c: [string, string, string];
-	d: [string, string, string];
-	e: [string, string, string];
-	f: [string, string, string];
+	a: string;
+	b: string;
+	c: string;
+	d: string;
+	e: string;
+	f: string;
 }
 
 export interface IUserInCsv {

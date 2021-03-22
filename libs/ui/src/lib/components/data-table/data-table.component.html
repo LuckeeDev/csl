@@ -23,6 +23,7 @@
 					<mat-cell *matCellDef="let entry">
 						<button
 							mat-stroked-button
+							class="action-btn"
 							[color]="action.type"
 							*ngFor="let action of entry.actions"
 							(click)="emit({ id: entry.id, action: action.id })"

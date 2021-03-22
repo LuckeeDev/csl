@@ -29,12 +29,12 @@ export class CogeView implements OnInit {
 
 	actions: CSLDataTableAction<Action>[] = [
 		{ type: 'basic', id: 'DETAILS', label: 'Dettagli del corso' },
-		{ type: 'primary', id: 'ADD', label: 'Aggiungi' },
+		{ type: 'primary', id: 'ADD', label: 'Seleziona' },
 	];
 
 	displayedColumns: CSLDataTableDisplayedColumns<keyof ICourse> = [
 		{ type: 'data', id: 'title', label: 'Titolo' },
-		{ type: 'actions', id: 'manage', label: 'Dettagli' },
+		{ type: 'actions', id: 'manage', label: 'Opzioni' },
 	];
 
 	@HostListener('window:beforeunload', ['$event'])
@@ -148,7 +148,7 @@ export class CogeView implements OnInit {
 							},
 							{
 								header: 'Iscritti',
-								paragraph: `${currentCourse.option2.length} / ${100 - currentCourse.speakers.length}`,
+								paragraph: `${currentCourse.signups.length} / ${100 - currentCourse.speakers.length}`,
 							},
 							{ header: 'Note', paragraph: currentCourse.notes },
 						],

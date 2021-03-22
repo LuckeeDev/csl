@@ -1,6 +1,11 @@
 import { Document } from 'mongoose';
 import { IUser } from '../user';
 
+interface Signup {
+	id: IUser['id'];
+	name: IUser['name'];
+}
+
 export interface ICourse {
 	id: string;
 	title: string;
@@ -18,10 +23,7 @@ export interface ICourse {
 		classID: IUser['classID'];
 	}[];
 	notes: string;
-	signups: IUser['email'][];
-	option1: IUser['id'][];
-	option2: IUser['id'][];
-	option3: IUser['id'][];
+	signups: Signup[];
 }
 
 export interface ICourseModel extends Document, ICourse {

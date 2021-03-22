@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ICourse, IHttpRes, IUser } from '@csl/shared';
+import { ICourse, IHttpRes } from '@csl/shared';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
@@ -14,22 +14,20 @@ interface SignupStatus {
 	dirty: boolean;
 }
 
-type Courses = [CourseInSlot?, CourseInSlot?, CourseInSlot?];
-
 type SignupSlots = Record<
 	ICourse['slot'],
-	{ courses: Courses; confirmed: boolean }
+	{ course: CourseInSlot; confirmed: boolean }
 >;
 
 interface SignupDraft extends SignupStatus, SignupSlots {}
 
 const defaultDraft: SignupDraft = {
-	a: { courses: [], confirmed: false },
-	b: { courses: [], confirmed: false },
-	c: { courses: [], confirmed: false },
-	d: { courses: [], confirmed: false },
-	e: { courses: [], confirmed: false },
-	f: { courses: [], confirmed: false },
+	a: { course: undefined, confirmed: false },
+	b: { course: undefined, confirmed: false },
+	c: { course: undefined, confirmed: false },
+	d: { course: undefined, confirmed: false },
+	e: { course: undefined, confirmed: false },
+	f: { course: undefined, confirmed: false },
 	dirty: false,
 };
 
@@ -50,10 +48,7 @@ export class CogeService {
 		const courses$ = this.auth.user$.pipe(
 			map((user) => (user.courses ? user.courses : [])),
 			map((courses) => {
-				return Object.entries(courses) as [
-					ICourse['slot'],
-					[ICourse['id'], ICourse['id'], ICourse['id']]
-				][];
+				return Object.entries(courses) as [ICourse['slot'], ICourse['id']][];
 			})
 		);
 
@@ -64,13 +59,13 @@ export class CogeService {
 			next: ({ entries, availableCourses }) => {
 				this.availableCoursesSubject$.next(availableCourses);
 
-				for (const [slot, ids] of entries) {
-					const courses: Courses = ids.map((id) => ({
+				for (const [slot, id] of entries) {
+					const course = {
 						id,
 						label: availableCourses.find((course) => course.id === id).title,
-					})) as Courses;
+					};
 
-					this.draft[slot].courses = courses;
+					this.draft[slot].course = course;
 					this.draft[slot].confirmed = true;
 				}
 			},
@@ -94,11 +89,11 @@ export class CogeService {
 	}
 
 	subscribeToCourses(slot: ICourse['slot']): Observable<IHttpRes<void>> {
-		const courses = this.draft[slot].courses.map(({ id }) => id);
+		const course = this.draft[slot].course.id;
 
 		return this.http
 			.post<IHttpRes<void>>('/coge/signup', {
-				courses,
+				course,
 				slot,
 			})
 			.pipe(
@@ -108,13 +103,9 @@ export class CogeService {
 			);
 	}
 
-	getUserSubscriptions(): Observable<IHttpRes<IUser['courses']>> {
-		return this.http.get<IHttpRes<IUser['courses']>>('/coge/signup');
-	}
-
 	pushToDraft(course: CourseInSlot, slot: ICourse['slot']) {
-		if (!this.draft[slot].courses.find(({ id }) => id === course.id)) {
-			this.draft[slot].courses.push(course);
+		if (this.draft[slot].confirmed === false) {
+			this.draft[slot].course = course;
 			this.draft.dirty = true;
 		}
 	}

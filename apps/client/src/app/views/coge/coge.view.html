@@ -20,17 +20,16 @@
 
 				<div class="drag-drop">
 					<h1>La tua scelta per la fascia {{ slot.toUpperCase() }}</h1>
-
-					<csl-drag-drop-list
-						[(data)]="signupDraft[slot].courses"
-						[disableDrag]="signupDraft[slot].confirmed === true"
-					></csl-drag-drop-list>
+					
+					<mat-card *ngIf="signupDraft[slot].course">
+						{{ signupDraft[slot].course.label }}
+					</mat-card>
 
 					<button
 						mat-flat-button
 						color="primary"
 						class="confirm"
-						[disabled]="signupDraft[slot].courses.length !== 3 || signupDraft[slot].confirmed === true"
+						[disabled]="!signupDraft[slot].course || signupDraft[slot].confirmed === true"
 						(click)="confirmDraft(slot)"
 					>
 						Conferma

@@ -11,9 +11,6 @@ const CourseSchema = new Schema({
 	speakers: { type: Array, required: true },
 	notes: { type: String },
 	signups: { type: Array },
-	option1: { type: Array },
-	option2: { type: Array },
-	option3: { type: Array },
 });
 
 export const Course = model<ICourseModel>('course', CourseSchema);
