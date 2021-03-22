@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.7.6](https://github.com/LuckeeDev/csl/compare/v1.7.5...v1.7.6) (2021-03-22)
+
+
+### Bug Fixes
+
+* prevent Node setup if no git diff ([a8a4585](https://github.com/LuckeeDev/csl/commit/a8a45859b90ca37c86369827b993745890a9305e))
+
+
+
 ## [1.7.5](https://github.com/LuckeeDev/csl/compare/v1.7.4...v1.7.5) (2021-03-22)
 
 
