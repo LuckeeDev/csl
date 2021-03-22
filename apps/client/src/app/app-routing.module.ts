@@ -99,7 +99,7 @@ const routes: Routes = [
 		],
 	},
 	{
-		path: 'coge',
+		path: 'cogestione',
 		component: CogeView,
 		canActivate: [LoggedInGuard],
 	},

@@ -10,7 +10,7 @@ export class DashboardComponent {
   links: IDashboardLink[] = [
     { link: '.', title: 'Home' },
     { link: 'orientamento', title: 'Orientamento' },
-    { link: 'coge', title: 'Cogestione' },
+    // { link: 'coge', title: 'Cogestione' },
     // { link: 'orders', title: 'Ordini' },
     // { link: 'checkout', title: 'Pagamenti' },
   ];
