@@ -12,8 +12,8 @@ h1 {
 	.speakers {
 		width: 100%;
 
-		.speaker-field {
-			margin-right: 20px;
+		.speaker-field + .speaker-field {
+			margin-left: 20px;
 		}
 	}
 }

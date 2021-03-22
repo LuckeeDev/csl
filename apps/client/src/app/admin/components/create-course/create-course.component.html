@@ -46,7 +46,11 @@
 	<mat-label class="checkboxes-label">Fascia assegnata</mat-label>
 
 	<mat-radio-group formControlName="slot">
-		<mat-radio-button *ngFor="let slot of availableSlots" [value]="slot" class="radio-btn">
+		<mat-radio-button
+			*ngFor="let slot of availableSlots"
+			[value]="slot"
+			class="radio-btn"
+		>
 			{{ slot.toUpperCase() }}
 		</mat-radio-button>
 	</mat-radio-group>
@@ -55,7 +59,7 @@
 
 	<ng-container formArrayName="speakers">
 		<button type="button" mat-raised-button (click)="addSpeaker()">
-			Add speaker
+			Aggiungi relatore
 		</button>
 
 		<div
@@ -72,6 +76,15 @@
 				<mat-label>Classe</mat-label>
 				<input matInput formControlName="classID" />
 			</mat-form-field>
+
+			<button
+				mat-icon-button
+				type="button"
+				color="warn"
+				(click)="removeSpeaker(i)"
+			>
+				<mat-icon>close</mat-icon>
+			</button>
 		</div>
 	</ng-container>
 

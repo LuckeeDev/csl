@@ -52,6 +52,10 @@ export class CreateCourseComponent {
 		);
 	}
 
+	removeSpeaker(i: number) {
+		this.speakers.removeAt(i);
+	}
+
 	onSubmit() {
 		this.dialog
 			.open({
