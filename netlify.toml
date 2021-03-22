@@ -1,2 +1,2 @@
 [build]
-ignore = "git diff --quiet HEAD~1 apps/client/src"
+ignore = "git diff --quiet HEAD \"$(git describe --tags --abbrev=0 HEAD)\" -- apps/client/src"
