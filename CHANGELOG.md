@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.7.2](https://github.com/LuckeeDev/csl/compare/v1.7.1...v1.7.2) (2021-03-22)
+
+
+### Bug Fixes
+
+* allow removing speakers ([e632ac6](https://github.com/LuckeeDev/csl/commit/e632ac616ad65f4838fc0d22354131f635ade549))
+
+
+
 ## [1.7.1](https://github.com/LuckeeDev/csl/compare/v1.7.0...v1.7.1) (2021-03-22)
 
 
