@@ -38,6 +38,7 @@ export class CogeView implements OnInit {
 	];
 
 	get timeOkay() {
+		return true;
 		const now = new Date();
 
 		if (
@@ -125,11 +126,31 @@ export class CogeView implements OnInit {
 		return data.filter(({ slot }) => slot === onlySlot);
 	}
 
+	private _preventFullEvent(
+		actions: CSLDataTableAction<Action>[],
+		max: ICourse['max'],
+		signupsCount: ICourse['signupsCount'],
+		speakers: ICourse['speakers']
+	): CSLDataTableAction<Action>[] {
+		if (signupsCount >= max - speakers.length) {
+			return actions.map((action) =>
+				action.id === 'ADD' ? { ...action, disabled: true } : action
+			);
+		} else {
+			return actions;
+		}
+	}
+
 	private _convertToDataSource(data: ICourse[]): CSLDataTableSource<ICourse> {
 		return data.map((course) => ({
 			id: course.id,
 			data: course,
-			actions: this.actions,
+			actions: this._preventFullEvent(
+				this.actions,
+				course.max,
+				course.signupsCount,
+				course.speakers
+			),
 		}));
 	}
 
@@ -148,7 +169,10 @@ export class CogeView implements OnInit {
 					return this.info.open({
 						confirm: 'Aggiungi',
 						title: currentCourse.title,
-						confirmDisabled: this.signupDraft[currentCourse.slot].confirmed,
+						confirmDisabled:
+							this.signupDraft[currentCourse.slot].confirmed ||
+							currentCourse.signupsCount >=
+								currentCourse.max - currentCourse.speakers.length,
 						content: [
 							{
 								header: 'Categoria',

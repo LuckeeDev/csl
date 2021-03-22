@@ -2,6 +2,7 @@ export interface CSLDataTableAction<T = string> {
   type: 'basic' | 'primary' | 'accent' | 'warn';
   label: string;
   id: T;
+  disabled?: boolean;
 }
 
 export type CSLDataTableSource<T = any> = {
