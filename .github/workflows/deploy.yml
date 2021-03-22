@@ -16,8 +16,11 @@ jobs:
         with:
           node-version: 12.x
       - name: Install dependencies
+        if: git diff --quiet HEAD~1 main -- apps/api/src
         run: SKIP_POSTINSTALL=1 yarn install
       - name: Build
+        if: git diff --quiet HEAD~1 main -- apps/api/src
         run: yarn nx build api --prod
       - name: Restart service
+        if: git diff --quiet HEAD~1 main -- apps/api/src
         run: pm2 restart api
