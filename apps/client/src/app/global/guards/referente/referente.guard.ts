@@ -15,7 +15,7 @@ export class ReferenteGuard implements CanLoad {
 		| Promise<boolean | UrlTree>
 		| boolean
 		| UrlTree {
-		return this.auth.user$.pipe(
+		return this.auth.checkUser$().pipe(
 			tap((user) => {
 				if (user === null || !user.isReferente) {
 					this.router.navigate(['unauthorized']);

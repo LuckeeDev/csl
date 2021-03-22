@@ -11,7 +11,7 @@ export class BarAdminGuard implements CanLoad {
 	constructor(private auth: AuthService, private router: Router) {}
 
 	canLoad(): Observable<boolean> | Promise<boolean> | boolean {
-		return this.auth.user$.pipe(
+		return this.auth.checkUser$().pipe(
 			tap((user) => {
 				if (user === null || user.isBar !== true) {
 					this.router.navigate(['unauthorized']);

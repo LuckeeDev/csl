@@ -16,7 +16,7 @@ export class AuthService {
 
 	constructor(private http: HttpClient, private fireAuth: AngularFireAuth) {}
 
-	get user$(): Observable<IUser> {
+	checkUser$(): Observable<IUser> {
 		const userObservable$ = this._userSubject$.asObservable();
 
 		return this._userSubject$.pipe(
@@ -28,6 +28,12 @@ export class AuthService {
 				}
 			})
 		);
+	}
+
+	get user$(): Observable<IUser> {
+		return this._userSubject$
+			.asObservable()
+			.pipe(map((value) => (value === undefined ? null : value)));
 	}
 
 	getUser(): Observable<IUser> {
