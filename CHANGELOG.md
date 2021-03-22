@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.7.7](https://github.com/LuckeeDev/csl/compare/v1.7.6...v1.7.7) (2021-03-22)
+
+
+### Bug Fixes
+
+* :adhesive_bandage: misspelling in netlify.toml ([890471b](https://github.com/LuckeeDev/csl/commit/890471b270907fa295df93aa46553be63f0eeb8d))
+
+
+
 ## [1.7.6](https://github.com/LuckeeDev/csl/compare/v1.7.5...v1.7.6) (2021-03-22)
 
 
