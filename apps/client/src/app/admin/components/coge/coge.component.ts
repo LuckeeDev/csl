@@ -33,7 +33,6 @@ export class CogeComponent implements OnInit {
 
 	displayedColumns: CSLDataTableDisplayedColumns<keyof ICourse> = [
 		{ type: 'data', id: 'title', label: 'Titolo' },
-		{ type: 'data', id: 'description', label: 'Descrizione' },
 		{ type: 'data', id: 'category', label: 'Categoria' },
 		{ type: 'data', id: 'slot', label: 'Fascia' },
 		{ type: 'data', id: 'notes', label: 'Note' },
