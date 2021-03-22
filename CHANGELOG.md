@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.8.2](https://github.com/LuckeeDev/csl/compare/v1.8.1...v1.8.2) (2021-03-22)
+
+
+### Bug Fixes
+
+* prevent user from subscribing to a full course ([7d2e856](https://github.com/LuckeeDev/csl/commit/7d2e8562866dcfbf413ecb02eccdb4bef6b47a68))
+
+
+
 ## [1.8.1](https://github.com/LuckeeDev/csl/compare/v1.8.0...v1.8.1) (2021-03-22)
 
 
