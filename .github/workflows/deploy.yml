@@ -13,10 +13,11 @@ jobs:
       - uses: actions/checkout@v2
       - uses: technote-space/get-diff-action@v4
         with:
-            PATTERNS: |
-              apps/api/src/**
+          PATTERNS: |
+            apps/api/src/**
       - name: Use Node.js v12.x
         uses: actions/setup-node@v1
+        if: env.GIT_DIFF
         with:
           node-version: 12.x
       - name: Install dependencies
