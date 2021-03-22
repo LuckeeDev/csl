@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.8.1](https://github.com/LuckeeDev/csl/compare/v1.8.0...v1.8.1) (2021-03-22)
+
+
+### Bug Fixes
+
+* pagination in table ([656dcb2](https://github.com/LuckeeDev/csl/commit/656dcb2c7945d26e56ea25406e95177e3f5b7859))
+
+
+
 # [1.8.0](https://github.com/LuckeeDev/csl/compare/v1.7.10...v1.8.0) (2021-03-22)
 
 
