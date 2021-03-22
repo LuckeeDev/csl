@@ -83,7 +83,7 @@ export class CogeComponent implements OnInit {
 								{
 									header: 'Iscritti',
 									paragraph: `${currentCourse.signups.length} / ${
-										100 - currentCourse.speakers.length
+										currentCourse.max - currentCourse.speakers.length
 									}`,
 								},
 								{ header: 'Note', paragraph: currentCourse.notes },

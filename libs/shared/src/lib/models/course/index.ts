@@ -24,6 +24,7 @@ export interface ICourse {
 	}[];
 	notes: string;
 	signups: Signup[];
+	max: number;
 }
 
 export interface ICourseModel extends Document, ICourse {

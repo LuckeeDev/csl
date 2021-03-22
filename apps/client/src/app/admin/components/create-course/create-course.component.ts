@@ -18,6 +18,7 @@ export class CreateCourseComponent {
 		slot: ['', Validators.required],
 		category: ['', Validators.required],
 		speakers: this._fb.array([], Validators.required),
+		max: [100, Validators.required],
 	});
 
 	availableSlots = ['a', 'b', 'c', 'd', 'e', 'f'];

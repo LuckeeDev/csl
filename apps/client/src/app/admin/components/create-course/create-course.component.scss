@@ -28,8 +28,16 @@ h1 {
 	flex: 1;
 }
 
+.radio-btn + .radio-btn {
+	margin-left: 5px;
+}
+
+.number-input {
+	margin-right: 30px;
+}
+
 .checkboxes-label {
-	margin-right: 20px;
+	margin-right: 10px;
 	color: rgba($color: #000000, $alpha: 0.6);
 }
 

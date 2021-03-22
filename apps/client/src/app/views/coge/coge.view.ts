@@ -37,6 +37,21 @@ export class CogeView implements OnInit {
 		{ type: 'actions', id: 'manage', label: 'Opzioni' },
 	];
 
+	get timeOkay() {
+		const now = new Date();
+
+		if (
+			(now.getDate() >= 22,
+			now.getMonth() >= 2,
+			now.getFullYear() >= 2021,
+			now.getHours() >= 18)
+		) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	@HostListener('window:beforeunload', ['$event'])
 	handleClose(e: BeforeUnloadEvent) {
 		if (this.coge.draft.dirty) {
@@ -122,7 +137,7 @@ export class CogeView implements OnInit {
 		course$.subscribe({
 			next: ({ id, title }) => {
 				this._pushToDraft(id, title);
-			}
+			},
 		});
 	}
 
@@ -148,7 +163,9 @@ export class CogeView implements OnInit {
 							},
 							{
 								header: 'Iscritti',
-								paragraph: `${currentCourse.signups.length} / ${100 - currentCourse.speakers.length}`,
+								paragraph: `${currentCourse.signups.length} / ${
+									currentCourse.max - currentCourse.speakers.length
+								}`,
 							},
 							{ header: 'Note', paragraph: currentCourse.notes },
 						],

@@ -36,10 +36,17 @@
 		</mat-select>
 	</mat-form-field>
 
+	<div class="break"></div>
+
+	<mat-form-field class="number-input">
+		<mat-label>Partecipanti massimi</mat-label>
+		<input matInput type="number" formControlName="max" />
+	</mat-form-field>
+
 	<mat-label class="checkboxes-label">Fascia assegnata</mat-label>
 
 	<mat-radio-group formControlName="slot">
-		<mat-radio-button *ngFor="let slot of availableSlots" [value]="slot">
+		<mat-radio-button *ngFor="let slot of availableSlots" [value]="slot" class="radio-btn">
 			{{ slot.toUpperCase() }}
 		</mat-radio-button>
 	</mat-radio-group>
