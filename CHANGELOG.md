@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.8.9](https://github.com/LuckeeDev/csl/compare/v1.8.8...v1.8.9) (2021-03-22)
+
+
+### Bug Fixes
+
+* subscribe to getUser in app ([94feac0](https://github.com/LuckeeDev/csl/commit/94feac00e115eec1a0dbbbedda4656e0410f94fb))
+
+
+
 ## [1.8.8](https://github.com/LuckeeDev/csl/compare/v1.8.7...v1.8.8) (2021-03-22)
 
 
