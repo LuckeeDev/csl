@@ -57,8 +57,6 @@ export class CogeService {
 			this.getAllCourses().pipe(map(({ data }) => data)),
 		]).subscribe({
 			next: ([entries, availableCourses]) => {
-				this.availableCoursesSubject$.next(availableCourses);
-
 				for (const [slot, id] of entries) {
 					const course = {
 						id,
@@ -68,6 +66,8 @@ export class CogeService {
 					this.draft[slot].course = course;
 					this.draft[slot].confirmed = true;
 				}
+				
+				this.availableCoursesSubject$.next(availableCourses);
 			},
 		});
 	}

@@ -1,7 +1,6 @@
 <mat-tab-group
 	class="tab-group"
 	[(selectedIndex)]="currentIndex"
-	*ngIf="timeOkay; else wait"
 >
 	<mat-tab
 		*ngFor="let slot of (slots$ | async)"
@@ -51,14 +50,3 @@
 		</div>
 	</mat-tab>
 </mat-tab-group>
-
-<ng-template #wait>
-	<div class="wait-err">
-		<h1>
-			Tic... tac... le iscrizioni apriranno lunedì 22 marzo alle 19:00.
-			<br />
-			Prova a passare il tempo leggendo qualche <a [routerLink]="['..', 'qp']">articolo di Quinto Piano</a>!
-		</h1>
-		<img src="../../../assets/svg/time.svg" height="600px" width="600px" />
-	</div>
-</ng-template>

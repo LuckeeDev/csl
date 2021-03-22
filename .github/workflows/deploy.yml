@@ -17,15 +17,15 @@ jobs:
             apps/api/src/**
       - name: Use Node.js v12.x
         uses: actions/setup-node@v1
-        # if: env.GIT_DIFF
+        if: env.GIT_DIFF
         with:
           node-version: 12.x
       - name: Install dependencies
-        # if: env.GIT_DIFF
+        if: env.GIT_DIFF
         run: SKIP_POSTINSTALL=1 yarn install
       - name: Build
-        # if: env.GIT_DIFF
+        if: env.GIT_DIFF
         run: yarn nx build api --prod
       - name: Restart service
-        # if: env.GIT_DIFF
+        if: env.GIT_DIFF
         run: pm2 restart api

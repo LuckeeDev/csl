@@ -37,22 +37,6 @@ export class CogeView implements OnInit {
 		{ type: 'actions', id: 'manage', label: 'Opzioni' },
 	];
 
-	get timeOkay() {
-		return true;
-		const now = new Date();
-
-		if (
-			(now.getDate() >= 22,
-			now.getMonth() >= 2,
-			now.getFullYear() >= 2021,
-			now.getHours() >= 19)
-		) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	@HostListener('window:beforeunload', ['$event'])
 	handleClose(e: BeforeUnloadEvent) {
 		if (this.coge.draft.dirty) {
@@ -128,11 +112,9 @@ export class CogeView implements OnInit {
 
 	private _preventFullEvent(
 		actions: CSLDataTableAction<Action>[],
-		max: ICourse['max'],
-		signupsCount: ICourse['signupsCount'],
-		speakers: ICourse['speakers']
+		course: ICourse
 	): CSLDataTableAction<Action>[] {
-		if (signupsCount >= max - speakers.length) {
+		if (this.signupDraft[course.slot].confirmed === true) {
 			return actions.map((action) =>
 				action.id === 'ADD' ? { ...action, disabled: true } : action
 			);
@@ -145,12 +127,7 @@ export class CogeView implements OnInit {
 		return data.map((course) => ({
 			id: course.id,
 			data: course,
-			actions: this._preventFullEvent(
-				this.actions,
-				course.max,
-				course.signupsCount,
-				course.speakers
-			),
+			actions: this._preventFullEvent(this.actions, course),
 		}));
 	}
 
