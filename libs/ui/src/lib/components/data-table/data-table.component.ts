@@ -1,37 +1,56 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  CSLDataTableAction,
-  CSLDataTableDisplayedColumns,
-  CSLDataTableEvent,
-  CSLDataTableSource
+	AfterViewInit,
+	Component,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+	ViewChild,
+} from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import {
+	CSLDataTableAction,
+	CSLDataTableDisplayedColumns,
+	CSLDataTableEvent,
+	CSLDataTableSource,
 } from '@csl/shared';
 
 @Component({
-  selector: 'csl-data-table',
-  templateUrl: './data-table.component.html',
-  styleUrls: ['./data-table.component.scss']
+	selector: 'csl-data-table',
+	templateUrl: './data-table.component.html',
+	styleUrls: ['./data-table.component.scss'],
 })
-export class DataTableComponent implements OnInit {
-  displayedColumns: string[];
+export class DataTableComponent implements OnInit, AfterViewInit {
+	displayedColumns: string[];
 
-  @Input()
-  data: CSLDataTableSource;
+	private dataSource: MatTableDataSource<CSLDataTableSource[0]>;
 
-  @Input()
-  columns: CSLDataTableDisplayedColumns;
+	@ViewChild(MatPaginator)
+	paginator: MatPaginator;
 
-  @Input()
-  actions: CSLDataTableAction[];
+	@Input()
+	data: CSLDataTableSource;
 
-  @Output()
-  actionClick = new EventEmitter<CSLDataTableEvent<any>>();
+	@Input()
+	columns: CSLDataTableDisplayedColumns;
 
-  ngOnInit(): void {
-    this.displayedColumns = this.columns.map((column) => column.id);
-  }
+	@Input()
+	actions: CSLDataTableAction[];
 
-  emit(value: CSLDataTableEvent) {
-    this.actionClick.emit(value);
-  }
+	@Output()
+	actionClick = new EventEmitter<CSLDataTableEvent<any>>();
 
+	ngOnInit(): void {
+		this.displayedColumns = this.columns.map((column) => column.id);
+		this.dataSource = new MatTableDataSource(this.data);
+	}
+
+	ngAfterViewInit(): void {
+		this.dataSource.paginator = this.paginator;
+	}
+
+	emit(value: CSLDataTableEvent) {
+		this.actionClick.emit(value);
+	}
 }
