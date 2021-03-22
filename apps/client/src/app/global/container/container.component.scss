@@ -1,169 +1,174 @@
 mat-sidenav-container {
-  height: 100vh;
+	height: 100vh;
 }
 
 mat-toolbar {
-  height: 80px;
-  position: fixed;
-  z-index: 10;
+	height: 80px;
+	position: fixed;
+	z-index: 10;
 }
 
 .footer {
-  height: 80px;
-  background-color: #0d47a1;
-  padding: 10px 20vw;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+	height: 80px;
+	background-color: #0d47a1;
+	padding: 10px 20vw;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .outlet {
-  padding-top: 80px;
-  min-height: 100%;
-  height: auto !important;
-  height: 100%;
+	padding-top: 80px;
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
 }
 
 .footer-text {
-  color: white;
-  font-size: 14px;
+	color: white;
+	font-size: 14px;
+
+	a {
+		color: inherit;
+		font-size: inherit;
+	}
 }
 
 .footer-text:nth-child(2) {
-  text-align: right;
+	text-align: right;
 }
 
 ul.toolbar {
-  list-style-type: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0;
-  padding: 0;
-  width: 100%;
+	list-style-type: none;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 0;
+	padding: 0;
+	width: 100%;
 }
 
 .logo {
-  height: 80px;
-  cursor: pointer;
+	height: 80px;
+	cursor: pointer;
 }
 
 img {
-  outline: none;
+	outline: none;
 }
 
 a {
-  font-size: 16px;
+	font-size: 16px;
 }
 
 li.item,
 li.logo,
 li.item.button {
-  outline: none;
+	outline: none;
 }
 
 .google {
-  width: 30%;
-  margin-left: 5%;
+	width: 30%;
+	margin-left: 5%;
 }
 
 .profile-link {
-  font-size: 14px;
+	font-size: 14px;
 
-  .profile {
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
-    margin-left: 5px;
-  }
+	.profile {
+		width: 20px;
+		height: 20px;
+		border-radius: 10px;
+		margin-left: 5px;
+	}
 }
 
 .links {
-  display: flex;
-  justify-content: space-between;
-  width: 50vw;
+	display: flex;
+	justify-content: space-between;
+	width: 50vw;
 }
 
 .nav-link {
-  a {
-    color: white;
-    text-decoration: none;
+	a {
+		color: white;
+		text-decoration: none;
 
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
 
-    &::after {
-      content: '';
-      width: 0;
-      height: 2px;
-      display: block;
-      background: white;
-      transition: width .1s ease-in-out;
-    }
+		&::after {
+			content: '';
+			width: 0;
+			height: 2px;
+			display: block;
+			background: white;
+			transition: width 0.1s ease-in-out;
+		}
 
-    &:hover::after {
-      width: 100%;
-    }
+		&:hover::after {
+			width: 100%;
+		}
 
-    &.active::after {
-      width: 100%;
-    }
-  }
+		&.active::after {
+			width: 100%;
+		}
+	}
 }
 
 .space {
-  display: none;
+	display: none;
 }
 
 .item.toggle {
-  display: none;
+	display: none;
 }
 
 @media screen and (max-width: 1250px) {
-  .list {
-    width: 75vw;
-    max-width: 500px;
-  }
+	.list {
+		width: 75vw;
+		max-width: 500px;
+	}
 
-  .sidebar-active {
-    color: #0d47a1;
-    font-weight: 500;
-  }
+	.sidebar-active {
+		color: #0d47a1;
+		font-weight: 500;
+	}
 
-  .space {
-    display: unset;
-    flex: 1 1 auto;
-  }
+	.space {
+		display: unset;
+		flex: 1 1 auto;
+	}
 
-  .links {
-    display: none;
-  }
+	.links {
+		display: none;
+	}
 
-  .item.toggle {
-    display: unset;
-  }
+	.item.toggle {
+		display: unset;
+	}
 
-  .footer {
-    padding-left: 5vw;
-    padding-right: 5vw;
-    display: block;
-    height: 100px;
-    position: relative;
-    margin-top: auto;
-    margin-bottom: auto;
-    line-height: 18px;
-    align-items: center;
-  }
+	.footer {
+		padding-left: 5vw;
+		padding-right: 5vw;
+		display: block;
+		height: 100px;
+		position: relative;
+		margin-top: auto;
+		margin-bottom: auto;
+		line-height: 18px;
+		align-items: center;
+	}
 
-  .footer-text {
-    font-size: 12px;
-  }
+	.footer-text {
+		font-size: 12px;
+	}
 
-  .version {
-    position: absolute;
-    right: 10vw;
-    bottom: 20px;
-  }
+	.version {
+		position: absolute;
+		right: 10vw;
+		bottom: 20px;
+	}
 }

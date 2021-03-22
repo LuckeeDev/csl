@@ -7,35 +7,36 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from '@environments/environment';
 
 @Injectable({
-  providedIn: 'root',
+	providedIn: 'root',
 })
 export class AuthService {
-  user$: Observable<IUser>;
+	user$: Observable<IUser>;
 
-  constructor(private http: HttpClient, private fireAuth: AngularFireAuth) {}
+	constructor(private http: HttpClient, private fireAuth: AngularFireAuth) {}
 
-  getUser(): void {
-    this.user$ = this.http.get<IHttpRes<{ user: IUser, token: string }>>('/auth')
-      .pipe(
-        map((res) => {
-          if (res.success === true) {
-            this.fireAuth.signInWithCustomToken(res.data.token).then();
+	getUser(): void {
+		this.user$ = this.http
+			.get<IHttpRes<{ user: IUser; token: string }>>('/auth')
+			.pipe(
+				map((res) => {
+					if (res.success === true) {
+						this.fireAuth.signInWithCustomToken(res.data.token).then();
 
-            return res.data.user;
-          }
+						return res.data.user;
+					}
 
-          return null;
-        })
-      );
-  }
+					return null;
+				})
+			);
+	}
 
-  signIn(next?: string): void {
-    window.location.replace(`${environment.api}/auth/${next || 'dashboard'}`);
-  }
+	signIn(next?: string): void {
+		window.location.replace(`${environment.api}/auth/${next || 'dashboard'}`);
+	}
 
-  signOut(): void {
-    this.fireAuth.signOut().then(() => {
-      window.location.replace(`${environment.api}/auth/logout`);
-    });
-  }
+	signOut(): void {
+		this.fireAuth.signOut().then(() => {
+			window.location.replace(`${environment.api}/auth/logout`);
+		});
+	}
 }
