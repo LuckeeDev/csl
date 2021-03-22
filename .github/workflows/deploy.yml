@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 12.x
       - name: Install dependencies
-        run: yarn install --ignore-scripts
+        run: SKIP_POSTINSTALL=1 yarn install
       - name: Build
         run: yarn nx build api --prod
       - name: Restart service
