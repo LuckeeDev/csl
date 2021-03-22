@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IHttpRes, IUser } from '@csl/shared';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from '@environments/environment';
 
@@ -10,22 +10,40 @@ import { environment } from '@environments/environment';
 	providedIn: 'root',
 })
 export class AuthService {
-	user$: Observable<IUser>;
+	private _userSubject$: BehaviorSubject<IUser> = new BehaviorSubject(
+		undefined
+	);
 
 	constructor(private http: HttpClient, private fireAuth: AngularFireAuth) {}
 
-	getUser(): void {
-		this.user$ = this.http
+	get user$(): Observable<IUser> {
+		const userObservable$ = this._userSubject$.asObservable();
+
+		return this._userSubject$.pipe(
+			switchMap((value) => {
+				if (value === undefined) {
+					return this.getUser();
+				} else {
+					return userObservable$;
+				}
+			})
+		);
+	}
+
+	getUser(): Observable<IUser> {
+		return this.http
 			.get<IHttpRes<{ user: IUser; token: string }>>('/auth')
 			.pipe(
 				map((res) => {
+					const user = res.success === true ? res.data.user : null;
+
 					if (res.success === true) {
 						this.fireAuth.signInWithCustomToken(res.data.token).then();
-
-						return res.data.user;
 					}
 
-					return null;
+					this._userSubject$.next(user);
+
+					return user;
 				})
 			);
 	}
