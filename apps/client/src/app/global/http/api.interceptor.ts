@@ -8,7 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
 
-const MDREGEXP = /\/assets\/md\/(.*).md/gm;
+export const preventAPI = 'no-api';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
@@ -16,7 +16,7 @@ export class ApiInterceptor implements HttpInterceptor {
 		req: HttpRequest<any>,
 		next: HttpHandler
 	): Observable<HttpEvent<any>> {
-		if (!MDREGEXP.test(req.url)) {
+		if (!req.url.includes(preventAPI)) {
 			const updatedRequest = req.clone({
 				url: `${environment.api}${req.url}`,
 				withCredentials: true,
@@ -24,7 +24,13 @@ export class ApiInterceptor implements HttpInterceptor {
 
 			return next.handle(updatedRequest);
 		} else {
-			return next.handle(req);
+			const url = req.url.replace(preventAPI, '');
+
+			const noApiRequest = req.clone({
+				url,
+			});
+
+			return next.handle(noApiRequest);
 		}
 	}
 }

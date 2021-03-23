@@ -1,3 +1,4 @@
+import { preventAPI } from '@/global/http/api.interceptor';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -17,7 +18,7 @@ export class MdComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.path = `/assets/md/${this.data.file}`;
+		this.path = `${preventAPI}/assets/md/${this.data.file}`;
 		this.privacy = this.data.privacy;
 	}
 }
