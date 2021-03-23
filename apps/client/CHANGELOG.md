@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.8.20](https://github.com/LuckeeDev/csl/compare/v1.8.19...v1.8.20) (2021-03-23)
+
+
+### Performance Improvements
+
+* :zap: prevent double user api call on protected route ([a3153b6](https://github.com/LuckeeDev/csl/commit/a3153b65d0d24acf0c8d21432062ed1383a03424))
+
+
+
 ## [1.8.19](https://github.com/LuckeeDev/csl/compare/v1.8.18...v1.8.19) (2021-03-23)
 
 
