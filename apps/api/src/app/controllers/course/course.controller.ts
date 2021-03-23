@@ -106,7 +106,7 @@ export const getAllCourses = async (): Promise<IHttpRes<ICourse[]>> => {
 export const signUpToCourse = async (
 	user: IUser,
 	{
-		course,
+		course: id,
 		slot,
 	}: {
 		course: ICourse['id'];
@@ -114,36 +114,25 @@ export const signUpToCourse = async (
 	}
 ): Promise<IHttpRes<void>> => {
 	try {
-		const newCourse = await Course.findOneAndUpdate(
-			{
-				$or: [
-					{
-						id: course,
-						max: 2000,
-					},
-					{
-						id: course,
-						signupsCount: { $lte: 100 },
-					},
-					{
-						id: course,
-						signupsCount: { $exists: false },
-					},
-				],
-			},
-			{
-				$push: { signups: { id: user.id, name: user.name } },
-				$inc: { signupsCount: 1 },
-			},
-			{ upsert: true }
-		);
+		const course = await Course.findOne({ id });
 
-		if (newCourse.signupsCount === newCourse.max) {
+		if (
+			course.signupsCount &&
+			course.signupsCount >= course.max - course.speakers.length
+		) {
 			return {
 				success: false,
 			};
 		} else {
 			const courseUpdateIndex = `courses.${slot}`;
+
+			course.updateOne(
+				{
+					$push: { signups: { name: user.name, id: user.id } },
+					$inc: { signupsCount: 1 },
+				},
+				{ upsert: true }
+			);
 
 			await User.findOneAndUpdate(
 				{ id: user.id },
