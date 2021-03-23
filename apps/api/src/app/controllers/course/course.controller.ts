@@ -136,7 +136,7 @@ export const signUpToCourse = async (
 
 			await User.findOneAndUpdate(
 				{ id: user.id },
-				{ [courseUpdateIndex]: course }
+				{ [courseUpdateIndex]: course.id }
 			);
 
 			return {
