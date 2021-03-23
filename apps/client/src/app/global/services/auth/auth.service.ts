@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IHttpRes, IUser } from '@csl/shared';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from '@environments/environment';
@@ -13,18 +13,22 @@ export class AuthService {
 	private _userSubject$: BehaviorSubject<IUser> = new BehaviorSubject(
 		undefined
 	);
+	private _checkUserSubject$: Subject<IUser> = new Subject();
 
 	constructor(private http: HttpClient, private fireAuth: AngularFireAuth) {}
 
-	checkUser$(): Observable<IUser> {
-		const userObservable$ = this._userSubject$.asObservable();
+	/**
+	 * @description Use in guards to check if the user exists or not
+	 */
+	get userCheck$(): Observable<IUser> {
+		const user$ = this._userSubject$.asObservable();
 
-		return this._userSubject$.pipe(
+		return user$.pipe(
 			switchMap((value) => {
 				if (value === undefined) {
-					return this.getUser();
+					return this._checkUserSubject$.asObservable();
 				} else {
-					return userObservable$;
+					return user$;
 				}
 			})
 		);
@@ -47,6 +51,7 @@ export class AuthService {
 						this.fireAuth.signInWithCustomToken(res.data.token).then();
 					}
 
+					this._checkUserSubject$.next(user);
 					this._userSubject$.next(user);
 
 					return user;

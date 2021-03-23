@@ -29,7 +29,7 @@ export class LoggedInGuard implements CanActivate, CanLoad {
 		url.shift();
 		const str = url.join('+');
 
-		return this.auth.checkUser$().pipe(
+		return this.auth.userCheck$.pipe(
 			map((user) => {
 				if (user !== null) {
 					return true;
@@ -41,7 +41,7 @@ export class LoggedInGuard implements CanActivate, CanLoad {
 	}
 
 	canLoad(): Observable<boolean> | Promise<boolean> | boolean {
-		return this.auth.checkUser$().pipe(
+		return this.auth.userCheck$.pipe(
 			tap((user) => {
 				if (user === null) {
 					this.router.navigate(['login']);

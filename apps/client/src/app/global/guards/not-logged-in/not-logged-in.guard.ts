@@ -15,7 +15,7 @@ export class NotLoggedInGuard implements CanActivate {
 		| Promise<boolean | UrlTree>
 		| boolean
 		| UrlTree {
-		return this.auth.checkUser$().pipe(
+		return this.auth.userCheck$.pipe(
 			map((user) => (user === null ? true : this.router.parseUrl('dashboard')))
 		);
 	}

@@ -11,7 +11,7 @@ export class ViceGuard implements CanLoad {
 	constructor(private auth: AuthService, private router: Router) {}
 
 	canLoad(): Observable<boolean> | Promise<boolean> | boolean {
-		return this.auth.checkUser$().pipe(
+		return this.auth.userCheck$.pipe(
 			tap((user) => {
 				if (user === null || user.isVice !== true) {
 					this.router.navigate(['unauthorized']);
