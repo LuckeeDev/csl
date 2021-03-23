@@ -15,3 +15,5 @@ setupSocket(socket);
 server.listen(port, () => {
   console.log(`Server started on port ${port}`);
 });
+
+console.log('another one');
