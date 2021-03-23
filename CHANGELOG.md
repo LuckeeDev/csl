@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.8.21](https://github.com/LuckeeDev/csl/compare/v1.8.20...v1.8.21) (2021-03-23)
+
+
+### Bug Fixes
+
+* :ambulance: course id instead of course in subscription ([912c0c4](https://github.com/LuckeeDev/csl/commit/912c0c486044838187b15aaaaf8ea066b4fdebca))
+
+
+
 ## [1.8.20](https://github.com/LuckeeDev/csl/compare/v1.8.19...v1.8.20) (2021-03-23)
 
 
