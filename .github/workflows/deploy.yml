@@ -25,7 +25,7 @@ jobs:
         run: SKIP_POSTINSTALL=1 yarn install
       - name: Build
         if: env.GIT_DIFF
-        run: yarn nx build api --prod
+        run: yarn build:api
       - name: Restart service
         if: env.GIT_DIFF
         run: pm2 restart api
