@@ -11,9 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Get git diff
-        run: |
-          echo "::debug::GIT_DIFF=$(git diff --quiet HEAD~1 HEAD -- apps/api/src && echo 0 || echo 1)"
-          echo "GIT_DIFF=$(git diff --quiet HEAD~1 HEAD -- apps/api/src && echo 0 || echo 1)" >> $GITHUB_ENV
+        run: echo "GIT_DIFF=$(git diff --quiet HEAD~1 HEAD -- apps/api/src && echo false)" >> $GITHUB_ENV
       - name: Use Node.js v12.x
         uses: actions/setup-node@v1
         if: env.GIT_DIFF
