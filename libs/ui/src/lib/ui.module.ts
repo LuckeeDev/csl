@@ -151,4 +151,4 @@ import { RoundedDirective } from './directives/rounded/rounded.directive';
 })
 export class UiModule {}
 
-export { DialogService, ToastrService, InfoDialogService };
+export { DialogService, ToastrService, InfoDialogService, DeviceService };

@@ -11,6 +11,7 @@ import {
 import { DialogService, InfoDialogService, ToastrService } from '@csl/ui';
 import { Observable } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
+import { DeviceService } from '@csl/ui';
 
 type Courses = Record<ICourse['slot'], CSLDataTableSource<ICourse>>;
 
@@ -28,7 +29,7 @@ export class CogeView implements OnInit {
 	slots$: Observable<ICourse['slot'][]>;
 
 	actions: CSLDataTableAction<Action>[] = [
-		{ type: 'basic', id: 'DETAILS', label: 'Dettagli del corso' },
+		{ type: 'basic', id: 'DETAILS', label: 'Dettagli' },
 		{ type: 'primary', id: 'ADD', label: 'Seleziona' },
 	];
 
@@ -48,7 +49,8 @@ export class CogeView implements OnInit {
 		private coge: CogeService,
 		private info: InfoDialogService,
 		private dialog: DialogService,
-		private toastr: ToastrService
+		private toastr: ToastrService,
+		private device: DeviceService
 	) {}
 
 	ngOnInit(): void {
@@ -114,12 +116,17 @@ export class CogeView implements OnInit {
 		actions: CSLDataTableAction<Action>[],
 		course: ICourse
 	): CSLDataTableAction<Action>[] {
+		const newActions =
+			this.device.type === 'small'
+				? actions.filter((x) => x.id !== 'ADD')
+				: actions;
+
 		if (this.signupDraft[course.slot].confirmed === true) {
-			return actions.map((action) =>
+			return newActions.map((action) =>
 				action.id === 'ADD' ? { ...action, disabled: true } : action
 			);
 		} else {
-			return actions;
+			return newActions;
 		}
 	}
 
@@ -144,7 +151,7 @@ export class CogeView implements OnInit {
 			.pipe(
 				switchMap((currentCourse) => {
 					return this.info.open({
-						confirm: 'Aggiungi',
+						confirm: 'Seleziona',
 						title: currentCourse.title,
 						confirmDisabled:
 							this.signupDraft[currentCourse.slot].confirmed ||

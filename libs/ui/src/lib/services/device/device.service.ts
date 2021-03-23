@@ -4,32 +4,34 @@ import { map, startWith } from 'rxjs/operators';
 
 @Injectable()
 export class DeviceService {
-  constructor() {}
+	get type$(): Observable<'big' | 'small'> {
+		return fromEvent(window, 'resize').pipe(
+			startWith(() => {
+				if (window.innerWidth > 1250) {
+					return 'big';
+				} else {
+					return 'small';
+				}
+			}),
+			map(() => {
+				if (window.innerWidth > 1250) {
+					return 'big';
+				} else {
+					return 'small';
+				}
+			})
+		);
+	}
 
-  get type$(): Observable<'big' | 'small'> {
-    return fromEvent(window, 'resize').pipe(
-      startWith(() => {
-        if (window.innerWidth > 1250) {
-          return 'big';
-        } else {
-          return 'small';
-        }
-      }),
-      map(() => {
-        if (window.innerWidth > 1250) {
-          return 'big';
-        } else {
-          return 'small';
-        }
-      })
-    );
-  }
+	get type(): 'big' | 'small' | 'medium' {
+		const width = window.innerWidth;
 
-  get type(): 'big' | 'small' {
-    if (window.innerWidth > 1250) {
-      return 'big';
-    } else {
-      return 'small';
-    }
-  }
+		if (width > 1250) {
+			return 'big';
+		} else if (width >= 768 && width <= 1250) {
+			return 'medium';
+		} else {
+			return 'small';
+		}
+	}
 }
