@@ -11,18 +11,21 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Get git diff
-        run: echo "::set-output name=git_diff::$(echo $(git diff --quiet HEAD~1 HEAD -- apps/api/src || echo true))
+        id: git-diff
+        run: |
+          echo "::debug::$(echo $(git diff --quiet HEAD~1 HEAD -- apps/api/src || echo true))"
+          echo "::set-output name=git_diff::$(git diff --quiet HEAD~1 HEAD -- apps/api/src || echo true)"
       - name: Use Node.js v12.x
         uses: actions/setup-node@v1
-        if: env.GIT_DIFF
+        if: steps.git-diff.outputs.git-diff
         with:
           node-version: 12.x
       - name: Install dependencies
-        if: env.GIT_DIFF
+        if: steps.git-diff.outputs.git-diff
         run: SKIP_POSTINSTALL=1 yarn install
       - name: Build
-        if: env.GIT_DIFF
+        if: steps.git-diff.outputs.git-diff
         run: yarn build:api
-      - name: Restart service
-        if: env.GIT_DIFF
-        run: pm2 restart api
+      # - name: Restart service
+      #   if: env.GIT_DIFF
+      #   run: pm2 restart api
