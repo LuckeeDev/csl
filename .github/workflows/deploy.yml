@@ -8,11 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: technote-space/get-diff-action@v4
-        with:
-          GITHUB_TOKEN: 6ba54f5c360d72a46a00f13b689979288a53cbe5
-          PATTERNS: |
-            apps/api/src/**/*.ts
+      - name: Get git diff
+        run: echo "GIT_DIFF=$(echo git diff --quiet HEAD~1 HEAD -- apps/api/src)" >> $GITHUB_ENV
       - name: Use Node.js v12.x
         uses: actions/setup-node@v1
         if: env.GIT_DIFF
@@ -24,6 +21,6 @@ jobs:
       - name: Build
         if: env.GIT_DIFF
         run: yarn build:api
-      # - name: Restart service
-      #   if: env.GIT_DIFF
-      #   run: pm2 restart api
+      - name: Restart service
+        if: env.GIT_DIFF
+        run: pm2 restart api
