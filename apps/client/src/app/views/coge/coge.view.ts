@@ -121,7 +121,10 @@ export class CogeView implements OnInit {
 				? actions.filter((x) => x.id !== 'ADD')
 				: actions;
 
-		if (this.signupDraft[course.slot].confirmed === true) {
+		if (
+			this.signupDraft[course.slot].confirmed === true ||
+			course.signupsCount >= course.max - course.speakers.length
+		) {
 			return newActions.map((action) =>
 				action.id === 'ADD' ? { ...action, disabled: true } : action
 			);
