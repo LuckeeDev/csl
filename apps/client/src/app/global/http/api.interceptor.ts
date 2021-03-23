@@ -8,17 +8,23 @@ import {
 import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
 
+const MDREGEXP = /\/assets\/md\/(.*).md/gm;
+
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
 	intercept(
 		req: HttpRequest<any>,
 		next: HttpHandler
 	): Observable<HttpEvent<any>> {
-		const updatedRequest = req.clone({
-			url: `${environment.api}${req.url}`,
-			withCredentials: true,
-		});
+		if (!MDREGEXP.test(req.url)) {
+			const updatedRequest = req.clone({
+				url: `${environment.api}${req.url}`,
+				withCredentials: true,
+			});
 
-		return next.handle(updatedRequest);
+			return next.handle(updatedRequest);
+		} else {
+			return next.handle(req);
+		}
 	}
 }

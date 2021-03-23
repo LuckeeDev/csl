@@ -316,8 +316,7 @@
 					"options": {
 						"outputPath": "dist/api",
 						"main": "apps/api/src/main.ts",
-						"tsConfig": "apps/api/tsconfig.app.json",
-						"assets": ["apps/api/src/static", "apps/api/src/Dockerfile"]
+						"tsConfig": "apps/api/tsconfig.app.json"
 					},
 					"configurations": {
 						"production": {
