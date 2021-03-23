@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.8.19](https://github.com/LuckeeDev/csl/compare/v1.8.18...v1.8.19) (2021-03-23)
+
+
+### Bug Fixes
+
+* :ambulance: server check on course limit ([bfec949](https://github.com/LuckeeDev/csl/commit/bfec949d6f86862c365e154c50c359becb524671))
+
+
+
 ## [1.8.18](https://github.com/LuckeeDev/csl/compare/v1.8.17...v1.8.18) (2021-03-23)
 
 
