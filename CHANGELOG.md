@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.8.11](https://github.com/LuckeeDev/csl/compare/v1.8.10...v1.8.11) (2021-03-23)
+
+
+### Bug Fixes
+
+* correctly retrieve markdown guides ([c5ac861](https://github.com/LuckeeDev/csl/commit/c5ac861323416b66848488445ba57419185c9eb2))
+
+
+
 ## [1.8.10](https://github.com/LuckeeDev/csl/compare/v1.8.9...v1.8.10) (2021-03-22)
 
 
