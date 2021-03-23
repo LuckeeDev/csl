@@ -21,8 +21,6 @@
     "ui": { "tags": [] },
     "maintenance": { "tags": [] },
     "api": { "tags": [] },
-    "workspace": { "tags": [] },
-    "bike": { "tags": [] },
-    "bike-e2e": { "tags": [], "implicitDependencies": ["bike"] }
+    "workspace": { "tags": [] }
   }
 }
