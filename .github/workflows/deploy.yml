@@ -1,11 +1,14 @@
 name: Deploy
 
-on: push
+on:
+  push:
+    tags:
+      - v*
 
 jobs:
   api-deploy:
     name: API
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     env:
       ACTIONS_STEP_DEBUG: true
     steps:
@@ -14,7 +17,7 @@ jobs:
         id: git-diff
         run: |
           echo "::debug::$(echo $(git diff --quiet HEAD~1 HEAD -- apps/api/src || echo true))"
-          echo "::set-output name=git_diff::$(git diff --quiet HEAD~1 HEAD -- apps/api/src || echo true)"
+          echo "::set-output name=git-diff::$(echo $(git diff --quiet HEAD~1 HEAD -- apps/api/src || echo true))"
       - name: Use Node.js v12.x
         uses: actions/setup-node@v1
         if: steps.git-diff.outputs.git-diff
@@ -26,6 +29,6 @@ jobs:
       - name: Build
         if: steps.git-diff.outputs.git-diff
         run: yarn build:api
-      # - name: Restart service
-      #   if: env.GIT_DIFF
-      #   run: pm2 restart api
+      - name: Restart service
+        if: steps.git-diff.outputs.git-diff
+        run: pm2 restart api
