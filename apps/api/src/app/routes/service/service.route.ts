@@ -5,6 +5,7 @@ import { User } from '@models';
 
 import { google } from 'googleapis';
 import { environment } from '@environments/environment';
+import { v4 } from 'uuid';
 
 const oauth2Client = new google.auth.OAuth2(
 	environment.GOOGLE_CLIENT_ID,
@@ -35,6 +36,32 @@ router.get('/', isAdmin, async (req, res) => {
 			auth,
 		});
 		console.log(events.data.items);
+
+		const insert = await calendar.events.insert({
+			conferenceDataVersion: 1,
+			auth,
+			calendarId: 'primary',
+			requestBody: {
+				summary: 'Test event',
+				start: {
+					timeZone: 'Europe/Rome',
+					dateTime: '2021-03-25T15:00:00+00:00',
+				},
+				end: {
+					timeZone: 'Europe/Rome',
+					dateTime: '2021-03-25T16:00:00+00:00',
+				},
+				conferenceData: {
+					createRequest: {
+						requestId: v4(),
+						conferenceSolutionKey: {
+							type: 'hangoutsMeet',
+						},
+					},
+				},
+			},
+		});
+		console.log(insert);
 	} catch (err) {
 		console.log(err);
 	}
