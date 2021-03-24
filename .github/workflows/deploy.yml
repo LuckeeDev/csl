@@ -9,16 +9,19 @@ jobs:
   api-deploy:
     name: API
     runs-on: self-hosted
-    env:
-      ACTIONS_STEP_DEBUG: true
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 2
+          fetch-depth: 0
+      - name: Get previous tag
+        id: previous-tag
+        uses: timfallmk/previous-git-tag-action
       - name: Get git diff
         id: git-diff
-        run: |
-          echo "::set-output name=git-diff::$(git diff --quiet HEAD~1 HEAD -- apps/api/src || echo true)"
+        run: echo "::set-output name=git-diff::$(git diff --quiet $INPUT_LAST_TAG $INPUT_PREVIOUS_TAG apps/api/src/ || echo true)"
+        with:
+          last_tag: ${{ github.ref }}
+          previous_tag: ${{ steps.previous-tag.outputs.previous-tag }}
       - name: Use Node.js v12.x
         uses: actions/setup-node@v1
         if: ${{ steps.git-diff.outputs.git-diff == 'true' }}
