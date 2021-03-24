@@ -15,11 +15,16 @@ jobs:
           fetch-depth: 0
       - name: Get previous tag
         id: previous-tag
-        uses: timfallmk/previous-git-tag-action@master
+        run: |
+          PREVIOUS_TAG=$(git describe --abbrev=0 --tags `git rev-list --tags --skip=1 --max-count=1`)
+          echo ${PREVIOUS_TAG}
+          echo ::set-output name=previous-tag::${PREVIOUS_TAG}
       - name: Get git diff
         id: git-diff
-        run: |
-          echo "::set-output name=git-diff::$(git diff --quiet ${{ github.ref }} ${{ steps.previous-tag.outputs.previous-tag }} apps/api/src/ || echo true)"
+        run: echo ::set-output name=git-diff::$(git diff --quiet $LAST_TAG $PREVIOUS_TAG apps/api/src/ || echo true)
+        env:
+          PREVIOUS_TAG: ${{ steps.previous-tag.outputs.previous-tag }}
+          LAST_TAG: ${{ github.ref }}
       - name: Use Node.js v12.x
         uses: actions/setup-node@v1
         if: ${{ steps.git-diff.outputs.git-diff == 'true' }}
