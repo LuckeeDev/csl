@@ -18,7 +18,8 @@ jobs:
         uses: timfallmk/previous-git-tag-action
       - name: Get git diff
         id: git-diff
-        run: echo "::set-output name=git-diff::$(git diff --quiet $INPUT_LAST_TAG $INPUT_PREVIOUS_TAG apps/api/src/ || echo true)"
+        run: |
+          echo "::set-output name=git-diff::$(git diff --quiet $INPUT_LAST_TAG $INPUT_PREVIOUS_TAG apps/api/src/ || echo true)"
         with:
           last_tag: ${{ github.ref }}
           previous_tag: ${{ steps.previous-tag.outputs.previous-tag }}
