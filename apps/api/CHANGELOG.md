@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.8.32](https://github.com/LuckeeDev/csl/compare/v1.8.31...v1.8.32) (2021-03-24)
+
+
+### Bug Fixes
+
+* :lock: https in google redirect ([9bbfa6d](https://github.com/LuckeeDev/csl/commit/9bbfa6dcc641d4bfc649302091060dc2d08142ac))
+
+
+
 ## [1.8.31](https://github.com/LuckeeDev/csl/compare/v1.8.30...v1.8.31) (2021-03-24)
 
 
