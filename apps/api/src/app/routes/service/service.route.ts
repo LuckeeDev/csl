@@ -22,6 +22,12 @@ const signInUrl = oauth2Client.generateAuthUrl({
 
 const calendar = google.calendar('v3');
 
+router.get('/', isAdmin, async (req, res) => {
+	const result = await User.findOne({ id: 'service' });
+
+	res.json(result);
+});
+
 router.get('/links', isAdmin, async (req, res) => {
 	try {
 		const courses = await Course.find();

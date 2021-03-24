@@ -9,7 +9,9 @@ import {
 } from '@csl/shared';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { InfoDialogService } from '@csl/ui';
+import { InfoDialogService, ToastrService } from '@csl/ui';
+import { AdminService } from '@/admin/services/admin/admin.service';
+import { copyToClipboard } from '@/utils/copyToClipboard';
 
 type TableAction = 'DETAILS';
 
@@ -39,7 +41,12 @@ export class CogeComponent implements OnInit {
 		{ type: 'actions', id: 'manage', label: 'Gestisci' },
 	];
 
-	constructor(private coge: CogeService, private info: InfoDialogService) {}
+	constructor(
+		private coge: CogeService,
+		private info: InfoDialogService,
+		private admin: AdminService,
+		private toastr: ToastrService
+	) {}
 
 	ngOnInit(): void {
 		this.dataSource$ = this.coge.availableCourses$.pipe(
@@ -53,6 +60,26 @@ export class CogeComponent implements OnInit {
 					: []
 			)
 		);
+	}
+
+	generateLinks() {
+		this.admin.generateCogeLinks().subscribe({
+			next: (res) => {
+				if (res.success) {
+					this.toastr
+						.show({
+							color: 'success',
+							message: 'Link generati',
+							action: 'Copia link',
+							duration: 15000,
+						})
+						.onAction()
+						.subscribe(() => copyToClipboard(res.data.toString()));
+				} else {
+					this.toastr.showError();
+				}
+			},
+		});
 	}
 
 	eventHandler(e: CSLDataTableEvent<TableAction>) {

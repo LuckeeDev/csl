@@ -17,5 +17,6 @@ export class AdminComponent {
     { link: 'errors', title: 'Errori' },
     { link: 'events', title: 'Eventi' },
     { link: 'coge', title: 'Coge' },
+    { link: 'service', title: 'Account di Servizio' },
   ];
 }
