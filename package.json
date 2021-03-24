@@ -1,6 +1,6 @@
 {
 	"name": "csl",
-	"version": "1.8.25",
+	"version": "1.8.26",
 	"license": "MIT",
 	"scripts": {
 		"nx": "nx",
