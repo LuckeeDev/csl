@@ -23,7 +23,7 @@ export function setupPassport() {
       {
         clientID: env.GOOGLE_CLIENT_ID,
         clientSecret: env.GOOGLE_CLIENT_SECRET,
-        callbackURL: `/auth/redirect`,
+        callbackURL: `${env.api}/auth/redirect`,
       },
       (accessToken: any, refreshToken: any, profile: any, done: any) => {
         const id = profile.id;
