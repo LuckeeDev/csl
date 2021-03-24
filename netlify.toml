@@ -1,5 +1,5 @@
 [build]
-ignore = "GIT_DIFF"
+ignore = "$(git diff --quiet HEAD~1 HEAD -- apps/client/src || echo true)"
 
 [[redirects]]
 from = "/*"
