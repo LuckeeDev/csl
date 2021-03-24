@@ -55,43 +55,4 @@ export function setupPassport() {
 			}
 		)
 	);
-
-	passport.use(
-		'service-account',
-		new GoogleStrategy(
-			{
-				clientID: env.GOOGLE_CLIENT_ID,
-				clientSecret: env.GOOGLE_CLIENT_SECRET,
-				callbackURL: `/auth/redirect`,
-			},
-			(accessToken: string, refreshToken: string, profile, done) => {
-				const id = profile.id;
-				const photoURL = profile.photos[0].value;
-				const email = profile.emails[0].value;
-
-				User.findOne({ id }).then(async (user) => {
-					if (user) {
-						await user.updateOne({ photoURL });
-
-						done(null, user);
-					} else {
-						User.findOne({ email }).then(async (user) => {
-							if (user) {
-								await user.updateOne({
-									id,
-									photoURL,
-								});
-
-								User.findOne({ id }).then((user) => {
-									done(null, user);
-								});
-							} else {
-								done(null, null);
-							}
-						});
-					}
-				});
-			}
-		)
-	);
 }

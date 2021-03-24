@@ -1,6 +1,7 @@
 export const environment: { [x: string]: any } = {
   production: false,
   client: 'http://localhost:4200',
+  api: 'http://localhost:3000',
 
   PORT: process.env.PORT,
   DB_URI: process.env.DB_URI,

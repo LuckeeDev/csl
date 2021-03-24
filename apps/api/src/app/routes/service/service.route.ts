@@ -1,44 +1,68 @@
 import { isAdmin } from '@common/auth';
-import { Router, Request, Response } from 'express';
-import passport from 'passport';
+import { Router } from 'express';
 const router = Router();
+import { User } from '@models';
 
-// import { google, calendar_v3 } from 'googleapis';
-// import { v4 } from 'uuid';
+import { google } from 'googleapis';
+import { environment } from '@environments/environment';
 
-// const calendar = google.calendar({
-// 	version: 'v3',
-// 	auth: 'key',
-// });
+const oauth2Client = new google.auth.OAuth2(
+	environment.GOOGLE_CLIENT_ID,
+	environment.GOOGLE_CLIENT_SECRET,
+	`${environment.api}/service/redirect`
+);
 
-// calendar.events.insert({
-// 	conferenceDataVersion: 1,
-// 	requestBody: {
-// 		summary: 'Test event',
-// 		start: {
-// 			timeZone: 'Europe/Rome',
-// 		},
-// 		end: {},
-// 		conferenceData: {
-// 			createRequest: {
-// 				requestId: v4(),
-// 				conferenceSolutionKey: {
-// 					type: 'hangoutsMeet',
-// 				},
-// 			},
-// 		},
-// 	},
-// });
+const scopes = ['email', 'profile', 'https://www.googleapis.com/auth/calendar'];
 
-router.get('/', (req, res) => res.send('Hi from service'));
+const url = oauth2Client.generateAuthUrl({
+	access_type: 'offline',
+	scope: scopes,
+});
 
-router.get(
-	'/setup',
-	isAdmin,
-	passport.authenticate('service-account', {
-		scope: ['profile', 'email', 'https://www.googleapis.com/auth/calendar'],
-	}),
-	(req, res) => {}
+const calendar = google.calendar('v3');
+
+router.get('/', isAdmin, async (req, res) => {
+	const { refreshToken } = await User.findOne({ id: 'service' });
+
+	const auth = oauth2Client;
+	auth.setCredentials({
+		refresh_token: refreshToken,
+	});
+
+	try {
+		const events = await calendar.events.list({
+			calendarId: 'primary',
+			auth,
+		});
+		console.log(events.data.items);
+	} catch (err) {
+		console.log(err);
+	}
+
+	res.send('Hi from service');
+});
+
+router.get('/setup', isAdmin, (req, res) => res.redirect(url));
+
+router.get('/redirect', isAdmin, async (req, res) => {
+	const code = req.query.code as string;
+	const { tokens } = await oauth2Client.getToken(code);
+
+	const refreshToken = tokens.refresh_token;
+
+	await User.findOneAndUpdate({ id: 'service' }, { refreshToken });
+
+	res.send('It worked!');
+});
+
+router.get('/failure', (req, res) =>
+	res.send(
+		'Something went wrong while logging in, please sign back in as admin <a href="/auth/dashboard">here</a>.'
+	)
+);
+
+router.get('/success', (req, res) =>
+	res.send('Success! Log back in <a href="/auth/dashboard">here</a>.')
 );
 
 export { router as service };
