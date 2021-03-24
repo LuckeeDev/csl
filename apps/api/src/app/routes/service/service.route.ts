@@ -1,11 +1,11 @@
 import { isAdmin } from '@common/auth';
 import { Router } from 'express';
 const router = Router();
-import { User } from '@models';
-
+import { Course, User } from '@models';
 import { google } from 'googleapis';
 import { environment } from '@environments/environment';
-import { v4 } from 'uuid';
+import { saveError } from '@common/logs';
+import { slotToTime } from '@/utils/slotToTime';
 
 const oauth2Client = new google.auth.OAuth2(
 	environment.GOOGLE_CLIENT_ID,
@@ -15,81 +15,95 @@ const oauth2Client = new google.auth.OAuth2(
 
 const scopes = ['email', 'profile', 'https://www.googleapis.com/auth/calendar'];
 
-const url = oauth2Client.generateAuthUrl({
+const signInUrl = oauth2Client.generateAuthUrl({
 	access_type: 'offline',
 	scope: scopes,
 });
 
 const calendar = google.calendar('v3');
 
-router.get('/', isAdmin, async (req, res) => {
-	const { refreshToken } = await User.findOne({ id: 'service' });
-
-	const auth = oauth2Client;
-	auth.setCredentials({
-		refresh_token: refreshToken,
-	});
-
+router.get('/links', isAdmin, async (req, res) => {
 	try {
-		const events = await calendar.events.list({
-			calendarId: 'primary',
-			auth,
-		});
-		console.log(events.data.items);
+		const courses = await Course.find();
+		const { refreshToken } = await User.findOne({ id: 'service' });
 
-		const insert = await calendar.events.insert({
-			conferenceDataVersion: 1,
-			auth,
-			calendarId: 'primary',
-			requestBody: {
-				summary: 'Test event',
-				start: {
-					timeZone: 'Europe/Rome',
-					dateTime: '2021-03-25T15:00:00+00:00',
-				},
-				end: {
-					timeZone: 'Europe/Rome',
-					dateTime: '2021-03-25T16:00:00+00:00',
-				},
-				conferenceData: {
-					createRequest: {
-						requestId: v4(),
-						conferenceSolutionKey: {
-							type: 'hangoutsMeet',
+		const auth = oauth2Client;
+		auth.setCredentials({
+			refresh_token: refreshToken,
+		});
+
+		const createEventsPromises = courses.map(async (course) => {
+			const insert = await calendar.events.insert({
+				conferenceDataVersion: 1,
+				auth,
+				calendarId: 'primary',
+				requestBody: {
+					summary: `${course.title} - Fascia ${course.slot.toUpperCase()}`,
+					start: {
+						timeZone: 'Europe/Rome',
+						dateTime: slotToTime[course.slot].start,
+					},
+					end: {
+						timeZone: 'Europe/Rome',
+						dateTime: slotToTime[course.slot].end,
+					},
+					conferenceData: {
+						createRequest: {
+							requestId: course.id,
+							conferenceSolutionKey: {
+								type: 'hangoutsMeet',
+							},
 						},
 					},
 				},
-			},
-		});
-		console.log(insert);
-	} catch (err) {
-		console.log(err);
-	}
+			});
 
-	res.send('Hi from service');
+			const link = insert.data.hangoutLink;
+
+			await course.updateOne({ link });
+
+			return link;
+		});
+
+		const links = await Promise.all(createEventsPromises);
+
+		res.json({
+			success: true,
+			data: links,
+		});
+	} catch (err) {
+		saveError('Error while creating links for courses', {
+			category: 'coge',
+			err,
+		});
+
+		res.json({
+			success: false,
+			err,
+		});
+	}
 });
 
-router.get('/setup', isAdmin, (req, res) => res.redirect(url));
+router.get('/setup', isAdmin, (req, res) => res.redirect(signInUrl));
 
 router.get('/redirect', isAdmin, async (req, res) => {
-	const code = req.query.code as string;
-	const { tokens } = await oauth2Client.getToken(code);
+	try {
+		const code = req.query.code as string;
+		const { tokens } = await oauth2Client.getToken(code);
 
-	const refreshToken = tokens.refresh_token;
+		const refreshToken = tokens.refresh_token;
 
-	await User.findOneAndUpdate({ id: 'service' }, { refreshToken });
+		await User.findOneAndUpdate({ id: 'service' }, { refreshToken });
 
-	res.send('It worked!');
+		res.redirect(`${environment.client}/admin/service`);
+	} catch (err) {
+		saveError('Error while setting up the service account', {
+			category: 'coge',
+			err,
+		});
+
+		res.redirect(`${environment.client}/login-failed`);
+	}
 });
-
-router.get('/failure', (req, res) =>
-	res.send(
-		'Something went wrong while logging in, please sign back in as admin <a href="/auth/dashboard">here</a>.'
-	)
-);
-
-router.get('/success', (req, res) =>
-	res.send('Success! Log back in <a href="/auth/dashboard">here</a>.')
-);
 
 export { router as service };

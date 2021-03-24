@@ -26,6 +26,7 @@ export interface ICourse {
 	signups: Signup[];
 	signupsCount: number;
 	max: number;
+	link: string;
 }
 
 export interface ICourseModel extends Document, ICourse {
