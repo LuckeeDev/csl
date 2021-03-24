@@ -13,6 +13,12 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      - name: Get last tag
+        id: last-tag
+        run: |
+          LAST_TAG=$(git describe --abbrev=0 --tags `git rev-list --tags --max-count=1`)
+          echo ${LAST_TAG}
+          echo ::set-output name=last-tag::${LAST_TAG}
       - name: Get previous tag
         id: previous-tag
         run: |
@@ -21,10 +27,12 @@ jobs:
           echo ::set-output name=previous-tag::${PREVIOUS_TAG}
       - name: Get git diff
         id: git-diff
-        run: echo ::set-output name=git-diff::$(git diff --quiet $LAST_TAG $PREVIOUS_TAG apps/api/src/ || echo true)
+        run: |
+          echo Getting diff between ${LAST_TAG} and ${PREVIOUS_TAG}
+          echo ::set-output name=git-diff::$(git diff --quiet $LAST_TAG $PREVIOUS_TAG apps/api/src/ || echo true)
         env:
+          LAST_TAG: ${{ steps.last-tag.outputs.last-tag }}
           PREVIOUS_TAG: ${{ steps.previous-tag.outputs.previous-tag }}
-          LAST_TAG: ${{ github.ref }}
       - name: Use Node.js v12.x
         uses: actions/setup-node@v1
         if: ${{ steps.git-diff.outputs.git-diff == 'true' }}
