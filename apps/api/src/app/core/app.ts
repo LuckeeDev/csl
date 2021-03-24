@@ -7,9 +7,6 @@ import * as fileUpload from 'express-fileupload';
 import { webhookHandler } from '@common/utils';
 import PackageJSON from '../../../../../package.json';
 
-import { google, calendar_v3 } from 'googleapis';
-import { v4 } from 'uuid';
-
 export function setupApp(app: Application) {
 	app.use(
 		cors({
@@ -31,32 +28,6 @@ export function setupApp(app: Application) {
 
 	app.use(passport.initialize());
 	app.use(passport.session());
-
-	const calendar = google.calendar({
-		version: 'v3',
-		auth: 'key',
-	});
-
-	calendar.events.insert({
-		conferenceDataVersion: 1,
-		requestBody: {
-			summary: 'Test event',
-			start: {
-				timeZone: 'Europe/Rome'
-			},
-			end: {
-
-			},
-			conferenceData: {
-				createRequest: {
-					requestId: v4(),
-					conferenceSolutionKey: {
-						type: 'hangoutsMeet',
-					},
-				},
-			},
-		},
-	});
 
 	// Receive webhooks from Stripe [TODO: need to add CORS, allowing Stripe, to this route]
 	app.post('/api/webhook', raw({ type: 'application/json' }), webhookHandler);
