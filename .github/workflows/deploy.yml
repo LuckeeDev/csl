@@ -15,7 +15,7 @@ jobs:
           fetch-depth: 0
       - name: Get previous tag
         id: previous-tag
-        uses: timfallmk/previous-git-tag-action
+        uses: timfallmk/previous-git-tag-action@master
       - name: Get git diff
         id: git-diff
         run: |
