@@ -16,7 +16,7 @@ jobs:
       - name: Get git diff
         id: git-diff
         run: |
-          echo "::debug::$(echo $(git diff --quiet HEAD~1 HEAD -- apps/api/src || echo true))"
+          echo "::debug::$(echo $(git diff --quiet HEAD^ HEAD apps/api/src/ || echo true))"
           echo "::set-output name=git-diff::$(git diff --quiet HEAD~1 HEAD -- apps/api/src || echo true)"
       - name: Use Node.js v12.x
         uses: actions/setup-node@v1
