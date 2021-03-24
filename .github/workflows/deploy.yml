@@ -19,10 +19,7 @@ jobs:
       - name: Get git diff
         id: git-diff
         run: |
-          echo "::set-output name=git-diff::$(git diff --quiet $INPUT_LAST_TAG $INPUT_PREVIOUS_TAG apps/api/src/ || echo true)"
-        with:
-          last_tag: ${{ github.ref }}
-          previous_tag: ${{ steps.previous-tag.outputs.previous-tag }}
+          echo "::set-output name=git-diff::$(git diff --quiet ${{ github.ref }} ${{ steps.previous-tag.outputs.previous-tag }} apps/api/src/ || echo true)"
       - name: Use Node.js v12.x
         uses: actions/setup-node@v1
         if: ${{ steps.git-diff.outputs.git-diff == 'true' }}
