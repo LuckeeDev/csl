@@ -1,6 +1,7 @@
 import passport from 'passport';
 import { environment as env } from '@environments/environment';
-import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 import { User } from '@models';
 import { IUser } from '@csl/shared';
 
@@ -25,7 +26,7 @@ export function setupPassport() {
         clientSecret: env.GOOGLE_CLIENT_SECRET,
         callbackURL: `${env.api}/auth/redirect`,
       },
-      (accessToken: any, refreshToken: any, profile: any, done: any) => {
+      (accessToken: string, refreshToken: string, profile, done) => {
         const id = profile.id;
         const photoURL = profile.photos[0].value;
         const email = profile.emails[0].value;
