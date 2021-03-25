@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.10.3](https://github.com/LuckeeDev/csl/compare/v1.10.2...v1.10.3) (2021-03-25)
+
+
+### Bug Fixes
+
+* :ambulance: filter array ([1e709b3](https://github.com/LuckeeDev/csl/commit/1e709b3d540109996d8bf2033f18dda992f83472))
+
+
+
 ## [1.10.2](https://github.com/LuckeeDev/csl/compare/v1.10.1...v1.10.2) (2021-03-25)
 
 
