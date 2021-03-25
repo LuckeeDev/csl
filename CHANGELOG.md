@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.9.1](https://github.com/LuckeeDev/csl/compare/v1.9.0...v1.9.1) (2021-03-25)
+
+
+### Bug Fixes
+
+* server passport google strategy ([7a24eba](https://github.com/LuckeeDev/csl/commit/7a24eba90d88a3a488a98ef7626eb5326377756b))
+
+
+
 # [1.9.0](https://github.com/LuckeeDev/csl/compare/v1.8.32...v1.9.0) (2021-03-25)
 
 
