@@ -21,6 +21,7 @@
     "ui": { "tags": [] },
     "maintenance": { "tags": [] },
     "api": { "tags": [] },
-    "workspace": { "tags": [] }
+    "workspace": { "tags": [] },
+    "google": { "tags": [] }
   }
 }

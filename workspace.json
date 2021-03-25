@@ -366,6 +366,27 @@
 				}
 			},
 			"root": "."
+		},
+		"google": {
+			"root": "libs/google",
+			"sourceRoot": "libs/google/src",
+			"projectType": "library",
+			"architect": {
+				"lint": {
+					"builder": "@nrwl/linter:eslint",
+					"options": {
+						"lintFilePatterns": ["libs/google/**/*.ts"]
+					}
+				},
+				"test": {
+					"builder": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/google"],
+					"options": {
+						"jestConfig": "libs/google/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			}
 		}
 	},
 	"cli": {

@@ -1,9 +1,10 @@
 import passport from 'passport';
 import { environment as env } from '@environments/environment';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+import * as passportGoogleOauth from 'passport-google-oauth';
 import { User } from '@models';
 import { IUser } from '@csl/shared';
+
+const GoogleStrategy = passportGoogleOauth.OAuth2Strategy;
 
 export function setupPassport() {
 	// Create user session
@@ -18,18 +19,18 @@ export function setupPassport() {
 		});
 	});
 
-  // Google Login
-  passport.use(
-    new GoogleStrategy(
-      {
-        clientID: env.GOOGLE_CLIENT_ID,
-        clientSecret: env.GOOGLE_CLIENT_SECRET,
-        callbackURL: `${env.api}/auth/redirect`,
-      },
-      (accessToken: string, refreshToken: string, profile, done) => {
-        const id = profile.id;
-        const photoURL = profile.photos[0].value;
-        const email = profile.emails[0].value;
+	// Google Login
+	passport.use(
+		new GoogleStrategy(
+			{
+				clientID: env.GOOGLE_CLIENT_ID,
+				clientSecret: env.GOOGLE_CLIENT_SECRET,
+				callbackURL: `${env.api}/auth/redirect`,
+			},
+			(accessToken, refreshToken, profile, done) => {
+				const id = profile.id;
+				const photoURL = profile.photos[0].value;
+				const email = profile.emails[0].value;
 
 				User.findOne({ id }).then(async (user) => {
 					if (user) {
@@ -53,6 +54,52 @@ export function setupPassport() {
 						});
 					}
 				});
+			}
+		)
+	);
+
+	passport.use(
+		'service-account',
+		new GoogleStrategy(
+			{
+				clientID: env.GOOGLE_CLIENT_ID,
+				clientSecret: env.GOOGLE_CLIENT_SECRET,
+				callbackURL: `${env.api}/service/redirect`,
+			},
+			(accessToken, refreshToken, profile, done) => {
+				const photoURL = profile.photos[0].value;
+				const email = profile.emails[0].value;
+				const name = profile.displayName;
+
+				if (refreshToken !== undefined) {
+					User.findOneAndUpdate(
+						{ id: 'service' },
+						{ photoURL, email, refreshToken, name },
+						{ new: true }
+					)
+						.then((user) => {
+							if (user) {
+								done(null, user);
+							} else {
+								done(null, null);
+							}
+						})
+						.catch((err) => done(err, null));
+				} else {
+					User.findOneAndUpdate(
+						{ id: 'service' },
+						{ photoURL, email, name },
+						{ new: true }
+					)
+						.then((user) => {
+							if (user) {
+								done(null, user);
+							} else {
+								done(null, null);
+							}
+						})
+						.catch((err) => done(err, null));
+				}
 			}
 		)
 	);
