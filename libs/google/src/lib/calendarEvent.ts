@@ -1,4 +1,4 @@
-interface CalendarEvent {
+export interface CalendarEvent {
 	kind?: 'calendar#event';
 	etag?: string;
 	id?: string;
@@ -137,5 +137,3 @@ interface CalendarEvent {
 	];
 	eventType?: string;
 }
-
-export type CalendarEventResource = CalendarEvent;

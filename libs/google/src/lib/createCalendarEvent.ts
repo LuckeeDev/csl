@@ -1,16 +1,16 @@
 import axios from 'axios';
-import { CalendarEventResource } from './calendarEventResource';
+import { CalendarEvent } from './calendarEvent';
 
 interface Request {
 	conferenceDataVersion: 0 | 1;
-	body: CalendarEventResource;
+	body: CalendarEvent;
 }
 
 export async function createCalendarEvent(
 	accessToken: string,
 	request: Request
 ) {
-	const response = await axios.post(
+	const response = await axios.post<CalendarEvent>(
 		`https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=${request.conferenceDataVersion}`,
 		request.body,
 		{
@@ -20,5 +20,5 @@ export async function createCalendarEvent(
 		}
 	);
 
-	return response;
+	return response.data;
 }

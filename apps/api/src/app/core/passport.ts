@@ -68,14 +68,21 @@ export function setupPassport() {
 				accessType: 'offline',
 			},
 			(accessToken, refreshToken, profile, done) => {
+				console.log(accessToken, refreshToken, profile);
 				const photoURL = profile.photos[0].value;
 				const email = profile.emails[0].value;
 				const name = profile.displayName;
+				console.log(refreshToken);
 
-				if (refreshToken !== undefined) {
+				// if (refreshToken !== undefined) {
 					User.findOneAndUpdate(
 						{ id: 'service' },
-						{ photoURL, email, refreshToken, name },
+						{
+							photoURL,
+							email,
+							accessToken: { token: accessToken, expires: Date.now() },
+							name,
+						},
 						{ new: true }
 					)
 						.then((user) => {
@@ -86,21 +93,21 @@ export function setupPassport() {
 							}
 						})
 						.catch((err) => done(err, null));
-				} else {
-					User.findOneAndUpdate(
-						{ id: 'service' },
-						{ photoURL, email, name },
-						{ new: true }
-					)
-						.then((user) => {
-							if (user) {
-								done(null, user);
-							} else {
-								done(null, null);
-							}
-						})
-						.catch((err) => done(err, null));
-				}
+				// } else {
+				// 	User.findOneAndUpdate(
+				// 		{ id: 'service' },
+				// 		{ photoURL, email, name },
+				// 		{ new: true }
+				// 	)
+				// 		.then((user) => {
+				// 			if (user) {
+				// 				done(null, user);
+				// 			} else {
+				// 				done(null, null);
+				// 			}
+				// 		})
+				// 		.catch((err) => done(err, null));
+				// }
 			}
 		)
 	);

@@ -4,9 +4,16 @@ const router = Router();
 import { environment } from '@environments/environment';
 import passport from 'passport';
 import { loginMiddleware } from '@/common/middlewares';
-import { User } from '@/models';
+import { Course, User } from '@/models';
 import { createCalendarEvent, getAccessToken } from '@csl/google';
-import { v4 } from 'uuid';
+import { slotToTime } from '@/utils/slotToTime';
+import { saveError } from '@/common/logs';
+
+router.get('/', isAdmin, async (req, res) => {
+	const serviceAccount = await User.findOne({ id: 'service' });
+
+	res.json({success: true, data: serviceAccount});
+});
 
 router.get(
 	'/setup/:next',
@@ -34,53 +41,61 @@ router.get(
 	}
 );
 
-router.get('/something', (req, res) => res.send('Hi there!'));
+router.get('/links', isAdmin, async (req, res) => {
+	try {
+		const service = await User.findOne({ id: 'service' });
 
-router.get('/access', async (req, res) => {
-	const service = await User.findOne({ id: 'service' });
+		const accessToken = await getAccessToken(
+			service.refreshToken,
+			environment.GOOGLE_CLIENT_ID,
+			environment.GOOGLE_CLIENT_SECRET
+		);
 
-	const accessToken = await getAccessToken(
-		service.refreshToken,
-		environment.GOOGLE_CLIENT_ID,
-		environment.GOOGLE_CLIENT_SECRET
-	);
+		const courses = await Course.find();
 
-	const events = await createCalendarEvent(accessToken, {
-		conferenceDataVersion: 1,
-		body: {
-			summary: `Evento di prova - Fascia F`,
-			start: {
-				dateTime: '2021-03-29T11:00:00+02:00',
-			},
-			end: {
-				dateTime: '2021-03-29T13:00:00+02:00',
-			},
-			conferenceData: {
-				createRequest: {
-					requestId: v4(),
-					conferenceSolutionKey: {
-						type: 'hangoutsMeet',
+		const eventsPromises = courses.map(async (course) => {
+			const data = await createCalendarEvent(accessToken, {
+				conferenceDataVersion: 1,
+				body: {
+					summary: `${course.title} - Fascia ${course.slot.toUpperCase()}`,
+					start: {
+						dateTime: slotToTime[course.slot].start,
+					},
+					end: {
+						dateTime: slotToTime[course.slot].end,
+					},
+					conferenceData: {
+						createRequest: {
+							requestId: course.id,
+							conferenceSolutionKey: {
+								type: 'hangoutsMeet',
+							},
+						},
 					},
 				},
-			},
-		},
-	});
+			});
 
-	console.log(events);
+			return data.hangoutLink;
+		});
 
-	if (accessToken !== null) {
-		res.send(accessToken);
-	} else {
-		res.send('No access token retrieved');
+		const links = await Promise.all(eventsPromises);
+
+		res.json({ success: true, data: links });
+	} catch (err) {
+		saveError('Error while generating links', {
+			category: 'coge',
+			err,
+		});
+
+		res.json({
+			success: false,
+			err,
+		});
 	}
 });
 
 router.get('/failure', (req, res) =>
 	res.redirect(`${environment.client}/login-failed`)
 );
-
-router.get('/links', isAdmin, async (req, res) => {
-	res.json({ msg: 'it worked' });
-});
 
 export { router as service };
