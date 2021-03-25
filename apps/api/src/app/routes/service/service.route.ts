@@ -4,6 +4,8 @@ const router = Router();
 import { environment } from '@environments/environment';
 import passport from 'passport';
 import { loginMiddleware } from '@/common/middlewares';
+import { User } from '@/models';
+import { getAccessToken } from '@csl/google';
 
 router.get(
 	'/setup/:next',
@@ -30,6 +32,24 @@ router.get(
 		);
 	}
 );
+
+router.get('/something', (req, res) => res.send('Hi there!'));
+
+router.get('/access', async (req, res) => {
+	const service = await User.findOne({ id: 'service' });
+
+	const accessToken = await getAccessToken(
+		service.refreshToken,
+		environment.GOOGLE_CLIENT_ID,
+		environment.GOOGLE_CLIENT_SECRET
+	);
+
+	if (accessToken !== null) {
+		res.send(accessToken);
+	} else {
+		res.send('No access token retrieved');
+	}
+});
 
 router.get('/failure', (req, res) =>
 	res.redirect(`${environment.client}/login-failed`)

@@ -65,6 +65,7 @@ export function setupPassport() {
 				clientID: env.GOOGLE_CLIENT_ID,
 				clientSecret: env.GOOGLE_CLIENT_SECRET,
 				callbackURL: `${env.api}/service/redirect`,
+				accessType: 'offline',
 			},
 			(accessToken, refreshToken, profile, done) => {
 				const photoURL = profile.photos[0].value;

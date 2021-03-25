@@ -1,3 +1,1 @@
-export function google(): string {
-  return 'google';
-}
+export { getAccessToken } from './getAccessToken';

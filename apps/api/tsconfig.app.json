@@ -18,6 +18,7 @@
 			"@core": ["src/app/core"],
 			"@assets/*": ["src/assets/*"],
 			"@environments/*": ["src/environments/*"],
+			"@csl/google": ["../../libs/google/src/index.ts"],
 			"@csl/shared": ["../../libs/shared/src/index.ts"],
 			"@csl/ui": ["../../libs/ui/src/index.ts"]
 		},
