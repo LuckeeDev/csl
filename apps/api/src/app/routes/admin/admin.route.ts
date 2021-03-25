@@ -80,19 +80,37 @@ router.get('/courses-count', isAdmin, async (req, res) => {
 		const users = await User.find({ [courseQuery]: course.id });
 
 		return {
-			length: users.length,
-			course,
+			actualSignupsCount: users.length,
+			actualUsers: users.map(({ id, name }) => ({ id, name })),
+			savedCourse: course,
 		};
 	});
 
 	const courses = await Promise.all(countPromises);
 	const erroredCourses = courses.filter(
-		({ length, course }) => length >= course.max
+		({ actualSignupsCount, savedCourse }) =>
+			actualSignupsCount >= savedCourse.max - savedCourse.speakers.length
+	);
+
+	const resultCourses = erroredCourses.map(
+		({ actualUsers, actualSignupsCount, savedCourse }) => {
+			const signupsIDs = savedCourse.signups.map(({ id }) => id);
+			const usersToRemove = actualUsers.filter((user) =>
+				signupsIDs.includes(user.id)
+			);
+
+			return {
+				actualUsers,
+				usersToRemove,
+				savedCourse,
+				actualSignupsCount,
+			};
+		}
 	);
 
 	res.json({
-		courses: erroredCourses,
-		count: erroredCourses.length,
+		count: resultCourses.length,
+		resultCourses,
 	});
 });
 
