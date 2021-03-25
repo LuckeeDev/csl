@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.10.1](https://github.com/LuckeeDev/csl/compare/v1.10.0...v1.10.1) (2021-03-25)
+
+
+### Bug Fixes
+
+* :ambulance: update query in coge ([86dbd27](https://github.com/LuckeeDev/csl/commit/86dbd27e1809fa2d1f1c858e0bf40a9ea8ccfd4d))
+
+
+
 # [1.10.0](http:///home/luckee/projects/web/csl/compare/v1.8.33...v1.10.0) (2021-03-25)
 
 
