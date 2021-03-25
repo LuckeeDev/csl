@@ -23,6 +23,7 @@ type Action = 'DETAILS' | 'ADD';
 	styleUrls: ['./coge.view.scss'],
 })
 export class CogeView implements OnInit {
+	isPageOkay = false;
 	currentIndex = 0;
 
 	dataSource$: Observable<Courses>;
