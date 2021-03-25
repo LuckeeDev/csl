@@ -5,7 +5,8 @@ import { environment } from '@environments/environment';
 import passport from 'passport';
 import { loginMiddleware } from '@/common/middlewares';
 import { User } from '@/models';
-import { getAccessToken } from '@csl/google';
+import { createCalendarEvent, getAccessToken } from '@csl/google';
+import { v4 } from 'uuid';
 
 router.get(
 	'/setup/:next',
@@ -43,6 +44,29 @@ router.get('/access', async (req, res) => {
 		environment.GOOGLE_CLIENT_ID,
 		environment.GOOGLE_CLIENT_SECRET
 	);
+
+	const events = await createCalendarEvent(accessToken, {
+		conferenceDataVersion: 1,
+		body: {
+			summary: `Evento di prova - Fascia F`,
+			start: {
+				dateTime: '2021-03-29T11:00:00+02:00',
+			},
+			end: {
+				dateTime: '2021-03-29T13:00:00+02:00',
+			},
+			conferenceData: {
+				createRequest: {
+					requestId: v4(),
+					conferenceSolutionKey: {
+						type: 'hangoutsMeet',
+					},
+				},
+			},
+		},
+	});
+
+	console.log(events);
 
 	if (accessToken !== null) {
 		res.send(accessToken);
