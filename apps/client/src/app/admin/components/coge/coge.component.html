@@ -4,8 +4,12 @@
 	(actionClick)="eventHandler($event)"
 >
 	<h1 header>Corsi</h1>
-</csl-data-table>
 
-<a mat-flat-button routerLink="create" color="primary" class="create-link">
-	Crea corso
-</a>
+	<div links>
+		<a mat-raised-button routerLink="create" color="primary" class="btn">
+			Crea corso
+		</a>
+
+		<button mat-raised-button (click)="generateLinks()" class="btn">Genera link</button>
+	</div>
+</csl-data-table>

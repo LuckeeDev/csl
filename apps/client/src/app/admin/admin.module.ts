@@ -19,6 +19,7 @@ import { CogeComponent } from '@/admin/components/coge/coge.component';
 import { AdminService } from '@admin/services/admin/admin.service';
 
 import { CommissioniComponent } from './components/commissioni/commissioni.component';
+import { ServiceAccountView } from './views/service-account/service-account.view';
 
 @NgModule({
 	declarations: [
@@ -30,6 +31,7 @@ import { CommissioniComponent } from './components/commissioni/commissioni.compo
 		CommissioniComponent,
 		CreateCourseComponent,
 		CogeComponent,
+		ServiceAccountView,
 	],
 	imports: [
 		CommonModule,

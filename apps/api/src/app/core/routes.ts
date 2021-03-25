@@ -15,6 +15,7 @@ import {
 	snacks,
 	upload,
 	users,
+	service,
 } from '@routes';
 
 export function setupRoutes(app: Application) {
@@ -28,6 +29,7 @@ export function setupRoutes(app: Application) {
 	app.use('/products', products);
 	app.use('/orders', orders);
 	app.use('/reports', reports);
+	app.use('/service', service);
 	app.use('/snacks', snacks);
 	app.use('/coge', coge);
 	app.use('/commissioni', commissioni);

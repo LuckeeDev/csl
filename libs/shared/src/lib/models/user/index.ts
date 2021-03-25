@@ -32,6 +32,8 @@ export interface IUser {
 	isBar?: boolean;
 	isAdmin?: boolean;
 	isReferente?: ICommissione['id'];
+
+	refreshToken?: string;
 }
 
 export interface IUserModel extends Document, IUser {

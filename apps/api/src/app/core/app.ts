@@ -8,39 +8,39 @@ import { webhookHandler } from '@common/utils';
 import PackageJSON from '../../../../../package.json';
 
 export function setupApp(app: Application) {
-  app.use(
-    cors({
-      origin: [
-        'http://localhost:4200',
-        'https://cslussana.com',
-        'https://beta.cslussana.com',
-      ],
-      credentials: true,
-    })
-  );
+	app.use(
+		cors({
+			origin: [
+				'http://localhost:4200',
+				'https://cslussana.com',
+				'https://beta.cslussana.com',
+			],
+			credentials: true,
+		})
+	);
 
-  app.use(
-    cookieSession({
-      maxAge: 24 * 60 * 60 * 1000,
-      keys: env.COOKIE_KEYS,
-    })
-  );
+	app.use(
+		cookieSession({
+			maxAge: 24 * 60 * 60 * 1000,
+			keys: env.COOKIE_KEYS,
+		})
+	);
 
-  app.use(passport.initialize());
-  app.use(passport.session());
+	app.use(passport.initialize());
+	app.use(passport.session());
 
-  // Receive webhooks from Stripe [TODO: need to add CORS, allowing Stripe, to this route]
-  app.post('/api/webhook', raw({ type: 'application/json' }), webhookHandler);
+	// Receive webhooks from Stripe [TODO: need to add CORS, allowing Stripe, to this route]
+	app.post('/api/webhook', raw({ type: 'application/json' }), webhookHandler);
 
-  app.use(json());
+	app.use(json());
 
-  app.use(
-    fileUpload({
-      createParentPath: true,
-    })
-  );
+	app.use(
+		fileUpload({
+			createParentPath: true,
+		})
+	);
 
-  app.get('/version', (req, res) => {
-    res.send(`Current version is ${PackageJSON.version}`);
-  });
+	app.get('/version', (req, res) => {
+		res.send(`Current version is ${PackageJSON.version}`);
+	});
 }
