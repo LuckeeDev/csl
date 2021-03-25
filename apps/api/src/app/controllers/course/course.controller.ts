@@ -129,7 +129,14 @@ export const signUpToCourse = async (
 			await Course.findOneAndUpdate(
 				{ id: course.id },
 				{
-					$push: { signups: { name: user.name, id: user.id } },
+					$push: {
+						signups: {
+							name: user.name,
+							id: user.id,
+							classID: user.classID,
+							email: user.email,
+						},
+					},
 					$inc: { signupsCount: 1 },
 				},
 				{ upsert: true }

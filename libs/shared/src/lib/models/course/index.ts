@@ -4,6 +4,8 @@ import { IUser } from '../user';
 interface Signup {
 	id: IUser['id'];
 	name: IUser['name'];
+	classID: IUser['classID'];
+	email: IUser['email'];
 }
 
 export interface ICourse {

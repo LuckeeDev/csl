@@ -158,4 +158,41 @@ router.get('/courses-count', isAdmin, async (req, res) => {
 	res.json(resultCourses);
 });
 
+router.get('/fix-course-errors', isAdmin, async (req, res) => {
+	try {
+		const allCourses = await Course.find();
+
+		const fixPromises = allCourses.map(async (course) => {
+			const courseQuery = `courses.${course.slot}`;
+
+			const users = await User.find({ [courseQuery]: course.id });
+
+			const newSignups = users.map(({ id, name, email, classID }) => ({
+				id,
+				name,
+				email,
+				classID,
+			}));
+			const newSignupsCount = newSignups.length;
+
+			return await Course.findOneAndUpdate(
+				{ id: course.id },
+				{ signups: newSignups, signupsCount: newSignupsCount },
+				{ new: true }
+			);
+		});
+
+		await Promise.all(fixPromises);
+
+		res.json({
+			success: true,
+		});
+	} catch (err) {
+		return {
+			success: false,
+			err,
+		};
+	}
+});
+
 export { router as admin };
