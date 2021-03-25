@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.10.7](https://github.com/LuckeeDev/csl/compare/v1.10.6...v1.10.7) (2021-03-25)
+
+
+### Bug Fixes
+
+* :ambulance: unsubscribe error users ([bfd7b2a](https://github.com/LuckeeDev/csl/commit/bfd7b2aaea75c59f2f79fb6d6697ee44bd2592a7))
+
+
+
 ## [1.10.6](https://github.com/LuckeeDev/csl/compare/v1.10.5...v1.10.6) (2021-03-25)
 
 
