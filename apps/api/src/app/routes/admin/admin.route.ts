@@ -94,18 +94,28 @@ router.get('/courses-count', isAdmin, async (req, res) => {
 
 	const resultCourses = erroredCourses.map(
 		({ actualUsers, actualSignupsCount, savedCourse }) => {
-			const signupsIDs = savedCourse.signups.map(({ id }) => id);
-			const usersToRemove = actualUsers.filter((user) =>
-				!signupsIDs.includes(user.id)
+			const savedSignups = savedCourse.signups;
+			const signupsIDs = savedSignups.map(({ id }) => id);
+			
+			const usersToRemove = actualUsers.filter(
+				(user) => !signupsIDs.includes(user.id)
 			);
 
-			const savedSignups = savedCourse.signups;
+			const toRemoveIDs = usersToRemove.map(({ id }) => id);
+
+			const sortedActualIDs = actualUsers.map(({ id }) => id).sort();
+			const savedPlusToRemoveSorted = [...signupsIDs, ...toRemoveIDs].sort();
+
+			const areTheyEqual = savedPlusToRemoveSorted === sortedActualIDs;
 
 			return {
+				actualSignupsCount,
+				usersToRemoveCount: usersToRemove.length,
+				savedCount: savedSignups.length,
+				areTheyEqual,
 				actualUsers,
 				usersToRemove,
 				savedSignups,
-				actualSignupsCount,
 			};
 		}
 	);
