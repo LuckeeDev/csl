@@ -126,7 +126,8 @@ export const signUpToCourse = async (
 		} else {
 			const courseUpdateIndex = `courses.${slot}`;
 
-			course.updateOne(
+			await Course.findOneAndUpdate(
+				{ id: course.id },
 				{
 					$push: { signups: { name: user.name, id: user.id } },
 					$inc: { signupsCount: 1 },
