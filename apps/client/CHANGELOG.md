@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.10.9](https://github.com/LuckeeDev/csl/compare/v1.10.8...v1.10.9) (2021-03-25)
+
+
+### Bug Fixes
+
+* :adhesive_bandage: bring it online again ([51c284a](https://github.com/LuckeeDev/csl/commit/51c284ab223202dd545a4f0ecc080e51eedc63fe))
+
+
+
 ## [1.10.8](https://github.com/LuckeeDev/csl/compare/v1.10.7...v1.10.8) (2021-03-25)
 
 
