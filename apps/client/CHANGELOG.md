@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [1.9.0](https://github.com/LuckeeDev/csl/compare/v1.8.32...v1.9.0) (2021-03-25)
+
+
+### Features
+
+* setup service account from ui ([fa5d768](https://github.com/LuckeeDev/csl/commit/fa5d7688dca77add85f2aa74689107715e973be0))
+
+
+
 ## [1.8.32](https://github.com/LuckeeDev/csl/compare/v1.8.31...v1.8.32) (2021-03-24)
 
 
