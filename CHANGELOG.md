@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.10.2](https://github.com/LuckeeDev/csl/compare/v1.10.1...v1.10.2) (2021-03-25)
+
+
+### Bug Fixes
+
+* :ambulance: show users to remove ([20b5f49](https://github.com/LuckeeDev/csl/commit/20b5f49642b95ec96dab588caa683ad982f7247d))
+
+
+
 ## [1.10.1](https://github.com/LuckeeDev/csl/compare/v1.10.0...v1.10.1) (2021-03-25)
 
 
