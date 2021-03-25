@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.10.8](https://github.com/LuckeeDev/csl/compare/v1.10.7...v1.10.8) (2021-03-25)
+
+
+### Bug Fixes
+
+* :ambulance: fix courses' errors ([b874e44](https://github.com/LuckeeDev/csl/commit/b874e44d623ef582fd9637204e31f2892c9d2b30))
+* :ambulance: remove signupsCount ([44b2eb8](https://github.com/LuckeeDev/csl/commit/44b2eb87c7522261127a35ad3d56ea043f287496))
+
+
+
 ## [1.10.7](https://github.com/LuckeeDev/csl/compare/v1.10.6...v1.10.7) (2021-03-25)
 
 
