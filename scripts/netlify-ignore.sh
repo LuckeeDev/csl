@@ -16,4 +16,4 @@
 #   echo "Last two tags have no diff"
 #   exit 0
 # fi
-exit 0
+exit 1
