@@ -2,6 +2,37 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [1.10.0](http:///home/luckee/projects/web/csl/compare/v1.8.33...v1.10.0) (2021-03-25)
+
+
+### Bug Fixes
+
+* :alembic: full service account process doesnt work ([ccef190](http:///home/luckee/projects/web/csl/commits/ccef190f0bed37cbdb7ce4149246bb9f92c01ee4))
+
+
+### Features
+
+* :sparkles: full service account flow works ([6aca701](http:///home/luckee/projects/web/csl/commits/6aca701855fea07ed9b061d62b13833de66560e2))
+
+
+
+## [1.9.1](http:///home/luckee/projects/web/csl/compare/v1.9.0...v1.9.1) (2021-03-25)
+
+
+
+# [1.9.0](http:///home/luckee/projects/web/csl/compare/v1.8.32...v1.9.0) (2021-03-25)
+
+
+### Features
+
+* logging in and retrieving events works ([aa31b03](http:///home/luckee/projects/web/csl/commits/aa31b035aa7d1c9fedf6ba9489b3f7190fdba1ae))
+
+
+
+## [1.8.32](http:///home/luckee/projects/web/csl/compare/v1.8.31...v1.8.32) (2021-03-24)
+
+
+
 ## [1.9.1](https://github.com/LuckeeDev/csl/compare/v1.9.0...v1.9.1) (2021-03-25)
 
 

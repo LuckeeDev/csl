@@ -2,6 +2,38 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [1.10.0](http:///home/luckee/projects/web/csl/compare/v1.8.33...v1.10.0) (2021-03-25)
+
+
+### Bug Fixes
+
+* :alembic: full service account process doesnt work ([ccef190](http:///home/luckee/projects/web/csl/commits/ccef190f0bed37cbdb7ce4149246bb9f92c01ee4))
+* :ambulance: make coge page inactive ([0d131d3](http:///home/luckee/projects/web/csl/commits/0d131d318ef1a66fbd8367016711fc3a0ff45981))
+
+
+### Features
+
+* :sparkles: full service account flow works ([6aca701](http:///home/luckee/projects/web/csl/commits/6aca701855fea07ed9b061d62b13833de66560e2))
+
+
+
+## [1.9.1](http:///home/luckee/projects/web/csl/compare/v1.9.0...v1.9.1) (2021-03-25)
+
+
+
+# [1.9.0](http:///home/luckee/projects/web/csl/compare/v1.8.32...v1.9.0) (2021-03-25)
+
+
+### Features
+
+* setup service account from ui ([fa5d768](http:///home/luckee/projects/web/csl/commits/fa5d7688dca77add85f2aa74689107715e973be0))
+
+
+
+## [1.8.32](http:///home/luckee/projects/web/csl/compare/v1.8.31...v1.8.32) (2021-03-24)
+
+
+
 ## [1.9.1](https://github.com/LuckeeDev/csl/compare/v1.9.0...v1.9.1) (2021-03-25)
 
 

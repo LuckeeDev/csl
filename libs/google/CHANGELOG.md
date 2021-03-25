@@ -1,0 +1,18 @@
+# Changelog
+
+This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
+
+# [1.10.0](http:///home/luckee/projects/web/csl/compare/v1.8.33...v1.10.0) (2021-03-25)
+
+
+### Bug Fixes
+
+* :alembic: full service account process doesnt work ([ccef190](http:///home/luckee/projects/web/csl/commits/ccef190f0bed37cbdb7ce4149246bb9f92c01ee4))
+* moved service account auth to passport ([f778290](http:///home/luckee/projects/web/csl/commits/f778290452f3a21b2f5c4f4814ff9c8a2fca3687))
+
+
+### Features
+
+* :sparkles: full service account flow works ([6aca701](http:///home/luckee/projects/web/csl/commits/6aca701855fea07ed9b061d62b13833de66560e2))
+* create calendar events ([6d5898d](http:///home/luckee/projects/web/csl/commits/6d5898d93a336a44b18b8b727a4f435131a871a9))
+* retrieve access token ([5d5d38b](http:///home/luckee/projects/web/csl/commits/5d5d38b20217c5e0614ce3e85c420047f00cbf08))

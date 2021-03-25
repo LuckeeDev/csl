@@ -2,6 +2,48 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [1.10.0](http:///home/luckee/projects/web/csl/compare/v1.8.33...v1.10.0) (2021-03-25)
+
+
+### Bug Fixes
+
+* :alembic: full service account process doesnt work ([ccef190](http:///home/luckee/projects/web/csl/commits/ccef190f0bed37cbdb7ce4149246bb9f92c01ee4))
+* :ambulance: make coge page inactive ([0d131d3](http:///home/luckee/projects/web/csl/commits/0d131d318ef1a66fbd8367016711fc3a0ff45981))
+* moved service account auth to passport ([f778290](http:///home/luckee/projects/web/csl/commits/f778290452f3a21b2f5c4f4814ff9c8a2fca3687))
+
+
+### Features
+
+* :sparkles: full service account flow works ([6aca701](http:///home/luckee/projects/web/csl/commits/6aca701855fea07ed9b061d62b13833de66560e2))
+* create calendar events ([6d5898d](http:///home/luckee/projects/web/csl/commits/6d5898d93a336a44b18b8b727a4f435131a871a9))
+* retrieve access token ([5d5d38b](http:///home/luckee/projects/web/csl/commits/5d5d38b20217c5e0614ce3e85c420047f00cbf08))
+
+
+
+## [1.9.1](http:///home/luckee/projects/web/csl/compare/v1.9.0...v1.9.1) (2021-03-25)
+
+
+### Bug Fixes
+
+* server passport google strategy ([7a24eba](http:///home/luckee/projects/web/csl/commits/7a24eba90d88a3a488a98ef7626eb5326377756b))
+
+
+
+# [1.9.0](http:///home/luckee/projects/web/csl/compare/v1.8.32...v1.9.0) (2021-03-25)
+
+
+### Features
+
+* create event with google meet call ([5c5c27c](http:///home/luckee/projects/web/csl/commits/5c5c27c0d85fb5759235dcead8b0c6b3281e1fd0))
+* logging in and retrieving events works ([aa31b03](http:///home/luckee/projects/web/csl/commits/aa31b035aa7d1c9fedf6ba9489b3f7190fdba1ae))
+* setup service account from ui ([fa5d768](http:///home/luckee/projects/web/csl/commits/fa5d7688dca77add85f2aa74689107715e973be0))
+
+
+
+## [1.8.32](http:///home/luckee/projects/web/csl/compare/v1.8.31...v1.8.32) (2021-03-24)
+
+
+
 ## [1.9.1](https://github.com/LuckeeDev/csl/compare/v1.9.0...v1.9.1) (2021-03-25)
 
 
