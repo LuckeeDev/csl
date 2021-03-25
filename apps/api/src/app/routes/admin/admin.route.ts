@@ -96,7 +96,7 @@ router.get('/courses-count', isAdmin, async (req, res) => {
 		({ actualUsers, actualSignupsCount, savedCourse }) => {
 			const signupsIDs = savedCourse.signups.map(({ id }) => id);
 			const usersToRemove = actualUsers.filter((user) =>
-				signupsIDs.includes(user.id)
+				!signupsIDs.includes(user.id)
 			);
 
 			return {
