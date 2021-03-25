@@ -99,10 +99,12 @@ router.get('/courses-count', isAdmin, async (req, res) => {
 				!signupsIDs.includes(user.id)
 			);
 
+			const savedSignups = savedCourse.signups;
+
 			return {
 				actualUsers,
 				usersToRemove,
-				savedCourse,
+				savedSignups,
 				actualSignupsCount,
 			};
 		}
