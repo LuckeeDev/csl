@@ -14,7 +14,6 @@ import {
 } from '@controllers';
 import { isAdmin } from '@common/auth';
 import { Course, User } from '@/models';
-import { findDuplicates } from '@/utils/findDuplicates';
 
 router.get('/events', isAdmin, async (req: Request, res: Response) => {
 	const result = await getEvents(req.user);
@@ -72,6 +71,69 @@ router.delete(
 	}
 );
 
+router.get('/unsubscribe-errors', isAdmin, async (req, res) => {
+	try {
+		const allCourses = await Course.find();
+
+		const countPromises = allCourses.map(async (course) => {
+			const courseQuery = `courses.${course.slot}`;
+
+			const users = await User.find({ [courseQuery]: course.id });
+
+			return {
+				actualSignupsCount: users.length,
+				actualUsers: users.map(({ id, name }) => ({ id, name })),
+				savedCourse: course,
+			};
+		});
+
+		const courses = await Promise.all(countPromises);
+		const erroredCourses = courses.filter(
+			({ actualSignupsCount, savedCourse }) =>
+				actualSignupsCount >= savedCourse.max - savedCourse.speakers.length
+		);
+
+		const unsubscribeErroredUsers = erroredCourses.map(
+			async ({ actualUsers, savedCourse }) => {
+				const savedSignups = savedCourse.signups;
+				const signupsIDs = savedSignups.map(({ id }) => id);
+
+				const usersToRemove = actualUsers.filter(
+					(user) => !signupsIDs.includes(user.id)
+				);
+				const toRemoveIDs = usersToRemove.map(({ id }) => id);
+
+				const updateQuery = `courses.${savedCourse.slot}`;
+				const emailPromises = toRemoveIDs.map(async (id) => {
+					const user = await User.findOneAndUpdate(
+						{ id },
+						{ $unset: { [updateQuery]: '' } }
+					);
+					return user.email;
+				});
+
+				return {
+					emails: await Promise.all(emailPromises),
+					slot: savedCourse.slot,
+					title: savedCourse.title,
+				};
+			}
+		);
+
+		const data = await Promise.all(unsubscribeErroredUsers);
+
+		res.json({
+			success: true,
+			data,
+		});
+	} catch (err) {
+		res.json({
+			success: false,
+			err,
+		});
+	}
+});
+
 router.get('/courses-count', isAdmin, async (req, res) => {
 	const allCourses = await Course.find();
 
@@ -82,65 +144,18 @@ router.get('/courses-count', isAdmin, async (req, res) => {
 
 		return {
 			actualSignupsCount: users.length,
-			actualUsers: users.map(({ id, name }) => ({ id, name })),
 			savedCourse: course,
 		};
 	});
 
 	const courses = await Promise.all(countPromises);
-	const erroredCourses = courses.filter(
-		({ actualSignupsCount, savedCourse }) =>
-			actualSignupsCount >= savedCourse.max - savedCourse.speakers.length
-	);
+	const resultCourses = courses.map(({ actualSignupsCount, savedCourse }) => ({
+		actualSignupsCount,
+		signupsCount: savedCourse.signups.length,
+		isError: actualSignupsCount > savedCourse.max - savedCourse.speakers.length,
+	}));
 
-	const resultCourses = erroredCourses.map(
-		({ actualUsers, actualSignupsCount, savedCourse }) => {
-			const savedSignups = savedCourse.signups;
-			const signupsIDs = savedSignups.map(({ id }) => id);
-
-			const usersToRemove = actualUsers.filter(
-				(user) => !signupsIDs.includes(user.id)
-			);
-
-			const toRemoveIDs = usersToRemove.map(({ id }) => id);
-
-			const sortedActualIDs = actualUsers.map(({ id }) => id).sort();
-			const savedPlusToRemoveSorted = [...signupsIDs, ...toRemoveIDs].sort();
-
-			return {
-				course: savedCourse.id,
-				savedSignups,
-				usersToRemove,
-				actualUsers,
-				savedDuplicates: findDuplicates(signupsIDs).map((duplicateID) => {
-					return {
-						duplicateID,
-						count: signupsIDs.filter((id) => id === duplicateID).length,
-					};
-				}),
-				actualDuplicates: findDuplicates(sortedActualIDs).map((duplicateID) => {
-					return {
-						duplicateID,
-						count: sortedActualIDs.filter((id) => id === duplicateID).length,
-					};
-				}),
-				removeDuplicates: findDuplicates(toRemoveIDs).map((duplicateID) => {
-					return {
-						duplicateID,
-						count: toRemoveIDs.filter((id) => id === duplicateID).length,
-					};
-				}),
-				savedCount: signupsIDs.length,
-				actualCount: sortedActualIDs.length,
-				removeCount: toRemoveIDs.length,
-			};
-		}
-	);
-
-	res.json({
-		count: resultCourses.length,
-		resultCourses,
-	});
+	res.json(resultCourses);
 });
 
 export { router as admin };
