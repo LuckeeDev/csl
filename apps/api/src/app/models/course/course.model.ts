@@ -13,6 +13,7 @@ const CourseSchema = new Schema({
 	signups: { type: Array },
 	signupsCount: { type: Number },
 	max: { type: Number, default: 100 },
+	link: { type: String },
 });
 
 export const Course = model<ICourseModel>('course', CourseSchema);

@@ -2,12 +2,23 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
-## [1.8.33](https://github.com/LuckeeDev/csl/compare/v1.8.31...v1.8.33) (2021-03-25)
+## [1.9.1](https://github.com/LuckeeDev/csl/compare/v1.9.0...v1.9.1) (2021-03-25)
 
 
 ### Bug Fixes
 
-* :lock: https in google redirect ([9bbfa6d](https://github.com/LuckeeDev/csl/commit/9bbfa6dcc641d4bfc649302091060dc2d08142ac))
+* server passport google strategy ([7a24eba](https://github.com/LuckeeDev/csl/commit/7a24eba90d88a3a488a98ef7626eb5326377756b))
+
+
+
+# [1.9.0](https://github.com/LuckeeDev/csl/compare/v1.8.32...v1.9.0) (2021-03-25)
+
+
+### Features
+
+* create event with google meet call ([5c5c27c](https://github.com/LuckeeDev/csl/commit/5c5c27c0d85fb5759235dcead8b0c6b3281e1fd0))
+* logging in and retrieving events works ([aa31b03](https://github.com/LuckeeDev/csl/commit/aa31b035aa7d1c9fedf6ba9489b3f7190fdba1ae))
+* setup service account from ui ([fa5d768](https://github.com/LuckeeDev/csl/commit/fa5d7688dca77add85f2aa74689107715e973be0))
 
 
 

@@ -2,7 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
-## [1.8.33](https://github.com/LuckeeDev/csl/compare/v1.8.31...v1.8.33) (2021-03-25)
+## [1.9.1](https://github.com/LuckeeDev/csl/compare/v1.9.0...v1.9.1) (2021-03-25)
+
+
+
+# [1.9.0](https://github.com/LuckeeDev/csl/compare/v1.8.32...v1.9.0) (2021-03-25)
+
+
+### Features
+
+* logging in and retrieving events works ([aa31b03](https://github.com/LuckeeDev/csl/commit/aa31b035aa7d1c9fedf6ba9489b3f7190fdba1ae))
 
 
 
