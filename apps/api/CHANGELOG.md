@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.10.4](https://github.com/LuckeeDev/csl/compare/v1.10.3...v1.10.4) (2021-03-25)
+
+
+### Bug Fixes
+
+* :ambulance: show signups ([d4b2ba1](https://github.com/LuckeeDev/csl/commit/d4b2ba14a4a7f30e9aa1ab58c71b874712053c94))
+
+
+
 ## [1.10.3](https://github.com/LuckeeDev/csl/compare/v1.10.2...v1.10.3) (2021-03-25)
 
 
