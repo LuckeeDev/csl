@@ -2,44 +2,79 @@ import { isAdmin } from '@common/auth';
 import { Router } from 'express';
 const router = Router();
 import { environment } from '@environments/environment';
-import passport from 'passport';
-import { loginMiddleware } from '@/common/middlewares';
 import { Course, User } from '@/models';
-import { createCalendarEvent, getAccessToken } from '@csl/google';
+import {
+	createCalendarEvent,
+	getAccessToken,
+	getAuthURL,
+	getProfile,
+	getTokens,
+} from '@csl/google';
 import { slotToTime } from '@/utils/slotToTime';
 import { saveError } from '@/common/logs';
 
 router.get('/', isAdmin, async (req, res) => {
 	const serviceAccount = await User.findOne({ id: 'service' });
 
-	res.json({success: true, data: serviceAccount});
+	res.json({ success: true, data: serviceAccount });
 });
 
-router.get(
-	'/setup/:next',
-	isAdmin,
-	(req, res, next) => {
-		req.logout();
-		next();
-	},
-	loginMiddleware,
-	passport.authenticate('service-account', {
-		scope: ['email', 'profile', 'https://www.googleapis.com/auth/calendar'],
-	})
-);
+router.get('/setup', isAdmin, (req, res) => {
+	const scopes = [
+		'email',
+		'profile',
+		'https://www.googleapis.com/auth/calendar',
+	];
+	const next = req.query.next as string;
 
-router.get(
-	'/redirect',
-	passport.authenticate('service-account', { failureRedirect: './failure' }),
-	async (req, res) => {
-		const destination: string = req.session.returnTo;
-		req.logout();
+	const authURL = getAuthURL(
+		environment.GOOGLE_CLIENT_ID,
+		`${environment.api}/service/redirect`,
+		scopes,
+		next
+	);
 
-		res.send(
-			`Service account correctly set up, please log back in <a href="${environment.api}/auth/${destination}">here</a>.`
+	res.redirect(authURL);
+});
+
+router.get('/redirect', isAdmin, async (req, res) => {
+	const code = req.query.code as string;
+	const next = req.query.state as string;
+
+	const tokens = await getTokens(
+		code,
+		environment.GOOGLE_CLIENT_ID,
+		environment.GOOGLE_CLIENT_SECRET,
+		`${environment.api}/service/redirect`
+	);
+
+	const profile = getProfile(tokens.id_token);
+
+	const photoURL = profile.picture;
+	const email = profile.email;
+	const name = profile.name;
+
+	if (tokens.refresh_token !== undefined) {
+		await User.findOneAndUpdate(
+			{ id: 'service' },
+			{
+				photoURL,
+				email,
+				refreshToken: tokens.refresh_token,
+				name,
+			},
+			{ new: true }
+		);
+	} else {
+		await User.findOneAndUpdate(
+			{ id: 'service' },
+			{ photoURL, email, name },
+			{ new: true }
 		);
 	}
-);
+
+	res.redirect(`${environment.client}/${next}`);
+});
 
 router.get('/links', isAdmin, async (req, res) => {
 	try {

@@ -11,12 +11,14 @@ import { map } from 'rxjs/operators';
 	styleUrls: ['./service-account.view.scss'],
 })
 export class ServiceAccountView implements OnInit {
-	setupURL = `${environment.api}/service/setup/admin`;
+	setupURL = `${environment.api}/service/setup?next=admin`;
 	serviceAccount$: Observable<IUser>;
 
 	constructor(private http: HttpClient) {}
 
 	ngOnInit(): void {
-		this.serviceAccount$ = this.http.get<IHttpRes<IUser>>('/service').pipe(map((res) => res.data));
+		this.serviceAccount$ = this.http
+			.get<IHttpRes<IUser>>('/service')
+			.pipe(map((res) => res.data));
 	}
 }

@@ -19,7 +19,7 @@ const UserSchema = new Schema(
 		isAdmin: { type: Boolean },
 		isReferente: { type: String },
 
-		accessToken: { type: Object },
+		refreshToken: { type: String },
 	},
 	{ skipVersioning: true }
 );

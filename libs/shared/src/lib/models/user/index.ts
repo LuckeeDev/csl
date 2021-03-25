@@ -33,10 +33,7 @@ export interface IUser {
 	isAdmin?: boolean;
 	isReferente?: ICommissione['id'];
 
-	accessToken?: {
-		token: string;
-		expires: number;
-	};
+	refreshToken?: string;
 }
 
 export interface IUserModel extends Document, IUser {
