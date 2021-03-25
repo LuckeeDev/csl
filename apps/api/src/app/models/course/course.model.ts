@@ -11,7 +11,6 @@ const CourseSchema = new Schema({
 	speakers: { type: Array, required: true },
 	notes: { type: String },
 	signups: { type: Array },
-	signupsCount: { type: Number },
 	max: { type: Number, default: 100 },
 	link: { type: String },
 });

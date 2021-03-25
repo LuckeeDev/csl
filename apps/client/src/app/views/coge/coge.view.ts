@@ -124,7 +124,7 @@ export class CogeView implements OnInit {
 
 		if (
 			this.signupDraft[course.slot].confirmed === true ||
-			course.signupsCount >= course.max - course.speakers.length
+			course.signups.length >= course.max - course.speakers.length
 		) {
 			return newActions.map((action) =>
 				action.id === 'ADD' ? { ...action, disabled: true } : action
@@ -159,7 +159,7 @@ export class CogeView implements OnInit {
 						title: currentCourse.title,
 						confirmDisabled:
 							this.signupDraft[currentCourse.slot].confirmed ||
-							currentCourse.signupsCount >=
+							currentCourse.signups.length >=
 								currentCourse.max - currentCourse.speakers.length,
 						content: [
 							{

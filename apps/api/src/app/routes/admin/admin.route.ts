@@ -173,11 +173,10 @@ router.get('/fix-course-errors', isAdmin, async (req, res) => {
 				email,
 				classID,
 			}));
-			const newSignupsCount = newSignups.length;
 
 			return await Course.findOneAndUpdate(
 				{ id: course.id },
-				{ signups: newSignups, signupsCount: newSignupsCount },
+				{ signups: newSignups },
 				{ new: true }
 			);
 		});

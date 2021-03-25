@@ -117,8 +117,8 @@ export const signUpToCourse = async (
 		const course = await Course.findOne({ id });
 
 		if (
-			course.signupsCount &&
-			course.signupsCount >= course.max - course.speakers.length
+			course.signups &&
+			course.signups.length >= course.max - course.speakers.length
 		) {
 			return {
 				success: false,
@@ -129,7 +129,7 @@ export const signUpToCourse = async (
 			await Course.findOneAndUpdate(
 				{ id: course.id },
 				{
-					$push: {
+					$addToSet: {
 						signups: {
 							name: user.name,
 							id: user.id,
@@ -137,7 +137,6 @@ export const signUpToCourse = async (
 							email: user.email,
 						},
 					},
-					$inc: { signupsCount: 1 },
 				},
 				{ upsert: true }
 			);
