@@ -14,6 +14,7 @@ import {
 } from '@controllers';
 import { isAdmin } from '@common/auth';
 import { Course, User } from '@/models';
+import { findDuplicates } from '@/utils/findDuplicates';
 
 router.get('/events', isAdmin, async (req: Request, res: Response) => {
 	const result = await getEvents(req.user);
@@ -96,7 +97,7 @@ router.get('/courses-count', isAdmin, async (req, res) => {
 		({ actualUsers, actualSignupsCount, savedCourse }) => {
 			const savedSignups = savedCourse.signups;
 			const signupsIDs = savedSignups.map(({ id }) => id);
-			
+
 			const usersToRemove = actualUsers.filter(
 				(user) => !signupsIDs.includes(user.id)
 			);
@@ -106,16 +107,32 @@ router.get('/courses-count', isAdmin, async (req, res) => {
 			const sortedActualIDs = actualUsers.map(({ id }) => id).sort();
 			const savedPlusToRemoveSorted = [...signupsIDs, ...toRemoveIDs].sort();
 
-			const areTheyEqual = savedPlusToRemoveSorted === sortedActualIDs;
-
 			return {
-				actualSignupsCount,
-				usersToRemoveCount: usersToRemove.length,
-				savedCount: savedSignups.length,
-				areTheyEqual,
-				actualUsers,
-				usersToRemove,
+				course: savedCourse.id,
 				savedSignups,
+				usersToRemove,
+				actualUsers,
+				savedDuplicates: findDuplicates(signupsIDs).map((duplicateID) => {
+					return {
+						duplicateID,
+						count: signupsIDs.filter((id) => id === duplicateID).length,
+					};
+				}),
+				actualDuplicates: findDuplicates(sortedActualIDs).map((duplicateID) => {
+					return {
+						duplicateID,
+						count: sortedActualIDs.filter((id) => id === duplicateID).length,
+					};
+				}),
+				removeDuplicates: findDuplicates(toRemoveIDs).map((duplicateID) => {
+					return {
+						duplicateID,
+						count: toRemoveIDs.filter((id) => id === duplicateID).length,
+					};
+				}),
+				savedCount: signupsIDs.length,
+				actualCount: sortedActualIDs.length,
+				removeCount: toRemoveIDs.length,
 			};
 		}
 	);
