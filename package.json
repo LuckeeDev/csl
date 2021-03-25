@@ -59,6 +59,7 @@
 		"fs-extra": "^9.0.1",
 		"googleapis": "^68.0.0",
 		"immer": "^7.0.8",
+		"jwt-decode": "^3.1.2",
 		"mongoose": "^5.9.22",
 		"ng2-pdf-viewer": "^6.3.2",
 		"ngx-markdown": "^11.0.0",

@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { environment } from '@environments/environment';
+import { IHttpRes, IUser } from '@csl/shared';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'csl-service-account',
@@ -9,10 +12,11 @@ import { environment } from '@environments/environment';
 })
 export class ServiceAccountView implements OnInit {
 	setupURL = `${environment.api}/service/setup`;
+	serviceAccount$: Observable<IUser>;
 
 	constructor(private http: HttpClient) {}
 
 	ngOnInit(): void {
-		this.http.get('/service').subscribe(console.log);
+		this.serviceAccount$ = this.http.get<IHttpRes<IUser>>('/service').pipe(map((res) => res.data));
 	}
 }

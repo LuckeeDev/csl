@@ -6,6 +6,25 @@ import { google } from 'googleapis';
 import { environment } from '@environments/environment';
 import { saveError } from '@common/logs';
 import { slotToTime } from '@/utils/slotToTime';
+import decode from 'jwt-decode';
+
+interface IDToken {
+	iss: string;
+	azp: string;
+	aud: string;
+	sub: string;
+	hd: string;
+	email: string;
+	email_verified: boolean;
+	at_hash: string;
+	name: string;
+	picture: string;
+	given_name: string;
+	family_name: string;
+	locale: string;
+	iat: number;
+	exp: number;
+}
 
 const oauth2Client = new google.auth.OAuth2(
 	environment.GOOGLE_CLIENT_ID,
@@ -23,9 +42,19 @@ const signInUrl = oauth2Client.generateAuthUrl({
 const calendar = google.calendar('v3');
 
 router.get('/', isAdmin, async (req, res) => {
-	const result = await User.findOne({ id: 'service' });
+	try {
+		const data = await User.findOne({ id: 'service' });
 
-	res.json(result);
+		res.json({
+			success: true,
+			data,
+		});
+	} catch (err) {
+		res.json({
+			success: false,
+			err,
+		});
+	}
 });
 
 router.get('/links', isAdmin, async (req, res) => {
@@ -98,8 +127,21 @@ router.get('/redirect', isAdmin, async (req, res) => {
 		const { tokens } = await oauth2Client.getToken(code);
 
 		const refreshToken = tokens.refresh_token;
+		const idToken = tokens.id_token;
 
-		await User.findOneAndUpdate({ id: 'service' }, { refreshToken });
+		const user: IDToken = decode(idToken);
+		const name = user.name;
+		const photoURL = user.picture;
+		const email = user.email;
+
+		if (refreshToken !== undefined) {
+			await User.findOneAndUpdate(
+				{ id: 'service' },
+				{ refreshToken, name, photoURL, email }
+			);
+		} else {
+			await User.findOneAndUpdate({ id: 'service' }, { name, photoURL, email });
+		}
 
 		res.redirect(`${environment.client}/admin/service`);
 	} catch (err) {
