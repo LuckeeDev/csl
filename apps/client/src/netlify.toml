@@ -1,7 +1,0 @@
-[build]
-ignore = "sh ./scripts/netlify-ignore.sh"
-
-[[redirects]]
-from = "/*"
-to = "/index.html"
-status = 200

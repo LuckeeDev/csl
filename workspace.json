@@ -27,7 +27,7 @@
 							"apps/client/src/assets",
 							"apps/client/src/manifest.webmanifest",
 							"apps/client/src/robots.txt",
-							"apps/client/src/netlify.toml"
+							"apps/client/src/_redirects"
 						],
 						"styles": ["apps/client/src/styles.scss"],
 						"stylePreprocessorOptions": {
