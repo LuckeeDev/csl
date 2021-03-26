@@ -40,7 +40,7 @@ jobs:
           node-version: 12.x
       - name: Install dependencies
         if: ${{ steps.git-diff.outputs.git-diff == 'true' }}
-        run: SKIP_POSTINSTALL=1 yarn install
+        run: yarn install
       - name: Build
         if: ${{ steps.git-diff.outputs.git-diff == 'true' }}
         run: yarn build:client
