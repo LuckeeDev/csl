@@ -29,7 +29,7 @@ jobs:
         id: git-diff
         run: |
           echo Getting diff between ${LAST_TAG} and ${PREVIOUS_TAG}
-          echo ::set-output name=git-diff::$(git diff --quiet $LAST_TAG $PREVIOUS_TAG apps/api/src/ || echo true)
+          echo ::set-output name=git-diff::$(git diff --quiet $LAST_TAG $PREVIOUS_TAG apps/client/src/ || echo true)
         env:
           LAST_TAG: ${{ steps.last-tag.outputs.last-tag }}
           PREVIOUS_TAG: ${{ steps.previous-tag.outputs.previous-tag }}
