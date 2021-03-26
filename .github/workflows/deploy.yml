@@ -6,6 +6,53 @@ on:
       - v*
 
 jobs:
+  client-deploy:
+    name: Client
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Get last tag
+        id: last-tag
+        run: |
+          LAST_TAG=$(git describe --abbrev=0 --tags `git rev-list --tags --max-count=1`)
+          echo ${LAST_TAG}
+          echo ::set-output name=last-tag::${LAST_TAG}
+      - name: Get previous tag
+        id: previous-tag
+        run: |
+          PREVIOUS_TAG=$(git describe --abbrev=0 --tags `git rev-list --tags --skip=1 --max-count=1`)
+          echo ${PREVIOUS_TAG}
+          echo ::set-output name=previous-tag::${PREVIOUS_TAG}
+      - name: Get git diff
+        id: git-diff
+        run: |
+          echo Getting diff between ${LAST_TAG} and ${PREVIOUS_TAG}
+          echo ::set-output name=git-diff::$(git diff --quiet $LAST_TAG $PREVIOUS_TAG apps/api/src/ || echo true)
+        env:
+          LAST_TAG: ${{ steps.last-tag.outputs.last-tag }}
+          PREVIOUS_TAG: ${{ steps.previous-tag.outputs.previous-tag }}
+      - name: Use Node.js v12.x
+        uses: actions/setup-node@v1
+        if: ${{ steps.git-diff.outputs.git-diff == 'true' }}
+        with:
+          node-version: 12.x
+      - name: Install dependencies
+        if: ${{ steps.git-diff.outputs.git-diff == 'true' }}
+        run: SKIP_POSTINSTALL=1 yarn install
+      - name: Build
+        if: ${{ steps.git-diff.outputs.git-diff == 'true' }}
+        run: yarn build:client
+      - name: Deploy
+        uses: South-Paw/action-netlify-deploy@v1.2.0
+        if: ${{ steps.git-diff.outputs.git-diff == 'true' }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
+          build-dir: './dist/client'
+
   api-deploy:
     name: API
     runs-on: self-hosted
