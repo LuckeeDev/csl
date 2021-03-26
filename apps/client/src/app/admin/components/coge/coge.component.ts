@@ -9,11 +9,11 @@ import {
 } from '@csl/shared';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { InfoDialogService, ToastrService } from '@csl/ui';
+import { DialogService, InfoDialogService, ToastrService } from '@csl/ui';
 import { AdminService } from '@/admin/services/admin/admin.service';
 import { copyToClipboard } from '@/utils/copyToClipboard';
 
-type TableAction = 'DETAILS';
+type TableAction = 'DETAILS' | 'GENERATE_LINK';
 
 @Component({
 	selector: 'csl-coge',
@@ -29,6 +29,11 @@ export class CogeComponent implements OnInit {
 		{
 			id: 'DETAILS',
 			label: 'Dettagli',
+			type: 'basic',
+		},
+		{
+			id: 'GENERATE_LINK',
+			label: 'Genera Link',
 			type: 'primary',
 		},
 	];
@@ -45,7 +50,8 @@ export class CogeComponent implements OnInit {
 		private coge: CogeService,
 		private info: InfoDialogService,
 		private admin: AdminService,
-		private toastr: ToastrService
+		private toastr: ToastrService,
+		private dialog: DialogService
 	) {}
 
 	ngOnInit(): void {
@@ -60,26 +66,6 @@ export class CogeComponent implements OnInit {
 					: []
 			)
 		);
-	}
-
-	generateLinks() {
-		this.admin.generateCogeLinks().subscribe({
-			next: (res) => {
-				if (res.success) {
-					this.toastr
-						.show({
-							color: 'success',
-							message: 'Link generati',
-							action: 'Copia link',
-							duration: 15000,
-						})
-						.onAction()
-						.subscribe(() => copyToClipboard(res.data.toString()));
-				} else {
-					this.toastr.showError();
-				}
-			},
-		});
 	}
 
 	eventHandler(e: CSLDataTableEvent<TableAction>) {
@@ -118,6 +104,35 @@ export class CogeComponent implements OnInit {
 					})
 				)
 				.subscribe();
+		} else if (e.action === 'GENERATE_LINK') {
+			this.dialog
+				.open({
+					title: 'Generare link?',
+					text: 'Non sarà più possibile modificarlo!',
+					answer: 'Sì, conferma',
+					color: 'primary',
+				})
+				.pipe(switchMap(() => this.admin.generateCogeLink(e.id)))
+				.subscribe({
+					next: (res) => {
+						if (res.success) {
+							console.log(res.data);
+							this.toastr
+								.show({
+									color: 'success',
+									message: 'Link generato',
+									action: 'Copia link',
+									duration: 15000,
+								})
+								.onAction()
+								.subscribe(() => copyToClipboard(res.data));
+						} else if (res.err === 'link-exists') {
+							this.toastr.showError('Hai già creato un link per questo corso!');
+						} else {
+							this.toastr.showError();
+						}
+					},
+				});
 		}
 	}
 }

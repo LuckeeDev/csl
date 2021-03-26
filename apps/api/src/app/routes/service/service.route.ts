@@ -12,6 +12,7 @@ import {
 } from '@csl/google';
 import { slotToTime } from '@/utils/slotToTime';
 import { saveError } from '@/common/logs';
+import { ICourse } from '@csl/shared';
 
 router.get('/', isAdmin, async (req, res) => {
 	const serviceAccount = await User.findOne({ isService: 'active' });
@@ -83,9 +84,10 @@ router.get('/redirect', isAdmin, async (req, res) => {
 	res.redirect(`${environment.client}/${next}`);
 });
 
-router.get('/links', isAdmin, async (req, res) => {
+router.get('/links/:id', isAdmin, async (req, res) => {
 	try {
-		const service = await User.findOne({ id: 'service' });
+		const courseID = req.params.id as ICourse['id'];
+		const service = await User.findOne({ isService: 'active' });
 
 		const accessToken = await getAccessToken(
 			service.refreshToken,
@@ -93,36 +95,40 @@ router.get('/links', isAdmin, async (req, res) => {
 			environment.GOOGLE_CLIENT_SECRET
 		);
 
-		const courses = await Course.find();
+		const course = await Course.findOne({ id: courseID });
 
-		const eventsPromises = courses.map(async (course) => {
-			const data = await createCalendarEvent(accessToken, {
-				conferenceDataVersion: 1,
-				body: {
-					summary: `${course.title} - Fascia ${course.slot.toUpperCase()}`,
-					start: {
-						dateTime: slotToTime[course.slot].start,
-					},
-					end: {
-						dateTime: slotToTime[course.slot].end,
-					},
-					conferenceData: {
-						createRequest: {
-							requestId: course.id,
-							conferenceSolutionKey: {
-								type: 'hangoutsMeet',
-							},
+		if (course.link) {
+			return res.json({
+				success: false,
+				err: 'link-exists',
+			});
+		}
+
+		const data = await createCalendarEvent(accessToken, {
+			conferenceDataVersion: 1,
+			body: {
+				summary: `${course.title} - Fascia ${course.slot.toUpperCase()}`,
+				start: {
+					dateTime: slotToTime[course.slot].start,
+				},
+				end: {
+					dateTime: slotToTime[course.slot].end,
+				},
+				conferenceData: {
+					createRequest: {
+						requestId: course.id,
+						conferenceSolutionKey: {
+							type: 'hangoutsMeet',
 						},
 					},
 				},
-			});
-
-			return data.hangoutLink;
+			},
 		});
+		const link = data.hangoutLink;
 
-		const links = await Promise.all(eventsPromises);
+		await Course.findOneAndUpdate({ id: courseID }, { link });
 
-		res.json({ success: true, data: links });
+		res.json({ success: true, data: link });
 	} catch (err) {
 		saveError('Error while generating links', {
 			category: 'coge',
