@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ICommissione, ICourse, IHttpRes, ILog } from '@csl/shared';
+import { ICommissione, ICourse, IHttpRes, ILog, IUser } from '@csl/shared';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -41,5 +41,13 @@ export class AdminService {
 
 	generateCogeLink(id: ICourse['id']): Observable<IHttpRes<string>> {
 		return this.http.get<IHttpRes<string>>(`/service/links/${id}`);
+	}
+
+	searchUsers(name: string): Observable<IHttpRes<IUser[]>> {
+		return this.http.get<IHttpRes<IUser[]>>(`/users/search?name=${name}`, {
+			headers: {
+				ignoreLoadingBar: '',
+			},
+		});
 	}
 }

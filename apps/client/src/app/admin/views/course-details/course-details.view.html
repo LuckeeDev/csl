@@ -17,6 +17,19 @@
 
 	<h2 *ngIf="course.notes">Note</h2>
 	<p>{{ course.notes }}</p>
+
+	<h2>Assegna relatori</h2>
+
+	<mat-form-field>
+		<mat-label>Cerca utenti</mat-label>
+		<input matInput type="text" [formControl]="userQuery" />
+	</mat-form-field>
+
+	<div *ngIf="users$ | async as users">
+		<p *ngFor="let user of users" class="select-user" (click)="assignSpeaker(user.id, user.name, user.classID)">
+			{{ user.name }} - {{ user.classID }}
+		</p>
+	</div>
 </div>
 
 <ng-template #noCourseFound>
