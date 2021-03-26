@@ -8,6 +8,10 @@
 		[label]="slot.toUpperCase()"
 		class="tab"
 	>
+		<div *ngIf="!signupDraft[slot].confirmed" class="missing-subscription">
+			<span>Iscrizione mancante!</span>
+		</div>
+
 		<div *ngIf="dataSource$ | async as dataSource" class="table-container">
 			<div
 				class="courses-wrapper"

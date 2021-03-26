@@ -21,6 +21,16 @@
 	}
 }
 
+.missing-subscription {
+	width: 100%;
+	height: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 14px;
+	background-color: rgb(255, 121, 88);
+}
+
 .wait-err {
 	img {
 		display: block;
