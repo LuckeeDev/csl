@@ -2,24 +2,6 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
-## [1.10.10](https://github.com/LuckeeDev/csl/compare/v1.10.9...v1.10.10) (2021-03-26)
-
-
-### Bug Fixes
-
-* full service flow works ([de967e2](https://github.com/LuckeeDev/csl/commit/de967e2e122bde007b114aaf8da672357a25bedf))
-
-
-
-## [1.10.10](https://github.com/LuckeeDev/csl/compare/v1.10.9...v1.10.10) (2021-03-26)
-
-
-### Bug Fixes
-
-* full service flow works ([de967e2](https://github.com/LuckeeDev/csl/commit/de967e2e122bde007b114aaf8da672357a25bedf))
-
-
-
 ## [1.10.9](https://github.com/LuckeeDev/csl/compare/v1.10.8...v1.10.9) (2021-03-25)
 
 
