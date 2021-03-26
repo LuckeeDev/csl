@@ -14,7 +14,7 @@ import { slotToTime } from '@/utils/slotToTime';
 import { saveError } from '@/common/logs';
 
 router.get('/', isAdmin, async (req, res) => {
-	const serviceAccount = await User.findOne({ id: 'service' });
+	const serviceAccount = await User.findOne({ isService: 'active' });
 
 	res.json({ success: true, data: serviceAccount });
 });
@@ -53,25 +53,32 @@ router.get('/redirect', isAdmin, async (req, res) => {
 	const photoURL = profile.picture;
 	const email = profile.email;
 	const name = profile.name;
+	const userID = profile.sub;
 
 	if (tokens.refresh_token !== undefined) {
 		await User.findOneAndUpdate(
-			{ id: 'service' },
+			{ id: userID },
 			{
 				photoURL,
 				email,
 				refreshToken: tokens.refresh_token,
 				name,
+				isService: 'active',
 			},
-			{ new: true }
+			{ new: true, upsert: true }
 		);
 	} else {
 		await User.findOneAndUpdate(
-			{ id: 'service' },
-			{ photoURL, email, name },
-			{ new: true }
+			{ id: userID },
+			{ photoURL, email, name, isService: 'active' },
+			{ new: true, upsert: true }
 		);
 	}
+
+	await User.findOneAndUpdate(
+		{ $and: [{ isService: 'active' }, { id: { $not: { $eq: userID } } }] },
+		{ isService: 'inactive' }
+	);
 
 	res.redirect(`${environment.client}/${next}`);
 });

@@ -34,6 +34,7 @@ export interface IUser {
 	isReferente?: ICommissione['id'];
 
 	refreshToken?: string;
+	isService?: 'active' | 'inactive';
 }
 
 export interface IUserModel extends Document, IUser {

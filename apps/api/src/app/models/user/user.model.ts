@@ -20,6 +20,7 @@ const UserSchema = new Schema(
 		isReferente: { type: String },
 
 		refreshToken: { type: String },
+		isService: { type: String },
 	},
 	{ skipVersioning: true }
 );
