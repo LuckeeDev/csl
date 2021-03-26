@@ -355,18 +355,6 @@
 				}
 			}
 		},
-		"workspace": {
-			"architect": {
-				"version": {
-					"builder": "@jscutlery/semver:version",
-					"options": {
-						"syncVersions": true,
-						"push": true
-					}
-				}
-			},
-			"root": "."
-		},
 		"google": {
 			"root": "libs/google",
 			"sourceRoot": "libs/google/src",
@@ -387,6 +375,19 @@
 					}
 				}
 			}
+		},
+		"workspace": {
+			"architect": {
+				"version": {
+					"builder": "@jscutlery/semver:version",
+					"options": {
+						"syncVersions": true,
+						"push": true,
+						"rootChangelog": true
+					}
+				}
+			},
+			"root": "."
 		}
 	},
 	"cli": {
