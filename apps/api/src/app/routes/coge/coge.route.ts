@@ -8,6 +8,7 @@ import {
 	getCourse,
 } from '@controllers';
 import { isAdmin, isSignedIn } from '@common/auth';
+import { User } from '@/models';
 
 router.get('/', isSignedIn, async (req: Request, res: Response) => {
 	const result = await getAllCourses();
@@ -40,6 +41,23 @@ router.post('/signup', isSignedIn, async (req: Request, res: Response) => {
 	});
 
 	res.json(result);
+});
+
+router.patch('/speaker', isAdmin, async (req: Request, res: Response) => {
+	try {
+		const { courseID, userID, slot }: Record<string, string> = req.body;
+		const updateQuery = `courses.${slot}`;
+		await User.findOneAndUpdate({ id: userID }, { [updateQuery]: courseID });
+
+		res.json({
+			success: true,
+		});
+	} catch (err) {
+		res.json({
+			success: false,
+			err,
+		});
+	}
 });
 
 export { router as coge };

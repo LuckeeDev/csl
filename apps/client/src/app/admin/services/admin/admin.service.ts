@@ -50,4 +50,13 @@ export class AdminService {
 			},
 		});
 	}
+
+	assignSpeaker(
+		courseID: ICourse['id'],
+		userID: IUser['id'],
+		slot: ICourse['slot']
+	): Observable<IHttpRes<void>> {
+		const body = { courseID, userID, slot };
+		return this.http.patch<IHttpRes<void>>('/coge/speaker', body);
+	}
 }

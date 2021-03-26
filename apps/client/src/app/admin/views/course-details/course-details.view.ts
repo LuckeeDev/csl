@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ICourse, IUser } from '@csl/shared';
-import { DialogService } from '@csl/ui';
+import { DialogService, ToastrService } from '@csl/ui';
 import { Observable } from 'rxjs';
 import { debounceTime, filter, map, switchMap } from 'rxjs/operators';
 
@@ -25,7 +25,8 @@ export class CourseDetailsView implements OnInit {
 		private route: ActivatedRoute,
 		private coge: CogeService,
 		private admin: AdminService,
-		private dialog: DialogService
+		private dialog: DialogService,
+		private toastr: ToastrService
 	) {}
 
 	ngOnInit(): void {
@@ -44,7 +45,7 @@ export class CourseDetailsView implements OnInit {
 	}
 
 	assignSpeaker(
-		id: IUser['id'],
+		userID: IUser['id'],
 		name: IUser['name'],
 		classID: IUser['classID']
 	) {
@@ -55,6 +56,21 @@ export class CourseDetailsView implements OnInit {
 				answer: 'Sì, assegna',
 				color: 'primary',
 			})
-			.subscribe((res) => console.log(res, 'added'));
+			.pipe(
+				switchMap(() => this.course$),
+				switchMap((course) =>
+					this.admin.assignSpeaker(course.id, userID, course.slot)
+				)
+			)
+			.subscribe((res) => {
+				if (res.success === true) {
+					this.toastr.show({
+						color: 'success',
+						message: `${name} aggiunto ai relatori`,
+					});
+				} else {
+					this.toastr.showError();
+				}
+			});
 	}
 }
