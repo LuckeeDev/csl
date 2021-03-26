@@ -1,0 +1,24 @@
+<div *ngIf="course$ | async as course; else noCourseFound">
+	<h1>{{ course.title }}</h1>
+
+	<h2>Descrizione</h2>
+	<p>{{ course.description }}</p>
+
+	<h2>Categoria</h2>
+	<p>{{ course.category }}</p>
+
+	<h2>Relatori</h2>
+	<p *ngFor="let speaker of course.speakers">
+		{{ speaker.name }} - {{ speaker.classID }}
+	</p>
+
+	<h2>Iscritti</h2>
+	<p>{{ course.signups.length }} / {{ course.max - course.speakers.length }}</p>
+
+	<h2 *ngIf="course.notes">Note</h2>
+	<p>{{ course.notes }}</p>
+</div>
+
+<ng-template #noCourseFound>
+	<h1>Nessun corso trovato con questo ID!</h1>
+</ng-template>

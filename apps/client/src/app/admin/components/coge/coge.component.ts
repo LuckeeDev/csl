@@ -9,9 +9,10 @@ import {
 } from '@csl/shared';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { DialogService, InfoDialogService, ToastrService } from '@csl/ui';
+import { DialogService, ToastrService } from '@csl/ui';
 import { AdminService } from '@/admin/services/admin/admin.service';
 import { copyToClipboard } from '@/utils/copyToClipboard';
+import { ActivatedRoute, Router } from '@angular/router';
 
 type TableAction = 'DETAILS' | 'GENERATE_LINK';
 
@@ -48,10 +49,11 @@ export class CogeComponent implements OnInit {
 
 	constructor(
 		private coge: CogeService,
-		private info: InfoDialogService,
 		private admin: AdminService,
 		private toastr: ToastrService,
-		private dialog: DialogService
+		private dialog: DialogService,
+		private router: Router,
+		private route: ActivatedRoute
 	) {}
 
 	ngOnInit(): void {
@@ -74,36 +76,9 @@ export class CogeComponent implements OnInit {
 		);
 
 		if (e.action === 'DETAILS') {
-			course$
-				.pipe(
-					switchMap((currentCourse) => {
-						return this.info.open({
-							confirm: 'Conferma',
-							title: currentCourse.title,
-							content: [
-								{
-									header: 'Categoria',
-									paragraph: currentCourse.category,
-								},
-								{ header: 'Descrizione', paragraph: currentCourse.description },
-								{
-									header: 'Relatori',
-									paragraph: currentCourse.speakers
-										.map(({ name, classID }) => `${name} - ${classID}`)
-										.join('<br />'),
-								},
-								{
-									header: 'Iscritti',
-									paragraph: `${currentCourse.signups.length} / ${
-										currentCourse.max - currentCourse.speakers.length
-									}`,
-								},
-								{ header: 'Note', paragraph: currentCourse.notes },
-							],
-						});
-					})
-				)
-				.subscribe();
+			course$.subscribe(({ id }) =>
+				this.router.navigate([id], { relativeTo: this.route })
+			);
 		} else if (e.action === 'GENERATE_LINK') {
 			this.dialog
 				.open({
