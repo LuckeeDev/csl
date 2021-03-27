@@ -11,7 +11,7 @@ export class DashboardComponent {
     { link: '.', title: 'Home' },
     { link: 'orientamento', title: 'Orientamento' },
     // { link: 'coge', title: 'Cogestione' },
-    // { link: 'orders', title: 'Ordini' },
+    { link: 'orders', title: 'Ordini' },
     // { link: 'checkout', title: 'Pagamenti' },
   ];
 }

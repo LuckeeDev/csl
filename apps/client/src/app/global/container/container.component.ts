@@ -6,32 +6,32 @@ import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { IDashboardLink } from '@csl/shared';
 
 @Component({
-  selector: 'csl-container',
-  templateUrl: './container.component.html',
-  styleUrls: ['./container.component.scss'],
+	selector: 'csl-container',
+	templateUrl: './container.component.html',
+	styleUrls: ['./container.component.scss'],
 })
 export class ContainerComponent {
-  @Input()
-  v: string;
+	@Input()
+	v: string;
 
-  toggled = false;
+	toggled = false;
 
-  faBars = faBars;
-  faTimes = faTimes;
+	faBars = faBars;
+	faTimes = faTimes;
 
-  currentYear = new Date().getFullYear();
+	currentYear = new Date().getFullYear();
 
-  links: IDashboardLink[] = [
-    { title: 'Home', link: '' },
-    { title: 'Comitato', link: 'comitato' },
-    { title: 'ASL', link: 'asl' },
-    { title: 'Consulta', link: 'consulta' },
-    { title: 'PortArti', link: 'portarti' },
-    { title: 'QP', link: 'qp' },
-    { title: 'Cogestione', link: 'cogestione' },
-    // { title: 'Store', link: 'store' },
-    { title: 'Informazioni', link: 'info' },
-  ];
+	links: IDashboardLink[] = [
+		{ title: 'Home', link: '' },
+		{ title: 'Comitato', link: 'comitato' },
+		{ title: 'ASL', link: 'asl' },
+		{ title: 'Consulta', link: 'consulta' },
+		{ title: 'PortArti', link: 'portarti' },
+		{ title: 'QP', link: 'qp' },
+		{ title: 'Cogestione', link: 'cogestione' },
+		{ title: 'Store', link: 'store' },
+		{ title: 'Informazioni', link: 'info' },
+	];
 
-  constructor(public auth: AuthService) {}
+	constructor(public auth: AuthService) {}
 }
