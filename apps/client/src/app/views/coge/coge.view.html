@@ -1,8 +1,4 @@
-<mat-tab-group
-	class="tab-group"
-	[(selectedIndex)]="currentIndex"
-	*ngIf="isPageOkay; else outage"
->
+<mat-tab-group class="tab-group" [(selectedIndex)]="currentIndex">
 	<mat-tab
 		*ngFor="let slot of (slots$ | async)"
 		[label]="slot.toUpperCase()"
@@ -12,7 +8,10 @@
 			<span>Iscrizione mancante!</span>
 		</div>
 
-		<div *ngIf="dataSource$ | async as dataSource" class="table-container">
+		<div
+			*ngIf="!isTimeOkay(slot) && dataSource$ | async as dataSource; else timeReady"
+			class="table-container"
+		>
 			<div
 				class="courses-wrapper"
 				*ngIf="dataSource[slot].length > 0; else noCoursesFound"
@@ -53,14 +52,20 @@
 				</div>
 			</ng-template>
 		</div>
+
+		<ng-template #timeReady>
+			<ng-container *ngIf="signupDraft[slot].course">
+				<div
+					*ngIf="courseFromID(signupDraft[slot].course.id) | async as course"
+					class="show-link"
+				>
+					<h1>Il tuo corso è: {{ course.title }}</h1>
+					<p>
+						Lo trovi al link
+						<a [href]="course.link" class="meet-link">{{ course.link }}</a>.
+					</p>
+				</div>
+			</ng-container>
+		</ng-template>
 	</mat-tab>
 </mat-tab-group>
-
-<ng-template #outage>
-	<div>
-		<h1>
-			Al momento stiamo incontrando diversi problemi! La piattaforma tornerà
-			online il prima possibile.
-		</h1>
-	</div>
-</ng-template>

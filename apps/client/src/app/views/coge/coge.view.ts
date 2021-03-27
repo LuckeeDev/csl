@@ -12,6 +12,7 @@ import { DialogService, InfoDialogService, ToastrService } from '@csl/ui';
 import { Observable } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { DeviceService } from '@csl/ui';
+import { slotToDate } from '@/utils/slotToDate';
 
 type Courses = Record<ICourse['slot'], CSLDataTableSource<ICourse>>;
 
@@ -23,7 +24,6 @@ type Action = 'DETAILS' | 'ADD';
 	styleUrls: ['./coge.view.scss'],
 })
 export class CogeView implements OnInit {
-	isPageOkay = true;
 	currentIndex = 0;
 
 	dataSource$: Observable<Courses>;
@@ -74,6 +74,36 @@ export class CogeView implements OnInit {
 
 	get signupDraft() {
 		return this.coge.draft;
+	}
+
+	isTimeOkay(slot: ICourse['slot']) {
+		const condition = slotToDate(slot);
+
+		const now = new Date();
+		const year = now.getFullYear();
+		const date = now.getDate();
+		const month = now.getMonth();
+		const hour = now.getHours();
+		const minutes = now.getMinutes();
+
+		if (
+			year === 2021 &&
+			month === 2 &&
+			date === condition.date &&
+			((hour >= condition.hour && minutes >= condition.minutes) ||
+				hour >= condition.hour + 1)
+		) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	courseFromID(id: ICourse['id']) {
+		return this.coge.availableCourses$.pipe(
+			map((courses) => courses.find((x) => x.id === id)),
+			filter((course) => (course ? true : false))
+		);
 	}
 
 	handleEvent(e: CSLDataTableEvent<Action>) {

@@ -31,6 +31,20 @@
 	background-color: rgb(255, 121, 88);
 }
 
+.meet-link {
+	color: #0D47A1;
+	text-decoration: none;
+	font-weight: 500;
+}
+
+.show-link {
+	display: flex;
+	padding: 20px;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+}
+
 .wait-err {
 	img {
 		display: block;
