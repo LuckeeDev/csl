@@ -1,6 +1,6 @@
 import { CogeService } from '@/global/services/coge/coge.service';
 import { numberToLetter } from '@/utils/numberToLetter';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import {
 	CSLDataTableAction,
 	CSLDataTableDisplayedColumns,
@@ -9,21 +9,42 @@ import {
 	ICourse,
 } from '@csl/shared';
 import { DialogService, InfoDialogService, ToastrService } from '@csl/ui';
-import { Observable } from 'rxjs';
+import { interval, Observable, Subscription } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { DeviceService } from '@csl/ui';
-import { slotToDate } from '@/utils/slotToDate';
 
 type Courses = Record<ICourse['slot'], CSLDataTableSource<ICourse>>;
 
 type Action = 'DETAILS' | 'ADD';
+
+interface MissingTime {
+	days: number;
+	hours: number;
+	minutes: number;
+	seconds: number;
+	distance: number;
+}
 
 @Component({
 	selector: 'csl-coge',
 	templateUrl: './coge.view.html',
 	styleUrls: ['./coge.view.scss'],
 })
-export class CogeView implements OnInit {
+export class CogeView implements OnInit, OnDestroy {
+	slotDate: Record<ICourse['slot'], number> = {
+		a: new Date('Mar 29, 2021 08:45:00').getTime(),
+		b: new Date('Mar 29, 2021 10:50:00').getTime(),
+		c: new Date('Mar 30, 2021 08:45:00').getTime(),
+		d: new Date('Mar 30, 2021 10:50:00').getTime(),
+		e: new Date('Mar 31, 2021 08:45:00').getTime(),
+		f: new Date('Mar 31, 2021 10:50:00').getTime(),
+	};
+
+	missingTime: Record<ICourse['slot'], MissingTime>;
+
+	timer: Observable<number> = interval(1000);
+	timerSubscription: Subscription;
+
 	currentIndex = 0;
 
 	dataSource$: Observable<Courses>;
@@ -55,6 +76,17 @@ export class CogeView implements OnInit {
 	) {}
 
 	ngOnInit(): void {
+		this.timerSubscription = this.timer.subscribe(() => {
+			this.missingTime = {
+				a: this._calculateMissingTime('a'),
+				b: this._calculateMissingTime('b'),
+				c: this._calculateMissingTime('c'),
+				d: this._calculateMissingTime('d'),
+				e: this._calculateMissingTime('e'),
+				f: this._calculateMissingTime('f'),
+			};
+		});
+
 		this.dataSource$ = this.coge.availableCourses$.pipe(
 			filter((courses) => courses !== null),
 			map((courses) => ({
@@ -72,31 +104,12 @@ export class CogeView implements OnInit {
 		);
 	}
 
-	get signupDraft() {
-		return this.coge.draft;
+	ngOnDestroy() {
+		this.timerSubscription.unsubscribe();
 	}
 
-	isTimeOkay(slot: ICourse['slot']) {
-		const condition = slotToDate(slot);
-
-		const now = new Date();
-		const year = now.getFullYear();
-		const date = now.getDate();
-		const month = now.getMonth();
-		const hour = now.getHours();
-		const minutes = now.getMinutes();
-
-		if (
-			year === 2021 &&
-			month === 2 &&
-			date === condition.date &&
-			((hour >= condition.hour && minutes >= condition.minutes) ||
-				hour >= condition.hour + 1)
-		) {
-			return true;
-		} else {
-			return false;
-		}
+	get signupDraft() {
+		return this.coge.draft;
 	}
 
 	courseFromID(id: ICourse['id']) {
@@ -139,6 +152,24 @@ export class CogeView implements OnInit {
 			});
 	}
 
+	private _calculateMissingTime(slot: ICourse['slot']): MissingTime {
+		// Get today's date and time
+		const now = new Date().getTime();
+
+		// Find the distance between now and the count down date
+		const distance = this.slotDate[slot] - now;
+
+		// Time calculations for days, hours, minutes and seconds
+		const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+		const hours = Math.floor(
+			(distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+		);
+		const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+		const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+		return { days, hours, minutes, seconds, distance };
+	}
+	
 	private _onlySlot(onlySlot: ICourse['slot'], data: ICourse[]) {
 		return data.filter(({ slot }) => slot === onlySlot);
 	}

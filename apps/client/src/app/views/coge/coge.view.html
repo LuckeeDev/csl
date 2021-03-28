@@ -4,12 +4,29 @@
 		[label]="slot.toUpperCase()"
 		class="tab"
 	>
-		<div *ngIf="!signupDraft[slot].confirmed" class="missing-subscription">
+		<div
+			*ngIf="!signupDraft[slot].confirmed && missingTime && missingTime[slot].distance > 0"
+			class="missing-subscription"
+		>
 			<span>Iscrizione mancante!</span>
 		</div>
 
+		<ng-container *ngIf="missingTime">
+			<div
+				*ngIf="missingTime[slot].distance > 0; else timeReady"
+				class="countdown"
+			>
+				<span>
+					La fascia {{slot.toUpperCase()}} inizierà fra {{
+					missingTime[slot].days }} giorni, {{ missingTime[slot].hours }} ore,
+					{{ missingTime[slot].minutes }} minuti e {{ missingTime[slot].seconds
+					}} secondi.
+				</span>
+			</div>
+		</ng-container>
+
 		<div
-			*ngIf="!isTimeOkay(slot) && dataSource$ | async as dataSource; else timeReady"
+			*ngIf="missingTime && missingTime[slot].distance > 0 && dataSource$ | async as dataSource"
 			class="table-container"
 		>
 			<div
@@ -54,7 +71,7 @@
 		</div>
 
 		<ng-template #timeReady>
-			<ng-container *ngIf="signupDraft[slot].course">
+			<ng-container *ngIf="signupDraft[slot].course; else noCourse">
 				<div
 					*ngIf="courseFromID(signupDraft[slot].course.id) | async as course"
 					class="show-link"
@@ -66,6 +83,12 @@
 					</p>
 				</div>
 			</ng-container>
+
+			<ng-template #noCourse>
+				<div class="show-link">
+					<h1>Purtroppo non hai scelto nessun corso per questa fascia! :/</h1>
+				</div>
+			</ng-template>
 		</ng-template>
 	</mat-tab>
 </mat-tab-group>
