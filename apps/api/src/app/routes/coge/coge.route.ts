@@ -35,12 +35,15 @@ router.post('/courses', isAdmin, async (req: Request, res: Response) => {
 });
 
 router.post('/signup', isSignedIn, async (req: Request, res: Response) => {
-	const result = await signUpToCourse(req.user, {
-		course: req.body.course,
-		slot: req.body.slot,
-	});
+	// const result = await signUpToCourse(req.user, {
+	// 	course: req.body.course,
+	// 	slot: req.body.slot,
+	// });
 
-	res.json(result);
+	res.json({
+		success: false,
+		err: 'subscription-ended',
+	});
 });
 
 router.patch('/speaker', isAdmin, async (req: Request, res: Response) => {

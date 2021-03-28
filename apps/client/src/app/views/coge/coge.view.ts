@@ -52,7 +52,6 @@ export class CogeView implements OnInit, OnDestroy {
 
 	actions: CSLDataTableAction<Action>[] = [
 		{ type: 'basic', id: 'DETAILS', label: 'Dettagli' },
-		{ type: 'primary', id: 'ADD', label: 'Seleziona' },
 	];
 
 	displayedColumns: CSLDataTableDisplayedColumns<keyof ICourse> = [
@@ -218,10 +217,7 @@ export class CogeView implements OnInit, OnDestroy {
 					return this.info.open({
 						confirm: 'Seleziona',
 						title: currentCourse.title,
-						confirmDisabled:
-							this.signupDraft[currentCourse.slot].confirmed ||
-							currentCourse.signups.length >=
-								currentCourse.max - currentCourse.speakers.length,
+						confirmDisabled: true,
 						content: [
 							{
 								header: 'Categoria',
