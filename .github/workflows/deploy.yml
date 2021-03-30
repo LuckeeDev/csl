@@ -92,6 +92,7 @@ jobs:
         if: ${{ steps.git-diff.outputs.git-diff == 'true' }}
         run: yarn build:api
       - name: Push files to host
+        if: ${{ steps.git-diff.outputs.git-diff == 'true' }}
         uses: appleboy/scp-action@master
         with:
           username: ${{ secrets.SSH_USERNAME }}
