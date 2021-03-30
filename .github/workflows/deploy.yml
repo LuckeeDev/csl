@@ -100,7 +100,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           source: "dist/api/*,!dist/api/node_modules"
-          target: "/home/nodejs/api"
+          target: "/home/nodejs"
           strip_components: 1
           script_stop: true
       - name: Install deps and restart service
