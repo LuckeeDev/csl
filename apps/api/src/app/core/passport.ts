@@ -14,9 +14,13 @@ export function setupPassport() {
 
 	// Decrypt session and find user
 	passport.deserializeUser((id: string, done) => {
-		User.findOne({ id }).then((user: IUser) => {
-			done(null, user);
-		});
+		try {
+			User.findOne({ id }).then((user: IUser) => {
+				done(null, user);
+			});
+		} catch (err) {
+			done(err, null);
+		}
 	});
 
 	// Google Login
@@ -32,28 +36,32 @@ export function setupPassport() {
 				const photoURL = profile.photos[0].value;
 				const email = profile.emails[0].value;
 
-				User.findOne({ id }).then(async (user) => {
-					if (user) {
-						await user.updateOne({ photoURL });
+				try {
+					User.findOne({ id }).then(async (user) => {
+						if (user) {
+							await user.updateOne({ photoURL });
 
-						done(null, user);
-					} else {
-						User.findOne({ email }).then(async (user) => {
-							if (user) {
-								await user.updateOne({
-									id,
-									photoURL,
-								});
+							done(null, user);
+						} else {
+							User.findOne({ email }).then(async (user) => {
+								if (user) {
+									await user.updateOne({
+										id,
+										photoURL,
+									});
 
-								User.findOne({ id }).then((user) => {
-									done(null, user);
-								});
-							} else {
-								done(null, null);
-							}
-						});
-					}
-				});
+									User.findOne({ id }).then((user) => {
+										done(null, user);
+									});
+								} else {
+									done(null, null);
+								}
+							});
+						}
+					});
+				} catch (err) {
+					done(err, null);
+				}
 			}
 		)
 	);

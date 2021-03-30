@@ -317,7 +317,8 @@
 					"options": {
 						"outputPath": "dist/api",
 						"main": "apps/api/src/main.ts",
-						"tsConfig": "apps/api/tsconfig.app.json"
+						"tsConfig": "apps/api/tsconfig.app.json",
+						"generatePackageJson": true
 					},
 					"configurations": {
 						"production": {
