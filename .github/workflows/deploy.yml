@@ -91,6 +91,26 @@ jobs:
       - name: Build
         if: ${{ steps.git-diff.outputs.git-diff == 'true' }}
         run: yarn build:api
-      - name: Restart service
+      - name: Push files to host
+        uses: appleboy/scp-action@master
+        with:
+          username: ${{ secrets.SSH_USERNAME }}
+          host: ${{ secrets.SSH_HOST }}
+          key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          source: "dist/api/*"
+          target: "home/nodejs/api"
+          strip_components: 1
+          script_stop: true
+      - name: Install deps and restart service
         if: ${{ steps.git-diff.outputs.git-diff == 'true' }}
-        run: pm2 restart api
+        uses: appleboy/ssh-action@master
+        with:
+          username: ${{ secrets.SSH_USERNAME }}
+          host: ${{ secrets.SSH_HOST }}
+          key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          script_stop: true
+          script: |
+            yarn install
+            pm2 restart api
