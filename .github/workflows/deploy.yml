@@ -98,8 +98,8 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          source: "dist/api/*"
-          target: "home/nodejs/api"
+          source: "dist/api/*,!dist/api/node_modules"
+          target: "/home/nodejs/api"
           strip_components: 1
           script_stop: true
       - name: Install deps and restart service
@@ -112,5 +112,6 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script_stop: true
           script: |
+            cd /home/nodejs/api
             yarn install
             pm2 restart api
