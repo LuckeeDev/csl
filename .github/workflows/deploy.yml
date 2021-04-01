@@ -33,11 +33,11 @@ jobs:
         env:
           LAST_TAG: ${{ steps.last-tag.outputs.last-tag }}
           PREVIOUS_TAG: ${{ steps.previous-tag.outputs.previous-tag }}
-      - name: Use Node.js v12.x
+      - name: Use Node.js v14.x
         uses: actions/setup-node@v1
         if: ${{ steps.git-diff.outputs.git-diff == 'true' }}
         with:
-          node-version: 12.x
+          node-version: 14.x
       - name: Install dependencies
         if: ${{ steps.git-diff.outputs.git-diff == 'true' }}
         run: yarn install
@@ -80,11 +80,11 @@ jobs:
         env:
           LAST_TAG: ${{ steps.last-tag.outputs.last-tag }}
           PREVIOUS_TAG: ${{ steps.previous-tag.outputs.previous-tag }}
-      - name: Use Node.js v12.x
+      - name: Use Node.js v14.x
         uses: actions/setup-node@v1
         if: ${{ steps.git-diff.outputs.git-diff == 'true' }}
         with:
-          node-version: 12.x
+          node-version: 14.x
       - name: Install dependencies
         if: ${{ steps.git-diff.outputs.git-diff == 'true' }}
         run: SKIP_POSTINSTALL=1 yarn install
