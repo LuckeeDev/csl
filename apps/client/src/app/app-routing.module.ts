@@ -2,9 +2,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-// Views
-import { CogeView } from '@/views/coge/coge.view';
-
 // Components
 import { AslComponent } from '@main/pages/asl/asl.component';
 import { ComitatoComponent } from '@main/comitato-components/comitato/comitato.component';
@@ -14,14 +11,7 @@ import { PortartiComponent } from '@main/pages/portarti/portarti.component';
 import { QpComponent } from '@main/qp-components/qp/qp.component';
 import { PageNotFoundComponent } from '@main/errors/page-not-found/page-not-found.component';
 import { ArticleComponent } from '@main/qp-components/article/article.component';
-import { StoreComponent } from '@main/store-components/store/store.component';
-import { ProductComponent } from '@main/store-components/product/product.component';
 import { AccessForbiddenComponent } from '@main/errors/access-forbidden/access-forbidden.component';
-import { CatalogComponent } from '@main/store-components/catalog/catalog.component';
-import { BarComponent } from '@main/bar-components/bar/bar.component';
-import { SnacksComponent } from '@main/bar-components/snacks/snacks.component';
-import { SnackCartComponent } from '@main/bar-components/snack-cart/snack-cart.component';
-import { StoreHomeComponent } from '@main/store-components/store-home/store-home.component';
 import { QpHomeComponent } from '@main/qp-components/qp-home/qp-home.component';
 import { FaqComponent } from '@main/pages/faq/faq.component';
 import { InfoComponent } from '@main/contacts-components/info/info.component';
@@ -36,7 +26,6 @@ import { RappreGuard } from '@global/guards/rappre/rappre.guard';
 import { ViceGuard } from '@global/guards/vice/vice.guard';
 import { LoggedInGuard } from '@global/guards/logged-in/logged-in.guard';
 import { QpAdminGuard } from '@global/guards/qp-admin/qp-admin.guard';
-import { BarAdminGuard } from '@global/guards/bar-admin/bar-admin.guard';
 import { AdminGuard } from '@global/guards/admin/admin.guard';
 import { NotLoggedInGuard } from '@global/guards/not-logged-in/not-logged-in.guard';
 import { ReferenteGuard } from '@global/guards/referente/referente.guard';
@@ -97,11 +86,6 @@ const routes: Routes = [
 			{ path: '', component: QpHomeComponent },
 			{ path: ':articleID', component: ArticleComponent },
 		],
-	},
-	{
-		path: 'cogestione',
-		component: CogeView,
-		canActivate: [LoggedInGuard],
 	},
 	// {
 	//   path: 'store',

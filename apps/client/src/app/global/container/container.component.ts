@@ -28,7 +28,7 @@ export class ContainerComponent {
     { title: 'Consulta', link: 'consulta' },
     { title: 'PortArti', link: 'portarti' },
     { title: 'QP', link: 'qp' },
-    { title: 'Cogestione', link: 'cogestione' },
+    // { title: 'Cogestione', link: 'cogestione' },
     // { title: 'Store', link: 'store' },
     { title: 'Informazioni', link: 'info' },
   ];
