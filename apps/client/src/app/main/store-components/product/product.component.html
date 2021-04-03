@@ -45,10 +45,10 @@
         <h4 class="label">Colore</h4>
         <mat-card
           *ngFor="let color of product.colors"
-          [class.mat-elevation-z10]="selectedColor === color"
+          [class.mat-elevation-z10]="selectedColor === color.id"
           class="color"
           [ngStyle]="{ 'background-color': color }"
-          (click)="selectColor(color)"
+          (click)="selectColor(color.id)"
         ></mat-card>
       </div>
 

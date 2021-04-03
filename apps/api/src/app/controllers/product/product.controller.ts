@@ -5,164 +5,167 @@ import fse from 'fs-extra';
 import sharp from 'sharp';
 import { IProduct } from '@csl/shared';
 import { Product } from '@models';
+import { v4 } from 'uuid';
 
 // Get all gadgets in the database
 export const getAllGadgets = async () => {
-  const res = await Product.find({ category: 'gadgets' });
+	const res = await Product.find({ category: 'gadgets' });
 
-  return res;
+	return res;
 };
 
 // Create a new gadget
-export const createGadget = async (product: IProduct) => {
-  const { id, name, description, price, fileNames, colors, sizes } = product;
-  const category = 'gadgets';
+export const createGadget = async (product: IProduct, stripeProductID: string) => {
+	const id = v4();
+	const { name, description, price, fileNames, colors, sizes } = product;
+	const category = 'gadgets';
 
-  const workingDir = join(tmpdir(), 'images');
-  fse.ensureDir(workingDir);
+	const workingDir = join(tmpdir(), 'images');
+	fse.ensureDir(workingDir);
 
-  const uploadPromises = fileNames.map(async (tmpFileName: any) => {
-    const tmpFilePath = join(workingDir, tmpFileName);
-    const pngFileName = tmpFileName.split('.').shift() + '.png';
-    const pngFilePath = join(workingDir, pngFileName);
-    const newFileName = `500@${pngFileName}`;
-    const newFilePath = join(workingDir, newFileName);
+	const uploadPromises = fileNames.map(async (tmpFileName: any) => {
+		const tmpFilePath = join(workingDir, tmpFileName);
+		const pngFileName = tmpFileName.split('.').shift() + '.png';
+		const pngFilePath = join(workingDir, pngFileName);
+		const newFileName = `500@${pngFileName}`;
+		const newFilePath = join(workingDir, newFileName);
 
-    await bucket.file(`gadgetImages/raw/${tmpFileName}`).download({
-      destination: tmpFilePath,
-    });
+		await bucket.file(`gadgetImages/raw/${tmpFileName}`).download({
+			destination: tmpFilePath,
+		});
 
-    await sharp(tmpFilePath).toFormat('png').toFile(pngFilePath);
+		await sharp(tmpFilePath).toFormat('png').toFile(pngFilePath);
 
-    await sharp(pngFilePath)
-      .resize({
-        width: 500,
-        height: 500,
-        fit: 'contain',
-        background: { r: 0, g: 0, b: 0, alpha: 0 },
-      })
-      .toFile(newFilePath);
+		await sharp(pngFilePath)
+			.resize({
+				width: 500,
+				height: 500,
+				fit: 'contain',
+				background: { r: 0, g: 0, b: 0, alpha: 0 },
+			})
+			.toFile(newFilePath);
 
-    return bucket.upload(newFilePath, {
-      destination: `gadgetImages/${id}/${newFileName}`,
-    });
-  });
+		return bucket.upload(newFilePath, {
+			destination: `gadgetImages/${id}/${newFileName}`,
+		});
+	});
 
-  await Promise.all(uploadPromises);
+	await Promise.all(uploadPromises);
 
-  fse.remove(workingDir);
+	fse.remove(workingDir);
 
-  const newFileNames = fileNames.map((fileName: any) => {
-    return `500@${fileName.split('.').shift()}.png`;
-  });
+	const newFileNames = fileNames.map((fileName) => {
+		return `500@${fileName.split('.').shift()}.png`;
+	});
 
-  return new Product({
-    id,
-    name,
-    description,
-    category,
-    price,
-    fileNames: newFileNames,
-    colors,
-    sizes,
-  })
-    .save()
-    .then(() => {
-      return { success: true };
-    })
-    .catch((err: any) => {
-      return { err };
-    });
+	return new Product({
+		id,
+		name,
+		description,
+		category,
+		price,
+		fileNames: newFileNames,
+		colors,
+		sizes,
+		stripeID: stripeProductID
+	})
+		.save()
+		.then((product) => {
+			return { success: true, data: product };
+		})
+		.catch((err) => {
+			return { success: false, err };
+		});
 };
 
 // Get all photo products in the database
 export const getAllPhotos = async () => {
-  const res = await Product.find({ category: 'photos' });
+	const res = await Product.find({ category: 'photos' });
 
-  return res;
+	return res;
 };
 
 // Create a new photo product
 export const createPhoto = async (product: IProduct) => {
-  const { id, name, description, price, fileNames } = product;
-  const category = 'photos';
+	const { id, name, description, price, fileNames } = product;
+	const category = 'photos';
 
-  const workingDir = join(tmpdir(), 'images');
-  fse.ensureDir(workingDir);
+	const workingDir = join(tmpdir(), 'images');
+	fse.ensureDir(workingDir);
 
-  const uploadPromises = fileNames.map(async (tmpFileName: any) => {
-    const tmpFilePath = join(workingDir, tmpFileName);
-    const pngFileName = tmpFileName.split('.').shift() + '.png';
-    const pngFilePath = join(workingDir, pngFileName);
-    const newFileName = `500@${pngFileName}`;
-    const newFilePath = join(workingDir, newFileName);
+	const uploadPromises = fileNames.map(async (tmpFileName: any) => {
+		const tmpFilePath = join(workingDir, tmpFileName);
+		const pngFileName = tmpFileName.split('.').shift() + '.png';
+		const pngFilePath = join(workingDir, pngFileName);
+		const newFileName = `500@${pngFileName}`;
+		const newFilePath = join(workingDir, newFileName);
 
-    await bucket.file(`photoImages/raw/${tmpFileName}`).download({
-      destination: tmpFilePath,
-    });
+		await bucket.file(`photoImages/raw/${tmpFileName}`).download({
+			destination: tmpFilePath,
+		});
 
-    await sharp(tmpFilePath).toFormat('png').toFile(pngFilePath);
+		await sharp(tmpFilePath).toFormat('png').toFile(pngFilePath);
 
-    await sharp(pngFilePath)
-      .resize({
-        width: 500,
-        height: 500,
-        fit: 'contain',
-        background: { r: 0, g: 0, b: 0, alpha: 0 },
-      })
-      .toFile(newFilePath);
+		await sharp(pngFilePath)
+			.resize({
+				width: 500,
+				height: 500,
+				fit: 'contain',
+				background: { r: 0, g: 0, b: 0, alpha: 0 },
+			})
+			.toFile(newFilePath);
 
-    return bucket.upload(newFilePath, {
-      destination: `photoImages/${id}/${newFileName}`,
-    });
-  });
+		return bucket.upload(newFilePath, {
+			destination: `photoImages/${id}/${newFileName}`,
+		});
+	});
 
-  await Promise.all(uploadPromises);
+	await Promise.all(uploadPromises);
 
-  fse.remove(workingDir);
+	fse.remove(workingDir);
 
-  const newFileNames = fileNames.map((fileName: any) => {
-    return `500@${fileName.split('.').shift()}.png`;
-  });
+	const newFileNames = fileNames.map((fileName: any) => {
+		return `500@${fileName.split('.').shift()}.png`;
+	});
 
-  return new Product({
-    id,
-    name,
-    description,
-    category,
-    price,
-    fileNames: newFileNames,
-  })
-    .save()
-    .then(() => {
-      return { success: true };
-    })
-    .catch((err) => {
-      return { err };
-    });
+	return new Product({
+		id,
+		name,
+		description,
+		category,
+		price,
+		fileNames: newFileNames,
+	})
+		.save()
+		.then(() => {
+			return { success: true };
+		})
+		.catch((err) => {
+			return { err };
+		});
 };
 
 // Get product based on product ID
 export const findProduct = async (id: IProduct['id']) => {
-  const res = await Product.findOne({ id });
+	const res = await Product.findOne({ id });
 
-  return res;
+	return res;
 };
 
 // Delete product based on product ID
 export const deleteProduct = async (id: IProduct['id']) => {
-  const result = await Product.findOneAndDelete({ id })
-    .then(() => {
-      return {
-        success: true,
-      };
-    })
-    .catch((err) => {
-      return {
-        success: false,
-        err,
-      };
-    });
+	const result = await Product.findOneAndDelete({ id })
+		.then(() => {
+			return {
+				success: true,
+			};
+		})
+		.catch((err) => {
+			return {
+				success: false,
+				err,
+			};
+		});
 
-  return result;
+	return result;
 };
