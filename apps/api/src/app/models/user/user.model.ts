@@ -10,7 +10,11 @@ const UserSchema = new Schema(
 		snackCredit: { type: Number, default: 0 },
 		photoURL: { type: String },
 		stripeID: { type: String },
+
 		courses: { type: Object },
+
+		gadgets: { type: Array },
+
 		isVice: { type: Boolean },
 		isRappre: { type: Boolean },
 		isQp: { type: Boolean },
