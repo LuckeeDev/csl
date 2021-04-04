@@ -26,7 +26,6 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
 
 // UI Elements
 import { UiModule } from '@csl/ui';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
@@ -119,7 +118,6 @@ registerLocaleData(ITLocaleData);
 		SharedModule,
 		HttpClientModule,
 		NgxsModule.forRoot([], { developmentMode: !environment.production }),
-		FontAwesomeModule,
 		LoadingBarModule,
 		LoadingBarRouterModule,
 		LoadingBarHttpClientModule,

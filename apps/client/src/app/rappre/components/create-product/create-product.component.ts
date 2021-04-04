@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { UploadService } from '@shared/services/upload/upload.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { DialogService, ToastrService } from '@csl/ui';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { ProductsService } from '@/global/services/products/products.service';
+import { IProduct } from '@csl/shared';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
 	selector: 'csl-create-product',
@@ -11,9 +12,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 	styleUrls: ['./create-product.component.scss'],
 })
 export class CreateProductComponent {
-	faTimes = faTimes;
-
-	category: string;
+	category: IProduct['category'];
 	sizes: string[] = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
 	productForm = this.fb.group({
@@ -24,14 +23,16 @@ export class CreateProductComponent {
 	});
 
 	constructor(
-		public upload: UploadService,
+		public products: ProductsService,
 		private dialog: DialogService,
 		private activated: ActivatedRoute,
 		private fb: FormBuilder,
 		private toastr: ToastrService,
 		private router: Router
 	) {
-		this.category = this.activated.snapshot.paramMap.get('category');
+		this.category = this.activated.snapshot.paramMap.get(
+			'category'
+		) as IProduct['category'];
 
 		if (this.category === 'gadgets') {
 			this.productForm.addControl('colors', this.fb.array([]));
@@ -82,21 +83,22 @@ export class CreateProductComponent {
 				color: 'primary',
 				answer: 'Sì, conferma',
 			})
-			.subscribe(() => {
-				this.upload.productUpload(this.productForm.value, this.category, () => {
-					this.upload.working = false;
-					this.upload.imgFiles = [];
-					this.upload.readyToUploadImages = false;
-
-					this.router.navigate(['rappre', this.category]);
-
+			.pipe(
+				switchMap(() =>
+					this.products.createGadget(this.productForm.value, this.category)
+				)
+			)
+			.subscribe((res) => {
+				if (res.success === true) {
 					this.toastr.show({
 						message: 'Prodotto creato con successo',
 						color: 'success',
 						action: 'Chiudi',
 						duration: 5000,
 					});
-				});
+				} else {
+					this.toastr.showError();
+				}
 			});
 	}
 }

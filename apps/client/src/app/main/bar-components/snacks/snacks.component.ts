@@ -4,16 +4,13 @@ import { ISnack } from '@csl/shared';
 import { SnacksService } from '@global/services/snacks/snacks.service';
 import { DialogService, ToastrService } from '@csl/ui';
 
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-
 @Component({
-  selector: 'app-snacks',
+  selector: 'csl-snacks',
   templateUrl: './snacks.component.html',
   styleUrls: ['./snacks.component.scss'],
 })
 export class SnacksComponent implements OnInit {
   snacks: Observable<ISnack[]>;
-  faPlus = faPlus;
 
   constructor(
     private snacksService: SnacksService,
@@ -34,7 +31,7 @@ export class SnacksComponent implements OnInit {
         answer: 'Aggiungi',
         color: 'primary',
       })
-      .subscribe((res) => {
+      .subscribe(() => {
         this.snacksService.addToCart(id).subscribe((res) => {
           if (res.success === true) {
             this.toastr.show({

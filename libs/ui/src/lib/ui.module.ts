@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 // UI Elements
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -76,7 +75,6 @@ import { RoundedDirective } from './directives/rounded/rounded.directive';
 		CommonModule,
 		RouterModule,
 		PdfViewerModule,
-		FontAwesomeModule,
 		MatSnackBarModule,
 		MatDialogModule,
 		MatButtonModule,
@@ -108,7 +106,6 @@ import { RoundedDirective } from './directives/rounded/rounded.directive';
 		MatSortModule,
 	],
 	exports: [
-		FontAwesomeModule,
 		DashboardModelComponent,
 		AlertComponent,
 		MatColorDirective,

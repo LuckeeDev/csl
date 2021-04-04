@@ -71,7 +71,7 @@
 				class="deleteColor"
 				(click)="removeColor(i)"
 			>
-				<fa-icon [icon]="faTimes"></fa-icon>
+				<mat-icon>close</mat-icon>
 			</button>
 		</ng-container>
 	</ng-container>
@@ -85,7 +85,7 @@
 		formControlName="files"
 		style="display: none"
 		#uploadFiles
-		(change)="upload.onImgSelect($event)"
+		(change)="products.onImgSelect($event)"
 	/>
 
 	<button
@@ -145,7 +145,7 @@
 				<tr>
 					<th>Immagini:</th>
 					<td>
-						<ng-container *ngFor="let file of upload.imgFiles"
+						<ng-container *ngFor="let file of products.imgFiles"
 							>{{ file.name }},&nbsp;
 						</ng-container>
 					</td>

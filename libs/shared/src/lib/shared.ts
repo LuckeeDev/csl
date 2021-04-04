@@ -12,7 +12,7 @@ export { IHttpRes } from './models/http';
 export { ILogMetadata, ILog, ILogModel } from './models/log';
 export { IUserOrders, IProductInCart, IOrder, IOrderModel } from './models/order';
 export { IPaymentIntentData } from './models/payment';
-export { IProduct, IProductModel } from './models/product';
+export { IProduct, IProductModel, TSize } from './models/product';
 export { IBugData, IReport, IReportModel } from './models/report';
 export { ISnack, ISnackModel } from './models/snack';
 export { ISnackInCart, ISocketData, ISnackOrder, ISnackOrderModel } from './models/snack-order';
