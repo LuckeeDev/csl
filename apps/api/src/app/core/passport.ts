@@ -13,11 +13,10 @@ export function setupPassport() {
 	});
 
 	// Decrypt session and find user
-	passport.deserializeUser((id: string, done) => {
+	passport.deserializeUser(async (id: string, done) => {
 		try {
-			User.findOne({ id }).then((user: IUser) => {
-				done(null, user);
-			});
+			const user = await User.findOne({ id });
+			done(null, user);
 		} catch (err) {
 			done(err, null);
 		}
@@ -31,34 +30,42 @@ export function setupPassport() {
 				clientSecret: env.GOOGLE_CLIENT_SECRET,
 				callbackURL: `${env.api}/auth/redirect`,
 			},
-			(accessToken, refreshToken, profile, done) => {
-				const id = profile.id;
+			async (accessToken, refreshToken, profile, done) => {
+				const { id } = profile;
 				const photoURL = profile.photos[0].value;
 				const email = profile.emails[0].value;
 
 				try {
-					User.findOne({ id }).then(async (user) => {
-						if (user) {
-							await user.updateOne({ photoURL });
-
-							done(null, user);
-						} else {
-							User.findOne({ email }).then(async (user) => {
-								if (user) {
-									await user.updateOne({
-										id,
-										photoURL,
-									});
-
-									User.findOne({ id }).then((user) => {
-										done(null, user);
-									});
-								} else {
-									done(null, null);
-								}
-							});
-						}
+					const oldUser: IUser = await User.findOne({
+						$or: [{ id }, { email }],
 					});
+
+					const photoHasChanged = oldUser && photoURL !== oldUser.photoURL;
+
+					if (!photoHasChanged && oldUser && oldUser.id) {
+						done(null, oldUser);
+					} else if (photoHasChanged && oldUser && oldUser.id) {
+						const user = await User.findOneAndUpdate(
+							{ id },
+							{ photoURL },
+							{ new: true }
+						);
+
+						done(null, user);
+					} else if (oldUser) {
+						const user = await User.findOneAndUpdate(
+							{ email },
+							{
+								id,
+								photoURL,
+							},
+							{ new: true }
+						);
+
+						done(null, user);
+					} else {
+						done(null, null);
+					}
 				} catch (err) {
 					done(err, null);
 				}

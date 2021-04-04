@@ -49,6 +49,7 @@
 		"editorjs-hyperlink": "1.0.4",
 		"express": "4.17.1",
 		"express-fileupload": "^1.2.0",
+		"express-session": "^1.17.1",
 		"firebase": "^8.2.0",
 		"firebase-admin": "^8.13.0",
 		"fs-extra": "^9.0.1",
