@@ -28,6 +28,10 @@ export class ProductsService {
 		return this.http.get<IProduct[]>('/products/photos');
 	}
 
+	getAllProducts() {
+		return this.http.get<IHttpRes<IProduct[]>>('/products');
+	}
+
 	getProduct(id: string) {
 		return this.http.post('/products/find', { id });
 	}

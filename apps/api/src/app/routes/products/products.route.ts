@@ -8,6 +8,7 @@ import {
 	createPhoto,
 	findProduct,
 	deleteProduct,
+	getAllProducts
 } from '@controllers';
 import { IProduct } from '@csl/shared';
 import Stripe from 'stripe';
@@ -16,6 +17,12 @@ import { environment } from '@environments/environment';
 const stripe = new Stripe(environment.STRIPE_KEY, {
 	apiVersion: '2020-08-27',
 	typescript: true,
+});
+
+// Get all products
+router.get('/', isSignedIn, async (req: Request, res: Response) => {
+	const result = await getAllProducts();
+	res.json(result);
 });
 
 // Get all gadgets
@@ -45,7 +52,11 @@ router.post(
 				currency: 'eur',
 			});
 
-			const result = await createGadget(req.body, stripeProductID, stripePrice.id);
+			const result = await createGadget(
+				req.body,
+				stripeProductID,
+				stripePrice.id
+			);
 
 			res.json(result);
 		} catch (err) {

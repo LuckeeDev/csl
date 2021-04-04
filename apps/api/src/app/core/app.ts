@@ -26,7 +26,7 @@ export function setupApp(app: Application) {
 				maxAge: 7 * 24 * 60 * 60 * 1000,
 			},
 			rolling: true,
-			saveUninitialized: false,
+			saveUninitialized: true,
 			resave: false,
 		})
 	);

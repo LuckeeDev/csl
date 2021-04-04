@@ -3,9 +3,25 @@ import { join } from 'path';
 import { tmpdir } from 'os';
 import fse from 'fs-extra';
 import sharp from 'sharp';
-import { IProduct } from '@csl/shared';
+import { IHttpRes, IProduct } from '@csl/shared';
 import { Product } from '@models';
 import { v4 } from 'uuid';
+
+export const getAllProducts = async (): Promise<IHttpRes<IProduct[]>> => {
+	try {
+		const products = await Product.find();
+
+		return {
+			success: true,
+			data: products,
+		};
+	} catch (err) {
+		return {
+			success: false,
+			err,
+		};
+	}
+};
 
 // Get all gadgets in the database
 export const getAllGadgets = async () => {
