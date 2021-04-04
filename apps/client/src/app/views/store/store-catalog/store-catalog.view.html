@@ -3,36 +3,33 @@
 	<input matInput type="text" [formControl]="search" />
 </mat-form-field>
 
-<div
-	class="container"
-	*ngIf="products && products.length > 0; else noProductFound"
->
-	<mat-card
-		[routerLink]="[product.id]"
-		*ngFor="let product of (filteredProducts | async) || products"
-		class="product"
-	>
-		<mat-card-header>
-			<mat-card-title>{{ product.name }}</mat-card-title>
-			<mat-card-subtitle>{{ product.description }}</mat-card-subtitle>
-		</mat-card-header>
+<ng-container *ngIf="products$ | async as products">
+	<div class="container" *ngIf="products.length > 0; else noProductFound">
+		<mat-card
+			[routerLink]="[product.id]"
+			*ngFor="let product of (filteredProducts$ | async) || products"
+			class="product"
+		>
+			<mat-card-header>
+				<mat-card-title>{{ product.name }}</mat-card-title>
+				<mat-card-subtitle>{{ product.description }}</mat-card-subtitle>
+			</mat-card-header>
 
-		<mat-card-content *ngIf="coverImage(product.id)">
-			<img [src]="coverImage(product.id).url" />
-		</mat-card-content>
-	</mat-card>
+			<mat-card-content>
+				<img [src]="product.previewLink" />
+			</mat-card-content>
+		</mat-card>
 
-	<csl-alert
-		color="primary"
-		class="alert"
-		*ngIf="(filteredProducts | async) && (filteredProducts | async).length === 0"
-	>
-		Nessun prodotto trovato!
-	</csl-alert>
-</div>
+		<ng-container *ngIf="filteredProducts$ | async as filtered">
+			<csl-alert color="primary" class="alert" *ngIf="filtered.length === 0">
+				Nessun prodotto trovato!
+			</csl-alert>
+		</ng-container>
+	</div>
 
-<ng-template #noProductFound>
-	<csl-alert color="primary" class="alert">
-		Nessun prodotto trovato in questa categoria!
-	</csl-alert>
-</ng-template>
+	<ng-template #noProductFound>
+		<csl-alert color="primary" class="alert">
+			Nessun prodotto trovato in questa categoria!
+		</csl-alert>
+	</ng-template>
+</ng-container>

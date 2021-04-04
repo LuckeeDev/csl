@@ -1,10 +1,10 @@
+import { ProductsState } from '@/global/store/products';
 import { Component, OnInit } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/storage';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IProduct } from '@csl/shared';
-import { ProductsService } from '@global/services/products/products.service';
-import { Observable } from 'rxjs';
+import { Select } from '@ngxs/store';
+import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 interface ICover {
@@ -20,72 +20,43 @@ interface ICover {
 export class StoreCatalogView implements OnInit {
 	search = new FormControl();
 
-	category: string;
-	products: IProduct[];
-	filteredProducts: Observable<IProduct[]>;
-	productCovers: ICover[] = [];
+	@Select(ProductsState.gadgets)
+	gadgets$: Observable<IProduct[]>;
 
-	constructor(
-		private activated: ActivatedRoute,
-		private productsService: ProductsService,
-		private afs: AngularFireStorage
-	) {
-		this.filteredProducts = this.search.valueChanges.pipe(
-			map((value: string | null) => {
-				if (value) {
-					const filterValue = value.toLowerCase();
+	@Select(ProductsState.photos)
+	photos$: Observable<IProduct[]>;
 
-					return this.products.filter(
-						(x) =>
-							x.name.toLowerCase().includes(filterValue) ||
-							x.description.toLowerCase().includes(filterValue)
-					);
-				} else {
-					return this.products.slice();
-				}
-			})
-		);
-	}
+	products$: Observable<IProduct[]>;
+
+	category: IProduct['category'];
+	filteredProducts$: Observable<IProduct[]>;
+	productCovers$: Observable<ICover[]>;
+
+	constructor(private activated: ActivatedRoute) {}
 
 	ngOnInit(): void {
 		this.activated.paramMap.subscribe((params) => {
-			this.category = params.get('category');
+			this.category = params.get('category') as IProduct['category'];
 
 			if (this.category === 'gadgets') {
-				this.productsService.getGadgets().subscribe((res) => {
-					this.products = res;
-
-					this.products.forEach((product) => {
-						this.afs
-							.ref(`gadgetImages/${product.id}/${product.fileNames[0]}`)
-							.getDownloadURL()
-							.subscribe((url) =>
-								this.productCovers.push({ url, product: product.id })
-							);
-					});
-
-					this.search.reset();
-				});
+				this.products$ = this.gadgets$;
 			} else if (this.category === 'photos') {
-				this.productsService.getPhotos().subscribe((res) => {
-					this.products = res;
-
-					this.products.forEach((product) => {
-						this.afs
-							.ref(`photoImages/${product.id}/${product.fileNames[0]}`)
-							.getDownloadURL()
-							.subscribe((url) =>
-								this.productCovers.push({ url, product: product.id })
-							);
-					});
-
-					this.search.reset();
-				});
+				this.products$ = this.photos$;
 			}
-		});
-	}
 
-	coverImage(id: string) {
-		return this.productCovers.find((x) => x.product === id);
+			this.search.reset();
+		});
+
+		const search$: Observable<string> = this.search.valueChanges;
+
+		this.filteredProducts$ = combineLatest([search$, this.products$]).pipe(
+			map(([searchValue, products]) => {
+				return products.filter(
+					(product) =>
+						product.name.toLowerCase().includes(searchValue) ||
+						product.description.toLowerCase().includes(searchValue)
+				);
+			})
+		);
 	}
 }

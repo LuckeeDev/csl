@@ -25,6 +25,12 @@ export interface IProduct {
 	stripePriceID: string;
 	colors?: Color[];
 	sizes?: TSize[];
+
+	/**
+	 * Only needed in client, to show the user a preview
+	 * of the product
+	 */
+	previewLink?: string;
 }
 
 export interface IProductModel extends Document, IProduct {
