@@ -9,7 +9,7 @@ export namespace Products {
 	}
 }
 
-interface ProductsStateModel {
+export interface ProductsStateModel {
 	products: IProduct[];
 	loading: boolean;
 }
@@ -23,8 +23,10 @@ export class ProductsState {
 
 	@Action(Products.GetAll)
 	getAllProducts(ctx: StateContext<ProductsStateModel>) {
+		ctx.patchState({ loading: true });
+
 		this.products.getGadgets().subscribe((products) => {
-			ctx.patchState({ products });
+			ctx.setState({ products, loading: false });
 		});
 	}
 }

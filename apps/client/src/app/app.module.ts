@@ -45,14 +45,10 @@ import { PortartiComponent } from '@main/pages/portarti/portarti.component';
 import { QpComponent } from '@main/qp-components/qp/qp.component';
 import { PageNotFoundComponent } from '@main/errors/page-not-found/page-not-found.component';
 import { ArticleComponent } from '@main/qp-components/article/article.component';
-import { StoreComponent } from '@main/store-components/store/store.component';
-import { ProductComponent } from '@main/store-components/product/product.component';
 import { AccessForbiddenComponent } from '@main/errors/access-forbidden/access-forbidden.component';
-import { CatalogComponent } from '@main/store-components/catalog/catalog.component';
 import { BarComponent } from '@main/bar-components/bar/bar.component';
 import { SnacksComponent } from '@main/bar-components/snacks/snacks.component';
 import { SnackCartComponent } from '@main/bar-components/snack-cart/snack-cart.component';
-import { StoreHomeComponent } from '@main/store-components/store-home/store-home.component';
 import { QpHomeComponent } from '@main/qp-components/qp-home/qp-home.component';
 import { FaqComponent } from '@main/pages/faq/faq.component';
 import { InfoComponent } from '@main/contacts-components/info/info.component';
@@ -61,14 +57,17 @@ import { ComitatoHomeComponent } from '@main/comitato-components/comitato-home/c
 import { ContactFormComponent } from '@main/contacts-components/contact-form/contact-form.component';
 import { LoginComponent } from '@main/errors/login/login.component';
 import { CogeView } from '@/views/coge/coge.view';
+import { StoreView } from '@/views/store/store.view';
+import { StoreHomeView } from '@/views/store/store-home/store-home.view';
+import { StoreProductView } from '@/views/store/store-product/store-product.view';
+import { StoreCatalogView } from '@/views/store/store-catalog/store-catalog.view';
 
 // Interceptors
 import { ResCodeInterceptor } from '@global/http/res-code.interceptor';
 import { ApiInterceptor } from '@global/http/api.interceptor';
-import { StoreView } from './views/store/store.view';
-import { StoreHomeView } from './views/store/store-home/store-home.view';
-import { StoreProductView } from './views/store/store-product/store-product.view';
-import { StoreCatalogView } from './views/store/store-catalog/store-catalog.view';
+
+// Stores
+import { ProductsState } from './global/store/products';
 
 registerLocaleData(ITLocaleData);
 
@@ -84,15 +83,11 @@ registerLocaleData(ITLocaleData);
 		QpComponent,
 		PageNotFoundComponent,
 		ArticleComponent,
-		StoreComponent,
-		ProductComponent,
 		AccessForbiddenComponent,
-		CatalogComponent,
 		LoginComponent,
 		SnacksComponent,
 		BarComponent,
 		SnackCartComponent,
-		StoreHomeComponent,
 		QpHomeComponent,
 		FaqComponent,
 		InfoComponent,
@@ -119,7 +114,7 @@ registerLocaleData(ITLocaleData);
 		PipesModule,
 		SharedModule,
 		HttpClientModule,
-		NgxsModule.forRoot([], { developmentMode: !environment.production }),
+		NgxsModule.forRoot([ProductsState], { developmentMode: !environment.production }),
 		LoadingBarModule,
 		LoadingBarHttpClientModule,
 		MarkdownModule.forRoot(),
