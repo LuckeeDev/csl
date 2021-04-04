@@ -24,7 +24,6 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { UiModule } from '@csl/ui';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
-import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 
 import { MarkdownModule } from 'ngx-markdown';
 import { SharedModule } from '@shared/shared.module';
@@ -66,6 +65,10 @@ import { CogeView } from '@/views/coge/coge.view';
 // Interceptors
 import { ResCodeInterceptor } from '@global/http/res-code.interceptor';
 import { ApiInterceptor } from '@global/http/api.interceptor';
+import { StoreView } from './views/store/store.view';
+import { StoreHomeView } from './views/store/store-home/store-home.view';
+import { StoreProductView } from './views/store/store-product/store-product.view';
+import { StoreCatalogView } from './views/store/store-catalog/store-catalog.view';
 
 registerLocaleData(ITLocaleData);
 
@@ -97,6 +100,10 @@ registerLocaleData(ITLocaleData);
 		ComitatoHomeComponent,
 		ContactFormComponent,
 		CogeView,
+		StoreView,
+		StoreHomeView,
+		StoreProductView,
+		StoreCatalogView,
 	],
 	imports: [
 		BrowserModule,
@@ -114,7 +121,6 @@ registerLocaleData(ITLocaleData);
 		HttpClientModule,
 		NgxsModule.forRoot([], { developmentMode: !environment.production }),
 		LoadingBarModule,
-		LoadingBarRouterModule,
 		LoadingBarHttpClientModule,
 		MarkdownModule.forRoot(),
 		ServiceWorkerModule.register('ngsw-worker.js', {

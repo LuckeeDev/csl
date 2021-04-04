@@ -1,0 +1,35 @@
+<div>
+	<h1>Riepilogo</h1>
+
+	<div class="container">
+		<mat-card [routerLink]="['gadgets']">
+			<mat-card-header>
+				<mat-card-title>Gadget</mat-card-title>
+				<mat-card-subtitle
+					>Esplora le magliette, le felpe e tutti i gadget targati Lussana di
+					quest'anno!</mat-card-subtitle
+				>
+			</mat-card-header>
+		</mat-card>
+
+		<mat-card [routerLink]="['photos']">
+			<mat-card-header>
+				<mat-card-title>Foto</mat-card-title>
+				<mat-card-subtitle
+					>Esplora tutte le opzioni per incorniciare quest'anno
+					indimenticabile!</mat-card-subtitle
+				>
+			</mat-card-header>
+		</mat-card>
+
+		<mat-card [routerLink]="['..', 'dashboard', 'orders']">
+			<mat-card-header>
+				<mat-card-title>Gestione ordini</mat-card-title>
+				<mat-card-subtitle
+					>La sessione di acquisti è attiva, verifica i tuoi ordini prima che
+					scada il tempo!</mat-card-subtitle
+				>
+			</mat-card-header>
+		</mat-card>
+	</div>
+</div>

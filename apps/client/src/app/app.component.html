@@ -1,9 +1,10 @@
 <ngx-loading-bar
-  [includeSpinner]="false"
-  color="#90CAF9"
-  *ngIf="sw.isStandalone !== true"
+	[includeBar]="false"
+	diameter="12px"
+	color="#fafafa"
+	*ngIf="sw.isStandalone !== true"
 ></ngx-loading-bar>
 
 <csl-container [v]="v">
-  <router-outlet></router-outlet>
+	<router-outlet></router-outlet>
 </csl-container>

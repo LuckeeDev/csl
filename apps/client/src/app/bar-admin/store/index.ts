@@ -47,7 +47,7 @@ export class OrdersState {
                 draft.classes.push(data.change.classID);
                 draft.classes.sort();
               }
-            } else if (data.operationType === 'replace' || 'update') {
+            } else if (data.operationType === 'replace' || data.operationType === 'update') {
               const i = draft.orders.findIndex((x) => x.id === data.change.id);
 
               draft.orders[i] = data.change;

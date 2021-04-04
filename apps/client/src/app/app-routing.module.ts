@@ -21,6 +21,11 @@ import { ContactFormComponent } from '@main/contacts-components/contact-form/con
 import { LoginComponent } from '@main/errors/login/login.component';
 import { MdComponent } from '@shared/components/md/md.component';
 
+import { StoreView } from './views/store/store.view';
+import { StoreHomeView } from './views/store/store-home/store-home.view';
+import { StoreCatalogView } from './views/store/store-catalog/store-catalog.view';
+import { StoreProductView } from './views/store/store-product/store-product.view';
+
 // Guards
 import { RappreGuard } from '@global/guards/rappre/rappre.guard';
 import { ViceGuard } from '@global/guards/vice/vice.guard';
@@ -29,10 +34,6 @@ import { QpAdminGuard } from '@global/guards/qp-admin/qp-admin.guard';
 import { AdminGuard } from '@global/guards/admin/admin.guard';
 import { NotLoggedInGuard } from '@global/guards/not-logged-in/not-logged-in.guard';
 import { ReferenteGuard } from '@global/guards/referente/referente.guard';
-import { StoreComponent } from './main/store-components/store/store.component';
-import { StoreHomeComponent } from './main/store-components/store-home/store-home.component';
-import { CatalogComponent } from './main/store-components/catalog/catalog.component';
-import { ProductComponent } from './main/store-components/product/product.component';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent },
@@ -94,16 +95,16 @@ const routes: Routes = [
 	{
 		path: 'store',
 		canActivate: [LoggedInGuard],
-		component: StoreComponent,
+		component: StoreView,
 		children: [
-			{ path: '', component: StoreHomeComponent },
+			{ path: '', component: StoreHomeView },
 			{
 				path: ':category',
-				component: CatalogComponent,
+				component: StoreCatalogView,
 			},
 			{
 				path: ':category/:productID',
-				component: ProductComponent,
+				component: StoreProductView,
 			},
 		],
 	},
