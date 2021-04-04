@@ -15,10 +15,6 @@ import ITLocaleData from '@angular/common/locales/it';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import {
-	AngularFireAnalyticsModule,
-	ScreenTrackingService,
-} from '@angular/fire/analytics';
-import {
 	AngularFireAuthModule,
 	USE_EMULATOR as USE_AUTH_EMULATOR,
 } from '@angular/fire/auth';
@@ -110,7 +106,6 @@ registerLocaleData(ITLocaleData);
 		ReactiveFormsModule,
 		AngularFireModule.initializeApp(environment.firebaseConfig, 'CSLussana'),
 		AngularFireStorageModule,
-		AngularFireAnalyticsModule,
 		AngularFireAuthModule,
 		AngularFireMessagingModule,
 		UiModule,
@@ -128,7 +123,6 @@ registerLocaleData(ITLocaleData);
 	],
 	entryComponents: [],
 	providers: [
-		ScreenTrackingService,
 		{
 			provide: USE_AUTH_EMULATOR,
 			useValue: environment.useEmulators ? ['localhost', 9099] : undefined,
