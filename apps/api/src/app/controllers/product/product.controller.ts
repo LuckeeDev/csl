@@ -15,7 +15,11 @@ export const getAllGadgets = async () => {
 };
 
 // Create a new gadget
-export const createGadget = async (product: IProduct, stripeProductID: string) => {
+export const createGadget = async (
+	product: IProduct,
+	stripeProductID: string,
+	stripePriceID: string
+) => {
 	const id = v4();
 	const { name, description, price, fileNames, colors, sizes } = product;
 	const category = 'gadgets';
@@ -67,7 +71,8 @@ export const createGadget = async (product: IProduct, stripeProductID: string) =
 		fileNames: newFileNames,
 		colors,
 		sizes,
-		stripeID: stripeProductID
+		stripeID: stripeProductID,
+		stripePriceID,
 	})
 		.save()
 		.then((product) => {

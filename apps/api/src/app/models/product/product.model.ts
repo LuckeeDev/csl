@@ -10,6 +10,7 @@ const ProductSchema = new Schema(
 		price: { type: Number, required: true },
 		fileNames: { type: Array, required: true },
 		stripeID: { type: String, required: true },
+		stripePriceID: { type: String, required: true },
 		colors: { type: Array },
 		sizes: { type: Array },
 	},

@@ -29,22 +29,23 @@ router.post(
 	'/create-gadgets',
 	isRappre,
 	async (req: Request<IProduct>, res: Response) => {
-		console.log('request');
 		try {
-			const { name, price } = req.body;
+			const { name, price: rawPrice } = req.body;
 			const product = await stripe.products.create({
 				name,
 			});
 
+			const price = rawPrice * 100;
+
 			const stripeProductID = product.id;
 
-			await stripe.prices.create({
+			const stripePrice = await stripe.prices.create({
 				product: stripeProductID,
 				unit_amount: price,
 				currency: 'eur',
 			});
 
-			const result = await createGadget(req.body, stripeProductID);
+			const result = await createGadget(req.body, stripeProductID, stripePrice.id);
 
 			res.json(result);
 		} catch (err) {
