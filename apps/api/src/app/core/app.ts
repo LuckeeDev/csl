@@ -2,7 +2,7 @@ import { Application, json, raw } from 'express';
 import * as cors from 'cors';
 import { environment as env } from '@environments/environment';
 import * as passport from 'passport';
-import cookieSession from 'cookie-session';
+import session from 'express-session';
 import * as fileUpload from 'express-fileupload';
 import { webhookHandler } from '@common/utils';
 import PackageJSON from '../../../../../package.json';
@@ -20,9 +20,14 @@ export function setupApp(app: Application) {
 	);
 
 	app.use(
-		cookieSession({
-			maxAge: 7 * 24 * 60 * 60 * 1000,
-			keys: env.COOKIE_KEYS,
+		session({
+			secret: env.COOKIE_KEYS,
+			cookie: {
+				maxAge: 7 * 24 * 60 * 60 * 1000,
+			},
+			rolling: true,
+			saveUninitialized: false,
+			resave: false,
 		})
 	);
 
