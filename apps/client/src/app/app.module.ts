@@ -35,8 +35,7 @@ import { NgxsModule } from '@ngxs/store';
 import { PipesModule } from '@global/pipes/pipes.module';
 
 // Components
-import { ContainerComponent } from '@global/container/container.component';
-
+import { WrapperComponent } from './global/components/wrapper/wrapper.component';
 import { AslComponent } from '@main/pages/asl/asl.component';
 import { ComitatoComponent } from '@main/comitato-components/comitato/comitato.component';
 import { ConsultaComponent } from '@main/pages/consulta/consulta.component';
@@ -74,7 +73,6 @@ registerLocaleData(ITLocaleData);
 @NgModule({
 	declarations: [
 		AppComponent,
-		ContainerComponent,
 		AslComponent,
 		ComitatoComponent,
 		ConsultaComponent,
@@ -99,6 +97,7 @@ registerLocaleData(ITLocaleData);
 		StoreHomeView,
 		StoreProductView,
 		StoreCatalogView,
+		WrapperComponent,
 	],
 	imports: [
 		BrowserModule,

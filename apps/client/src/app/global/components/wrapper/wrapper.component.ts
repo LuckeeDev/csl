@@ -5,11 +5,11 @@ import { AuthService } from '@global/services/auth/auth.service';
 import { IDashboardLink } from '@csl/shared';
 
 @Component({
-	selector: 'csl-container',
-	templateUrl: './container.component.html',
-	styleUrls: ['./container.component.scss'],
+	selector: 'csl-wrapper',
+	templateUrl: './wrapper.component.html',
+	styleUrls: ['./wrapper.component.scss'],
 })
-export class ContainerComponent {
+export class WrapperComponent {
 	@Input()
 	v: string;
 
