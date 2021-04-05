@@ -6,8 +6,8 @@ import session from 'express-session';
 import * as fileUpload from 'express-fileupload';
 import { webhookHandler } from '@common/utils';
 import PackageJSON from '../../../../../package.json';
-import MongoStore from 'connect-mongo';
-import { mongoOptions } from '@/common/config';
+import redis from 'redis';
+import connectRedis from 'connect-redis';
 
 export function setupApp(app: Application) {
 	app.use(
@@ -21,10 +21,8 @@ export function setupApp(app: Application) {
 		})
 	);
 
-	const mongoStore = new MongoStore({
-		mongoUrl: env.DB_URI,
-		mongoOptions,
-	});
+	const RedisStore = connectRedis(session);
+	const redisClient = redis.createClient({ port: 6379 });
 
 	app.use(
 		session({
@@ -32,7 +30,7 @@ export function setupApp(app: Application) {
 			cookie: {
 				maxAge: 7 * 24 * 60 * 60 * 1000,
 			},
-			store: mongoStore,
+			store: new RedisStore({ client: redisClient }),
 			rolling: true,
 			saveUninitialized: true,
 			resave: false,

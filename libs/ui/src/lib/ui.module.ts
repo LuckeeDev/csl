@@ -34,8 +34,6 @@ import { MatSortModule } from '@angular/material/sort';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
-import { PdfViewerModule } from 'ng2-pdf-viewer';
-
 // Components
 import { DialogComponent } from './components/dialog/dialog.component';
 import { DashboardModelComponent } from './components/dashboard-model/dashboard-model.component';
@@ -74,7 +72,6 @@ import { RoundedDirective } from './directives/rounded/rounded.directive';
 	imports: [
 		CommonModule,
 		RouterModule,
-		PdfViewerModule,
 		MatSnackBarModule,
 		MatDialogModule,
 		MatButtonModule,

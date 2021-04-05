@@ -34,11 +34,7 @@
 							"includePaths": ["libs/ui/src/lib"]
 						},
 						"scripts": ["node_modules/marked/lib/marked.js"],
-						"allowedCommonJsDependencies": [
-							"firebase/app",
-							"socket.io-client",
-							"ng2-pdf-viewer"
-						]
+						"allowedCommonJsDependencies": ["firebase/app", "socket.io-client"]
 					},
 					"configurations": {
 						"production": {
