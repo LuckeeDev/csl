@@ -1,4 +1,4 @@
-<div class="container" *ngIf="product; else noProductFound">
+<div class="container" *ngIf="product$ | async as product; else noProductFound">
 	<div class="carousel-container" *ngIf="images && carouselReady">
 		<div class="carousel">
 			<csl-carousel [images]="images" #carousel></csl-carousel>
@@ -17,7 +17,7 @@
 		</div>
 	</div>
 
-	<div class="data-container">
+	<div>
 		<h2>{{ product.name }}</h2>
 		<h4>{{ product.description }}</h4>
 		<p>Prezzo: {{ product.price }}€</p>
@@ -47,7 +47,7 @@
 					*ngFor="let color of product.colors"
 					[class.mat-elevation-z10]="selectedColor === color.id"
 					class="color"
-					[ngStyle]="{ 'background-color': color }"
+					[ngStyle]="{ 'background-color': color.color }"
 					(click)="selectColor(color.id)"
 				></mat-card>
 			</div>

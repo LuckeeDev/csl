@@ -27,10 +27,10 @@ export interface IProduct {
 	sizes?: TSize[];
 
 	/**
-	 * Only needed in client, to show the user a preview
+	 * Only needed in client, to show the user previews
 	 * of the product
 	 */
-	previewLink?: string;
+	previewLinks?: string[];
 }
 
 export interface IProductModel extends Document, IProduct {

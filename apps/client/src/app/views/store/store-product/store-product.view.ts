@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AngularFireStorage } from '@angular/fire/storage';
 import { IImage, IProduct } from '@csl/shared';
-import { ProductsService } from '@global/services/products/products.service';
 import { OrdersService } from '@global/services/orders/orders.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogService, ToastrService } from '@csl/ui';
+import { Observable } from 'rxjs';
+import { Select, Store } from '@ngxs/store';
+import { Products, ProductsState } from '@/global/store/products';
+import { distinctUntilChanged, map, tap } from 'rxjs/operators';
 
 @Component({
 	selector: 'csl-store-product',
@@ -13,25 +15,30 @@ import { DialogService, ToastrService } from '@csl/ui';
 	styleUrls: ['./store-product.view.scss'],
 })
 export class StoreProductView implements OnInit {
+	product$: Observable<IProduct>;
+
+	@Select(ProductsState.products)
+	products$: Observable<IProduct[]>;
+
 	id: string;
-	product: IProduct;
 	images: IImage[];
-	category: string;
+	category: IProduct['category'];
 
 	orderForm: FormGroup;
 
 	constructor(
 		private activated: ActivatedRoute,
-		private storage: AngularFireStorage,
-		private productsService: ProductsService,
 		private ordersService: OrdersService,
 		private fb: FormBuilder,
 		private dialog: DialogService,
 		private toastr: ToastrService,
-		private router: Router
+		private router: Router,
+		private store: Store,
 	) {
 		this.id = this.activated.snapshot.paramMap.get('productID');
-		this.category = this.activated.snapshot.paramMap.get('category');
+		this.category = this.activated.snapshot.paramMap.get(
+			'category'
+		) as IProduct['category'];
 
 		if (this.category === 'gadgets') {
 			this.orderForm = this.fb.group({
@@ -49,27 +56,13 @@ export class StoreProductView implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.productsService
-			.getProduct(this.id)
-			.subscribe(async (res: IProduct) => {
-				this.product = res;
+		this.store.dispatch(new Products.LoadImages(this.id));
 
-				const folder =
-					this.category === 'gadgets' ? 'gadgetImages' : 'photoImages';
-
-				const folderRef = this.storage.ref(`/${folder}/${this.product.id}`);
-
-				this.images = [];
-
-				this.product.fileNames.forEach((fileName: string) => {
-					folderRef
-						.child(fileName)
-						.getDownloadURL()
-						.subscribe((link: string) => {
-							this.images.push({ link });
-						});
-				});
-			});
+		this.product$ = this.products$.pipe(
+			distinctUntilChanged(),
+			map((products) => products.find((x) => x.id === this.id)),
+			tap(console.log)
+		);
 	}
 
 	get selectedColor(): string {
@@ -77,7 +70,8 @@ export class StoreProductView implements OnInit {
 	}
 
 	get carouselReady(): boolean {
-		return this.images.length === this.product.fileNames.length;
+		// return this.images.length === this.product.fileNames.length;
+		return false;
 	}
 
 	selectColor(color: string) {
@@ -106,7 +100,7 @@ export class StoreProductView implements OnInit {
 						});
 
 						this.router.navigate(['..', 'store', this.category]);
-					} else if ((res.err === 'already-confirmed')) {
+					} else if (res.err === 'already-confirmed') {
 						this.toastr.show({
 							message: 'Hai già confermato il tuo ordine!',
 							color: 'accent',
