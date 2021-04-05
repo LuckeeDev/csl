@@ -1,5 +1,5 @@
 <div class="container" *ngIf="product$ | async as product; else noProductFound">
-	<div class="carousel-container" *ngIf="images && carouselReady">
+	<div class="carousel-container" *ngIf="images$ | async as images">
 		<div class="carousel">
 			<csl-carousel [images]="images" #carousel></csl-carousel>
 		</div>

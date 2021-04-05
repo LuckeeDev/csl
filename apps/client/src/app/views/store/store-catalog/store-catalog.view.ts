@@ -1,9 +1,9 @@
-import { ProductsState } from '@/global/store/products';
+import { Products, ProductsState } from '@/global/store/products';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IProduct } from '@csl/shared';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -32,9 +32,11 @@ export class StoreCatalogView implements OnInit {
 	filteredProducts$: Observable<IProduct[]>;
 	productCovers$: Observable<ICover[]>;
 
-	constructor(private activated: ActivatedRoute) {}
+	constructor(private activated: ActivatedRoute, private store: Store) {}
 
 	ngOnInit(): void {
+		this.store.dispatch(new Products.GetAll());
+
 		this.activated.paramMap.subscribe((params) => {
 			this.category = params.get('category') as IProduct['category'];
 

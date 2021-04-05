@@ -5,7 +5,6 @@ interface IAnimationParams {
 
 export interface IImage {
   link: string;
-  caption?: string;
 }
 
 export interface ICarouselImage extends IImage {

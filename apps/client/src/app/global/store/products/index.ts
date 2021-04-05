@@ -1,3 +1,4 @@
+import { AuthService } from '@/global/services/auth/auth.service';
 import { ProductsService } from '@/global/services/products/products.service';
 import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
@@ -6,7 +7,7 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import produce from 'immer';
 import { forkJoin, Observable } from 'rxjs';
-import { filter, last, map, switchMap } from 'rxjs/operators';
+import { filter, map, retryWhen, switchMap } from 'rxjs/operators';
 
 export namespace Products {
 	export class GetAll {
@@ -32,7 +33,8 @@ export class ProductsState {
 	constructor(
 		private products: ProductsService,
 		private afs: AngularFireStorage,
-		private _loadingBar: LoadingBarService
+		private _loadingBar: LoadingBarService,
+		private auth: AuthService
 	) {}
 
 	@Selector()
@@ -52,35 +54,26 @@ export class ProductsState {
 
 	@Action(Products.GetAll)
 	getAllProducts(ctx: StateContext<ProductsStateModel>) {
-		ctx.patchState({ loading: true });
+		const currentState = ctx.getState();
 
-		this.products
-			.getAllProducts()
-			.pipe(
-				filter(({ success }) => success === true),
-				switchMap(({ data: products }) => {
-					const productsWithPreview$ = products.map<Observable<IProduct>>(
-						(product) => {
-							const folder =
-								product.category === 'gadgets' ? 'gadgetImages' : 'photoImages';
+		if (!currentState.products) {
+			ctx.patchState({ loading: true });
 
-							return this.afs
-								.ref(`${folder}/${product.id}/${product.fileNames[0]}`)
-								.getDownloadURL()
-								.pipe(
-									last(),
-									map((link: string) => ({ ...product, previewLinks: [link] }))
-								);
-						}
-					);
+			this._getAllProducts()
+				.pipe(
+					switchMap((products) => {
+						const productsWithPreview$ = products.map<Observable<IProduct>>(
+							(product) => this._getImageLinks(product, 1)
+						);
 
-					return forkJoin(productsWithPreview$);
-				})
-			)
-			.subscribe((products) => {
-				ctx.setState({ products, loading: false });
-				this._loadingBar.useRef('http').complete();
-			});
+						return forkJoin(productsWithPreview$);
+					})
+				)
+				.subscribe((products) => {
+					ctx.setState({ products, loading: false });
+					this._loadingBar.useRef('http').complete();
+				});
+		}
 	}
 
 	@Action(Products.LoadImages)
@@ -91,24 +84,78 @@ export class ProductsState {
 		ctx.patchState({ loading: true });
 
 		const currentState = ctx.getState();
-		const index = currentState.products.findIndex((x) => x.id === action.id);
-		const product = currentState.products[index];
 
-		const links$ = product.fileNames.map<Observable<string>>((fileName) => {
+		const actionID = action.id;
+
+		const index = currentState.products?.findIndex((x) => x.id === actionID);
+		const product = currentState.products ? currentState.products[index] : null;
+
+		if (!currentState.products) {
+			this._getAllProducts()
+				.pipe(
+					switchMap((products) => {
+						const productsWithPreviews$ = products.map((product) => {
+							/**
+							 * Fetch only one image for all products, unless the product is the one
+							 * the user is trying to load.
+							 */
+							const count =
+								product.id === actionID ? product.fileNames.length : 1;
+
+							return this._getImageLinks(product, count);
+						});
+
+						return forkJoin(productsWithPreviews$);
+					})
+				)
+				.subscribe((products) => {
+					ctx.setState({ products, loading: false });
+					
+					this._loadingBar.useRef('http').complete();
+				});
+		} else if (
+			currentState.products[index].previewLinks.length !==
+			currentState.products[index].fileNames.length
+		) {
+			this._getImageLinks(product).subscribe((productWithLinks) => {
+				ctx.setState(
+					produce(currentState, (state) => {
+						state.products[index] = productWithLinks;
+					})
+				);
+
+				this._loadingBar.useRef('http').complete();
+			});
+		}
+	}
+
+	private _getAllProducts() {
+		return this.products.getAllProducts().pipe(
+			filter(({ success }) => success === true),
+			map(({ data: products }) => products)
+		);
+	}
+
+	private _getImageLinks(
+		product: IProduct,
+		count?: number
+	): Observable<IProduct> {
+		const fileNames = count
+			? product.fileNames.slice(0, count)
+			: product.fileNames;
+
+		const links$ = fileNames.map<Observable<string>>((fileName) => {
 			const folder =
 				product.category === 'gadgets' ? 'gadgetImages' : 'photoImages';
 
 			return this.afs
 				.ref(`${folder}/${product.id}/${fileName}`)
-				.getDownloadURL();
+				.getDownloadURL()
+				.pipe(retryWhen(() => this.auth.firebaseAuthToken$));
 		});
 
-		forkJoin(links$).subscribe((links) => {
-			ctx.setState(
-				produce(currentState, (state) => {
-					state.products[index].previewLinks = links;
-				})
-			);
-		});
+		return forkJoin(links$).pipe(
+			map((links) => ({ ...product, previewLinks: links }))
+		);
 	}
 }

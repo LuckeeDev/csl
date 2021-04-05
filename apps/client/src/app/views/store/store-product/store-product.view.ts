@@ -7,7 +7,7 @@ import { DialogService, ToastrService } from '@csl/ui';
 import { Observable } from 'rxjs';
 import { Select, Store } from '@ngxs/store';
 import { Products, ProductsState } from '@/global/store/products';
-import { distinctUntilChanged, map, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 
 @Component({
 	selector: 'csl-store-product',
@@ -20,8 +20,9 @@ export class StoreProductView implements OnInit {
 	@Select(ProductsState.products)
 	products$: Observable<IProduct[]>;
 
+	images$: Observable<IImage[]>;
+
 	id: string;
-	images: IImage[];
 	category: IProduct['category'];
 
 	orderForm: FormGroup;
@@ -33,7 +34,7 @@ export class StoreProductView implements OnInit {
 		private dialog: DialogService,
 		private toastr: ToastrService,
 		private router: Router,
-		private store: Store,
+		private store: Store
 	) {
 		this.id = this.activated.snapshot.paramMap.get('productID');
 		this.category = this.activated.snapshot.paramMap.get(
@@ -60,18 +61,21 @@ export class StoreProductView implements OnInit {
 
 		this.product$ = this.products$.pipe(
 			distinctUntilChanged(),
-			map((products) => products.find((x) => x.id === this.id)),
-			tap(console.log)
+			filter((products) => (products ? true : false)),
+			map((products) => products.find((x) => x.id === this.id))
+		);
+
+		this.images$ = this.product$.pipe(
+			/**
+			 * Filter to check that all images have been fetched.
+			 */
+			filter((product) => product.fileNames.length === product.previewLinks.length),
+			map((product) => product.previewLinks.map((link) => ({ link })))
 		);
 	}
 
 	get selectedColor(): string {
 		return this.orderForm.value.color;
-	}
-
-	get carouselReady(): boolean {
-		// return this.images.length === this.product.fileNames.length;
-		return false;
 	}
 
 	selectColor(color: string) {

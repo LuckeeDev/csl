@@ -13,7 +13,10 @@ export class AuthService {
 	private _userSubject$: BehaviorSubject<IUser> = new BehaviorSubject(
 		undefined
 	);
+
 	private _checkUserSubject$: Subject<IUser> = new Subject();
+
+	private _tokenSubject$: Subject<string> = new Subject();
 
 	constructor(private http: HttpClient, private fireAuth: AngularFireAuth) {}
 
@@ -40,6 +43,10 @@ export class AuthService {
 			.pipe(map((value) => (value === undefined ? null : value)));
 	}
 
+	get firebaseAuthToken$(): Observable<string> {
+		return this._tokenSubject$.asObservable();
+	}
+
 	getUser(): Observable<IUser> {
 		return this.http
 			.get<IHttpRes<{ user: IUser; token: string }>>('/auth')
@@ -48,7 +55,12 @@ export class AuthService {
 					const user = res.success === true ? res.data.user : null;
 
 					if (res.success === true) {
-						this.fireAuth.signInWithCustomToken(res.data.token).then();
+						const token = res.data.token;
+						this.fireAuth
+							.signInWithCustomToken(res.data.token)
+							.then(() => {
+								this._tokenSubject$.next(token);
+							});
 					}
 
 					this._checkUserSubject$.next(user);
