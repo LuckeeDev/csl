@@ -91,7 +91,7 @@ li.item.button {
 
 .nav-link {
 	a {
-		color: white;
+		color: rgb(215, 215, 215);
 		text-decoration: none;
 
 		-webkit-user-select: none;
@@ -99,21 +99,27 @@ li.item.button {
 		-ms-user-select: none;
 		user-select: none;
 
+		height: 100%;
+
 		&::after {
 			content: '';
 			width: 0;
 			height: 2px;
 			display: block;
 			background: white;
-			transition: width 0.1s ease-in-out;
+			transition: width 0.2s ease-in-out;
 		}
 
-		&:hover::after {
-			width: 100%;
+		&:hover {
+			color: #fafafa;
 		}
 
 		&.active::after {
 			width: 100%;
+		}
+
+		&.active {
+			color: #fafafa;
 		}
 	}
 }
