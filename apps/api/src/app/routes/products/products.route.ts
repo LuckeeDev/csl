@@ -8,7 +8,7 @@ import {
 	createPhoto,
 	findProduct,
 	deleteProduct,
-	getAllProducts
+	getAllProducts,
 } from '@controllers';
 import { IProduct } from '@csl/shared';
 import Stripe from 'stripe';
@@ -53,7 +53,7 @@ router.post(
 			});
 
 			const result = await createGadget(
-				req.body,
+				{ ...req.body, price },
 				stripeProductID,
 				stripePrice.id
 			);

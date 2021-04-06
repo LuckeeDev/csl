@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { DialogService, ToastrService } from '@csl/ui';
 import { ProductsService } from '@/global/services/products/products.service';
 import { IProduct } from '@csl/shared';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
+import { LoadingBarService } from '@ngx-loading-bar/core';
 
 @Component({
-	selector: 'csl-create-product',
-	templateUrl: './create-product.component.html',
-	styleUrls: ['./create-product.component.scss'],
+	selector: 'csl-new-product',
+	templateUrl: './new-product.view.html',
+	styleUrls: ['./new-product.view.scss'],
 })
-export class CreateProductComponent {
+export class NewProductView {
 	category: IProduct['category'];
 	sizes: string[] = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
@@ -28,7 +29,7 @@ export class CreateProductComponent {
 		private activated: ActivatedRoute,
 		private fb: FormBuilder,
 		private toastr: ToastrService,
-		private router: Router
+		private _loadingBar: LoadingBarService
 	) {
 		this.category = this.activated.snapshot.paramMap.get(
 			'category'
@@ -84,6 +85,7 @@ export class CreateProductComponent {
 				answer: 'Sì, conferma',
 			})
 			.pipe(
+				tap(() => this._loadingBar.useRef('http').start()),
 				switchMap(() =>
 					this.products.createGadget(this.productForm.value, this.category)
 				)
@@ -99,6 +101,8 @@ export class CreateProductComponent {
 				} else {
 					this.toastr.showError();
 				}
+
+				this.productForm.reset();
 			});
 	}
 }

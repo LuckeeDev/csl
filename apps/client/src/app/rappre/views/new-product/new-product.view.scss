@@ -1,0 +1,60 @@
+.container {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+.break {
+	flex-basis: 100%;
+	height: 0;
+}
+
+h4 {
+	font-weight: 500;
+	flex: 100%;
+}
+
+.textinput {
+	margin-right: 10%;
+	width: 20%;
+	min-width: 180px;
+	margin-bottom: 20px;
+}
+
+.checkboxes {
+	margin-bottom: 20px;
+}
+
+mat-checkbox {
+	margin-right: 10px;
+}
+
+button {
+	margin-bottom: 20px;
+}
+
+mat-card {
+	flex: 100%;
+	margin-bottom: 20px;
+}
+
+table {
+	width: 100%;
+}
+
+.table {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+tr {
+	flex-basis: 100%;
+}
+
+.color {
+	padding: 5px;
+	padding-left: 15px;
+	border-radius: 5px;
+	margin-right: 5px;
+}

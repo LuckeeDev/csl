@@ -8,8 +8,8 @@ import { RappreComponent } from '@rappre/rappre.component';
 // Sub-components
 import { RappreHomeComponent } from './components/rappre-home/rappre-home.component';
 import { ManageCategoryComponent } from '@rappre/components/manage-category/manage-category.component';
-import { CreateProductComponent } from '@rappre/components/create-product/create-product.component';
 import { OrientamentoComponent } from '@rappre/components/orientamento/orientamento.component';
+import { NewProductView } from './views/new-product/new-product.view';
 
 // Shared components
 import { ClassiComponent } from '@shared/components/classi/classi.component';
@@ -29,7 +29,7 @@ const routes: Routes = [
       { path: 'orientamento', component: OrientamentoComponent },
       { path: 'orientamento/create', component: CreateEventComponent },
       { path: ':category', component: ManageCategoryComponent },
-      { path: ':category/create', component: CreateProductComponent },
+      { path: ':category/create', component: NewProductView },
     ],
   },
 ];
