@@ -38,6 +38,11 @@ export class ProductsState {
 	) {}
 
 	@Selector()
+	static loading(state: ProductsStateModel) {
+		return state.loading;
+	}
+
+	@Selector()
 	static products(state: ProductsStateModel) {
 		return state.products;
 	}

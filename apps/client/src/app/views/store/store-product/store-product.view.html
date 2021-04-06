@@ -1,4 +1,4 @@
-<div class="container" *ngIf="product$ | async as product; else noProductFound">
+<div class="container" *ngIf="product$ | async as product; else message">
 	<div class="carousel-container" *ngIf="images$ | async as images">
 		<div class="carousel">
 			<csl-carousel [images]="images" #carousel></csl-carousel>
@@ -65,8 +65,14 @@
 	</div>
 </div>
 
-<ng-template #noProductFound>
-	<csl-alert color="primary">
-		Non abbiamo trovato nessun prodotto con questo nome!
+<ng-template #message>
+	<csl-alert color="primary" *ngIf="loading$ | async; else noProductFound">
+		Caricamento in corso...
 	</csl-alert>
+
+	<ng-template #noProductFound>
+		<csl-alert color="primary">
+			Non abbiamo trovato nessun prodotto con questo nome!
+		</csl-alert>
+	</ng-template>
 </ng-template>

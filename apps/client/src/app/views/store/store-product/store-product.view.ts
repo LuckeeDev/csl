@@ -20,6 +20,9 @@ export class StoreProductView implements OnInit {
 	@Select(ProductsState.products)
 	products$: Observable<IProduct[]>;
 
+	@Select(ProductsState.loading)
+	loading$: Observable<boolean>;
+
 	images$: Observable<IImage[]>;
 
 	id: string;
