@@ -13,7 +13,7 @@ const UserSchema = new Schema(
 
 		courses: { type: Object },
 
-		gadgets: { type: Array },
+		cart: { type: Array },
 
 		isVice: { type: Boolean },
 		isRappre: { type: Boolean },

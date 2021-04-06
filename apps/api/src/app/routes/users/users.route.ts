@@ -9,6 +9,9 @@ import {
 	getClasses,
 } from '@controllers';
 import { User } from '@/models';
+import { me } from './me/me.route';
+
+router.use('/me', me);
 
 // Get all members in classes
 router.get('/', isPowerful, async (req: Request, res: Response) => {
