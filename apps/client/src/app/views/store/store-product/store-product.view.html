@@ -20,7 +20,7 @@
 	<div>
 		<h2>{{ product.name }}</h2>
 		<h4>{{ product.description }}</h4>
-		<p>Prezzo: {{ product.price }}€</p>
+		<p>Prezzo: {{ product.price / 100 | currency: 'EUR' }}</p>
 
 		<form [formGroup]="orderForm" class="form" (ngSubmit)="addToCart()">
 			<div class="quantity">
