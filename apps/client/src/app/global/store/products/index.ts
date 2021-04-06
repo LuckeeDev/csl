@@ -10,13 +10,27 @@ import { forkJoin, Observable } from 'rxjs';
 import { filter, map, retryWhen, switchMap } from 'rxjs/operators';
 
 export namespace Products {
+	/**
+	 * Default action to load all available products.
+	 */
 	export class GetAll {
 		static readonly type = '[Products] Get All';
 	}
 
+	/**
+	 * Load all images for a specific product.
+	 */
 	export class LoadImages {
 		static readonly type = '[Products] Load Images';
 		constructor(public id: IProduct['id']) {}
+	}
+
+	/**
+	 * Reload all products, useful for updating products after
+	 * a change.
+	 */
+	export class Reload {
+		static readonly type = '[Products] Reload';
 	}
 }
 
@@ -62,22 +76,7 @@ export class ProductsState {
 		const currentState = ctx.getState();
 
 		if (!currentState.products) {
-			ctx.patchState({ loading: true });
-
-			this._getAllProducts()
-				.pipe(
-					switchMap((products) => {
-						const productsWithPreview$ = products.map<Observable<IProduct>>(
-							(product) => this._getImageLinks(product, 1)
-						);
-
-						return forkJoin(productsWithPreview$);
-					})
-				)
-				.subscribe((products) => {
-					ctx.setState({ products, loading: false });
-					this._loadingBar.useRef('http').complete();
-				});
+			this._loadAllProducts(ctx);
 		}
 	}
 
@@ -96,7 +95,7 @@ export class ProductsState {
 		const product = currentState.products ? currentState.products[index] : null;
 
 		if (!currentState.products) {
-			this._getAllProducts()
+			this._getProducts()
 				.pipe(
 					switchMap((products) => {
 						const productsWithPreviews$ = products.map((product) => {
@@ -115,7 +114,7 @@ export class ProductsState {
 				)
 				.subscribe((products) => {
 					ctx.setState({ products, loading: false });
-					
+
 					this._loadingBar.useRef('http').complete();
 				});
 		} else if (
@@ -134,7 +133,39 @@ export class ProductsState {
 		}
 	}
 
-	private _getAllProducts() {
+	@Action(Products.Reload)
+	reloadProducts(ctx: StateContext<ProductsStateModel>) {
+		this._loadAllProducts(ctx);
+	}
+
+	/**
+	 * Load all products, used both when loading the first time and when reloading.
+	 * @param ctx the state context.
+	 */
+	private _loadAllProducts(ctx: StateContext<ProductsStateModel>) {
+		ctx.patchState({ loading: true });
+
+		this._getProducts()
+			.pipe(
+				switchMap((products) => {
+					const productsWithPreview$ = products.map<Observable<IProduct>>(
+						(product) => this._getImageLinks(product, 1)
+					);
+
+					return forkJoin(productsWithPreview$);
+				})
+			)
+			.subscribe((products) => {
+				ctx.setState({ products, loading: false });
+				this._loadingBar.useRef('http').complete();
+			});
+	}
+
+	/**
+	 * Helper method to call the service's `getAllProducts()` method.
+	 * @returns an observable which completes with the list of products.
+	 */
+	private _getProducts() {
 		return this.products.getAllProducts().pipe(
 			filter(({ success }) => success === true),
 			map(({ data: products }) => products)

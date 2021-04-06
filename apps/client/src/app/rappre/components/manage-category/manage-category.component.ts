@@ -1,98 +1,84 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '@global/services/products/products.service';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { IProduct } from '@csl/shared';
 import { DialogService, ToastrService } from '@csl/ui';
+import { Select, Store } from '@ngxs/store';
+import { Products, ProductsState } from '@/global/store/products';
+import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'csl-manage-category',
-  templateUrl: './manage-category.component.html',
-  styleUrls: ['./manage-category.component.scss'],
+	selector: 'csl-manage-category',
+	templateUrl: './manage-category.component.html',
+	styleUrls: ['./manage-category.component.scss'],
 })
 export class ManageCategoryComponent implements OnInit {
-  category: string;
-  products: IProduct[];
-  displayedColumns: string[];
+	category: string;
+	displayedColumns: string[];
 
-  constructor(
-    private productsService: ProductsService,
-    private activated: ActivatedRoute,
-    private dialog: DialogService,
-    private toastr: ToastrService
-  ) {}
+	@Select(ProductsState.products)
+	availableProducts$: Observable<IProduct[]>;
 
-  ngOnInit(): void {
-    this.activated.paramMap
-      .pipe(map((params) => params.get('category')))
-      .subscribe((value) => {
-        this.category = value;
+	products$: Observable<IProduct[]>;
 
-        if (value === 'gadgets') {
-          this.displayedColumns = [
-            'id',
-            'name',
-            'description',
-            'price',
-            'sizes',
-            'colors',
-            'options',
-          ];
+	constructor(
+		private productsService: ProductsService,
+		private activated: ActivatedRoute,
+		private dialog: DialogService,
+		private toastr: ToastrService,
+		private store: Store
+	) {}
 
-          this.productsService.getGadgets().subscribe((res: IProduct[]) => {
-            this.products = res;
-          });
-        } else if (value === 'photos') {
-          this.displayedColumns = [
-            'id',
-            'name',
-            'description',
-            'price',
-            'options',
-          ];
+	ngOnInit(): void {
+		this.store.dispatch(new Products.GetAll());
 
-          this.productsService.getPhotos().subscribe((res: IProduct[]) => {
-            this.products = res;
-          });
-        }
-      });
-  }
+		this.products$ = this.activated.paramMap.pipe(
+			map((params) => params.get('category') as IProduct['category']),
+			tap((category) => {
+				this.category = category;
 
-  deleteProduct(id) {
-    this.dialog
-      .open({
-        title: 'Sei sicuro di voler eliminare questo prodotto?',
-        text: 'Potrai ricrearlo dalla pagina per la creazione dei prodotti',
-        color: 'warn',
-        answer: 'Sì, elimina prodotto',
-      })
-      .subscribe(() => {
-        this.productsService.deleteProduct(id).subscribe((res) => {
-          if (res.success === true) {
-            this.toastr.show({
-              message: 'Prodotto eliminato',
-              color: 'accent',
-              action: 'Chiudi',
-              duration: 5000,
-            });
+				this.displayedColumns =
+					category === 'gadgets'
+						? ['name', 'description', 'price', 'sizes', 'colors', 'options']
+						: ['name', 'description', 'price', 'options'];
+			}),
+			switchMap((category) =>
+				this.availableProducts$.pipe(
+					filter((products) => (products ? true : false)),
+					map((products) => products.filter((x) => x.category === category))
+				)
+			)
+		);
+	}
 
-            if (this.category === 'gadgets') {
-              this.productsService
-                .getGadgets()
-                .subscribe((gadgets) => (this.products = gadgets));
-            } else if (this.category === 'photos') {
-              this.productsService
-                .getPhotos()
-                .subscribe((photos) => (this.products = photos));
-            }
-          } else if (res.success === false) {
-            this.toastr.showError();
-          }
-        });
-      });
-  }
+	deleteProduct(id: IProduct['id']) {
+		this.dialog
+			.open({
+				title: 'Sei sicuro di voler eliminare questo prodotto?',
+				text: 'Potrai ricrearlo dalla pagina per la creazione dei prodotti',
+				color: 'warn',
+				answer: 'Sì, elimina prodotto',
+			})
+			.subscribe(() => {
+				this.productsService.deleteProduct(id).subscribe((res) => {
+					if (res.success === true) {
+						this.toastr.show({
+							message: 'Prodotto eliminato',
+							color: 'accent',
+							action: 'Chiudi',
+							duration: 5000,
+						});
 
-  displayColumn(column) {
-    return this.displayedColumns.includes(column);
-  }
+						this.store.dispatch(new Products.Reload());
+					} else if (res.success === false) {
+						this.toastr.showError();
+					}
+				});
+			});
+	}
+
+	displayColumn(column: string) {
+		return this.displayedColumns.includes(column);
+	}
 }
