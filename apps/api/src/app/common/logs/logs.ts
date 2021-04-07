@@ -1,44 +1,20 @@
-import winston from 'winston';
-import { MongoDB } from 'winston-mongodb';
-import { environment as env } from '@environments/environment';
+import { environment } from '@environments/environment';
 import { ILogMetadata } from '@csl/shared';
-
-const eventLogger = winston.createLogger({
-  transports: [
-    new MongoDB({
-      level: 'info',
-      db: env.DB_URI,
-      options: {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      },
-      collection: 'events',
-      name: 'info-transport',
-      tryReconnect: true,
-    }),
-  ],
-});
+import { devErrorLogger, devEventLogger } from './dev';
+import { prodErrorLogger, prodEventLogger } from './prod';
 
 export const saveEvent = (msg: string, metadata: ILogMetadata) => {
-  eventLogger.log('info', msg, { metadata });
+	if (environment.ENVIRONMENT === 'dev') {
+		devEventLogger.log('info', { msg, ...metadata });
+	} else if (environment.ENVIRONMENT === 'prod') {
+		prodEventLogger.log('info', msg, { metadata });
+	}
 };
 
-const errorLogger = winston.createLogger({
-  transports: [
-    new MongoDB({
-      level: 'error',
-      db: env.DB_URI,
-      options: {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      },
-      collection: 'errors',
-      name: 'errors-transport',
-      tryReconnect: true,
-    }),
-  ],
-});
-
 export const saveError = (msg: string, metadata: ILogMetadata) => {
-  errorLogger.log('error', msg, { metadata });
+	if (environment.ENVIRONMENT === 'dev') {
+		devErrorLogger.log('error', { msg, ...metadata });
+	} else if (environment.ENVIRONMENT === 'prod') {
+		prodErrorLogger.log('error', msg, { metadata });
+	}
 };

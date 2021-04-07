@@ -6,7 +6,7 @@ export const environment = {
 	PORT: process.env.PORT,
 	DB_URI: process.env.DB_URI,
 
-	ENVIRONMENT: 'prod',
+	ENVIRONMENT: 'prod' as 'dev' | 'prod',
 
 	GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
 	GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
