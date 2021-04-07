@@ -56,7 +56,8 @@ export class ManageCategoryComponent implements OnInit {
 		this.dialog
 			.open({
 				title: 'Sei sicuro di voler eliminare questo prodotto?',
-				text: 'Potrai ricrearlo dalla pagina per la creazione dei prodotti',
+				text:
+					'Tutti gli studenti che hanno acquistato questo prodotto perderanno il loro ordine.',
 				color: 'warn',
 				answer: 'Sì, elimina prodotto',
 			})

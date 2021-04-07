@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { DialogService, ToastrService } from '@csl/ui';
 import { ProductsService } from '@/global/services/products/products.service';
-import { IProduct } from '@csl/shared';
+import { IProduct, TSize } from '@csl/shared';
 import { switchMap, tap } from 'rxjs/operators';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 
@@ -58,6 +58,19 @@ export class NewProductView {
 	// Get colors in Form Group
 	get colors() {
 		return this.productForm.get('colors') as FormArray;
+	}
+
+	get selectedSizesString(): string {
+		const form = this.productForm.value as { sizes: Record<TSize, boolean> };
+
+		const sizes = Object.entries(form.sizes) as [TSize, boolean][];
+
+		const result = sizes
+			.filter(([, value]) => value === true)
+			.map(([size]) => size)
+			.join(', ');
+
+		return result;
 	}
 
 	// Add a color to the form array

@@ -24,11 +24,9 @@
 
 			<ng-container matColumnDef="sizes">
 				<mat-header-cell *matHeaderCellDef>Taglie</mat-header-cell>
-				<mat-cell *matCellDef="let product"
-					><ng-container *ngFor="let size of product.sizes"
-						>{{ size }};
-					</ng-container></mat-cell
-				>
+				<mat-cell *matCellDef="let product">
+					{{ product.sizes.join(', ') }}
+				</mat-cell>
 			</ng-container>
 
 			<ng-container matColumnDef="colors">
