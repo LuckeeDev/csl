@@ -1,27 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { AuthState } from '@/global/store/auth';
+import { Component } from '@angular/core';
+import { IUser } from '@csl/shared';
 import { DialogService } from '@csl/ui';
 import { AuthService } from '@global/services/auth/auth.service';
+import { Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-vice-home',
-  templateUrl: './vice-home.component.html',
-  styleUrls: ['./vice-home.component.scss'],
+	selector: 'csl-vice-home',
+	templateUrl: './vice-home.component.html',
+	styleUrls: ['./vice-home.component.scss'],
 })
-export class ViceHomeComponent implements OnInit {
-  constructor(private dialog: DialogService, public auth: AuthService) {}
+export class ViceHomeComponent {
+	@Select(AuthState.user)
+	user$: Observable<IUser>;
 
-  ngOnInit(): void {}
+	constructor(private dialog: DialogService, private auth: AuthService) {}
 
-  signOut() {
-    this.dialog
-      .open({
-        title: 'Sei sicuro di voler uscire?',
-        text: 'Ciò che stavi facendo potrebbe non essere salvato',
-        color: 'warn',
-        answer: 'Sì, esci',
-      })
-      .subscribe((res) => {
-        this.auth.signOut();
-      });
-  }
+	signOut() {
+		this.dialog
+			.open({
+				title: 'Sei sicuro di voler uscire?',
+				text: 'Ciò che stavi facendo potrebbe non essere salvato',
+				color: 'warn',
+				answer: 'Sì, esci',
+			})
+			.subscribe(() => {
+				this.auth.signOut();
+			});
+	}
 }

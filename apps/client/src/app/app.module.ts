@@ -67,6 +67,7 @@ import { ApiInterceptor } from '@global/http/api.interceptor';
 
 // Stores
 import { ProductsState } from './global/store/products';
+import { AuthState } from './global/store/auth';
 
 registerLocaleData(ITLocaleData);
 
@@ -113,7 +114,7 @@ registerLocaleData(ITLocaleData);
 		PipesModule,
 		SharedModule,
 		HttpClientModule,
-		NgxsModule.forRoot([ProductsState], { developmentMode: !environment.production }),
+		NgxsModule.forRoot([AuthState, ProductsState], { developmentMode: !environment.production }),
 		LoadingBarModule,
 		LoadingBarHttpClientModule,
 		MarkdownModule.forRoot(),

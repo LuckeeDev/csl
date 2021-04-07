@@ -77,7 +77,7 @@
 				<li class="item button">
 					<a
 						mat-raised-button
-						*ngIf="auth.user$ | async as user; else login"
+						*ngIf="user$ | async as user; else login"
 						[routerLink]="['dashboard']"
 						class="profile-link"
 					>

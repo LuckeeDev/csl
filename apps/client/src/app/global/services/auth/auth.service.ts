@@ -1,10 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IHttpRes, IUser } from '@csl/shared';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from '@environments/environment';
+
+/**
+ * The `user` object is on a nested property because we might need
+ * to also fetch the Firebase custom token.
+ */
+interface UserResponse {
+	user: IUser;
+	token?: string;
+}
+
+/**
+ * Choose whether to retrieve Firebase token or not.
+ */
+interface UserRequestOptions {
+	firebaseToken?: boolean;
+}
 
 @Injectable({
 	providedIn: 'root',
@@ -37,42 +53,34 @@ export class AuthService {
 		);
 	}
 
-	get user$(): Observable<IUser> {
-		return this._userSubject$
-			.asObservable()
-			.pipe(map((value) => (value === undefined ? null : value)));
-	}
+	// get user$(): Observable<IUser> {
+	// 	return this._userSubject$
+	// 		.asObservable()
+	// 		.pipe(map((value) => (value === undefined ? null : value)));
+	// }
 
 	get firebaseAuthToken$(): Observable<string> {
 		return this._tokenSubject$.asObservable();
 	}
 
-	getUser(): Observable<IUser> {
-		return this.http
-			.get<IHttpRes<{ user: IUser; token: string }>>('/auth')
-			.pipe(
-				map((res) => {
-					const user = res.success === true ? res.data.user : null;
+	getUser(options?: UserRequestOptions): Observable<IHttpRes<UserResponse>> {
+		/**
+		 * Request Firebase signIn token alongside with the user object
+		 * if `options.firebaseToken` is set to `true`.
+		 */
+		const queryString = options.firebaseToken
+			? '/users/me?firebase=true'
+			: '/users/me';
 
-					if (res.success === true) {
-						const token = res.data.token;
-						this.fireAuth
-							.signInWithCustomToken(res.data.token)
-							.then(() => {
-								this._tokenSubject$.next(token);
-							});
-					}
-
-					this._checkUserSubject$.next(user);
-					this._userSubject$.next(user);
-
-					return user;
-				})
-			);
+		return this.http.get<IHttpRes<UserResponse>>(queryString);
 	}
 
 	signIn(next?: string): void {
 		window.location.replace(`${environment.api}/auth/${next || 'dashboard'}`);
+	}
+
+	firebaseSignIn(token: string) {
+		return from(this.fireAuth.signInWithCustomToken(token));
 	}
 
 	signOut(): void {

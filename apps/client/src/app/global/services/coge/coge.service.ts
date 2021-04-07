@@ -1,6 +1,8 @@
+import { AuthState } from '@/global/store/auth';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ICourse, IHttpRes } from '@csl/shared';
+import { ICourse, IHttpRes, IUser } from '@csl/shared';
+import { Select } from '@ngxs/store';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
@@ -42,10 +44,13 @@ export class CogeService {
 		ICourse[]
 	> = new BehaviorSubject([]);
 
+	@Select(AuthState.user)
+	user$: Observable<IUser>;
+
 	constructor(private http: HttpClient, private auth: AuthService) {
 		this.availableCourses$ = this.availableCoursesSubject$.asObservable();
 
-		const courses$ = this.auth.user$.pipe(
+		const courses$ = this.user$.pipe(
 			map((user) => (user && user.courses ? user.courses : [])),
 			map((courses) => {
 				return Object.entries(courses) as [ICourse['slot'], ICourse['id']][];

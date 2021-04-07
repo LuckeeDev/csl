@@ -1,6 +1,9 @@
+import { AuthState } from '@/global/store/auth';
+import { firstDifferentThan } from '@/utils/operators/firstDifferentThan';
 import { Injectable } from '@angular/core';
 import { CanActivate, UrlTree, Router } from '@angular/router';
-import { AuthService } from '@global/services/auth/auth.service';
+import { IUser } from '@csl/shared';
+import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -8,14 +11,18 @@ import { map } from 'rxjs/operators';
 	providedIn: 'root',
 })
 export class NotLoggedInGuard implements CanActivate {
-	constructor(private auth: AuthService, private router: Router) {}
+	@Select(AuthState.user)
+	user$: Observable<IUser>;
+
+	constructor(private router: Router) {}
 
 	canActivate():
 		| Observable<boolean | UrlTree>
 		| Promise<boolean | UrlTree>
 		| boolean
 		| UrlTree {
-		return this.auth.userCheck$.pipe(
+		return this.user$.pipe(
+			firstDifferentThan(undefined),
 			map((user) => (user === null ? true : this.router.parseUrl('dashboard')))
 		);
 	}

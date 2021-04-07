@@ -2,7 +2,10 @@ import { Component, Input } from '@angular/core';
 
 import { AuthService } from '@global/services/auth/auth.service';
 
-import { IDashboardLink } from '@csl/shared';
+import { IDashboardLink, IUser } from '@csl/shared';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@/global/store/auth';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'csl-wrapper',
@@ -12,6 +15,9 @@ import { IDashboardLink } from '@csl/shared';
 export class WrapperComponent {
 	@Input()
 	v: string;
+
+	@Select(AuthState.user)
+	user$: Observable<IUser>;
 
 	toggled = false;
 

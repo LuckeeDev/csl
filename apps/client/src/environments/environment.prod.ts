@@ -19,4 +19,4 @@ export const googleClientID =
 	'1009075509409-mtc8n4t9h28c33gmcg846ap0fi23un0u.apps.googleusercontent.com';
 
 export const stripeKey =
-	'pk_test_51Gs9PpH9PqQvGDtCMgoZxwnAn3mDNrt3tAFrnMiqhdt0dDcz9i6mk9WcXXwaq3Nlh8ane1H3bPs9AVqLmiFrRprk00lKK6P5O6';
+	'pk_live_51IdKEIGOCkq3vDlRLnQ5SYYsSxSg3JRYgJBOw9PL5J9UX7aIL1OUQs8GsgJGEjLfb45K4e9jXaWxKe2k1T0TH4Ca00kUuVUxAf';

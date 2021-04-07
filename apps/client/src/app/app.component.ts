@@ -1,9 +1,10 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { AuthService } from '@global/services/auth/auth.service';
 import { SwService } from '@global/services/sw/sw.service';
 import { ToastrService } from '@csl/ui';
 import PackageJSON from '../../../../package.json';
 import { PageService } from '@global/services/page/page.service';
+import { Store } from '@ngxs/store';
+import { Auth } from './global/store/auth';
 
 @Component({
 	selector: 'csl-root',
@@ -32,14 +33,14 @@ export class AppComponent implements OnInit {
 	}
 
 	constructor(
-		private auth: AuthService,
 		public sw: SwService,
 		private toastr: ToastrService,
-		private page: PageService
+		private page: PageService,
+		private store: Store
 	) {}
 
 	ngOnInit(): void {
-		this.auth.getUser().subscribe();
+		this.store.dispatch(new Auth.GetUser({ firebaseToken: true }));
 
 		this.page.setupTitleChange();
 	}

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { CommissioniService } from '@global/services/commissioni/commissioni.service';
 
 import EditorJS from '@editorjs/editorjs';
@@ -8,243 +8,253 @@ import List from '@editorjs/list';
 import Image from '@editorjs/image';
 import HyperLink from 'editorjs-hyperlink';
 
-import { ICommissione } from '@csl/shared';
+import { ICommissione, IUser } from '@csl/shared';
 import { DialogService, ToastrService } from '@csl/ui';
 import { AuthService } from '@global/services/auth/auth.service';
 import { map, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { environment } from '@environments/environment';
+import { Select } from '@ngxs/store';
+import { AuthState } from '@/global/store/auth';
+import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'csl-editor',
-  templateUrl: './page-editor.component.html',
-  styleUrls: ['./page-editor.component.scss'],
+	selector: 'csl-page-editor',
+	templateUrl: './page-editor.component.html',
+	styleUrls: ['./page-editor.component.scss'],
 })
-export class PageEditorComponent implements AfterViewInit, OnInit {
-  editor: EditorJS;
+export class PageEditorComponent implements AfterViewInit {
+	@Select(AuthState.user)
+	user$: Observable<IUser>;
 
-  commissione: ICommissione;
+	editor: EditorJS;
 
-  displayedColumns: string[] = ['name', 'manage'];
+	commissione: ICommissione;
 
-  getDisplayName(file: string): string {
-    const nameArray = file.split('_');
-    nameArray.shift();
+	displayedColumns: string[] = ['name', 'manage'];
 
-    return nameArray.join('_');
-  }
+	getDisplayName(file: string): string {
+		const nameArray = file.split('_');
+		nameArray.shift();
 
-  constructor(
-    private commissioni: CommissioniService,
-    private dialog: DialogService,
-    private toastr: ToastrService,
-    private auth: AuthService,
-    private router: Router,
-    private afs: AngularFireStorage,
-  ) {}
+		return nameArray.join('_');
+	}
 
-  ngOnInit(): void {}
+	constructor(
+		private commissioni: CommissioniService,
+		private dialog: DialogService,
+		private toastr: ToastrService,
+		private auth: AuthService,
+		private router: Router,
+		private afs: AngularFireStorage
+	) {}
 
-  ngAfterViewInit(): void {
-    this.auth.user$
-      .pipe(
-        map((user) => {
-          if (this.router.url.includes('rappre') && user.isRappre) {
-            return 'comitato';
-          } else if (this.router.url.includes('referente')) {
-            return user.isReferente;
-          }
-        }),
-        switchMap((id) => this.commissioni.getPage(id))
-      )
-      .subscribe((res) => {
-        this.commissione = res.data;
+	ngAfterViewInit(): void {
+		this.user$
+			.pipe(
+				map((user) => {
+					if (this.router.url.includes('rappre') && user.isRappre) {
+						return 'comitato';
+					} else if (this.router.url.includes('referente')) {
+						return user.isReferente;
+					}
+				}),
+				switchMap((id) => this.commissioni.getPage(id))
+			)
+			.subscribe((res) => {
+				this.commissione = res.data;
 
-        this.editor = new EditorJS({
-          holder: 'editorjs',
+				this.editor = new EditorJS({
+					holder: 'editorjs',
 
-          data: this.commissione.page ? this.commissione.page : null,
+					data: this.commissione.page ? this.commissione.page : null,
 
-          tools: {
-            header: {
-              class: Header,
-              shortcut: 'CTRL+ALT+T',
-              inlineToolbar: ['bold', 'italic', 'hyperlink'],
-              config: {
-                placeholder: 'Titolo',
-                levels: [1, 2, 3],
-                defaultLevel: 1,
-              },
-            },
-            paragraph: {
-              class: Paragraph,
-              shortcut: 'CTRL+ALT+Q',
-              inlineToolbar: ['bold', 'italic', 'hyperlink'],
-              config: {
-                placeholder: 'Testo',
-              },
-            },
-            list: {
-              class: List,
-              shortcut: 'CTRL+ALT+W',
-              inlineToolbar: ['bold', 'italic', 'hyperlink'],
-            },
-            image: {
-              class: Image,
-              shortcut: 'CTRL+ALT+I',
-              inlineToolbar: ['bold', 'italic', 'hyperlink'],
-              config: {
-                endpoints: {
-                  byFile: `${environment.api}/commissioni/${this.commissione.id}/image`,
-                },
-              },
-            },
-            hyperlink: {
-              class: HyperLink,
-              config: {
-                availableTargets: ['_blank', '_self'],
-                availableRels: ['external'],
-                target: '_blank',
-                rel: 'external',
-              },
-            },
-          },
+					tools: {
+						header: {
+							class: Header,
+							shortcut: 'CTRL+ALT+T',
+							inlineToolbar: ['bold', 'italic', 'hyperlink'],
+							config: {
+								placeholder: 'Titolo',
+								levels: [1, 2, 3],
+								defaultLevel: 1,
+							},
+						},
+						paragraph: {
+							class: Paragraph,
+							shortcut: 'CTRL+ALT+Q',
+							inlineToolbar: ['bold', 'italic', 'hyperlink'],
+							config: {
+								placeholder: 'Testo',
+							},
+						},
+						list: {
+							class: List,
+							shortcut: 'CTRL+ALT+W',
+							inlineToolbar: ['bold', 'italic', 'hyperlink'],
+						},
+						image: {
+							class: Image,
+							shortcut: 'CTRL+ALT+I',
+							inlineToolbar: ['bold', 'italic', 'hyperlink'],
+							config: {
+								endpoints: {
+									byFile: `${environment.api}/commissioni/${this.commissione.id}/image`,
+								},
+							},
+						},
+						hyperlink: {
+							class: HyperLink,
+							config: {
+								availableTargets: ['_blank', '_self'],
+								availableRels: ['external'],
+								target: '_blank',
+								rel: 'external',
+							},
+						},
+					},
 
-          defaultBlock: 'paragraph',
+					defaultBlock: 'paragraph',
 
-          i18n: {
-            messages: {
-              toolNames: {
-                Text: 'Paragrafo',
-                Heading: 'Titolo',
-                List: 'Elenco',
-                Image: 'Immagine',
-                Bold: 'Grassetto',
-                Italic: 'Corsivo',
-                Hyperlink: 'Link',
-              },
-              tools: {
-                list: {
-                  Ordered: 'Numerato',
-                  Unordered: 'Non numerato',
-                },
-                image: {
-                  'Select an Image': "Carica un'immagine",
-                  'With border': 'Con bordo',
-                  'Stretch image': 'Allarga immagine',
-                  'With background': 'Con sfondo',
-                },
-                link: {
-                  'Add a link': 'Aggiungi un link',
-                },
-                hyperlink: {
-                  Save: 'Salva',
-                  'Select target': 'Seleziona destinazione',
-                  'Select rel': 'Seleziona relazione',
-                },
-              },
-              blockTunes: {
-                delete: { Delete: 'Elimina' },
-                moveUp: { 'Move up': 'Sposta su' },
-                moveDown: { 'Move down': 'Sposta giù' },
-              },
-              ui: {
-                blockTunes: {
-                  toggler: {
-                    'Click to tune': 'Modifica',
-                  },
-                },
-                inlineToolbar: {
-                  converter: {
-                    'Convert to': 'Converti in',
-                  },
-                },
-                toolbar: {
-                  toolbox: {
-                    Add: 'Aggiungi',
-                  },
-                },
-              },
-            },
-          },
+					i18n: {
+						messages: {
+							toolNames: {
+								Text: 'Paragrafo',
+								Heading: 'Titolo',
+								List: 'Elenco',
+								Image: 'Immagine',
+								Bold: 'Grassetto',
+								Italic: 'Corsivo',
+								Hyperlink: 'Link',
+							},
+							tools: {
+								list: {
+									Ordered: 'Numerato',
+									Unordered: 'Non numerato',
+								},
+								image: {
+									'Select an Image': "Carica un'immagine",
+									'With border': 'Con bordo',
+									'Stretch image': 'Allarga immagine',
+									'With background': 'Con sfondo',
+								},
+								link: {
+									'Add a link': 'Aggiungi un link',
+								},
+								hyperlink: {
+									Save: 'Salva',
+									'Select target': 'Seleziona destinazione',
+									'Select rel': 'Seleziona relazione',
+								},
+							},
+							blockTunes: {
+								delete: { Delete: 'Elimina' },
+								moveUp: { 'Move up': 'Sposta su' },
+								moveDown: { 'Move down': 'Sposta giù' },
+							},
+							ui: {
+								blockTunes: {
+									toggler: {
+										'Click to tune': 'Modifica',
+									},
+								},
+								inlineToolbar: {
+									converter: {
+										'Convert to': 'Converti in',
+									},
+								},
+								toolbar: {
+									toolbox: {
+										Add: 'Aggiungi',
+									},
+								},
+							},
+						},
+					},
 
-          autofocus: true,
-        });
-      });
-  }
+					autofocus: true,
+				});
+			});
+	}
 
-  uploadPDF(e) {
-    const pdf = e.target.files[0];
+	uploadPDF(e) {
+		const pdf = e.target.files[0];
 
-    const fileName = `${Date.now()}_${pdf.name}`;
+		const fileName = `${Date.now()}_${pdf.name}`;
 
-    this.afs
-      .ref(`commissioni/${this.commissione.id}/pdf/${fileName}`)
-      .put(pdf)
-      .then(() => {
-        this.commissioni.addPDF(fileName, this.commissione.id)
-          .subscribe((res) => {
-            if (res.success) {
-              this.commissione.files = res.data;
+		this.afs
+			.ref(`commissioni/${this.commissione.id}/pdf/${fileName}`)
+			.put(pdf)
+			.then(() => {
+				this.commissioni
+					.addPDF(fileName, this.commissione.id)
+					.subscribe((res) => {
+						if (res.success) {
+							this.commissione.files = res.data;
 
-              this.toastr.show({
-                color: 'basic',
-                message: 'PDF caricato con successo',
-              });
-            } else {
-              this.toastr.showError();
-            }
-          });
-      })
-      .catch(() => {
-        this.toastr.showError();
-      });
-  }
+							this.toastr.show({
+								color: 'basic',
+								message: 'PDF caricato con successo',
+							});
+						} else {
+							this.toastr.showError();
+						}
+					});
+			})
+			.catch(() => {
+				this.toastr.showError();
+			});
+	}
 
-  deletePDF(file: string) {
-    this.dialog.open({
-      title: `Eliminare il file?`,
-      text: 'Questa azione non potrà più essere annullata',
-      answer: 'Sì, elimina',
-      color: 'warn'
-    }).pipe(
-      switchMap(() => this.commissioni.removePDF(file, this.commissione.id))
-    ).subscribe((res) => {
-      if (res.success) {
-        this.commissione.files = res.data;
+	deletePDF(file: string) {
+		this.dialog
+			.open({
+				title: `Eliminare il file?`,
+				text: 'Questa azione non potrà più essere annullata',
+				answer: 'Sì, elimina',
+				color: 'warn',
+			})
+			.pipe(
+				switchMap(() => this.commissioni.removePDF(file, this.commissione.id))
+			)
+			.subscribe((res) => {
+				if (res.success) {
+					this.commissione.files = res.data;
 
-        this.toastr.show({
-          color: 'basic',
-          message: `File rimosso con successo`,
-        });
-      } else {
-        this.toastr.showError();
-      }
-    })
-  }
+					this.toastr.show({
+						color: 'basic',
+						message: `File rimosso con successo`,
+					});
+				} else {
+					this.toastr.showError();
+				}
+			});
+	}
 
-  save() {
-    this.dialog
-      .open({
-        title: 'Salvare pagina?',
-        text: 'Potrai tornare quando vorrai per modificarla',
-        answer: 'Salva',
-        color: 'primary',
-      })
-      .subscribe(() => {
-        this.editor.save().then((page: ICommissione['page']) => {
-          this.commissioni.savePage(this.commissione.id, page).subscribe((res) => {
-            if (res.success) {
-              this.toastr.show({
-                color: 'success',
-                message: 'Pagina salvata',
-              });
-            } else {
-              this.toastr.showError();
-            }
-          });
-        });
-      });
-  }
+	save() {
+		this.dialog
+			.open({
+				title: 'Salvare pagina?',
+				text: 'Potrai tornare quando vorrai per modificarla',
+				answer: 'Salva',
+				color: 'primary',
+			})
+			.subscribe(() => {
+				this.editor.save().then((page: ICommissione['page']) => {
+					this.commissioni
+						.savePage(this.commissione.id, page)
+						.subscribe((res) => {
+							if (res.success) {
+								this.toastr.show({
+									color: 'success',
+									message: 'Pagina salvata',
+								});
+							} else {
+								this.toastr.showError();
+							}
+						});
+				});
+			});
+	}
 }

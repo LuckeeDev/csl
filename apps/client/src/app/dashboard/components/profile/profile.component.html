@@ -1,4 +1,4 @@
-<csl-dashboard-home *ngIf="auth.user$ | async as user" [user]="user">
+<csl-dashboard-home *ngIf="user$ | async as user" [user]="user">
   <span header>I tuoi dati</span>
 
   <span activities-label>Le tue attività</span>

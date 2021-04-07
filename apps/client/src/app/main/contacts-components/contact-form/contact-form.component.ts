@@ -1,95 +1,101 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogService, ToastrService } from '@csl/ui';
-import { IBugData } from '@csl/shared';
+import { IBugData, IUser } from '@csl/shared';
 import { ReportsService } from '@global/services/reports/reports.service';
 import { Router } from '@angular/router';
 import { AuthService } from '@global/services/auth/auth.service';
 import { isClassID } from '@global/validators';
+import { AuthState } from '@/global/store/auth';
+import { Observable } from 'rxjs';
+import { Select } from '@ngxs/store';
 
 @Component({
-  selector: 'csl-contact-form',
-  templateUrl: './contact-form.component.html',
-  styleUrls: ['./contact-form.component.scss'],
+	selector: 'csl-contact-form',
+	templateUrl: './contact-form.component.html',
+	styleUrls: ['./contact-form.component.scss'],
 })
 export class ContactFormComponent implements OnInit {
-  isLinear = false;
-  form: FormGroup;
+	@Select(AuthState.user)
+	user$: Observable<IUser>;
 
-  isSignedIn: boolean;
+	isLinear = false;
+	form: FormGroup;
 
-  categories: string[] = ['Tecnico', 'Visivo', 'Altro'];
+	isSignedIn: boolean;
 
-  constructor(
-    private fb: FormBuilder,
-    private dialog: DialogService,
-    private toastr: ToastrService,
-    private reports: ReportsService,
-    private router: Router,
-    public auth: AuthService
-  ) {}
+	categories: string[] = ['Tecnico', 'Visivo', 'Altro'];
 
-  ngOnInit() {
-    this.form = this.fb.group({
-      firstStep: this.fb.group({
-        category: ['', Validators.required],
-      }),
-      secondStep: this.fb.group({
-        description: ['', Validators.required],
-        context: ['', Validators.required],
-      }),
-      contactInfo: this.fb.group({
-        name: ['', Validators.required],
-        classID: ['', [Validators.required, isClassID]],
-      }),
-    });
+	constructor(
+		private fb: FormBuilder,
+		private dialog: DialogService,
+		private toastr: ToastrService,
+		private reports: ReportsService,
+		private router: Router,
+		public auth: AuthService
+	) {}
 
-    this.auth.user$.subscribe((user) => {
-      if (user) {
-        this.isSignedIn = true;
+	ngOnInit() {
+		this.form = this.fb.group({
+			firstStep: this.fb.group({
+				category: ['', Validators.required],
+			}),
+			secondStep: this.fb.group({
+				description: ['', Validators.required],
+				context: ['', Validators.required],
+			}),
+			contactInfo: this.fb.group({
+				name: ['', Validators.required],
+				classID: ['', [Validators.required, isClassID]],
+			}),
+		});
 
-        this.form.removeControl('contactInfo');
-      } else {
-        this.isSignedIn = false;
-      }
-    });
-  }
+		this.user$.subscribe((user) => {
+			if (user) {
+				this.isSignedIn = true;
 
-  log() {
-    console.log(this.form.value);
-  }
+				this.form.removeControl('contactInfo');
+			} else {
+				this.isSignedIn = false;
+			}
+		});
+	}
 
-  submit() {
-    this.dialog
-      .open({
-        title: 'Confermare invio modulo?',
-        text: 'Riceverai una notifica appena risolveremo il problema segnalato',
-        answer: 'Conferma',
-        color: 'primary',
-      })
-      .subscribe(() => {
-        const { firstStep, secondStep } = this.form.value;
+	log() {
+		console.log(this.form.value);
+	}
 
-        const bugData: IBugData = {
-          ...firstStep,
-          ...secondStep,
-        };
+	submit() {
+		this.dialog
+			.open({
+				title: 'Confermare invio modulo?',
+				text: 'Riceverai una notifica appena risolveremo il problema segnalato',
+				answer: 'Conferma',
+				color: 'primary',
+			})
+			.subscribe(() => {
+				const { firstStep, secondStep } = this.form.value;
 
-        const contactInfo =
-          this.isSignedIn === false ? this.form.value.contactInfo : null;
+				const bugData: IBugData = {
+					...firstStep,
+					...secondStep,
+				};
 
-        this.reports.sendBugReport(bugData, contactInfo).subscribe((res) => {
-          if (res.success === true) {
-            this.toastr.show({
-              message: 'Segnalazione inviata',
-              color: 'success',
-            });
-          } else if (res.success === false) {
-            this.toastr.showError();
-          }
+				const contactInfo =
+					this.isSignedIn === false ? this.form.value.contactInfo : null;
 
-          this.router.navigate(['..', 'info']);
-        });
-      });
-  }
+				this.reports.sendBugReport(bugData, contactInfo).subscribe((res) => {
+					if (res.success === true) {
+						this.toastr.show({
+							message: 'Segnalazione inviata',
+							color: 'success',
+						});
+					} else if (res.success === false) {
+						this.toastr.showError();
+					}
+
+					this.router.navigate(['..', 'info']);
+				});
+			});
+	}
 }

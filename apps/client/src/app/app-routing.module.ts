@@ -107,24 +107,14 @@ const routes: Routes = [
 				component: StoreProductView,
 			},
 		],
+		data: { title: 'Store' },
 	},
-	// {
-	//   path: 'bar',
-	//   canActivate: [LoggedInGuard],
-	//   component: BarComponent,
-	//   children: [
-	//     { path: '', component: SnacksComponent },
-	//     { path: 'cart', component: SnackCartComponent },
-	//   ],
-	// },
 	{
 		path: 'dashboard',
 		data: { title: 'Dashboard' },
 		canLoad: [LoggedInGuard],
 		loadChildren: () =>
-			import('@dashboard/dashboard.module').then(
-				(m) => m.DashboardModule
-			),
+			import('@dashboard/dashboard.module').then((m) => m.DashboardModule),
 	},
 	{
 		path: 'qp-admin',
@@ -138,9 +128,7 @@ const routes: Routes = [
 		data: { title: 'Referente' },
 		canLoad: [ReferenteGuard],
 		loadChildren: () =>
-			import('@referente/referente.module').then(
-				(m) => m.ReferenteModule
-			),
+			import('@referente/referente.module').then((m) => m.ReferenteModule),
 	},
 	// {
 	//   path: 'bar-admin',
@@ -159,8 +147,7 @@ const routes: Routes = [
 		path: 'vice',
 		data: { title: 'Vice' },
 		canLoad: [ViceGuard],
-		loadChildren: () =>
-			import('@vice/vice.module').then((m) => m.ViceModule),
+		loadChildren: () => import('@vice/vice.module').then((m) => m.ViceModule),
 	},
 	{
 		path: 'admin',
@@ -190,9 +177,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-	imports: [
-		RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
-	],
+	imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
 	exports: [RouterModule],
 })
 export class AppRoutingModule {}
