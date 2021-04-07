@@ -87,10 +87,6 @@ export class StoreOrdersView implements OnInit {
 			this.category === 'gadgets'
 				? ['name', 'quantity', 'size', 'color']
 				: ['name', 'quantity'];
-
-		if (!this.orders[this.category]) {
-			this.orders.getOrders();
-		}
 	}
 
 	deleteOrder(product: ProductInUserCart) {
