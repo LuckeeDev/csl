@@ -17,9 +17,9 @@
 
 			<ng-container matColumnDef="price">
 				<mat-header-cell *matHeaderCellDef>Prezzo</mat-header-cell>
-				<mat-cell *matCellDef="let product">{{
-					product.price / 100 | currency: 'EUR'
-				}}</mat-cell>
+				<mat-cell *matCellDef="let product"
+					>{{ product.price / 100 | currency: 'EUR' }}</mat-cell
+				>
 			</ng-container>
 
 			<ng-container matColumnDef="sizes">

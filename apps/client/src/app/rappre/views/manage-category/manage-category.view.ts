@@ -10,10 +10,10 @@ import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'csl-manage-category',
-	templateUrl: './manage-category.component.html',
-	styleUrls: ['./manage-category.component.scss'],
+	templateUrl: './manage-category.view.html',
+	styleUrls: ['./manage-category.view.scss'],
 })
-export class ManageCategoryComponent implements OnInit {
+export class ManageCategoryView implements OnInit {
 	category: string;
 	displayedColumns: string[];
 
