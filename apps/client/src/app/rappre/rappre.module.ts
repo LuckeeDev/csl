@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RappreRoutingModule } from './rappre-routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { NgxsModule } from '@ngxs/store';
-import { ProductsState } from '@/global/store/products';
 
 // UI Elements
 import { UiModule } from '@csl/ui';
@@ -44,7 +42,6 @@ import { PipesModule } from '@global/pipes/pipes.module';
 		SharedModule,
 		UiModule,
 		PipesModule,
-		NgxsModule.forFeature([ProductsState]),
 	],
 })
 export class RappreModule {}
