@@ -7,10 +7,10 @@ import { IProduct } from '@csl/shared';
 
 @Component({
 	selector: 'csl-orders',
-	templateUrl: './orders.component.html',
-	styleUrls: ['./orders.component.scss'],
+	templateUrl: './store-orders.view.html',
+	styleUrls: ['./store-orders.view.scss'],
 })
-export class OrdersComponent implements OnInit {
+export class StoreOrdersView implements OnInit {
 	category: IProduct['category'];
 	displayedColumns: string[];
 

@@ -20,11 +20,12 @@ import { ComitatoHomeComponent } from '@main/comitato-components/comitato-home/c
 import { ContactFormComponent } from '@main/contacts-components/contact-form/contact-form.component';
 import { LoginComponent } from '@main/errors/login/login.component';
 import { MdComponent } from '@shared/components/md/md.component';
-
 import { StoreView } from './views/store/store.view';
 import { StoreHomeView } from './views/store/store-home/store-home.view';
 import { StoreCatalogView } from './views/store/store-catalog/store-catalog.view';
 import { StoreProductView } from './views/store/store-product/store-product.view';
+import { StoreOrdersView } from './views/store/store-orders/store-orders.view';
+import { CategoryComponent } from './global/components/category/category.component';
 
 // Guards
 import { RappreGuard } from '@global/guards/rappre/rappre.guard';
@@ -99,6 +100,18 @@ const routes: Routes = [
 		children: [
 			{ path: '', component: StoreHomeView },
 			{
+				path: 'summary',
+				component: CategoryComponent,
+			},
+			{
+				path: 'summary/gadgets',
+				component: StoreOrdersView,
+			},
+			{
+				path: 'summary/photos',
+				component: StoreOrdersView,
+			},
+			{
 				path: ':category',
 				component: StoreCatalogView,
 			},
@@ -130,12 +143,6 @@ const routes: Routes = [
 		loadChildren: () =>
 			import('@referente/referente.module').then((m) => m.ReferenteModule),
 	},
-	// {
-	//   path: 'bar-admin',
-	//   canLoad: [BarAdminGuard],
-	//   loadChildren: () =>
-	//     import('@bar-admin/bar-admin.module').then((m) => m.BarAdminModule),
-	// },
 	{
 		path: 'rappre',
 		data: { title: 'Rappre' },

@@ -10,5 +10,6 @@ export class StoreView {
 	links: IDashboardLink[] = [
 		{ link: 'gadgets', title: 'Gadget' },
 		{ link: 'photos', title: 'Foto' },
+		{ link: 'summary', title: 'Riepilogo' },
 	];
 }

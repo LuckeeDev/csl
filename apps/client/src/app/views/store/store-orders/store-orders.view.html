@@ -1,0 +1,57 @@
+<mat-card>
+	<mat-card-header>
+		<mat-card-title>Ordini {{ category | category }}</mat-card-title>
+	</mat-card-header>
+
+	<mat-card-content>
+		<table mat-table [dataSource]="orders[category]">
+			<ng-container matColumnDef="name">
+				<th mat-header-cell *matHeaderCellDef>Nome</th>
+				<td mat-cell *matCellDef="let product">
+					{{ product.id | productName }}
+				</td>
+			</ng-container>
+
+			<!-- Name Column -->
+			<ng-container matColumnDef="quantity">
+				<th mat-header-cell *matHeaderCellDef>Quantità</th>
+				<td mat-cell *matCellDef="let product">{{ product.quantity }}</td>
+			</ng-container>
+
+			<!-- Weight Column -->
+			<ng-container matColumnDef="size">
+				<th mat-header-cell *matHeaderCellDef>Taglia</th>
+				<td mat-cell *matCellDef="let product">{{ product.size }}</td>
+			</ng-container>
+
+			<!-- Symbol Column -->
+			<ng-container matColumnDef="color">
+				<th mat-header-cell *matHeaderCellDef>Colore</th>
+				<td mat-cell *matCellDef="let product">
+					<span [ngStyle]="{ 'background-color': product.color }"></span>
+				</td>
+			</ng-container>
+
+			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+		</table>
+	</mat-card-content>
+	
+	<mat-card-actions>
+		<ng-container
+			*ngIf="orders[category + 'Confirmed'] === false; else alreadyConfirmed"
+		>
+			<button
+				mat-raised-button
+				color="primary"
+				size="small"
+				(click)="confirmOrder()"
+			>
+				Conferma ordine
+			</button>
+		</ng-container>
+		<ng-template #alreadyConfirmed>
+			<p>Hai già confermato questo ordine!</p>
+		</ng-template>
+	</mat-card-actions>
+</mat-card>

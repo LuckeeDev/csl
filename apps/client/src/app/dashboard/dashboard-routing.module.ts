@@ -9,8 +9,6 @@ import { DashboardComponent } from '@dashboard/dashboard.component';
 import { ProfileComponent } from '@dashboard/components/profile/profile.component';
 import { OrientamentoComponent } from '@dashboard/components/orientamento/orientamento.component';
 import { EventComponent } from './components/event/event.component';
-import { CategoryComponent } from './components/category/category.component';
-import { OrdersComponent } from './components/orders/orders.component';
 
 const routes: Routes = [
 	{
@@ -20,9 +18,6 @@ const routes: Routes = [
 			{ path: '', component: ProfileComponent },
 			{ path: 'orientamento', component: OrientamentoComponent },
 			{ path: 'orientamento/:id', component: EventComponent },
-			{ path: 'orders', component: CategoryComponent },
-			{ path: 'orders/gadgets', component: OrdersComponent },
-			{ path: 'orders/photos', component: OrdersComponent },
 		],
 	},
 ];
