@@ -21,7 +21,6 @@ export interface IProduct {
 	category: 'gadgets' | 'photos';
 	price: number;
 	fileNames: string[];
-	stripeID: string;
 	stripePriceID: string;
 	colors?: Color[];
 	sizes?: TSize[];

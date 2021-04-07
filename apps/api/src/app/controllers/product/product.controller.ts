@@ -5,7 +5,7 @@ import fse from 'fs-extra';
 import sharp from 'sharp';
 import { IHttpRes, IProduct } from '@csl/shared';
 import { Product } from '@models';
-import { v4 } from 'uuid';
+import { saveError } from '@/common/logs';
 
 export const getAllProducts = async (): Promise<IHttpRes<IProduct[]>> => {
 	try {
@@ -35,68 +35,77 @@ export const createGadget = async (
 	product: IProduct,
 	stripeProductID: string,
 	stripePriceID: string
-) => {
-	const id = v4();
-	const { name, description, price, fileNames, colors, sizes } = product;
-	const category = 'gadgets';
+): Promise<IHttpRes<IProduct>> => {
+	try {
+		const id = stripeProductID;
+		const { name, description, price, fileNames, colors, sizes } = product;
+		const category = 'gadgets';
 
-	const workingDir = join(tmpdir(), 'images');
-	fse.ensureDir(workingDir);
+		const workingDir = join(tmpdir(), 'images');
+		fse.ensureDir(workingDir);
 
-	const uploadPromises = fileNames.map(async (tmpFileName: any) => {
-		const tmpFilePath = join(workingDir, tmpFileName);
-		const pngFileName = tmpFileName.split('.').shift() + '.png';
-		const pngFilePath = join(workingDir, pngFileName);
-		const newFileName = `500@${pngFileName}`;
-		const newFilePath = join(workingDir, newFileName);
+		const uploadPromises = fileNames.map(async (tmpFileName) => {
+			const tmpFilePath = join(workingDir, tmpFileName);
+			const pngFileName = tmpFileName.split('.').shift() + '.png';
+			const pngFilePath = join(workingDir, pngFileName);
+			const newFileName = `500@${pngFileName}`;
+			const newFilePath = join(workingDir, newFileName);
 
-		await bucket.file(`gadgetImages/raw/${tmpFileName}`).download({
-			destination: tmpFilePath,
+			await bucket.file(`gadgetImages/raw/${tmpFileName}`).download({
+				destination: tmpFilePath,
+			});
+
+			await sharp(tmpFilePath).toFormat('png').toFile(pngFilePath);
+
+			await sharp(pngFilePath)
+				.resize({
+					width: 500,
+					height: 500,
+					fit: 'contain',
+					background: { r: 0, g: 0, b: 0, alpha: 0 },
+				})
+				.toFile(newFilePath);
+
+			return bucket.upload(newFilePath, {
+				destination: `gadgetImages/${id}/${newFileName}`,
+			});
 		});
 
-		await sharp(tmpFilePath).toFormat('png').toFile(pngFilePath);
+		await Promise.all(uploadPromises);
 
-		await sharp(pngFilePath)
-			.resize({
-				width: 500,
-				height: 500,
-				fit: 'contain',
-				background: { r: 0, g: 0, b: 0, alpha: 0 },
-			})
-			.toFile(newFilePath);
+		fse.remove(workingDir);
 
-		return bucket.upload(newFilePath, {
-			destination: `gadgetImages/${id}/${newFileName}`,
+		const newFileNames = fileNames.map((fileName) => {
+			return `500@${fileName.split('.').shift()}.png`;
 		});
-	});
 
-	await Promise.all(uploadPromises);
+		const savedProduct = await new Product({
+			id,
+			name,
+			description,
+			category,
+			price,
+			fileNames: newFileNames,
+			colors,
+			sizes,
+			stripePriceID,
+		}).save();
 
-	fse.remove(workingDir);
-
-	const newFileNames = fileNames.map((fileName) => {
-		return `500@${fileName.split('.').shift()}.png`;
-	});
-
-	return new Product({
-		id,
-		name,
-		description,
-		category,
-		price,
-		fileNames: newFileNames,
-		colors,
-		sizes,
-		stripeID: stripeProductID,
-		stripePriceID,
-	})
-		.save()
-		.then((product) => {
-			return { success: true, data: product };
-		})
-		.catch((err) => {
-			return { success: false, err };
+		return {
+			success: true,
+			data: savedProduct,
+		};
+	} catch (err) {
+		saveError(`Error while creating ${product.name}`, {
+			category: 'products',
+			err,
 		});
+
+		return {
+			success: false,
+			err,
+		};
+	}
 };
 
 // Get all photo products in the database

@@ -13,6 +13,7 @@ import {
 import { IProduct } from '@csl/shared';
 import Stripe from 'stripe';
 import { environment } from '@environments/environment';
+import { saveError } from '@/common/logs';
 
 const stripe = new Stripe(environment.STRIPE_KEY, {
 	apiVersion: '2020-08-27',
@@ -52,16 +53,24 @@ router.post(
 				currency: 'eur',
 			});
 
+			const stripePriceID = stripePrice.id;
+
 			const result = await createGadget(
 				{ ...req.body, price },
 				stripeProductID,
-				stripePrice.id
+				stripePriceID
 			);
 
 			res.json(result);
 		} catch (err) {
+			saveError(`Error while creating Stripe product: "${req.body.name}"`, {
+				category: 'products',
+				err,
+			});
+
 			res.json({
 				success: false,
+				err,
 			});
 		}
 	}

@@ -26,6 +26,9 @@ export class StoreCatalogView implements OnInit {
 	@Select(ProductsState.photos)
 	photos$: Observable<IProduct[]>;
 
+	@Select(ProductsState.loading)
+	loading$: Observable<boolean>;
+
 	products$: Observable<IProduct[]>;
 
 	category: IProduct['category'];

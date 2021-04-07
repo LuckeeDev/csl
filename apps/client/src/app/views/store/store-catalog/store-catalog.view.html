@@ -3,8 +3,8 @@
 	<input matInput type="text" [formControl]="search" />
 </mat-form-field>
 
-<ng-container *ngIf="products$ | async as products">
-	<div class="container" *ngIf="products.length > 0; else noProductFound">
+<ng-container *ngIf="products$ | async as products; else alert">
+	<div class="container" *ngIf="products.length > 0; else alert">
 		<mat-card
 			[routerLink]="[product.id]"
 			*ngFor="let product of (filteredProducts$ | async) || products"
@@ -26,10 +26,23 @@
 			</csl-alert>
 		</ng-container>
 	</div>
+</ng-container>
+
+<ng-template #alert>
+	<csl-alert
+		color="primary"
+		class="alert"
+		*ngIf="loading$ | async as loading; else noProductFound"
+	>
+		Caricamento in corso...
+	</csl-alert>
 
 	<ng-template #noProductFound>
-		<csl-alert color="primary" class="alert">
+		<csl-alert
+			color="primary"
+			class="alert"
+		>
 			Nessun prodotto trovato in questa categoria!
 		</csl-alert>
 	</ng-template>
-</ng-container>
+</ng-template>
