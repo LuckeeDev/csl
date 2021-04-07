@@ -7,7 +7,7 @@ import { DialogService, ToastrService } from '@csl/ui';
 import { Observable } from 'rxjs';
 import { Select, Store } from '@ngxs/store';
 import { Products, ProductsState } from '@/global/store/products';
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 
 @Component({
 	selector: 'csl-store-product',
@@ -31,16 +31,18 @@ export class StoreProductView implements OnInit {
 	orderForm: FormGroup;
 
 	constructor(
-		private activated: ActivatedRoute,
+		private route: ActivatedRoute,
 		private ordersService: OrdersService,
 		private fb: FormBuilder,
 		private dialog: DialogService,
 		private toastr: ToastrService,
 		private router: Router,
-		private store: Store
+		private store: Store,
 	) {
-		this.id = this.activated.snapshot.paramMap.get('productID');
-		this.category = this.activated.snapshot.paramMap.get(
+		const params = this.route.snapshot.paramMap;
+		
+		this.id = params.get('productID');
+		this.category = params.get(
 			'category'
 		) as IProduct['category'];
 
@@ -72,7 +74,9 @@ export class StoreProductView implements OnInit {
 			/**
 			 * Filter to check that all images have been fetched.
 			 */
-			filter((product) => product.fileNames.length === product.previewLinks.length),
+			filter(
+				(product) => product.fileNames.length === product.previewLinks.length
+			),
 			map((product) => product.previewLinks.map((link) => ({ link })))
 		);
 	}
@@ -82,11 +86,7 @@ export class StoreProductView implements OnInit {
 	}
 
 	selectColor(color: string) {
-		if (color === this.orderForm.value.color) {
-			this.orderForm.patchValue({ color: '' });
-		} else {
-			this.orderForm.patchValue({ color });
-		}
+		this.orderForm.patchValue({ color });
 	}
 
 	addToCart(): void {
@@ -98,24 +98,25 @@ export class StoreProductView implements OnInit {
 				answer: 'Conferma',
 				color: 'primary',
 			})
-			.subscribe(() => {
-				this.ordersService.addToCart(this.orderForm.value).subscribe((res) => {
-					if (res.success) {
-						this.toastr.show({
-							message: 'Prodotto aggiunto al carrello',
-							color: 'success',
-						});
+			.pipe(switchMap(() => this.ordersService.addToCart(this.orderForm.value)))
+			.subscribe((res) => {
+				if (res.success === true) {
+					this.toastr.show({
+						message: 'Prodotto aggiunto al carrello',
+						color: 'success',
+					});
 
-						this.router.navigate(['..', 'store', this.category]);
-					} else if (res.err === 'already-confirmed') {
-						this.toastr.show({
-							message: 'Hai già confermato il tuo ordine!',
-							color: 'accent',
-						});
-					} else {
-						this.toastr.showError();
-					}
-				});
+					this.router.navigate(['..'], {
+						relativeTo: this.route
+					});
+				} else if (res.err === 'already-confirmed') {
+					this.toastr.show({
+						message: 'Hai già confermato il tuo ordine!',
+						color: 'accent',
+					});
+				} else {
+					this.toastr.showError();
+				}
 			});
 	}
 }

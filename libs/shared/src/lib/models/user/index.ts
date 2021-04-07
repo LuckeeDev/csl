@@ -1,5 +1,6 @@
 import { Document } from 'mongoose';
 import { ICommissione } from '../commissione';
+import { IProduct, TSize } from '../product';
 
 interface UserCourses {
 	a: string;
@@ -10,18 +11,20 @@ interface UserCourses {
 	f: string;
 }
 
-interface ProductInUserCart {
+export interface ProductInUserCart {
 	quantity: number;
+
+	size: TSize;
 
 	/**
 	 * Refers to the ID of the customization (the color).
 	 */
-	colorID: string;
+	colorID: IProduct['colors'][0]['id'];
 
 	/**
 	 * Refers to the actual identifier of the product.
 	 */
-	id: string;
+	id: IProduct['id'];
 }
 
 export interface IUserInCsv {
