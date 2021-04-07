@@ -41,7 +41,12 @@
 
 		<h4>Colori disponibili</h4>
 
-		<button mat-button type="button" color="primary" (click)="addColor()">
+		<button
+			mat-stroked-button
+			type="button"
+			color="primary"
+			(click)="addColor()"
+		>
 			Aggiungi un colore
 		</button>
 
@@ -136,11 +141,7 @@
 				</tr>
 				<tr>
 					<th>Immagini:</th>
-					<td>
-						<ng-container *ngFor="let file of products.imgFiles"
-							>{{ file.name }},&nbsp;
-						</ng-container>
-					</td>
+					<td>{{ uploadedImagesString }}</td>
 				</tr>
 			</table>
 		</mat-card-content>

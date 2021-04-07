@@ -7,7 +7,7 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import produce from 'immer';
 import { forkJoin, Observable, of } from 'rxjs';
-import { filter, map, retryWhen, switchMap } from 'rxjs/operators';
+import { filter, map, retryWhen, switchMap, tap } from 'rxjs/operators';
 
 export namespace Products {
 	/**
@@ -31,6 +31,20 @@ export namespace Products {
 	 */
 	export class Reload {
 		static readonly type = '[Products] Reload';
+	}
+
+	/**
+	 * Create a new product and push to state on success.
+	 * @param productForm the value of the form where the user inputs
+	 * the product info.
+	 * @param category the category of the product which is being created.
+	 */
+	export class Create {
+		static readonly type = '[Products] Create';
+		constructor(
+			public productForm: IProduct,
+			public category: IProduct['category']
+		) {}
 	}
 }
 
@@ -138,6 +152,30 @@ export class ProductsState {
 		this._loadAllProducts(ctx);
 	}
 
+	@Action(Products.Create)
+	createProduct(
+		ctx: StateContext<ProductsStateModel>,
+		action: Products.Create
+	) {
+		ctx.patchState({ loading: true });
+
+		return this.products.createGadget(action.productForm, action.category).pipe(
+			tap((res) => {
+				if (res.success) {
+					ctx.setState(
+						produce(ctx.getState(), (state) => {
+							state.products = [...state.products, res.data];
+						})
+					);
+				} else {
+					throw new Error('Non è stato possibile creare il prodotto');
+				}
+
+				ctx.patchState({ loading: false });
+			})
+		);
+	}
+
 	/**
 	 * Load all products, used both when loading the first time and when reloading.
 	 * @param ctx the state context.
@@ -152,7 +190,8 @@ export class ProductsState {
 						(product) => this._getImageLinks(product, 1)
 					);
 
-					const result = products.length > 0 ? forkJoin(productsWithPreview$) : of([]);
+					const result =
+						products.length > 0 ? forkJoin(productsWithPreview$) : of([]);
 
 					return result;
 				})

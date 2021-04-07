@@ -4,8 +4,9 @@ import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { DialogService, ToastrService } from '@csl/ui';
 import { ProductsService } from '@/global/services/products/products.service';
 import { IProduct, TSize } from '@csl/shared';
-import { switchMap, tap } from 'rxjs/operators';
-import { LoadingBarService } from '@ngx-loading-bar/core';
+import { switchMap } from 'rxjs/operators';
+import { Store } from '@ngxs/store';
+import { Products } from '@/global/store/products';
 
 @Component({
 	selector: 'csl-new-product',
@@ -29,7 +30,7 @@ export class NewProductView {
 		private activated: ActivatedRoute,
 		private fb: FormBuilder,
 		private toastr: ToastrService,
-		private _loadingBar: LoadingBarService
+		private store: Store
 	) {
 		this.category = this.activated.snapshot.paramMap.get(
 			'category'
@@ -73,6 +74,10 @@ export class NewProductView {
 		return result;
 	}
 
+	get uploadedImagesString(): string {
+		return this.products.imgFiles.map((file) => file.name).join(', ');
+	}
+
 	// Add a color to the form array
 	addColor() {
 		this.colors.push(
@@ -98,24 +103,24 @@ export class NewProductView {
 				answer: 'Sì, conferma',
 			})
 			.pipe(
-				tap(() => this._loadingBar.useRef('http').start()),
 				switchMap(() =>
-					this.products.createGadget(this.productForm.value, this.category)
+					this.store.dispatch(
+						new Products.Create(this.productForm.value, this.category)
+					)
 				)
 			)
-			.subscribe((res) => {
-				if (res.success === true) {
+			.subscribe({
+				complete: () => {
 					this.toastr.show({
 						message: 'Prodotto creato con successo',
 						color: 'success',
 						action: 'Chiudi',
 						duration: 5000,
 					});
-				} else {
-					this.toastr.showError();
-				}
 
-				this.productForm.reset();
+					this.productForm.reset();
+				},
+				error: (err) => this.toastr.showError(err),
 			});
 	}
 }
