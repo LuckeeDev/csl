@@ -1,43 +1,47 @@
 .container {
-  width: 100%;
-  min-height: 100vh;
+	width: 100%;
+	min-height: 100vh;
 }
 
 .sidenav {
-  width: 15vw;
+	width: 15vw;
 }
 
 .sidenav.mobile {
-  width: 75vw;
-  max-width: 500px;
+	width: 75vw;
+	max-width: 500px;
 }
 
 a {
-  color: #00000050;
+	color: #00000050;
+
+	.icon {
+		margin-left: auto;
+	}
 }
 
 a.active {
-  color: #0D47A1;
-  font-weight: 500;
+	color: #0d47a1;
+	font-weight: 500;
 }
 
 mat-toolbar {
-  width: 100%;
-  box-shadow: inset 0 5px 5px rgba(0, 0, 0, 0.25);
+	width: 100%;
+	box-shadow: inset 0 5px 5px rgba(0, 0, 0, 0.25);
 }
 
 .outlet {
-  height: 100%;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-left: 50px;
-  padding-right: 50px;
+	height: 100%;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-left: 50px;
+	padding-right: 50px;
 }
 
 @media screen and (max-width: 1250px) {
-  .outlet {
-    padding-top: 10px;
-    padding-left: 5vw;
-    padding-right: 5vw;
-  }
+	.outlet {
+		padding-top: 10px;
+		padding-left: 5vw;
+		padding-right: 5vw;
+	}
 }
