@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IImage, IProduct } from '@csl/shared';
+import { IImage, IProduct, ProductInUserCart } from '@csl/shared';
 import { OrdersService } from '@global/services/orders/orders.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogService, ToastrService } from '@csl/ui';
@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { Select, Store } from '@ngxs/store';
 import { Products, ProductsState } from '@/global/store/products';
 import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+import { Auth } from '@/global/store/auth';
 
 @Component({
 	selector: 'csl-store-product',
@@ -37,14 +38,12 @@ export class StoreProductView implements OnInit {
 		private dialog: DialogService,
 		private toastr: ToastrService,
 		private router: Router,
-		private store: Store,
+		private store: Store
 	) {
 		const params = this.route.snapshot.paramMap;
-		
+
 		this.id = params.get('productID');
-		this.category = params.get(
-			'category'
-		) as IProduct['category'];
+		this.category = params.get('category') as IProduct['category'];
 
 		if (this.category === 'gadgets') {
 			this.orderForm = this.fb.group({
@@ -90,6 +89,8 @@ export class StoreProductView implements OnInit {
 	}
 
 	addToCart(): void {
+		const product: ProductInUserCart = this.orderForm.value;
+
 		this.dialog
 			.open({
 				title: 'Sei sicuro di voler ordinare questo prodotto?',
@@ -98,25 +99,19 @@ export class StoreProductView implements OnInit {
 				answer: 'Conferma',
 				color: 'primary',
 			})
-			.pipe(switchMap(() => this.ordersService.addToCart(this.orderForm.value)))
-			.subscribe((res) => {
-				if (res.success === true) {
+			.pipe(switchMap(() => this.store.dispatch(new Auth.AddToCart(product))))
+			.subscribe({
+				complete: () => {
 					this.toastr.show({
-						message: 'Prodotto aggiunto al carrello',
 						color: 'success',
+						message: 'Prodotto creato con successo',
 					});
-
+					
 					this.router.navigate(['..'], {
-						relativeTo: this.route
+						relativeTo: this.route,
 					});
-				} else if (res.err === 'already-confirmed') {
-					this.toastr.show({
-						message: 'Hai già confermato il tuo ordine!',
-						color: 'accent',
-					});
-				} else {
-					this.toastr.showError();
-				}
+				},
+				error: () => this.toastr.showError(),
 			});
 	}
 }

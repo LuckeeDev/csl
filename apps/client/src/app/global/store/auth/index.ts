@@ -1,14 +1,21 @@
 import { AuthService } from '@/global/services/auth/auth.service';
+import { OrdersService } from '@/global/services/orders/orders.service';
 import { Injectable } from '@angular/core';
-import { IUser } from '@csl/shared';
+import { IUser, ProductInUserCart } from '@csl/shared';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
+import produce from 'immer';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
 
 export namespace Auth {
 	export class GetUser {
 		static readonly type = '[Auth] Get User';
 		constructor(public options: { firebaseToken: boolean }) {}
+	}
+
+	export class AddToCart {
+		static readonly type = '[Auth] Add to Cart';
+		constructor(public product: ProductInUserCart) {}
 	}
 }
 
@@ -30,6 +37,7 @@ export interface AuthStateModel {
 export class AuthState {
 	constructor(
 		private auth: AuthService,
+		private orders: OrdersService,
 		private _loadingBar: LoadingBarService
 	) {}
 
@@ -59,6 +67,27 @@ export class AuthState {
 				this._loadingBar.useRef('http').complete();
 				ctx.patchState({ loading: false });
 			})
+		);
+	}
+
+	@Action(Auth.AddToCart)
+	addToCart(ctx: StateContext<AuthStateModel>, action: Auth.AddToCart) {
+		const productInCart = action.product;
+
+		return this.orders.addToCart(productInCart).pipe(
+			tap((res) => {
+				const currentState = ctx.getState();
+
+				if (res.success === true) {
+					ctx.setState(
+						produce(currentState, (state) => {
+							state.user.cart.push(productInCart);
+						})
+					);
+				} else {
+					throw new Error('Success was set to false on the API response.');
+				}
+			}),
 		);
 	}
 }
