@@ -6,7 +6,7 @@ import { IProduct } from '@csl/shared';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import produce from 'immer';
-import { forkJoin, Observable } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
 import { filter, map, retryWhen, switchMap } from 'rxjs/operators';
 
 export namespace Products {
@@ -152,7 +152,9 @@ export class ProductsState {
 						(product) => this._getImageLinks(product, 1)
 					);
 
-					return forkJoin(productsWithPreview$);
+					const result = products.length > 0 ? forkJoin(productsWithPreview$) : of([]);
+
+					return result;
 				})
 			)
 			.subscribe((products) => {
