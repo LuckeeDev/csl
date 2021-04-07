@@ -19,7 +19,7 @@ export interface ProductInUserCart {
 	/**
 	 * Refers to the ID of the customization (the color).
 	 */
-	colorID: IProduct['colors'][0]['id'];
+	color: IProduct['colors'][0]['id'];
 
 	/**
 	 * Refers to the actual identifier of the product.

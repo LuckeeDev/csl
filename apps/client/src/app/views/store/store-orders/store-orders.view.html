@@ -4,11 +4,11 @@
 	</mat-card-header>
 
 	<mat-card-content>
-		<table mat-table [dataSource]="orders[category]">
+		<table mat-table [dataSource]="orders$ | async">
 			<ng-container matColumnDef="name">
 				<th mat-header-cell *matHeaderCellDef>Nome</th>
 				<td mat-cell *matCellDef="let product">
-					{{ product.id | productName }}
+					{{ product.name }}
 				</td>
 			</ng-container>
 

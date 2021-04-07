@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { OrdersService } from '@global/services/orders/orders.service';
 import { DialogService, ToastrService } from '@csl/ui';
-import { IProduct } from '@csl/shared';
+import { IProduct, IUser, ProductInUserCart } from '@csl/shared';
+import { Select, Store } from '@ngxs/store';
+import { AuthState } from '@/global/store/auth';
+import { combineLatest, Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { Products, ProductsState } from '@/global/store/products';
 
 @Component({
 	selector: 'csl-orders',
@@ -14,15 +18,70 @@ export class StoreOrdersView implements OnInit {
 	category: IProduct['category'];
 	displayedColumns: string[];
 
+	@Select(AuthState.user)
+	user$: Observable<IUser>;
+
+	@Select(ProductsState.products)
+	products$: Observable<IProduct[]>;
+
+	orders$: Observable<
+		ProductInUserCart[] &
+			{
+				name: IProduct['name'];
+				category: IProduct['category'];
+				color: IProduct['colors'][0]['color'];
+			}[]
+	>;
+
 	constructor(
 		private dialog: DialogService,
 		private toastr: ToastrService,
 		public orders: OrdersService,
-		private router: Router
+		private router: Router,
+		private store: Store
 	) {}
 
 	ngOnInit(): void {
+		this.store.dispatch(new Products.GetAll());
+
 		this.category = this.router.url.includes('gadgets') ? 'gadgets' : 'photos';
+
+		this.orders$ = combineLatest([this.products$, this.user$]).pipe(
+			map(([products, user]) => ({
+				products,
+				user,
+			})),
+			filter((value) => {
+				return (
+					value.products &&
+					value.products.length > 0 &&
+					value.user &&
+					value.user.cart.length > 0
+				);
+			}),
+			map(({ user, products: availableProducts }) => {
+				const cart = user.cart;
+
+				return cart
+					.map((product) => {
+						const availableProduct = availableProducts.find(
+							(x) => x.id === product.id
+						);
+
+						const selectedColor = availableProduct.colors.find(
+							(x) => x.id === product.color
+						);
+
+						return {
+							...product,
+							category: availableProduct.category,
+							name: availableProduct.name,
+							color: selectedColor.color,
+						};
+					})
+					.filter((product) => product.category === this.category);
+			})
+		);
 
 		this.displayedColumns =
 			this.category === 'gadgets'
@@ -34,8 +93,7 @@ export class StoreOrdersView implements OnInit {
 		}
 	}
 
-	// Delete an order and handle response (in the UI)
-	deleteOrder(product) {
+	deleteOrder(product: ProductInUserCart) {
 		this.dialog
 			.open({
 				title:
