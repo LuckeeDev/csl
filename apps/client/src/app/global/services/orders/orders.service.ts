@@ -8,6 +8,7 @@ import {
 	IPaymentIntentData,
 	IProduct,
 	ProductInUserCart,
+	IUser,
 } from '@csl/shared';
 import { Observable } from 'rxjs';
 
@@ -37,8 +38,14 @@ export class OrdersService {
 		return this.http.patch<IHttpRes<void>>('/users/me/cart', product);
 	}
 
-	confirmOrder(category: IProduct['category']): Observable<IHttpRes<void>> {
-		return this.http.patch<IHttpRes<void>>('/users/me/confirm', { category });
+	confirmOrder(
+		category: IProduct['category'],
+		phone: IUser['phone']
+	): Observable<IHttpRes<void>> {
+		return this.http.patch<IHttpRes<void>>('/users/me/confirm', {
+			category,
+			phone,
+		});
 	}
 
 	deleteProduct(product: IProductInCart): Observable<any> {

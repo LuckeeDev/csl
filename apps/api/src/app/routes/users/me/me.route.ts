@@ -1,6 +1,6 @@
 import { isSignedIn } from '@/common/auth';
 import { Request, Response, Router } from 'express';
-import { IProduct, ProductInUserCart } from '@csl/shared';
+import { IProduct, IUser, ProductInUserCart } from '@csl/shared';
 import { addToCart, confirmCategory } from '@/controllers';
 import { fireAuth } from '@/common/firebase';
 const router = Router();
@@ -56,11 +56,18 @@ router.patch(
 
 router.patch(
 	'/confirm',
-	async (req: Request<{ category: IProduct['category'] }>, res: Response) => {
-		const category = req.body.category;
+	async (
+		req: Request<{ category: IProduct['category']; phone: IUser['phone'] }>,
+		res: Response
+	) => {
+		const { category, phone } = req.body;
+
+		/**
+		 * Add the phone param to the signed in user object.
+		 */
 		const user = req.user;
 
-		const result = await confirmCategory(category, user);
+		const result = await confirmCategory(category, user, phone);
 
 		res.json(result);
 	}

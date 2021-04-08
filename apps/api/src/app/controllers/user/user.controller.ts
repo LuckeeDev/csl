@@ -241,12 +241,20 @@ export const addToCart = async (
 
 export const confirmCategory = async (
 	category: IProduct['category'],
-	user: IUser
+	user: IUser,
+	phone: IUser['phone']
 ): Promise<IHttpRes<void>> => {
 	try {
 		const updateQuery = `confirmed.${category}`;
 
-		await User.findOneAndUpdate({ id: user.id }, { [updateQuery]: true });
+		/**
+		 * Update the user phone.
+		 */
+		const newUser = await User.findOneAndUpdate(
+			{ id: user.id },
+			{ [updateQuery]: true, phone },
+			{ new: true, upsert: true }
+		);
 
 		return {
 			success: true,

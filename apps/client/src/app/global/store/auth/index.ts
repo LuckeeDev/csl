@@ -20,7 +20,10 @@ export namespace Auth {
 
 	export class ConfirmCategory {
 		static readonly type = '[Auth] Confirm Category';
-		constructor(public category: IProduct['category']) {}
+		constructor(
+			public category: IProduct['category'],
+			public phone: IUser['phone']
+		) {}
 	}
 }
 
@@ -101,7 +104,7 @@ export class AuthState {
 		ctx: StateContext<AuthStateModel>,
 		action: Auth.ConfirmCategory
 	) {
-		const category = action.category;
+		const { category, phone } = action;
 		const currentState = ctx.getState();
 
 		if (
@@ -110,14 +113,18 @@ export class AuthState {
 		) {
 			ctx.patchState({ loading: true });
 
-			return this.orders.confirmOrder(category).pipe(
+			return this.orders.confirmOrder(category, phone).pipe(
 				tap((res) => {
 					ctx.patchState({ loading: false });
 
 					if (res.success === true) {
 						ctx.setState(
 							produce(ctx.getState(), (state) => {
-								state.user.confirmed[category] = true;
+								state.user.confirmed = {
+									...state.user.confirmed,
+									[category]: true,
+								};
+								state.user.phone = phone;
 							})
 						);
 					} else {
@@ -125,6 +132,8 @@ export class AuthState {
 					}
 				})
 			);
+		} else {
+			throw new Error('Il tuo ordine è già stato confermato');
 		}
 	}
 }

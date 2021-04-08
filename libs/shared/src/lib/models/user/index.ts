@@ -41,6 +41,11 @@ export interface IUserInCsv {
 export interface IUser {
 	id: string;
 	email: string;
+
+	/**
+	 * Needed for orders.
+	 */
+	phone: string;
 	name: string;
 	classID: string;
 	snackCredit: number;

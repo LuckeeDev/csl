@@ -5,6 +5,7 @@ const UserSchema = new Schema(
 	{
 		id: { type: String },
 		email: { type: String, required: true, unique: true },
+		phone: { type: String },
 		name: { type: String, required: true },
 		classID: { type: String },
 		snackCredit: { type: Number, default: 0 },

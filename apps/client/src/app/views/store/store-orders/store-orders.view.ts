@@ -130,23 +130,29 @@ export class StoreOrdersView implements OnInit {
 		this.dialog
 			.open({
 				title: 'Sei sicuro di voler confermare il tuo ordine?',
-				text: 'Se confermi, non potrai più effettuare modifiche',
+				text:
+					"Per confermare l'ordine avremo bisogno di sapere il tuo numero di telefono, per saperne di più consulta la nostra politica sulla privacy.",
 				color: 'primary',
 				answer: 'Conferma',
+				hasInput: true,
+				inputType: 'text',
+				inputLabel: 'Numero di telefono',
+				inputPattern: /^(\+?39)?3\d{2}\d{6,8}$/,
 			})
 			.pipe(
-				switchMap(() =>
-					this.store.dispatch(new Auth.ConfirmCategory(this.category))
+				switchMap((phone: string) =>
+					this.store.dispatch(new Auth.ConfirmCategory(this.category, phone))
 				)
 			)
 			.subscribe({
-				complete: () =>
+				next: () => {
 					this.toastr.show({
 						message: 'Ordine confermato',
 						color: 'success',
 						action: 'Chiudi',
 						duration: 5000,
-					}),
+					});
+				},
 
 				error: (err) => this.toastr.showError(err),
 			});

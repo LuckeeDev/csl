@@ -2,6 +2,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // UI Elements
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -72,6 +73,7 @@ import { RoundedDirective } from './directives/rounded/rounded.directive';
 	imports: [
 		CommonModule,
 		RouterModule,
+		ReactiveFormsModule,
 		MatSnackBarModule,
 		MatDialogModule,
 		MatButtonModule,

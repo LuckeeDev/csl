@@ -15,6 +15,6 @@ export class DialogService {
 			disableClose: data.disableClose || false,
 		});
 
-		return dialogRef.afterClosed().pipe(filter((x) => x === true));
+		return dialogRef.afterClosed().pipe(filter((x: boolean | string) => x ? true : false));
 	}
 }

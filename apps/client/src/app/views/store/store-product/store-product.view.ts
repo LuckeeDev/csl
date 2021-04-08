@@ -101,7 +101,7 @@ export class StoreProductView implements OnInit {
 			})
 			.pipe(switchMap(() => this.store.dispatch(new Auth.AddToCart(product))))
 			.subscribe({
-				complete: () => {
+				next: () => {
 					this.toastr.show({
 						color: 'success',
 						message: 'Prodotto creato con successo',
