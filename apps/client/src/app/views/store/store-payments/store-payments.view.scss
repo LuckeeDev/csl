@@ -2,3 +2,13 @@
 	border-radius: 20px;
 	overflow: hidden;
 }
+
+.link {
+	color: #0d47a1;
+	font-weight: 500;
+	text-decoration: none;
+}
+
+.button + .button {
+	margin-left: 10px;
+}

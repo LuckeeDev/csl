@@ -3,6 +3,7 @@
 	(ngSubmit)="submit()"
 	class="form"
 	[class.mat-elevation-z2]="true"
+	*ngIf="user$ | async as user"
 >
 	<mat-vertical-stepper [linear]="true" #stepper>
 		<mat-step [stepControl]="form.get('firstStep')" formGroupName="firstStep">
@@ -18,18 +19,47 @@
 			</mat-form-field>
 
 			<div>
-				<button mat-raised-button matStepperNext type="button">Avanti</button>
+				<button mat-raised-button matStepperNext type="button" class="button">
+					Avanti
+				</button>
 			</div>
 		</mat-step>
 
-		<mat-step [stepControl]="form.get('secondStep')" formGroupName="secondStep">
+		<mat-step>
 			<ng-template matStepLabel>Verifica informazioni personali</ng-template>
 
+			<h3>Confermi le seguenti informazioni personali?</h3>
+			<p>Nome: {{ user.name }}</p>
+			<p>Classe: {{ user.classID }}</p>
+			<p>Email: {{ user.email }}</p>
+			<p>Telefono: {{ user.phone }}</p>
+
+			<mat-hint>
+				Se dovessi riscontrare errori in queste informazioni personali, non
+				esitare a contattarci a
+				<a
+					href="mailto:rapprestudenti@liceolussana.eu"
+					class="link"
+					target="_blank"
+				>
+					rapprestudenti@liceolussana.eu
+				</a>
+				prima di continuare con il pagamento.
+			</mat-hint>
+
 			<div>
-				<button mat-raised-button matStepperPrevious type="button">
+				<button
+					mat-raised-button
+					matStepperPrevious
+					type="button"
+					class="button"
+				>
 					Indietro
 				</button>
-				<button mat-raised-button matStepperNext type="button">Avanti</button>
+
+				<button mat-raised-button matStepperNext type="button" class="button">
+					Sì, confermo
+				</button>
 			</div>
 		</mat-step>
 
@@ -50,10 +80,18 @@
 			</mat-form-field>
 
 			<div>
-				<button mat-raised-button matStepperPrevious type="button">
+				<button
+					mat-raised-button
+					matStepperPrevious
+					type="button"
+					class="button"
+				>
 					Indietro
 				</button>
-				<button mat-raised-button matStepperNext type="button">Avanti</button>
+
+				<button mat-raised-button matStepperNext type="button" class="button">
+					Avanti
+				</button>
 			</div>
 		</mat-step>
 
@@ -61,14 +99,21 @@
 			<ng-template matStepLabel>Procedi al pagamento</ng-template>
 
 			<div>
-				<button mat-raised-button matStepperPrevious type="button">
+				<button
+					mat-raised-button
+					matStepperPrevious
+					type="button"
+					class="button"
+				>
 					Indietro
 				</button>
+
 				<button
 					mat-flat-button
 					color="primary"
 					type="submit"
 					[disabled]="form.invalid"
+					class="button"
 				>
 					Invia
 				</button>

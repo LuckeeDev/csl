@@ -1,7 +1,11 @@
+import { AuthState } from '@/global/store/auth';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+import { IUser } from '@csl/shared';
 import { stripeKey } from '@environments/environment';
+import { Select } from '@ngxs/store';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'csl-store-payments',
@@ -9,27 +13,24 @@ import { loadStripe, Stripe } from '@stripe/stripe-js';
 	styleUrls: ['./store-payments.view.scss'],
 })
 export class StorePaymentsView implements OnInit {
-	form: FormGroup;
+	@Select(AuthState.user)
+	user$: Observable<IUser>;
+
+	form = this._fb.group({
+		categoryStep: this._fb.group({
+			category: ['', Validators.required],
+		}),
+		contactInfo: this._fb.group({
+			name: ['', Validators.required],
+			classID: ['', [Validators.required]],
+		}),
+	});
 
 	stripe: Stripe;
 
 	constructor(private _fb: FormBuilder) {}
 
 	async ngOnInit(): Promise<void> {
-		this.form = this._fb.group({
-			firstStep: this._fb.group({
-				category: ['', Validators.required],
-			}),
-			secondStep: this._fb.group({
-				description: ['', Validators.required],
-				context: ['', Validators.required],
-			}),
-			contactInfo: this._fb.group({
-				name: ['', Validators.required],
-				classID: ['', [Validators.required]],
-			}),
-		});
-
 		this.stripe = await loadStripe(stripeKey);
 	}
 
