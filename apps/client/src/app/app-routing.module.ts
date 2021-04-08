@@ -26,6 +26,7 @@ import { StoreCatalogView } from './views/store/store-catalog/store-catalog.view
 import { StoreProductView } from './views/store/store-product/store-product.view';
 import { StoreOrdersView } from './views/store/store-orders/store-orders.view';
 import { CategoryComponent } from './global/components/category/category.component';
+import { StorePaymentsView } from './views/store/store-payments/store-payments.view';
 
 // Guards
 import { RappreGuard } from '@global/guards/rappre/rappre.guard';
@@ -35,7 +36,7 @@ import { QpAdminGuard } from '@global/guards/qp-admin/qp-admin.guard';
 import { AdminGuard } from '@global/guards/admin/admin.guard';
 import { NotLoggedInGuard } from '@global/guards/not-logged-in/not-logged-in.guard';
 import { ReferenteGuard } from '@global/guards/referente/referente.guard';
-import { StorePaymentsView } from './views/store/store-payments/store-payments.view';
+import { RappreDiClasseGuard } from './global/guards/rappre-di-classe/rappre-di-classe.guard';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent },
@@ -115,6 +116,7 @@ const routes: Routes = [
 			{
 				path: 'payments',
 				component: StorePaymentsView,
+				canActivate: [RappreDiClasseGuard],
 			},
 			{
 				path: ':category',
