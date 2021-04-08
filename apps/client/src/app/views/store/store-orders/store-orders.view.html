@@ -37,9 +37,9 @@
 		</table>
 	</mat-card-content>
 	
-	<mat-card-actions>
+	<mat-card-actions *ngIf="user$ | async as user">
 		<ng-container
-			*ngIf="orders[category + 'Confirmed'] === false; else alreadyConfirmed"
+			*ngIf="!user.confirmed || !user.confirmed[category]; else alreadyConfirmed"
 		>
 			<button
 				mat-raised-button

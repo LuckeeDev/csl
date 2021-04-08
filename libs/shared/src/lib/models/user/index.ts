@@ -11,6 +11,11 @@ interface UserCourses {
 	f: string;
 }
 
+interface Confirmed {
+	gadgets: boolean;
+	photos: boolean;
+}
+
 export interface ProductInUserCart {
 	quantity: number;
 
@@ -57,6 +62,11 @@ export interface IUser {
 	isReferente?: ICommissione['id'];
 
 	cart: ProductInUserCart[];
+
+	/**
+	 * Confirmation status for gadget and photo orders.
+	 */
+	confirmed: Confirmed;
 
 	/**
 	 * Only exists on service accounts.

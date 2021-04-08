@@ -14,6 +14,7 @@ const UserSchema = new Schema(
 		courses: { type: Object },
 
 		cart: { type: Array },
+		confirmed: { type: Object },
 
 		isVice: { type: Boolean },
 		isRappre: { type: Boolean },
