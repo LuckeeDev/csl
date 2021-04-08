@@ -37,8 +37,8 @@ export class OrdersService {
 		return this.http.patch<IHttpRes<void>>('/users/me/cart', product);
 	}
 
-	confirmOrder(category: IProduct['category']): Observable<any> {
-		return this.http.post('/orders/confirm', { category });
+	confirmOrder(category: IProduct['category']): Observable<IHttpRes<void>> {
+		return this.http.patch<IHttpRes<void>>('/users/me/confirm', { category });
 	}
 
 	deleteProduct(product: IProductInCart): Observable<any> {

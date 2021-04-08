@@ -1,7 +1,7 @@
 import { AuthService } from '@/global/services/auth/auth.service';
 import { OrdersService } from '@/global/services/orders/orders.service';
 import { Injectable } from '@angular/core';
-import { IUser, ProductInUserCart } from '@csl/shared';
+import { IProduct, IUser, ProductInUserCart } from '@csl/shared';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import produce from 'immer';
@@ -16,6 +16,11 @@ export namespace Auth {
 	export class AddToCart {
 		static readonly type = '[Auth] Add to Cart';
 		constructor(public product: ProductInUserCart) {}
+	}
+
+	export class ConfirmCategory {
+		static readonly type = '[Auth] Confirm Category';
+		constructor(public category: IProduct['category']) {}
 	}
 }
 
@@ -87,7 +92,39 @@ export class AuthState {
 				} else {
 					throw new Error('Success was set to false on the API response.');
 				}
-			}),
+			})
 		);
+	}
+
+	@Action(Auth.ConfirmCategory)
+	confirmCategory(
+		ctx: StateContext<AuthStateModel>,
+		action: Auth.ConfirmCategory
+	) {
+		const category = action.category;
+		const currentState = ctx.getState();
+
+		if (
+			!currentState.user.confirmed ||
+			!currentState.user.confirmed[category]
+		) {
+			ctx.patchState({ loading: true });
+
+			return this.orders.confirmOrder(category).pipe(
+				tap((res) => {
+					ctx.patchState({ loading: false });
+
+					if (res.success === true) {
+						ctx.setState(
+							produce(ctx.getState(), (state) => {
+								state.user.confirmed[category] = true;
+							})
+						);
+					} else {
+						throw new Error("Errore durante la conferma dell'ordine");
+					}
+				})
+			);
+		}
 	}
 }

@@ -4,6 +4,7 @@ import {
 	IHttpRes,
 	IAccount,
 	ProductInUserCart,
+	IProduct,
 } from '@csl/shared';
 import { Class, User } from '@models';
 
@@ -230,6 +231,34 @@ export const addToCart = async (
 			category: 'orders',
 			err,
 		});
+
+		return {
+			success: false,
+			err,
+		};
+	}
+};
+
+export const confirmCategory = async (
+	category: IProduct['category'],
+	user: IUser
+): Promise<IHttpRes<void>> => {
+	try {
+		const updateQuery = `confirmed.${category}`;
+
+		await User.findOneAndUpdate({ id: user.id }, { [updateQuery]: true });
+
+		return {
+			success: true,
+		};
+	} catch (err) {
+		saveError(
+			`Errore durante la conferma dell'ordine per l'utente ${user.name}`,
+			{
+				err,
+				category: 'orders',
+			}
+		);
 
 		return {
 			success: false,

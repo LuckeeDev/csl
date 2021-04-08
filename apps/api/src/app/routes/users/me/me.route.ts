@@ -1,7 +1,7 @@
 import { isSignedIn } from '@/common/auth';
 import { Request, Response, Router } from 'express';
-import { ProductInUserCart } from '@csl/shared';
-import { addToCart } from '@/controllers';
+import { IProduct, ProductInUserCart } from '@csl/shared';
+import { addToCart, confirmCategory } from '@/controllers';
 import { fireAuth } from '@/common/firebase';
 const router = Router();
 
@@ -44,11 +44,23 @@ router.get('/', async (req: Request, res: Response) => {
 router.patch(
 	'/cart',
 	isSignedIn,
-	async (req: Request<ProductInUserCart>, res) => {
+	async (req: Request<ProductInUserCart>, res: Response) => {
 		const product = req.body;
 		const user = req.user;
 
 		const result = await addToCart(product, user);
+
+		res.json(result);
+	}
+);
+
+router.patch(
+	'/confirm',
+	async (req: Request<{ category: IProduct['category'] }>, res: Response) => {
+		const category = req.body.category;
+		const user = req.user;
+
+		const result = await confirmCategory(category, user);
 
 		res.json(result);
 	}

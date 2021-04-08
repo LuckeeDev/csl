@@ -4,9 +4,9 @@ import { OrdersService } from '@global/services/orders/orders.service';
 import { DialogService, ToastrService } from '@csl/ui';
 import { IProduct, IUser, ProductInUserCart } from '@csl/shared';
 import { Select, Store } from '@ngxs/store';
-import { AuthState } from '@/global/store/auth';
+import { Auth, AuthState } from '@/global/store/auth';
 import { combineLatest, Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 import { Products, ProductsState } from '@/global/store/products';
 
 @Component({
@@ -134,23 +134,21 @@ export class StoreOrdersView implements OnInit {
 				color: 'primary',
 				answer: 'Conferma',
 			})
-			.subscribe(() => {
-				this.orders.confirmOrder(this.category).subscribe((res) => {
-					const { success } = res;
+			.pipe(
+				switchMap(() =>
+					this.store.dispatch(new Auth.ConfirmCategory(this.category))
+				)
+			)
+			.subscribe({
+				complete: () =>
+					this.toastr.show({
+						message: 'Ordine confermato',
+						color: 'success',
+						action: 'Chiudi',
+						duration: 5000,
+					}),
 
-					if (success === true) {
-						this.toastr.show({
-							message: 'Ordine confermato',
-							color: 'success',
-							action: 'Chiudi',
-							duration: 5000,
-						});
-					} else if (success === false) {
-						this.toastr.showError();
-					}
-
-					this.orders.getOrders();
-				});
+				error: (err) => this.toastr.showError(err),
 			});
 	}
 }
