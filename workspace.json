@@ -380,7 +380,8 @@
 					"builder": "@jscutlery/semver:version",
 					"options": {
 						"syncVersions": true,
-						"push": true
+						"push": true,
+						"rootChangelog": true
 					}
 				}
 			},
