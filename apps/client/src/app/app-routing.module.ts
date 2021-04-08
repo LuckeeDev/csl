@@ -35,6 +35,7 @@ import { QpAdminGuard } from '@global/guards/qp-admin/qp-admin.guard';
 import { AdminGuard } from '@global/guards/admin/admin.guard';
 import { NotLoggedInGuard } from '@global/guards/not-logged-in/not-logged-in.guard';
 import { ReferenteGuard } from '@global/guards/referente/referente.guard';
+import { StorePaymentsView } from './views/store/store-payments/store-payments.view';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent },
@@ -110,6 +111,10 @@ const routes: Routes = [
 			{
 				path: 'summary/photos',
 				component: StoreOrdersView,
+			},
+			{
+				path: 'payments',
+				component: StorePaymentsView,
 			},
 			{
 				path: ':category',

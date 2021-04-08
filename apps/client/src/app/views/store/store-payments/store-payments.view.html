@@ -1,0 +1,78 @@
+<form
+	[formGroup]="form"
+	(ngSubmit)="submit()"
+	class="form"
+	[class.mat-elevation-z2]="true"
+>
+	<mat-vertical-stepper [linear]="true" #stepper>
+		<mat-step [stepControl]="form.get('firstStep')" formGroupName="firstStep">
+			<ng-template matStepLabel>Seleziona la categoria</ng-template>
+
+			<mat-form-field>
+				<mat-label>Categoria</mat-label>
+				<mat-select formControlName="category" required>
+					<mat-option value="gadgets">Gadget</mat-option>
+
+					<mat-option value="photos">Foto</mat-option>
+				</mat-select>
+			</mat-form-field>
+
+			<div>
+				<button mat-raised-button matStepperNext type="button">Avanti</button>
+			</div>
+		</mat-step>
+
+		<mat-step [stepControl]="form.get('secondStep')" formGroupName="secondStep">
+			<ng-template matStepLabel>Verifica informazioni personali</ng-template>
+
+			<div>
+				<button mat-raised-button matStepperPrevious type="button">
+					Indietro
+				</button>
+				<button mat-raised-button matStepperNext type="button">Avanti</button>
+			</div>
+		</mat-step>
+
+		<mat-step
+			[stepControl]="form.get('contactInfo')"
+			formGroupName="contactInfo"
+		>
+			<ng-template matStepLabel>Verifica informazioni della classe</ng-template>
+
+			<mat-form-field>
+				<mat-label>Nome e cognome</mat-label>
+				<input matInput formControlName="name" required />
+			</mat-form-field>
+
+			<mat-form-field>
+				<mat-label>Classe</mat-label>
+				<input matInput formControlName="classID" required />
+			</mat-form-field>
+
+			<div>
+				<button mat-raised-button matStepperPrevious type="button">
+					Indietro
+				</button>
+				<button mat-raised-button matStepperNext type="button">Avanti</button>
+			</div>
+		</mat-step>
+
+		<mat-step>
+			<ng-template matStepLabel>Procedi al pagamento</ng-template>
+
+			<div>
+				<button mat-raised-button matStepperPrevious type="button">
+					Indietro
+				</button>
+				<button
+					mat-flat-button
+					color="primary"
+					type="submit"
+					[disabled]="form.invalid"
+				>
+					Invia
+				</button>
+			</div>
+		</mat-step>
+	</mat-vertical-stepper>
+</form>

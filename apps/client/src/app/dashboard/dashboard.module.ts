@@ -12,7 +12,6 @@ import { DashboardComponent } from '@dashboard/dashboard.component';
 
 // Sub-components
 import { ProfileComponent } from '@dashboard/components/profile/profile.component';
-import { CheckoutComponent } from '@dashboard/components/checkout/checkout.component';
 import { OrientamentoComponent } from './components/orientamento/orientamento.component';
 import { EventComponent } from './components/event/event.component';
 
@@ -20,20 +19,19 @@ import { EventComponent } from './components/event/event.component';
 import { PipesModule } from '@global/pipes/pipes.module';
 
 @NgModule({
-  declarations: [
-    DashboardComponent,
-    ProfileComponent,
-    CheckoutComponent,
-    OrientamentoComponent,
-    EventComponent,
-  ],
-  imports: [
-    CommonModule,
-    DashboardRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    UiModule,
-    PipesModule,
-  ],
+	declarations: [
+		DashboardComponent,
+		ProfileComponent,
+		OrientamentoComponent,
+		EventComponent,
+	],
+	imports: [
+		CommonModule,
+		DashboardRoutingModule,
+		FormsModule,
+		ReactiveFormsModule,
+		UiModule,
+		PipesModule,
+	],
 })
 export class DashboardModule {}

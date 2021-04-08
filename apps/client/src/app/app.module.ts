@@ -61,6 +61,8 @@ import { StoreHomeView } from '@/views/store/store-home/store-home.view';
 import { StoreProductView } from '@/views/store/store-product/store-product.view';
 import { StoreCatalogView } from '@/views/store/store-catalog/store-catalog.view';
 import { StoreOrdersView } from './views/store/store-orders/store-orders.view';
+import { CategoryComponent } from './global/components/category/category.component';
+import { StorePaymentsView } from './views/store/store-payments/store-payments.view';
 
 // Interceptors
 import { ResCodeInterceptor } from '@global/http/res-code.interceptor';
@@ -69,7 +71,6 @@ import { ApiInterceptor } from '@global/http/api.interceptor';
 // Stores
 import { ProductsState } from './global/store/products';
 import { AuthState } from './global/store/auth';
-import { CategoryComponent } from './global/components/category/category.component';
 
 registerLocaleData(ITLocaleData);
 
@@ -103,6 +104,7 @@ registerLocaleData(ITLocaleData);
 		WrapperComponent,
 		StoreOrdersView,
 		CategoryComponent,
+		StorePaymentsView,
 	],
 	imports: [
 		BrowserModule,
