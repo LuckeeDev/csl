@@ -1,14 +1,7 @@
 import { Request, Response } from 'express';
-
-// Stripe initialization
-import { environment as env } from '@environments/environment';
-import Stripe from 'stripe';
-const stripe = new Stripe(env.STRIPE_KEY, {
-  apiVersion: '2020-08-27',
-  typescript: true,
-});
-
+import { stripe } from '@/common/stripe';
 import { setPaid } from '@controllers';
+import { environment } from '@environments/environment';
 
 export async function webhookHandler(
   req: Request<string | Buffer>,
@@ -19,7 +12,7 @@ export async function webhookHandler(
   let event: any;
 
   try {
-    event = stripe.webhooks.constructEvent(req.body, sig, env.WEBHOOK_SECRET);
+    event = stripe.webhooks.constructEvent(req.body, sig, environment.WEBHOOK_SECRET);
   } catch (err) {
     // On error, log and return the error message
     console.log(`❌ Error message: ${err.message}`);

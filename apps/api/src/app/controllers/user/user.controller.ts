@@ -6,17 +6,10 @@ import {
 	ProductInUserCart,
 	IProduct,
 } from '@csl/shared';
-import { Class, User } from '@models';
-
-// Stripe initialization
-import { environment as env } from '@environments/environment';
-import Stripe from 'stripe';
+import { Class, Product, User } from '@models';
 import { updateSnackCreditInClass } from '../classe/classe.controller';
 import { saveError, saveEvent } from '@common/logs';
-const stripe = new Stripe(env.STRIPE_KEY, {
-	apiVersion: '2020-08-27',
-	typescript: true,
-});
+import { stripe } from '@/common/stripe';
 
 // Create an account (for admin)
 export const createAccount = async (
@@ -250,10 +243,10 @@ export const confirmCategory = async (
 		/**
 		 * Update the user phone.
 		 */
-		const newUser = await User.findOneAndUpdate(
+		await User.findOneAndUpdate(
 			{ id: user.id },
 			{ [updateQuery]: true, phone },
-			{ new: true, upsert: true }
+			{ upsert: true }
 		);
 
 		return {
@@ -270,6 +263,84 @@ export const confirmCategory = async (
 
 		return {
 			success: false,
+			err,
+		};
+	}
+};
+
+export const checkClassStatus = async (
+	user: IUser,
+	category: IProduct['category']
+): Promise<{
+	ready: boolean;
+	notConfirmed?: IUser[];
+	err?: Error;
+	products?: {
+		quantity: ProductInUserCart['quantity'];
+		price: IProduct['stripePriceID'];
+	}[];
+}> => {
+	try {
+		const classUsers = await User.find({
+			classID: user.classID,
+		});
+
+		const usersWhoHaveNotConfirmed = classUsers.filter(
+			(user) => !(user.confirmed && user.confirmed[category] === true)
+		);
+
+		const errorsCount = usersWhoHaveNotConfirmed.length;
+
+		if (errorsCount === 0) {
+			const availableProducts = await Product.find();
+
+			const products = classUsers
+				.map((user) => user.cart.map(({ id, quantity }) => ({ id, quantity })))
+				.reduce((acc, current) => [...acc, ...current], [])
+				.reduce((acc: { id: string; quantity: number }[], current) => {
+					const index = acc.findIndex((val) => val.id === current.id);
+
+					if (index === -1) {
+						acc.push(current);
+					} else {
+						const currentValue = acc[index];
+						acc[index] = {
+							id: currentValue.id,
+							quantity: currentValue.quantity + current.quantity,
+						};
+					}
+
+					return acc;
+				}, [])
+				.map(({ quantity, id }) => {
+					const price = availableProducts.find((x) => x.id === id).stripePriceID;
+
+					return {
+						quantity,
+						price,
+					};
+				});
+
+			return {
+				ready: true,
+				products,
+			};
+		} else {
+			return {
+				ready: false,
+				notConfirmed: usersWhoHaveNotConfirmed,
+			};
+		}
+	} catch (err) {
+		saveError('Error while creating a payment', {
+			err,
+			category: 'payments',
+		});
+
+		console.log(err);
+
+		return {
+			ready: false,
 			err,
 		};
 	}

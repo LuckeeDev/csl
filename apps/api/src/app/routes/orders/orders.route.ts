@@ -1,25 +1,18 @@
 // Main imports
 import { Request, Response, Router } from 'express';
 const router = Router();
-import { isSignedIn, isRappreDiClasse } from '@common/auth';
+import { isRappreDiClasse, isSignedIn } from '@common/auth';
 import {
 	getAllOrders,
 	confirmOrder,
 	deleteFromCart,
-	getStripeID,
 	updateTotal,
-	verifyReady,
-	verifyPaid,
 	getTotal,
+	checkClassStatus,
 } from '@controllers';
-
-// Stripe initialization
-import { environment as env } from '@environments/environment';
-import Stripe from 'stripe';
-const stripe = new Stripe(env.STRIPE_KEY, {
-	apiVersion: '2020-08-27',
-	typescript: true,
-});
+import { stripe } from '@/common/stripe';
+import { IProduct } from '@csl/shared';
+import { environment } from '@environments/environment';
 
 // Get all orders of a user
 router.get('/', isSignedIn, async (req: Request, res: Response) => {
@@ -51,68 +44,37 @@ router.post('/delete', isSignedIn, async (req: Request, res: Response) => {
 	res.json(result);
 });
 
-// Create a payment intent
 router.post(
-	'/create-payment-intent',
+	'/setup-payment',
 	isRappreDiClasse,
-	async (req: Request, res: Response) => {
-		const classID = req.user.classID;
+	async (req: Request<{ category: IProduct['category'] }>, res) => {
+		const { ready, notConfirmed, err, products } = await checkClassStatus(
+			req.user,
+			req.body.category
+		);
 
-		const amount = await getTotal(classID, req.body.category);
-
-		if (amount < 1) {
-			return res.json({
+		if (err) {
+			res.json({
 				success: false,
-				err: 'no-orders',
+				err,
 			});
-		}
-
-		const stripeID = await getStripeID(req.user.id);
-
-		const isConfirmed = await verifyReady(classID, req.body.category);
-
-		if (!isConfirmed) {
-			return res.json({
-				success: false,
-				data: {
-					isConfirmed: false,
-				},
-			});
-		}
-
-		const isPaid = await verifyPaid(classID, req.body.category);
-
-		if (isPaid === true) {
-			return res.json({
-				success: false,
-				data: {
-					isPaid: true,
-				},
-			});
-		}
-
-		const paymentIntent = await stripe.paymentIntents.create({
-			amount,
-			currency: 'eur',
-			description: `Pagamento di ${
-				amount / 100
-			}€ per la classe ${classID} nella categoria ${req.body.category}`,
-			receipt_email: req.user.email,
-			customer: stripeID,
-			metadata: {
-				Classe: classID,
-				Categoria: req.body.category,
-			},
-		});
-
-		if (!isPaid && isConfirmed) {
-			return res.json({
+		} else if (ready === false) {
+			res.json({
 				success: true,
-				data: {
-					clientSecret: paymentIntent.client_secret,
-					total: amount / 100,
-					classID: classID,
-				},
+				data: { ready: false, notConfirmed },
+			});
+		} else if (ready === true) {
+			const session = await stripe.checkout.sessions.create({
+				payment_method_types: ['card'],
+				line_items: products,
+				mode: 'payment',
+				success_url: `${environment.client}/store/payments/success`,
+				cancel_url: `${environment.client}/store/payments/canceled`,
+			});
+
+			res.json({
+				success: true,
+				data: { id: session.id, total: session.amount_total },
 			});
 		}
 	}

@@ -11,14 +11,8 @@ import {
 	getAllProducts,
 } from '@controllers';
 import { IProduct } from '@csl/shared';
-import Stripe from 'stripe';
-import { environment } from '@environments/environment';
 import { saveError } from '@/common/logs';
-
-const stripe = new Stripe(environment.STRIPE_KEY, {
-	apiVersion: '2020-08-27',
-	typescript: true,
-});
+import { stripe } from '@/common/stripe';
 
 // Get all products
 router.get('/', isSignedIn, async (req: Request, res: Response) => {
