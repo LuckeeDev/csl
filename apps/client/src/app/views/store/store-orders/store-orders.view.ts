@@ -51,15 +51,12 @@ export class StoreOrdersView implements OnInit {
 				products,
 				user,
 			})),
-			filter((value) => {
-				return (
-					value.products &&
-					value.products.length > 0 &&
-					value.user &&
-					value.user.cart.length > 0
-				);
-			}),
+			filter((state) => state.products && state.products.length > 0),
 			map(({ user, products: availableProducts }) => {
+				if (!user.cart || user.cart.length === 0) {
+					return [];
+				}
+
 				const cart = user.cart;
 
 				return cart
