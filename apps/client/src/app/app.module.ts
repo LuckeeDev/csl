@@ -63,6 +63,8 @@ import { StoreCatalogView } from '@/views/store/store-catalog/store-catalog.view
 import { StoreOrdersView } from './views/store/store-orders/store-orders.view';
 import { CategoryComponent } from './global/components/category/category.component';
 import { StorePaymentsView } from './views/store/store-payments/store-payments.view';
+import { StoreSuccessView } from './views/store/store-success/store-success.view';
+import { StoreErrorView } from './views/store/store-error/store-error.view';
 
 // Interceptors
 import { ResCodeInterceptor } from '@global/http/res-code.interceptor';
@@ -106,6 +108,8 @@ registerLocaleData(ITLocaleData);
 		StoreOrdersView,
 		CategoryComponent,
 		StorePaymentsView,
+		StoreSuccessView,
+		StoreErrorView,
 	],
 	imports: [
 		BrowserModule,

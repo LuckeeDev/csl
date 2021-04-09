@@ -1,0 +1,23 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	.header {
+		margin: 0;
+	}
+
+	.hint {
+		margin-bottom: 20px;
+
+		.link {
+			color: #0D47A1;
+			text-decoration: none;
+			font-weight: 500;
+		}
+	}
+
+	.drawing {
+		width: 50%;
+	}
+}

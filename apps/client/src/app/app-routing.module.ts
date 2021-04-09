@@ -27,6 +27,8 @@ import { StoreProductView } from './views/store/store-product/store-product.view
 import { StoreOrdersView } from './views/store/store-orders/store-orders.view';
 import { CategoryComponent } from './global/components/category/category.component';
 import { StorePaymentsView } from './views/store/store-payments/store-payments.view';
+import { StoreSuccessView } from './views/store/store-success/store-success.view';
+import { StoreErrorView } from './views/store/store-error/store-error.view';
 
 // Guards
 import { RappreGuard } from '@global/guards/rappre/rappre.guard';
@@ -116,6 +118,16 @@ const routes: Routes = [
 			{
 				path: 'payments',
 				component: StorePaymentsView,
+				canActivate: [RappreDiClasseGuard],
+			},
+			{
+				path: 'payments/success',
+				component: StoreSuccessView,
+				canActivate: [RappreDiClasseGuard],
+			},
+			{
+				path: 'payments/error',
+				component: StoreErrorView,
 				canActivate: [RappreDiClasseGuard],
 			},
 			{
