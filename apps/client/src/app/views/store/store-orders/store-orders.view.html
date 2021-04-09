@@ -3,7 +3,7 @@
 		<mat-card-title>Ordini {{ category | category }}</mat-card-title>
 	</mat-card-header>
 
-	<mat-card-content>
+	<mat-card-content *ngIf="user$ | async as user">
 		<table mat-table [dataSource]="orders$ | async">
 			<ng-container matColumnDef="name">
 				<th mat-header-cell *matHeaderCellDef>Nome</th>
@@ -34,6 +34,7 @@
 						mat-stroked-button
 						color="warn"
 						(click)="removeFromCart(product)"
+						[disabled]="user.confirmed[category]"
 					>
 						Rimuovi
 					</button>
