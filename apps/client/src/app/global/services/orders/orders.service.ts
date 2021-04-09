@@ -33,8 +33,8 @@ export class OrdersService {
 		});
 	}
 
-	addToCart(product: ProductInUserCart): Observable<IHttpRes<void>> {
-		return this.http.patch<IHttpRes<void>>('/users/me/cart', product);
+	addToCart(product: ProductInUserCart): Observable<IHttpRes<IUser['cart']>> {
+		return this.http.patch<IHttpRes<IUser['cart']>>('/users/me/cart', product);
 	}
 
 	confirmOrder(
@@ -47,7 +47,9 @@ export class OrdersService {
 		});
 	}
 
-	removeFromCart(cartID: ProductInUserCart['cartID']): Observable<IHttpRes<void>> {
+	removeFromCart(
+		cartID: ProductInUserCart['cartID']
+	): Observable<IHttpRes<void>> {
 		return this.http.delete<IHttpRes<void>>(`/users/me/cart/${cartID}`);
 	}
 

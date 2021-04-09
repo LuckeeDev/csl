@@ -213,17 +213,19 @@ export const getRoles = (email: IUser['email']) => {
 export const addToCart = async (
 	product: ProductInUserCart,
 	user: IUser
-): Promise<IHttpRes<void>> => {
-	const newProduct: ProductInUserCart = { ...product, cartID: v4() };
-
+): Promise<IHttpRes<IUser['cart']>> => {
 	try {
-		await User.findOneAndUpdate(
+		const newProduct: ProductInUserCart = { ...product, cartID: v4() };
+
+		const newUser = await User.findOneAndUpdate(
 			{ id: user.id },
-			{ $push: { cart: newProduct } }
+			{ $push: { cart: newProduct } },
+			{ new: true }
 		);
 
 		return {
 			success: true,
+			data: newUser.cart,
 		};
 	} catch (err) {
 		saveError(`Error while adding to cart for user ${user.name}`, {

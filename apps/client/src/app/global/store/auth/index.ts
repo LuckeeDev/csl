@@ -92,13 +92,15 @@ export class AuthState {
 				const currentState = ctx.getState();
 
 				if (res.success === true) {
+					const newCart = res.data;
+
 					ctx.setState(
 						produce(currentState, (state) => {
-							state.user.cart.push(productInCart);
+							state.user.cart = newCart;
 						})
 					);
 				} else {
-					throw new Error('Success was set to false on the API response.');
+					throw new Error('Non è stato possibile aggiungere il prodotto al carrello.');
 				}
 			})
 		);
