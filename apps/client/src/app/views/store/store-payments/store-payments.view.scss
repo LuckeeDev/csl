@@ -12,3 +12,13 @@
 .button + .button {
 	margin-left: 10px;
 }
+
+.loading {
+	display: flex;
+	align-items: center;
+	margin: 5px 0;
+
+	.spinner {
+		margin-right: 5px;
+	}
+}

@@ -5,7 +5,7 @@ import {
 	IProductInCart,
 	IUserOrders,
 	IHttpRes,
-	IPaymentIntentData,
+	PaymentSessionData,
 	IProduct,
 	ProductInUserCart,
 	IUser,
@@ -66,11 +66,11 @@ export class OrdersService {
 		);
 	}
 
-	createPaymentIntent(
-		category: string
-	): Observable<IHttpRes<IPaymentIntentData>> {
-		return this.http.post<IHttpRes<IPaymentIntentData>>(
-			'/orders/create-payment-intent',
+	setupPayment(
+		category: IProduct['category']
+	): Observable<IHttpRes<PaymentSessionData>> {
+		return this.http.post<IHttpRes<PaymentSessionData>>(
+			'/orders/setup-payment',
 			{ category }
 		);
 	}

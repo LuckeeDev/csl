@@ -6,7 +6,10 @@
 	*ngIf="user$ | async as user"
 >
 	<mat-vertical-stepper [linear]="true" #stepper>
-		<mat-step [stepControl]="form.get('firstStep')" formGroupName="firstStep">
+		<mat-step
+			[stepControl]="form.get('categoryStep')"
+			formGroupName="categoryStep"
+		>
 			<ng-template matStepLabel>Seleziona la categoria</ng-template>
 
 			<mat-form-field>
@@ -63,40 +66,59 @@
 			</div>
 		</mat-step>
 
-		<mat-step
-			[stepControl]="form.get('contactInfo')"
-			formGroupName="contactInfo"
-		>
+		<mat-step [completed]="thirdStepCompleted">
 			<ng-template matStepLabel>Verifica informazioni della classe</ng-template>
 
-			<mat-form-field>
-				<mat-label>Nome e cognome</mat-label>
-				<input matInput formControlName="name" required />
-			</mat-form-field>
+			<ng-container *ngIf="orders$ | async as orders">
+				<ng-container *ngIf="!orders.loading; else loading">
+					<ng-container *ngIf="orders.ready">
+						<h3>Pagamento pronto</h3>
+						<p>Totale: {{ orders.total / 100 | currency: 'EUR' }}</p>
+					</ng-container>
 
-			<mat-form-field>
-				<mat-label>Classe</mat-label>
-				<input matInput formControlName="classID" required />
-			</mat-form-field>
+					<ng-container *ngIf="!orders.ready && orders.notConfirmed">
+						<h3>Pagamento non disponibile</h3>
+						<p>
+							Questi tuoi compagni non hanno ancora confermato il loro ordine:
+							{{ notConfirmedNames$ | async }}.
+						</p>
+					</ng-container>
+				</ng-container>
 
-			<div>
-				<button
-					mat-raised-button
-					matStepperPrevious
-					type="button"
-					class="button"
-				>
-					Indietro
-				</button>
+				<ng-template #loading>
+					<div class="loading">
+						<mat-spinner [diameter]="25" class="spinner"></mat-spinner>
+						Caricamento in corso...
+					</div>
+				</ng-template>
 
-				<button mat-raised-button matStepperNext type="button" class="button">
-					Avanti
-				</button>
-			</div>
+				<div>
+					<button
+						mat-raised-button
+						matStepperPrevious
+						type="button"
+						class="button"
+					>
+						Indietro
+					</button>
+
+					<button
+						mat-raised-button
+						matStepperNext
+						type="button"
+						class="button"
+						[disabled]="orders.loading || !orders.ready"
+					>
+						Avanti
+					</button>
+				</div>
+			</ng-container>
 		</mat-step>
 
 		<mat-step>
 			<ng-template matStepLabel>Procedi al pagamento</ng-template>
+
+			<h3>Ora puoi procedere al pagamento.</h3>
 
 			<div>
 				<button
@@ -115,7 +137,7 @@
 					[disabled]="form.invalid"
 					class="button"
 				>
-					Invia
+					Procedi al pagamento
 				</button>
 			</div>
 		</mat-step>

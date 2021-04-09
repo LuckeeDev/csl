@@ -74,7 +74,7 @@ router.post(
 
 			res.json({
 				success: true,
-				data: { id: session.id, total: session.amount_total },
+				data: { ready: true, id: session.id, total: session.amount_total },
 			});
 		}
 	}
