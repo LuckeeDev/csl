@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IImage, IProduct, ProductInUserCart } from '@csl/shared';
-import { OrdersService } from '@global/services/orders/orders.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogService, ToastrService } from '@csl/ui';
 import { Observable } from 'rxjs';
@@ -33,7 +32,6 @@ export class StoreProductView implements OnInit {
 
 	constructor(
 		private route: ActivatedRoute,
-		private ordersService: OrdersService,
 		private fb: FormBuilder,
 		private dialog: DialogService,
 		private toastr: ToastrService,
@@ -104,7 +102,7 @@ export class StoreProductView implements OnInit {
 				next: () => {
 					this.toastr.show({
 						color: 'success',
-						message: 'Prodotto creato con successo',
+						message: 'Prodotto aggiunto con successo',
 					});
 					
 					this.router.navigate(['..'], {

@@ -1,7 +1,7 @@
 import { isSignedIn } from '@/common/auth';
 import { Request, Response, Router } from 'express';
 import { IProduct, IUser, ProductInUserCart } from '@csl/shared';
-import { addToCart, confirmCategory } from '@/controllers';
+import { addToCart, confirmCategory, pullFromCart } from '@/controllers';
 import { fireAuth } from '@/common/firebase';
 const router = Router();
 
@@ -53,6 +53,15 @@ router.patch(
 		res.json(result);
 	}
 );
+
+router.delete('/cart/:cartID', isSignedIn, async (req: Request, res: Response) => {
+	const cartID = (req.params.cartID as unknown) as ProductInUserCart['cartID'];
+	const user = req.user;
+
+	const result = await pullFromCart(cartID, user);
+
+	res.json(result);
+});
 
 router.patch(
 	'/confirm',

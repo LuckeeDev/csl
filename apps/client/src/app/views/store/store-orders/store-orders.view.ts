@@ -85,11 +85,11 @@ export class StoreOrdersView implements OnInit {
 
 		this.displayedColumns =
 			this.category === 'gadgets'
-				? ['name', 'quantity', 'size', 'color']
-				: ['name', 'quantity'];
+				? ['name', 'quantity', 'size', 'color', 'actions']
+				: ['name', 'quantity', 'actions'];
 	}
 
-	deleteOrder(product: ProductInUserCart) {
+	removeFromCart(product: ProductInUserCart) {
 		this.dialog
 			.open({
 				title:
@@ -98,31 +98,19 @@ export class StoreOrdersView implements OnInit {
 				color: 'warn',
 				answer: 'Conferma',
 			})
-			.subscribe(() => {
-				this.orders.deleteProduct(product).subscribe((res) => {
-					const { err, success } = res;
-
-					if (
-						success === false &&
-						err === 'Your order has already been confirmed'
-					) {
-						this.toastr.show({
-							message: 'Ordine già confermato',
-							color: 'accent',
-							action: 'Chiudi',
-							duration: 5000,
-						});
-					} else if (success === false) {
-						this.toastr.showError();
-					} else {
-						this.toastr.show({
-							message: 'Ordine cancellato',
-							color: 'accent',
-							action: 'Chiudi',
-							duration: 5000,
-						});
-					}
-				});
+			.pipe(
+				switchMap(() => this.store.dispatch(new Auth.RemoveFromCart(product)))
+			)
+			.subscribe({
+				next: () =>
+					this.toastr.show({
+						message: 'Errore eliminato correttamente',
+						color: 'basic',
+					}),
+				error: (err) => {
+					console.log(err);
+					this.toastr.showError(err);
+				},
 			});
 	}
 

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
 import {
 	IProductInCart,
 	IUserOrders,
@@ -48,22 +47,8 @@ export class OrdersService {
 		});
 	}
 
-	deleteProduct(product: IProductInCart): Observable<any> {
-		return this.http.post('/orders/delete', { product: product }).pipe(
-			tap((res: any) => {
-				if (res.success === true) {
-					if (product.size && product.color) {
-						this.gadgets = this.gadgets.filter(
-							(value: IProductInCart) => value !== product
-						);
-					} else {
-						this.photos = this.photos.filter(
-							(value: IProductInCart) => value !== product
-						);
-					}
-				}
-			})
-		);
+	removeFromCart(cartID: ProductInUserCart['cartID']): Observable<IHttpRes<void>> {
+		return this.http.delete<IHttpRes<void>>(`/users/me/cart/${cartID}`);
 	}
 
 	setupPayment(

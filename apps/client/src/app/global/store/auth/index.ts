@@ -18,6 +18,11 @@ export namespace Auth {
 		constructor(public product: ProductInUserCart) {}
 	}
 
+	export class RemoveFromCart {
+		static readonly type = '[Auth] Remove from Cart';
+		constructor(public product: ProductInUserCart) {}
+	}
+
 	export class ConfirmCategory {
 		static readonly type = '[Auth] Confirm Category';
 		constructor(
@@ -94,6 +99,34 @@ export class AuthState {
 					);
 				} else {
 					throw new Error('Success was set to false on the API response.');
+				}
+			})
+		);
+	}
+
+	@Action(Auth.RemoveFromCart)
+	removeFromCart(
+		ctx: StateContext<AuthStateModel>,
+		action: Auth.RemoveFromCart
+	) {
+		ctx.patchState({ loading: true });
+		const { cartID } = action.product;
+
+		return this.orders.removeFromCart(cartID).pipe(
+			tap((res) => {
+				if (res.success) {
+					ctx.setState(
+						produce(ctx.getState(), (state) => {
+							const index = state.user.cart.findIndex(
+								(x) => x.cartID === cartID
+							);
+							state.user.cart.splice(index, 1);
+
+							state.loading = false;
+						})
+					);
+				} else {
+					throw new Error('È stato impossibile eliminare questo ordine');
 				}
 			})
 		);

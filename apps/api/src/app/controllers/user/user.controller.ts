@@ -10,6 +10,7 @@ import { Class, Product, User } from '@models';
 import { updateSnackCreditInClass } from '../classe/classe.controller';
 import { saveError, saveEvent } from '@common/logs';
 import { stripe } from '@/common/stripe';
+import { v4 } from 'uuid';
 
 // Create an account (for admin)
 export const createAccount = async (
@@ -213,14 +214,45 @@ export const addToCart = async (
 	product: ProductInUserCart,
 	user: IUser
 ): Promise<IHttpRes<void>> => {
+	const newProduct: ProductInUserCart = { ...product, cartID: v4() };
+
 	try {
-		await User.findOneAndUpdate({ id: user.id }, { $push: { cart: product } });
+		await User.findOneAndUpdate(
+			{ id: user.id },
+			{ $push: { cart: newProduct } }
+		);
 
 		return {
 			success: true,
 		};
 	} catch (err) {
-		saveError('Error while adding to cart', {
+		saveError(`Error while adding to cart for user ${user.name}`, {
+			category: 'orders',
+			err,
+		});
+
+		return {
+			success: false,
+			err,
+		};
+	}
+};
+
+export const pullFromCart = async (
+	cartID: ProductInUserCart['cartID'],
+	user: IUser
+): Promise<IHttpRes<void>> => {
+	try {
+		await User.findOneAndUpdate(
+			{ id: user.id },
+			{ $pull: { cart: { cartID } } }
+		);
+
+		return {
+			success: true,
+		};
+	} catch (err) {
+		saveError(`Error while pulling from cart for user ${user.name}`, {
 			category: 'orders',
 			err,
 		});
@@ -313,7 +345,8 @@ export const checkClassStatus = async (
 					return acc;
 				}, [])
 				.map(({ quantity, id }) => {
-					const price = availableProducts.find((x) => x.id === id).stripePriceID;
+					const price = availableProducts.find((x) => x.id === id)
+						.stripePriceID;
 
 					return {
 						quantity,

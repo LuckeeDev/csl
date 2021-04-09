@@ -30,6 +30,12 @@ export interface ProductInUserCart {
 	 * Refers to the actual identifier of the product.
 	 */
 	id: IProduct['id'];
+
+	/**
+	 * Used to refer to the item inside the user cart, where the user might have
+	 * multiple items with the same product ID.
+	 */
+	cartID: string;
 }
 
 export interface IUserInCsv {
