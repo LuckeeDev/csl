@@ -10,6 +10,11 @@ import redis from 'redis';
 import connectRedis from 'connect-redis';
 
 export function setupApp(app: Application) {
+	/**
+	 * Setup before CORS to avoid cors issues with Stripe.
+	 */
+	app.post('/webhook', cors(), raw({ type: 'application/json' }), webhookHandler);
+
 	app.use(
 		cors({
 			origin: [
@@ -39,9 +44,6 @@ export function setupApp(app: Application) {
 
 	app.use(passport.initialize());
 	app.use(passport.session());
-
-	// Receive webhooks from Stripe [TODO: need to add CORS, allowing Stripe, to this route]
-	app.post('/api/webhook', raw({ type: 'application/json' }), webhookHandler);
 
 	app.use(json());
 

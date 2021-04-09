@@ -2,32 +2,55 @@ import { Request, Response } from 'express';
 import { stripe } from '@/common/stripe';
 import { setPaid } from '@controllers';
 import { environment } from '@environments/environment';
+import Stripe from 'stripe';
+import { IProduct, IUser } from '@csl/shared';
+
+interface WebhookMetadata {
+	classID: IUser['classID'];
+	category: IProduct['category'];
+}
 
 export async function webhookHandler(
-  req: Request<string | Buffer>,
-  res: Response
-): Promise<void> {
-  const sig = req.headers['stripe-signature'];
+	req: Request<string | Buffer>,
+	res: Response
+) {
+	const payload = req.body;
 
-  let event: any;
+	const sig = req.headers['stripe-signature'];
 
-  try {
-    event = stripe.webhooks.constructEvent(req.body, sig, environment.WEBHOOK_SECRET);
-  } catch (err) {
-    // On error, log and return the error message
-    console.log(`❌ Error message: ${err.message}`);
-    res.status(400).send(`Webhook Error: ${err.message}`);
-  }
+	let event: Stripe.Event;
 
-  if (event && event.type == 'payment_intent.succeeded') {
-    const dataObject: any = event.data.object;
+	try {
+		event = stripe.webhooks.constructEvent(
+			payload,
+			sig,
+			environment.WEBHOOK_SECRET
+		);
+	} catch (err) {
+		return res.status(400).send(`Webhook Error: ${err.message}`);
+	}
 
-    await setPaid(
-      dataObject.metadata.Classe,
-      dataObject.metadata.Categoria
-    );
-  }
+	if (event.type !== 'checkout.session.completed') {
+		return res
+			.status(400)
+			.send('Bad request, not the event we were listening for.');
+	}
 
-  // Return a response to acknowledge receipt of the event
-  res.json({ received: true });
+	/**
+	 * Force Session type on the `event.data.object` because it's not strongly typed.
+	 */
+	const sessionData: Stripe.Checkout.Session = event.data.object as any;
+
+	const {
+		category,
+		classID,
+	} = (sessionData.metadata as unknown) as WebhookMetadata;
+
+	const result = await setPaid(classID, category);
+
+	if (result.success) {
+		res.json({ success: true });
+	} else {
+		res.status(500).send('Something wrong happened on our end');
+	}
 }

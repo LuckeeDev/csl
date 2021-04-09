@@ -48,9 +48,12 @@ router.post(
 	'/setup-payment',
 	isRappreDiClasse,
 	async (req: Request<{ category: IProduct['category'] }>, res) => {
+		const user = req.user;
+		const category = req.body.category;
+
 		const { ready, notConfirmed, err, products } = await checkClassStatus(
-			req.user,
-			req.body.category
+			user,
+			category
 		);
 
 		if (err) {
@@ -70,6 +73,10 @@ router.post(
 				mode: 'payment',
 				success_url: `${environment.client}/store/payments/success`,
 				cancel_url: `${environment.client}/store/payments/error`,
+				metadata: {
+					classID: user.classID,
+					category: category,
+				},
 			});
 
 			res.json({
