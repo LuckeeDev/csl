@@ -139,6 +139,7 @@ export class ProductsState {
 				ctx.setState(
 					produce(currentState, (state) => {
 						state.products[index] = productWithLinks;
+						state.loading = false;
 					})
 				);
 
