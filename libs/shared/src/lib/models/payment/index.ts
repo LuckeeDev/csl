@@ -17,4 +17,5 @@ export interface PaymentSessionData {
 export interface PaymentSessionData {
 	ready: boolean;
 	notConfirmed: IUser[];
+	paid: boolean;
 }

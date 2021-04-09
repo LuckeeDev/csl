@@ -17,6 +17,7 @@ export interface OrdersStateModel {
 	notConfirmed: IUser[];
 	loading: boolean;
 	ready: boolean;
+	paid: boolean;
 }
 
 @State({
@@ -33,8 +34,13 @@ export class OrdersState {
 	) {
 		const currentState = ctx.getState();
 
-		if (!currentState.ready && !currentState.loading && !currentState.notConfirmed) {
+		if (
+			!currentState.ready &&
+			!currentState.loading &&
+			!currentState.notConfirmed
+		) {
 			ctx.patchState({ loading: true });
+			
 			return this.orders.setupPayment(action.category).pipe(
 				tap((res) => {
 					const { data, success } = res;
@@ -46,7 +52,13 @@ export class OrdersState {
 							loading: false,
 							ready: true,
 						});
-					} else if (success) {
+					} else if (success && !data.ready && data.paid) {
+						ctx.patchState({
+							paid: data.paid,
+							loading: false,
+							ready: false,
+						});
+					} else if (success && !data.ready && data.notConfirmed) {
 						ctx.patchState({
 							notConfirmed: data.notConfirmed,
 							loading: false,

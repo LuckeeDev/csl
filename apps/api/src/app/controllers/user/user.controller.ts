@@ -311,6 +311,7 @@ export const checkClassStatus = async (
 		quantity: ProductInUserCart['quantity'];
 		price: IProduct['stripePriceID'];
 	}[];
+	paid?: boolean;
 }> => {
 	try {
 		const classUsers = await User.find({
@@ -324,6 +325,15 @@ export const checkClassStatus = async (
 		const errorsCount = usersWhoHaveNotConfirmed.length;
 
 		if (errorsCount === 0) {
+			const classObject = await Class.findOne({ id: user.classID });
+
+			if (classObject.paid[category]) {
+				return {
+					ready: false,
+					paid: true,
+				};
+			}
+
 			const availableProducts = await Product.find();
 
 			const products = classUsers

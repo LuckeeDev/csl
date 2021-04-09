@@ -51,7 +51,7 @@ router.post(
 		const user = req.user;
 		const category = req.body.category;
 
-		const { ready, notConfirmed, err, products } = await checkClassStatus(
+		const { ready, notConfirmed, err, products, paid } = await checkClassStatus(
 			user,
 			category
 		);
@@ -60,6 +60,11 @@ router.post(
 			res.json({
 				success: false,
 				err,
+			});
+		} else if (ready === false && paid === true) {
+			res.json({
+				success: true,
+				data: { ready: false, paid },
 			});
 		} else if (ready === false) {
 			res.json({
