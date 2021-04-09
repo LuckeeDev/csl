@@ -69,7 +69,7 @@ router.post(
 				line_items: products,
 				mode: 'payment',
 				success_url: `${environment.client}/store/payments/success`,
-				cancel_url: `${environment.client}/store/payments/canceled`,
+				cancel_url: `${environment.client}/store/payments/error`,
 			});
 
 			res.json({
