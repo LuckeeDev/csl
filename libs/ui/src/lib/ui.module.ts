@@ -32,6 +32,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSortModule } from '@angular/material/sort';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
@@ -103,6 +104,7 @@ import { RoundedDirective } from './directives/rounded/rounded.directive';
 		MatRadioModule,
 		DragDropModule,
 		MatSortModule,
+		MatTooltipModule,
 	],
 	exports: [
 		DashboardModelComponent,
@@ -142,6 +144,7 @@ import { RoundedDirective } from './directives/rounded/rounded.directive';
 		MatNativeDateModule,
 		MatRadioModule,
 		MatSortModule,
+		MatTooltipModule,
 	],
 	providers: [ToastrService, DialogService, DeviceService, InfoDialogService],
 })

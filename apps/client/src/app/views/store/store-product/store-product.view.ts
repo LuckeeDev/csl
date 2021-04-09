@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IImage, IProduct, ProductInUserCart } from '@csl/shared';
+import { IImage, IProduct, IUser, ProductInUserCart } from '@csl/shared';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogService, ToastrService } from '@csl/ui';
 import { Observable } from 'rxjs';
 import { Select, Store } from '@ngxs/store';
 import { Products, ProductsState } from '@/global/store/products';
 import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
-import { Auth } from '@/global/store/auth';
+import { Auth, AuthState } from '@/global/store/auth';
 
 @Component({
 	selector: 'csl-store-product',
@@ -22,6 +22,9 @@ export class StoreProductView implements OnInit {
 
 	@Select(ProductsState.loading)
 	loading$: Observable<boolean>;
+
+	@Select(AuthState.user)
+	user$: Observable<IUser>;
 
 	images$: Observable<IImage[]>;
 
