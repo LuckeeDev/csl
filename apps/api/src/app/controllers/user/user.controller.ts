@@ -218,10 +218,12 @@ export const addToCart = async (
 		const category: IProduct['category'] =
 			product.color && product.size ? 'gadgets' : 'photos';
 
+		const searchQuery = `confirmed.${category}`;
+
 		const newProduct: ProductInUserCart = { ...product, cartID: v4() };
 
 		const newUser = await User.findOneAndUpdate(
-			{ id: user.id, confirmed: { [category]: false } },
+			{ id: user.id, [searchQuery]: { $ne: true } },
 			{ $push: { cart: newProduct } },
 			{ new: true }
 		);
@@ -254,10 +256,24 @@ export const pullFromCart = async (
 	user: IUser
 ): Promise<IHttpRes<void>> => {
 	try {
-		await User.findOneAndUpdate(
-			{ id: user.id },
-			{ $pull: { cart: { cartID } } }
+		const productInCart = user.cart.find((x) => x.cartID === cartID);
+
+		const category: IProduct['category'] =
+			productInCart.color && productInCart.size ? 'gadgets' : 'photos';
+
+		const searchQuery = `confirmed.${category}`;
+
+		const newUser = await User.findOneAndUpdate(
+			{ id: user.id, [searchQuery]: { $ne: true } },
+			{ $pull: { cart: { cartID } } },
+			{ new: true }
 		);
+
+		if (!newUser) {
+			return {
+				success: false,
+			};
+		}
 
 		return {
 			success: true,
