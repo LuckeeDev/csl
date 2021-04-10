@@ -106,13 +106,24 @@ p {
 	.carousel {
 		width: 300px;
 		height: 300px;
+		margin: 0;
+		padding: 0;
 	}
 
 	.images {
 		flex-direction: row;
+		margin: 40px 0 0;
 	}
 
 	.image {
 		margin-right: 10px;
+	}
+
+	.colors {
+		width: 100%;
+	}
+
+	.order-btn {
+		margin-top: 20px;
 	}
 }
