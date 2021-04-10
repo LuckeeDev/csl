@@ -215,13 +215,22 @@ export const addToCart = async (
 	user: IUser
 ): Promise<IHttpRes<IUser['cart']>> => {
 	try {
+		const category: IProduct['category'] =
+			product.color && product.size ? 'gadgets' : 'photos';
+
 		const newProduct: ProductInUserCart = { ...product, cartID: v4() };
 
 		const newUser = await User.findOneAndUpdate(
-			{ id: user.id },
+			{ id: user.id, confirmed: { [category]: false } },
 			{ $push: { cart: newProduct } },
 			{ new: true }
 		);
+
+		if (!newUser) {
+			return {
+				success: false,
+			};
+		}
 
 		return {
 			success: true,
