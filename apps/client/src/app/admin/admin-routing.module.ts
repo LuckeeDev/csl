@@ -20,6 +20,7 @@ import { CsvComponent } from '@shared/components/csv/csv.component';
 import { CommissioniComponent } from './components/commissioni/commissioni.component';
 import { ServiceAccountView } from './views/service-account/service-account.view';
 import { CourseDetailsView } from './views/course-details/course-details.view';
+import { ManageSectionsComponent } from './views/manage-sections/manage-sections.component';
 
 const routes: Routes = [
 	{
@@ -44,6 +45,7 @@ const routes: Routes = [
 			{ path: 'coge/create', component: CreateCourseComponent },
 			{ path: 'coge/:id', component: CourseDetailsView },
 			{ path: 'service', component: ServiceAccountView },
+			{ path: 'manage-sections', component: ManageSectionsComponent },
 		],
 	},
 ];
