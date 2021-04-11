@@ -12,6 +12,7 @@ export * from './models/http';
 export * from './models/log';
 export * from './models/order';
 export * from './models/payment';
+export * from './models/platform';
 export * from './models/product';
 export * from './models/report';
 export * from './models/snack';

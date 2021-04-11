@@ -1,16 +1,23 @@
 import { AuthService } from '@/global/services/auth/auth.service';
 import { OrdersService } from '@/global/services/orders/orders.service';
 import { Injectable } from '@angular/core';
-import { IProduct, IUser, ProductInUserCart } from '@csl/shared';
+import {
+	IProduct,
+	IUser,
+	ProductInUserCart,
+} from '@csl/shared';
 import { LoadingBarService } from '@ngx-loading-bar/core';
-import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 import produce from 'immer';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
+import { Platform } from '../platform';
 
 export namespace Auth {
 	export class GetUser {
 		static readonly type = '[Auth] Get User';
-		constructor(public options: { firebaseToken: boolean }) {}
+		constructor(
+			public options: { firebaseToken: boolean; platformStatus: boolean }
+		) {}
 	}
 
 	export class AddToCart {
@@ -51,12 +58,18 @@ export class AuthState {
 	constructor(
 		private auth: AuthService,
 		private orders: OrdersService,
-		private _loadingBar: LoadingBarService
+		private _loadingBar: LoadingBarService,
+		private store: Store
 	) {}
 
 	@Selector()
 	static user(state: AuthStateModel) {
 		return state.user;
+	}
+
+	@Selector()
+	static token(state: AuthStateModel) {
+		return state.token;
 	}
 
 	@Action(Auth.GetUser)
@@ -74,6 +87,10 @@ export class AuthState {
 			map((res) => res.data),
 			tap((data) => {
 				ctx.patchState({ user: data.user, token: data.token });
+
+				if (data.platformStatus) {
+					this.store.dispatch(new Platform.SetStatus(data.platformStatus));
+				}
 			}),
 			switchMap((data) => this.auth.firebaseSignIn(data.token)),
 			tap(() => {
@@ -100,7 +117,9 @@ export class AuthState {
 						})
 					);
 				} else {
-					throw new Error('Non è stato possibile aggiungere il prodotto al carrello.');
+					throw new Error(
+						'Non è stato possibile aggiungere il prodotto al carrello.'
+					);
 				}
 			})
 		);

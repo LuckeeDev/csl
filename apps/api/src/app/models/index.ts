@@ -5,6 +5,7 @@ export { Course } from './course/course.model';
 export { Error, Event } from './log/log.model';
 export { Order } from './order/order.model';
 export { Event as OrientamentoEvent } from './orientamento/orientamento.model';
+export { Platform } from './platform/platform.model';
 export { Product } from './product/product.model';
 export { Report } from './report/report.model';
 export { Snack } from './snack/snack.model';

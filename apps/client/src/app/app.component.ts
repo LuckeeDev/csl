@@ -40,7 +40,9 @@ export class AppComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.store.dispatch(new Auth.GetUser({ firebaseToken: true }));
+		this.store.dispatch(
+			new Auth.GetUser({ firebaseToken: true, platformStatus: true })
+		);
 
 		this.page.setupTitleChange();
 	}

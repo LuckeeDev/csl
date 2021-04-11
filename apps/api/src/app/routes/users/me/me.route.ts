@@ -3,42 +3,36 @@ import { Request, Response, Router } from 'express';
 import { IProduct, IUser, ProductInUserCart } from '@csl/shared';
 import { addToCart, confirmCategory, pullFromCart } from '@/controllers';
 import { fireAuth } from '@/common/firebase';
+import { Platform } from '@/models';
 const router = Router();
 
 router.get('/', async (req: Request, res: Response) => {
 	const getFirebaseToken = req.query.firebase === 'true' ? true : false;
+	const getPlatformStatus = req.query.status === 'true' ? true : false;
+	
 	const user = req.user;
 
-	if (user && getFirebaseToken) {
-		const token = await fireAuth.createCustomToken(user.id, {
-			isAdmin: user.isAdmin,
-			isBar: user.isBar,
-			isQp: user.isQp,
-			isRappre: user.isRappre,
-			isRappreDiClasse: user.isRappreDiClasse,
-			isReferente: user.isReferente,
-			isVice: user.isVice,
-		});
+	const data = {
+		user: user ? user : null,
+		token:
+			user && getFirebaseToken
+				? await fireAuth.createCustomToken(user.id, {
+						isAdmin: user.isAdmin,
+						isBar: user.isBar,
+						isQp: user.isQp,
+						isRappre: user.isRappre,
+						isRappreDiClasse: user.isRappreDiClasse,
+						isReferente: user.isReferente,
+						isVice: user.isVice,
+				  })
+				: null,
+		platformStatus: user && getPlatformStatus ? await Platform.find() : null,
+	};
 
-		res.json({
-			success: true,
-			data: {
-				user,
-				token,
-			},
-		});
-	} else if (user) {
-		res.json({
-			success: true,
-			data: {
-				user,
-			},
-		});
-	} else {
-		res.json({
-			success: false,
-		});
-	}
+	res.json({
+		success: user ? true : false,
+		data,
+	});
 });
 
 router.patch(
@@ -54,14 +48,19 @@ router.patch(
 	}
 );
 
-router.delete('/cart/:cartID', isSignedIn, async (req: Request, res: Response) => {
-	const cartID = (req.params.cartID as unknown) as ProductInUserCart['cartID'];
-	const user = req.user;
+router.delete(
+	'/cart/:cartID',
+	isSignedIn,
+	async (req: Request, res: Response) => {
+		const cartID = (req.params
+			.cartID as unknown) as ProductInUserCart['cartID'];
+		const user = req.user;
 
-	const result = await pullFromCart(cartID, user);
+		const result = await pullFromCart(cartID, user);
 
-	res.json(result);
-});
+		res.json(result);
+	}
+);
 
 router.patch(
 	'/confirm',

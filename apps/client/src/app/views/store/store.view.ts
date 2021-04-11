@@ -1,9 +1,14 @@
 import { AuthState } from '@/global/store/auth';
+import { PlatformState } from '@/global/store/platform';
 import { Component, OnInit } from '@angular/core';
-import { IDashboardLink, IUser } from '@csl/shared';
+import { IDashboardLink, IUser, PlatformStatus } from '@csl/shared';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
+
+interface ReadyStatus {
+	ready: boolean;
+}
 
 @Component({
 	selector: 'csl-store-home',
@@ -11,8 +16,15 @@ import { map } from 'rxjs/operators';
 	styleUrls: ['./store.view.scss'],
 })
 export class StoreView implements OnInit {
+	statusID: PlatformStatus['id'] = 'store';
+
 	@Select(AuthState.user)
 	user$: Observable<IUser>;
+
+	@Select(PlatformState.status)
+	platformStatus$: Observable<PlatformStatus[]>;
+
+	readyStatus$: Observable<ReadyStatus>;
 
 	defaultLinks: IDashboardLink[] = [
 		{ link: 'gadgets', title: 'Gadget' },
@@ -32,6 +44,33 @@ export class StoreView implements OnInit {
 					return [...this.defaultLinks, ...this.rappreLinks];
 				} else {
 					return this.defaultLinks;
+				}
+			})
+		);
+
+		const sectionStatus$ = this.platformStatus$.pipe(
+			distinctUntilChanged(),
+			map((value) => {
+				const { status } = value.find((x) => x.id === this.statusID);
+
+				return {
+					time: new Date().getTime(),
+					start: new Date(status.start).getTime(),
+					end: new Date(status.end).getTime(),
+					manualStatus: status.manualStatus,
+				};
+			})
+		);
+
+		this.readyStatus$ = sectionStatus$.pipe(
+			map(({ start, end, time: currentTime }) => {
+				const distanceFromStart = start - currentTime;
+				const distanceFromEnd = currentTime - end;
+
+				if (distanceFromStart > 0 || distanceFromEnd > 0) {
+					return { ready: false };
+				} else {
+					return { ready: true };
 				}
 			})
 		);

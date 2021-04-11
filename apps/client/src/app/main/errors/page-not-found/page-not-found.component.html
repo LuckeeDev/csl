@@ -1,7 +1,13 @@
 <div class="container">
-  <h1 class="header">
-    Ooops... non abbiamo trovato quello che stavi cercando <br />
-    Forse è meglio tornare alla <a [routerLink]="['']" class="link">home</a>...
-  </h1>
-  <img src="../../../assets/svg/notfound.svg" class="image" />
+	<h1 class="header" *ngIf="message; else defaultMsg">{{ message }}</h1>
+
+	<ng-template #defaultMsg>
+		<h1 class="header">
+			Ooops... non abbiamo trovato quello che stavi cercando <br />
+			Forse è meglio tornare alla
+			<a [routerLink]="['/']" class="link">home</a>...
+		</h1>
+	</ng-template>
+
+	<img [src]="src || '../../../assets/svg/notfound.svg'" class="image" />
 </div>

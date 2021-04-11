@@ -30,6 +30,7 @@ import { SharedModule } from '@shared/shared.module';
 
 // Store
 import { NgxsModule } from '@ngxs/store';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 
 // Pipes
 import { PipesModule } from '@global/pipes/pipes.module';
@@ -74,6 +75,7 @@ import { ApiInterceptor } from '@global/http/api.interceptor';
 import { ProductsState } from './global/store/products';
 import { AuthState } from './global/store/auth';
 import { OrdersState } from './global/store/orders';
+import { PlatformState } from './global/store/platform';
 
 registerLocaleData(ITLocaleData);
 
@@ -125,7 +127,12 @@ registerLocaleData(ITLocaleData);
 		PipesModule,
 		SharedModule,
 		HttpClientModule,
-		NgxsModule.forRoot([AuthState, ProductsState, OrdersState], { developmentMode: !environment.production }),
+		NgxsModule.forRoot([AuthState, ProductsState, OrdersState, PlatformState], {
+			developmentMode: !environment.production,
+		}),
+		NgxsStoragePluginModule.forRoot({
+			key: [PlatformState],
+		}),
 		LoadingBarModule,
 		LoadingBarHttpClientModule,
 		MarkdownModule.forRoot(),

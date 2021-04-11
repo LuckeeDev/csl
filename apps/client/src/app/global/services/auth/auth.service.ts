@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IHttpRes, IUser } from '@csl/shared';
-import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { IHttpRes, IUser, PlatformStatus } from '@csl/shared';
+import { from, Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from '@environments/environment';
 
@@ -13,64 +12,30 @@ import { environment } from '@environments/environment';
 interface UserResponse {
 	user: IUser;
 	token?: string;
+	platformStatus?: PlatformStatus[];
 }
 
 /**
  * Choose whether to retrieve Firebase token or not.
  */
 interface UserRequestOptions {
-	firebaseToken?: boolean;
+	firebaseToken: boolean;
+	platformStatus: boolean;
 }
 
 @Injectable({
 	providedIn: 'root',
 })
 export class AuthService {
-	private _userSubject$: BehaviorSubject<IUser> = new BehaviorSubject(
-		undefined
-	);
-
-	private _checkUserSubject$: Subject<IUser> = new Subject();
-
-	private _tokenSubject$: Subject<string> = new Subject();
-
 	constructor(private http: HttpClient, private fireAuth: AngularFireAuth) {}
 
-	/**
-	 * @description Use in guards to check if the user exists or not
-	 */
-	get userCheck$(): Observable<IUser> {
-		const user$ = this._userSubject$.asObservable();
-
-		return user$.pipe(
-			switchMap((value) => {
-				if (value === undefined) {
-					return this._checkUserSubject$.asObservable();
-				} else {
-					return user$;
-				}
-			})
-		);
-	}
-
-	// get user$(): Observable<IUser> {
-	// 	return this._userSubject$
-	// 		.asObservable()
-	// 		.pipe(map((value) => (value === undefined ? null : value)));
-	// }
-
-	get firebaseAuthToken$(): Observable<string> {
-		return this._tokenSubject$.asObservable();
-	}
-
-	getUser(options?: UserRequestOptions): Observable<IHttpRes<UserResponse>> {
+	getUser(options: UserRequestOptions): Observable<IHttpRes<UserResponse>> {
 		/**
 		 * Request Firebase signIn token alongside with the user object
-		 * if `options.firebaseToken` is set to `true`.
+		 * if `options.firebaseToken` is set to `true` and platform status
+		 * if `options.platformStatus` is set to `true`.
 		 */
-		const queryString = options.firebaseToken
-			? '/users/me?firebase=true'
-			: '/users/me';
+		const queryString = `/users/me?firebase=${options.firebaseToken}&status=${options.platformStatus}`;
 
 		return this.http.get<IHttpRes<UserResponse>>(queryString);
 	}

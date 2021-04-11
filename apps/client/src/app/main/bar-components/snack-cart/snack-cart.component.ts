@@ -92,7 +92,7 @@ export class SnackCartComponent implements OnInit {
 					}
 
 					this.order$ = this.snacksService.getCart();
-					this.auth.getUser();
+					this.auth.getUser({ firebaseToken: false, platformStatus: false });
 				});
 			});
 	}

@@ -1,13 +1,13 @@
-import { AuthService } from '@/global/services/auth/auth.service';
 import { ProductsService } from '@/global/services/products/products.service';
 import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { IProduct } from '@csl/shared';
 import { LoadingBarService } from '@ngx-loading-bar/core';
-import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { Action, Select, Selector, State, StateContext } from '@ngxs/store';
 import produce from 'immer';
 import { forkJoin, Observable, of } from 'rxjs';
 import { filter, map, retryWhen, switchMap, tap } from 'rxjs/operators';
+import { AuthState } from '../auth';
 
 export namespace Products {
 	/**
@@ -58,11 +58,13 @@ export interface ProductsStateModel {
 })
 @Injectable()
 export class ProductsState {
+	@Select(AuthState.token)
+	authToken$: Observable<string>;
+
 	constructor(
 		private products: ProductsService,
 		private afs: AngularFireStorage,
-		private _loadingBar: LoadingBarService,
-		private auth: AuthService
+		private _loadingBar: LoadingBarService
 	) {}
 
 	@Selector()
@@ -229,7 +231,7 @@ export class ProductsState {
 			return this.afs
 				.ref(`${folder}/${product.id}/${fileName}`)
 				.getDownloadURL()
-				.pipe(retryWhen(() => this.auth.firebaseAuthToken$));
+				.pipe(retryWhen(() => this.authToken$));
 		});
 
 		return forkJoin(links$).pipe(
