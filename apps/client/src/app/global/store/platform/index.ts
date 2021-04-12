@@ -11,7 +11,7 @@ export namespace Platform {
 		constructor(public status: PlatformStatus[]) {}
 	}
 
-	export class UpdateStatus {
+	export class SaveStatus {
 		static readonly type = '[Platform] Update Status';
 		constructor(public status: PlatformStatus<string>) {}
 	}
@@ -41,19 +41,18 @@ export class PlatformState {
 		ctx.setState({ status: action.status });
 	}
 
-	@Action(Platform.UpdateStatus)
+	@Action(Platform.SaveStatus)
 	updatePlatformStatus(
 		ctx: StateContext<PlatformStateModel>,
-		action: Platform.UpdateStatus
+		action: Platform.SaveStatus
 	) {
 		const status = action.status;
+		const currentState = ctx.getState();
 
-		return this.http
-			.patch<IHttpRes<PlatformStatus>>(`/admin/platform/${status.id}`, {
-				start: status.status.start,
-				end: status.status.end,
-			})
-			.pipe(
+		const alreadyExists = currentState.status.some((x) => x.id === status.id);
+
+		if (alreadyExists) {
+			return this._updateStatus(status).pipe(
 				tap((res) => {
 					if (res.success) {
 						ctx.setState(
@@ -71,5 +70,34 @@ export class PlatformState {
 					}
 				})
 			);
+		} else {
+			return this._createStatus(status).pipe(
+				tap((res) => {
+					if (res.success) {
+						ctx.setState(
+							produce(ctx.getState(), (state) => {
+								state.status.push(res.data);
+							})
+						);
+					} else {
+						throw new Error('Non è stato possibile creare questo stato.');
+					}
+				})
+			);
+		}
+	}
+
+	private _updateStatus(status: PlatformStatus<string>) {
+		return this.http.patch<IHttpRes<PlatformStatus>>(
+			`/admin/platform/${status.id}`,
+			{
+				start: status.status.start,
+				end: status.status.end,
+			}
+		);
+	}
+
+	private _createStatus(status: PlatformStatus<string>) {
+		return this.http.post<IHttpRes<PlatformStatus>>('/admin/platform', status);
 	}
 }

@@ -2,7 +2,7 @@ import { Platform, PlatformState } from '@/global/store/platform';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PlatformStatus } from '@csl/shared';
-import { ToastrService } from '@csl/ui';
+import { DialogService, ToastrService } from '@csl/ui';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -30,7 +30,11 @@ export class ManageSectionsComponent implements OnInit {
 
 	status: Status[];
 
-	constructor(private store: Store, private toastr: ToastrService) {}
+	constructor(
+		private store: Store,
+		private toastr: ToastrService,
+		private dialog: DialogService
+	) {}
 
 	ngOnInit(): void {
 		this.platformStatus$
@@ -42,11 +46,11 @@ export class ManageSectionsComponent implements OnInit {
 						const endDate = new Date(val.status.end);
 						const endTime = `${endDate.getHours()}:${endDate.getMinutes()}`;
 
-						const formGroup = new FormGroup({
-							startDate: new FormControl(startDate),
-							startTime: new FormControl(startTime),
-							endDate: new FormControl(endDate),
-							endTime: new FormControl(endTime),
+						const formGroup = this._createFormGroup({
+							startDate,
+							startTime,
+							endDate,
+							endTime,
 						});
 
 						return {
@@ -57,6 +61,23 @@ export class ManageSectionsComponent implements OnInit {
 				})
 			)
 			.subscribe((val) => (this.status = val));
+	}
+
+	createStatus() {
+		this.dialog
+			.open({
+				hasInput: true,
+				inputLabel: 'ID dello stato',
+				inputType: 'text',
+				answer: 'Conferma',
+				color: 'primary',
+				text: 'Per aggiungere questo stato, decidi un ID da assegnargli.',
+				title: 'Crea un nuovo stato',
+			})
+			.subscribe((res: string) => {
+				const form = this._createFormGroup();
+				this.status.push({ form, data: { id: res, status: undefined } });
+			});
 	}
 
 	trackByFn(index: number, item: Status) {
@@ -78,7 +99,7 @@ export class ManageSectionsComponent implements OnInit {
 
 		this.store
 			.dispatch(
-				new Platform.UpdateStatus({
+				new Platform.SaveStatus({
 					id: status.data.id,
 					status: { start: startDate.toJSON(), end: endDate.toJSON() },
 				})
@@ -87,9 +108,20 @@ export class ManageSectionsComponent implements OnInit {
 				next: () =>
 					this.toastr.show({
 						color: 'basic',
-						message: 'Stato aggiornato con successo',
+						message: 'Stato salvato con successo',
 					}),
 				error: (err) => this.toastr.showError(err),
 			});
+	}
+
+	private _createFormGroup(defaultValue?: SectionSettingsModel) {
+		const formGroup = new FormGroup({
+			startDate: new FormControl(defaultValue?.startDate ?? ''),
+			startTime: new FormControl(defaultValue?.startTime ?? ''),
+			endDate: new FormControl(defaultValue?.endDate ?? ''),
+			endTime: new FormControl(defaultValue?.endTime ?? ''),
+		});
+
+		return formGroup;
 	}
 }
