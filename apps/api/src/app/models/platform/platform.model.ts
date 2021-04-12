@@ -3,7 +3,7 @@ import { model, Schema } from 'mongoose';
 
 const PlatformSchema = new Schema(
 	{
-		id: { type: String, required: true },
+		id: { type: String, required: true, unique: true },
 		status: { type: Object },
 	},
 	{ skipVersioning: true }

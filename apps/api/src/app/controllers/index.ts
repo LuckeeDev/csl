@@ -5,6 +5,7 @@ export * from './course/course.controller';
 export * from './log/log.controller';
 export * from './order/order.controller';
 export * from './orientamento/orientamento.controller';
+export * from './platform/platform.controller';
 export * from './product/product.controller';
 export * from './report/report.controller';
 export * from './snack/snack.controller';

@@ -57,7 +57,6 @@ export class StoreView implements OnInit {
 					time: new Date().getTime(),
 					start: new Date(status.start).getTime(),
 					end: new Date(status.end).getTime(),
-					manualStatus: status.manualStatus,
 				};
 			})
 		);

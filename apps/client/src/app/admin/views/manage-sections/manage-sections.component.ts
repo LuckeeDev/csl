@@ -61,6 +61,6 @@ export class ManageSectionsComponent implements OnInit {
 		const [endHours, endMinutes] = formValue.endTime.split(':').map(Number);
 		endDate.setHours(endHours, endMinutes);
 
-		console.log(startDate, endDate);
+		console.log(startDate.toJSON(), endDate.toJSON());
 	}
 }

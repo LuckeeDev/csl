@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 const router = Router();
-import { ICommissione } from '@csl/shared';
+import { ICommissione, PlatformStatus } from '@csl/shared';
 import {
 	createAccount,
 	removeAccount,
@@ -11,6 +11,8 @@ import {
 	createCommissione,
 	getCommissioni,
 	removeCommissione,
+	createPlatformStatus,
+	updatePlatformStatus,
 } from '@controllers';
 import { isAdmin } from '@common/auth';
 
@@ -66,6 +68,25 @@ router.delete(
 		const id: ICommissione['id'] = params.id;
 		const result = await removeCommissione(id, req.user);
 
+		res.json(result);
+	}
+);
+
+router.post(
+	'/platform',
+	isAdmin,
+	async (req: Request<PlatformStatus>, res: Response) => {
+		const result = await createPlatformStatus(req.body);
+		res.json(result);
+	}
+);
+
+router.patch(
+	'/platform/:id',
+	isAdmin,
+	async (req: Request<PlatformStatus['status']>, res: Response) => {
+		const id = req.params.id as PlatformStatus['id'];
+		const result = await updatePlatformStatus(id, req.body);
 		res.json(result);
 	}
 );

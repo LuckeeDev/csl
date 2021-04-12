@@ -3,7 +3,6 @@ import { Document } from 'mongoose';
 interface Status<T> {
 	start: T;
 	end: T;
-	manualStatus?: boolean;
 }
 
 /**
@@ -11,10 +10,10 @@ interface Status<T> {
  * be a Date or a number.
  */
 export interface PlatformStatus<T extends number | Date = Date> {
-	id: 'store';
+	id: string;
 	status: Status<T>;
 }
 
 export interface PlatformStatusModel extends Document, PlatformStatus {
-	id: 'store';
+	id: string;
 }
