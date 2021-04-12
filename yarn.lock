@@ -2482,24 +2482,24 @@
     enhanced-resolve "5.7.0"
     webpack-sources "2.2.0"
 
-"@ngx-loading-bar/core@^5.1.0":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@ngx-loading-bar/core/-/core-5.1.1.tgz#eb95bbdd9d880c9dd93ae089c47b37cfd63b0b18"
-  integrity sha512-ODXZ+Op1NtRiEKqh1CU2nwmb5GgI7iGMuT2uji8e6dgfKIEgIl5/BhYyKszlTmttID/tU25FdKFnv0RtAL4KUA==
+"@ngx-loading-bar/core@^5.1.2":
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/@ngx-loading-bar/core/-/core-5.1.2.tgz#95e43d6136bd60306d44a0195267248b2b926736"
+  integrity sha512-zyD96OQpoB+0wcdCCNOmTwPMYAi6Ukp0BqnCyusN2jOsUNbPQur2GsvKAFH3TbomJdgrO0TJ4TeT1idumx/4Gw==
   dependencies:
     tslib ">=1.7.1"
 
-"@ngx-loading-bar/http-client@^5.1.0":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@ngx-loading-bar/http-client/-/http-client-5.1.1.tgz#654be3b7132c5a038b25a995c59cbdec0c4f1f30"
-  integrity sha512-ZWPHsjixuVFYzIb/vF39dLkLaMKdcGbm0p8HzBwbvefNpxDHpy+dxnD2GwJCHjdEpm+KuxHfyVDgaJRiajXUrw==
+"@ngx-loading-bar/http-client@^5.1.2":
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/@ngx-loading-bar/http-client/-/http-client-5.1.2.tgz#554c3a8c5ed55ccf7880a2bc07450caa13a8dc09"
+  integrity sha512-ebzgA8YA3CvJ8JKWQ6jymaS1a6P0pc9wYbwQKjmNwxWBcEKBdL89Ne+v1Y/08/rAZAsVH0If4dpmZPZU9K+10g==
   dependencies:
     tslib "^1.10.0"
 
-"@ngx-loading-bar/router@^5.1.0":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@ngx-loading-bar/router/-/router-5.1.1.tgz#f6cb800029bac2d878e9b639d4e16f73601421f5"
-  integrity sha512-+4OxSFDc1uPTAfHPjr/yu7uSc6nVdMzzTGsfDX1SW/QWaI0/iMCMcbnQ/iLqSJ2Tu04bshS2RYeAN0Ja9X8KfQ==
+"@ngx-loading-bar/router@^5.1.2":
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/@ngx-loading-bar/router/-/router-5.1.2.tgz#333ee5e105c05fcd0f2502e47ee88e6e7cc8ec8c"
+  integrity sha512-k/Ne2rWYX3HFFWTemm/vBEEkP1YxE0QCd+poaP2G3QKI78SOntYLVdRnRvbvNJpZUtiH8eb+RvExxfdYpm4CPQ==
   dependencies:
     tslib "^1.10.0"
 
