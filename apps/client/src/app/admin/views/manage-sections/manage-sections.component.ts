@@ -1,8 +1,9 @@
-import { PlatformState } from '@/global/store/platform';
+import { Platform, PlatformState } from '@/global/store/platform';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PlatformStatus } from '@csl/shared';
-import { Select } from '@ngxs/store';
+import { ToastrService } from '@csl/ui';
+import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -11,6 +12,11 @@ interface SectionSettingsModel {
 	startTime: string;
 	endDate: number | string | Date;
 	endTime: string;
+}
+
+interface Status {
+	data: PlatformStatus;
+	form: FormGroup;
 }
 
 @Component({
@@ -22,35 +28,44 @@ export class ManageSectionsComponent implements OnInit {
 	@Select(PlatformState.status)
 	platformStatus$: Observable<PlatformStatus[]>;
 
-	form = new FormGroup({
-		startDate: new FormControl(''),
-		startTime: new FormControl(''),
-		endDate: new FormControl(''),
-		endTime: new FormControl(''),
-	});
+	status: Status[];
 
-	constructor() {}
+	constructor(private store: Store, private toastr: ToastrService) {}
 
 	ngOnInit(): void {
 		this.platformStatus$
-			.pipe(map((val) => val.find((x) => x.id === 'store')))
-			.subscribe(({ status: { start, end } }) => {
-				const startDate = new Date(start);
-				const startTime = `${startDate.getHours()}:${startDate.getMinutes()}`;
-				const endDate = new Date(end);
-				const endTime = `${endDate.getHours()}:${endDate.getMinutes()}`;
+			.pipe(
+				map((status) => {
+					return status.map((val) => {
+						const startDate = new Date(val.status.start);
+						const startTime = `${startDate.getHours()}:${startDate.getMinutes()}`;
+						const endDate = new Date(val.status.end);
+						const endTime = `${endDate.getHours()}:${endDate.getMinutes()}`;
 
-				this.form = new FormGroup({
-					startDate: new FormControl(start),
-					startTime: new FormControl(startTime),
-					endDate: new FormControl(end),
-					endTime: new FormControl(endTime),
-				});
-			});
+						const formGroup = new FormGroup({
+							startDate: new FormControl(startDate),
+							startTime: new FormControl(startTime),
+							endDate: new FormControl(endDate),
+							endTime: new FormControl(endTime),
+						});
+
+						return {
+							data: val,
+							form: formGroup,
+						};
+					});
+				})
+			)
+			.subscribe((val) => (this.status = val));
 	}
 
-	onSubmit() {
-		const formValue = this.form.value as SectionSettingsModel;
+	trackByFn(index: number, item: Status) {
+		return item.data.id;
+	}
+
+	onSubmit(index: number) {
+		const status = this.status[index];
+		const formValue = status.form.value as SectionSettingsModel;
 		const startDate = new Date(formValue.startDate);
 		const [startHours, startMinutes] = formValue.startTime
 			.split(':')
@@ -61,6 +76,20 @@ export class ManageSectionsComponent implements OnInit {
 		const [endHours, endMinutes] = formValue.endTime.split(':').map(Number);
 		endDate.setHours(endHours, endMinutes);
 
-		console.log(startDate.toJSON(), endDate.toJSON());
+		this.store
+			.dispatch(
+				new Platform.UpdateStatus({
+					id: status.data.id,
+					status: { start: startDate.toJSON(), end: endDate.toJSON() },
+				})
+			)
+			.subscribe({
+				next: () =>
+					this.toastr.show({
+						color: 'basic',
+						message: 'Stato aggiornato con successo',
+					}),
+				error: (err) => this.toastr.showError(err),
+			});
 	}
 }

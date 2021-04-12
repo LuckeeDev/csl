@@ -22,6 +22,8 @@ import { CommissioniComponent } from './components/commissioni/commissioni.compo
 import { ServiceAccountView } from './views/service-account/service-account.view';
 import { CourseDetailsView } from './views/course-details/course-details.view';
 import { ManageSectionsComponent } from './views/manage-sections/manage-sections.component';
+import { NgxsModule } from '@ngxs/store';
+import { PlatformState } from '@/global/store/platform';
 
 @NgModule({
 	declarations: [
@@ -44,6 +46,7 @@ import { ManageSectionsComponent } from './views/manage-sections/manage-sections
 		AdminRoutingModule,
 		UiModule,
 		SharedModule,
+		NgxsModule.forFeature([PlatformState]),
 	],
 	providers: [AdminService],
 })
