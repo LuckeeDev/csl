@@ -34,7 +34,7 @@
 		"@editorjs/list": "^1.6.1",
 		"@editorjs/paragraph": "^2.8.0",
 		"@google-cloud/storage": "^5.4.0",
-		"@ngrx/component-store": "11.0.0",
+		"@ngrx/component-store": "11.1.0",
 		"@ngx-loading-bar/core": "^5.1.2",
 		"@ngx-loading-bar/http-client": "^5.1.2",
 		"@ngx-loading-bar/router": "^5.1.2",
