@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [1.11.0](https://github.com/LuckeeDev/csl/compare/v1.10.15...v1.11.0) (2021-04-12)
+
+
+### Bug Fixes
+
+* ask for user phone when confirming an order ([27f32a3](https://github.com/LuckeeDev/csl/commit/27f32a37b570b4e4ad65aef455c2c81bdd3a7635))
+* prevent user from ordering if the category is confirmed ([20cb6ac](https://github.com/LuckeeDev/csl/commit/20cb6acb1f032109bef241e64e13574f35509a63))
+
+
+### Performance Improvements
+
+* store and product images work perfectly now ([9b976ff](https://github.com/LuckeeDev/csl/commit/9b976ff1eb8a7eb29490e1c4683d43ab0eec6625))
+
+
 
 ## [1.10.9](https://github.com/LuckeeDev/csl/compare/v1.10.8...v1.10.9) (2021-03-25)
 

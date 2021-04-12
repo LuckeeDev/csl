@@ -2,6 +2,48 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [1.11.0](https://github.com/LuckeeDev/csl/compare/v1.10.15...v1.11.0) (2021-04-12)
+
+
+### Bug Fixes
+
+* added admin endpoints to manage platform status ([2482469](https://github.com/LuckeeDev/csl/commit/24824699632e0e2cf0598aec423a20cc5d4514d7))
+* added confirmed property to users ([1d8a8fe](https://github.com/LuckeeDev/csl/commit/1d8a8fe63b17b6c051384fca1f8bfbb76b1eb8a8))
+* ask for user phone when confirming an order ([27f32a3](https://github.com/LuckeeDev/csl/commit/27f32a37b570b4e4ad65aef455c2c81bdd3a7635))
+* change stripe product name ([dec081e](https://github.com/LuckeeDev/csl/commit/dec081e86be4f9dc3effd701573c9d0ead6fd91a))
+* confirm orders ([2d49e3f](https://github.com/LuckeeDev/csl/commit/2d49e3f99408f94d4c263d964e47b6859b2a4343))
+* created dev console logger with winston ([05c852b](https://github.com/LuckeeDev/csl/commit/05c852b639fe886bbdf2e8d3595f0957dbd47c18))
+* created me user routes ([c557a7b](https://github.com/LuckeeDev/csl/commit/c557a7ba80436705356c968723e82e7d08d4d965))
+* delete orders from cart ([5e63531](https://github.com/LuckeeDev/csl/commit/5e63531bdbe6117d9a4e692ee0d10bd39ece4f61))
+* moved session store to mongo store ([1794fb1](https://github.com/LuckeeDev/csl/commit/1794fb13f6684740baee4f55e526553114159b2f))
+* prevent cart update if category is confirmed ([2113060](https://github.com/LuckeeDev/csl/commit/21130604627bd0a6154a540e7f7270274ad37f29))
+* prevent user from paying if category has already been paid ([29b7c2d](https://github.com/LuckeeDev/csl/commit/29b7c2d2f5c5cce3e72117be4fd4403033251afc))
+* prevent user from removing items from cart if category is confirmed ([93e837b](https://github.com/LuckeeDev/csl/commit/93e837b1e995c290f2053684437278ed4350fad3))
+* product creation works, but needs refactor ([b9cdc9b](https://github.com/LuckeeDev/csl/commit/b9cdc9b2497f5f0ec60b927ddd133c2ee057233c))
+* retrieve all products instead of only gadgets ([eff51af](https://github.com/LuckeeDev/csl/commit/eff51af7fcede6fc2aa0a1a0bc87c09672f03dbd))
+* save prices in cents ([bbade90](https://github.com/LuckeeDev/csl/commit/bbade9089cb04b64f869fcd9220d36b921b7ffd1))
+* save Stripe price ID ([e2e7682](https://github.com/LuckeeDev/csl/commit/e2e7682df63e715a7ccbc6045820679b40f4eea6))
+* update state with cartID generated on the backend ([f64be3a](https://github.com/LuckeeDev/csl/commit/f64be3a38dd20bff7c7e9122396e2ce857d83237))
+* use stripe product ID as product ID ([9c9d2f3](https://github.com/LuckeeDev/csl/commit/9c9d2f3ff4589b12365f3d6c6f026984f5bf00af))
+* webhook integration works ([174e3ec](https://github.com/LuckeeDev/csl/commit/174e3ec2cc010e9754514b27261882e476eee56e))
+
+
+### Features
+
+* added checkout session creation and class status verification ([db385f4](https://github.com/LuckeeDev/csl/commit/db385f43b25e5fb13c8deb554a4e53ccd2f6f436))
+* added platform status ([45b7d67](https://github.com/LuckeeDev/csl/commit/45b7d67d4d3d437ffb3b1e6e28eb17942370fd49))
+* create products on Stripe ([43d80f8](https://github.com/LuckeeDev/csl/commit/43d80f8933f4e14fb6f559dd41df4ee06346f18d))
+* full payment flow ([2b36ee6](https://github.com/LuckeeDev/csl/commit/2b36ee6ba7c0c5cac7a464d9f60e1f9bc0711e7d))
+
+
+### Performance Improvements
+
+* :zap: added redis session store ([14f4855](https://github.com/LuckeeDev/csl/commit/14f48554340efec41f954a7c0b074756d130b6a6))
+* :zap: minimize passport db calls ([ef1a4f1](https://github.com/LuckeeDev/csl/commit/ef1a4f174477c6a9dcbd8cd92e9ca504c8dd2b09))
+* made express session rolling ([cf67737](https://github.com/LuckeeDev/csl/commit/cf6773769d3af8bf43b6854d00040049ef8d9445))
+
+
+
 ## [1.10.9](https://github.com/LuckeeDev/csl/compare/v1.10.8...v1.10.9) (2021-03-25)
 
 

@@ -2,6 +2,39 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [1.11.0](https://github.com/LuckeeDev/csl/compare/v1.10.15...v1.11.0) (2021-04-12)
+
+
+### Bug Fixes
+
+* action to update platform status from admin page ([5d48872](https://github.com/LuckeeDev/csl/commit/5d488724f16b19214c78c0cb802b250bc86f421f))
+* added admin endpoints to manage platform status ([2482469](https://github.com/LuckeeDev/csl/commit/24824699632e0e2cf0598aec423a20cc5d4514d7))
+* added confirmed property to users ([1d8a8fe](https://github.com/LuckeeDev/csl/commit/1d8a8fe63b17b6c051384fca1f8bfbb76b1eb8a8))
+* ask for user phone when confirming an order ([27f32a3](https://github.com/LuckeeDev/csl/commit/27f32a37b570b4e4ad65aef455c2c81bdd3a7635))
+* correctly show orders from state ([8e9e687](https://github.com/LuckeeDev/csl/commit/8e9e687db73f9f9fb2cad86bb85e698e981f4c1c))
+* created me user routes ([c557a7b](https://github.com/LuckeeDev/csl/commit/c557a7ba80436705356c968723e82e7d08d4d965))
+* delete orders from cart ([5e63531](https://github.com/LuckeeDev/csl/commit/5e63531bdbe6117d9a4e692ee0d10bd39ece4f61))
+* prevent user from paying if category has already been paid ([29b7c2d](https://github.com/LuckeeDev/csl/commit/29b7c2d2f5c5cce3e72117be4fd4403033251afc))
+* product creation works, but needs refactor ([b9cdc9b](https://github.com/LuckeeDev/csl/commit/b9cdc9b2497f5f0ec60b927ddd133c2ee057233c))
+* retrieve preview link ([ca670fc](https://github.com/LuckeeDev/csl/commit/ca670fc349182496ab683c5e598f164bf084a45a))
+* save Stripe price ID ([e2e7682](https://github.com/LuckeeDev/csl/commit/e2e7682df63e715a7ccbc6045820679b40f4eea6))
+* use stripe product ID as product ID ([9c9d2f3](https://github.com/LuckeeDev/csl/commit/9c9d2f3ff4589b12365f3d6c6f026984f5bf00af))
+* webhook integration works ([174e3ec](https://github.com/LuckeeDev/csl/commit/174e3ec2cc010e9754514b27261882e476eee56e))
+
+
+### Features
+
+* added platform status ([45b7d67](https://github.com/LuckeeDev/csl/commit/45b7d67d4d3d437ffb3b1e6e28eb17942370fd49))
+* fetch all product images, but still needs work ([2d8e90e](https://github.com/LuckeeDev/csl/commit/2d8e90ed7e5883a8f58bd5df04976d8b7087cc90))
+* full payment flow ([2b36ee6](https://github.com/LuckeeDev/csl/commit/2b36ee6ba7c0c5cac7a464d9f60e1f9bc0711e7d))
+
+
+### Performance Improvements
+
+* store and product images work perfectly now ([9b976ff](https://github.com/LuckeeDev/csl/commit/9b976ff1eb8a7eb29490e1c4683d43ab0eec6625))
+
+
+
 ## [1.10.9](https://github.com/LuckeeDev/csl/compare/v1.10.8...v1.10.9) (2021-03-25)
 
 
