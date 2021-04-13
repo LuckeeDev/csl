@@ -55,6 +55,10 @@ export interface ProductsStateModel {
 
 @State<ProductsStateModel>({
 	name: 'products',
+	defaults: {
+		loading: false,
+		products: [],
+	},
 })
 @Injectable()
 export class ProductsState {
@@ -164,6 +168,7 @@ export class ProductsState {
 
 		return this.products.createGadget(action.productForm, action.category).pipe(
 			tap((res) => {
+				console.log(res);
 				if (res.success) {
 					ctx.setState(
 						produce(ctx.getState(), (state) => {

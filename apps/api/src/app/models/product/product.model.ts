@@ -12,6 +12,8 @@ const ProductSchema = new Schema(
 		stripePriceID: { type: String, required: true },
 		colors: { type: Array },
 		sizes: { type: Array },
+		discountable: { type: Boolean },
+		stripeDiscountedPriceID: { type: String },
 	},
 	{ versionKey: false }
 );

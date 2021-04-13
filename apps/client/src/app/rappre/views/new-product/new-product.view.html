@@ -20,6 +20,12 @@
 		<input matInput type="number" formControlName="price" />
 	</mat-form-field>
 
+	<h4>Sconto</h4>
+
+	<mat-checkbox formControlName="discountable" color="primary">
+		Sconto {{ productForm.value.discountable ? 'attivato': 'disattivato'}}
+	</mat-checkbox>
+
 	<ng-container formGroupName="sizes" *ngIf="category === 'gadgets'">
 		<br />
 
@@ -46,29 +52,26 @@
 			type="button"
 			color="primary"
 			(click)="addColor()"
+			class="btn"
 		>
 			Aggiungi un colore
 		</button>
 
 		<div class="break"></div>
 
-		<ng-container
+		<div
 			*ngFor="let color of colors.controls; let i = index"
 			[formGroupName]="i"
+			class="color-container"
 		>
-			<mat-form-field>
-				<mat-label>Colore</mat-label>
-				<input
-					matInput
-					type="color"
-					class="colorInput"
-					formControlName="color"
-				/>
+			<mat-form-field appearance="fill" class="field">
+				<mat-label class="label">Colore</mat-label>
+				<input matInput type="color" class="input" formControlName="color" />
 			</mat-form-field>
 
-			<mat-form-field>
-				<mat-label>ID</mat-label>
-				<input matInput type="text" formControlName="id" />
+			<mat-form-field appearance="fill" class="field">
+				<mat-label class="label">ID</mat-label>
+				<input matInput type="text" formControlName="id" class="input" />
 			</mat-form-field>
 
 			<button
@@ -80,7 +83,7 @@
 			>
 				<mat-icon>close</mat-icon>
 			</button>
-		</ng-container>
+		</div>
 	</ng-container>
 
 	<br />
@@ -101,6 +104,7 @@
 		color="primary"
 		size="small"
 		(click)="uploadFiles.click()"
+		class="btn"
 	>
 		Carica
 	</button>
@@ -151,8 +155,15 @@
 		mat-raised-button
 		type="submit"
 		color="primary"
-		[disabled]="!productForm.valid"
+		[disabled]="!productForm.valid || (loading$ | async)"
 	>
-		Crea prodotto
+		<span>
+			<mat-spinner
+				class="spinner"
+				*ngIf="loading$ | async"
+				[diameter]="20"
+			></mat-spinner>
+			Crea prodotto
+		</span>
 	</button>
 </form>

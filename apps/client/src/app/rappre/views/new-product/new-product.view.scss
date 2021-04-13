@@ -12,6 +12,7 @@
 h4 {
 	font-weight: 500;
 	flex: 100%;
+	margin: 10px 0;
 }
 
 .textinput {
@@ -29,8 +30,16 @@ mat-checkbox {
 	margin-right: 10px;
 }
 
-button {
+.btn {
 	margin-bottom: 20px;
+	position: relative;
+}
+
+.spinner {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 mat-card {
@@ -40,6 +49,11 @@ mat-card {
 
 table {
 	width: 100%;
+}
+
+.color-container {
+	display: flex;
+	align-items: center;
 }
 
 .table {

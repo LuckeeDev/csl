@@ -41,11 +41,10 @@ export class ProductsService {
 	}
 
 	createGadget(form: IProduct, category: IProduct['category']) {
-		const { name, description, price, colors } = form;
+		const { name, description, price, colors, discountable } = form;
 
 		const sizes = (form.sizes as unknown) as Record<TSize, boolean>;
 
-		const id = name.toLowerCase().replace(/ /g, '-');
 		const files = this._imgFiles;
 
 		const availableSizes = Object.entries(sizes) as [TSize, boolean][];
@@ -78,13 +77,13 @@ export class ProductsService {
 		return forkJoin(uploads$).pipe(
 			switchMap((fileNames) =>
 				this.http.post<IHttpRes<IProduct>>(`/products/create-gadgets`, {
-					id,
 					name,
 					description,
 					price,
 					category,
 					fileNames,
 					colors,
+					discountable,
 					sizes: selectedSizes,
 				})
 			)

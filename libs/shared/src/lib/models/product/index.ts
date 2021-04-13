@@ -22,6 +22,19 @@ export interface IProduct {
 	price: number;
 	fileNames: string[];
 	stripePriceID: string;
+
+	/**
+	 * Define if the product can be discounted by 50% if paired
+	 * with another product which is not discountable.
+	 */
+	discountable?: boolean;
+
+	/**
+	 * Exists only if `discountable === true`. Used to tell Stripe
+	 * to pay only half the price.
+	 */
+	stripeDiscountedPriceID?: string;
+
 	colors?: Color[];
 	sizes?: TSize[];
 

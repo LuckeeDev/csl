@@ -38,7 +38,15 @@ export const createGadget = async (
 ): Promise<IHttpRes<IProduct>> => {
 	try {
 		const id = stripeProductID;
-		const { name, description, price, fileNames, colors, sizes } = product;
+		const {
+			name,
+			description,
+			price,
+			fileNames,
+			colors,
+			sizes,
+			discountable,
+		} = product;
 		const category = 'gadgets';
 
 		const workingDir = join(tmpdir(), 'images');
@@ -89,6 +97,7 @@ export const createGadget = async (
 			colors,
 			sizes,
 			stripePriceID,
+			discountable,
 		}).save();
 
 		return {

@@ -1,19 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { DialogService, ToastrService } from '@csl/ui';
 import { ProductsService } from '@/global/services/products/products.service';
 import { IProduct, TSize } from '@csl/shared';
 import { switchMap } from 'rxjs/operators';
-import { Store } from '@ngxs/store';
-import { Products } from '@/global/store/products';
+import { Select, Store } from '@ngxs/store';
+import { Products, ProductsState } from '@/global/store/products';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'csl-new-product',
 	templateUrl: './new-product.view.html',
 	styleUrls: ['./new-product.view.scss'],
 })
-export class NewProductView {
+export class NewProductView implements OnInit {
+	@Select(ProductsState.loading)
+	loading$: Observable<boolean>;
+
 	category: IProduct['category'];
 	sizes: string[] = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
@@ -31,7 +35,11 @@ export class NewProductView {
 		private fb: FormBuilder,
 		private toastr: ToastrService,
 		private store: Store
-	) {
+	) {}
+
+	ngOnInit() {
+		this.store.dispatch(new Products.GetAll());
+
 		this.category = this.activated.snapshot.paramMap.get(
 			'category'
 		) as IProduct['category'];
@@ -52,6 +60,10 @@ export class NewProductView {
 					},
 					[Validators.required]
 				)
+			);
+			this.productForm.addControl(
+				'discountable',
+				this.fb.control('', Validators.required)
 			);
 		}
 	}
