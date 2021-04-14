@@ -6,8 +6,9 @@ import { IProduct, IUser, ProductInUserCart } from '@csl/shared';
 import { Select, Store } from '@ngxs/store';
 import { Auth, AuthState } from '@/global/store/auth';
 import { combineLatest, Observable } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { Products, ProductsState } from '@/global/store/products';
+import { calculateTotal } from '@/utils/calculateTotal';
 
 @Component({
 	selector: 'csl-orders',
@@ -33,6 +34,8 @@ export class StoreOrdersView implements OnInit {
 			}[]
 	>;
 
+	total: number;
+
 	constructor(
 		private dialog: DialogService,
 		private toastr: ToastrService,
@@ -51,6 +54,9 @@ export class StoreOrdersView implements OnInit {
 				products,
 				user,
 			})),
+			tap(({ products, user }) => {
+				if (products && user) this.total = calculateTotal(products, user.cart);
+			}),
 			filter((state) => state.products && state.products.length > 0),
 			map(({ user, products: availableProducts }) => {
 				if (!user.cart || user.cart.length === 0) {

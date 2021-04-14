@@ -32,7 +32,6 @@ router.post(
 	isRappre,
 	async (req: Request<IProduct>, res: Response) => {
 		try {
-			console.log(req.body);
 			const { price: rawPrice } = req.body;
 			const stripeProductName = `Donazione di ${rawPrice}€`;
 

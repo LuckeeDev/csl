@@ -57,7 +57,7 @@ export interface ProductsStateModel {
 	name: 'products',
 	defaults: {
 		loading: false,
-		products: [],
+		products: undefined,
 	},
 })
 @Injectable()

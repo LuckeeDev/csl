@@ -1,6 +1,17 @@
 <mat-card>
 	<mat-card-header>
-		<mat-card-title>Ordini {{ category | category }}</mat-card-title>
+		<mat-card-title class="title">
+			Ordini {{ category | category }} -
+			<ng-container *ngIf="total; else noTotal">
+				{{ total / 100 | currency: 'EUR' }}
+			</ng-container>
+
+			<ng-template #noTotal>
+				<span>
+					<mat-spinner [diameter]="20"></mat-spinner>
+				</span>
+			</ng-template>
+		</mat-card-title>
 	</mat-card-header>
 
 	<mat-card-content *ngIf="user$ | async as user">
