@@ -1,4 +1,5 @@
 import { Platform, PlatformState } from '@/global/store/platform';
+import { formatHourForForm } from '@/utils/formatDateForForm';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PlatformStatus } from '@csl/shared';
@@ -28,6 +29,10 @@ export class ManageSectionsComponent implements OnInit {
 	@Select(PlatformState.status)
 	platformStatus$: Observable<PlatformStatus[]>;
 
+	/**
+	 * Static value instead of an observable because it needs to be tied
+	 * to a form.
+	 */
 	status: Status[];
 
 	constructor(
@@ -42,9 +47,10 @@ export class ManageSectionsComponent implements OnInit {
 				map((status) => {
 					return status.map((val) => {
 						const startDate = new Date(val.status.start);
-						const startTime = `${startDate.getHours()}:${startDate.getMinutes()}`;
+						const startTime = formatHourForForm(startDate);
+
 						const endDate = new Date(val.status.end);
-						const endTime = `${endDate.getHours()}:${endDate.getMinutes()}`;
+						const endTime = formatHourForForm(endDate);
 
 						const formGroup = this._createFormGroup({
 							startDate,
