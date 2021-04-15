@@ -112,13 +112,35 @@ export class AuthState {
 	@Action(Auth.AddToCart)
 	addToCart(ctx: StateContext<AuthStateModel>, action: Auth.AddToCart) {
 		const productInCart = action.product;
+		const currentState = ctx.getState();
 
-		if (productInCart.discountable !== true) {
+		if (
+			productInCart.discountable !== true &&
+			currentState.orderDraft === undefined
+		) {
 			delete productInCart.discountable;
-			delete productInCart.bundled;
 
 			return ctx.patchState({ orderDraft: productInCart });
+		} else if (
+			productInCart.discountable === true &&
+			currentState.orderDraft !== undefined
+		) {
+			delete productInCart.discountable;
+
+			ctx.setState(
+				produce(currentState, (state) => {
+					state.orderDraft.bundled = productInCart;
+				})
+			);
+
+			const newState = ctx.getState();
+
+			return this._addToCart(ctx, newState.orderDraft).pipe(
+				tap(() => ctx.patchState({ orderDraft: undefined }))
+			);
 		} else {
+			delete productInCart.discountable;
+
 			return this._addToCart(ctx, productInCart);
 		}
 	}

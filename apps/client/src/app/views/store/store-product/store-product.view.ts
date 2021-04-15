@@ -6,7 +6,13 @@ import { DialogService, ToastrService } from '@csl/ui';
 import { Observable } from 'rxjs';
 import { Select, Store } from '@ngxs/store';
 import { Products, ProductsState } from '@/global/store/products';
-import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+import {
+	distinctUntilChanged,
+	filter,
+	map,
+	switchMap,
+	take,
+} from 'rxjs/operators';
 import { Auth, AuthState } from '@/global/store/auth';
 
 @Component({
@@ -103,8 +109,14 @@ export class StoreProductView implements OnInit {
 			.pipe(
 				switchMap(() => this.product$),
 				switchMap((product) =>
-					this.store.dispatch(new Auth.AddToCart({ ...productForm, discountable: product.discountable }))
-				)
+					this.store.dispatch(
+						new Auth.AddToCart({
+							...productForm,
+							discountable: product.discountable,
+						})
+					)
+				),
+				take(1)
 			)
 			.subscribe({
 				next: () => {

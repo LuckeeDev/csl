@@ -112,7 +112,7 @@ export class StoreOrdersView implements OnInit {
 			.subscribe({
 				next: () =>
 					this.toastr.show({
-						message: 'Errore eliminato correttamente',
+						message: 'Prodotto eliminato correttamente',
 						color: 'basic',
 					}),
 				error: (err) => {
