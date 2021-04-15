@@ -6,7 +6,7 @@ import { IProduct, IUser, ProductInUserCart } from '@csl/shared';
 import { Select, Store } from '@ngxs/store';
 import { Auth, AuthState } from '@/global/store/auth';
 import { combineLatest, Observable } from 'rxjs';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 import { Products, ProductsState } from '@/global/store/products';
 import { calculateTotal } from '@/utils/calculateTotal';
 
@@ -34,7 +34,7 @@ export class StoreOrdersView implements OnInit {
 			}[]
 	>;
 
-	total: number;
+	total$: Observable<number>;
 
 	constructor(
 		private dialog: DialogService,
@@ -49,14 +49,19 @@ export class StoreOrdersView implements OnInit {
 
 		this.category = this.router.url.includes('gadgets') ? 'gadgets' : 'photos';
 
-		this.orders$ = combineLatest([this.products$, this.user$]).pipe(
+		const combined$ = combineLatest([this.products$, this.user$]).pipe(
 			map(([products, user]) => ({
 				products,
 				user,
 			})),
-			tap(({ products, user }) => {
-				if (products && user) this.total = calculateTotal(products, user.cart);
-			}),
+			filter(({ products, user }) => (products && user ? true : false))
+		);
+
+		this.total$ = combined$.pipe(
+			map(({ products, user }) => calculateTotal(products, user.cart))
+		);
+
+		this.orders$ = combined$.pipe(
 			filter((state) => state.products && state.products.length > 0),
 			map(({ user, products: availableProducts }) => {
 				if (!user.cart || user.cart.length === 0) {

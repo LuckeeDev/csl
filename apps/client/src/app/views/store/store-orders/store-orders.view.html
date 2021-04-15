@@ -2,7 +2,7 @@
 	<mat-card-header>
 		<mat-card-title class="title">
 			Ordini {{ category | category }} -
-			<ng-container *ngIf="total; else noTotal">
+			<ng-container *ngIf="total$ | async as total; else noTotal">
 				{{ total / 100 | currency: 'EUR' }}
 			</ng-container>
 
