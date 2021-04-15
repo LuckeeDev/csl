@@ -1,11 +1,7 @@
 import { AuthService } from '@/global/services/auth/auth.service';
 import { OrdersService } from '@/global/services/orders/orders.service';
 import { Injectable } from '@angular/core';
-import {
-	IProduct,
-	IUser,
-	ProductInUserCart,
-} from '@csl/shared';
+import { IProduct, IUser, ProductInUserCart } from '@csl/shared';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 import produce from 'immer';
@@ -22,7 +18,9 @@ export namespace Auth {
 
 	export class AddToCart {
 		static readonly type = '[Auth] Add to Cart';
-		constructor(public product: ProductInUserCart) {}
+		constructor(
+			public product: ProductInUserCart & Pick<IProduct, 'discountable'>
+		) {}
 	}
 
 	export class RemoveFromCart {
@@ -37,12 +35,17 @@ export namespace Auth {
 			public phone: IUser['phone']
 		) {}
 	}
+
+	export class ConfirmDraft {
+		static readonly type = '[Auth] Confirm Draft';
+	}
 }
 
 export interface AuthStateModel {
 	user: IUser;
 	loading: boolean;
 	token: string;
+	orderDraft: ProductInUserCart;
 }
 
 @State<AuthStateModel>({
@@ -51,6 +54,7 @@ export interface AuthStateModel {
 		user: undefined,
 		loading: false,
 		token: undefined,
+		orderDraft: undefined,
 	},
 })
 @Injectable()
@@ -70,6 +74,11 @@ export class AuthState {
 	@Selector()
 	static token(state: AuthStateModel) {
 		return state.token;
+	}
+
+	@Selector()
+	static orderDraft(state: AuthStateModel) {
+		return state.orderDraft;
 	}
 
 	@Action(Auth.GetUser)
@@ -104,25 +113,14 @@ export class AuthState {
 	addToCart(ctx: StateContext<AuthStateModel>, action: Auth.AddToCart) {
 		const productInCart = action.product;
 
-		return this.orders.addToCart(productInCart).pipe(
-			tap((res) => {
-				const currentState = ctx.getState();
+		if (productInCart.discountable !== true) {
+			delete productInCart.discountable;
+			delete productInCart.bundled;
 
-				if (res.success === true) {
-					const newCart = res.data;
-
-					ctx.setState(
-						produce(currentState, (state) => {
-							state.user.cart = newCart;
-						})
-					);
-				} else {
-					throw new Error(
-						'Non è stato possibile aggiungere il prodotto al carrello.'
-					);
-				}
-			})
-		);
+			return ctx.patchState({ orderDraft: productInCart });
+		} else {
+			return this._addToCart(ctx, productInCart);
+		}
 	}
 
 	@Action(Auth.RemoveFromCart)
@@ -189,5 +187,39 @@ export class AuthState {
 		} else {
 			throw new Error('Il tuo ordine è già stato confermato');
 		}
+	}
+
+	@Action(Auth.ConfirmDraft)
+	confirmDraft(ctx: StateContext<AuthStateModel>) {
+		const { orderDraft } = ctx.getState();
+
+		return this._addToCart(ctx, orderDraft).pipe(
+			tap(() => ctx.patchState({ orderDraft: undefined }))
+		);
+	}
+
+	private _addToCart(
+		ctx: StateContext<AuthStateModel>,
+		product: ProductInUserCart
+	) {
+		return this.orders.addToCart(product).pipe(
+			tap((res) => {
+				const currentState = ctx.getState();
+
+				if (res.success === true) {
+					const newCart = res.data;
+
+					ctx.setState(
+						produce(currentState, (state) => {
+							state.user.cart = newCart;
+						})
+					);
+				} else {
+					throw new Error(
+						'Non è stato possibile aggiungere il prodotto al carrello.'
+					);
+				}
+			})
+		);
 	}
 }

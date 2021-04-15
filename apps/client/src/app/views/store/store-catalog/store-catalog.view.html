@@ -1,13 +1,32 @@
-<mat-form-field>
+<ng-container *ngIf="orderDraft$ | async">
+	<div class="offer">
+		Puoi aggiungere al tuo ordine un prodotto fra
+		<a
+			class="default-link"
+			[routerLink]="['./']"
+			[queryParams]="{ discountable: true }"
+		>
+			questi
+		</a>
+		e ricevere uno sconto del 50% su di esso, oppure puoi
+		<span class="default-link span-click" (click)="confirmWithoutDiscount()">
+			continuare senza aggiungere alcun prodotto scontato.
+		</span>
+	</div>
+</ng-container>
+
+<mat-form-field
+	[ngStyle]="{ 'margin-top': (orderDraft$ | async) ? '20px' : '' }"
+>
 	<mat-label>Cerca prodotto...</mat-label>
 	<input matInput type="text" [formControl]="search" />
 </mat-form-field>
 
-<ng-container *ngIf="products$ | async as products; else alert">
+<ng-container *ngIf="filteredProducts$ | async as products; else alert">
 	<div class="container" *ngIf="products.length > 0; else alert">
 		<mat-card
 			[routerLink]="[product.id]"
-			*ngFor="let product of (filteredProducts$ | async) || products"
+			*ngFor="let product of products"
 			class="product"
 		>
 			<mat-card-header>

@@ -90,7 +90,7 @@ export class StoreProductView implements OnInit {
 	}
 
 	addToCart(): void {
-		const product: ProductInUserCart = this.orderForm.value;
+		const productForm: ProductInUserCart = this.orderForm.value;
 
 		this.dialog
 			.open({
@@ -100,14 +100,19 @@ export class StoreProductView implements OnInit {
 				answer: 'Conferma',
 				color: 'primary',
 			})
-			.pipe(switchMap(() => this.store.dispatch(new Auth.AddToCart(product))))
+			.pipe(
+				switchMap(() => this.product$),
+				switchMap((product) =>
+					this.store.dispatch(new Auth.AddToCart({ ...productForm, discountable: product.discountable }))
+				)
+			)
 			.subscribe({
 				next: () => {
 					this.toastr.show({
 						color: 'success',
 						message: 'Prodotto aggiunto con successo',
 					});
-					
+
 					this.router.navigate(['..'], {
 						relativeTo: this.route,
 					});
