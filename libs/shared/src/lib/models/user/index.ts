@@ -24,7 +24,7 @@ export interface ProductInUserCart {
 	/**
 	 * Refers to the ID of the customization (the color).
 	 */
-	color: IProduct['colors'][0]['id'];
+	color: IProduct['colors'][number]['id'];
 
 	/**
 	 * Refers to the actual identifier of the product.
@@ -36,6 +36,19 @@ export interface ProductInUserCart {
 	 * multiple items with the same product ID.
 	 */
 	cartID: string;
+
+	bundled?: {
+		color: IProduct['colors'][number]['id'];
+
+		id: IProduct['id'];
+
+		size: TSize;
+
+		/**
+		 * Must be equal or less than the quantity of products ordered in the parent order.
+		 */
+		quantity: number;
+	};
 }
 
 export interface IUserInCsv {

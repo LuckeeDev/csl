@@ -34,7 +34,8 @@ export const getAllGadgets = async () => {
 export const createGadget = async (
 	product: IProduct,
 	stripeProductID: string,
-	stripePriceID: string
+	stripePriceID: string,
+	stripeDiscountedPriceID?: string,
 ): Promise<IHttpRes<IProduct>> => {
 	try {
 		const id = stripeProductID;
@@ -98,6 +99,7 @@ export const createGadget = async (
 			sizes,
 			stripePriceID,
 			discountable,
+			stripeDiscountedPriceID,
 		}).save();
 
 		return {

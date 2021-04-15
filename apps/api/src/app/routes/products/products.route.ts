@@ -32,7 +32,7 @@ router.post(
 	isRappre,
 	async (req: Request<IProduct>, res: Response) => {
 		try {
-			const { price: rawPrice } = req.body;
+			const { price: rawPrice, discountable } = req.body;
 			const stripeProductName = `Donazione di ${rawPrice}€`;
 
 			const product = await stripe.products.create({
@@ -51,10 +51,24 @@ router.post(
 
 			const stripePriceID = stripePrice.id;
 
+			const discountedPrice = price / 2;
+
+			const stripeDiscountedPrice =
+				discountable === true
+					? await stripe.prices.create({
+							product: stripeProductID,
+							unit_amount: discountedPrice,
+							currency: 'eur',
+					  })
+					: undefined;
+
+			const stripeDiscountedPriceID = stripeDiscountedPrice.id;
+
 			const result = await createGadget(
 				{ ...req.body, price },
 				stripeProductID,
-				stripePriceID
+				stripePriceID,
+				stripeDiscountedPriceID
 			);
 
 			res.json(result);
