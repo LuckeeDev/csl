@@ -61,4 +61,8 @@ export class OrdersService {
 			{ category }
 		);
 	}
+
+	getClassroom(): Observable<IHttpRes<IUser[]>> {
+		return this.http.get<IHttpRes<IUser[]>>('/users/class');
+	}
 }

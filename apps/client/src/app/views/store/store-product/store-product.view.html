@@ -57,13 +57,13 @@
 					<button
 						mat-raised-button
 						color="primary"
-						[disabled]="orderForm.invalid || user.confirmed[category]"
+						[disabled]="orderForm.invalid || (user.confirmed && user.confirmed[category])"
 					>
 						Ordina prodotto
 					</button>
 				</div>
 
-				<mat-hint *ngIf="user.confirmed[category]">
+				<mat-hint *ngIf="user.confirmed && user.confirmed[category]">
 					Il tuo ordine risulta già confermato.
 				</mat-hint>
 			</ng-container>

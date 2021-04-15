@@ -45,7 +45,7 @@
 						mat-stroked-button
 						color="warn"
 						(click)="removeFromCart(product)"
-						[disabled]="user.confirmed[category]"
+						[disabled]="user.confirmed && user.confirmed[category]"
 					>
 						Rimuovi
 					</button>
@@ -76,7 +76,7 @@
 				</button>
 			</ng-container>
 
-			<ng-container *ngIf="user.confirmed[category]">
+			<ng-container *ngIf="user.confirmed && user.confirmed[category]">
 				<p>Ordine confermato!</p>
 			</ng-container>
 		</ng-container>

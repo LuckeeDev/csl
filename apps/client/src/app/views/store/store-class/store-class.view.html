@@ -1,0 +1,19 @@
+<csl-data-table
+	*ngIf="tableData$ | async as data; else loading"
+	[data]="data"
+	[columns]="displayedColumns"
+>
+	<div *ngIf="user$ | async as user" header>
+		<h1>{{ user.classID.toUpperCase() }}</h1>
+	</div>
+
+	<div links>
+		<a mat-raised-button [routerLink]="['..', 'payments']" color="primary">
+			Continua al pagamento
+		</a>
+	</div>
+</csl-data-table>
+
+<ng-template #loading>
+	<csl-loading-screen></csl-loading-screen>
+</ng-template>

@@ -57,24 +57,14 @@ import { ComitatoHomeComponent } from '@main/comitato-components/comitato-home/c
 import { ContactFormComponent } from '@main/contacts-components/contact-form/contact-form.component';
 import { LoginComponent } from '@main/errors/login/login.component';
 import { CogeView } from '@/views/coge/coge.view';
-import { StoreView } from '@/views/store/store.view';
-import { StoreHomeView } from '@/views/store/store-home/store-home.view';
-import { StoreProductView } from '@/views/store/store-product/store-product.view';
-import { StoreCatalogView } from '@/views/store/store-catalog/store-catalog.view';
-import { StoreOrdersView } from './views/store/store-orders/store-orders.view';
 import { CategoryComponent } from './global/components/category/category.component';
-import { StorePaymentsView } from './views/store/store-payments/store-payments.view';
-import { StoreSuccessView } from './views/store/store-success/store-success.view';
-import { StoreErrorView } from './views/store/store-error/store-error.view';
 
 // Interceptors
 import { ResCodeInterceptor } from '@global/http/res-code.interceptor';
 import { ApiInterceptor } from '@global/http/api.interceptor';
 
 // Stores
-import { ProductsState } from './global/store/products';
 import { AuthState } from './global/store/auth';
-import { OrdersState } from './global/store/orders';
 import { PlatformState } from './global/store/platform';
 
 registerLocaleData(ITLocaleData);
@@ -102,16 +92,8 @@ registerLocaleData(ITLocaleData);
 		ComitatoHomeComponent,
 		ContactFormComponent,
 		CogeView,
-		StoreView,
-		StoreHomeView,
-		StoreProductView,
-		StoreCatalogView,
 		WrapperComponent,
-		StoreOrdersView,
 		CategoryComponent,
-		StorePaymentsView,
-		StoreSuccessView,
-		StoreErrorView,
 	],
 	imports: [
 		BrowserModule,
@@ -127,7 +109,7 @@ registerLocaleData(ITLocaleData);
 		PipesModule,
 		SharedModule,
 		HttpClientModule,
-		NgxsModule.forRoot([AuthState, ProductsState, OrdersState, PlatformState], {
+		NgxsModule.forRoot([AuthState, PlatformState], {
 			developmentMode: !environment.production,
 		}),
 		NgxsStoragePluginModule.forRoot({

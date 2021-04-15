@@ -1,0 +1,9 @@
+<div class="container">
+	<h1 class="header" *ngIf="message; else defaultMsg">{{ message }}</h1>
+
+	<ng-template #defaultMsg>
+		<h1 class="header">Ooops... c'è stato un errore</h1>
+	</ng-template>
+
+	<img [src]="src" class="image" />
+</div>

@@ -32,7 +32,10 @@ export class StoreView implements OnInit {
 		{ link: 'summary', title: 'Riepilogo' },
 	];
 
-	rappreLinks: IDashboardLink[] = [{ link: 'payments', title: 'Pagamenti' }];
+	rappreLinks: IDashboardLink[] = [
+		{ link: 'class', title: 'La tua classe' },
+		{ link: 'payments', title: 'Pagamenti' },
+	];
 
 	links$: Observable<IDashboardLink[]>;
 

@@ -1,12 +1,19 @@
 import { Request, Response, Router } from 'express';
 const router = Router();
-import { isRappre, isBar, isPowerful, isAdmin } from '@common/auth';
+import {
+	isRappre,
+	isBar,
+	isPowerful,
+	isAdmin,
+	isRappreDiClasse,
+} from '@common/auth';
 import {
 	addRole,
 	removeRole,
 	getRoles,
 	updateCredit,
 	getClasses,
+	getUsersFromClass,
 } from '@controllers';
 import { User } from '@/models';
 import { me } from './me/me.route';
@@ -17,6 +24,11 @@ router.use('/me', me);
 router.get('/', isPowerful, async (req: Request, res: Response) => {
 	const classes = await getClasses();
 	res.json(classes);
+});
+
+router.get('/class', isRappreDiClasse, async (req: Request, res: Response) => {
+	const users = await getUsersFromClass(req.user.classID);
+	res.json(users);
 });
 
 // Add a role to a member

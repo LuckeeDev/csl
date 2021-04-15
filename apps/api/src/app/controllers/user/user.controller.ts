@@ -416,6 +416,29 @@ export const checkClassStatus = async (
 	}
 };
 
+export const getUsersFromClass = async (
+	classID: IUser['classID']
+): Promise<IHttpRes<IUser[]>> => {
+	try {
+		const users = await User.find({ classID });
+
+		return {
+			success: true,
+			data: users,
+		};
+	} catch (err) {
+		saveError(`Error while getting users for class ${classID}`, {
+			category: 'accounts',
+			err,
+		});
+
+		return {
+			success: false,
+			err,
+		};
+	}
+};
+
 // Get the stripe customer ID of a user
 export const getStripeID = async (
 	id: IUser['id']

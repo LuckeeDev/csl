@@ -46,6 +46,8 @@ import { CommissionePageComponent } from './components/commissione-page/commissi
 import { InfoDialogComponent } from './components/info-dialog/info-dialog.component';
 import { DataTableComponent } from './components/data-table/data-table.component';
 import { DragDropListComponent } from './components/drag-drop-list/drag-drop-list.component';
+import { InfoMsgComponent } from './components/info-msg/info-msg.component';
+import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
 
 // Services
 import { ToastrService } from './services/toastr/toastr.service';
@@ -70,6 +72,8 @@ import { RoundedDirective } from './directives/rounded/rounded.directive';
 		DataTableComponent,
 		InfoDialogComponent,
 		DragDropListComponent,
+		InfoMsgComponent,
+		LoadingScreenComponent,
 	],
 	imports: [
 		CommonModule,
@@ -116,6 +120,8 @@ import { RoundedDirective } from './directives/rounded/rounded.directive';
 		CommissionePageComponent,
 		DataTableComponent,
 		DragDropListComponent,
+		InfoMsgComponent,
+		LoadingScreenComponent,
 		MatSnackBarModule,
 		MatDialogModule,
 		MatButtonModule,
