@@ -1,14 +1,7 @@
 <ng-container *ngIf="orderDraft$ | async">
 	<div class="offer">
-		Puoi aggiungere al tuo ordine un prodotto fra
-		<a
-			class="default-link"
-			[routerLink]="['./']"
-			[queryParams]="{ discountable: true }"
-		>
-			questi
-		</a>
-		e ricevere uno sconto del 50% su di esso, oppure puoi
+		Puoi aggiungere al tuo ordine un prodotto fra quelli proposti sotto e
+		ricevere uno sconto del 50% su di esso, oppure puoi
 		<span class="default-link span-click" (click)="confirmWithoutDiscount()">
 			continuare senza aggiungere alcun prodotto scontato.
 		</span>

@@ -18,7 +18,10 @@
 		<table mat-table [dataSource]="orders$ | async">
 			<ng-container matColumnDef="name">
 				<th mat-header-cell *matHeaderCellDef>Nome</th>
-				<td mat-cell *matCellDef="let product">{{ product.name }}</td>
+				<td mat-cell *matCellDef="let product">
+					{{ product.name }}
+					<ng-container *ngIf="product.discounted">(Scontato)</ng-container>
+				</td>
 			</ng-container>
 
 			<ng-container matColumnDef="quantity">
