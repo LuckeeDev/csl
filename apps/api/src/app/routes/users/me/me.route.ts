@@ -9,7 +9,7 @@ const router = Router();
 router.get('/', async (req: Request, res: Response) => {
 	const getFirebaseToken = req.query.firebase === 'true' ? true : false;
 	const getPlatformStatus = req.query.status === 'true' ? true : false;
-	
+
 	const user = req.user;
 
 	const data = {
@@ -41,6 +41,14 @@ router.patch(
 	async (req: Request<ProductInUserCart>, res: Response) => {
 		const product = req.body;
 		const user = req.user;
+
+		console.log(product);
+
+		if (product.bundled && product.bundled.quantity > product.quantity) {
+			return res.json({
+				success: false,
+			});
+		}
 
 		const result = await addToCart(product, user);
 

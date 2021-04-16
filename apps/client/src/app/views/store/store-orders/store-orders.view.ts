@@ -111,7 +111,7 @@ export class StoreOrdersView implements OnInit {
 					return { value: 0 };
 				}
 
-				return { value: cart.reduce((acc, val) => acc + val.price, 0) };
+				return { value: cart.reduce((acc, val) => acc + val.price * val.quantity, 0) };
 			})
 		);
 
