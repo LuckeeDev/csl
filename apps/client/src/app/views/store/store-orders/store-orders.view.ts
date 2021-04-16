@@ -8,7 +8,6 @@ import { Auth, AuthState } from '@/global/store/auth';
 import { combineLatest, Observable } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { Products, ProductsState } from '@/global/store/products';
-import { calculateTotal } from '@/utils/calculateTotal';
 
 @Component({
 	selector: 'csl-orders',
@@ -26,15 +25,15 @@ export class StoreOrdersView implements OnInit {
 	products$: Observable<IProduct[]>;
 
 	orders$: Observable<
-		ProductInUserCart[] &
-			{
-				name: IProduct['name'];
-				category: IProduct['category'];
-				color: IProduct['colors'][0]['color'];
-			}[]
+		(ProductInUserCart & {
+			name: IProduct['name'];
+			category: IProduct['category'];
+			color: IProduct['colors'][number]['color'];
+			price: number;
+		})[]
 	>;
 
-	total$: Observable<number>;
+	total$: Observable<{ value: number }>;
 
 	constructor(
 		private dialog: DialogService,
@@ -57,10 +56,6 @@ export class StoreOrdersView implements OnInit {
 			filter(({ products, user }) => (products && user ? true : false))
 		);
 
-		this.total$ = combined$.pipe(
-			map(({ products, user }) => calculateTotal(products, user.cart))
-		);
-
 		this.orders$ = combined$.pipe(
 			filter((state) => state.products && state.products.length > 0),
 			map(({ user, products: availableProducts }) => {
@@ -70,7 +65,23 @@ export class StoreOrdersView implements OnInit {
 
 				const cart = user.cart;
 
-				return cart
+				const reducedCart: (ProductInUserCart & {
+					discounted: boolean;
+				})[] = cart.reduce((acc, product: ProductInUserCart) => {
+					if (product.bundled) {
+						const bundled = product.bundled;
+
+						return [
+							...acc,
+							{ ...product, discounted: false },
+							{ ...bundled, discounted: true },
+						];
+					} else {
+						return [...acc, { ...product, discounted: false }];
+					}
+				}, []);
+
+				return reducedCart
 					.map((product) => {
 						const availableProduct = availableProducts.find(
 							(x) => x.id === product.id
@@ -84,6 +95,9 @@ export class StoreOrdersView implements OnInit {
 							...product,
 							category: availableProduct.category,
 							name: availableProduct.name,
+							price: product.discounted
+								? availableProduct.price / 2
+								: availableProduct.price,
 							color: selectedColor.color,
 						};
 					})
@@ -91,9 +105,19 @@ export class StoreOrdersView implements OnInit {
 			})
 		);
 
+		this.total$ = this.orders$.pipe(
+			map((cart) => {
+				if (cart.length === 0) {
+					return { value: 0 };
+				}
+
+				return { value: cart.reduce((acc, val) => acc + val.price, 0) };
+			})
+		);
+
 		this.displayedColumns =
 			this.category === 'gadgets'
-				? ['name', 'quantity', 'size', 'color', 'actions']
+				? ['name', 'quantity', 'size', 'color', 'price', 'actions']
 				: ['name', 'quantity', 'actions'];
 	}
 
