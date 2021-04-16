@@ -19,7 +19,7 @@ export class NewProductView implements OnInit {
 	loading$: Observable<boolean>;
 
 	category: IProduct['category'];
-	sizes: string[] = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL'];
+	sizes: TSize[] = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL', 'U'];
 
 	productForm = this.fb.group({
 		name: ['', Validators.required],
@@ -61,10 +61,7 @@ export class NewProductView implements OnInit {
 					[Validators.required]
 				)
 			);
-			this.productForm.addControl(
-				'discountable',
-				this.fb.control('', Validators.required)
-			);
+			this.productForm.addControl('discountable', this.fb.control(false));
 		}
 	}
 

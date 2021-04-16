@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 
-export type TSize = 'XXS' | 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL';
+export type TSize = 'XXS' | 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | '3XL' | 'U';
 
 export class ProductOptions {
 	id: string;

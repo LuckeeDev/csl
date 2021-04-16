@@ -62,7 +62,7 @@ router.post(
 					  })
 					: undefined;
 
-			const stripeDiscountedPriceID = stripeDiscountedPrice.id;
+			const stripeDiscountedPriceID = stripeDiscountedPrice?.id;
 
 			const result = await createGadget(
 				{ ...req.body, price },

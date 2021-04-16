@@ -130,6 +130,10 @@
 					<td>{{ productForm.value.price | currency: 'EUR' }}</td>
 				</tr>
 				<tr *ngIf="category === 'gadgets'">
+					<th>Sconto disponibile:</th>
+					<td>{{ productForm.value.discountable ? 'Sì' : 'No' }}</td>
+				</tr>
+				<tr *ngIf="category === 'gadgets'">
 					<th>Taglie:</th>
 					<td>{{ selectedSizesString }}</td>
 				</tr>
