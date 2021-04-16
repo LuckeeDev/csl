@@ -74,16 +74,18 @@ export class StoreCatalogView implements OnInit {
 			filter(([, products]) => (products ? true : false)),
 			map(([searchValue, products, orderDraft]) => {
 				return products.filter((product) => {
+					const lowerSearchValue = searchValue.toLowerCase();
+
 					if (orderDraft !== undefined) {
 						return (
 							product.discountable === true &&
-							(product.name.toLowerCase().includes(searchValue) ||
-								product.description.toLowerCase().includes(searchValue))
+							(product.name.toLowerCase().includes(lowerSearchValue) ||
+								product.description.toLowerCase().includes(lowerSearchValue))
 						);
 					} else {
 						return (
-							product.name.toLowerCase().includes(searchValue) ||
-							product.description.toLowerCase().includes(searchValue)
+							product.name.toLowerCase().includes(lowerSearchValue) ||
+							product.description.toLowerCase().includes(lowerSearchValue)
 						);
 					}
 				});
