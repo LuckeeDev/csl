@@ -57,6 +57,8 @@ export class NewProductView implements OnInit {
 						L: [false],
 						XL: [false],
 						XXL: [false],
+						'3XL': [false],
+						U: [false],
 					},
 					[Validators.required]
 				)
