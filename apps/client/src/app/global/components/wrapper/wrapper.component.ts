@@ -19,6 +19,9 @@ export class WrapperComponent {
 	@Select(AuthState.user)
 	user$: Observable<IUser>;
 
+	@Select(AuthState.loading)
+	authLoading$: Observable<boolean>;
+
 	toggled = false;
 
 	currentYear = new Date().getFullYear();

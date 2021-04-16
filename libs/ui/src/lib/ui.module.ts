@@ -58,6 +58,7 @@ import { InfoDialogService } from './services/info-dialog/info-dialog.service';
 // Directives
 import { MatColorDirective } from './directives/mat-color/mat-color.directive';
 import { RoundedDirective } from './directives/rounded/rounded.directive';
+import { LoadingDirective } from './directives/loading/loading.directive';
 
 @NgModule({
 	declarations: [
@@ -74,6 +75,7 @@ import { RoundedDirective } from './directives/rounded/rounded.directive';
 		DragDropListComponent,
 		InfoMsgComponent,
 		LoadingScreenComponent,
+		LoadingDirective,
 	],
 	imports: [
 		CommonModule,
@@ -115,6 +117,7 @@ import { RoundedDirective } from './directives/rounded/rounded.directive';
 		AlertComponent,
 		MatColorDirective,
 		RoundedDirective,
+		LoadingDirective,
 		CarouselComponent,
 		DashboardHomeComponent,
 		CommissionePageComponent,

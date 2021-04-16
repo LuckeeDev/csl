@@ -91,7 +91,11 @@
 					</a>
 
 					<ng-template #login>
-						<button mat-raised-button (click)="auth.signIn()">
+						<button
+							mat-raised-button
+							(click)="auth.signIn()"
+							[loading]="authLoading$ | async"
+						>
 							Accedi
 							<img class="google" src="../../../assets/img/signInLogo.png" />
 						</button>

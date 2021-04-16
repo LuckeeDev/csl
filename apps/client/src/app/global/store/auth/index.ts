@@ -81,6 +81,11 @@ export class AuthState {
 		return state.orderDraft;
 	}
 
+	@Selector()
+	static loading(state: AuthStateModel) {
+		return state.loading;
+	}
+
 	@Action(Auth.GetUser)
 	getUser(ctx: StateContext<AuthStateModel>, action: Auth.GetUser) {
 		ctx.patchState({ loading: true });
