@@ -2,6 +2,17 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.11.1](https://github.com/LuckeeDev/csl/compare/v1.11.0...v1.11.1) (2021-04-16)
+
+
+### Bug Fixes
+
+* add discountable to form ([d77aa70](https://github.com/LuckeeDev/csl/commit/d77aa707c7f5c7a87f96e0c01c0c5080bbc66f38))
+* create discounted price on Stripe ([06906f1](https://github.com/LuckeeDev/csl/commit/06906f11e97c7f4c93e55545531c7e6432f317f4))
+* display correct user total in class view ([d6c287a](https://github.com/LuckeeDev/csl/commit/d6c287a8fb14274ce22ed875453c5825e34acefd))
+
+
+
 # [1.11.0](https://github.com/LuckeeDev/csl/compare/v1.10.15...v1.11.0) (2021-04-12)
 
 

@@ -2,6 +2,29 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.11.1](https://github.com/LuckeeDev/csl/compare/v1.11.0...v1.11.1) (2021-04-16)
+
+
+### Bug Fixes
+
+* accept a minimum of 1 in quantity form field ([a8d1e13](https://github.com/LuckeeDev/csl/commit/a8d1e130bd7f035c11956d61fd5ca0e0ecd56c4f))
+* add discountable to form ([d77aa70](https://github.com/LuckeeDev/csl/commit/d77aa707c7f5c7a87f96e0c01c0c5080bbc66f38))
+* added option to choose paired gadget ([f5e6916](https://github.com/LuckeeDev/csl/commit/f5e69164dd3f486833902f7c37785a92c8e3b2b9))
+* added total to order page ([cf945bf](https://github.com/LuckeeDev/csl/commit/cf945bf2cc2bea5ccf0c1c3f03736b6f587692b2))
+* correctly display bundled product ([848aa6a](https://github.com/LuckeeDev/csl/commit/848aa6aaae4058e941b41ab922020104431a7a84))
+* create discounted price on Stripe ([06906f1](https://github.com/LuckeeDev/csl/commit/06906f11e97c7f4c93e55545531c7e6432f317f4))
+* display correct user total in class view ([d6c287a](https://github.com/LuckeeDev/csl/commit/d6c287a8fb14274ce22ed875453c5825e34acefd))
+* expression changed after checked in orders view ([021eab2](https://github.com/LuckeeDev/csl/commit/021eab286017d586d95b06382cd8cb57370fbed5))
+* form value with hours ([0eb76f6](https://github.com/LuckeeDev/csl/commit/0eb76f635bf2e094339a8ef6320d1e4b9010f3cd))
+* moved store to a new module, added class view ([ef23239](https://github.com/LuckeeDev/csl/commit/ef23239b73069c08e8159bf34b5588ca889eb613))
+* prevent user from ordering more discounted products than the max ([aea55c8](https://github.com/LuckeeDev/csl/commit/aea55c8794f21a05ac44d3890027513db20f2f4b))
+* search method in catalog ([ef258ca](https://github.com/LuckeeDev/csl/commit/ef258ca1e435c8db07678bf44c302b2940b76f2f))
+* server bundled quantity validation ([efe1c14](https://github.com/LuckeeDev/csl/commit/efe1c144c902c65f7cbf0faaf8f2b4cc3ff64020))
+* show offer if product is not discountable ([f9f93cb](https://github.com/LuckeeDev/csl/commit/f9f93cbe10d5efa94f3c33ef9281a7b5ceb57e7d))
+* show spinner in app ([bd0e47b](https://github.com/LuckeeDev/csl/commit/bd0e47b98a4bc465616c151002c468e4d2c2368d))
+
+
+
 # [1.11.0](https://github.com/LuckeeDev/csl/compare/v1.10.15...v1.11.0) (2021-04-12)
 
 
