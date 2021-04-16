@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.11.5](https://github.com/LuckeeDev/csl/compare/v1.11.4...v1.11.5) (2021-04-16)
+
+
+### Bug Fixes
+
+* :wheelchair: turned csl logo into an actual link instead of an img ([5dc0f1d](https://github.com/LuckeeDev/csl/commit/5dc0f1d171189bf701d82fe41e7c29a4b30e4e8a))
+* correctly reset form after product creation ([858a784](https://github.com/LuckeeDev/csl/commit/858a7844f507ab13968fd351394decf7366be153))
+
+
+
 ## [1.11.4](https://github.com/LuckeeDev/csl/compare/v1.11.3...v1.11.4) (2021-04-16)
 
 
