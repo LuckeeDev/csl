@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.11.4](https://github.com/LuckeeDev/csl/compare/v1.11.3...v1.11.4) (2021-04-16)
+
+
+### Bug Fixes
+
+* correctly update view when changing category ([c92a618](https://github.com/LuckeeDev/csl/commit/c92a61827831b51d043d9528c2e14bae51c58a66))
+
+
+
 ## [1.11.3](https://github.com/LuckeeDev/csl/compare/v1.11.2...v1.11.3) (2021-04-16)
 
 
