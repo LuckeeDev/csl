@@ -1,4 +1,9 @@
-<form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="container">
+<form
+	[formGroup]="productForm"
+	(ngSubmit)="onSubmit(form)"
+	class="container"
+	#form
+>
 	<h4>Informazioni principali</h4>
 
 	<mat-form-field class="textinput">

@@ -105,7 +105,7 @@ export class NewProductView implements OnInit {
 	}
 
 	// Handle submit event
-	onSubmit() {
+	onSubmit(formElement: HTMLFormElement) {
 		this.dialog
 			.open({
 				title: 'Confermare la creazione del prodotto?',
@@ -121,7 +121,7 @@ export class NewProductView implements OnInit {
 				)
 			)
 			.subscribe({
-				complete: () => {
+				next: () => {
 					this.toastr.show({
 						message: 'Prodotto creato con successo',
 						color: 'success',
@@ -129,9 +129,20 @@ export class NewProductView implements OnInit {
 						duration: 5000,
 					});
 
-					this.productForm.reset();
+					this._resetForm(formElement);
 				},
 				error: (err) => this.toastr.showError(err),
 			});
+	}
+
+	private _resetForm(formElement: HTMLFormElement) {
+		this.products.resetImages();
+
+		const colors: IProduct['colors'][number][] = this.colors.value;
+
+		colors.forEach(() => this.colors.removeAt(0));
+
+		formElement.reset();
+		this.productForm.reset();
 	}
 }

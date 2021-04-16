@@ -96,4 +96,8 @@ export class ProductsService {
 
 		this._imgFiles.push(...files);
 	}
+
+	resetImages() {
+		this._imgFiles = [];
+	}
 }
