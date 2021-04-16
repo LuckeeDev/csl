@@ -1,13 +1,14 @@
 <mat-sidenav-container>
 	<mat-sidenav #sidenav>
 		<mat-nav-list class="list">
-			<img
-				src="..\..\..\assets\img\logo.png"
-				alt="CSL Logo"
-				height="80"
-				width="80"
-				[routerLink]="['']"
-			/>
+			<a [routerLink]="['']">
+				<img
+					src="..\..\..\assets\img\logo.png"
+					alt="CSL Logo"
+					height="80"
+					width="80"
+				/>
+			</a>
 
 			<ng-container *ngFor="let element of links">
 				<a
@@ -44,13 +45,14 @@
 				</li>
 
 				<li class="logo">
-					<img
-						src="..\..\..\assets\img\white-logo.png"
-						alt="CSL Logo"
-						height="80"
-						width="80"
-						[routerLink]="['']"
-					/>
+					<a [routerLink]="['']">
+						<img
+							src="..\..\..\assets\img\white-logo.png"
+							alt="CSL Logo"
+							height="80"
+							width="80"
+						/>
+					</a>
 				</li>
 
 				<div class="space"></div>
