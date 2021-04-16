@@ -55,7 +55,7 @@ export class StoreProductView implements OnInit {
 		if (this.category === 'gadgets') {
 			this.orderForm = this.fb.group({
 				id: [this.id, Validators.required],
-				quantity: ['', Validators.required],
+				quantity: ['', [Validators.required, Validators.min(1)]],
 				color: ['', Validators.required],
 				size: ['', Validators.required],
 			});
