@@ -42,8 +42,6 @@ router.patch(
 		const product = req.body;
 		const user = req.user;
 
-		console.log(product);
-
 		if (product.bundled && product.bundled.quantity > product.quantity) {
 			return res.json({
 				success: false,

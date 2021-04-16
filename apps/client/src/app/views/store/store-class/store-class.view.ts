@@ -1,11 +1,11 @@
 import { AuthState } from '@/global/store/auth';
 import { Orders, OrdersState } from '@/global/store/orders';
 import { Products, ProductsState } from '@/global/store/products';
-import { calculateTotal } from '@/utils/calculateTotal';
 import { Component, OnInit } from '@angular/core';
 import {
 	CSLDataTableDisplayedColumns,
 	CSLDataTableSource,
+	getCartInfo,
 	IProduct,
 	IUser,
 } from '@csl/shared';
@@ -15,7 +15,7 @@ import { filter, map } from 'rxjs/operators';
 
 interface TableData {
 	name: IUser['name'];
-	total: number;
+	total: string;
 	gadgets: 'Sì' | 'No';
 	photos: 'Sì' | 'No';
 }
@@ -52,15 +52,24 @@ export class StoreClassView implements OnInit {
 		this.tableData$ = combineLatest([this.products$, this.classroom$]).pipe(
 			filter(([products, users]) => (products && users ? true : false)),
 			map(([products, users]) => {
-				return users.map(({ id, name, cart, confirmed }) => ({
-					id,
-					data: {
-						name: name,
-						total: calculateTotal(products, cart) / 100,
-						gadgets: confirmed?.gadgets ? 'Sì' : 'No',
-						photos: confirmed?.photos ? 'Sì' : 'No',
-					},
-				}));
+				return users.map(({ id, name, cart, confirmed }) => {
+					const cartInfo = getCartInfo(cart, products);
+
+					const total = cartInfo.reduce(
+						(acc, val) => acc + val.price * val.quantity,
+						0
+					);
+
+					return {
+						id,
+						data: {
+							name: name,
+							total: `${total / 100}€`,
+							gadgets: confirmed?.gadgets ? 'Sì' : 'No',
+							photos: confirmed?.photos ? 'Sì' : 'No',
+						},
+					};
+				});
 			})
 		);
 	}

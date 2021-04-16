@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrdersService } from '@global/services/orders/orders.service';
 import { DialogService, ToastrService } from '@csl/ui';
-import { IProduct, IUser, ProductInUserCart } from '@csl/shared';
+import { IProduct, IUser, ProductInUserCart, getCartInfo } from '@csl/shared';
 import { Select, Store } from '@ngxs/store';
 import { Auth, AuthState } from '@/global/store/auth';
 import { combineLatest, Observable } from 'rxjs';
@@ -65,43 +65,11 @@ export class StoreOrdersView implements OnInit {
 
 				const cart = user.cart;
 
-				const reducedCart: (ProductInUserCart & {
-					discounted: boolean;
-				})[] = cart.reduce((acc, product: ProductInUserCart) => {
-					if (product.bundled) {
-						const bundled = product.bundled;
+				const cartWithInfo = getCartInfo(cart, availableProducts);
 
-						return [
-							...acc,
-							{ ...product, discounted: false },
-							{ ...bundled, discounted: true },
-						];
-					} else {
-						return [...acc, { ...product, discounted: false }];
-					}
-				}, []);
-
-				return reducedCart
-					.map((product) => {
-						const availableProduct = availableProducts.find(
-							(x) => x.id === product.id
-						);
-
-						const selectedColor = availableProduct.colors.find(
-							(x) => x.id === product.color
-						);
-
-						return {
-							...product,
-							category: availableProduct.category,
-							name: availableProduct.name,
-							price: product.discounted
-								? availableProduct.price / 2
-								: availableProduct.price,
-							color: selectedColor.color,
-						};
-					})
-					.filter((product) => product.category === this.category);
+				return cartWithInfo.filter(
+					(product) => product.category === this.category
+				);
 			})
 		);
 
@@ -111,7 +79,9 @@ export class StoreOrdersView implements OnInit {
 					return { value: 0 };
 				}
 
-				return { value: cart.reduce((acc, val) => acc + val.price * val.quantity, 0) };
+				return {
+					value: cart.reduce((acc, val) => acc + val.price * val.quantity, 0),
+				};
 			})
 		);
 
