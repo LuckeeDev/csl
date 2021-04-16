@@ -31,12 +31,6 @@
 				<img [src]="product.previewLinks[0]" />
 			</mat-card-content>
 		</mat-card>
-
-		<ng-container *ngIf="filteredProducts$ | async as filtered">
-			<csl-alert color="primary" class="alert" *ngIf="filtered.length === 0">
-				Nessun prodotto trovato!
-			</csl-alert>
-		</ng-container>
 	</div>
 </ng-container>
 

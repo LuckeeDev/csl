@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { IProduct, ProductInUserCart } from '@csl/shared';
 import { DialogService, ToastrService } from '@csl/ui';
 import { Select, Store } from '@ngxs/store';
-import { combineLatest, Observable } from 'rxjs';
+import { combineLatest, Observable, of } from 'rxjs';
 import { filter, map, startWith, switchMap } from 'rxjs/operators';
 
 interface ICover {
@@ -34,8 +34,6 @@ export class StoreCatalogView implements OnInit {
 	@Select(ProductsState.loading)
 	loading$: Observable<boolean>;
 
-	products$: Observable<IProduct[]>;
-
 	category: IProduct['category'];
 	filteredProducts$: Observable<IProduct[]>;
 	productCovers$: Observable<ICover[]>;
@@ -50,17 +48,21 @@ export class StoreCatalogView implements OnInit {
 	ngOnInit(): void {
 		this.store.dispatch(new Products.GetAll());
 
-		this.activated.paramMap.subscribe((params) => {
-			this.category = params.get('category') as IProduct['category'];
-
-			if (this.category === 'gadgets') {
-				this.products$ = this.gadgets$;
-			} else if (this.category === 'photos') {
-				this.products$ = this.photos$;
-			}
-
-			this.search.reset();
-		});
+		const products$ = this.activated.paramMap.pipe(
+			map((params) => {
+				this.category = params.get('category') as IProduct['category'];
+				return this.category;
+			}),
+			switchMap((category) => {
+				if (category === 'gadgets') {
+					return this.gadgets$;
+				} else if (category === 'photos') {
+					return this.photos$;
+				} else {
+					return of(null);
+				}
+			})
+		);
 
 		const search$: Observable<string> = this.search.valueChanges.pipe(
 			startWith('')
@@ -68,7 +70,7 @@ export class StoreCatalogView implements OnInit {
 
 		this.filteredProducts$ = combineLatest([
 			search$,
-			this.products$,
+			products$,
 			this.orderDraft$,
 		]).pipe(
 			filter(([, products]) => (products ? true : false)),
