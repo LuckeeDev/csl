@@ -13,7 +13,7 @@ import {
 	switchMap,
 	take,
 } from 'rxjs/operators';
-import { Auth, AuthState } from '@/global/store/auth';
+import { Auth, AuthState, AuthStateModel } from '@/global/store/auth';
 
 @Component({
 	selector: 'csl-store-product',
@@ -31,6 +31,9 @@ export class StoreProductView implements OnInit {
 
 	@Select(AuthState.user)
 	user$: Observable<IUser>;
+
+	@Select(AuthState.orderDraft)
+	orderDraft$: Observable<IUser>;
 
 	images$: Observable<IImage[]>;
 
@@ -52,10 +55,19 @@ export class StoreProductView implements OnInit {
 		this.id = params.get('productID');
 		this.category = params.get('category') as IProduct['category'];
 
+		const { orderDraft }: AuthStateModel = this.store.selectSnapshot(AuthState);
+
 		if (this.category === 'gadgets') {
 			this.orderForm = this.fb.group({
 				id: [this.id, Validators.required],
-				quantity: ['', [Validators.required, Validators.min(1)]],
+				quantity: [
+					'',
+					[
+						Validators.required,
+						Validators.min(1),
+						...(orderDraft ? [Validators.max(orderDraft.quantity)] : []),
+					],
+				],
 				color: ['', Validators.required],
 				size: ['', Validators.required],
 			});
