@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.11.7](https://github.com/LuckeeDev/csl/compare/v1.11.6...v1.11.7) (2021-04-17)
+
+
+### Bug Fixes
+
+* :ambulance: migrated images to static.cslussana.com ([6f4e4ed](https://github.com/LuckeeDev/csl/commit/6f4e4ed9701148eab66ea2a3850d32330d188f76))
+
+
+
 ## [1.11.6](https://github.com/LuckeeDev/csl/compare/v1.11.5...v1.11.6) (2021-04-17)
 
 
