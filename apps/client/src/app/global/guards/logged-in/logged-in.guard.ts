@@ -6,6 +6,8 @@ import {
 	RouterStateSnapshot,
 	UrlTree,
 	Router,
+	UrlSegment,
+	Route,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -43,12 +45,17 @@ export class LoggedInGuard implements CanActivate, CanLoad {
 		);
 	}
 
-	canLoad(): Observable<boolean> | Promise<boolean> | boolean {
+	canLoad(
+		route: Route,
+		segments: UrlSegment[]
+	): Observable<boolean> | Promise<boolean> | boolean {
+		const next = segments.map((s) => s.path).join('+');
+
 		return this.user$.pipe(
 			firstDifferentThan(undefined),
 			tap((user) => {
 				if (user === null) {
-					this.router.navigate(['login']);
+					this.router.navigate(['login', next]);
 				}
 			}),
 			map((user) => user !== null)
