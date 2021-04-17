@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.11.6](https://github.com/LuckeeDev/csl/compare/v1.11.5...v1.11.6) (2021-04-17)
+
+
+### Bug Fixes
+
+* :wheelchair: make product cards actual links ([6b2a1be](https://github.com/LuckeeDev/csl/commit/6b2a1beec2fea39574b3ba6c3e86b476ba61231c))
+* redirect to correct page even in canLoad ([191feaa](https://github.com/LuckeeDev/csl/commit/191feaa45208355e9861dce24f89bd4f99fcf85b))
+
+
+
 ## [1.11.5](https://github.com/LuckeeDev/csl/compare/v1.11.4...v1.11.5) (2021-04-16)
 
 
