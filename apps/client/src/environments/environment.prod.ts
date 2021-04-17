@@ -13,6 +13,7 @@ export const environment = {
 	useEmulators: false,
 	api: 'https://api.cslussana.com',
 	client: 'https://cslussana.com',
+	static: 'https://static.cslussana.com',
 };
 
 export const googleClientID =

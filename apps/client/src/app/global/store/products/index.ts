@@ -2,11 +2,12 @@ import { ProductsService } from '@/global/services/products/products.service';
 import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { IProduct } from '@csl/shared';
+import { environment } from '@environments/environment';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { Action, Select, Selector, State, StateContext } from '@ngxs/store';
 import produce from 'immer';
 import { forkJoin, Observable, of } from 'rxjs';
-import { filter, map, retryWhen, switchMap, tap } from 'rxjs/operators';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { AuthState } from '../auth';
 
 export namespace Products {
@@ -228,15 +229,9 @@ export class ProductsState {
 			? product.fileNames.slice(0, count)
 			: product.fileNames;
 
-		const links$ = fileNames.map<Observable<string>>((fileName) => {
-			const folder =
-				product.category === 'gadgets' ? 'gadgetImages' : 'photoImages';
-
-			return this.afs
-				.ref(`${folder}/${product.id}/${fileName}`)
-				.getDownloadURL()
-				.pipe(retryWhen(() => this.authToken$));
-		});
+		const links$ = fileNames.map<Observable<string>>((fileName) =>
+			of(`${environment.static}/products/${fileName}`)
+		);
 
 		return forkJoin(links$).pipe(
 			map((links) => ({ ...product, previewLinks: links }))
