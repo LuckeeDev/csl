@@ -1,16 +1,14 @@
 <ng-container *ngIf="orderDraft$ | async">
-	<div class="offer">
+	<csl-alert color="success">
 		Puoi aggiungere al tuo ordine un prodotto fra quelli proposti sotto e
 		ricevere uno sconto del 50% su di esso, oppure puoi
 		<span class="default-link span-click" (click)="confirmWithoutDiscount()">
 			continuare senza aggiungere alcun prodotto scontato.
 		</span>
-	</div>
+	</csl-alert>
 </ng-container>
 
-<mat-form-field
-	[ngStyle]="{ 'margin-top': (orderDraft$ | async) ? '20px' : '' }"
->
+<mat-form-field>
 	<mat-label>Cerca prodotto...</mat-label>
 	<input matInput type="text" [formControl]="search" />
 </mat-form-field>
