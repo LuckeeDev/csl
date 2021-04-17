@@ -15,20 +15,18 @@
 
 <ng-container *ngIf="filteredProducts$ | async as products; else alert">
 	<div class="container" *ngIf="products.length > 0; else alert">
-		<mat-card
-			[routerLink]="[product.id]"
-			*ngFor="let product of products"
-			class="product"
-		>
-			<mat-card-header>
-				<mat-card-title>{{ product.name }}</mat-card-title>
-				<mat-card-subtitle>{{ product.description }}</mat-card-subtitle>
-			</mat-card-header>
+		<a [routerLink]="[product.id]" *ngFor="let product of products" class="product-link">
+			<mat-card class="product">
+				<mat-card-header>
+					<mat-card-title>{{ product.name }}</mat-card-title>
+					<mat-card-subtitle>{{ product.description }}</mat-card-subtitle>
+				</mat-card-header>
 
-			<mat-card-content>
-				<img [src]="product.previewLinks[0]" />
-			</mat-card-content>
-		</mat-card>
+				<mat-card-content>
+					<img [src]="product.previewLinks[0]" />
+				</mat-card-content>
+			</mat-card>
+		</a>
 	</div>
 </ng-container>
 
