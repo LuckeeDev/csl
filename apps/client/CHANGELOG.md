@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.11.8](https://github.com/LuckeeDev/csl/compare/v1.11.7...v1.11.8) (2021-04-17)
+
+
+### Bug Fixes
+
+* :alembic: cache images coming from static subdomain and fonts ([0421429](https://github.com/LuckeeDev/csl/commit/0421429547f6c9b8ffeb123d584ee1beb7470233))
+
+
+
 ## [1.11.7](https://github.com/LuckeeDev/csl/compare/v1.11.6...v1.11.7) (2021-04-17)
 
 
