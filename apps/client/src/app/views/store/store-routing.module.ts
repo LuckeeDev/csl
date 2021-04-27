@@ -33,12 +33,13 @@ const routes: Routes = [
 			{
 				path: 'class',
 				component: StoreClassView,
+				canActivate: [RappreDiClasseGuard]
 			},
-			{
-				path: 'payments',
-				component: StorePaymentsView,
-				canActivate: [RappreDiClasseGuard],
-			},
+			// {
+			// 	path: 'payments',
+			// 	component: StorePaymentsView,
+			// 	canActivate: [RappreDiClasseGuard],
+			// },
 			{
 				path: 'payments/success',
 				component: StoreSuccessView,
