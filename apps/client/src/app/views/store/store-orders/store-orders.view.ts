@@ -27,6 +27,8 @@ export class StoreOrdersView implements OnInit {
 	@Select(AuthState.orderDraft)
 	orderDraft$: Observable<AuthStateModel['orderDraft']>;
 
+	hasDraft$: Observable<boolean>;
+
 	orders$: Observable<
 		(ProductInUserCart & {
 			name: IProduct['name'];
@@ -57,6 +59,10 @@ export class StoreOrdersView implements OnInit {
 				user,
 			})),
 			filter(({ products, user }) => (products && user ? true : false))
+		);
+
+		this.hasDraft$ = this.orderDraft$.pipe(
+			map((draft) => (draft ? true : false))
 		);
 
 		this.orders$ = combined$.pipe(

@@ -93,9 +93,13 @@
 					color="primary"
 					size="small"
 					(click)="confirmOrder()"
+					[disabled]="hasDraft$ | async"
 				>
 					Conferma ordine
 				</button>
+				<mat-hint *ngIf="hasDraft$ | async">
+					Controlla il messaggio in cima alla pagina prima di confermare l'ordine!
+				</mat-hint>
 			</ng-container>
 
 			<ng-container *ngIf="user.confirmed && user.confirmed[category]">
