@@ -1,3 +1,14 @@
+<ng-container *ngIf="orderDraft$ | async">
+	<csl-alert color="success" class="alert">
+		Puoi aggiungere al tuo ordine un prodotto fra quelli proposti
+		<a [routerLink]="['/store', 'gadgets']" class="default-link">qui</a> e
+		ricevere uno sconto del 50% su di esso, oppure puoi
+		<span class="default-link span-click" (click)="confirmWithoutDiscount()">
+			continuare senza aggiungere alcun prodotto scontato.
+		</span>
+	</csl-alert>
+</ng-container>
+
 <mat-card>
 	<mat-card-header>
 		<mat-card-title class="title">

@@ -4,7 +4,7 @@ import { OrdersService } from '@global/services/orders/orders.service';
 import { DialogService, ToastrService } from '@csl/ui';
 import { IProduct, IUser, ProductInUserCart, getCartInfo } from '@csl/shared';
 import { Select, Store } from '@ngxs/store';
-import { Auth, AuthState } from '@/global/store/auth';
+import { Auth, AuthState, AuthStateModel } from '@/global/store/auth';
 import { combineLatest, Observable } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { Products, ProductsState } from '@/global/store/products';
@@ -23,6 +23,9 @@ export class StoreOrdersView implements OnInit {
 
 	@Select(ProductsState.products)
 	products$: Observable<IProduct[]>;
+
+	@Select(AuthState.orderDraft)
+	orderDraft$: Observable<AuthStateModel['orderDraft']>;
 
 	orders$: Observable<
 		(ProductInUserCart & {
@@ -113,6 +116,26 @@ export class StoreOrdersView implements OnInit {
 					console.log(err);
 					this.toastr.showError(err);
 				},
+			});
+	}
+
+	confirmWithoutDiscount() {
+		this.dialog
+			.open({
+				title: 'Confermi di voler continuare?',
+				answer: 'Conferma',
+				color: 'primary',
+				text:
+					'Confermando, non potrai usufruire dello sconto del 50% sui prodotti selezionati!',
+			})
+			.pipe(switchMap(() => this.store.dispatch(new Auth.ConfirmDraft())))
+			.subscribe({
+				next: () =>
+					this.toastr.show({
+						color: 'basic',
+						message: 'Ordine confermato',
+					}),
+				error: () => this.toastr.showError(),
 			});
 	}
 
