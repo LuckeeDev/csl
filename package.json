@@ -28,7 +28,7 @@
 		"@angular/platform-browser-dynamic": "11.2.5",
 		"@angular/router": "11.2.5",
 		"@angular/service-worker": "11.2.5",
-		"@editorjs/editorjs": "^2.19.0",
+		"@editorjs/editorjs": "^2.20.2",
 		"@editorjs/header": "^2.6.0",
 		"@editorjs/image": "^2.6.0",
 		"@editorjs/list": "^1.6.1",
