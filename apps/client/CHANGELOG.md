@@ -7,6 +7,15 @@ This file was generated using [@jscutlery/semver](https://github.com/jscutlery/s
 
 ### Bug Fixes
 
+* ask for confirmation before closing if orderDraft exists ([a8db539](https://github.com/LuckeeDev/csl/commit/a8db539cff25b41eb2d9e6399479f5d341f2b6fc))
+
+
+
+## [1.11.15](https://github.com/LuckeeDev/csl/compare/v1.11.14...v1.11.15) (2021-04-29)
+
+
+### Bug Fixes
+
 * ask for confirmation before closing if orderDraft exists ([caa9e65](https://github.com/LuckeeDev/csl/commit/caa9e6599664e2b412aef7a215a4033199c77049))
 
 
