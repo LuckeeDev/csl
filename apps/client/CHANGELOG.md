@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.11.14](https://github.com/LuckeeDev/csl/compare/v1.11.13...v1.11.14) (2021-04-29)
+
+
+### Bug Fixes
+
+* made orders more clear ([ca2db39](https://github.com/LuckeeDev/csl/commit/ca2db39ae7e22e083221576445aaff9fe136cdc1))
+
+
+
 ## [1.11.13](https://github.com/LuckeeDev/csl/compare/v1.11.12...v1.11.13) (2021-04-27)
 
 
