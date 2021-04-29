@@ -7,11 +7,11 @@ type ReducedCart = (ProductInUserCart & {
 export function reduceCart(cart: ProductInUserCart[]): ReducedCart {
 	return cart.reduce((acc, product: ProductInUserCart) => {
 		if (product.bundled) {
-			const bundled = product.bundled;
+			const { bundled, ...newProduct } = product;
 
 			return [
 				...acc,
-				{ ...product, discounted: false },
+				{ ...newProduct, discounted: false },
 				{ ...bundled, discounted: true },
 			];
 		} else {
