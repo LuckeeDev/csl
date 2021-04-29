@@ -33,7 +33,7 @@ export class StoreProductView implements OnInit {
 	user$: Observable<IUser>;
 
 	@Select(AuthState.orderDraft)
-	orderDraft$: Observable<IUser>;
+	orderDraft$: Observable<ProductInUserCart>;
 
 	images$: Observable<IImage[]>;
 
@@ -128,18 +128,29 @@ export class StoreProductView implements OnInit {
 						})
 					)
 				),
+				switchMap(() => this.orderDraft$),
 				take(1)
 			)
 			.subscribe({
-				next: () => {
-					this.toastr.show({
-						color: 'success',
-						message: 'Prodotto aggiunto con successo',
-					});
+				next: (draft) => {
+					if (draft) {
+						this.toastr.show({
+							color: 'basic',
+							message:
+								'Leggi il messaggio in cima alla pagina per confermare il prodotto!',
+						});
+					} else {
+						this.toastr.show({
+							color: 'success',
+							message: 'Prodotto aggiunto con successo',
+						});
+					}
 
 					this.router.navigate(['..'], {
 						relativeTo: this.route,
 					});
+
+					window.scrollTo(0, 0);
 				},
 				error: () => this.toastr.showError(),
 			});
