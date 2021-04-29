@@ -1,7 +1,12 @@
 import { AuthState } from '@/global/store/auth';
 import { PlatformState } from '@/global/store/platform';
-import { Component, OnInit } from '@angular/core';
-import { IDashboardLink, IUser, PlatformStatus } from '@csl/shared';
+import { Component, HostListener, OnInit } from '@angular/core';
+import {
+	IDashboardLink,
+	IUser,
+	PlatformStatus,
+	ProductInUserCart,
+} from '@csl/shared';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
@@ -24,6 +29,9 @@ export class StoreView implements OnInit {
 	@Select(PlatformState.status)
 	platformStatus$: Observable<PlatformStatus[]>;
 
+	@Select(AuthState.orderDraft)
+	orderDraft$: Observable<ProductInUserCart>;
+
 	readyStatus$: Observable<ReadyStatus>;
 
 	defaultLinks: IDashboardLink[] = [
@@ -38,6 +46,15 @@ export class StoreView implements OnInit {
 	];
 
 	links$: Observable<IDashboardLink[]>;
+
+	@HostListener('window:beforeunload', ['$event'])
+	handleClose(e: BeforeUnloadEvent) {
+		this.orderDraft$.subscribe((draft) => {
+			if (draft) {
+				e.returnValue = false;
+			}
+		});
+	}
 
 	ngOnInit() {
 		this.links$ = this.user$.pipe(
