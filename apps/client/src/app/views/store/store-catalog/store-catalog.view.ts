@@ -109,7 +109,7 @@ export class StoreCatalogView implements OnInit {
 				next: () =>
 					this.toastr.show({
 						color: 'basic',
-						message: 'Ordine confermato',
+						message: 'Prodotto confermato',
 					}),
 				error: () => this.toastr.showError(),
 			});
