@@ -5,6 +5,7 @@ import {
 	IAccount,
 	ProductInUserCart,
 	IProduct,
+	reduceCart,
 } from '@csl/shared';
 import { Class, Product, User } from '@models';
 import { updateSnackCreditInClass } from '../classe/classe.controller';
@@ -346,7 +347,11 @@ export const checkClassStatus = async (
 		});
 
 		const usersWhoHaveNotConfirmed = classUsers.filter(
-			(user) => !(user.confirmed && user.confirmed[category] === true)
+			(user) =>
+				!(
+					!(user.cart.length > 0) ||
+					(user.confirmed && user.confirmed[category] === true)
+				)
 		);
 
 		const errorsCount = usersWhoHaveNotConfirmed.length;
@@ -354,7 +359,7 @@ export const checkClassStatus = async (
 		if (errorsCount === 0) {
 			const classObject = await Class.findOne({ id: user.classID });
 
-			if (classObject.paid[category]) {
+			if (classObject.paid && classObject.paid[category]) {
 				return {
 					ready: false,
 					paid: true,
@@ -364,32 +369,42 @@ export const checkClassStatus = async (
 			const availableProducts = await Product.find();
 
 			const products = classUsers
-				.map((user) => user.cart.map(({ id, quantity }) => ({ id, quantity })))
+				.map((user) => reduceCart(user.cart))
+				.map((cart) => {
+					return cart.map((product) => {
+						const availableProduct = availableProducts.find(
+							(x) => x.id === product.id
+						);
+
+						if (product.discounted === true) {
+							return {
+								price: availableProduct.stripeDiscountedPriceID,
+								quantity: product.quantity,
+							};
+						} else {
+							return {
+								price: availableProduct.stripePriceID,
+								quantity: product.quantity,
+							};
+						}
+					});
+				})
 				.reduce((acc, current) => [...acc, ...current], [])
-				.reduce((acc: { id: string; quantity: number }[], current) => {
-					const index = acc.findIndex((val) => val.id === current.id);
+				.reduce((acc: { price: string; quantity: number }[], current) => {
+					const index = acc.findIndex((val) => val.price === current.price);
 
 					if (index === -1) {
 						acc.push(current);
 					} else {
 						const currentValue = acc[index];
 						acc[index] = {
-							id: currentValue.id,
+							price: currentValue.price,
 							quantity: currentValue.quantity + current.quantity,
 						};
 					}
 
 					return acc;
-				}, [])
-				.map(({ quantity, id }) => {
-					const price = availableProducts.find((x) => x.id === id)
-						.stripePriceID;
-
-					return {
-						quantity,
-						price,
-					};
-				});
+				}, []);
 
 			return {
 				ready: true,
