@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IImage, IProduct, IUser, ProductInUserCart } from '@csl/shared';
+import {
+	IImage,
+	IProduct,
+	IUser,
+	PlatformStatus,
+	ProductInUserCart,
+} from '@csl/shared';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogService, ToastrService } from '@csl/ui';
 import { Observable } from 'rxjs';
@@ -14,6 +20,11 @@ import {
 	take,
 } from 'rxjs/operators';
 import { Auth, AuthState, AuthStateModel } from '@/global/store/auth';
+import { PlatformState } from '@/global/store/platform';
+
+interface ReadyStatus {
+	ready: boolean;
+}
 
 @Component({
 	selector: 'csl-store-product',
@@ -21,6 +32,8 @@ import { Auth, AuthState, AuthStateModel } from '@/global/store/auth';
 	styleUrls: ['./store-product.view.scss'],
 })
 export class StoreProductView implements OnInit {
+	statusID = 'store';
+
 	product$: Observable<IProduct>;
 
 	@Select(ProductsState.products)
@@ -34,6 +47,11 @@ export class StoreProductView implements OnInit {
 
 	@Select(AuthState.orderDraft)
 	orderDraft$: Observable<ProductInUserCart>;
+
+	@Select(PlatformState.status)
+	platformStatus$: Observable<PlatformStatus[]>;
+
+	readyStatus$: Observable<ReadyStatus>;
 
 	images$: Observable<IImage[]>;
 
@@ -96,6 +114,32 @@ export class StoreProductView implements OnInit {
 				(product) => product.fileNames.length === product.previewLinks.length
 			),
 			map((product) => product.previewLinks.map((link) => ({ link })))
+		);
+
+		const sectionStatus$ = this.platformStatus$.pipe(
+			distinctUntilChanged(),
+			map((value) => {
+				const { status } = value.find((x) => x.id === this.statusID);
+
+				return {
+					time: new Date().getTime(),
+					start: new Date(status.start).getTime(),
+					end: new Date(status.end).getTime(),
+				};
+			})
+		);
+
+		this.readyStatus$ = sectionStatus$.pipe(
+			map(({ start, end, time: currentTime }) => {
+				const distanceFromStart = start - currentTime;
+				const distanceFromEnd = currentTime - end;
+
+				if (distanceFromStart > 0 || distanceFromEnd > 0) {
+					return { ready: false };
+				} else {
+					return { ready: true };
+				}
+			})
 		);
 	}
 
