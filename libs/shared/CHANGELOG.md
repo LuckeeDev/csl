@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.11.16](https://github.com/LuckeeDev/csl/compare/v1.11.15...v1.11.16) (2021-05-02)
+
+
+### Bug Fixes
+
+* :hammer: added export to csv script ([490e50f](https://github.com/LuckeeDev/csl/commit/490e50f885226ee83cad9899e888a50fda38b04d))
+
+
+
 ## [1.11.15](https://github.com/LuckeeDev/csl/compare/v1.11.14...v1.11.15) (2021-04-29)
 
 

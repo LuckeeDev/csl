@@ -2,6 +2,19 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.11.16](https://github.com/LuckeeDev/csl/compare/v1.11.15...v1.11.16) (2021-05-02)
+
+
+### Bug Fixes
+
+* add back payments view ([457ebf1](https://github.com/LuckeeDev/csl/commit/457ebf175ea4229d36711f0d234f56f1cd388bb9))
+* better product confirmation message ([b8737e2](https://github.com/LuckeeDev/csl/commit/b8737e25893eef5e8b43b1dcc2669798dd35cdb3))
+* disable catalog ([80cc2da](https://github.com/LuckeeDev/csl/commit/80cc2dad34c976a62cd78e2ad0dd194c097bd2ba))
+* disable product page ([4bc678e](https://github.com/LuckeeDev/csl/commit/4bc678e2134c6d7b6903d04dbcfe0b245c87a2d2))
+* show total in class data ([033f268](https://github.com/LuckeeDev/csl/commit/033f26808033a6c7e8937b79a45a4875835334e8))
+
+
+
 ## [1.11.15](https://github.com/LuckeeDev/csl/compare/v1.11.14...v1.11.15) (2021-04-29)
 
 
