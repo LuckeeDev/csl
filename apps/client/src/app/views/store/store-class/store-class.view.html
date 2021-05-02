@@ -4,7 +4,11 @@
 	[columns]="displayedColumns"
 >
 	<div *ngIf="user$ | async as user" header>
-		<h1>{{ user.classID.toUpperCase() }}</h1>
+		<ng-container *ngIf="total$ | async as total">
+			<h1>
+				{{ user.classID.toUpperCase() }} - {{ total / 100 | currency: 'EUR' }}
+			</h1>
+		</ng-container>
 	</div>
 
 	<div links>

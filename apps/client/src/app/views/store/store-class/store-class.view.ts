@@ -15,6 +15,7 @@ import { filter, map } from 'rxjs/operators';
 
 interface TableData {
 	name: IUser['name'];
+	rawTotal: number;
 	total: string;
 	gadgets: 'Sì' | 'No';
 	photos: 'Sì' | 'No';
@@ -36,6 +37,8 @@ export class StoreClassView implements OnInit {
 	user$: Observable<IUser>;
 
 	tableData$: Observable<CSLDataTableSource<TableData>>;
+
+	total$: Observable<number>;
 
 	displayedColumns: CSLDataTableDisplayedColumns<keyof TableData> = [
 		{ id: 'name', label: 'Nome', type: 'data' },
@@ -64,6 +67,7 @@ export class StoreClassView implements OnInit {
 						id,
 						data: {
 							name: name,
+							rawTotal: total,
 							total: `${total / 100}€`,
 							gadgets: confirmed?.gadgets ? 'Sì' : 'No',
 							photos: confirmed?.photos ? 'Sì' : 'No',
@@ -71,6 +75,12 @@ export class StoreClassView implements OnInit {
 					};
 				});
 			})
+		);
+
+		this.total$ = this.tableData$.pipe(
+			map((data) =>
+				data.reduce((acc, { data: { rawTotal } }) => acc + rawTotal, 0)
+			)
 		);
 	}
 }
