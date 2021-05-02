@@ -2792,6 +2792,17 @@
     yargs "15.4.1"
     yargs-parser "20.0.0"
 
+"@nrwl/cli@12.0.8":
+  version "12.0.8"
+  resolved "https://registry.yarnpkg.com/@nrwl/cli/-/cli-12.0.8.tgz#86931f98a07f93eef89b6aee7ac15ce343f668ee"
+  integrity sha512-oAv/zjXyZzpZWx4VHjJwvC6zMFCCPkrqGF9ZIWo25uE5KM7pxrSxRa/Gmwbzh6NVsyokPG0OQ1F0Fo1OliRtow==
+  dependencies:
+    "@nrwl/tao" "12.0.8"
+    chalk "4.1.0"
+    v8-compile-cache "2.3.0"
+    yargs "15.4.1"
+    yargs-parser "20.0.0"
+
 "@nrwl/cypress@12.0.6":
   version "12.0.6"
   resolved "https://registry.yarnpkg.com/@nrwl/cypress/-/cypress-12.0.6.tgz#4ad14c29443d22ac3223da98180219591c5a606a"
@@ -2823,13 +2834,25 @@
     strip-json-comments "2.0.1"
     tslib "^2.0.0"
 
-"@nrwl/eslint-plugin-nx@12.0.6":
-  version "12.0.6"
-  resolved "https://registry.yarnpkg.com/@nrwl/eslint-plugin-nx/-/eslint-plugin-nx-12.0.6.tgz#2b500a98e8c89ae9c25f71e2ae7de1f2932d5396"
-  integrity sha512-Ys566aBjZGa28Rv56E7hmanpv0zy5wQYy9yS5LvFoeqaBL+nZAYAi3t2HBH3tV58ifWtuL9AcC2M6Pdf3cSQ1A==
+"@nrwl/devkit@12.0.8":
+  version "12.0.8"
+  resolved "https://registry.yarnpkg.com/@nrwl/devkit/-/devkit-12.0.8.tgz#4c3039a2cfec58615e6f4ad150330f3290833a5f"
+  integrity sha512-/SWBcNhgPXelwruz2qOmIMgweq0PuvniXEehke2ttoVRuVY8NYTGyZn6DknrVFRI04Jmg3otMB1CVCNxjI9ReA==
   dependencies:
-    "@nrwl/devkit" "12.0.6"
-    "@nrwl/workspace" "12.0.6"
+    "@nrwl/tao" "12.0.8"
+    ejs "^3.1.5"
+    ignore "^5.0.4"
+    semver "7.3.4"
+    strip-json-comments "^3.1.1"
+    tslib "^2.0.0"
+
+"@nrwl/eslint-plugin-nx@12.0.8":
+  version "12.0.8"
+  resolved "https://registry.yarnpkg.com/@nrwl/eslint-plugin-nx/-/eslint-plugin-nx-12.0.8.tgz#b6f67c6a6013980e6e31a7a50323817e03a41e11"
+  integrity sha512-c2eR0X/4PdWn8XUbgkOJX3JPcTMwTMhcPa5L/62nncQ5+HJWWZwYljEDVbe3h2CNMUGJsVh7BxlhmF9MvPWIOA==
+  dependencies:
+    "@nrwl/devkit" "12.0.8"
+    "@nrwl/workspace" "12.0.8"
     "@typescript-eslint/experimental-utils" "^4.3.0"
     confusing-browser-globals "^1.0.9"
 
@@ -2855,6 +2878,17 @@
     strip-json-comments "2.0.1"
     tslib "^2.0.0"
 
+"@nrwl/jest@12.0.8":
+  version "12.0.8"
+  resolved "https://registry.yarnpkg.com/@nrwl/jest/-/jest-12.0.8.tgz#dc42dd7a5f50d4887d65039ea739171856b6c6e4"
+  integrity sha512-dJFHMUrJjnDTLWMugarW6DNGcrucAgxxEimXJNrqmD54SvjxfR0GQ0EIShnqjdTQcAzIHw39XlruxgzSPtXxgw==
+  dependencies:
+    "@nrwl/devkit" "12.0.8"
+    jest-resolve "^26.6.2"
+    rxjs "^6.5.4"
+    strip-json-comments "^3.1.1"
+    tslib "^2.0.0"
+
 "@nrwl/linter@12.0.6":
   version "12.0.6"
   resolved "https://registry.yarnpkg.com/@nrwl/linter/-/linter-12.0.6.tgz#9c97517f9b6810260a9130603d91daa47711a72d"
@@ -2864,6 +2898,17 @@
     glob "7.1.4"
     minimatch "3.0.4"
     tmp "0.0.33"
+    tslib "^2.0.0"
+
+"@nrwl/linter@12.0.8":
+  version "12.0.8"
+  resolved "https://registry.yarnpkg.com/@nrwl/linter/-/linter-12.0.8.tgz#63467a6800577c7a03f390955205acc8f2a3616f"
+  integrity sha512-lFnwJ87HAkyOKWWaXbB+lhKp5C7ntLnsp4HVXVrMraYFNd1VfPMqwJwJm2itVvByqhtzpG4hr8IT5Uq3mU7Qrg==
+  dependencies:
+    "@nrwl/devkit" "12.0.8"
+    glob "7.1.4"
+    minimatch "3.0.4"
+    tmp "~0.2.1"
     tslib "^2.0.0"
 
 "@nrwl/node@12.0.6":
@@ -2907,6 +2952,23 @@
     semver "7.3.4"
     strip-json-comments "2.0.1"
     tmp "0.0.33"
+    tslib "^2.0.0"
+    yargs-parser "20.0.0"
+
+"@nrwl/tao@12.0.8":
+  version "12.0.8"
+  resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-12.0.8.tgz#97f1ce232cb7aa09d32ad6691a20a601a98db8cb"
+  integrity sha512-KUOAZBYLPPPZAWsQUxe9WHjWjJ8kJgfBpV5un1btiglXUfV1Hh80HyYbDrUEOKflsixanR8Dr7Oq3CmXtTd30A==
+  dependencies:
+    chalk "4.1.0"
+    enquirer "~2.3.6"
+    fs-extra "7.0.1"
+    minimist "^1.2.5"
+    rxjs "^6.5.4"
+    rxjs-for-await "0.0.2"
+    semver "7.3.4"
+    strip-json-comments "^3.1.1"
+    tmp "~0.2.1"
     tslib "^2.0.0"
     yargs-parser "20.0.0"
 
@@ -3035,6 +3097,36 @@
     semver "7.3.4"
     strip-json-comments "2.0.1"
     tmp "0.0.33"
+    tslib "^2.0.0"
+    yargs "15.4.1"
+    yargs-parser "20.0.0"
+
+"@nrwl/workspace@12.0.8":
+  version "12.0.8"
+  resolved "https://registry.yarnpkg.com/@nrwl/workspace/-/workspace-12.0.8.tgz#0853300bb5dec93975f8b2e0b9fa55f8a1c71a12"
+  integrity sha512-2MOlFMVctstTYNuZMf8wUrxIrV9B//D7TpaijbImZVK/8hm2vbamuZk48vwOz8qK/aTAPwtijyD7x0yx4Z14Yw==
+  dependencies:
+    "@nrwl/cli" "12.0.8"
+    "@nrwl/devkit" "12.0.8"
+    "@nrwl/jest" "12.0.8"
+    "@nrwl/linter" "12.0.8"
+    axios "0.21.1"
+    chalk "4.1.0"
+    cosmiconfig "^4.0.0"
+    dotenv "8.2.0"
+    enquirer "~2.3.6"
+    flat "^5.0.2"
+    fs-extra "7.0.1"
+    ignore "^5.0.4"
+    lodash.template "~4.5.0"
+    minimatch "3.0.4"
+    npm-run-all "^4.1.5"
+    open "^7.4.2"
+    resolve "1.17.0"
+    rxjs "^6.5.4"
+    semver "7.3.4"
+    strip-json-comments "^3.1.1"
+    tmp "~0.2.1"
     tslib "^2.0.0"
     yargs "15.4.1"
     yargs-parser "20.0.0"
@@ -11480,7 +11572,6 @@ minipass-fetch@^1.3.0, minipass-fetch@^1.3.2:
   resolved "https://registry.yarnpkg.com/minipass-fetch/-/minipass-fetch-1.3.3.tgz#34c7cea038c817a8658461bf35174551dce17a0a"
   integrity sha512-akCrLDWfbdAWkMLBxJEeWTdNsjML+dt5YgOI4gJ53vuO0vrmYQkUPxa6j6V65s9CcePIr2SSWqjT2EcrNseryQ==
   dependencies:
-    encoding "^0.1.12"
     minipass "^3.1.0"
     minipass-sized "^1.0.3"
     minizlib "^2.0.0"
@@ -12209,6 +12300,14 @@ open@7.4.0:
   version "7.4.0"
   resolved "https://registry.yarnpkg.com/open/-/open-7.4.0.tgz#ad95b98f871d9acb0ec8fecc557082cc9986626b"
   integrity sha512-PGoBCX/lclIWlpS/R2PQuIR4NJoXh6X5AwVzE7WXnWRGvHg7+4TBCgsujUgiPpm0K1y4qvQeWnCWVTpTKZBtvA==
+  dependencies:
+    is-docker "^2.0.0"
+    is-wsl "^2.1.1"
+
+open@^7.4.2:
+  version "7.4.2"
+  resolved "https://registry.yarnpkg.com/open/-/open-7.4.2.tgz#b8147e26dcf3e426316c730089fd71edd29c2321"
+  integrity sha512-MVHddDVweXZF3awtlAS+6pgKLlm/JgxZ90+/NBurBoQctVOOB/zDdVjcyPzQ+0laDGbsWgrRkflI65sQeOgT9Q==
   dependencies:
     is-docker "^2.0.0"
     is-wsl "^2.1.1"
@@ -15792,6 +15891,13 @@ tmp@~0.1.0:
   integrity sha512-J7Z2K08jbGcdA1kkQpJSqLF6T0tdQqpR2pnSUXsIchbPdTI9v3e85cLW0d6WDhwuAleOV71j2xWs8qMPfK7nKw==
   dependencies:
     rimraf "^2.6.3"
+
+tmp@~0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.2.1.tgz#8457fc3037dcf4719c251367a1af6500ee1ccf14"
+  integrity sha512-76SUhtfqR2Ijn+xllcI5P1oyannHNHByD80W1q447gU3mp9G9PSpGdWmjUOHRDPiHYacIk66W7ubDTuPF3BEtQ==
+  dependencies:
+    rimraf "^3.0.0"
 
 tmpl@1.0.x:
   version "1.0.4"
