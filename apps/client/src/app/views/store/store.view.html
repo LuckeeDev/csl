@@ -1,21 +1,4 @@
-<ng-container *ngIf="readyStatus$ | async as readyStatus; else loading">
-	<csl-dashboard-model
-		*ngIf="readyStatus.ready; else sectionDisabled"
-		[links]="links$ | async"
-	>
-		<a [routerLink]="['.']" class="home-link">Store</a>
-	</csl-dashboard-model>
 
-	<ng-template #sectionDisabled>
-		<csl-info-msg
-			src="../../../assets/svg/construction.svg"
-			message="Questa sezione è attualmente disattivata, torna più tardi a controllare!"
-		></csl-info-msg>
-	</ng-template>
-</ng-container>
-
-<ng-template #loading>
-	<div class="loading">
-		<mat-spinner [diameter]="40"></mat-spinner>
-	</div>
-</ng-template>
+<csl-dashboard-model [links]="links$ | async">
+	<a [routerLink]="['.']" class="home-link">Store</a>
+</csl-dashboard-model>
