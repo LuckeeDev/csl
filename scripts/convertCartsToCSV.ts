@@ -9,6 +9,7 @@ type ImportantInfo = Pick<IUser, 'name' | 'cart' | 'classID' | 'phone'>;
 const users: IUser[] = jsonFile;
 
 const importantInfo = users
+	.filter((user) => (user.cart?.length > 0 ? true : false))
 	.map(
 		(user) =>
 			({
