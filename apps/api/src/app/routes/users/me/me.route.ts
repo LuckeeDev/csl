@@ -58,13 +58,15 @@ router.delete(
 	'/cart/:cartID',
 	isSignedIn,
 	async (req: Request, res: Response) => {
-		const cartID = (req.params
-			.cartID as unknown) as ProductInUserCart['cartID'];
-		const user = req.user;
+		res.json({ success: false });
 
-		const result = await pullFromCart(cartID, user);
+		// const cartID = (req.params
+		// 	.cartID as unknown) as ProductInUserCart['cartID'];
+		// const user = req.user;
 
-		res.json(result);
+		// const result = await pullFromCart(cartID, user);
+
+		// res.json(result);
 	}
 );
 

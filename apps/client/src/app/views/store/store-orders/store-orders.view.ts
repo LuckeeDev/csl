@@ -96,7 +96,7 @@ export class StoreOrdersView implements OnInit {
 
 		this.displayedColumns =
 			this.category === 'gadgets'
-				? ['name', 'quantity', 'size', 'color', 'price', 'actions']
+				? ['name', 'quantity', 'size', 'color', 'price']
 				: ['name', 'quantity', 'actions'];
 	}
 
