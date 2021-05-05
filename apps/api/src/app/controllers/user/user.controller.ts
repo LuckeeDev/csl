@@ -395,10 +395,10 @@ export const checkClassStatus = async (
 					if (index === -1) {
 						acc.push(current);
 					} else {
-						const currentValue = acc[index];
+						const previousValue = acc[index];
 						acc[index] = {
-							price: currentValue.price,
-							quantity: currentValue.quantity + current.quantity,
+							price: previousValue.price,
+							quantity: previousValue.quantity + current.quantity,
 						};
 					}
 
