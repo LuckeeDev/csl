@@ -2,6 +2,17 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.11.18](https://github.com/LuckeeDev/csl/compare/v1.11.17...v1.11.18) (2021-05-05)
+
+
+### Bug Fixes
+
+* added customer email ([8ffed76](https://github.com/LuckeeDev/csl/commit/8ffed76ae187182955fdc6f2e3e98b115d8143c6))
+* don't include people who have not ordered ([f8b6135](https://github.com/LuckeeDev/csl/commit/f8b61355455f8311fdb6a0be5d9d03f2c5b23fe0))
+* filter users before generating csv ([564aace](https://github.com/LuckeeDev/csl/commit/564aace7314368d1963da490dabb1815a64f1f00))
+
+
+
 ## [1.11.17](https://github.com/LuckeeDev/csl/compare/v1.11.16...v1.11.17) (2021-05-03)
 
 
