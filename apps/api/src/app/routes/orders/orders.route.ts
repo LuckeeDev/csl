@@ -78,6 +78,7 @@ router.post(
 				mode: 'payment',
 				success_url: `${environment.client}/store/payments/success`,
 				cancel_url: `${environment.client}/store/payments/error`,
+				customer_email: user.email,
 				metadata: {
 					classID: user.classID,
 					category: category,
