@@ -348,10 +348,9 @@ export const checkClassStatus = async (
 
 		const usersWhoHaveNotConfirmed = classUsers.filter(
 			(user) =>
-				!(
-					!(user.cart.length > 0) ||
-					(user.confirmed && user.confirmed[category] === true)
-				)
+				user.cart &&
+				user.cart.length > 0 &&
+				!(user.confirmed && user.confirmed[category] === true)
 		);
 
 		const errorsCount = usersWhoHaveNotConfirmed.length;
