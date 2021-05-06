@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.11.19](https://github.com/LuckeeDev/csl/compare/v1.11.18...v1.11.19) (2021-05-06)
+
+
+### Bug Fixes
+
+* remove payments page ([56a2ecb](https://github.com/LuckeeDev/csl/commit/56a2ecb2b0b680b27fac93aafd00727b8e5fbafc))
+
+
+
 ## [1.11.18](https://github.com/LuckeeDev/csl/compare/v1.11.17...v1.11.18) (2021-05-05)
 
 

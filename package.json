@@ -1,6 +1,6 @@
 {
 	"name": "csl",
-	"version": "1.11.18",
+	"version": "1.11.19",
 	"license": "MIT",
 	"scripts": {
 		"dev": "nx serve",
