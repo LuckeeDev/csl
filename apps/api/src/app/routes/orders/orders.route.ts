@@ -8,11 +8,8 @@ import {
 	deleteFromCart,
 	updateTotal,
 	getTotal,
-	checkClassStatus,
 } from '@controllers';
-import { stripe } from '@/common/stripe';
 import { IProduct } from '@csl/shared';
-import { environment } from '@environments/environment';
 
 // Get all orders of a user
 router.get('/', isSignedIn, async (req: Request, res: Response) => {
@@ -48,48 +45,55 @@ router.post(
 	'/setup-payment',
 	isRappreDiClasse,
 	async (req: Request<{ category: IProduct['category'] }>, res) => {
-		const user = req.user;
-		const category = req.body.category;
+		res.json({
+			success: false,
+			notConfirmed: [
+				"I pagamenti sono stati disattivati. Fai riferimento ai Rappresentanti d'istituto per continuare.",
+			],
+		});
 
-		const { ready, notConfirmed, err, products, paid } = await checkClassStatus(
-			user,
-			category
-		);
+		// const user = req.user;
+		// const category = req.body.category;
 
-		if (err) {
-			res.json({
-				success: false,
-				err,
-			});
-		} else if (ready === false && paid === true) {
-			res.json({
-				success: true,
-				data: { ready: false, paid },
-			});
-		} else if (ready === false) {
-			res.json({
-				success: true,
-				data: { ready: false, notConfirmed },
-			});
-		} else if (ready === true) {
-			const session = await stripe.checkout.sessions.create({
-				payment_method_types: ['card'],
-				line_items: products,
-				mode: 'payment',
-				success_url: `${environment.client}/store/payments/success`,
-				cancel_url: `${environment.client}/store/payments/error`,
-				customer_email: user.email,
-				metadata: {
-					classID: user.classID,
-					category: category,
-				},
-			});
+		// const { ready, notConfirmed, err, products, paid } = await checkClassStatus(
+		// 	user,
+		// 	category
+		// );
 
-			res.json({
-				success: true,
-				data: { ready: true, id: session.id, total: session.amount_total },
-			});
-		}
+		// if (err) {
+		// 	res.json({
+		// 		success: false,
+		// 		err,
+		// 	});
+		// } else if (ready === false && paid === true) {
+		// 	res.json({
+		// 		success: true,
+		// 		data: { ready: false, paid },
+		// 	});
+		// } else if (ready === false) {
+		// 	res.json({
+		// 		success: true,
+		// 		data: { ready: false, notConfirmed },
+		// 	});
+		// } else if (ready === true) {
+		// 	const session = await stripe.checkout.sessions.create({
+		// 		payment_method_types: ['card'],
+		// 		line_items: products,
+		// 		mode: 'payment',
+		// 		success_url: `${environment.client}/store/payments/success`,
+		// 		cancel_url: `${environment.client}/store/payments/error`,
+		// 		customer_email: user.email,
+		// 		metadata: {
+		// 			classID: user.classID,
+		// 			category: category,
+		// 		},
+		// 	});
+
+		// 	res.json({
+		// 		success: true,
+		// 		data: { ready: true, id: session.id, total: session.amount_total },
+		// 	});
+		// }
 	}
 );
 
