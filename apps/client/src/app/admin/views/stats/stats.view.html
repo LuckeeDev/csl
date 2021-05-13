@@ -2,12 +2,28 @@
 <p>Totale: {{ (total$ | async) | currency: 'EUR' }}</p>
 
 <csl-data-table
-	*ngIf="tableData$ | async as data; else loading"
+	*ngIf="tableData$ | async as data; else classesLoading"
 	[data]="data"
 	[columns]="displayedColumns"
 ></csl-data-table>
 
-<ng-template #loading>
+<ng-template #classesLoading>
+	<div class="spinner">
+		<mat-spinner color="primary" [diameter]="30"></mat-spinner>
+	</div>
+</ng-template>
+
+<h1>Prodotti</h1>
+<ng-container *ngIf="productStats$ | async as stats; else statsLoading">
+	<ng-container *ngFor="let product of stats">
+		<h1>{{ product.name }}</h1>
+		<p>Totale: {{ product.fullPriceCount + product.discountedCount }}</p>
+		<p>Prezzo pieno: {{ product.fullPriceCount }}</p>
+		<p>Scontati: {{ product.discountedCount }}</p>
+	</ng-container>
+</ng-container>
+
+<ng-template #statsLoading>
 	<div class="spinner">
 		<mat-spinner color="primary" [diameter]="30"></mat-spinner>
 	</div>

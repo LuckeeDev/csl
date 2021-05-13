@@ -18,6 +18,11 @@ interface ClassData {
 	total: string;
 }
 
+interface ProductStats extends Pick<IProduct, 'id' | 'name' | 'price'> {
+	fullPriceCount: number;
+	discountedCount: number;
+}
+
 @Component({
 	selector: 'csl-stats',
 	templateUrl: './stats.view.html',
@@ -34,6 +39,8 @@ export class StatsView implements OnInit {
 	tableData$: Observable<CSLDataTableSource<ClassData>>;
 
 	total$: Observable<number>;
+
+	productStats$: Observable<ProductStats[]>;
 
 	displayedColumns: CSLDataTableDisplayedColumns<keyof ClassData> = [
 		{ id: 'classID', label: 'Classe', type: 'data' },
@@ -57,30 +64,30 @@ export class StatsView implements OnInit {
 			filter(([gadgets, users]) => (gadgets && users ? true : false)),
 			map(([gadgets, users]) => ({
 				gadgets,
-				users: users.map(({ cart, classID }) => ({
-					classID,
-					cart: reduceCart(cart),
-				})),
+				users: users
+					.filter(({ cart }) => (cart && cart.length > 0 ? true : false))
+					.map(({ cart, classID }) => ({
+						classID,
+						cart: reduceCart(cart),
+					})),
 			}))
 		);
 
 		const classes$ = users$.pipe(
 			map(({ gadgets, users }) => {
-				const usersWithTotal = users
-					.filter(({ cart }) => (cart && cart.length > 0 ? true : false))
-					.map(({ classID, cart }) => {
-						const total = cart.reduce((acc, current) => {
-							const discountFactor = current.discounted ? 0.5 : 1;
+				const usersWithTotal = users.map(({ classID, cart }) => {
+					const total = cart.reduce((acc, current) => {
+						const discountFactor = current.discounted ? 0.5 : 1;
 
-							const product = gadgets.find((x) => x.id === current.id);
+						const product = gadgets.find((x) => x.id === current.id);
 
-							const price = product.price * current.quantity * discountFactor;
+						const price = product.price * current.quantity * discountFactor;
 
-							return acc + price;
-						}, 0);
+						return acc + price;
+					}, 0);
 
-						return { classID, total };
-					});
+					return { classID, total };
+				});
 
 				const classes = usersWithTotal.reduce(
 					(acc: { classID: string; total: number }[], current) => {
@@ -98,6 +105,50 @@ export class StatsView implements OnInit {
 				);
 
 				return classes;
+			})
+		);
+
+		this.productStats$ = users$.pipe(
+			map(({ gadgets, users }) => {
+				const orderList = users
+					.map(({ cart }) => cart)
+					.reduce((acc, current) => [...acc, ...current], []);
+
+				const stats: ProductStats[] = orderList.reduce(
+					(acc: ProductStats[], current) => {
+						const index = acc.findIndex((x) => x.id === current.id);
+
+						if (index === -1) {
+							const { id, price, name } = gadgets.find(
+								(x) => x.id === current.id
+							);
+
+							acc.push({
+								id,
+								price,
+								name,
+								discountedCount: current.discounted ? current.quantity : 0,
+								fullPriceCount: current.discounted ? 0 : current.quantity,
+							});
+						} else {
+							const productInAcc = acc[index];
+							acc[index] = {
+								...productInAcc,
+								discountedCount: current.discounted
+									? productInAcc.discountedCount + current.quantity
+									: productInAcc.discountedCount,
+								fullPriceCount: current.discounted
+									? productInAcc.fullPriceCount
+									: productInAcc.fullPriceCount + current.quantity,
+							};
+						}
+
+						return acc;
+					},
+					[]
+				);
+
+				return stats;
 			})
 		);
 
