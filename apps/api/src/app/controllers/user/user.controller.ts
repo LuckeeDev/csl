@@ -430,6 +430,22 @@ export const checkClassStatus = async (
 	}
 };
 
+export const getAllUsers = async (): Promise<IHttpRes<IUser[]>> => {
+	try {
+		const users = await User.find();
+
+		return {
+			success: true,
+			data: users,
+		};
+	} catch (err) {
+		return {
+			success: false,
+			err,
+		};
+	}
+};
+
 export const getUsersFromClass = async (
 	classID: IUser['classID']
 ): Promise<IHttpRes<IUser[]>> => {

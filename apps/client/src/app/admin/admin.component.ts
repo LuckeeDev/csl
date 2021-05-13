@@ -19,5 +19,6 @@ export class AdminComponent {
 		{ link: 'coge', title: 'Coge' },
 		{ link: 'service', title: 'Account di Servizio' },
 		{ link: 'manage-sections', title: 'Gestisci Sezioni' },
+		{ link: 'stats', title: 'Statistiche' },
 	];
 }

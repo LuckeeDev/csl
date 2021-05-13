@@ -1,0 +1,12 @@
+<h1>Classi</h1>
+<csl-data-table
+	*ngIf="tableData$ | async as data; else loading"
+	[data]="data"
+	[columns]="displayedColumns"
+></csl-data-table>
+
+<ng-template #loading>
+	<div class="spinner">
+		<mat-spinner color="primary" [diameter]="30"></mat-spinner>
+	</div>
+</ng-template>

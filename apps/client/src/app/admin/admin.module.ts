@@ -24,6 +24,8 @@ import { CourseDetailsView } from './views/course-details/course-details.view';
 import { ManageSectionsComponent } from './views/manage-sections/manage-sections.component';
 import { NgxsModule } from '@ngxs/store';
 import { PlatformState } from '@/global/store/platform';
+import { StatsView } from './views/stats/stats.view';
+import { ProductsState } from '@/global/store/products';
 
 @NgModule({
 	declarations: [
@@ -38,6 +40,7 @@ import { PlatformState } from '@/global/store/platform';
 		ServiceAccountView,
 		CourseDetailsView,
 		ManageSectionsComponent,
+		StatsView,
 	],
 	imports: [
 		CommonModule,
@@ -46,7 +49,7 @@ import { PlatformState } from '@/global/store/platform';
 		AdminRoutingModule,
 		UiModule,
 		SharedModule,
-		NgxsModule.forFeature([PlatformState]),
+		NgxsModule.forFeature([PlatformState, ProductsState]),
 	],
 	providers: [AdminService],
 })

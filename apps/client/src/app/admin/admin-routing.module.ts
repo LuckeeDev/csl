@@ -21,6 +21,7 @@ import { CommissioniComponent } from './components/commissioni/commissioni.compo
 import { ServiceAccountView } from './views/service-account/service-account.view';
 import { CourseDetailsView } from './views/course-details/course-details.view';
 import { ManageSectionsComponent } from './views/manage-sections/manage-sections.component';
+import { StatsView } from './views/stats/stats.view';
 
 const routes: Routes = [
 	{
@@ -46,6 +47,7 @@ const routes: Routes = [
 			{ path: 'coge/:id', component: CourseDetailsView },
 			{ path: 'service', component: ServiceAccountView },
 			{ path: 'manage-sections', component: ManageSectionsComponent },
+			{ path: 'stats', component: StatsView },
 		],
 	},
 ];

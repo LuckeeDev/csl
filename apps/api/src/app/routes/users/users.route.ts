@@ -14,6 +14,7 @@ import {
 	updateCredit,
 	getClasses,
 	getUsersFromClass,
+	getAllUsers,
 } from '@controllers';
 import { User } from '@/models';
 import { me } from './me/me.route';
@@ -24,6 +25,11 @@ router.use('/me', me);
 router.get('/', isPowerful, async (req: Request, res: Response) => {
 	const classes = await getClasses();
 	res.json(classes);
+});
+
+router.get('/all', isAdmin, async (req: Request, res: Response) => {
+	const result = await getAllUsers();
+	res.json(result);
 });
 
 router.get('/class', isRappreDiClasse, async (req: Request, res: Response) => {
