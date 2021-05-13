@@ -33,6 +33,8 @@ export class StatsView implements OnInit {
 
 	tableData$: Observable<CSLDataTableSource<ClassData>>;
 
+	total$: Observable<number>;
+
 	displayedColumns: CSLDataTableDisplayedColumns<keyof ClassData> = [
 		{ id: 'classID', label: 'Classe', type: 'data' },
 		{ id: 'total', label: 'Totale', type: 'data' },
@@ -51,7 +53,7 @@ export class StatsView implements OnInit {
 
 		this.store.dispatch(new Products.GetAll());
 
-		this.tableData$ = combineLatest([this.gadgets$, this.users$]).pipe(
+		const users$ = combineLatest([this.gadgets$, this.users$]).pipe(
 			filter(([gadgets, users]) => (gadgets && users ? true : false)),
 			map(([gadgets, users]) => ({
 				gadgets,
@@ -59,7 +61,10 @@ export class StatsView implements OnInit {
 					classID,
 					cart: reduceCart(cart),
 				})),
-			})),
+			}))
+		);
+
+		const classes$ = users$.pipe(
 			map(({ gadgets, users }) => {
 				const usersWithTotal = users
 					.filter(({ cart }) => (cart && cart.length > 0 ? true : false))
@@ -92,6 +97,19 @@ export class StatsView implements OnInit {
 					[]
 				);
 
+				return classes;
+			})
+		);
+
+		this.total$ = classes$.pipe(
+			map((classes) =>
+				classes.reduce((acc, current) => acc + current.total, 0)
+			),
+			map((total) => total / 100)
+		);
+
+		this.tableData$ = classes$.pipe(
+			map((classes) => {
 				return classes
 					.map(({ classID, total }) => ({ classID, total: `${total / 100}€` }))
 					.sort((a, b) =>
