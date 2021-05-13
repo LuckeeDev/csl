@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [1.12.0](https://github.com/LuckeeDev/csl/compare/v1.11.19...v1.12.0) (2021-05-13)
+
+
+### Features
+
+* added classes report ([cd5a143](https://github.com/LuckeeDev/csl/commit/cd5a143794f4fbfa4838954833619c5d3b2eeb2a))
+
+
+
 ## [1.11.19](https://github.com/LuckeeDev/csl/compare/v1.11.18...v1.11.19) (2021-05-06)
 
 
