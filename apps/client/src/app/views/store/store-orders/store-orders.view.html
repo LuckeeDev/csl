@@ -1,6 +1,6 @@
 <ng-container *ngIf="orderDraft$ | async">
 	<csl-alert color="success" class="alert">
-		Puoi aggiungere al tuo ordine un prodotto fra quelli proposti
+		Puoi aggiungere alla tua donazione un prodotto fra quelli proposti
 		<a [routerLink]="['/store', 'gadgets']" class="default-link">qui</a> e
 		ricevere uno sconto del 50% su di esso, oppure puoi
 		<span class="default-link span-click" (click)="confirmWithoutDiscount()">
@@ -12,7 +12,7 @@
 <mat-card>
 	<mat-card-header>
 		<mat-card-title class="title">
-			Ordini {{ category | category }} -
+			Donazioni {{ category | category }} -
 			<ng-container *ngIf="total$ | async as total; else noTotal">
 				{{ total.value / 100 | currency: 'EUR' }}
 			</ng-container>
@@ -82,7 +82,7 @@
 	<mat-card-actions *ngIf="user$ | async as user">
 		<ng-container *ngIf="orders$ | async as orders">
 			<ng-container *ngIf="orders.length === 0">
-				<p>Nessun ordine in questa categoria!</p>
+				<p>Nessuna donazione in questa categoria!</p>
 			</ng-container>
 
 			<ng-container
@@ -93,17 +93,21 @@
 					color="primary"
 					size="small"
 					(click)="confirmOrder()"
-					[disabled]="hasDraft$ | async"
+					[disabled]="true"
 				>
 					Conferma ordine
 				</button>
 				<mat-hint *ngIf="hasDraft$ | async">
-					Controlla il messaggio in cima alla pagina prima di confermare l'ordine!
+					Controlla il messaggio in cima alla pagina prima di confermare la
+					donazione!
+				</mat-hint>
+				<mat-hint>
+					Le donazioni sono chiuse, non puoi più confermare!
 				</mat-hint>
 			</ng-container>
 
 			<ng-container *ngIf="user.confirmed && user.confirmed[category]">
-				<p>Ordine confermato!</p>
+				<p>Donazione confermata!</p>
 			</ng-container>
 		</ng-container>
 	</mat-card-actions>

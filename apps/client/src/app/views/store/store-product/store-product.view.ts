@@ -9,7 +9,7 @@ import {
 } from '@csl/shared';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogService, ToastrService } from '@csl/ui';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { Select, Store } from '@ngxs/store';
 import { Products, ProductsState } from '@/global/store/products';
 import {
@@ -129,8 +129,17 @@ export class StoreProductView implements OnInit {
 			})
 		);
 
-		this.readyStatus$ = sectionStatus$.pipe(
-			map(({ start, end, time: currentTime }) => {
+		this.readyStatus$ = combineLatest([this.user$, sectionStatus$]).pipe(
+			map(([user, status]) =>
+				user.isStripe ? { ready: true } : { ready: false, status }
+			),
+			map((data) => {
+				if (data.ready === true) {
+					return data;
+				}
+
+				const { start, time: currentTime, end } = data.status;
+
 				const distanceFromStart = start - currentTime;
 				const distanceFromEnd = currentTime - end;
 

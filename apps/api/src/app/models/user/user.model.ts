@@ -25,6 +25,8 @@ const UserSchema = new Schema(
 		isAdmin: { type: Boolean },
 		isReferente: { type: String },
 
+		isStripe: { type: Boolean },
+
 		refreshToken: { type: String },
 		isService: { type: String },
 	},

@@ -4,7 +4,12 @@ import { Products, ProductsState } from '@/global/store/products';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { IProduct, PlatformStatus, ProductInUserCart } from '@csl/shared';
+import {
+	IProduct,
+	IUser,
+	PlatformStatus,
+	ProductInUserCart,
+} from '@csl/shared';
 import { DialogService, ToastrService } from '@csl/ui';
 import { Select, Store } from '@ngxs/store';
 import { combineLatest, Observable, of } from 'rxjs';
@@ -49,6 +54,9 @@ export class StoreCatalogView implements OnInit {
 
 	@Select(PlatformState.status)
 	platformStatus$: Observable<PlatformStatus[]>;
+
+	@Select(AuthState.user)
+	user$: Observable<IUser>;
 
 	readyStatus$: Observable<ReadyStatus>;
 
@@ -125,8 +133,17 @@ export class StoreCatalogView implements OnInit {
 			})
 		);
 
-		this.readyStatus$ = sectionStatus$.pipe(
-			map(({ start, end, time: currentTime }) => {
+		this.readyStatus$ = combineLatest([this.user$, sectionStatus$]).pipe(
+			map(([user, status]) =>
+				user.isStripe ? { ready: true } : { ready: false, status }
+			),
+			map((data) => {
+				if (data.ready === true) {
+					return data;
+				}
+
+				const { start, time: currentTime, end } = data.status;
+
 				const distanceFromStart = start - currentTime;
 				const distanceFromEnd = currentTime - end;
 

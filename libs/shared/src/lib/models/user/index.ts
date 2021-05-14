@@ -85,6 +85,11 @@ export interface IUser {
 	isAdmin?: boolean;
 	isReferente?: ICommissione['id'];
 
+	/**
+	 * Used exclusively for Stripe audit account.
+	 */
+	isStripe?: boolean;
+
 	cart: ProductInUserCart[];
 
 	/**
