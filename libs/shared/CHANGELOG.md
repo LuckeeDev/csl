@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.13.1](https://github.com/LuckeeDev/csl/compare/v1.13.0...v1.13.1) (2021-05-14)
+
+
+### Bug Fixes
+
+* added isStripe role ([86cd6a4](https://github.com/LuckeeDev/csl/commit/86cd6a4a3eb9bb0c3dd055814057b149dc577087))
+
+
+
 # [1.13.0](https://github.com/LuckeeDev/csl/compare/v1.12.1...v1.13.0) (2021-05-13)
 
 
