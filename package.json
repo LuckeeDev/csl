@@ -111,7 +111,7 @@
 		"@types/passport": "^1.0.4",
 		"@types/passport-google-oauth": "^1.0.41",
 		"@types/redis": "^2.8.28",
-		"@types/sharp": "^0.25.0",
+		"@types/sharp": "^0.28.4",
 		"@types/socket.io": "^2.1.11",
 		"@types/socket.io-client": "^1.4.33",
 		"@types/stripe-checkout": "^1.0.3",
