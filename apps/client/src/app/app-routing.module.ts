@@ -136,6 +136,12 @@ const routes: Routes = [
 			import('@admin/admin.module').then((m) => m.AdminModule),
 	},
 	{
+		path: 'auth',
+		data: { title: 'Autenticazione' },
+		loadChildren: () =>
+			import('@/resources/auth/auth.module').then((m) => m.AuthModule),
+	},
+	{
 		path: 'login',
 		data: { title: 'Login' },
 		canActivate: [NotLoggedInGuard],

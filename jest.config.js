@@ -6,5 +6,7 @@ module.exports = {
     '<rootDir>/libs/ui',
     '<rootDir>/apps/maintenance',
     '<rootDir>/libs/google',
+    '<rootDir>/libs/strapi',
+    '<rootDir>/libs/types',
   ],
 };

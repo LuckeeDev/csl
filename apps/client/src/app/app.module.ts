@@ -10,6 +10,7 @@ import { environment } from '@environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { registerLocaleData } from '@angular/common';
 import ITLocaleData from '@angular/common/locales/it';
+import { StrapiModule } from '@csl/strapi';
 
 // Firebase
 import { AngularFireModule } from '@angular/fire';
@@ -121,6 +122,7 @@ registerLocaleData(ITLocaleData);
 		ServiceWorkerModule.register('ngsw-worker.js', {
 			enabled: environment.production,
 		}),
+		StrapiModule,
 	],
 	entryComponents: [],
 	providers: [

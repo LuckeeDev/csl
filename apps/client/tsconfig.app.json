@@ -22,6 +22,8 @@
 			"@environments/*": ["src/environments/*"],
 			"@assets/*": ["src/assets/*"],
 			"@csl/shared": ["../../libs/shared/src/index.ts"],
+			"@csl/strapi": ["../../libs/strapi/src/index.ts"],
+			"@csl/types": ["../../libs/types/src/index.ts"],
 			"@csl/ui": ["../../libs/ui/src/index.ts"]
 		}
 	},

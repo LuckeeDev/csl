@@ -1,11 +1,10 @@
 import { Component, Input } from '@angular/core';
-
 import { AuthService } from '@global/services/auth/auth.service';
-
 import { IDashboardLink, IUser } from '@csl/shared';
 import { Select } from '@ngxs/store';
 import { AuthState } from '@/global/store/auth';
 import { Observable } from 'rxjs';
+import { StrapiAuthService } from '@csl/strapi';
 
 @Component({
 	selector: 'csl-wrapper',
@@ -37,5 +36,12 @@ export class WrapperComponent {
 		{ title: 'Informazioni', link: 'info' },
 	];
 
-	constructor(public auth: AuthService) {}
+	constructor(
+		public auth: AuthService,
+		private strapiAuth: StrapiAuthService
+	) {}
+
+	redirectToLogin() {
+		this.strapiAuth.redirectToLogin();
+	}
 }

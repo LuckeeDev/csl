@@ -95,7 +95,7 @@
 					<ng-template #login>
 						<button
 							mat-raised-button
-							(click)="auth.signIn()"
+							(click)="redirectToLogin()"
 							[loading]="authLoading$ | async"
 						>
 							Accedi
