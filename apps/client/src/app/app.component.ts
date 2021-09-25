@@ -4,7 +4,7 @@ import { ToastrService } from '@csl/ui';
 import PackageJSON from '../../../../package.json';
 import { PageService } from '@global/services/page/page.service';
 import { Store } from '@ngxs/store';
-import { Auth } from './global/store/auth';
+import { Auth } from '@/modules/auth/store';
 
 @Component({
 	selector: 'csl-root',
@@ -40,9 +40,7 @@ export class AppComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.store.dispatch(
-			new Auth.GetUser({ firebaseToken: true, platformStatus: true })
-		);
+		this.store.dispatch(new Auth.GetUser());
 
 		this.page.setupTitleChange();
 	}

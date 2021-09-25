@@ -10,26 +10,26 @@ import { Platform } from '../platform';
 
 export namespace Auth {
 	export class GetUser {
-		static readonly type = '[Auth] Get User';
+		static readonly type = '[OldAuth] Get User';
 		constructor(
 			public options: { firebaseToken: boolean; platformStatus: boolean }
 		) {}
 	}
 
 	export class AddToCart {
-		static readonly type = '[Auth] Add to Cart';
+		static readonly type = '[OldAuth] Add to Cart';
 		constructor(
 			public product: ProductInUserCart & Pick<IProduct, 'discountable'>
 		) {}
 	}
 
 	export class RemoveFromCart {
-		static readonly type = '[Auth] Remove from Cart';
+		static readonly type = '[OldAuth] Remove from Cart';
 		constructor(public product: ProductInUserCart) {}
 	}
 
 	export class ConfirmCategory {
-		static readonly type = '[Auth] Confirm Category';
+		static readonly type = '[OldAuth] Confirm Category';
 		constructor(
 			public category: IProduct['category'],
 			public phone: IUser['phone']
@@ -37,7 +37,7 @@ export namespace Auth {
 	}
 
 	export class ConfirmDraft {
-		static readonly type = '[Auth] Confirm Draft';
+		static readonly type = '[OldAuth] Confirm Draft';
 	}
 }
 
@@ -49,7 +49,7 @@ export interface AuthStateModel {
 }
 
 @State<AuthStateModel>({
-	name: 'auth',
+	name: 'oldAuth',
 	defaults: {
 		user: undefined,
 		loading: false,

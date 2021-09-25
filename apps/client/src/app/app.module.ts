@@ -65,8 +65,9 @@ import { ResCodeInterceptor } from '@global/http/res-code.interceptor';
 import { ApiInterceptor } from '@global/http/api.interceptor';
 
 // Stores
-import { AuthState } from './global/store/auth';
+import { AuthState as OldAuthState } from './global/store/auth';
 import { PlatformState } from './global/store/platform';
+import { AuthState } from './modules/auth/store';
 
 registerLocaleData(ITLocaleData);
 
@@ -110,11 +111,12 @@ registerLocaleData(ITLocaleData);
 		PipesModule,
 		SharedModule,
 		HttpClientModule,
-		NgxsModule.forRoot([AuthState, PlatformState], {
+		// TODO: remove old auth state class
+		NgxsModule.forRoot([OldAuthState, PlatformState, AuthState], {
 			developmentMode: !environment.production,
 		}),
 		NgxsStoragePluginModule.forRoot({
-			key: [PlatformState],
+			key: [PlatformState, AuthState],
 		}),
 		LoadingBarModule,
 		LoadingBarHttpClientModule,

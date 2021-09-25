@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { AuthService } from '@global/services/auth/auth.service';
-import { IDashboardLink, IUser } from '@csl/shared';
+import { IDashboardLink } from '@csl/shared';
 import { Select } from '@ngxs/store';
-import { AuthState } from '@/global/store/auth';
+import { AuthState } from '@/modules/auth/store';
 import { Observable } from 'rxjs';
 import { StrapiAuthService } from '@csl/strapi';
+import { StrapiUser } from '@csl/types';
 
 @Component({
 	selector: 'csl-wrapper',
@@ -16,7 +17,7 @@ export class WrapperComponent {
 	v: string;
 
 	@Select(AuthState.user)
-	user$: Observable<IUser>;
+	user$: Observable<StrapiUser>;
 
 	@Select(AuthState.loading)
 	authLoading$: Observable<boolean>;

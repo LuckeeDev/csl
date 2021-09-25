@@ -1,3 +1,5 @@
+import { StrapiClassroom } from "../classroom";
+
 export interface StrapiRole {
 	id: number;
 	name: string;
@@ -9,10 +11,12 @@ export interface StrapiUser {
 	id: number;
 	username: string;
 	email: string;
+	name: string;
 	provider: 'google';
 	confirmed: boolean;
 	blocked: boolean;
 	role: StrapiRole;
+	classroom: StrapiClassroom;
 	created_at: string;
 	updated_at: string;
 }
