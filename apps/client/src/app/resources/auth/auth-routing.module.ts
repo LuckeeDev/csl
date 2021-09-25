@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { GoogleView } from './views/google/google.view';
+import { CallbackView } from './views/callback/callback.view';
 
-const routes: Routes = [{ path: 'google', component: GoogleView }];
+const routes: Routes = [{ path: ':provider/callback', component: CallbackView }];
 
 @NgModule({
 	imports: [RouterModule.forChild(routes)],
