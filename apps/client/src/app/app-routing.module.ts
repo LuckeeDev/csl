@@ -139,7 +139,7 @@ const routes: Routes = [
 		path: 'auth',
 		data: { title: 'Autenticazione' },
 		loadChildren: () =>
-			import('@/resources/auth/auth.module').then((m) => m.AuthModule),
+			import('@/modules/auth/auth.module').then((m) => m.AuthModule),
 	},
 	{
 		path: 'login',
