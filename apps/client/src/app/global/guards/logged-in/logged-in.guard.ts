@@ -12,7 +12,7 @@ import {
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Select } from '@ngxs/store';
-import { AuthState } from '@/global/store/auth';
+import { AuthState } from '@/modules/auth/store';
 import { IUser } from '@csl/shared';
 import { firstDifferentThan } from '@/utils/operators/firstDifferentThan';
 
