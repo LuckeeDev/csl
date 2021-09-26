@@ -8,11 +8,8 @@ import { ComitatoComponent } from '@main/comitato-components/comitato/comitato.c
 import { ConsultaComponent } from '@main/pages/consulta/consulta.component';
 import { HomeComponent } from '@main/pages/home/home.component';
 import { PortartiComponent } from '@main/pages/portarti/portarti.component';
-import { QpComponent } from '@main/qp-components/qp/qp.component';
 import { PageNotFoundComponent } from '@main/errors/page-not-found/page-not-found.component';
-import { ArticleComponent } from '@main/qp-components/article/article.component';
 import { AccessForbiddenComponent } from '@main/errors/access-forbidden/access-forbidden.component';
-import { QpHomeComponent } from '@main/qp-components/qp-home/qp-home.component';
 import { FaqComponent } from '@main/pages/faq/faq.component';
 import { InfoComponent } from '@main/contacts-components/info/info.component';
 import { CommissioneComponent } from '@main/comitato-components/commissione/commissione.component';
@@ -79,13 +76,12 @@ const routes: Routes = [
 	},
 	{
 		path: 'qp',
-		data: { title: 'QP' },
-		canActivate: [LoggedInGuard],
-		component: QpComponent,
-		children: [
-			{ path: '', component: QpHomeComponent },
-			{ path: ':articleID', component: ArticleComponent },
-		],
+		data: { title: 'Articoli' },
+		canLoad: [LoggedInGuard],
+		loadChildren: () =>
+			import('@/modules/articles/articles.module').then(
+				(m) => m.ArticlesModule
+			),
 	},
 	{
 		path: 'store',

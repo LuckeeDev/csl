@@ -8,6 +8,7 @@ import { ProductIdPipe } from './product-id/product-id.pipe';
 import { CategoryToColorPipe } from './category-to-color/category-to-color.pipe';
 import { CourseStatusPipe } from './course-status/course-status.pipe';
 
+// TODO: move inside CoreModule
 @NgModule({
   declarations: [
     CategoryPipe,
