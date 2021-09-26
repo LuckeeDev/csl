@@ -1,6 +1,6 @@
 <!-- TODO: remove the line below -->
 <!--suppress HtmlFormInputWithoutLabel -->
-<div class="container">
+<div class="container" *cslLet="filteredArticles$ | async as articles">
 	<h1 class="title">Quinto Piano</h1>
 
 	<h1 class="header">Articoli in evidenza</h1>
@@ -10,41 +10,41 @@
 		<input matInput type="text" [formControl]="search" />
 	</mat-form-field>
 
-	<ng-container *ngIf="articles && articles.length > 0; else noArticles">
-		<mat-card
-			*ngFor="
-		  let article of (filteredArticles$ | async) || articles;
+	<mat-card
+		*ngFor="
+		  let article of articles;
 		  let i = index
 		"
-			[routerLink]="[article.id]"
-			class="article-preview"
-		>
-			<div
-				class="category-color"
-				[ngStyle]="{ 'background-color': article.category | categoryToColor }"
-			></div>
+		[routerLink]="[article.title]"
+		class="article-preview"
+	>
+		<div
+			class="category-color"
+			[ngStyle]="{ 'background-color': article.category.color }"
+		></div>
 
-			<mat-card-content class="content">
-				<ng-container>
-					<img
+		<mat-card-content class="content">
+			<ng-container>
+				<!-- <img
 						[src]="article.image"
 						*ngIf="imageReady"
 						class="cover"
 						[ngClass]="{ odd: i % 2 === 1, even: i % 2 === 0 }"
 						alt="Immagine di copertina dell'articolo"
-					/>
-					<div class="text" [ngClass]="{ odd: i % 2 === 1, even: i % 2 === 0 }">
-						<h1 class="title">{{ article.title }}</h1>
-						<span class="category-label">{{ article.category }}</span>
-						<p class="preview" [innerHTML]="article.preview"></p>
-						<p class="data">
-							{{ article.author }} | {{ article.date | date: 'dd / MM / yy' }}
-						</p>
-					</div>
-				</ng-container>
-			</mat-card-content>
-		</mat-card>
-	</ng-container>
+					/> -->
+				<div class="text" [ngClass]="{ odd: i % 2 === 1, even: i % 2 === 0 }">
+					<h1 class="title">{{ article.title }}</h1>
+					<span class="category-label">{{ article.category.name }}</span>
+					<!-- TODO: add preview -->
+					<!-- <p class="preview" [innerHTML]="article.title"></p> -->
+					<p class="data">
+						{{ article.author }} | {{ article.published_at | date: 'dd / MM /
+						yy' }}
+					</p>
+				</div>
+			</ng-container>
+		</mat-card-content>
+	</mat-card>
 
 	<ng-template #noArticles>
 		<csl-alert class="alert"> Nessun articolo trovato! </csl-alert>

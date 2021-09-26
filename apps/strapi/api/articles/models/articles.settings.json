@@ -30,6 +30,13 @@
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
+    },
+    "category": {
+      "via": "articles",
+      "model": "article-category"
+    },
+    "author": {
+      "type": "string"
     }
   }
 }

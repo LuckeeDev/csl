@@ -6,6 +6,10 @@ import { UiModule } from '@csl/ui';
 import { NgxsModule } from '@ngxs/store';
 import { PipesModule } from '@/global/pipes/pipes.module';
 
+// State
+import { ArticlesService } from './services/articles/articles.service';
+import { ArticlesState } from './store/articles.state';
+
 // Views
 import { ArticlesHomeView } from './views/articles-home/articles-home.view';
 import { ArticlesView } from './articles.view';
@@ -18,8 +22,9 @@ import { ArticleView } from './views/article/article.view';
 		ArticlesRoutingModule,
 		CoreModule,
 		UiModule,
-		NgxsModule.forFeature([]),
+		NgxsModule.forFeature([ArticlesState]),
 		PipesModule,
 	],
+	providers: [ArticlesService]
 })
 export class ArticlesModule {}

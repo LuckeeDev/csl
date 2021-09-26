@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/storage';
 import { FormControl } from '@angular/forms';
-import { IArticle } from '@csl/shared';
-import { ArticlesService } from '@global/services/articles/articles.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { StrapiArticle } from '@csl/types';
+import { Select, Store } from '@ngxs/store';
+import { asyncScheduler, combineLatest, Observable, of, scheduled } from 'rxjs';
+import { concatAll, map } from 'rxjs/operators';
+import { Articles } from '../../store/articles.actions';
+import { ArticlesState } from '../../store/articles.state';
 
 @Component({
 	selector: 'csl-articles-home',
@@ -12,64 +13,38 @@ import { map } from 'rxjs/operators';
 	styleUrls: ['./articles-home.view.scss'],
 })
 export class ArticlesHomeView implements OnInit {
-	articles: IArticle[];
-	imageReady: boolean;
+	@Select(ArticlesState.articles)
+	articles$: Observable<StrapiArticle[]>;
 
 	search = new FormControl('');
 
-	filteredArticles$: Observable<IArticle[]>;
+	filteredArticles$: Observable<StrapiArticle[]>;
 
-	constructor(
-		public articlesService: ArticlesService,
-		private afs: AngularFireStorage
-	) {
-		this.filteredArticles$ = this.search.valueChanges.pipe(
-			map((value: string | null) => {
+	constructor(private store: Store) {}
+
+	ngOnInit(): void {
+		const search$ = scheduled(
+			[of(''), this.search.valueChanges],
+			asyncScheduler
+		).pipe(concatAll());
+
+		this.filteredArticles$ = combineLatest([
+			search$,
+			this.articles$,
+		]).pipe(
+			map(([value, articles]) => {
 				if (value) {
 					const filterValue = value.toLowerCase();
 
-					return this.articles.filter(
-						(x) =>
-							x.title.toLowerCase().includes(filterValue) ||
-							x.category.toLowerCase().includes(filterValue) ||
-							x.preview.toLowerCase().includes(filterValue)
+					return articles.filter((x) =>
+						x.title.toLowerCase().includes(filterValue)
 					);
 				} else {
-					return this.articles.slice();
+					return articles.slice();
 				}
 			})
 		);
-	}
 
-	ngOnInit(): void {
-		this.articlesService
-			.getArticles()
-			.pipe(
-				map((res) =>
-					res.data
-						.filter((article) => article.published === true)
-						// Reverse to get articles in chronologic order
-						.reverse()
-				)
-			)
-			.subscribe((articles) => {
-				this.articles = articles;
-
-				this.articles.forEach((article) => {
-					article.preview = article.content.blocks.find(
-						(block) => block.type === 'paragraph'
-					).data.text;
-				});
-
-				this.articles.forEach((article) => {
-					this.afs
-						.ref(`articles/covers/${article.image}`)
-						.getDownloadURL()
-						.subscribe((link) => {
-							this.imageReady = true;
-							article.image = link;
-						});
-				});
-			});
+		this.store.dispatch(new Articles.GetAll());
 	}
 }

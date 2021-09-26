@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "article_categories",
+  "info": {
+    "name": "Article Category",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "color": {
+      "type": "string",
+      "required": true,
+      "regex": "/^(rgb\\s*?\\(\\s*?(000|0?\\d{1,2}|1\\d\\d|2[0-4]\\d|25[0-5])\\s*?,\\s*?(000|0?\\d{1,2}|1\\d\\d|2[0-4]\\d|25[0-5])\\s*?,\\s*?(000|0?\\d{1,2}|1\\d\\d|2[0-4]\\d|25[0-5])\\s*?\\))$|^(rgba\\s*?\\(\\s*?(000|0?\\d{1,2}|1\\d\\d|2[0-4]\\d|25[0-5])\\s*?,\\s*?(000|0?\\d{1,2}|1\\d\\d|2[0-4]\\d|25[0-5])\\s*?,\\s*?(000|0?\\d{1,2}|1\\d\\d|2[0-4]\\d|25[0-5])\\s*?,\\s*?(0|0\\.\\d*|1|1.0*)\\s*?\\))$|^(transparent)$|^(#([a-fA-F0-9]){3})$|^(#([a-fA-F0-9]){6}$)|(^hsl\\s*?\\(\\s*?(000|0?\\d{1,2}|[1-2]\\d\\d|3[0-5]\\d|360)\\s*?,\\s*?(000|100|0?\\d{2}|0?0?\\d)%\\s*?,\\s*?(000|100|0?\\d{2}|0?0?\\d)%\\s*?\\)$)|(^hsla\\s*?\\(\\s*?(000|0?\\d{1,2}|[1-2]\\d\\d|3[0-5]\\d|360)\\s*?,\\s*?(000|100|0?\\d{2}|0?0?\\d)%\\s*?,\\s*?(000|100|0?\\d{2}|0?0?\\d)%\\s*?,\\s*?(0|0\\.\\d*|1|1.0*)\\s*?\\)$)$/"
+    },
+    "articles": {
+      "via": "category",
+      "collection": "articles"
+    }
+  }
+}
