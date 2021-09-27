@@ -5,7 +5,7 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { environment } from '@environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { registerLocaleData } from '@angular/common';
@@ -37,7 +37,8 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { PipesModule } from '@global/pipes/pipes.module';
 
 // Components
-import { WrapperComponent } from './global/components/wrapper/wrapper.component';
+import { WrapperComponent } from '@/core/components/wrapper/wrapper.component';
+import { CategoryComponent } from '@/core/components/category/category.component';
 import { AslComponent } from '@main/pages/asl/asl.component';
 import { ComitatoComponent } from '@main/comitato-components/comitato/comitato.component';
 import { ConsultaComponent } from '@main/pages/consulta/consulta.component';
@@ -54,8 +55,7 @@ import { CommissioneComponent } from '@main/comitato-components/commissione/comm
 import { ComitatoHomeComponent } from '@main/comitato-components/comitato-home/comitato-home.component';
 import { ContactFormComponent } from '@main/contacts-components/contact-form/contact-form.component';
 import { LoginComponent } from '@main/errors/login/login.component';
-import { CogeView } from '@/views/coge/coge.view';
-import { CategoryComponent } from './global/components/category/category.component';
+import { CogeView } from '@/main/coge/coge.view';
 
 // Interceptors
 import { ResCodeInterceptor } from '@global/http/res-code.interceptor';
@@ -65,6 +65,7 @@ import { ApiInterceptor } from '@global/http/api.interceptor';
 import { AuthState as OldAuthState } from './global/store/auth';
 import { PlatformState } from './global/store/platform';
 import { AuthState } from './modules/auth/store';
+import { CoreModule } from './core/core.module';
 
 registerLocaleData(ITLocaleData);
 
@@ -95,8 +96,8 @@ registerLocaleData(ITLocaleData);
 		BrowserModule,
 		AppRoutingModule,
 		BrowserAnimationsModule,
+		CoreModule,
 		FormsModule,
-		ReactiveFormsModule,
 		AngularFireModule.initializeApp(environment.firebaseConfig, 'CSLussana'),
 		AngularFireStorageModule,
 		AngularFireAuthModule,

@@ -1,0 +1,16 @@
+h1 {
+	font-weight: 500;
+}
+
+mat-card {
+	cursor: pointer;
+	outline: none;
+	flex: 1;
+	margin-right: 30px;
+	margin-bottom: 30px;
+}
+
+.container {
+	display: flex;
+	flex-wrap: wrap;
+}

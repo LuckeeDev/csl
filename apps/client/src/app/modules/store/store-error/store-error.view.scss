@@ -1,0 +1,24 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	.header {
+		margin: 0;
+	}
+
+	.hint {
+		margin-bottom: 20px;
+		text-align: center;
+
+		.link {
+			color: #0d47a1;
+			text-decoration: none;
+			font-weight: 500;
+		}
+	}
+
+	.drawing {
+		width: 40%;
+	}
+}

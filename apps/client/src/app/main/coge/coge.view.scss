@@ -1,0 +1,87 @@
+.alert-container,
+.table-container {
+	padding: 20px;
+}
+
+.courses-wrapper {
+	display: flex;
+	width: 100%;
+
+	.table {
+		width: 100%;
+		margin-right: 10px;
+	}
+
+	.drag-drop {
+		min-width: 20%;
+	}
+
+	.confirm {
+		margin-top: 10px;
+	}
+}
+
+.missing-subscription {
+	width: 100%;
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 14px;
+	background-color: rgb(255, 121, 88);
+	text-align: center;
+}
+
+.countdown {
+	width: 100%;
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 14px;
+	background-color: rgb(88, 255, 152);
+	text-align: center;
+}
+
+.meet-link {
+	color: #0D47A1;
+	text-decoration: none;
+	font-weight: 500;
+}
+
+.show-link {
+	display: flex;
+	padding: 20px;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.wait-err {
+	img {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	h1 {
+		text-align: center;
+		margin-top: 20px;
+	}
+
+	a {
+		font-weight: 600;
+		color: #3f51b5;
+		text-decoration: none;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.courses-wrapper {
+		flex-wrap: wrap;
+
+		.darg-drop {
+			margin-top: 50px;
+		}
+	}
+}

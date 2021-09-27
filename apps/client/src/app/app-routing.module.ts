@@ -88,7 +88,7 @@ const routes: Routes = [
 		data: { title: 'Store' },
 		canLoad: [LoggedInGuard],
 		loadChildren: () =>
-			import('@/views/store/store.module').then((m) => m.StoreModule),
+			import('@/modules/store/store.module').then((m) => m.StoreModule),
 	},
 	{
 		path: 'dashboard',
