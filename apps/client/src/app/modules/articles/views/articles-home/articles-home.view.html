@@ -1,5 +1,3 @@
-<!-- TODO: remove the line below -->
-<!--suppress HtmlFormInputWithoutLabel -->
 <div class="container" *cslLet="filteredArticles$ | async as articles">
 	<h1 class="title">Quinto Piano</h1>
 
@@ -25,18 +23,20 @@
 
 		<mat-card-content class="content">
 			<ng-container>
-				<!-- <img
-						[src]="article.image"
-						*ngIf="imageReady"
-						class="cover"
-						[ngClass]="{ odd: i % 2 === 1, even: i % 2 === 0 }"
-						alt="Immagine di copertina dell'articolo"
-					/> -->
+				<img
+					[src]="strapiURL + article.cover.url"
+					class="cover"
+					[ngClass]="{ odd: i % 2 === 1, even: i % 2 === 0 }"
+					alt="Immagine di copertina dell'articolo"
+				/>
+
 				<div class="text" [ngClass]="{ odd: i % 2 === 1, even: i % 2 === 0 }">
 					<h1 class="title">{{ article.title }}</h1>
 					<span class="category-label">{{ article.category.name }}</span>
-					<!-- TODO: add preview -->
-					<!-- <p class="preview" [innerHTML]="article.title"></p> -->
+					<!-- See https://stackoverflow.com/a/44669515 -->
+					<p class="preview" *cslLet="article.content as content">
+						{{ (content.length > 50) ? (content | slice:0:50) + '...' : (content) }}
+					</p>
 					<p class="data">
 						{{ article.author }} | {{ article.published_at | date: 'dd / MM /
 						yy' }}

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { StrapiArticle } from '@csl/types';
+import { environment } from '@environments/environment';
 import { Select, Store } from '@ngxs/store';
 import { asyncScheduler, combineLatest, Observable, of, scheduled } from 'rxjs';
 import { concatAll, map } from 'rxjs/operators';
@@ -13,6 +14,8 @@ import { ArticlesState } from '../../store/articles.state';
 	styleUrls: ['./articles-home.view.scss'],
 })
 export class ArticlesHomeView implements OnInit {
+	strapiURL = environment.strapi;
+
 	@Select(ArticlesState.articles)
 	articles$: Observable<StrapiArticle[]>;
 
@@ -28,10 +31,7 @@ export class ArticlesHomeView implements OnInit {
 			asyncScheduler
 		).pipe(concatAll());
 
-		this.filteredArticles$ = combineLatest([
-			search$,
-			this.articles$,
-		]).pipe(
+		this.filteredArticles$ = combineLatest([search$, this.articles$]).pipe(
 			map(([value, articles]) => {
 				if (value) {
 					const filterValue = value.toLowerCase();

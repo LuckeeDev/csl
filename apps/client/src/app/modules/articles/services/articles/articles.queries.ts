@@ -11,6 +11,9 @@ export const GET_ALL_ARTICLES = gql`
 				name
 				color
 			}
+			cover {
+				url
+			}
 		}
 	}
 `;

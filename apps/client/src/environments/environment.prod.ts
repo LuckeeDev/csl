@@ -14,6 +14,7 @@ export const environment = {
 	api: 'https://api.cslussana.com',
 	client: 'https://cslussana.com',
 	static: 'https://static.cslussana.com',
+	strapi: 'https://strapi.cslussana.com'
 };
 
 export const googleClientID =
