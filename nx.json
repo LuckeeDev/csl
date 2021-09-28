@@ -21,39 +21,7 @@
 			}
 		}
 	},
-	"projects": {
-		"api": {
-			"tags": []
-		},
-		"client": {
-			"tags": []
-		},
-		"client-e2e": {
-			"tags": [],
-			"implicitDependencies": ["client"]
-		},
-		"google": {
-			"tags": []
-		},
-		"maintenance": {
-			"tags": []
-		},
-		"shared": {
-			"tags": []
-		},
-		"strapi": {
-			"tags": []
-		},
-		"types": {
-			"tags": []
-		},
-		"ui": {
-			"tags": []
-		},
-		"workspace": {
-			"tags": []
-		}
-	},
+	"projects": {},
 	"targetDependencies": {
 		"build": [
 			{

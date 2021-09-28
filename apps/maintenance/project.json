@@ -1,0 +1,96 @@
+{
+	"projectType": "application",
+	"generators": {
+		"@generators/angular:component": {
+			"style": "scss"
+		}
+	},
+	"root": "apps/maintenance",
+	"sourceRoot": "apps/maintenance/src",
+	"prefix": "csl",
+	"targets": {
+		"build": {
+			"executor": "@angular-devkit/build-angular:browser",
+			"options": {
+				"outputPath": "dist/maintenance",
+				"index": "apps/maintenance/src/index.html",
+				"main": "apps/maintenance/src/main.ts",
+				"polyfills": "apps/maintenance/src/polyfills.ts",
+				"tsConfig": "apps/maintenance/tsconfig.app.json",
+				"aot": true,
+				"assets": [
+					"apps/maintenance/src/favicon.ico",
+					"apps/maintenance/src/assets"
+				],
+				"styles": ["apps/maintenance/src/styles.scss"],
+				"scripts": []
+			},
+			"configurations": {
+				"production": {
+					"fileReplacements": [
+						{
+							"replace": "apps/maintenance/src/environments/environment.ts",
+							"with": "apps/maintenance/src/environments/environment.prod.ts"
+						}
+					],
+					"optimization": true,
+					"outputHashing": "all",
+					"sourceMap": false,
+					"namedChunks": false,
+					"extractLicenses": true,
+					"vendorChunk": false,
+					"buildOptimizer": true,
+					"budgets": [
+						{
+							"type": "initial",
+							"maximumWarning": "2mb",
+							"maximumError": "5mb"
+						},
+						{
+							"type": "anyComponentStyle",
+							"maximumWarning": "6kb",
+							"maximumError": "10kb"
+						}
+					]
+				}
+			},
+			"outputs": ["{options.outputPath}"]
+		},
+		"serve": {
+			"executor": "@angular-devkit/build-angular:dev-server",
+			"options": {
+				"browserTarget": "maintenance:build"
+			},
+			"configurations": {
+				"production": {
+					"browserTarget": "maintenance:build:production"
+				}
+			}
+		},
+		"extract-i18n": {
+			"executor": "@angular-devkit/build-angular:extract-i18n",
+			"options": {
+				"browserTarget": "maintenance:build"
+			}
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"options": {
+				"lintFilePatterns": [
+					"apps/maintenance/**/*.ts",
+					"apps/maintenance/**/*.html"
+				]
+			},
+			"outputs": ["{options.outputFile}"]
+		},
+		"test": {
+			"executor": "@nrwl/jest:jest",
+			"options": {
+				"jestConfig": "apps/maintenance/jest.config.js",
+				"passWithNoTests": true
+			},
+			"outputs": ["coverage/apps/maintenance"]
+		}
+	},
+	"tags": []
+}
