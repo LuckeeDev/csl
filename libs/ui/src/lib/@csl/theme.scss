@@ -1,8 +1,9 @@
 // Create Sass color variables (will be available everywhere in the project)
-$primary: mat-color($client-primary);
+@use '~@angular/material' as mat;
+$primary: mat.get-color-from-palette($client-primary);
 $success: #43a047;
-$accent: mat-color($client-accent);
-$warn: mat-color($client-warn);
+$accent: mat.get-color-from-palette($client-accent);
+$warn: mat.get-color-from-palette($client-warn);
 
 // Typography
 h1,

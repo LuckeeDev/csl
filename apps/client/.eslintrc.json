@@ -4,9 +4,6 @@
 	"overrides": [
 		{
 			"files": ["*.ts"],
-			"parserOptions": {
-				"project": ["apps/client/tsconfig.*?.json"]
-			},
 			"rules": {
 				"@angular-eslint/component-class-suffix": [
 					"error",

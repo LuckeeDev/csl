@@ -1,29 +1,65 @@
 {
-  "npmScope": "csl",
-  "affected": { "defaultBase": "main" },
-  "implicitDependencies": {
-    "workspace.json": "*",
-    "package.json": { "dependencies": "*", "devDependencies": "*" },
-    "tsconfig.base.json": "*",
-    ".eslintrc.json": "*",
-    "nx.json": "*"
-  },
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "@nrwl/workspace/tasks-runners/default",
-      "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
-    }
-  },
-  "projects": {
-    "client": { "tags": [] },
-    "client-e2e": { "tags": [], "implicitDependencies": ["client"] },
-    "shared": { "tags": [] },
-    "ui": { "tags": [] },
-    "maintenance": { "tags": [] },
-    "api": { "tags": [] },
-    "workspace": { "tags": [] },
-    "google": { "tags": [] },
-    "strapi": { "tags": [] },
-    "types": { "tags": [] }
-  }
+	"npmScope": "csl",
+	"affected": {
+		"defaultBase": "main"
+	},
+	"implicitDependencies": {
+		"workspace.json": "*",
+		"package.json": {
+			"dependencies": "*",
+			"devDependencies": "*"
+		},
+		"tsconfig.base.json": "*",
+		".eslintrc.json": "*",
+		"nx.json": "*"
+	},
+	"tasksRunnerOptions": {
+		"default": {
+			"runner": "@nrwl/workspace/tasks-runners/default",
+			"options": {
+				"cacheableOperations": ["build", "lint", "test", "e2e"]
+			}
+		}
+	},
+	"projects": {
+		"api": {
+			"tags": []
+		},
+		"client": {
+			"tags": []
+		},
+		"client-e2e": {
+			"tags": [],
+			"implicitDependencies": ["client"]
+		},
+		"google": {
+			"tags": []
+		},
+		"maintenance": {
+			"tags": []
+		},
+		"shared": {
+			"tags": []
+		},
+		"strapi": {
+			"tags": []
+		},
+		"types": {
+			"tags": []
+		},
+		"ui": {
+			"tags": []
+		},
+		"workspace": {
+			"tags": []
+		}
+	},
+	"targetDependencies": {
+		"build": [
+			{
+				"target": "build",
+				"projects": "dependencies"
+			}
+		]
+	}
 }

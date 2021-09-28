@@ -45,8 +45,8 @@ Thumbs.db
 *.credentials.*
 *.env*
 
-# Makefile
-Makefile
+# NX Migrations
+migrations.json
 
 # Data and files used to test scripts
 /scripts/data
