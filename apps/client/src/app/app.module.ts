@@ -37,8 +37,6 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { PipesModule } from '@global/pipes/pipes.module';
 
 // Components
-import { WrapperComponent } from '@/core/components/wrapper/wrapper.component';
-import { CategoryComponent } from '@/core/components/category/category.component';
 import { AslComponent } from '@main/pages/asl/asl.component';
 import { ComitatoComponent } from '@main/comitato-components/comitato/comitato.component';
 import { ConsultaComponent } from '@main/pages/consulta/consulta.component';
@@ -89,8 +87,6 @@ registerLocaleData(ITLocaleData);
 		ComitatoHomeComponent,
 		ContactFormComponent,
 		CogeView,
-		WrapperComponent,
-		CategoryComponent,
 	],
 	imports: [
 		BrowserModule,
