@@ -1,15 +1,15 @@
 {
-	"version": 1,
+	"version": 2,
 	"projects": {
 		"api": {
 			"root": "apps/api",
 			"sourceRoot": "apps/api/src",
 			"projectType": "application",
 			"prefix": "server",
-			"schematics": {},
-			"architect": {
+			"generators": {},
+			"targets": {
 				"build": {
-					"builder": "@nrwl/node:build",
+					"executor": "@nrwl/node:build",
 					"options": {
 						"outputPath": "dist/api",
 						"main": "apps/api/src/main.ts",
@@ -32,20 +32,20 @@
 					"outputs": ["{options.outputPath}"]
 				},
 				"serve": {
-					"builder": "@nrwl/node:execute",
+					"executor": "@nrwl/node:execute",
 					"options": {
 						"buildTarget": "api:build"
 					}
 				},
 				"lint": {
-					"builder": "@nrwl/linter:eslint",
+					"executor": "@nrwl/linter:eslint",
 					"options": {
 						"lintFilePatterns": ["apps/api/**/*.ts"]
 					},
 					"outputs": ["{options.outputFile}"]
 				},
 				"test": {
-					"builder": "@nrwl/jest:jest",
+					"executor": "@nrwl/jest:jest",
 					"options": {
 						"jestConfig": "apps/api/jest.config.js",
 						"passWithNoTests": true
@@ -56,8 +56,8 @@
 		},
 		"client": {
 			"projectType": "application",
-			"schematics": {
-				"@schematics/angular:component": {
+			"generators": {
+				"@generators/angular:component": {
 					"style": "scss",
 					"skipTests": true
 				}
@@ -65,9 +65,9 @@
 			"root": "apps/client",
 			"sourceRoot": "apps/client/src",
 			"prefix": "csl",
-			"architect": {
+			"targets": {
 				"build": {
-					"builder": "@angular-devkit/build-angular:browser",
+					"executor": "@angular-devkit/build-angular:browser",
 					"options": {
 						"outputPath": "dist/client",
 						"index": "apps/client/src/index.html",
@@ -97,87 +97,62 @@
 									"with": "apps/client/src/environments/environment.prod.ts"
 								}
 							],
-							"optimization": true,
 							"outputHashing": "all",
-							"sourceMap": false,
-							"namedChunks": false,
-							"extractLicenses": true,
-							"vendorChunk": false,
-							"buildOptimizer": true,
 							"budgets": [
 								{
 									"type": "initial",
-									"maximumWarning": "2mb",
-									"maximumError": "5mb"
+									"maximumWarning": "1mb",
+									"maximumError": "2mb"
 								},
 								{
 									"type": "anyComponentStyle",
-									"maximumWarning": "6kb",
-									"maximumError": "10kb"
+									"maximumWarning": "2kb",
+									"maximumError": "4kb"
 								}
-							],
-							"serviceWorker": true,
-							"ngswConfigPath": "apps/client/ngsw-config.json"
+							]
 						},
-						"vercel": {
-							"fileReplacements": [
-								{
-									"replace": "apps/client/src/environments/environment.ts",
-									"with": "apps/client/src/environments/environment.prod.ts"
-								}
-							],
-							"outputPath": "apps/client/dist",
-							"optimization": true,
-							"outputHashing": "all",
-							"sourceMap": false,
-							"namedChunks": false,
-							"extractLicenses": true,
-							"vendorChunk": false,
-							"buildOptimizer": true,
-							"budgets": [
-								{
-									"type": "initial",
-									"maximumWarning": "2mb",
-									"maximumError": "5mb"
-								},
-								{
-									"type": "anyComponentStyle",
-									"maximumWarning": "6kb",
-									"maximumError": "10kb"
-								}
-							],
-							"serviceWorker": true,
-							"ngswConfigPath": "apps/client/ngsw-config.json"
+						"development": {
+							"buildOptimizer": false,
+							"optimization": false,
+							"vendorChunk": true,
+							"extractLicenses": false,
+							"sourceMap": true,
+							"namedChunks": true
 						}
 					},
+					"defaultConfiguration": "production",
 					"outputs": ["{options.outputPath}"]
 				},
 				"serve": {
-					"builder": "@angular-devkit/build-angular:dev-server",
+					"executor": "@angular-devkit/build-angular:dev-server",
 					"options": {
 						"browserTarget": "client:build"
 					},
 					"configurations": {
 						"production": {
 							"browserTarget": "client:build:production"
+						},
+						"development": {
+							"browserTarget": "client:build:development"
 						}
-					}
+					},
+					"defaultConfiguration": "development"
 				},
 				"extract-i18n": {
-					"builder": "@angular-devkit/build-angular:extract-i18n",
+					"executor": "@angular-devkit/build-angular:extract-i18n",
 					"options": {
 						"browserTarget": "client:build"
 					}
 				},
 				"lint": {
-					"builder": "@nrwl/linter:eslint",
+					"executor": "@nrwl/linter:eslint",
 					"options": {
 						"lintFilePatterns": ["apps/client/**/*.ts", "apps/client/**/*.html"]
 					},
 					"outputs": ["{options.outputFile}"]
 				},
 				"test": {
-					"builder": "@nrwl/jest:jest",
+					"executor": "@nrwl/jest:jest",
 					"options": {
 						"jestConfig": "apps/client/jest.config.js",
 						"passWithNoTests": true
@@ -190,9 +165,9 @@
 			"root": "apps/client-e2e",
 			"sourceRoot": "apps/client-e2e/src",
 			"projectType": "application",
-			"architect": {
+			"targets": {
 				"e2e": {
-					"builder": "@nrwl/cypress:cypress",
+					"executor": "@nrwl/cypress:cypress",
 					"options": {
 						"cypressConfig": "apps/client-e2e/cypress.json",
 						"tsConfig": "apps/client-e2e/tsconfig.e2e.json",
@@ -205,7 +180,7 @@
 					}
 				},
 				"lint": {
-					"builder": "@nrwl/linter:eslint",
+					"executor": "@nrwl/linter:eslint",
 					"options": {
 						"lintFilePatterns": ["apps/client-e2e/**/*.{js,ts}"]
 					},
@@ -217,16 +192,16 @@
 			"root": "libs/google",
 			"sourceRoot": "libs/google/src",
 			"projectType": "library",
-			"architect": {
+			"targets": {
 				"lint": {
-					"builder": "@nrwl/linter:eslint",
+					"executor": "@nrwl/linter:eslint",
 					"options": {
 						"lintFilePatterns": ["libs/google/**/*.ts"]
 					},
 					"outputs": ["{options.outputFile}"]
 				},
 				"test": {
-					"builder": "@nrwl/jest:jest",
+					"executor": "@nrwl/jest:jest",
 					"outputs": ["coverage/libs/google"],
 					"options": {
 						"jestConfig": "libs/google/jest.config.js",
@@ -237,17 +212,17 @@
 		},
 		"maintenance": {
 			"projectType": "application",
-			"schematics": {
-				"@schematics/angular:component": {
+			"generators": {
+				"@generators/angular:component": {
 					"style": "scss"
 				}
 			},
 			"root": "apps/maintenance",
 			"sourceRoot": "apps/maintenance/src",
 			"prefix": "csl",
-			"architect": {
+			"targets": {
 				"build": {
-					"builder": "@angular-devkit/build-angular:browser",
+					"executor": "@angular-devkit/build-angular:browser",
 					"options": {
 						"outputPath": "dist/maintenance",
 						"index": "apps/maintenance/src/index.html",
@@ -294,7 +269,7 @@
 					"outputs": ["{options.outputPath}"]
 				},
 				"serve": {
-					"builder": "@angular-devkit/build-angular:dev-server",
+					"executor": "@angular-devkit/build-angular:dev-server",
 					"options": {
 						"browserTarget": "maintenance:build"
 					},
@@ -305,13 +280,13 @@
 					}
 				},
 				"extract-i18n": {
-					"builder": "@angular-devkit/build-angular:extract-i18n",
+					"executor": "@angular-devkit/build-angular:extract-i18n",
 					"options": {
 						"browserTarget": "maintenance:build"
 					}
 				},
 				"lint": {
-					"builder": "@nrwl/linter:eslint",
+					"executor": "@nrwl/linter:eslint",
 					"options": {
 						"lintFilePatterns": [
 							"apps/maintenance/**/*.ts",
@@ -321,7 +296,7 @@
 					"outputs": ["{options.outputFile}"]
 				},
 				"test": {
-					"builder": "@nrwl/jest:jest",
+					"executor": "@nrwl/jest:jest",
 					"options": {
 						"jestConfig": "apps/maintenance/jest.config.js",
 						"passWithNoTests": true
@@ -334,17 +309,17 @@
 			"root": "libs/shared",
 			"sourceRoot": "libs/shared/src",
 			"projectType": "library",
-			"schematics": {},
-			"architect": {
+			"generators": {},
+			"targets": {
 				"lint": {
-					"builder": "@nrwl/linter:eslint",
+					"executor": "@nrwl/linter:eslint",
 					"options": {
 						"lintFilePatterns": ["libs/shared/**/*.ts"]
 					},
 					"outputs": ["{options.outputFile}"]
 				},
 				"test": {
-					"builder": "@nrwl/jest:jest",
+					"executor": "@nrwl/jest:jest",
 					"options": {
 						"jestConfig": "libs/shared/jest.config.js",
 						"passWithNoTests": true
@@ -358,27 +333,27 @@
 			"root": "libs/strapi",
 			"sourceRoot": "libs/strapi/src",
 			"prefix": "csl",
-			"architect": {
+			"targets": {
 				"serve": {
-					"builder": "@nrwl/workspace:run-commands",
+					"executor": "@nrwl/workspace:run-commands",
 					"options": {
 						"command": "yarn --cwd ./apps/strapi develop"
 					}
 				},
 				"build": {
-					"builder": "@nrwl/workspace:run-commands",
+					"executor": "@nrwl/workspace:run-commands",
 					"options": {
 						"command": "yarn --cwd ./apps/strapi build"
 					}
 				},
 				"start": {
-					"builder": "@nrwl/workspace:run-commands",
+					"executor": "@nrwl/workspace:run-commands",
 					"options": {
 						"command": "yarn --cwd ./apps/strapi start"
 					}
 				},
 				"lint": {
-					"builder": "@nrwl/linter:eslint",
+					"executor": "@nrwl/linter:eslint",
 					"options": {
 						"lintFilePatterns": [
 							"libs/strapi/src/**/*.ts",
@@ -388,7 +363,7 @@
 					"outputs": ["{options.outputFile}"]
 				},
 				"test": {
-					"builder": "@nrwl/jest:jest",
+					"executor": "@nrwl/jest:jest",
 					"outputs": ["coverage/libs/strapi"],
 					"options": {
 						"jestConfig": "libs/strapi/jest.config.js",
@@ -401,16 +376,16 @@
 			"root": "libs/types",
 			"sourceRoot": "libs/types/src",
 			"projectType": "library",
-			"architect": {
+			"targets": {
 				"lint": {
-					"builder": "@nrwl/linter:eslint",
+					"executor": "@nrwl/linter:eslint",
 					"options": {
 						"lintFilePatterns": ["libs/types/**/*.ts"]
 					},
 					"outputs": ["{options.outputFile}"]
 				},
 				"test": {
-					"builder": "@nrwl/jest:jest",
+					"executor": "@nrwl/jest:jest",
 					"outputs": ["coverage/libs/types"],
 					"options": {
 						"jestConfig": "libs/types/jest.config.js",
@@ -424,16 +399,16 @@
 			"root": "libs/ui",
 			"sourceRoot": "libs/ui/src",
 			"prefix": "csl",
-			"architect": {
+			"targets": {
 				"lint": {
-					"builder": "@nrwl/linter:eslint",
+					"executor": "@nrwl/linter:eslint",
 					"options": {
 						"lintFilePatterns": ["libs/ui/**/*.ts", "libs/ui/**/*.html"]
 					},
 					"outputs": ["{options.outputFile}"]
 				},
 				"test": {
-					"builder": "@nrwl/jest:jest",
+					"executor": "@nrwl/jest:jest",
 					"options": {
 						"jestConfig": "libs/ui/jest.config.js",
 						"passWithNoTests": true
@@ -441,16 +416,16 @@
 					"outputs": ["coverage/libs/ui"]
 				}
 			},
-			"schematics": {
-				"@schematics/angular:component": {
+			"generators": {
+				"@generators/angular:component": {
 					"style": "scss"
 				}
 			}
 		},
 		"workspace": {
-			"architect": {
+			"targets": {
 				"version": {
-					"builder": "@jscutlery/semver:version",
+					"executor": "@jscutlery/semver:version",
 					"options": {
 						"syncVersions": true,
 						"push": true,
@@ -464,7 +439,7 @@
 	"cli": {
 		"defaultCollection": "@nrwl/angular"
 	},
-	"schematics": {
+	"generators": {
 		"@nrwl/angular:application": {
 			"style": "scss",
 			"linter": "eslint",
