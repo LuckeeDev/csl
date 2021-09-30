@@ -9,6 +9,8 @@
 		"strapi": "libs\\strapi",
 		"types": "libs\\types",
 		"ui": "libs\\ui",
+		"web": "apps/web",
+		"web-e2e": "apps/web-e2e",
 		"workspace": "."
 	},
 	"cli": {
@@ -28,6 +30,17 @@
 		},
 		"@nrwl/angular:component": {
 			"style": "scss"
+		},
+		"@nrwl/react": {
+			"application": {
+				"babel": true
+			}
+		},
+		"@nrwl/next": {
+			"application": {
+				"style": "styled-components",
+				"linter": "eslint"
+			}
 		}
 	},
 	"defaultProject": "client"
