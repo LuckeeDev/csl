@@ -10,7 +10,12 @@
 		"forceConsistentCasingInFileNames": true,
 		"noEmit": true,
 		"resolveJsonModule": true,
-		"isolatedModules": true
+		"isolatedModules": true,
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["*"],
+			"@csl/types": ["../../libs/types/src/index.ts"]
+		}
 	},
 	"include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "next-env.d.ts"],
 	"exclude": ["node_modules"]
