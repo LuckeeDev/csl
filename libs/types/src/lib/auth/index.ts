@@ -1,4 +1,4 @@
-import { StrapiClassroom } from "../classroom";
+import { StrapiClassroom } from '../classroom';
 
 export interface StrapiRole {
 	id: number;
@@ -24,4 +24,11 @@ export interface StrapiUser {
 export interface StrapiAuthResponse {
 	jwt: string;
 	user: StrapiUser;
+}
+
+type LoginProvider = 'google';
+
+export interface StrapiLoginProvider {
+	name: LoginProvider;
+	enabled: boolean;
 }

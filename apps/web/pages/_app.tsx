@@ -2,7 +2,6 @@ import SessionProvider from '@/hooks/session/SessionProvider';
 import useSetupSession from '@/hooks/session/useSetupSession';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { useState } from 'react';
 import './styles.css';
 
 function CustomApp({ Component, pageProps }: AppProps) {

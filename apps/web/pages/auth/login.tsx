@@ -1,0 +1,48 @@
+import { StrapiLoginProvider } from '@csl/types';
+import login from '@/utils/auth/login';
+import { Button } from '@mui/material';
+import { GetServerSideProps } from 'next';
+import { environment } from '@/environments/environment';
+
+interface LoginPageProps {
+	providers: StrapiLoginProvider[];
+}
+
+export default function LoginPage({ providers }: LoginPageProps) {
+	return (
+		<div>
+			{providers.map((provider, i) => (
+				<Button key={i} onClick={() => login(provider.name)}>
+					{provider.name}
+				</Button>
+			))}
+		</div>
+	);
+}
+
+export const getServerSideProps: GetServerSideProps<LoginPageProps> =
+	async () => {
+		const providersURL = `${environment.strapi}/users-permissions/providers`;
+
+		const providers = await fetch(providersURL).then((res) => res.json());
+
+		const providersArray: StrapiLoginProvider[] = Object.entries(providers)
+			.map(
+				([name, provider]: [
+					StrapiLoginProvider['name'],
+					StrapiLoginProvider
+				]) => ({
+					name,
+					...provider,
+				})
+			)
+			.filter((val) => val.enabled === true)
+			// TODO: remove this line
+			.filter((val) => val.name === 'google');
+
+		return {
+			props: {
+				providers: providersArray,
+			},
+		};
+	};

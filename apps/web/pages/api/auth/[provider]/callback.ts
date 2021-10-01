@@ -1,7 +1,8 @@
 import { StrapiAuthResponse } from '@csl/types';
 import withSession from '@/utils/withSession';
+import { environment } from '@/environments/environment';
 
-const AUTH_URL = 'http://localhost:1337/auth';
+const AUTH_URL = `${environment.strapi}/auth`;
 
 export default withSession(async (req, res) => {
 	const { access_token, provider } = req.query;

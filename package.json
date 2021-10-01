@@ -28,7 +28,7 @@
 		"@angular/platform-browser-dynamic": "12.2.0",
 		"@angular/router": "12.2.0",
 		"@angular/service-worker": "12.2.0",
-		"@apollo/client": "^3.4.13",
+		"@apollo/client": "^3.4.15",
 		"@editorjs/editorjs": "^2.19.0",
 		"@editorjs/header": "^2.6.0",
 		"@editorjs/image": "^2.6.0",
