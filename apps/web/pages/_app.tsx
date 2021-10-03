@@ -1,4 +1,4 @@
-import SessionProvider from '@/hooks/session/SessionProvider';
+import SessionProvider from '@/context/session/SessionProvider';
 import useSetupSession from '@/hooks/session/useSetupSession';
 import { AppProps } from 'next/app';
 import Head from 'next/head';

@@ -1,12 +1,12 @@
-import { StrapiAuthResponse } from '@csl/types';
 import { ReactNode } from 'react';
-import SessionContext from './SessionContext';
+import SessionContext, { SessionContextModel } from './SessionContext';
+
 
 export default function SessionProvider({
 	session,
 	children,
 }: {
-	session: StrapiAuthResponse;
+	session: SessionContextModel;
 	children: ReactNode;
 }) {
 	return (
