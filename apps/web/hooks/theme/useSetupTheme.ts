@@ -4,7 +4,8 @@ import {
 	PREFERS_LIGHT_SCHEME,
 	THEME_LOCAL_TOKEN,
 } from '@/tokens';
-import { Theme, useMediaQuery } from '@mui/material';
+import createThemes from '@/utils/theme/createThemes';
+import { useMediaQuery } from '@mui/material';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 enum ThemeMode {
@@ -12,18 +13,12 @@ enum ThemeMode {
 	LIGHT = 'LIGHT',
 }
 
-interface UseSetupThemeParams {
-	dark: Theme;
-	light: Theme;
-}
-
-export default function useSetupTheme({
-	dark,
-	light,
-}: UseSetupThemeParams): CustomThemeContextModel {
+export default function useSetupTheme(): CustomThemeContextModel {
 	const [currentTheme, setCurrentTheme] = useState<ThemeMode>(null);
 	const prefersDark = useMediaQuery(PREFERS_DARK_SCHEME);
 	const prefersLight = useMediaQuery(PREFERS_LIGHT_SCHEME);
+
+	const { dark, light } = createThemes();
 
 	useEffect(() => {
 		const localTheme = localStorage.getItem(THEME_LOCAL_TOKEN);
