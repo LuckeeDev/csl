@@ -1,4 +1,4 @@
-import withSession from '@/utils/withSession';
+import withSession from '@/utils/session/withSession';
 import { StrapiUser } from '@csl/types';
 import serverQuery from '@/graphql/serverQuery';
 import { GET_USER_QUERY } from '@/graphql/queries/getUser';

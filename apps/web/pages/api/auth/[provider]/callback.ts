@@ -1,5 +1,5 @@
 import { StrapiAuthResponse } from '@csl/types';
-import withSession from '@/utils/withSession';
+import withSession from '@/utils/session/withSession';
 import { environment } from '@/environments/environment';
 
 const AUTH_URL = `${environment.strapi}/auth`;
