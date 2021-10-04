@@ -34,11 +34,13 @@
 		"@editorjs/image": "^2.6.0",
 		"@editorjs/list": "^1.6.1",
 		"@editorjs/paragraph": "^2.8.0",
+		"@emotion/react": "^11.4.1",
+		"@emotion/server": "11.0.0",
+		"@emotion/styled": "^11.3.0",
 		"@google-cloud/storage": "^5.4.0",
 		"@mui/icons-material": "^5.0.1",
 		"@mui/material": "^5.0.2",
-		"@mui/styled-engine": "npm:@mui/styled-engine-sc@latest",
-		"@mui/styled-engine-sc": "^5.0.0",
+		"@mui/styled-engine": "^5.0.1",
 		"@ngx-loading-bar/core": "^5.1.2",
 		"@ngx-loading-bar/http-client": "^5.1.2",
 		"@ngx-loading-bar/router": "^5.1.2",
@@ -81,7 +83,6 @@
 		"socket.io": "^2.3.0",
 		"socket.io-client": "^2.3.0",
 		"stripe": "^8.69.0",
-		"styled-components": "^5.3.1",
 		"tslib": "^2.0.0",
 		"uuid": "^8.3.1",
 		"winston": "^3.3.3",
@@ -101,6 +102,7 @@
 		"@babel/preset-typescript": "7.9.0",
 		"@commitlint/cli": "^11.0.0",
 		"@commitlint/config-conventional": "^11.0.0",
+		"@emotion/babel-plugin": "11.2.0",
 		"@jscutlery/semver": "^1.4.0",
 		"@nrwl/angular": "12.9.0",
 		"@nrwl/cli": "12.9.0",
@@ -138,12 +140,10 @@
 		"@types/socket.io-client": "^1.4.33",
 		"@types/stripe-checkout": "^1.0.3",
 		"@types/stripe-v3": "^3.1.19",
-		"@types/styled-components": "5.1.9",
 		"@types/uuid": "^8.3.0",
 		"@typescript-eslint/eslint-plugin": "4.28.5",
 		"@typescript-eslint/parser": "4.28.5",
 		"babel-jest": "26.2.2",
-		"babel-plugin-styled-components": "1.10.7",
 		"cypress": "^4.1.0",
 		"eslint": "7.10.0",
 		"eslint-config-next": "11.1.0",
@@ -165,8 +165,5 @@
 		"ts-jest": "27.0.3",
 		"ts-node": "9.1.1",
 		"typescript": "4.3.5"
-	},
-	"resolutions": {
-		"@mui/styled-engine": "npm:@mui/styled-engine-sc@latest"
 	}
 }

@@ -43,7 +43,8 @@ Thumbs.db
 
 # Private credentials
 *.credentials.*
-*.env*
+.env
+.env.sh
 
 # NX Migrations
 migrations.json
