@@ -6,7 +6,9 @@ export default function useSetupSession() {
 	const [session, setSession] = useState<StrapiAuthResponse>(null);
 
 	async function revalidate() {
-		const data = await fetch('/api/session').then((res) => res.json());
+		const data = await fetch('/api/session', {
+			credentials: 'same-origin',
+		}).then((res) => res.json());
 
 		setSession(data);
 	}

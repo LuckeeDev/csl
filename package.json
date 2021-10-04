@@ -70,7 +70,6 @@
 		"jwt-decode": "^3.1.2",
 		"mongoose": "^5.9.22",
 		"next": "11.1.0",
-		"next-iron-session": "^4.2.0",
 		"ngx-markdown": "^11.0.0",
 		"passport": "^0.4.1",
 		"passport-google-oauth": "^2.0.0",
