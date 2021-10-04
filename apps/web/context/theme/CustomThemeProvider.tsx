@@ -1,34 +1,20 @@
-import { Theme, ThemeProvider } from '@mui/material';
-import { ReactNode, useRef, useState } from 'react';
-import ToggleThemeContext from './ToggleThemeContext';
+import { ThemeProvider } from '@mui/material';
+import { ReactNode } from 'react';
+import CustomThemeContext, {
+	CustomThemeContextModel,
+} from './CustomThemeContext';
 
 interface CustomThemeProviderProps {
-	light: Theme;
-	dark: Theme;
+	context: CustomThemeContextModel;
 	children: ReactNode;
 }
 
 export default function CustomThemeProvider(props: CustomThemeProviderProps) {
-	const [theme, setTheme] = useState(props.light);
-	const lastTheme = useRef<'dark' | 'light'>('light');
-
-	function toggleTheme() {
-		setTheme(() => {
-			if (lastTheme.current === 'dark') {
-				lastTheme.current = 'light';
-				return props.light;
-			} else if (lastTheme.current === 'light') {
-				lastTheme.current = 'dark';
-				return props.dark;
-			}
-		});
-	}
-
 	return (
-		<ThemeProvider theme={theme}>
-			<ToggleThemeContext.Provider value={toggleTheme}>
+		<ThemeProvider theme={props.context.theme}>
+			<CustomThemeContext.Provider value={props.context}>
 				{props.children}
-			</ToggleThemeContext.Provider>
+			</CustomThemeContext.Provider>
 		</ThemeProvider>
 	);
 }
