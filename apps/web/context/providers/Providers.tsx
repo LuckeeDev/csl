@@ -1,3 +1,5 @@
+import client from '@/graphql/client';
+import { ApolloProvider } from '@apollo/client';
 import { ReactNode } from 'react';
 import { SessionContextModel } from '../session/SessionContext';
 import SessionProvider from '../session/SessionProvider';
@@ -12,10 +14,12 @@ interface ProvidersProps {
 
 export default function Providers(props: ProvidersProps) {
 	return (
-		<SessionProvider session={props.sessionContext}>
-			<CustomThemeProvider context={props.themeContext}>
-				{props.children}
-			</CustomThemeProvider>
-		</SessionProvider>
+		<ApolloProvider client={client}>
+			<SessionProvider session={props.sessionContext}>
+				<CustomThemeProvider context={props.themeContext}>
+					{props.children}
+				</CustomThemeProvider>
+			</SessionProvider>
+		</ApolloProvider>
 	);
 }
