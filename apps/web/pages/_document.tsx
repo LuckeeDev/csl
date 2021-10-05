@@ -8,6 +8,8 @@ export default class CustomDocument extends Document {
 		return (
 			<Html>
 				<Head>
+					<link rel="favicon" href="/favicon.ico" />
+
 					<link
 						rel="stylesheet"
 						href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
@@ -82,9 +84,6 @@ CustomDocument.getInitialProps = async (ctx) => {
 	return {
 		...initialProps,
 		// Styles fragment is rendered after the app and page rendering finish.
-		styles: [
-			...Children.toArray(initialProps.styles),
-			...emotionStyleTags,
-		],
+		styles: [...Children.toArray(initialProps.styles), ...emotionStyleTags],
 	};
 };

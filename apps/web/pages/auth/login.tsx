@@ -3,6 +3,7 @@ import login from '@/utils/auth/login';
 import { Button } from '@mui/material';
 import { GetStaticProps } from 'next';
 import { environment } from '@/environments/environment';
+import PageTitle from '@/components/head/PageTitle';
 
 interface LoginPageProps {
 	providers: StrapiLoginProvider[];
@@ -10,13 +11,17 @@ interface LoginPageProps {
 
 export default function LoginPage({ providers }: LoginPageProps) {
 	return (
-		<div>
-			{providers.map((provider, i) => (
-				<Button key={i} onClick={() => login(provider.name)}>
-					{provider.name}
-				</Button>
-			))}
-		</div>
+		<>
+			<PageTitle>Login</PageTitle>
+
+			<div>
+				{providers.map((provider, i) => (
+					<Button key={i} onClick={() => login(provider.name)}>
+						{provider.name}
+					</Button>
+				))}
+			</div>
+		</>
 	);
 }
 

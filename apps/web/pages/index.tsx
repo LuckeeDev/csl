@@ -1,3 +1,4 @@
+import PageTitle from '@/components/head/PageTitle';
 import ThemeSwitch from '@/components/switch/ThemeSwitch';
 import useSession from '@/hooks/session/useSession';
 import { Button, Link as MuiLink } from '@mui/material';
@@ -8,6 +9,8 @@ export function Index() {
 
 	return (
 		<>
+			<PageTitle>Home</PageTitle>
+
 			<ThemeSwitch />
 			<Button>Hi {session && session.user.name}</Button>
 			<Link href="/auth/login" passHref>

@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
 	return (
 		<Providers sessionContext={sessionContext} themeContext={themeContext}>
 			<Head>
-				<title>Welcome to web!</title>
+				<title>Comitato Studentesco Lussana</title>
 			</Head>
 
 			<CssBaseline />
