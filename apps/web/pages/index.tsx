@@ -1,8 +1,8 @@
 import PageTitle from '@/components/head/PageTitle';
+import MuiNextLink from '@/components/link/MuiNextLink';
 import ThemeSwitch from '@/components/switch/ThemeSwitch';
 import useSession from '@/hooks/session/useSession';
-import { Button, Link as MuiLink } from '@mui/material';
-import Link from 'next/link';
+import { Button } from '@mui/material';
 
 export function Index() {
 	const { session } = useSession();
@@ -13,9 +13,7 @@ export function Index() {
 
 			<ThemeSwitch />
 			<Button>Hi {session && session.user.name}</Button>
-			<Link href="/auth/login" passHref>
-				<MuiLink>Login</MuiLink>
-			</Link>
+			<MuiNextLink href="/auth/login">Login</MuiNextLink>
 		</>
 	);
 }
