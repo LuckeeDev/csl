@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Link as MuiLink, LinkProps } from '@mui/material';
 
-interface MuiNextLinkProps extends LinkProps {
+export interface MuiNextLinkProps extends LinkProps {
 	children: string;
 }
 

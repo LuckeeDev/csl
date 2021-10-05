@@ -1,3 +1,4 @@
+import PageTitle from '@/components/head/PageTitle';
 import serverQuery from '@/graphql/serverQuery';
 import { gql } from '@apollo/client';
 import { StrapiArticle } from '@csl/types';
@@ -18,6 +19,8 @@ interface ArticlesHomePageProps {
 export default function ArticlesHomePage(props: ArticlesHomePageProps) {
 	return (
 		<>
+			<PageTitle>Articoli</PageTitle>
+
 			{props.articles.map(({ title }, i) => (
 				<p key={i}>{title}</p>
 			))}
