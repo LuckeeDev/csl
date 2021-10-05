@@ -35,7 +35,7 @@
 		"@editorjs/list": "^1.6.1",
 		"@editorjs/paragraph": "^2.8.0",
 		"@emotion/react": "^11.4.1",
-		"@emotion/server": "11.0.0",
+		"@emotion/server": "^11.4.0",
 		"@emotion/styled": "^11.3.0",
 		"@google-cloud/storage": "^5.4.0",
 		"@mui/icons-material": "^5.0.1",
