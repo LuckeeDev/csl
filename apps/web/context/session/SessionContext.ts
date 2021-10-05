@@ -1,14 +1,12 @@
-import { StrapiAuthResponse } from '@csl/types';
+import { StrapiUser } from '@csl/types';
 import { createContext } from 'react';
 
 export interface SessionContextModel {
-	session: StrapiAuthResponse;
+	user: StrapiUser;
+	initializing: boolean;
 	revalidate: () => void;
 }
 
-const SessionContext = createContext<SessionContextModel>({
-	session: null,
-	revalidate: null,
-});
+const SessionContext = createContext<SessionContextModel>(null);
 
 export default SessionContext;

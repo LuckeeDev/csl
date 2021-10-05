@@ -4,6 +4,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import Providers from '@/context/providers/Providers';
+import AuthGuard from '@/components/auth/AuthGuard';
 
 export default function App({ Component, pageProps }: AppProps) {
 	const sessionContext = useSetupSession();
@@ -19,7 +20,13 @@ export default function App({ Component, pageProps }: AppProps) {
 
 			<div>
 				<main>
-					<Component {...pageProps} />
+					{pageProps.requireAuth === true ? (
+						<AuthGuard>
+							<Component {...pageProps} />
+						</AuthGuard>
+					) : (
+						<Component {...pageProps} />
+					)}
 				</main>
 			</div>
 		</Providers>
