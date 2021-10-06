@@ -12,7 +12,12 @@ export default async function serverQuery<T>(
 		fetchPolicy: options?.useCache === false ? 'network-only' : 'cache-first',
 		context: {
 			headers: {
-				Authorization: options?.jwt ? `Bearer ${options.jwt}` : '',
+				...(options.jwt && {
+					Authorization: `Bearer ${options.jwt}`,
+				}),
+				...(options.apiToken && {
+					Token: options.apiToken,
+				}),
 			},
 		},
 	});

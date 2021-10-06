@@ -1,4 +1,5 @@
 import PageTitle from '@/components/head/PageTitle';
+import { environment } from '@/environments/environment';
 import serverQuery from '@/graphql/serverQuery';
 import { gql } from '@apollo/client';
 import { StrapiArticle } from '@csl/types';
@@ -34,7 +35,7 @@ export const getStaticProps: GetStaticProps<ArticlesHomePageProps> = async (
 	const { data } = await serverQuery<{ articles: StrapiArticle[] }>(
 		GET_ARTICLES_QUERY,
 		{
-			jwt: process.env.JWT,
+			apiToken: environment.apiToken,
 		}
 	);
 

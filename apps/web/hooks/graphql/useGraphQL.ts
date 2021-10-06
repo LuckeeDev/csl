@@ -3,7 +3,7 @@ import { GraphQLQueryOptions } from '@csl/types';
 
 export default function useGraphQL(
 	query: DocumentNode,
-	options?: Omit<GraphQLQueryOptions, 'jwt'>
+	options?: Omit<GraphQLQueryOptions, 'jwt' | 'apiToken'>
 ) {
 	const result = useQuery(query, {
 		fetchPolicy: options?.useCache === false ? 'network-only' : 'cache-first',

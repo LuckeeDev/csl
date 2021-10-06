@@ -15,17 +15,49 @@ module.exports = async (ctx, next) => {
 	// with Authorization header.
 	if (ctx.request && ctx.request.header && !ctx.request.header.authorization) {
 		const token = ctx.cookies.get('token');
-		console.log(token);
 		if (token) {
 			ctx.request.header.authorization = 'Bearer ' + token;
 		}
 	}
 
-	if (ctx.request && ctx.request.header && ctx.request.header.authorization) {
+	if (
+		(ctx.request && ctx.request.header && ctx.request.header.authorization) ||
+		(ctx.request.header && ctx.request.header.token)
+	) {
 		try {
-			const { id } = await strapi.plugins[
-				'users-permissions'
-			].services.jwt.getToken(ctx);
+			// init `id` outside of validation blocks
+			let id;
+
+			// This is part of the implementation of API tokens. We're using a header
+			// instead of a query param because we use GraphQL.
+			// @see https://strapi.io/documentation/developer-docs/latest/guides/api-token.html#add-token-validation-logic
+			if (ctx.request.header && ctx.request.header.token) {
+				// find the token entry that match the token from the request
+				const [token] = await strapi
+					.query('token')
+					.find({ token: ctx.request.header.token });
+
+				if (!token) {
+					throw new Error(`Invalid token: This token doesn't exist`);
+				} else {
+					if (token.user && typeof token.token === 'string') {
+						id = token.user.id;
+					}
+				}
+
+				delete ctx.request.header.token;
+			} else if (
+				ctx.request &&
+				ctx.request.header &&
+				ctx.request.header.authorization
+			) {
+				// use the current system with JWT in the header
+				const decoded = await strapi.plugins[
+					'users-permissions'
+				].services.jwt.getToken(ctx);
+
+				id = decoded.id;
+			}
 
 			if (id === undefined) {
 				throw new Error('Invalid token: Token did not contain required fields');

@@ -65,6 +65,11 @@
     },
     "name": {
       "type": "string"
+    },
+    "token": {
+      "private": true,
+      "via": "user",
+      "model": "token"
     }
   }
 }
