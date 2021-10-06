@@ -12,8 +12,9 @@ export default class CustomDocument extends Document {
 
 					<link
 						rel="stylesheet"
-						href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-					/>
+						href="https://fonts.googleapis.com/css?family=Product+Sans&display=swap"
+						media="all"
+					></link>
 					<link
 						rel="stylesheet"
 						href="https://fonts.googleapis.com/icon?family=Material+Icons"

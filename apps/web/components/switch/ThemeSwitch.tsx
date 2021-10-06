@@ -24,7 +24,7 @@ const ThemeSwitchComponent = styled(Switch)(({ theme }) => ({
 		},
 	},
 	'& .MuiSwitch-thumb': {
-		backgroundColor: theme.palette.mode === 'dark' ? '#003892' : '#001e3c',
+		backgroundColor: theme.palette.primary.main,
 		width: 28,
 		height: 28,
 		'&:before': {
