@@ -1,0 +1,23 @@
+{
+	"root": "libs/next-ui",
+	"sourceRoot": "libs/next-ui/src",
+	"projectType": "library",
+	"tags": [],
+	"targets": {
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": ["libs/next-ui/**/*.{ts,tsx,js,jsx}"]
+			}
+		},
+		"test": {
+			"executor": "@nrwl/jest:jest",
+			"outputs": ["coverage/libs/next-ui"],
+			"options": {
+				"jestConfig": "libs/next-ui/jest.config.js",
+				"passWithNoTests": true
+			}
+		}
+	}
+}

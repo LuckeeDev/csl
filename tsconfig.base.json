@@ -17,6 +17,7 @@
 		"baseUrl": ".",
 		"paths": {
 			"@csl/google": ["libs/google/src/index.ts"],
+			"@csl/next-ui": ["libs/next-ui/src/index.ts"],
 			"@csl/shared": ["libs/shared/src/index.ts"],
 			"@csl/strapi": ["libs/strapi/src/index.ts"],
 			"@csl/types": ["libs/types/src/index.ts"],

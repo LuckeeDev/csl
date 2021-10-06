@@ -15,8 +15,9 @@ interface StyledNavLinkProps extends MuiNextLinkProps {
 const StyledNavLink = styled(MuiNextLink)(
 	({ theme, width }: StyledNavLinkProps) => ({
 		position: 'relative',
+		width: 'auto',
 		'::after': {
-			backgroundColor: theme.palette.primary.main,
+			backgroundColor: theme?.palette.primary.main,
 			content: '""',
 			height: '2px',
 			width,
@@ -47,7 +48,7 @@ export default function NavLink({
 	}, [router, href]);
 
 	return (
-		<StyledNavLink {...props} underline="always" href={href} width={width}>
+		<StyledNavLink {...props} underline="none" href={href} width={width}>
 			{children}
 		</StyledNavLink>
 	);
