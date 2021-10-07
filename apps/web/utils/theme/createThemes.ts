@@ -87,7 +87,7 @@ export default function createThemes(): CreateThemesResult {
 		palette: {
 			mode: 'dark',
 			primary: {
-				main: '#1976d2',
+				main: '#2196f3',
 			},
 		},
 		...GLOBAL_THEME_OPTIONS,

@@ -4,31 +4,40 @@ import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import MuiNextLink, { MuiNextLinkProps } from './MuiNextLink';
 
-const FULL_WIDTH = '100%';
-const NO_WIDTH = '0%';
-
 interface StyledNavLinkProps extends MuiNextLinkProps {
 	theme?: Theme;
-	width: string;
 }
 
-const StyledNavLink = styled(MuiNextLink)(
-	({ theme, width }: StyledNavLinkProps) => ({
+const StyledNavLink = styled(MuiNextLink)(({ theme }: StyledNavLinkProps) => {
+	const activeColor = theme?.palette.primary.main;
+	const baseColor = theme?.palette.primary.dark;
+
+	return {
 		position: 'relative',
 		width: 'auto',
+		color: baseColor,
+		':hover': {
+			color: activeColor,
+		},
 		'::after': {
-			backgroundColor: theme?.palette.primary.main,
+			backgroundColor: activeColor,
 			content: '""',
 			height: '2px',
-			width,
+			width: '0%',
 			display: 'block',
 			position: 'absolute',
 			bottom: '0',
 			left: '0',
-			transition: 'all .2s ease-in-out',
+			transition: 'width .2s ease-in-out',
 		},
-	})
-);
+		'&.active': {
+			color: activeColor,
+		},
+		'&.active::after': {
+			width: '100%',
+		},
+	};
+});
 
 export default function NavLink({
 	href,
@@ -37,18 +46,17 @@ export default function NavLink({
 }: MuiNextLinkProps) {
 	const router = useRouter();
 
-	const width = useMemo(() => {
-		const isActive = router.route === href;
-
-		if (isActive) {
-			return FULL_WIDTH;
-		} else {
-			return NO_WIDTH;
-		}
+	const isActive = useMemo(() => {
+		return router.route === href;
 	}, [router, href]);
 
 	return (
-		<StyledNavLink {...props} underline="none" href={href} width={width}>
+		<StyledNavLink
+			{...props}
+			underline="none"
+			href={href}
+			className={isActive ? 'active' : ''}
+		>
 			{children}
 		</StyledNavLink>
 	);
