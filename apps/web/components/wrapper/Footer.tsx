@@ -36,7 +36,7 @@ export default function Footer() {
 					<MuiNextLink href="https://github.com/LuckeeDev/csl" target="_blank">
 						CSL project
 					</MuiNextLink>
-					, read our <MuiNextLink href="/privacy">privacy policy</MuiNextLink>{' '}
+					. Read our <MuiNextLink href="/privacy">privacy policy</MuiNextLink>{' '}
 					and <MuiNextLink href="/tos">terms of service</MuiNextLink>.
 				</StyledFooterParagraph>
 
