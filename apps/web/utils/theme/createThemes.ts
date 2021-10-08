@@ -41,6 +41,13 @@ const GLOBAL_THEME_OPTIONS: ThemeOptions = {
 				},
 			},
 		},
+		MuiListItemButton: {
+			styleOverrides: {
+				root: {
+					borderRadius: 10,
+				},
+			},
+		},
 		MuiRadio: {
 			defaultProps: {
 				color: 'primary',

@@ -1,5 +1,5 @@
 import PageTitle from '@/components/head/PageTitle';
-import { MuiNextLink } from '@csl/next-ui';
+import { MuiNextLink } from '@/components/link';
 
 export function Index() {
 	return (
