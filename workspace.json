@@ -5,7 +5,6 @@
 		"client": "apps\\client",
 		"client-e2e": "apps\\client-e2e",
 		"google": "libs\\google",
-		"next-ui": "libs/next-ui",
 		"shared": "libs\\shared",
 		"strapi": "libs\\strapi",
 		"types": "libs\\types",
