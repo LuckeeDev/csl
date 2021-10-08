@@ -1,6 +1,7 @@
-import { StrapiImage } from '@csl/types';
+import { StrapiImage } from '../images';
 
 export interface StrapiArticle {
+	id: string;
 	title: string;
 	content: string;
 	author: string;

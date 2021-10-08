@@ -47,7 +47,11 @@ export default function NavLink({
 	const router = useRouter();
 
 	const isActive = useMemo(() => {
-		return router.route === href;
+		if (href === '/') {
+			return router.route === href;
+		}
+		
+		return router.route.startsWith(href);
 	}, [router, href]);
 
 	return (

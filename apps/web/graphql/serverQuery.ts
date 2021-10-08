@@ -20,5 +20,6 @@ export default async function serverQuery<T>(
 				}),
 			},
 		},
+		...(options.variables && { variables: options.variables }),
 	});
 }

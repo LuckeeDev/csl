@@ -1,17 +1,10 @@
 import PageTitle from '@/components/head/PageTitle';
+import { MuiNextLink } from '@/components/link';
 import { environment } from '@/environments/environment';
+import { GET_ARTICLES_QUERY } from '@/graphql/queries/getArticles';
 import serverQuery from '@/graphql/serverQuery';
-import { gql } from '@apollo/client';
 import { StrapiArticle } from '@csl/types';
 import { GetStaticProps } from 'next';
-
-const GET_ARTICLES_QUERY = gql`
-	query {
-		articles {
-			title
-		}
-	}
-`;
 
 interface ArticlesHomePageProps {
 	articles: StrapiArticle[];
@@ -22,8 +15,10 @@ export default function ArticlesHomePage(props: ArticlesHomePageProps) {
 		<>
 			<PageTitle>Articoli</PageTitle>
 
-			{props.articles.map(({ title }, i) => (
-				<p key={i}>{title}</p>
+			{props.articles.map(({ title, id }, i) => (
+				<MuiNextLink key={i} href={`/articles/${id}`}>
+					{title}
+				</MuiNextLink>
 			))}
 		</>
 	);
