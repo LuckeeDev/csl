@@ -45,6 +45,7 @@ const GLOBAL_THEME_OPTIONS: ThemeOptions = {
 			styleOverrides: {
 				root: {
 					borderRadius: 10,
+					marginBottom: 5,
 				},
 			},
 		},

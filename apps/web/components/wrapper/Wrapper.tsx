@@ -16,6 +16,7 @@ const StyledWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	height: 100%;
+	box-sizing: border-box;
 `;
 
 export default function Wrapper(props: WrapperProps) {
