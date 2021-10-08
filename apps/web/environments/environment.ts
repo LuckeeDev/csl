@@ -1,6 +1,6 @@
 export const environment = {
-	strapi: 'http://localhost:1337',
-	client: 'http://localhost:4200',
-	cookieDomain: 'localhost',
+	strapi: process.env.STRAPI_URI,
+	client: process.env.CLIENT_URI,
+	cookieDomain: process.env.COOKIE_DOMAIN,
 	apiToken: process.env.API_TOKEN,
 };

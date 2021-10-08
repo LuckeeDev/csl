@@ -1,6 +1,6 @@
 export const environment = {
-	strapi: 'https://strapi.cslussana.com',
-	client: 'https://cslussana.com',
-	cookieDomain: 'cslussana.com',
+	strapi: process.env.STRAPI_URI,
+	client: process.env.CLIENT_URI,
+	cookieDomain: process.env.COOKIE_DOMAIN,
 	apiToken: process.env.API_TOKEN,
 };
