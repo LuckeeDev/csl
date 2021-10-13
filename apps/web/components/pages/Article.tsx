@@ -10,15 +10,16 @@ const StyledArticleContainer = styled.div`
 	flex-direction: column;
 `;
 
-const StyledDataContainer = styled.div`
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
+const StyledDataContainer = muiStyled('div')(({ theme }) => ({
+	width: '100%',
+	display: 'flex',
+	justifyContent: 'space-between',
+	color: theme.palette.text.secondary,
 
-	p {
-		margin: 0;
-	}
-`;
+	p: {
+		margin: 0,
+	},
+}));
 
 const LeftDataContainer = styled.div``;
 
@@ -61,7 +62,7 @@ export default function Article({ article }: ArticleProps) {
 			<StyledMarkdownSnippet>{article.snippet}</StyledMarkdownSnippet>
 
 			<Markdown>{article.content}</Markdown>
-			
+
 			<i>{article.author}</i>
 		</StyledArticleContainer>
 	);

@@ -12,11 +12,12 @@ export const StyledMarkdownImage = styled.img`
 	margin: 0 auto;
 `;
 
-const StyledCaption = muiStyled('caption')(({ theme }) => ({
+const StyledCaption = muiStyled('span')(({ theme }) => ({
 	color: theme.palette.text.secondary,
 	alignSelf: 'center',
 	display: 'block',
-	margin: '0 auto',
+	margin: '1px auto 0',
+	textAlign: 'center'
 }));
 
 interface MarkdownProps {
