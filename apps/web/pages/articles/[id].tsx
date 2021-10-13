@@ -7,11 +7,24 @@ import { StrapiArticle } from '@csl/types';
 import { CircularProgress } from '@mui/material';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
+import Article from '@/components/pages/Article';
 
 const GET_ARTICLE_QUERY = gql`
 	query Article($id: ID!) {
 		article(id: $id) {
 			title
+			content
+			author
+			category {
+				name
+			}
+			published_at
+			cover {
+				url
+				caption
+			}
+			reading_time
+			snippet
 		}
 	}
 `;
@@ -32,7 +45,7 @@ export default function ArticlePage({ article }: ArticlePageProps) {
 		<>
 			<PageTitle>{article.title}</PageTitle>
 
-			<p>{article.title}</p>
+			<Article article={article} />
 		</>
 	);
 }

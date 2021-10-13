@@ -10,6 +10,9 @@ const nextConfig = {
 		// See: https://github.com/gregberge/svgr
 		svgr: false,
 	},
+	images: {
+		domains: ['static.cslussana.com', 'localhost'],
+	},
 };
 
 module.exports = withNx(nextConfig);

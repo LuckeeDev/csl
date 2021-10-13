@@ -5,6 +5,7 @@ import PackageJSON from '../../../../package.json';
 
 const StyledFooter = styled.div`
 	height: 100px;
+	min-height: 100px;
 	margin-top: auto;
 `;
 

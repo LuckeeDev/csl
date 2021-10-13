@@ -8,6 +8,8 @@ export interface StrapiArticle {
 	published_at: string;
 	category: StrapiArticleCategory;
 	cover: StrapiImage;
+	reading_time: number;
+	snippet: string;
 }
 
 export interface StrapiArticleCategory {
