@@ -5063,6 +5063,11 @@
   dependencies:
     "@types/express" "*"
 
+"@types/pdfjs-dist@*":
+  version "2.7.5"
+  resolved "https://registry.yarnpkg.com/@types/pdfjs-dist/-/pdfjs-dist-2.7.5.tgz#53fc13e30b6bd18acdb3617fb6332a43225e0ffa"
+  integrity sha512-QdKChstEcREV+imniONC3JvSSFOeYv0RL12QOpzSfTpGg7xRAZcJXpWdJEtuH6FAPXX5V+sp9i/sBHJ9bsU7JA==
+
 "@types/prettier@^2.1.5":
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.4.1.tgz#e1303048d5389563e130f5bdd89d37a99acb75eb"
@@ -5114,6 +5119,14 @@
   resolved "https://registry.yarnpkg.com/@types/react-is/-/react-is-17.0.2.tgz#abc4d910bff5b0bc6b3e1bec57575f6b63fd4e05"
   integrity sha512-2+L0ilcAEG8udkDnvx8B0upwXFBbNnVwOsSCTxW3SDOkmar9NyEeLG0ZLa3uOEw9zyYf/fQapcnfXAVmDKlyHw==
   dependencies:
+    "@types/react" "*"
+
+"@types/react-pdf@^5.0.7":
+  version "5.0.7"
+  resolved "https://registry.yarnpkg.com/@types/react-pdf/-/react-pdf-5.0.7.tgz#befcde41da992998a55d41068b8033266923e431"
+  integrity sha512-WMEPH4BooaZjbBmahGQa9GmqWro3H78UFttKSocX8z8LWgA4LyuXPILpZM+WZuTpbXMXNPcQXce+Ef82EElQMQ==
+  dependencies:
+    "@types/pdfjs-dist" "*"
     "@types/react" "*"
 
 "@types/react-test-renderer@>=16.9.0":
