@@ -5,6 +5,10 @@ export const GET_ARTICLES_QUERY = gql`
 		articles {
 			title
 			id
+			cover {
+				url
+				caption
+			}
 		}
 	}
 `;

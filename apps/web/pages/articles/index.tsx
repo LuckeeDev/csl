@@ -1,10 +1,15 @@
+import MainArticle from '@/components/article/MainArticle';
 import PageTitle from '@/components/head/PageTitle';
-import { MuiNextLink } from '@/components/link';
 import { environment } from '@/environments/environment';
 import { GET_ARTICLES_QUERY } from '@/graphql/queries/getArticles';
 import serverQuery from '@/graphql/serverQuery';
 import { StrapiArticle } from '@csl/types';
+import styled from '@emotion/styled';
 import { GetStaticProps } from 'next';
+
+const StyledArticlesHomeContainer = styled.div`
+	padding: 20px 20% 50px;
+`;
 
 interface ArticlesHomePageProps {
 	articles: StrapiArticle[];
@@ -12,15 +17,13 @@ interface ArticlesHomePageProps {
 
 export default function ArticlesHomePage(props: ArticlesHomePageProps) {
 	return (
-		<>
+		<StyledArticlesHomeContainer>
 			<PageTitle>Articoli</PageTitle>
 
-			{props.articles.map(({ title, id }, i) => (
-				<MuiNextLink key={i} href={`/articles/${id}`}>
-					{title}
-				</MuiNextLink>
+			{props.articles.map((article, i) => (
+				<MainArticle article={article} key={i} />
 			))}
-		</>
+		</StyledArticlesHomeContainer>
 	);
 }
 
