@@ -12,36 +12,5 @@
 		"web": "apps/web",
 		"web-e2e": "apps/web-e2e",
 		"workspace": "."
-	},
-	"cli": {
-		"defaultCollection": "@nrwl/angular"
-	},
-	"generators": {
-		"@nrwl/angular:application": {
-			"style": "scss",
-			"linter": "eslint",
-			"unitTestRunner": "jest",
-			"e2eTestRunner": "cypress"
-		},
-		"@nrwl/angular:library": {
-			"style": "scss",
-			"linter": "eslint",
-			"unitTestRunner": "jest"
-		},
-		"@nrwl/angular:component": {
-			"style": "scss"
-		},
-		"@nrwl/react": {
-			"application": {
-				"babel": true
-			}
-		},
-		"@nrwl/next": {
-			"application": {
-				"style": "@emotion/styled",
-				"linter": "eslint"
-			}
-		}
-	},
-	"defaultProject": "client"
+	}
 }
