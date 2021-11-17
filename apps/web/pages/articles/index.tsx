@@ -1,4 +1,5 @@
-import MainArticle from '@/components/article/MainArticle';
+import MainArticle from '@/components/article/MainArticle.server';
+import SideArticle from '@/components/article/SideArticle.server';
 import PageTitle from '@/components/head/PageTitle';
 import { environment } from '@/environments/environment';
 import { GET_ARTICLES_QUERY } from '@/graphql/queries/getArticles';
@@ -11,6 +12,12 @@ const StyledArticlesHomeContainer = styled.div`
 	padding: 20px 20% 50px;
 `;
 
+const CategoryContainer = styled.div`
+	display: grid;
+	grid-template-columns: 60% 40%;
+	grid-gap: 10px;
+`;
+
 interface ArticlesHomePageProps {
 	articles: StrapiArticle[];
 }
@@ -20,9 +27,16 @@ export default function ArticlesHomePage(props: ArticlesHomePageProps) {
 		<StyledArticlesHomeContainer>
 			<PageTitle>Articoli</PageTitle>
 
-			{props.articles.map((article, i) => (
-				<MainArticle article={article} key={i} />
-			))}
+			<h1>Articoli in evidenza</h1>
+			<CategoryContainer>
+				<MainArticle article={props.articles[0]} />
+
+				<div>
+					{props.articles.map((article, i) => (
+						<SideArticle article={article} key={i} />
+					))}
+				</div>
+			</CategoryContainer>
 		</StyledArticlesHomeContainer>
 	);
 }
