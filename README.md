@@ -1,63 +1,26 @@
 # CSL
 
-Sito del Comitato Studentesco del [Liceo Lussana](https://liceolussana.edu.it) di Bergamo.
+## What's this?
 
-<p align="center"><img src="./apps/client/src/assets/img/logo.png" width="350"></p>
+I originally started this project as a way for the students of my school to get involved in student activities during the quarantine.
+After seeing what this idea could do, I decided to make it open source. The road is still long and I will need some help to accomplish this,
+but in the mean time feel free to play with what I have here.
 
-🔎 **In quanto Comitato Studentesco, ci occupiamo di tutte le attività dedicate a noi studenti del Liceo.**
+## How's the development of V2 taking place?
 
-## Finalità della piattaforma
+For version 2, which will be open for free to every school in the world, I decided to take a way more flexible approach. The previous version was
+tailor-made for my school, but this one will be different. Students will be able to create school clubs, to sell gadgets and yearbooks, to order
+at their school cafe, to start loyalty programs for their students... all from this web app! The dev branches are prefixed by `v2/` and the main
+one is currently `v2/next`.
 
-Fill with the purpose of this application
+## Technology specifications
 
-## Tecnologie utilizzate
+The technologies used to build this web app strive to bring the best performance/cost ratio for schools, in order to make it available to the greatest
+number of students possible. The frontend is built with [NextJS 12](https://nextjs.org) and is thought to be hosted on [Vercel](https://vercel.com). The
+backend is currently on [Strapi V3](https://strapi.io) with [PostgreSQL](https://www.postgresql.org), but will soon move on to [Strapi V4](https://strapi.io/v4). Previous versions also used Firebase, but we're trying to move away from it.
 
-Fill with a list of used tools
+The repo uses some of the most advanced tools available in web development today: [Nx](https://nx.dev), [Eslint](https://eslint.org), [Prettier](https://prettier.io) and others. Running `yarn dev PROJECT_NAME` launches the projects, running `yarn build PROJECT_NAME` builds them.
 
-## Istruzioni per la distribuzione
+## How to get involved?
 
-Remove `server` and `maintenance` directories from the server.
-
-Use this command from the `csl` directory to upload the server files to a remote location...
-
-```shell
-pscp -P 22 -i C:\src\keys\csl-prod\ssh-csl-prod.ppk -r dist\api\* root@207.154.230.74:/home/luckee/csl/api
-```
-
-...this command to upload the client files...
-```shell
-pscp -P 22 -i C:\src\keys\csl-prod\ssh-csl-prod.ppk -r dist\client\* root@207.154.230.74:/home/luckee/csl/client
-```
-
-...or this command to upload the maintenance files
-```shell
-pscp -P 22 -i C:\src\keys\csl-prod\ssh-csl-prod.ppk -r dist\maintenance\* root@207.154.230.74:/home/luckee/csl/maintenance
-```
-
-Then, inside the `csl` folder of the server, run
-```
-# Start the Mongo replica set
-docker-compose db-rs1 db-rs2 db-rs3
-
-# Access first Mongo instance
-docker exec -it csl_db-rs1_1 bash
-
-# Setup Mongo replica set
-mongo setup/index.js
-```
-
-After that, build the main server and the maintenance server with
-```
-# Don't start the services
-docker-compose up --build --no-start server
-
-docker-compose up --build --no-start maintenance
-```
-
-And then start the appropriate service with
-```
-docker-compose start <service-name>
-```
-## Politica sui Cookie e informazioni sulla privacy
-
-We store cookies exclusively for authentication purposes, no device or personal info is stored
+I would love to get some help on this project! If you want to get involved, play around with some of the code and feel free to open a pull request or to contact me through an issue or via email at [luca@luckee.dev](mailto:luca@luckee.dev)!
