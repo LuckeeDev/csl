@@ -7,6 +7,7 @@ module.exports = {
 				'http://localhost:1337',
 				'https://api.cslussana.com',
 				'https://admin.cslussana.com',
+				'https://admin.beta.cslussana.com',
 				'https://cslussana.com',
 			],
 		},
