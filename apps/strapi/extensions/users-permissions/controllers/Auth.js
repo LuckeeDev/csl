@@ -252,6 +252,16 @@ module.exports = {
 			})
 			.get();
 
+		// TODO: change this logic
+		const extendedGrantConfig = {
+			...grantConfig,
+			google: {
+				...grantConfig.google,
+				redirect_uri: grantConfig.google.redirectUri,
+				custom_params: { hd: process.env.SIGNIN_DOMAIN },
+			},
+		};
+
 		const [requestPath] = ctx.request.url.split('?');
 		const provider = requestPath.split('/')[2];
 
@@ -273,7 +283,7 @@ module.exports = {
 				provider
 			);
 
-		return grant(grantConfig)(ctx, next);
+		return grant(extendedGrantConfig)(ctx, next);
 	},
 
 	async forgotPassword(ctx) {
