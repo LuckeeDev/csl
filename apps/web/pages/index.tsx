@@ -1,18 +1,24 @@
 import SignupModal from '@/components/auth/signup/SignupModal.client';
 import PageTitle from '@/components/head/PageTitle';
 import { MuiNextLink } from '@/components/link';
+import useSession from '@/hooks/session/useSession';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 export function Index() {
-	const route = useRouter();
+	const router = useRouter();
+	const { user } = useSession();
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	useEffect(() => {
-		if (route.query.signup) {
-			setIsModalOpen(true);
+		if (router.query.signup) {
+			if (user && (!user.name || !user.group)) {
+				setIsModalOpen(true);
+			} else {
+				router.push('/');
+			}
 		}
-	}, [route.query.signup]);
+	}, [user, router]);
 
 	return (
 		<>

@@ -1,8 +1,8 @@
 import { StrapiAuthResponse } from '@csl/types';
 import { environment } from '@/environments/environment';
 import { serialize } from 'cookie';
-import { NextApiResponse } from 'next';
-import withSession from '@/utils/session/withSession';
+import { NextApiRequest, NextApiResponse } from 'next';
+import axios from 'axios';
 const AUTH_URL = `${environment.strapi}/auth`;
 
 function setCookieToken(res: NextApiResponse<unknown>, token: string) {
@@ -20,26 +20,23 @@ function setCookieToken(res: NextApiResponse<unknown>, token: string) {
 	);
 }
 
-export default withSession(async (req, res) => {
+export default async function handler(
+	req: NextApiRequest,
+	res: NextApiResponse
+) {
 	const { access_token, provider } = req.query;
 
 	const url = `${AUTH_URL}/${provider}/callback?access_token=${access_token}`;
 
-	const { jwt, user }: StrapiAuthResponse = await fetch(url).then((res) =>
-		res.json()
-	);
+	const { jwt, user }: StrapiAuthResponse = await axios
+		.get(url)
+		.then((res) => res.data);
 
-	// Run "setCookieToken" first to prevent conflicts with Iron Session
 	setCookieToken(res, jwt);
 
-	// TODO: remove this ugly workaround
-	(req.session as any).user = user;
-
-	await req.session.save();
-
 	if (!user.name) {
-		res.redirect('/auth/signup');
+		res.redirect('/?signup=1');
 	} else {
 		res.redirect('/');
 	}
-});
+}

@@ -1,4 +1,4 @@
-import { StrapiUser } from '@csl/types';
+import { StrapiUser } from '../auth';
 
 export interface StrapiGroup {
 	id: string;

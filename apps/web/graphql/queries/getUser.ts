@@ -11,7 +11,7 @@ export const GET_USER_QUERY = gql`
 			role {
 				type
 			}
-			classroom {
+			group {
 				name
 			}
 		}

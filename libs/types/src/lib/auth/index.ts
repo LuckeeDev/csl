@@ -1,4 +1,4 @@
-import { StrapiClassroom } from '../classroom';
+import { StrapiGroup } from '../groups';
 
 export interface StrapiRole {
 	id: number;
@@ -16,7 +16,7 @@ export interface StrapiUser {
 	confirmed: boolean;
 	blocked: boolean;
 	role: StrapiRole;
-	classroom: StrapiClassroom;
+	group: StrapiGroup;
 	created_at: string;
 	updated_at: string;
 }
