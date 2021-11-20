@@ -14,6 +14,7 @@ import {
 import { useEffect, useMemo } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import updateMe from '@/services/users/updateMe';
 
 interface SignupModalProps {
 	open: boolean;
@@ -38,8 +39,12 @@ export default function SignupModal({ open, onClose }: SignupModalProps) {
 			group: null,
 		},
 		validationSchema,
-		onSubmit: (val) => {
-			console.log(val);
+		onSubmit: async (val) => {
+			const data = { name: val.name, group: { id: val.group } };
+
+			await updateMe(data);
+
+			onClose();
 		},
 	});
 
