@@ -3,8 +3,6 @@ import useGraphQL from '@/hooks/graphql/useGraphQL';
 import { StrapiGroup } from '@csl/types';
 import {
 	Autocomplete,
-	AutocompleteChangeDetails,
-	AutocompleteChangeReason,
 	Button,
 	Dialog,
 	DialogActions,
@@ -13,7 +11,7 @@ import {
 	DialogTitle,
 	TextField,
 } from '@mui/material';
-import { SyntheticEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
@@ -37,7 +35,7 @@ export default function SignupModal({ open, onClose }: SignupModalProps) {
 	const formik = useFormik({
 		initialValues: {
 			name: '',
-			group: '',
+			group: null,
 		},
 		validationSchema,
 		onSubmit: (val) => {
@@ -53,7 +51,7 @@ export default function SignupModal({ open, onClose }: SignupModalProps) {
 	const groupsMap = useMemo(() => new Map(groups), [groups]);
 
 	useEffect(() => {
-		formik.setFieldValue('group', data?.groups[0].id ?? '');
+		formik.setFieldValue('group', data?.groups[0].id ?? null);
 		// Adding formik would break the entire page
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [data]);
@@ -87,10 +85,21 @@ export default function SignupModal({ open, onClose }: SignupModalProps) {
 						style={{ margin: '10px 0' }}
 						id="group"
 						options={groups.map(([id]) => id)}
-						getOptionLabel={(id) => groupsMap.get(id)}
-						renderInput={(params) => <TextField {...params} label="Gruppo" />}
+						getOptionLabel={(id) => groupsMap.get(id) ?? ''}
+						disableClearable
+						renderInput={(params) => (
+							<TextField
+								{...params}
+								label="Gruppo"
+								error={Boolean(formik.touched.group && formik.errors.group)}
+								helperText={formik.touched.group && formik.errors.group}
+							/>
+						)}
 						loading={data ? false : true}
 						loadingText="Caricamento in corso..."
+						value={formik.values.group}
+						onChange={(_, val) => formik.setFieldValue('group', val)}
+						onBlur={formik.handleBlur}
 					/>
 				</DialogContent>
 
