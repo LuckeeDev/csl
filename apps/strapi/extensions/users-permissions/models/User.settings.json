@@ -59,10 +59,6 @@
       "plugin": "users-permissions",
       "configurable": false
     },
-    "classroom": {
-      "via": "users",
-      "model": "classroom"
-    },
     "name": {
       "type": "string"
     },
@@ -70,6 +66,10 @@
       "private": true,
       "via": "user",
       "model": "token"
+    },
+    "group": {
+      "via": "users",
+      "model": "group"
     }
   }
 }

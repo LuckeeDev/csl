@@ -6,7 +6,7 @@ export const GET_LOGGEDIN_USER = gql`
 			email
 			username
 			name
-			classroom {
+			group {
 				name
 			}
 			role {
