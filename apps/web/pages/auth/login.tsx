@@ -40,9 +40,7 @@ export const getStaticProps: GetStaticProps<LoginPageProps> = async () => {
 				...provider,
 			})
 		)
-		.filter((val) => val.enabled === true)
-		// TODO: remove this line
-		.filter((val) => val.name === 'google');
+		.filter((val) => val.enabled === true);
 
 	return {
 		props: {
