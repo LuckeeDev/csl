@@ -4774,6 +4774,11 @@
   resolved "https://registry.yarnpkg.com/@trysound/sax/-/sax-0.2.0.tgz#cccaab758af56761eb7bf37af6f03f326dd798ad"
   integrity sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==
 
+"@tsndr/cloudflare-worker-jwt@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@tsndr/cloudflare-worker-jwt/-/cloudflare-worker-jwt-1.1.5.tgz#8357bdaf811c87ea258fc4e1ef644c94449508f7"
+  integrity sha512-+q0siASepCuFboIQrdgykBIESzttfWz3qXQ8Lx36mjMJpaS1XgErRvQ2+BPU8miXlBbslbxThRaMCW2o8nFtug==
+
 "@types/aria-query@^4.2.0":
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/@types/aria-query/-/aria-query-4.2.2.tgz#ed4e0ad92306a704f9fb132a0cfcf77486dbe2bc"

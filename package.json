@@ -47,6 +47,7 @@
 		"@ngxs/storage-plugin": "^3.7.1",
 		"@ngxs/store": "^3.6.2",
 		"@stripe/stripe-js": "^1.7.0",
+		"@tsndr/cloudflare-worker-jwt": "^1.1.5",
 		"apollo-angular": "^2.6.0",
 		"axios": "^0.24.0",
 		"connect-redis": "^5.1.0",

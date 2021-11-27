@@ -1,6 +1,5 @@
 import SignupModal from '@/components/auth/signup/SignupModal.client';
 import PageTitle from '@/components/head/PageTitle';
-import { MuiNextLink } from '@/components/link';
 import useSession from '@/hooks/session/useSession';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -24,7 +23,7 @@ export function Index() {
 		<>
 			<PageTitle>Home</PageTitle>
 
-			<MuiNextLink href="/auth/login">Login</MuiNextLink>
+			<h1>Home</h1>
 
 			<SignupModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
 		</>
