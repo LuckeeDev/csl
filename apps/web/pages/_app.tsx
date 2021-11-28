@@ -4,7 +4,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import Providers from '@/context/providers/Providers';
-import AuthGuard from '@/components/auth/AuthGuard';
 import { Wrapper } from '@/components/wrapper';
 import { NavLinkData } from '@csl/types';
 import './style.css';
@@ -27,13 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
 			<CssBaseline />
 
 			<Wrapper links={NAV_LINKS}>
-				{pageProps.requireAuth === true ? (
-					<AuthGuard>
-						<Component {...pageProps} />
-					</AuthGuard>
-				) : (
-					<Component {...pageProps} />
-				)}
+				<Component {...pageProps} />
 			</Wrapper>
 		</Providers>
 	);

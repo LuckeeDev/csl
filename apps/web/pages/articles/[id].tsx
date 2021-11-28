@@ -31,7 +31,6 @@ const GET_ARTICLE_QUERY = gql`
 
 interface ArticlePageProps {
 	article: StrapiArticle;
-	requireAuth: boolean;
 }
 
 export default function ArticlePage({ article }: ArticlePageProps) {
@@ -63,7 +62,6 @@ export const getStaticProps: GetStaticProps<ArticlePageProps> = async (ctx) => {
 
 	return {
 		props: {
-			requireAuth: true,
 			article: data.article,
 		},
 		// Revalidate every 10 minutes

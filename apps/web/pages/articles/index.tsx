@@ -53,7 +53,6 @@ export const getStaticProps: GetStaticProps<ArticlesHomePageProps> = async (
 
 	return {
 		props: {
-			requireAuth: true,
 			articles: data.articles,
 		},
 		// Revalidate every 10 minutes

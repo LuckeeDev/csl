@@ -17,6 +17,21 @@ const StyledImageContainer = styled.div`
 	width: 100%;
 	max-height: 400px;
 	object-fit: contain;
+	position: relative;
+	overflow: hidden;
+`;
+
+interface StyledBackgroundProps {
+	image: string;
+}
+
+const StyledBackground = styled.div`
+	position: absolute;
+	width: 100%;
+	height: 100%;
+
+	background-image: ${(props: StyledBackgroundProps) => `url(${props.image})`};
+	filter: blur(4px);
 `;
 
 const StyledArticleLink = styled.a`
@@ -39,6 +54,8 @@ export default function MainArticle(props: MainArticleProps) {
 			<StyledArticleLink>
 				<StyledPreviewContainer>
 					<StyledImageContainer>
+						<StyledBackground image={environment.strapi + props.article.cover.url}/>
+
 						<Image
 							src={environment.strapi + props.article.cover.url}
 							alt={props.article.cover.caption}

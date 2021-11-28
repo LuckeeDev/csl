@@ -1,0 +1,34 @@
+{
+  "kind": "singleType",
+  "collectionName": "homes",
+  "info": {
+    "name": "Home"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string",
+      "required": true
+    },
+    "sections": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.sections"
+    },
+    "articles": {
+      "collection": "articles"
+    },
+    "main_article": {
+      "model": "articles"
+    }
+  }
+}
