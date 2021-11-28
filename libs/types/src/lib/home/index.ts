@@ -10,6 +10,7 @@ interface StrapiHomeSection {
 export interface StrapiHome {
 	title: string;
 	description: string;
+	image: StrapiImage;
 	main_article: StrapiArticle;
 	articles: StrapiArticle[];
 	sections: StrapiHomeSection[];

@@ -5,6 +5,10 @@ export const GET_HOME_QUERY = gql`
 		home {
 			title
 			description
+			image {
+				url
+				caption
+			}
 			main_article {
 				id
 				title
