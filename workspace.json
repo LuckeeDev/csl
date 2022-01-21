@@ -9,6 +9,8 @@
 		"strapi": "libs\\strapi",
 		"types": "libs\\types",
 		"ui": "libs\\ui",
+		"web": "apps/web",
+		"web-e2e": "apps/web-e2e",
 		"workspace": "."
 	}
 }

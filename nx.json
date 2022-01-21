@@ -54,7 +54,7 @@
 		},
 		"@nrwl/next": {
 			"application": {
-				"style": "@emotion/styled",
+				"style": "scss",
 				"linter": "eslint"
 			}
 		}
