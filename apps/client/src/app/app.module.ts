@@ -68,76 +68,75 @@ import { CoreModule } from './core/core.module';
 registerLocaleData(ITLocaleData);
 
 @NgModule({
-	declarations: [
-		AppComponent,
-		AslComponent,
-		ComitatoComponent,
-		ConsultaComponent,
-		HomeComponent,
-		PortartiComponent,
-		PageNotFoundComponent,
-		AccessForbiddenComponent,
-		LoginComponent,
-		SnacksComponent,
-		BarComponent,
-		SnackCartComponent,
-		FaqComponent,
-		InfoComponent,
-		CommissioneComponent,
-		ComitatoHomeComponent,
-		ContactFormComponent,
-		CogeView,
-	],
-	imports: [
-		BrowserModule,
-		AppRoutingModule,
-		BrowserAnimationsModule,
-		CoreModule,
-		FormsModule,
-		AngularFireModule.initializeApp(environment.firebaseConfig, 'CSLussana'),
-		AngularFireStorageModule,
-		AngularFireAuthModule,
-		AngularFireMessagingModule,
-		UiModule,
-		PipesModule,
-		SharedModule,
-		HttpClientModule,
-		// TODO: remove old auth state class
-		NgxsModule.forRoot([OldAuthState, PlatformState, AuthState], {
-			developmentMode: !environment.production,
-		}),
-		NgxsStoragePluginModule.forRoot({
-			key: [PlatformState, AuthState],
-		}),
-		LoadingBarModule,
-		LoadingBarHttpClientModule,
-		MarkdownModule.forRoot(),
-		ServiceWorkerModule.register('ngsw-worker.js', {
-			enabled: environment.production,
-		}),
-		StrapiModule,
-	],
-	entryComponents: [],
-	providers: [
-		{
-			provide: USE_AUTH_EMULATOR,
-			useValue: environment.useEmulators ? ['localhost', 9099] : undefined,
-		},
-		{
-			provide: HTTP_INTERCEPTORS,
-			useClass: ResCodeInterceptor,
-			multi: true,
-		},
-		{
-			provide: HTTP_INTERCEPTORS,
-			useClass: ApiInterceptor,
-			multi: true,
-		},
-		{
-			provide: LOCALE_ID,
-			useValue: 'it',
-		},
-	],
-	bootstrap: [AppComponent],
+    declarations: [
+        AppComponent,
+        AslComponent,
+        ComitatoComponent,
+        ConsultaComponent,
+        HomeComponent,
+        PortartiComponent,
+        PageNotFoundComponent,
+        AccessForbiddenComponent,
+        LoginComponent,
+        SnacksComponent,
+        BarComponent,
+        SnackCartComponent,
+        FaqComponent,
+        InfoComponent,
+        CommissioneComponent,
+        ComitatoHomeComponent,
+        ContactFormComponent,
+        CogeView,
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        CoreModule,
+        FormsModule,
+        AngularFireModule.initializeApp(environment.firebaseConfig, 'CSLussana'),
+        AngularFireStorageModule,
+        AngularFireAuthModule,
+        AngularFireMessagingModule,
+        UiModule,
+        PipesModule,
+        SharedModule,
+        HttpClientModule,
+        // TODO: remove old auth state class
+        NgxsModule.forRoot([OldAuthState, PlatformState, AuthState], {
+            developmentMode: !environment.production,
+        }),
+        NgxsStoragePluginModule.forRoot({
+            key: [PlatformState, AuthState],
+        }),
+        LoadingBarModule,
+        LoadingBarHttpClientModule,
+        MarkdownModule.forRoot(),
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: environment.production,
+        }),
+        StrapiModule,
+    ],
+    providers: [
+        {
+            provide: USE_AUTH_EMULATOR,
+            useValue: environment.useEmulators ? ['localhost', 9099] : undefined,
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ResCodeInterceptor,
+            multi: true,
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ApiInterceptor,
+            multi: true,
+        },
+        {
+            provide: LOCALE_ID,
+            useValue: 'it',
+        },
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}
