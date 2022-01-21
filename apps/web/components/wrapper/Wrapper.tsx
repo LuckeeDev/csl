@@ -9,7 +9,7 @@ import {
 	Button,
 } from '@mantine/core';
 import { ReactNode, useState } from 'react';
-import { useSession, signIn } from 'next-auth/react';
+import { useSession, signIn, signOut } from 'next-auth/react';
 import NavButton from '../nav/NavButton';
 
 interface WrapperProps {
@@ -38,7 +38,9 @@ export default function Wrapper({ children }: WrapperProps) {
 					<Navbar.Section grow>Something</Navbar.Section>
 					<Navbar.Section>
 						{data ? (
-							data.user.email
+							<Button onClick={() => signOut()}>
+								Logout da {data.user.name}
+							</Button>
 						) : (
 							<Button onClick={() => signIn()}>Login</Button>
 						)}
