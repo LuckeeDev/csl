@@ -35,7 +35,11 @@ export default function Wrapper({ children }: WrapperProps) {
 					<Navbar.Section>
 						<NavButton href="/">Prova</NavButton>
 					</Navbar.Section>
-					<Navbar.Section grow>Something</Navbar.Section>
+					<Navbar.Section grow>
+						{data && data.user.roles.find((x) => x.id === 'IS_EDITOR')
+							? 'Giornalista'
+							: 'Utente'}
+					</Navbar.Section>
 					<Navbar.Section>
 						{data ? (
 							<Button onClick={() => signOut()}>
