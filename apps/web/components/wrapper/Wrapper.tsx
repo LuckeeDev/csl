@@ -6,11 +6,11 @@ import {
 	Burger,
 	Text,
 	useMantineTheme,
-	Button,
 } from '@mantine/core';
 import { ReactNode, useState } from 'react';
-import { useSession, signIn, signOut } from 'next-auth/react';
-import NavButton from '../nav/NavButton';
+import NavLinks from './NavLinks';
+import UserButton from './UserButton';
+import { SunIcon, BellIcon, Share1Icon, Share2Icon } from '@modulz/radix-icons';
 
 interface WrapperProps {
 	children: ReactNode;
@@ -18,8 +18,14 @@ interface WrapperProps {
 
 export default function Wrapper({ children }: WrapperProps) {
 	const [opened, setOpened] = useState(false);
-	const { data } = useSession();
 	const theme = useMantineTheme();
+
+	const links = [
+		{ icon: <SunIcon />, color: 'blue', label: 'Pull Requests' },
+		{ icon: <BellIcon />, color: 'lime', label: 'Open Issues' },
+		{ icon: <Share1Icon />, color: 'violet', label: 'Discussions' },
+		{ icon: <Share2Icon />, color: 'grape', label: 'Databases' },
+	];
 
 	return (
 		<AppShell
@@ -32,22 +38,11 @@ export default function Wrapper({ children }: WrapperProps) {
 					hidden={!opened}
 					width={{ sm: 300, lg: 400 }}
 				>
-					<Navbar.Section>
-						<NavButton href="/">Prova</NavButton>
-					</Navbar.Section>
 					<Navbar.Section grow>
-						{data && data.user.roles.find((x) => x.id === 'IS_EDITOR')
-							? 'Giornalista'
-							: 'Utente'}
+						<NavLinks links={links} />
 					</Navbar.Section>
 					<Navbar.Section>
-						{data ? (
-							<Button onClick={() => signOut()}>
-								Logout da {data.user.name}
-							</Button>
-						) : (
-							<Button onClick={() => signIn()}>Login</Button>
-						)}
+						<UserButton />
 					</Navbar.Section>
 				</Navbar>
 			}
