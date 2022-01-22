@@ -1,12 +1,21 @@
-import React from 'react';
+import { forwardRef } from 'react';
 import {
 	ChevronRightIcon,
 	ChevronLeftIcon,
-	PersonIcon
+	PersonIcon,
 } from '@modulz/radix-icons';
 import { createStyles } from '@mantine/styles';
-import { UnstyledButton, Group, Avatar, Text, ThemeIcon } from '@mantine/core';
+import {
+	UnstyledButton,
+	Group,
+	Avatar,
+	Text,
+	ThemeIcon,
+	Menu,
+	MantineTheme,
+} from '@mantine/core';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import { Session } from 'next-auth';
 
 const useStyles = createStyles((theme) => ({
 	user: {
@@ -25,6 +34,38 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
+interface LoggedInButtonProps {
+	session: Session;
+	theme: MantineTheme;
+	classes: Record<'user', string>;
+}
+
+// eslint-disable-next-line react/display-name
+const LoggedInButton = forwardRef<HTMLButtonElement, LoggedInButtonProps>(
+	({ session, theme, classes, ...others }: LoggedInButtonProps, ref) => (
+		<UnstyledButton ref={ref} className={classes.user} {...others}>
+			<Group>
+				<Avatar src={session.user.image} radius="xl" />
+
+				<div style={{ flex: 1 }}>
+					<Text size="sm" weight={500}>
+						{session.user.name}
+					</Text>
+					<Text color="dimmed" size="xs">
+						{session.user.email}
+					</Text>
+				</div>
+
+				{theme.dir === 'ltr' ? (
+					<ChevronRightIcon width={18} height={18} />
+				) : (
+					<ChevronLeftIcon width={18} height={18} />
+				)}
+			</Group>
+		</UnstyledButton>
+	)
+);
+
 export default function UserButton() {
 	const { classes, theme } = useStyles();
 	const { data: session } = useSession();
@@ -40,26 +81,20 @@ export default function UserButton() {
 				}`,
 			}}
 		>
-			<UnstyledButton className={classes.user}>
-				{session ? (
-					<Group onClick={() => signOut()}>
-						<Avatar src={session.user.image} radius="xl" />
-						<div style={{ flex: 1 }}>
-							<Text size="sm" weight={500}>
-								{session.user.name}
-							</Text>
-							<Text color="dimmed" size="xs">
-								{session.user.email}
-							</Text>
-						</div>
-
-						{theme.dir === 'ltr' ? (
-							<ChevronRightIcon width={18} height={18} />
-						) : (
-							<ChevronLeftIcon width={18} height={18} />
-						)}
-					</Group>
-				) : (
+			{session ? (
+				<Menu
+					sx={{ width: '100%' }}
+					control={
+						<LoggedInButton session={session} theme={theme} classes={classes} />
+					}
+				>
+					<Menu.Item>Profilo</Menu.Item>
+					<Menu.Item color="red" onClick={() => signOut()}>
+						Logout
+					</Menu.Item>
+				</Menu>
+			) : (
+				<UnstyledButton className={classes.user}>
 					<Group onClick={() => signIn()}>
 						<ThemeIcon color="blue" variant="light">
 							<PersonIcon />
@@ -67,8 +102,8 @@ export default function UserButton() {
 
 						<Text size="sm">Login</Text>
 					</Group>
-				)}
-			</UnstyledButton>
+				</UnstyledButton>
+			)}
 		</div>
 	);
 }

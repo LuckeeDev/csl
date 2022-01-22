@@ -61,7 +61,7 @@ export default function Wrapper({ children }: WrapperProps) {
 							/>
 						</MediaQuery>
 
-						<Text>Application header</Text>
+						<Text>Comitato Studentesco Lussana</Text>
 					</div>
 				</Header>
 			}
