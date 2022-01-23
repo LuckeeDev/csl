@@ -57,11 +57,7 @@ const LoggedInButton = forwardRef<HTMLButtonElement, LoggedInButtonProps>(
 					</Text>
 				</div>
 
-				{theme.dir === 'ltr' ? (
-					<ChevronRightIcon width={18} height={18} />
-				) : (
-					<ChevronLeftIcon width={18} height={18} />
-				)}
+				<ChevronRightIcon width={18} height={18} />
 			</Group>
 		</UnstyledButton>
 	)

@@ -1,6 +1,9 @@
+export type AvailableIcons = 'profile' | 'write';
+
 export interface WrapperLinkProps {
-	icon: string;
+	icon: AvailableIcons;
 	color: string;
 	label: string;
 	href: string;
+	hasSublinks?: boolean;
 }

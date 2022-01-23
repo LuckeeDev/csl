@@ -2,6 +2,7 @@ import { createStyles } from '@mantine/styles';
 import { ThemeIcon, Group, Text, Anchor } from '@mantine/core';
 import Link from 'next/link';
 import { WrapperLinkProps } from './types';
+import { ChevronRightIcon } from '@modulz/radix-icons';
 
 const useStyles = createStyles((theme) => ({
 	button: {
@@ -21,7 +22,7 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
-function SideLink({ icon, color, label, href }: WrapperLinkProps) {
+function SideLink({ icon, color, label, href, hasSublinks }: WrapperLinkProps) {
 	const { classes } = useStyles();
 
 	return (
@@ -32,7 +33,11 @@ function SideLink({ icon, color, label, href }: WrapperLinkProps) {
 						{icon}
 					</ThemeIcon>
 
-					<Text size="sm">{label}</Text>
+					<Text size="sm" style={{ flex: 1 }}>
+						{label}
+					</Text>
+
+					{hasSublinks && <ChevronRightIcon width={18} height={18} />}
 				</Group>
 			</Anchor>
 		</Link>
