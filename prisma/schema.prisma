@@ -56,7 +56,21 @@ model VerificationToken {
 }
 
 model Role {
-    id    String @id
-    name  String
-    users User[]
+    id         String   @id
+    name       String
+    users      User[]
+	
+    updated_at DateTime @updatedAt
+    created_at DateTime @default(now())
+}
+
+model Article {
+    id          String @id @default(cuid())
+    title       String
+    content     String
+    author      String
+    readingTime Int
+
+    updated_at DateTime @updatedAt
+    created_at DateTime @default(now())
 }

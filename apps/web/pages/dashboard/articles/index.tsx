@@ -7,7 +7,7 @@ interface DashboardArticlesIndexProps {
 }
 
 export default function DashboardArticlesIndex() {
-	return <h1>Articoli</h1>;
+	return <h1>Articoli pubblicati</h1>;
 }
 
 const getServerSideProps: GetServerSideProps<DashboardArticlesIndexProps> =
@@ -21,6 +21,12 @@ const getServerSideProps: GetServerSideProps<DashboardArticlesIndexProps> =
 						color: 'transparent',
 						label: 'Torna indietro',
 						href: '/dashboard',
+					},
+					{
+						icon: 'list',
+						color: 'teal',
+						label: 'Articoli pubblicati',
+						href: '/dashboard/articles',
 					},
 					{
 						icon: 'write',
