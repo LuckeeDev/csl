@@ -4,52 +4,67 @@ import {
 	Header,
 	MediaQuery,
 	Burger,
-	Text,
 	useMantineTheme,
 } from '@mantine/core';
 import { ReactNode, useState } from 'react';
-import NavLinks from './NavLinks';
+import SideLinks from './SideLinks';
 import UserButton from './UserButton';
-import { SunIcon, BellIcon, Share1Icon, Share2Icon } from '@modulz/radix-icons';
+import ButtonLink from 'components/links/ButtonLink';
+import TextLink from 'components/links/TextLink';
+import { WrapperLinkProps } from './types';
+import Icons from 'utils/Icons';
 
 interface WrapperProps {
 	children: ReactNode;
+	hasSidebar: boolean;
+	sidebarLinks: WrapperLinkProps[];
 }
 
-export default function Wrapper({ children }: WrapperProps) {
+export default function Wrapper({
+	children,
+	hasSidebar,
+	sidebarLinks,
+}: WrapperProps) {
 	const [opened, setOpened] = useState(false);
 	const theme = useMantineTheme();
 
-	const links = [
-		{ icon: <SunIcon />, color: 'blue', label: 'Pull Requests' },
-		{ icon: <BellIcon />, color: 'lime', label: 'Open Issues' },
-		{ icon: <Share1Icon />, color: 'violet', label: 'Discussions' },
-		{ icon: <Share2Icon />, color: 'grape', label: 'Databases' },
-	];
+	const links =
+		sidebarLinks?.map(({ icon, ...link }) => ({
+			icon: Icons[icon],
+			...link,
+		})) ?? [];
 
 	return (
 		<AppShell
 			navbarOffsetBreakpoint="sm"
 			fixed
 			navbar={
-				<Navbar
-					padding="md"
-					hiddenBreakpoint="sm"
-					hidden={!opened}
-					width={{ sm: 300, lg: 400 }}
-				>
-					<Navbar.Section grow>
-						<NavLinks links={links} />
-					</Navbar.Section>
-					<Navbar.Section>
-						<UserButton />
-					</Navbar.Section>
-				</Navbar>
+				hasSidebar && (
+					<Navbar
+						padding="md"
+						hiddenBreakpoint="sm"
+						hidden={!opened}
+						width={{ sm: 300, lg: 400 }}
+					>
+						<Navbar.Section grow>
+							<SideLinks links={links} />
+						</Navbar.Section>
+
+						<Navbar.Section>
+							<UserButton />
+						</Navbar.Section>
+					</Navbar>
+				)
 			}
 			header={
-				<Header height={70} padding="md">
+				<Header height={80} padding="md">
 					<div
-						style={{ display: 'flex', alignItems: 'center', height: '100%' }}
+						style={{
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'space-between',
+							height: '100%',
+						}}
 					>
 						<MediaQuery largerThan="sm" styles={{ display: 'none' }}>
 							<Burger
@@ -61,7 +76,9 @@ export default function Wrapper({ children }: WrapperProps) {
 							/>
 						</MediaQuery>
 
-						<Text>Comitato Studentesco Lussana</Text>
+						<TextLink href="/">Comitato Studentesco Lussana</TextLink>
+
+						<ButtonLink href="/dashboard">Dashboard</ButtonLink>
 					</div>
 				</Header>
 			}

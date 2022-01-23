@@ -7,7 +7,7 @@ import Providers from 'components/providers/Providers';
 export default function App(props: AppProps) {
 	const {
 		Component,
-		pageProps: { session, ...pageProps },
+		pageProps: { session, hasSidebar, sidebarLinks, ...pageProps },
 	} = props;
 
 	return (
@@ -23,7 +23,10 @@ export default function App(props: AppProps) {
 			<Providers session={session}>
 				<NormalizeCSS />
 				<GlobalStyles />
-				<Wrapper>
+				<Wrapper
+					hasSidebar={hasSidebar ?? false}
+					sidebarLinks={sidebarLinks ?? null}
+				>
 					<Component {...pageProps} />
 				</Wrapper>
 			</Providers>

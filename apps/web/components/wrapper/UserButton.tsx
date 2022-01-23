@@ -16,6 +16,7 @@ import {
 } from '@mantine/core';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { Session } from 'next-auth';
+import Link from 'next/link';
 
 const useStyles = createStyles((theme) => ({
 	user: {
@@ -88,7 +89,6 @@ export default function UserButton() {
 						<LoggedInButton session={session} theme={theme} classes={classes} />
 					}
 				>
-					<Menu.Item>Profilo</Menu.Item>
 					<Menu.Item color="red" onClick={() => signOut()}>
 						Logout
 					</Menu.Item>
