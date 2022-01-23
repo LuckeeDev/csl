@@ -1,4 +1,4 @@
-export type AvailableIcons = 'profile' | 'write';
+export type AvailableIcons = 'profile' | 'write' | 'back';
 
 export interface WrapperLinkProps {
 	icon: AvailableIcons;
