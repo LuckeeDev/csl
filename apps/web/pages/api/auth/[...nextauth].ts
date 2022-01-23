@@ -1,9 +1,9 @@
-import NextAuth from 'next-auth';
+import NextAuth, { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import prisma from 'prisma/client';
 
-export default NextAuth({
+export const nextAuthOptions: NextAuthOptions = {
 	secret: process.env.AUTH_SECRET,
 	adapter: PrismaAdapter(prisma),
 	theme: {
@@ -28,4 +28,6 @@ export default NextAuth({
 			return params.session;
 		},
 	},
-});
+};
+
+export default NextAuth(nextAuthOptions);
