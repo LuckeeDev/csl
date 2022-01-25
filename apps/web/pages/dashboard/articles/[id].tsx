@@ -104,7 +104,7 @@ const getServerSideProps: GetServerSideProps<DashboardArticlesEditProps> =
 					{
 						icon: 'list',
 						color: 'teal',
-						label: 'Articoli pubblicati',
+						label: 'Articoli',
 						href: '/dashboard/articles',
 					},
 					{

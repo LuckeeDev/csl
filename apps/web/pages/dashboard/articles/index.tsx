@@ -57,9 +57,9 @@ export default function DashboardArticlesIndex({
 
 	return (
 		<div>
-			<PageTitle>Dashboard | Articoli pubblicati</PageTitle>
+			<PageTitle>Dashboard | Articoli</PageTitle>
 
-			<h1>Articoli pubblicati</h1>
+			<h1>Articoli</h1>
 
 			<Table>
 				<thead>
@@ -104,7 +104,7 @@ const getServerSideProps: GetServerSideProps<DashboardArticlesIndexProps> =
 					{
 						icon: 'list',
 						color: 'teal',
-						label: 'Articoli pubblicati',
+						label: 'Articoli',
 						href: '/dashboard/articles',
 					},
 					{
