@@ -3,6 +3,7 @@ import { ThemeIcon, Group, Text, Anchor } from '@mantine/core';
 import Link from 'next/link';
 import { WrapperLinkProps } from './types';
 import { ChevronRightIcon } from '@modulz/radix-icons';
+import Icons from 'utils/Icons';
 
 const useStyles = createStyles((theme) => ({
 	button: {
@@ -22,37 +23,37 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
-function SideLink({ icon, color, label, href, hasSublinks }: WrapperLinkProps) {
-	const { classes } = useStyles();
-
-	return (
-		<Link href={href} passHref>
-			<Anchor className={classes.button}>
-				<Group>
-					<ThemeIcon color={color} variant="light">
-						{icon}
-					</ThemeIcon>
-
-					<Text size="sm" style={{ flex: 1 }}>
-						{label}
-					</Text>
-
-					{hasSublinks && <ChevronRightIcon width={18} height={18} />}
-				</Group>
-			</Anchor>
-		</Link>
-	);
-}
-
 interface SideLinksProps {
 	links: WrapperLinkProps[];
 }
 
 export default function SideLinks({ links }: SideLinksProps) {
+	const { classes } = useStyles();
+
+	const iconLinks =
+		links?.map(({ icon, ...link }) => ({
+			icon: Icons[icon],
+			...link,
+		})) ?? [];
+
 	return (
 		<div>
-			{links.map((link) => (
-				<SideLink {...link} key={link.label} />
+			{iconLinks.map(({ href, color, icon, label, hasSublinks }) => (
+				<Link href={href} passHref key={href}>
+					<Anchor className={classes.button}>
+						<Group>
+							<ThemeIcon color={color} variant="light">
+								{icon}
+							</ThemeIcon>
+
+							<Text size="sm" style={{ flex: 1 }}>
+								{label}
+							</Text>
+
+							{hasSublinks && <ChevronRightIcon width={18} height={18} />}
+						</Group>
+					</Anchor>
+				</Link>
 			))}
 		</div>
 	);

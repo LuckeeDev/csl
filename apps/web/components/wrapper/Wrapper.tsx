@@ -12,7 +12,6 @@ import UserButton from './UserButton';
 import ButtonLink from 'components/links/ButtonLink';
 import TextLink from 'components/links/TextLink';
 import { WrapperLinkProps } from './types';
-import Icons from 'utils/Icons';
 
 interface WrapperProps {
 	children: ReactNode;
@@ -28,12 +27,6 @@ export default function Wrapper({
 	const [opened, setOpened] = useState(false);
 	const theme = useMantineTheme();
 
-	const links =
-		sidebarLinks?.map(({ icon, ...link }) => ({
-			icon: Icons[icon],
-			...link,
-		})) ?? [];
-
 	return (
 		<AppShell
 			navbarOffsetBreakpoint="sm"
@@ -47,7 +40,7 @@ export default function Wrapper({
 						width={{ sm: 300, lg: 400 }}
 					>
 						<Navbar.Section grow>
-							<SideLinks links={links} />
+							<SideLinks links={sidebarLinks} />
 						</Navbar.Section>
 
 						<Navbar.Section>
