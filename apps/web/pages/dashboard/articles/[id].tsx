@@ -1,40 +1,35 @@
-import { WrapperLinkProps } from 'components/wrapper/types';
-import { GetServerSideProps } from 'next';
-import { useState } from 'react';
-import Editor from 'components/editor/Editor';
 import {
 	Button,
 	InputWrapper,
-	LoadingOverlay,
 	NumberInput,
 	Space,
 	TextInput,
 } from '@mantine/core';
 import { useForm } from '@mantine/hooks';
-import { useNotifications } from '@mantine/notifications';
-import axios from 'axios';
-import { environment } from 'environments/environment';
-import { CheckIcon } from '@modulz/radix-icons';
+import { Article } from '@prisma/client';
+import Editor from 'components/editor/Editor';
 import PageTitle from 'components/head/PageTitle';
+import BackHeading from 'components/heading/BackHeading';
+import { WrapperLinkProps } from 'components/wrapper/types';
+import { GetServerSideProps } from 'next';
+import prisma from 'prisma/client';
 
-interface DashboardArticlesNewProps {
+interface DashboardArticlesEditProps {
 	hasSidebar: boolean;
 	sidebarLinks: WrapperLinkProps[];
+	article: Partial<Article>;
 }
 
-const INITIAL_VALUES = {
-	title: '',
-	content: '',
-	author: '',
-	readingTime: null,
-};
-
-export default function DashboardArticlesNew() {
-	const [overlay, setOverlay] = useState(false);
-	const notifications = useNotifications();
-
+export default function DashboardArticlesEdit({
+	article,
+}: DashboardArticlesEditProps) {
 	const form = useForm({
-		initialValues: INITIAL_VALUES,
+		initialValues: {
+			title: article.title,
+			author: article.author,
+			content: article.content,
+			readingTime: article.readingTime,
+		},
 		errorMessages: {
 			title: 'Questo campo è necessario',
 			content: 'Questo campo è necessario',
@@ -49,38 +44,15 @@ export default function DashboardArticlesNew() {
 		},
 	});
 
-	function toggleOverlay() {
-		setOverlay((val) => !val);
-	}
-
-	async function handleSubmit(val: typeof form.values) {
-		toggleOverlay();
-
-		await axios.post(
-			`${environment.url}/api/articles`,
-			{ article: val },
-			{ withCredentials: true }
-		);
-
-		form.setValues(INITIAL_VALUES);
-
-		notifications.showNotification({
-			title: 'Articolo salvato',
-			message: 'Torna alla pagina degli articoli per pubblicarlo!',
-			icon: <CheckIcon />,
-			color: 'teal',
-		});
-
-		toggleOverlay();
+	function handleSubmit(val) {
+		console.log(val);
 	}
 
 	return (
 		<div>
-			<PageTitle>Dashboard | Nuovo articolo</PageTitle>
+			<PageTitle>Dashboard | Modifica articolo</PageTitle>
 
-			<LoadingOverlay visible={overlay} />
-
-			<h1>Nuovo articolo</h1>
+			<BackHeading>Modifica articolo</BackHeading>
 
 			<form onSubmit={form.onSubmit(handleSubmit)}>
 				<InputWrapper id="title" required label="Titolo">
@@ -140,8 +112,21 @@ export default function DashboardArticlesNew() {
 	);
 }
 
-const getServerSideProps: GetServerSideProps<DashboardArticlesNewProps> =
-	async () => {
+const getServerSideProps: GetServerSideProps<DashboardArticlesEditProps> =
+	async (ctx) => {
+		const articleID = ctx.params.id as string;
+
+		const article = await prisma.article.findUnique({
+			where: { id: articleID },
+			select: {
+				title: true,
+				author: true,
+				content: true,
+				readingTime: true,
+				id: true,
+			},
+		});
+
 		return {
 			props: {
 				hasSidebar: true,
@@ -165,6 +150,7 @@ const getServerSideProps: GetServerSideProps<DashboardArticlesNewProps> =
 						href: '/dashboard/articles/new',
 					},
 				],
+				article,
 			},
 		};
 	};
