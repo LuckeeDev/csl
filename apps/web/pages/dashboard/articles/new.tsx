@@ -7,7 +7,10 @@ import axios from 'axios';
 import { environment } from 'environments/environment';
 import { CheckIcon } from '@modulz/radix-icons';
 import PageTitle from 'components/head/PageTitle';
-import ArticleForm, { ArticleFormValues } from 'components/forms/ArticleForm';
+import ArticleForm from 'components/forms/ArticleForm';
+import useArticleForm, { ArticleFormValues } from 'hooks/useArticleForm';
+import { useRouter } from 'next/router';
+import { Article } from '@prisma/client';
 
 interface DashboardArticlesNewProps {
 	hasSidebar: boolean;
@@ -15,23 +18,23 @@ interface DashboardArticlesNewProps {
 }
 
 export default function DashboardArticlesNew() {
+	const form = useArticleForm();
 	const [overlay, setOverlay] = useState(false);
 	const notifications = useNotifications();
+	const router = useRouter();
 
 	function toggleOverlay() {
 		setOverlay((val) => !val);
 	}
 
-	async function onSubmit(val: ArticleFormValues, resetForm: () => void) {
+	async function onSubmit(val: ArticleFormValues) {
 		toggleOverlay();
 
-		await axios.post(
+		const { id }: Article = await axios.post(
 			`${environment.url}/api/articles`,
 			{ article: val },
 			{ withCredentials: true }
 		);
-
-		resetForm();
 
 		notifications.showNotification({
 			title: 'Articolo salvato',
@@ -41,6 +44,8 @@ export default function DashboardArticlesNew() {
 		});
 
 		toggleOverlay();
+
+		router.push(`/dashboard/articles/${id}`);
 	}
 
 	return (
@@ -51,7 +56,7 @@ export default function DashboardArticlesNew() {
 
 			<h1>Nuovo articolo</h1>
 
-			<ArticleForm onSubmit={onSubmit} />
+			<ArticleForm form={form} onSubmit={onSubmit} />
 		</div>
 	);
 }

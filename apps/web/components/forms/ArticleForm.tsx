@@ -5,56 +5,18 @@ import {
 	Space,
 	TextInput,
 } from '@mantine/core';
-import { useForm } from '@mantine/hooks';
-import { Article } from '@prisma/client';
 import Editor from 'components/editor/Editor';
-
-export interface ArticleFormValues {
-	title: string;
-	content: string;
-	author: string;
-	readingTime: number;
-}
+import { ArticleFormValues } from 'hooks/useArticleForm';
+import { UseForm } from '@mantine/hooks/lib/use-form/use-form';
 
 interface ArticleFormProps {
-	article?: Partial<Article>;
-	onSubmit: (val: ArticleFormValues, reset: () => void) => void;
+	form: UseForm<ArticleFormValues>;
+	onSubmit: (val: ArticleFormValues) => void;
 }
 
-const DEFAULT_VALUES = {
-	title: '',
-	content: '',
-	author: '',
-	readingTime: null,
-};
-
-export default function ArticleForm({ article, onSubmit }: ArticleFormProps) {
-	const form = useForm({
-		initialValues: article ? article : DEFAULT_VALUES,
-		errorMessages: {
-			title: 'Questo campo è necessario',
-			content: 'Questo campo è necessario',
-			author: 'Questo campo è necessario',
-			readingTime: 'Questo campo è necessario',
-		},
-		validationRules: {
-			title: (val) => (val ? true : false),
-			content: (val) => (val ? true : false),
-			author: (val) => (val ? true : false),
-			readingTime: (val) => (val ? true : false),
-		},
-	});
-
-	function resetForm() {
-		form.setValues(DEFAULT_VALUES);
-	}
-
-	function handleSubmit(val: ArticleFormValues) {
-		onSubmit(val, resetForm);
-	}
-
+export default function ArticleForm({ form, onSubmit }: ArticleFormProps) {
 	return (
-		<form onSubmit={form.onSubmit(handleSubmit)}>
+		<form onSubmit={form.onSubmit(onSubmit)}>
 			<InputWrapper id="title" required label="Titolo">
 				<TextInput
 					id="title"
