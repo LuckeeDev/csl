@@ -1,10 +1,12 @@
-import { getServerSession } from 'next-auth';
 import connect from 'next-connect';
-import { nextAuthOptions } from '../auth/[...nextauth]';
 import { NextApiRequest, NextApiResponse } from 'next';
 import joi from 'joi';
 import validate from 'middlewares/validate';
 import prisma from 'prisma/client';
+import { SessionUser } from 'types';
+import session from 'middlewares/session';
+import hasPermission from 'middlewares/hasPermission';
+import { Permission } from '@prisma/client';
 
 const postBodySchema = joi.object({
 	article: joi.object({
@@ -31,53 +33,41 @@ const patchQuerySchema = joi.object({
 
 interface HandlerRequest extends NextApiRequest {
 	body: { article: number };
+	user: SessionUser;
 }
 
 const handler = connect<HandlerRequest, NextApiResponse>();
 
-handler.post(validate({ body: postBodySchema }), async (req, res) => {
-	const {
-		user: { roles },
-	} = await getServerSession({ req, res }, nextAuthOptions);
-
-	const roleIDs = roles.map(({ id }) => id);
-
-	if (roleIDs.includes('IS_EDITOR')) {
+handler.post(
+	session,
+	hasPermission(Permission.NEWS_EDITOR),
+	validate({ body: postBodySchema }),
+	async (req, res) => {
 		const { article } = req.body;
 
 		const savedArticle = await prisma.article.create({ data: article });
 
 		res.json(savedArticle);
-	} else {
-		res.status(401).end();
 	}
-});
+);
 
 handler.patch(
+	session,
+	hasPermission(Permission.NEWS_EDITOR),
 	validate({ body: patchBodySchema, query: patchQuerySchema }),
 	async (req, res) => {
 		// Because of how Next routing works, this parameter will be under the
 		// "articles" array field. We need to access the first element.
 		const articleID = req.query.articles[0];
 
-		const {
-			user: { roles },
-		} = await getServerSession({ req, res }, nextAuthOptions);
+		const { article } = req.body;
 
-		const roleIDs = roles.map(({ id }) => id);
+		const savedArticle = await prisma.article.update({
+			where: { id: articleID },
+			data: article,
+		});
 
-		if (roleIDs.includes('IS_EDITOR')) {
-			const { article } = req.body;
-
-			const savedArticle = await prisma.article.update({
-				where: { id: articleID },
-				data: article,
-			});
-
-			res.json(savedArticle);
-		} else {
-			res.status(401).end();
-		}
+		res.json(savedArticle);
 	}
 );
 

@@ -30,8 +30,11 @@ export default function DashboardArticlesNew() {
 	async function onSubmit(val: ArticleFormValues) {
 		toggleOverlay();
 
-		const { id }: Article = await axios.post(
-			`${environment.url}/api/articles`,
+		const {
+			data: { id },
+		} = await axios.post<Article>(
+			// /new is needed because of how Next API routing works
+			`${environment.url}/api/articles/new`,
 			{ article: val },
 			{ withCredentials: true }
 		);

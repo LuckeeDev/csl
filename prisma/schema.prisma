@@ -56,9 +56,11 @@ model VerificationToken {
 }
 
 model Role {
-    id    String @id
+    id    String @id @default(cuid())
     name  String
     users User[]
+
+    permissions Permission[]
 
     updated_at DateTime @updatedAt
     created_at DateTime @default(now())
@@ -74,4 +76,8 @@ model Article {
 
     updated_at DateTime @updatedAt
     created_at DateTime @default(now())
+}
+
+enum Permission {
+    NEWS_EDITOR
 }

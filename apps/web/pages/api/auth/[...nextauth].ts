@@ -23,7 +23,9 @@ export const nextAuthOptions: NextAuthOptions = {
 				include: { roles: true },
 			});
 
-			params.session.user.roles = roles;
+			const permissions = roles.map((r) => r.permissions).flat();
+
+			params.session.user.permissions = permissions;
 
 			return params.session;
 		},
