@@ -87,6 +87,7 @@ const getServerSideProps: GetServerSideProps<DashboardArticlesEditProps> =
 				author: true,
 				content: true,
 				readingTime: true,
+				published: true,
 			},
 		});
 

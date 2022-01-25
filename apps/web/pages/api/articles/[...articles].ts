@@ -15,6 +15,16 @@ const postBodySchema = joi.object({
 	}),
 });
 
+const patchBodySchema = joi.object({
+	article: joi.object({
+		title: joi.string(),
+		content: joi.string(),
+		author: joi.string(),
+		readingTime: joi.number(),
+		published: joi.boolean(),
+	}),
+});
+
 const patchQuerySchema = joi.object({
 	articles: joi.array().length(1).items(joi.string()),
 });
@@ -44,7 +54,7 @@ handler.post(validate({ body: postBodySchema }), async (req, res) => {
 });
 
 handler.patch(
-	validate({ body: postBodySchema, query: patchQuerySchema }),
+	validate({ body: patchBodySchema, query: patchQuerySchema }),
 	async (req, res) => {
 		// Because of how Next routing works, this parameter will be under the
 		// "articles" array field. We need to access the first element.
