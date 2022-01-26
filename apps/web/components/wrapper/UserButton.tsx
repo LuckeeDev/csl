@@ -17,6 +17,7 @@ import {
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { Session } from 'next-auth';
 import Link from 'next/link';
+import { SessionUser } from 'types/next-auth';
 
 const useStyles = createStyles((theme) => ({
 	user: {
@@ -46,7 +47,7 @@ const LoggedInButton = forwardRef<HTMLButtonElement, LoggedInButtonProps>(
 	({ session, theme, classes, ...others }: LoggedInButtonProps, ref) => (
 		<UnstyledButton ref={ref} className={classes.user} {...others}>
 			<Group>
-				<Avatar src={session.user.image} radius="xl" />
+				<Avatar src={session.user.image ?? undefined} radius="xl" />
 
 				<div style={{ flex: 1 }}>
 					<Text size="sm" weight={500}>

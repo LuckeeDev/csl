@@ -14,12 +14,13 @@ export interface ArticleFormValues {
 	title: string;
 	content: string;
 	author: string;
-	readingTime: number;
+	readingTime: number | null;
 }
 
 export default function useArticleForm(article?: ArticleData) {
 	const form = useForm<ArticleFormValues>({
 		initialValues: article ? article : DEFAULT_VALUES,
+
 		errorMessages: {
 			title: 'Questo campo è necessario',
 			content: 'Questo campo è necessario',

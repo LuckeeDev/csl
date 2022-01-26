@@ -22,14 +22,14 @@ export default function DashboardIndex() {
 			<h1>Profilo</h1>
 
 			<Group>
-				<Avatar size="lg" src={session.user.image} />
+				<Avatar size="lg" src={session?.user.image ?? undefined} />
 
 				<div style={{ flex: 1 }}>
 					<Text size="sm" weight={500}>
-						{session.user.name}
+						{session?.user.name}
 					</Text>
 					<Text color="dimmed" size="xs">
-						{session.user.email}
+						{session?.user.email}
 					</Text>
 				</div>
 			</Group>
@@ -40,13 +40,9 @@ export default function DashboardIndex() {
 const getServerSideProps: GetServerSideProps<DashboardIndexProps> = async (
 	ctx
 ) => {
-	const {
-		user: { roles },
-	} = await getServerSession(ctx, nextAuthOptions);
+	const session = await getServerSession(ctx, nextAuthOptions);
 
-	const roleIDs = roles.map((x) => x.id);
-
-	const isEditor = roleIDs.includes('IS_EDITOR');
+	const isEditor = session?.user?.permissions?.includes('NEWS_EDITOR');
 
 	const newsLink: WrapperLinkProps = {
 		icon: 'write',

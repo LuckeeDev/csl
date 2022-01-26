@@ -4,6 +4,7 @@
 	"license": "GPL-3.0",
 	"scripts": {
 		"dev": "nx serve",
+		"build": "nx build",
 		"fire": "firebase emulators:start",
 		"release": "nx run workspace:version",
 		"ng:view": "nx g @nrwl/angular:component --type view",

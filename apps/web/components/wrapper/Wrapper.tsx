@@ -32,7 +32,7 @@ export default function Wrapper({
 			navbarOffsetBreakpoint="sm"
 			fixed
 			navbar={
-				hasSidebar && (
+				hasSidebar ? (
 					<Navbar
 						padding="md"
 						hiddenBreakpoint="sm"
@@ -47,7 +47,7 @@ export default function Wrapper({
 							<UserButton />
 						</Navbar.Section>
 					</Navbar>
-				)
+				) : undefined
 			}
 			header={
 				<Header height={80} padding="md">

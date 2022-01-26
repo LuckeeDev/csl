@@ -12,18 +12,20 @@ export const nextAuthOptions: NextAuthOptions = {
 	},
 	providers: [
 		GoogleProvider({
-			clientId: process.env.GOOGLE_CLIENT_ID,
-			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			clientId: process.env.GOOGLE_CLIENT_ID!,
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
 		}),
 	],
 	callbacks: {
 		async session(params) {
-			const { roles } = await prisma.user.findUnique({
+			const user = await prisma.user.findUnique({
 				where: { id: params.user.id },
 				include: { roles: true },
 			});
 
-			const permissions = roles.map((r) => r.permissions).flat();
+			const permissions = user?.roles.map((r) => r.permissions).flat();
 
 			params.session.user.permissions = permissions;
 

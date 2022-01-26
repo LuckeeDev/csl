@@ -5,13 +5,14 @@
 		"allowJs": true,
 		"esModuleInterop": true,
 		"allowSyntheticDefaultImports": true,
-		"types": ["node", "jest", "./types"],
-		"lib": ["ES2019"],
+		"types": ["node", "jest"],
+		"typeRoots": ["./types"],
+		"lib": ["ES2019", "DOM"],
 		"baseUrl": ".",
 		"paths": {
 			"*": ["./*"]
 		},
-		"strict": false,
+		"strict": true,
 		"forceConsistentCasingInFileNames": true,
 		"noEmit": true,
 		"resolveJsonModule": true,

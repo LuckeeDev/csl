@@ -3,7 +3,6 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import joi from 'joi';
 import validate from 'middlewares/validate';
 import prisma from 'prisma/client';
-import { SessionUser } from 'types';
 import session from 'middlewares/session';
 import hasPermission from 'middlewares/hasPermission';
 import { Permission } from '@prisma/client';
@@ -31,12 +30,7 @@ const patchQuerySchema = joi.object({
 	articles: joi.array().length(1).items(joi.string()),
 });
 
-interface HandlerRequest extends NextApiRequest {
-	body: { article: number };
-	user: SessionUser;
-}
-
-const handler = connect<HandlerRequest, NextApiResponse>();
+const handler = connect<NextApiRequest, NextApiResponse>();
 
 handler.post(
 	session,

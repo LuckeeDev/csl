@@ -78,7 +78,7 @@ export default function DashboardArticlesEdit({
 
 const getServerSideProps: GetServerSideProps<DashboardArticlesEditProps> =
 	async (ctx) => {
-		const articleID = ctx.params.id as string;
+		const articleID = ctx.params?.id as string;
 
 		const article = await prisma.article.findUnique({
 			where: { id: articleID },
@@ -90,6 +90,12 @@ const getServerSideProps: GetServerSideProps<DashboardArticlesEditProps> =
 				published: true,
 			},
 		});
+
+		if (!article) {
+			return {
+				notFound: true,
+			};
+		}
 
 		return {
 			props: {
