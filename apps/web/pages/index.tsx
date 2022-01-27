@@ -10,7 +10,7 @@ export default function HomePage() {
 			>
 				Welcome to{' '}
 				<Text inherit variant="gradient" component="span">
-					Mantine
+					CSL
 				</Text>
 			</Title>
 			<Text
@@ -21,13 +21,15 @@ export default function HomePage() {
 				mx="auto"
 				mt="xl"
 			>
-				This starter Next.js projects includes a minimal setup for server side
-				rendering, if you want to learn more on Mantine + Next.js integration
-				follow{' '}
-				<Anchor href="https://mantine.dev/theming/next/" size="lg">
-					this guide
+				Il sito per la tua scuola. Gratuito,{'  '}
+				<Anchor
+					href="https://github.com/LuckeeDev/csl"
+					size="lg"
+					target="_blank"
+				>
+					open source
 				</Anchor>
-				. To get started edit index.tsx file.
+				.
 			</Text>
 		</>
 	);

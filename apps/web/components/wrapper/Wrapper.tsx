@@ -5,16 +5,19 @@ import {
 	MediaQuery,
 	Burger,
 	useMantineTheme,
+	Anchor,
 } from '@mantine/core';
 import { ReactNode, useMemo, useState } from 'react';
 import SideLinks from './SideLinks';
 import UserButton from './UserButton';
 import ButtonLink from 'components/links/ButtonLink';
-import TextLink from 'components/links/TextLink';
-import { WrapperLinkProps } from './types';
 import { useSession } from 'next-auth/react';
 import LoaderDiv from 'components/loader/LoaderDiv';
 import { LinkData } from 'navigation/types';
+import Logo from 'public/logo.png';
+import Image from 'next/image';
+import Link from 'next/link';
+import TextLink from 'components/links/TextLink';
 
 interface WrapperProps {
 	children: ReactNode;
@@ -32,7 +35,7 @@ export default function Wrapper({
 	const { data: session, status } = useSession();
 
 	const links: LinkData[] = useMemo(() => {
-		if (status === 'loading') {
+		if (!sidebarLinks || status === 'loading') {
 			return [];
 		}
 
@@ -89,17 +92,33 @@ export default function Wrapper({
 							height: '100%',
 						}}
 					>
-						<MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-							<Burger
-								opened={opened}
-								onClick={() => setOpened((o) => !o)}
-								size="sm"
-								color={theme.colors.gray[6]}
-								mr="xl"
-							/>
-						</MediaQuery>
+						<div
+							style={{ display: 'flex', alignItems: 'center', height: '100%' }}
+						>
+							<MediaQuery largerThan="sm" styles={{ display: 'none' }}>
+								<Burger
+									opened={opened}
+									onClick={() => setOpened((o) => !o)}
+									size="sm"
+									color={theme.colors.gray[6]}
+									mr="xl"
+								/>
+							</MediaQuery>
 
-						<TextLink href="/">Comitato Studentesco Lussana</TextLink>
+							<Link href="/" passHref>
+								<a
+									style={{
+										display: 'flex',
+										alignItems: 'center',
+										justifyContent: 'center',
+									}}
+								>
+									<Image src={Logo} alt="Logo" height={80} width={80} />
+								</a>
+							</Link>
+
+							<TextLink href="/articles">Articoli</TextLink>
+						</div>
 
 						<ButtonLink href="/dashboard">Dashboard</ButtonLink>
 					</div>
