@@ -1,4 +1,3 @@
-import { WrapperLinkProps } from 'components/wrapper/types';
 import { GetServerSideProps } from 'next';
 import { useState } from 'react';
 import { LoadingOverlay } from '@mantine/core';
@@ -11,10 +10,12 @@ import ArticleForm from 'components/forms/ArticleForm';
 import useArticleForm, { ArticleFormValues } from 'hooks/useArticleForm';
 import { useRouter } from 'next/router';
 import { Article } from '@prisma/client';
+import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
+import { LinkData } from 'navigation/types';
 
 interface DashboardArticlesNewProps {
 	hasSidebar: boolean;
-	sidebarLinks: WrapperLinkProps[];
+	sidebarLinks: LinkData[];
 }
 
 export default function DashboardArticlesNew() {
@@ -69,26 +70,7 @@ const getServerSideProps: GetServerSideProps<DashboardArticlesNewProps> =
 		return {
 			props: {
 				hasSidebar: true,
-				sidebarLinks: [
-					{
-						icon: 'back',
-						color: 'transparent',
-						label: 'Torna indietro',
-						href: '/dashboard',
-					},
-					{
-						icon: 'list',
-						color: 'teal',
-						label: 'Articoli',
-						href: '/dashboard/articles',
-					},
-					{
-						icon: 'write',
-						color: 'teal',
-						label: 'Nuovo articolo',
-						href: '/dashboard/articles/new',
-					},
-				],
+				sidebarLinks: ARTICLE_LINKS,
 			},
 		};
 	};

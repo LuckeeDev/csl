@@ -4,7 +4,6 @@ import { Article } from '@prisma/client';
 import ArticleForm from 'components/forms/ArticleForm';
 import PageTitle from 'components/head/PageTitle';
 import BackHeading from 'components/heading/BackHeading';
-import { WrapperLinkProps } from 'components/wrapper/types';
 import { GetServerSideProps } from 'next';
 import prisma from 'prisma/client';
 import { useState } from 'react';
@@ -16,10 +15,12 @@ import useArticleForm, {
 	ArticleFormValues,
 } from 'hooks/useArticleForm';
 import { useRouter } from 'next/router';
+import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
+import { LinkData } from 'navigation/types';
 
 interface DashboardArticlesEditProps {
 	hasSidebar: boolean;
-	sidebarLinks: WrapperLinkProps[];
+	sidebarLinks: LinkData[];
 	article: ArticleData;
 }
 
@@ -100,26 +101,7 @@ const getServerSideProps: GetServerSideProps<DashboardArticlesEditProps> =
 		return {
 			props: {
 				hasSidebar: true,
-				sidebarLinks: [
-					{
-						icon: 'back',
-						color: 'transparent',
-						label: 'Torna indietro',
-						href: '/dashboard',
-					},
-					{
-						icon: 'list',
-						color: 'teal',
-						label: 'Articoli',
-						href: '/dashboard/articles',
-					},
-					{
-						icon: 'write',
-						color: 'teal',
-						label: 'Nuovo articolo',
-						href: '/dashboard/articles/new',
-					},
-				],
+				sidebarLinks: ARTICLE_LINKS,
 				article,
 			},
 		};

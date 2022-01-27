@@ -3,16 +3,17 @@ import { Article } from '@prisma/client';
 import axios from 'axios';
 import ArticleRow from 'components/articles/ArticleRow';
 import PageTitle from 'components/head/PageTitle';
-import { WrapperLinkProps } from 'components/wrapper/types';
 import { GetServerSideProps } from 'next';
 import prisma from 'prisma/client';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import { useNotifications } from '@mantine/notifications';
 import { environment } from 'environments/environment';
+import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
+import { LinkData } from 'navigation/types';
 
 interface DashboardArticlesIndexProps {
 	hasSidebar: boolean;
-	sidebarLinks: WrapperLinkProps[];
+	sidebarLinks: LinkData[];
 	articles: Omit<Article, 'updated_at' | 'created_at'>[];
 }
 
@@ -89,31 +90,15 @@ const getServerSideProps: GetServerSideProps<DashboardArticlesIndexProps> =
 				id: true,
 				published: true,
 			},
+			orderBy: {
+				created_at: 'desc',
+			},
 		});
 
 		return {
 			props: {
 				hasSidebar: true,
-				sidebarLinks: [
-					{
-						icon: 'back',
-						color: 'transparent',
-						label: 'Torna indietro',
-						href: '/dashboard',
-					},
-					{
-						icon: 'list',
-						color: 'teal',
-						label: 'Articoli',
-						href: '/dashboard/articles',
-					},
-					{
-						icon: 'write',
-						color: 'teal',
-						label: 'Nuovo articolo',
-						href: '/dashboard/articles/new',
-					},
-				],
+				sidebarLinks: ARTICLE_LINKS,
 				articles,
 			},
 		};

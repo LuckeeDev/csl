@@ -6,17 +6,20 @@ import {
 	Burger,
 	useMantineTheme,
 } from '@mantine/core';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useMemo, useState } from 'react';
 import SideLinks from './SideLinks';
 import UserButton from './UserButton';
 import ButtonLink from 'components/links/ButtonLink';
 import TextLink from 'components/links/TextLink';
 import { WrapperLinkProps } from './types';
+import { useSession } from 'next-auth/react';
+import LoaderDiv from 'components/loader/LoaderDiv';
+import { LinkData } from 'navigation/types';
 
 interface WrapperProps {
 	children: ReactNode;
 	hasSidebar: boolean;
-	sidebarLinks: WrapperLinkProps[];
+	sidebarLinks: LinkData[];
 }
 
 export default function Wrapper({
@@ -26,6 +29,29 @@ export default function Wrapper({
 }: WrapperProps) {
 	const [opened, setOpened] = useState(false);
 	const theme = useMantineTheme();
+	const { data: session, status } = useSession();
+
+	const links: LinkData[] = useMemo(() => {
+		if (status === 'loading') {
+			return [];
+		}
+
+		// Check if links need any special permission
+		return sidebarLinks.filter((link) => {
+			// Create an array of booleans indicating if the user matches required permissions
+			const matchesPermissions = link.requiredPermissions.map(
+				(p) => session?.user.permissions?.includes(p) ?? false
+			);
+
+			// If any permission is not met, return false...
+			if (matchesPermissions.includes(false)) {
+				return false;
+			}
+
+			// ...otherwise, return true
+			return true;
+		});
+	}, [session, status, sidebarLinks]);
 
 	return (
 		<AppShell
@@ -40,7 +66,11 @@ export default function Wrapper({
 						width={{ sm: 300, lg: 400 }}
 					>
 						<Navbar.Section grow>
-							<SideLinks links={sidebarLinks} />
+							{status === 'loading' ? (
+								<LoaderDiv />
+							) : (
+								<SideLinks links={links} />
+							)}
 						</Navbar.Section>
 
 						<Navbar.Section>

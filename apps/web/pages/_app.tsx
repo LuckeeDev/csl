@@ -23,6 +23,7 @@ export default function App(props: AppProps) {
 			<Providers session={session}>
 				<NormalizeCSS />
 				<GlobalStyles />
+				
 				<Wrapper
 					hasSidebar={hasSidebar ?? false}
 					sidebarLinks={sidebarLinks ?? null}
