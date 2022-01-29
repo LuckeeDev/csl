@@ -5,7 +5,7 @@ import ButtonLink from 'components/links/ButtonLink';
 import { useEffect, useRef, useState } from 'react';
 
 interface ArticleRowProps {
-	article: Omit<Article, 'updated_at' | 'created_at'>;
+	article: Omit<Article, 'categoryId' | 'updated_at' | 'created_at'>;
 	onPublish: (published: boolean, id: string) => void;
 }
 

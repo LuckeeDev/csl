@@ -10,11 +10,12 @@ import { useNotifications } from '@mantine/notifications';
 import { environment } from 'environments/environment';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
 import { LinkData } from 'navigation/types';
+import { getSession } from 'next-auth/react';
 
 interface DashboardArticlesIndexProps {
 	hasSidebar: boolean;
 	sidebarLinks: LinkData[];
-	articles: Omit<Article, 'updated_at' | 'created_at'>[];
+	articles: Omit<Article, 'categoryId' | 'updated_at' | 'created_at'>[];
 }
 
 export default function DashboardArticlesIndex({
@@ -80,7 +81,9 @@ export default function DashboardArticlesIndex({
 }
 
 const getServerSideProps: GetServerSideProps<DashboardArticlesIndexProps> =
-	async () => {
+	async (ctx) => {
+		const session = await getSession(ctx);
+
 		const articles = await prisma.article.findMany({
 			select: {
 				author: true,
@@ -97,6 +100,7 @@ const getServerSideProps: GetServerSideProps<DashboardArticlesIndexProps> =
 
 		return {
 			props: {
+				session,
 				hasSidebar: true,
 				sidebarLinks: ARTICLE_LINKS,
 				articles,

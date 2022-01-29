@@ -3,7 +3,7 @@ import LoaderDiv from 'components/loader/LoaderDiv';
 import { WrapperLinkProps } from 'components/wrapper/types';
 import { DASHBOARD_LINKS } from 'navigation/dashboard';
 import { GetServerSideProps } from 'next';
-import { useSession } from 'next-auth/react';
+import { getSession, useSession } from 'next-auth/react';
 
 interface DashboardIndexProps {
 	hasSidebar: boolean;
@@ -38,9 +38,13 @@ export default function DashboardIndex() {
 }
 
 const getServerSideProps: GetServerSideProps<DashboardIndexProps> =
-	async () => {
+	async (ctx) => {
+		const session = await getSession(ctx);
+
 		return {
 			props: {
+				// return the session to allow instant display in client
+				session,
 				hasSidebar: true,
 				sidebarLinks: DASHBOARD_LINKS,
 			},

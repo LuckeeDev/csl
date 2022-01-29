@@ -1,14 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getServerSession } from 'next-auth';
+import { getSession } from 'next-auth/react';
 import { NextHandler } from 'next-connect';
-import { nextAuthOptions } from 'pages/api/auth/[...nextauth]';
 
 export default async function session(
 	req: NextApiRequest,
 	res: NextApiResponse,
 	next: NextHandler
 ) {
-	const session = await getServerSession({ req, res }, nextAuthOptions);
+	const session = await getSession({ req });
 
 	if (session?.user) {
 		req.user = session.user;

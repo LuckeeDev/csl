@@ -8,7 +8,10 @@ const DEFAULT_VALUES = {
 	readingTime: null,
 };
 
-export type ArticleData = Omit<Article, 'updated_at' | 'created_at' | 'id'>;
+export type ArticleData = Omit<
+	Article,
+	'categoryId' | 'updated_at' | 'created_at' | 'id'
+>;
 
 export interface ArticleFormValues {
 	title: string;

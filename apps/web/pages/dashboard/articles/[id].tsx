@@ -17,6 +17,7 @@ import useArticleForm, {
 import { useRouter } from 'next/router';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
 import { LinkData } from 'navigation/types';
+import { getSession } from 'next-auth/react';
 
 interface DashboardArticlesEditProps {
 	hasSidebar: boolean;
@@ -79,6 +80,8 @@ export default function DashboardArticlesEdit({
 
 const getServerSideProps: GetServerSideProps<DashboardArticlesEditProps> =
 	async (ctx) => {
+		const session = await getSession(ctx);
+
 		const articleID = ctx.params?.id as string;
 
 		const article = await prisma.article.findUnique({
@@ -100,6 +103,7 @@ const getServerSideProps: GetServerSideProps<DashboardArticlesEditProps> =
 
 		return {
 			props: {
+				session,
 				hasSidebar: true,
 				sidebarLinks: ARTICLE_LINKS,
 				article,

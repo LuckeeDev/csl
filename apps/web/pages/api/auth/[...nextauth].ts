@@ -4,11 +4,14 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import prisma from 'prisma/client';
 
 export const nextAuthOptions: NextAuthOptions = {
+	session: {
+		strategy: 'jwt',
+	},
 	secret: process.env.AUTH_SECRET,
 	adapter: PrismaAdapter(prisma),
 	theme: {
 		logo: '/logo.png',
-		colorScheme: 'light',
+		colorScheme: 'dark',
 	},
 	providers: [
 		GoogleProvider({
@@ -21,7 +24,8 @@ export const nextAuthOptions: NextAuthOptions = {
 	callbacks: {
 		async session(params) {
 			const user = await prisma.user.findUnique({
-				where: { id: params.user.id },
+				// params.token.sub is the user's id
+				where: { id: params.token.sub },
 				include: { roles: true },
 			});
 

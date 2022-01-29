@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import { Article } from '@prisma/client';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
 import { LinkData } from 'navigation/types';
+import { getSession } from 'next-auth/react';
 
 interface DashboardArticlesNewProps {
 	hasSidebar: boolean;
@@ -66,9 +67,12 @@ export default function DashboardArticlesNew() {
 }
 
 const getServerSideProps: GetServerSideProps<DashboardArticlesNewProps> =
-	async () => {
+	async (ctx) => {
+		const session = await getSession(ctx);
+
 		return {
 			props: {
+				session,
 				hasSidebar: true,
 				sidebarLinks: ARTICLE_LINKS,
 			},
