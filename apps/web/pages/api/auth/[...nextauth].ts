@@ -22,14 +22,23 @@ export const nextAuthOptions: NextAuthOptions = {
 		}),
 	],
 	callbacks: {
-		async session(params) {
-			const user = await prisma.user.findUnique({
-				// params.token.sub is the user's id
-				where: { id: params.token.sub },
-				include: { roles: true },
-			});
+		async jwt(params) {
+			if (params.user) {
+				const user = await prisma.user.findUnique({
+					// params.token.sub is the user's id
+					where: { id: params.token.sub },
+					include: { roles: true },
+				});
 
-			const permissions = user?.roles.map((r) => r.permissions).flat();
+				const permissions = user?.roles.map((r) => r.permissions).flat();
+
+				params.token.permissions = permissions;
+			}
+
+			return params.token;
+		},
+		async session(params) {
+			const { permissions } = params.token;
 
 			params.session.user.permissions = permissions;
 
