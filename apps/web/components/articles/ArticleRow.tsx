@@ -25,7 +25,7 @@ export default function ArticleRow({ article, onPublish }: ArticleRowProps) {
 	}, [debounced]);
 
 	return (
-		<tr key={article.id}>
+		<tr>
 			<td>{article.title}</td>
 			<td>{article.author}</td>
 			<td>{article.readingTime} minuti</td>

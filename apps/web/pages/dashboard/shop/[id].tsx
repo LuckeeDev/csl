@@ -17,6 +17,7 @@ import { useRouter } from 'next/router';
 import prisma from 'prisma/client';
 import { CheckIcon } from '@modulz/radix-icons';
 import { LoadingOverlay } from '@mantine/core';
+import BackHeading from 'components/heading/BackHeading';
 
 interface DashboardShopEditProps {
 	hasSidebar: boolean;
@@ -72,7 +73,7 @@ export default function DashboardShopEdit({
 
 			<LoadingOverlay visible={overlay} />
 
-			<h1>Modifica sessione</h1>
+			<BackHeading>Modifica sessione</BackHeading>
 
 			<ShopSessionForm form={form} onSubmit={onSubmit} />
 		</>
