@@ -1,5 +1,4 @@
 import { GetServerSideProps } from 'next';
-import { useState } from 'react';
 import { LoadingOverlay } from '@mantine/core';
 import { useNotifications } from '@mantine/notifications';
 import axios from 'axios';
@@ -13,6 +12,7 @@ import { Article } from '@prisma/client';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
 import { LinkData } from 'navigation/types';
 import { getSession } from 'next-auth/react';
+import { useBooleanToggle } from '@mantine/hooks';
 
 interface DashboardArticlesNewProps {
 	hasSidebar: boolean;
@@ -21,13 +21,9 @@ interface DashboardArticlesNewProps {
 
 export default function DashboardArticlesNew() {
 	const form = useArticleForm();
-	const [overlay, setOverlay] = useState(false);
+	const [overlay, toggleOverlay] = useBooleanToggle(false);
 	const notifications = useNotifications();
 	const router = useRouter();
-
-	function toggleOverlay() {
-		setOverlay((val) => !val);
-	}
 
 	async function onSubmit(val: ArticleFormValues) {
 		toggleOverlay();
