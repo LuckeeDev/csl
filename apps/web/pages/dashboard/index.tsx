@@ -21,7 +21,11 @@ export default function DashboardIndex() {
 				<LoaderDiv />
 			) : (
 				<Group>
-					<Avatar size="lg" src={session?.user.image ?? undefined} />
+					<Avatar
+						size="lg"
+						src={session?.user.image ?? undefined}
+						imageProps={{ referrerPolicy: 'no-referrer' }}
+					/>
 
 					<div style={{ flex: 1 }}>
 						<Text size="sm" weight={500}>
@@ -37,18 +41,19 @@ export default function DashboardIndex() {
 	);
 }
 
-const getServerSideProps: GetServerSideProps<DashboardIndexProps> =
-	async (ctx) => {
-		const session = await getSession(ctx);
+const getServerSideProps: GetServerSideProps<DashboardIndexProps> = async (
+	ctx
+) => {
+	const session = await getSession(ctx);
 
-		return {
-			props: {
-				// return the session to allow instant display in client
-				session,
-				hasSidebar: true,
-				sidebarLinks: DASHBOARD_LINKS,
-			},
-		};
+	return {
+		props: {
+			// return the session to allow instant display in client
+			session,
+			hasSidebar: true,
+			sidebarLinks: DASHBOARD_LINKS,
+		},
 	};
+};
 
 export { getServerSideProps };

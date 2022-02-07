@@ -17,4 +17,12 @@ export const DASHBOARD_LINKS: LinkData[] = [
 		hasSublinks: true,
 		requiredPermissions: [Permission.NEWS_EDITOR],
 	},
+	{
+		icon: 'rocket',
+		color: 'yellow',
+		label: 'Negozio',
+		href: '/dashboard/shop',
+		hasSublinks: true,
+		requiredPermissions: [Permission.SHOP_MANAGER],
+	},
 ];

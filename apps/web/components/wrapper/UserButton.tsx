@@ -1,9 +1,5 @@
 import { forwardRef } from 'react';
-import {
-	ChevronRightIcon,
-	ChevronLeftIcon,
-	PersonIcon,
-} from '@modulz/radix-icons';
+import { ChevronRightIcon, PersonIcon } from '@modulz/radix-icons';
 import { createStyles } from '@mantine/styles';
 import {
 	UnstyledButton,
@@ -14,10 +10,9 @@ import {
 	Menu,
 	MantineTheme,
 } from '@mantine/core';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { Session } from 'next-auth';
-import Link from 'next/link';
-import { SessionUser } from 'types/next-auth';
+import useSignOut from 'hooks/useSignOut';
 
 const useStyles = createStyles((theme) => ({
 	user: {
@@ -47,7 +42,11 @@ const LoggedInButton = forwardRef<HTMLButtonElement, LoggedInButtonProps>(
 	({ session, theme, classes, ...others }: LoggedInButtonProps, ref) => (
 		<UnstyledButton ref={ref} className={classes.user} {...others}>
 			<Group>
-				<Avatar src={session.user.image ?? undefined} radius="xl" />
+				<Avatar
+					src={session.user.image ?? undefined}
+					radius="xl"
+					imageProps={{ referrerPolicy: 'no-referrer' }}
+				/>
 
 				<div style={{ flex: 1 }}>
 					<Text size="sm" weight={500}>
@@ -67,6 +66,7 @@ const LoggedInButton = forwardRef<HTMLButtonElement, LoggedInButtonProps>(
 export default function UserButton() {
 	const { classes, theme } = useStyles();
 	const { data: session } = useSession();
+	const signOut = useSignOut();
 
 	return (
 		<div
