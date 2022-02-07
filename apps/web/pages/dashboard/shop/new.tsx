@@ -30,27 +30,25 @@ export default function DashboardShopNew() {
 	async function onSubmit(val: ShopSessionFormValues) {
 		toggleOverlay();
 
-		console.log(val);
-
-		const { data } = await axios.post<ShopSession>(
+		const {
+			data: { id },
+		} = await axios.post<ShopSession>(
 			// /new is needed because of how Next API routing works
 			`${environment.url}/api/shop/new`,
 			{ shopSession: val },
 			{ withCredentials: true }
 		);
 
-		console.log(data);
-
 		notifications.showNotification({
-			title: 'Articolo salvato',
-			message: 'Torna alla pagina degli articoli per pubblicarlo!',
+			title: 'Sessione creata',
+			message: 'Ora gli studenti potranno ordinare prodotti in questo periodo!',
 			icon: <CheckIcon />,
 			color: 'teal',
 		});
 
 		toggleOverlay();
 
-		// router.push(`/dashboard/shop/${id}`);
+		router.push(`/dashboard/shop/${id}`);
 	}
 
 	return (

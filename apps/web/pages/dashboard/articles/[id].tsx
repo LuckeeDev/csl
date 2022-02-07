@@ -18,6 +18,7 @@ import { useRouter } from 'next/router';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
 import { LinkData } from 'navigation/types';
 import { getSession } from 'next-auth/react';
+import { useBooleanToggle } from '@mantine/hooks';
 
 interface DashboardArticlesEditProps {
 	hasSidebar: boolean;
@@ -29,13 +30,9 @@ export default function DashboardArticlesEdit({
 	article,
 }: DashboardArticlesEditProps) {
 	const form = useArticleForm(article);
-	const [overlay, setOverlay] = useState(false);
+	const [overlay, toggleOverlay] = useBooleanToggle(false);
 	const notifications = useNotifications();
 	const router = useRouter();
-
-	function toggleOverlay() {
-		setOverlay((val) => !val);
-	}
 
 	async function onSubmit(val: ArticleFormValues) {
 		toggleOverlay();

@@ -40,7 +40,7 @@ export default function ShopSessionForm({
 
 			<Space h={20} />
 
-			<Button type="submit">Crea sessione</Button>
+			<Button type="submit">Salva sessione</Button>
 		</form>
 	);
 }

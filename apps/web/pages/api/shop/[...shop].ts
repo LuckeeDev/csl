@@ -15,6 +15,18 @@ const postBodySchema = joi.object({
 	}),
 });
 
+const patchBodySchema = joi.object({
+	shopSession: joi.object({
+		name: joi.string(),
+		start: joi.date(),
+		end: joi.date(),
+	}),
+});
+
+const patchQuerySchema = joi.object({
+	shop: joi.array().length(1).items(joi.string()),
+});
+
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
 
 handler.post(
@@ -28,6 +40,24 @@ handler.post(
 		const savedSession = await prisma.shopSession.create({ data: shopSession });
 
 		res.json(savedSession);
+	}
+);
+
+handler.patch(
+	session,
+	hasPermission(Permission.SHOP_MANAGER),
+	validate({ body: patchBodySchema, query: patchQuerySchema }),
+	async (req, res) => {
+		const shopSessionID = req.query.shop[0];
+
+		const { shopSession } = req.body;
+
+		const savedShopSession = await prisma.shopSession.update({
+			where: { id: shopSessionID },
+			data: shopSession,
+		});
+
+		res.json(savedShopSession);
 	}
 );
 
