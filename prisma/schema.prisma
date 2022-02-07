@@ -74,6 +74,44 @@ model ArticleCategory {
     created_at DateTime @default(now())
 }
 
+model Product {
+    id          String  @id @default(cuid())
+    name        String
+    description String?
+    price       Int
+
+    category      ProductCategory @relation(fields: [categoryId], references: [id])
+    categoryId    String
+    shopSession   ShopSession     @relation(fields: [shopSessionId], references: [id])
+    shopSessionId String
+
+    updated_at DateTime @updatedAt
+    created_at DateTime @default(now())
+}
+
+model ProductCategory {
+    id       String    @id @default(cuid())
+    name     String
+    products Product[]
+
+    updated_at DateTime @updatedAt
+    created_at DateTime @default(now())
+}
+
+model ShopSession {
+    id   String @id @default(cuid())
+    name String
+
+    products Product[]
+
+    start DateTime
+    end   DateTime
+
+    updated_at DateTime @updatedAt
+    created_at DateTime @default(now())
+}
+
 enum Permission {
     NEWS_EDITOR
+    SHOP_MANAGER
 }
