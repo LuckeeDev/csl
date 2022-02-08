@@ -53,7 +53,7 @@ export default function DashboardShopNew() {
 
 	return (
 		<>
-			<PageTitle>Nuova session | Dashboard</PageTitle>
+			<PageTitle>Nuova sessione | Dashboard</PageTitle>
 
 			<LoadingOverlay visible={overlay} />
 
