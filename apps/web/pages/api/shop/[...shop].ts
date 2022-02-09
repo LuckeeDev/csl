@@ -8,23 +8,27 @@ import nextConnect from 'next-connect';
 import prisma from 'prisma/client';
 
 const postBodySchema = joi.object({
-	shopSession: joi.object({
-		name: joi.string().required(),
-		start: joi.date().required(),
-		end: joi.date().required(),
-	}),
+	shopSession: joi
+		.object({
+			name: joi.string().required(),
+			start: joi.date().required(),
+			end: joi.date().required(),
+		})
+		.required(),
 });
 
 const patchBodySchema = joi.object({
-	shopSession: joi.object({
-		name: joi.string(),
-		start: joi.date(),
-		end: joi.date(),
-	}),
+	shopSession: joi
+		.object({
+			name: joi.string(),
+			start: joi.date(),
+			end: joi.date(),
+		})
+		.required(),
 });
 
 const patchQuerySchema = joi.object({
-	shop: joi.array().length(1).items(joi.string()),
+	shop: joi.array().length(1).items(joi.string()).required(),
 });
 
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
@@ -34,7 +38,6 @@ handler.post(
 	hasPermission(Permission.SHOP_MANAGER),
 	validate({ body: postBodySchema }),
 	async (req, res) => {
-		console.log(req, res);
 		const { shopSession } = req.body;
 
 		const savedSession = await prisma.shopSession.create({ data: shopSession });

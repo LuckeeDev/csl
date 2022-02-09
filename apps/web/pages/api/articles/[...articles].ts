@@ -8,26 +8,30 @@ import hasPermission from 'middlewares/hasPermission';
 import { Permission } from '@prisma/client';
 
 const postBodySchema = joi.object({
-	article: joi.object({
-		title: joi.string().required(),
-		content: joi.string().required(),
-		author: joi.string().required(),
-		readingTime: joi.number().required(),
-	}),
+	article: joi
+		.object({
+			title: joi.string().required(),
+			content: joi.string().required(),
+			author: joi.string().required(),
+			readingTime: joi.number().required(),
+		})
+		.required(),
 });
 
 const patchBodySchema = joi.object({
-	article: joi.object({
-		title: joi.string(),
-		content: joi.string(),
-		author: joi.string(),
-		readingTime: joi.number(),
-		published: joi.boolean(),
-	}),
+	article: joi
+		.object({
+			title: joi.string(),
+			content: joi.string(),
+			author: joi.string(),
+			readingTime: joi.number(),
+			published: joi.boolean(),
+		})
+		.required(),
 });
 
 const patchQuerySchema = joi.object({
-	articles: joi.array().length(1).items(joi.string()),
+	articles: joi.array().length(1).items(joi.string()).required(),
 });
 
 const handler = connect<NextApiRequest, NextApiResponse>();

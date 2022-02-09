@@ -80,7 +80,7 @@ export default function ProductForm({
 			<InputWrapper id="name" required label="Nome">
 				<TextInput
 					id="name"
-					placeholder="Il nome della sessione"
+					placeholder="Il nome del prodotto"
 					{...form.getInputProps('name')}
 				/>
 			</InputWrapper>
@@ -99,6 +99,7 @@ export default function ProductForm({
 
 			<InputWrapper id="price" label="Prezzo" required>
 				<NumberInput
+					precision={2}
 					icon={'€'}
 					id="price"
 					placeholder="Prezzo del prodotto"
