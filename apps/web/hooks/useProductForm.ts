@@ -6,7 +6,7 @@ export type ProductFormValues = Omit<
 	'updated_at' | 'created_at' | 'id' | 'price'
 > & { price: number | null };
 
-const DEFAULT_VALUES: ProductFormValues = {
+export const DEFAULT_PRODUCT_VALUES: ProductFormValues = {
 	name: '',
 	description: '',
 	shopSessionId: '',
@@ -18,7 +18,7 @@ const DEFAULT_VALUES: ProductFormValues = {
 
 export default function useProductForm(product?: ProductFormValues) {
 	const form = useForm<ProductFormValues>({
-		initialValues: product ? product : DEFAULT_VALUES,
+		initialValues: product ? product : DEFAULT_PRODUCT_VALUES,
 
 		errorMessages: {
 			name: 'Questo campo è necessario',

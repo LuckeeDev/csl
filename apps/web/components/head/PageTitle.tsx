@@ -1,7 +1,8 @@
 import Head from 'next/head';
+import { ReactNode } from 'react';
 
 interface PageTitleProps {
-	children: string;
+	children: ReactNode;
 }
 
 export default function PageTitle(props: PageTitleProps) {
