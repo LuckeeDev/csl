@@ -22,4 +22,18 @@ export const SHOP_LINKS: LinkData[] = [
 		href: '/dashboard/shop/new',
 		requiredPermissions: [],
 	},
+	{
+		icon: 'list',
+		color: 'yellow',
+		label: 'Prodotti',
+		href: '/dashboard/shop/products',
+		requiredPermissions: [],
+	},
+	{
+		icon: 'write',
+		color: 'yellow',
+		label: 'Nuovo prodotto',
+		href: '/dashboard/shop/products/new',
+		requiredPermissions: [],
+	},
 ];
