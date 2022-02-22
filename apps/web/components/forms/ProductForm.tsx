@@ -21,8 +21,8 @@ import { ChangeEvent, useCallback } from 'react';
 interface ProductFormProps {
 	form: UseForm<ProductFormValues>;
 	onSubmit: (val: ProductFormValues) => void;
-	shopSessions: ShopSession[];
-	productCategories: ProductCategory[];
+	shopSessions: Pick<ShopSession, 'id' | 'name'>[];
+	productCategories: Pick<ProductCategory, 'id' | 'name'>[];
 }
 
 export default function ProductForm({

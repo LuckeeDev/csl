@@ -25,17 +25,25 @@ const postBodySchema = joi.object({
 		.required(),
 });
 
-// const patchBodySchema = joi.object({
-// 	shopSession: joi.object({
-// 		name: joi.string(),
-// 		start: joi.date(),
-// 		end: joi.date(),
-// 	}),
-// });
+const patchBodySchema = joi.object({
+	product: joi
+		.object({
+			name: joi.string(),
+			description: joi.string().allow(''),
+			shopSessionId: joi.string(),
+			categoryId: joi.string(),
+			colors: joi
+				.array()
+				.items(joi.string().regex(/^#?([0-9a-f]{6}|[0-9a-f]{3})$/i)),
+			sizes: joi.array().items(joi.string().valid(...PRODUCT_SIZES)),
+			price: joi.number(),
+		})
+		.required(),
+});
 
-// const patchQuerySchema = joi.object({
-// 	shop: joi.array().length(1).items(joi.string()),
-// });
+const patchQuerySchema = joi.object({
+	products: joi.array().length(1).items(joi.string()),
+});
 
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
 
@@ -73,22 +81,36 @@ handler.post(
 	}
 );
 
-// handler.patch(
-// 	session,
-// 	hasPermission(Permission.SHOP_MANAGER),
-// 	validate({ body: patchBodySchema, query: patchQuerySchema }),
-// 	async (req, res) => {
-// 		const shopSessionID = req.query.shop[0];
+handler.patch(
+	session,
+	hasPermission(Permission.SHOP_MANAGER),
+	validate({ body: patchBodySchema, query: patchQuerySchema }),
+	async (req, res) => {
+		const productID = req.query.products[0];
 
-// 		const { shopSession } = req.body;
+		const {
+			product: { shopSessionId, categoryId, ...product },
+		} = req.body;
 
-// 		const savedShopSession = await prisma.shopSession.update({
-// 			where: { id: shopSessionID },
-// 			data: shopSession,
-// 		});
+		if (product.price) {
+			product.price = product.price * 100;
+		}
 
-// 		res.json(savedShopSession);
-// 	}
-// );
+		const savedProduct = await prisma.product.update({
+			where: { id: productID },
+			data: {
+				...product,
+				...(shopSessionId && {
+					shopSession: { connect: { id: shopSessionId } },
+				}),
+				...(categoryId && {
+					category: { connect: { id: categoryId } },
+				}),
+			},
+		});
+
+		res.json(savedProduct);
+	}
+);
 
 export default handler;

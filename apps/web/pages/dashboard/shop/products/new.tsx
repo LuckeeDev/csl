@@ -10,6 +10,7 @@ import useProductForm, { ProductFormValues } from 'hooks/useProductForm';
 import { SHOP_LINKS } from 'navigation/dashboard/shop';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import prisma from 'prisma/client';
 import { BasePageProps } from 'types/pages';
 
@@ -24,11 +25,10 @@ export default function DashboardShopProductsNew({
 }: DashboardShopProductsNewProps) {
 	const form = useProductForm();
 	const [overlay, toggleOverlay] = useBooleanToggle(false);
+	const router = useRouter();
 
 	async function onSubmit(val: ProductFormValues) {
 		toggleOverlay();
-
-		console.log(val);
 
 		const { data } = await axios.post<Product>(
 			`${environment.url}/api/shop/products`,
@@ -36,9 +36,9 @@ export default function DashboardShopProductsNew({
 			{ withCredentials: true }
 		);
 
-		console.log(data);
-
 		toggleOverlay();
+
+		router.push(`/dashboard/shop/products/${data.id}`);
 	}
 
 	return (
