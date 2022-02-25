@@ -15,8 +15,11 @@ import { UseForm } from '@mantine/hooks/lib/use-form/use-form';
 import { ProductFormValues } from 'hooks/useProductForm';
 import { PRODUCT_SIZES } from 'data/productSizes';
 import { ProductCategory, ProductSize, ShopSession } from '@prisma/client';
-import { Cross1Icon } from '@modulz/radix-icons';
 import { ChangeEvent, useCallback } from 'react';
+import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
+import { useNotifications } from '@mantine/notifications';
+import { Cross1Icon } from '@modulz/radix-icons';
+import axios from 'axios';
 
 interface ProductFormProps {
 	form: UseForm<ProductFormValues>;
@@ -31,6 +34,8 @@ export default function ProductForm({
 	shopSessions,
 	productCategories,
 }: ProductFormProps) {
+	const notifications = useNotifications();
+
 	const randomColor = () =>
 		`#${Math.floor(Math.random() * 16777215).toString(16)}`;
 
@@ -73,6 +78,30 @@ export default function ProductForm({
 		}
 
 		form.setFieldValue('sizes', sizes);
+	}
+
+	async function handleFileDrop(droppedFiles: File[]) {
+		const files = droppedFiles.map((f) => ({
+			fileName: f.name,
+			fileType: f.type,
+		}));
+
+		const res = await axios.post(
+			'/api/aws/signed-url',
+			{ files },
+			{ withCredentials: true }
+		);
+
+		console.log(res.data);
+	}
+
+	function imageError() {
+		notifications.showNotification({
+			title: 'Formato non accettato',
+			message: "Devi caricare un'immagine per questo prodotto!",
+			icon: <Cross1Icon />,
+			color: 'red',
+		});
 	}
 
 	return (
@@ -168,6 +197,18 @@ export default function ProductForm({
 						</Grid.Col>
 					))}
 				</Grid>
+			</InputWrapper>
+
+			<Space h={20} />
+
+			<InputWrapper label="Immagini">
+				<Dropzone
+					accept={IMAGE_MIME_TYPE}
+					onDrop={handleFileDrop}
+					onReject={imageError}
+				>
+					{(status) => <>{JSON.stringify(status)}</>}
+				</Dropzone>
 			</InputWrapper>
 
 			<Space h={20} />
