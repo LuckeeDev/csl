@@ -18,8 +18,9 @@ import { ProductCategory, ProductSize, ShopSession } from '@prisma/client';
 import { ChangeEvent, useCallback } from 'react';
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { useNotifications } from '@mantine/notifications';
-import { Cross1Icon } from '@modulz/radix-icons';
+import { Cross1Icon, CheckIcon } from '@modulz/radix-icons';
 import axios from 'axios';
+import { SignedAWSUploadFile } from 'types/aws';
 
 interface ProductFormProps {
 	form: UseForm<ProductFormValues>;
@@ -81,18 +82,47 @@ export default function ProductForm({
 	}
 
 	async function handleFileDrop(droppedFiles: File[]) {
-		const files = droppedFiles.map((f) => ({
-			fileName: f.name,
-			fileType: f.type,
-		}));
+		try {
+			const files = droppedFiles.map((f) => ({
+				fileName: f.name,
+				fileType: f.type,
+			}));
 
-		const res = await axios.post(
-			'/api/aws/signed-url',
-			{ files },
-			{ withCredentials: true }
-		);
+			const res = await axios.post<{ signedFiles: SignedAWSUploadFile[] }>(
+				'/api/aws/signed-url',
+				{ files },
+				{ withCredentials: true }
+			);
 
-		console.log(res.data);
+			const uploadPromises = res.data.signedFiles.map((file) => {
+				return axios.put(
+					file.signedUrl,
+					droppedFiles.find((f) => f.name === file.fileName),
+					{
+						headers: {
+							'Content-Type': file.fileType,
+						},
+					}
+				);
+			});
+
+			await Promise.all(uploadPromises);
+
+			notifications.showNotification({
+				title: 'Immagini caricate correttamente',
+				message:
+					'Le immagini sono state caricate correttamente e possono ora essere collegate a questo prodotto.',
+				icon: <CheckIcon />,
+				color: 'teal',
+			});
+		} catch (err) {
+			notifications.showNotification({
+				title: 'Errore',
+				message: "C'è stato un errore durante il caricamento delle immagini!",
+				icon: <Cross1Icon />,
+				color: 'red',
+			});
+		}
 	}
 
 	function imageError() {

@@ -7,17 +7,7 @@ import { Permission } from '@prisma/client';
 import { environment } from 'environments/environment';
 import joi from 'joi';
 import validate from 'middlewares/validate';
-
-interface PostFile {
-	fileName: string;
-	fileType: string;
-}
-
-interface S3Params {
-	Key?: string;
-	Bucket?: string;
-	ContentType?: string;
-}
+import { AWSS3Params, AWSUploadFile, SignedAWSUploadFile } from 'types/aws';
 
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
 
@@ -54,7 +44,7 @@ handler.post(
 
 		const folder = 'products';
 
-		function getSignedUrl(s3Params: S3Params) {
+		function getSignedUrl(s3Params: AWSS3Params) {
 			return new Promise<string>((resolve, reject) => {
 				s3.getSignedUrl('putObject', s3Params, (err, data) => {
 					if (err) {
@@ -67,23 +57,26 @@ handler.post(
 		}
 
 		try {
-			const signedUrls: string[] = [];
+			const files: AWSUploadFile[] = req.body.files;
 
-			console.log(req.body.files);
+			const signedFiles: SignedAWSUploadFile[] = await Promise.all(
+				files.map(async (file) => {
+					const s3Params = {
+						Bucket: s3Bucket,
+						Key: `${folder}/${file.fileName}`,
+						ContentType: file.fileType,
+					};
 
-			for (const file of req.body.files as PostFile[]) {
-				const s3Params = {
-					Bucket: s3Bucket,
-					Key: `${folder}/${file.fileName}`,
-					ContentType: file.fileType,
-				};
+					const signedUrl = await getSignedUrl(s3Params);
 
-				const url = await getSignedUrl(s3Params);
-				
-				signedUrls.push(url);
-			}
+					return {
+						...file,
+						signedUrl,
+					};
+				})
+			);
 
-			return res.status(200).json({ signedUrls });
+			return res.status(200).json({ signedFiles });
 		} catch (err) {
 			return res.status(500).json(err);
 		}
