@@ -1,14 +1,6 @@
 {
 	"version": 2,
 	"projects": {
-		"api": "apps\\api",
-		"client": "apps\\client",
-		"client-e2e": "apps\\client-e2e",
-		"google": "libs\\google",
-		"shared": "libs\\shared",
-		"strapi": "libs\\strapi",
-		"types": "libs\\types",
-		"ui": "libs\\ui",
 		"web": "apps/web",
 		"web-e2e": "apps/web-e2e",
 		"workspace": "."

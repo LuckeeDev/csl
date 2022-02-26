@@ -31,33 +31,14 @@
 		]
 	},
 	"cli": {
-		"defaultCollection": "@nrwl/angular"
+		"defaultCollection": "@nrwl/next"
 	},
 	"generators": {
-		"@nrwl/angular:application": {
-			"style": "scss",
-			"linter": "eslint",
-			"unitTestRunner": "jest",
-			"e2eTestRunner": "cypress"
-		},
-		"@nrwl/angular:library": {
-			"linter": "eslint",
-			"unitTestRunner": "jest"
-		},
-		"@nrwl/angular:component": {
-			"style": "scss"
-		},
-		"@nrwl/react": {
-			"application": {
-				"babel": true
-			}
-		},
 		"@nrwl/next": {
 			"application": {
 				"style": "scss",
 				"linter": "eslint"
 			}
 		}
-	},
-	"defaultProject": "client"
+	}
 }
