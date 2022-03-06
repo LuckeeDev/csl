@@ -38,6 +38,7 @@ const patchBodySchema = joi.object({
 				.items(joi.string().regex(/^#?([0-9a-f]{6}|[0-9a-f]{3})$/i)),
 			sizes: joi.array().items(joi.string().valid(...PRODUCT_SIZES)),
 			price: joi.number(),
+			images: joi.array().items(joi.string()),
 		})
 		.required(),
 });
@@ -93,7 +94,7 @@ handler.patch(
 		const productID = req.query.products[0];
 
 		const {
-			product: { shopSessionId, categoryId, ...product },
+			product: { shopSessionId, categoryId, images, ...product },
 		} = req.body;
 
 		if (product.price) {
@@ -109,6 +110,9 @@ handler.patch(
 				}),
 				...(categoryId && {
 					category: { connect: { id: categoryId } },
+				}),
+				...(images && {
+					images: { connect: (images as string[]).map((id) => ({ id })) },
 				}),
 			},
 		});
