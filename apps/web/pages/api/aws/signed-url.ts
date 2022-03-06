@@ -8,6 +8,7 @@ import { environment } from 'environments/environment';
 import joi from 'joi';
 import validate from 'middlewares/validate';
 import { AWSS3Params, AWSUploadFile, SignedAWSUploadFile } from 'types/aws';
+import prisma from 'prisma/client';
 
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
 
@@ -69,8 +70,16 @@ handler.post(
 
 					const signedUrl = await getSignedUrl(s3Params);
 
+					const image = await prisma.image.create({
+						data: {
+							name: file.fileName,
+							type: file.fileType,
+							url: `https://${s3Bucket}/${folder}/${file.fileName}`,
+						},
+					});
+
 					return {
-						...file,
+						image,
 						signedUrl,
 					};
 				})

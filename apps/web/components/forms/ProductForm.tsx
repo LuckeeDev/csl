@@ -8,25 +8,32 @@ import {
 	InputWrapper,
 	NativeSelect,
 	NumberInput,
+	SimpleGrid,
 	Space,
 	TextInput,
 } from '@mantine/core';
 import { UseForm } from '@mantine/hooks/lib/use-form/use-form';
 import { ProductFormValues } from 'hooks/useProductForm';
 import { PRODUCT_SIZES } from 'data/productSizes';
-import { ProductCategory, ProductSize, ShopSession } from '@prisma/client';
-import { ChangeEvent, useCallback } from 'react';
+import {
+	ProductCategory,
+	ProductSize,
+	ShopSession,
+} from '@prisma/client';
+import { ChangeEvent, useCallback, useState } from 'react';
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { useNotifications } from '@mantine/notifications';
-import { Cross1Icon, CheckIcon } from '@modulz/radix-icons';
+import { Cross1Icon, CheckIcon, UploadIcon } from '@modulz/radix-icons';
 import axios from 'axios';
 import { SignedAWSUploadFile } from 'types/aws';
+import { ImageData } from 'types/image';
 
 interface ProductFormProps {
 	form: UseForm<ProductFormValues>;
 	onSubmit: (val: ProductFormValues) => void;
 	shopSessions: Pick<ShopSession, 'id' | 'name'>[];
 	productCategories: Pick<ProductCategory, 'id' | 'name'>[];
+	existingImages?: ImageData[];
 }
 
 export default function ProductForm({
@@ -34,7 +41,15 @@ export default function ProductForm({
 	onSubmit,
 	shopSessions,
 	productCategories,
+	existingImages,
 }: ProductFormProps) {
+	const startingImages = existingImages
+		? existingImages.map((image): [string, ImageData] => [image.id, image])
+		: [];
+
+	const [images, setImages] = useState<Map<string, ImageData>>(
+		new Map(startingImages)
+	);
 	const notifications = useNotifications();
 
 	const randomColor = () =>
@@ -88,25 +103,42 @@ export default function ProductForm({
 				fileType: f.type,
 			}));
 
-			const res = await axios.post<{ signedFiles: SignedAWSUploadFile[] }>(
+			const {
+				data: { signedFiles },
+			} = await axios.post<{ signedFiles: SignedAWSUploadFile[] }>(
 				'/api/aws/signed-url',
 				{ files },
 				{ withCredentials: true }
 			);
 
-			const uploadPromises = res.data.signedFiles.map((file) => {
+			setImages((map) => {
+				signedFiles.forEach((file) => {
+					map.set(file.image.id, file.image);
+				});
+
+				return map;
+			});
+
+			const uploadPromises = signedFiles.map((file) => {
 				return axios.put(
 					file.signedUrl,
-					droppedFiles.find((f) => f.name === file.fileName),
+					droppedFiles.find((f) => f.name === file.image.name),
 					{
 						headers: {
-							'Content-Type': file.fileType,
+							'Content-Type': file.image.type,
 						},
 					}
 				);
 			});
 
 			await Promise.all(uploadPromises);
+
+			const previousImages = form.values.images;
+
+			form.setFieldValue('images', [
+				...previousImages,
+				...signedFiles.map((f) => f.image.id),
+			]);
 
 			notifications.showNotification({
 				title: 'Immagini caricate correttamente',
@@ -237,13 +269,31 @@ export default function ProductForm({
 					onDrop={handleFileDrop}
 					onReject={imageError}
 				>
-					{(status) => <>{JSON.stringify(status)}</>}
+					{() => (
+						<>
+							<UploadIcon />
+							Trascina qui le immagini per questo prodotto.
+						</>
+					)}
 				</Dropzone>
 			</InputWrapper>
+
+			<SimpleGrid cols={4}>
+				{form.values.images.map((imageId, i) => (
+					<img
+						style={{ width: '100%' }}
+						key={i}
+						src={images.get(imageId)?.url ?? ''}
+						alt={`Immagine del prodotto ${i + 1}`}
+					/>
+				))}
+			</SimpleGrid>
 
 			<Space h={20} />
 
 			<Button type="submit">Salva prodotto</Button>
+
+			<Space h={20} />
 		</form>
 	);
 }

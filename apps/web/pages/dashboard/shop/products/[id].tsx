@@ -17,11 +17,14 @@ import prisma from 'prisma/client';
 import { useMemo } from 'react';
 import { BasePageProps } from 'types/pages';
 import { CheckIcon } from '@modulz/radix-icons';
+import { ImageData } from 'types/image';
 
 interface DashboardShopProductsEditProps extends BasePageProps {
 	shopSessions: Pick<ShopSession, 'id' | 'name'>[];
 	productCategories: Pick<ProductCategory, 'id' | 'name'>[];
-	product: Omit<Product, 'id' | 'updated_at' | 'created_at'>;
+	product: Omit<Product, 'id' | 'updated_at' | 'created_at'> & {
+		images: ImageData[];
+	};
 }
 
 export default function DashboardShopProductsEdit({
@@ -29,7 +32,12 @@ export default function DashboardShopProductsEdit({
 	productCategories,
 	product,
 }: DashboardShopProductsEditProps) {
-	const form = useProductForm(product);
+	const existingImages = product.images;
+
+	const form = useProductForm({
+		...product,
+		images: product.images.map((image) => image.id),
+	});
 	const [overlay, toggleOverlay] = useBooleanToggle(false);
 	const router = useRouter();
 	const productId = useMemo(() => router.query.id as string, [router.query]);
@@ -63,6 +71,7 @@ export default function DashboardShopProductsEdit({
 			<BackHeading>Modifica prodotto</BackHeading>
 
 			<ProductForm
+				existingImages={existingImages}
 				shopSessions={shopSessions}
 				productCategories={productCategories}
 				form={form}
@@ -88,6 +97,14 @@ export const getServerSideProps: GetServerSideProps<DashboardShopProductsEditPro
 				price: true,
 				shopSessionId: true,
 				sizes: true,
+				images: {
+					select: {
+						id: true,
+						name: true,
+						type: true,
+						url: true,
+					},
+				},
 			},
 		});
 

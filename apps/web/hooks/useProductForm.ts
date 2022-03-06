@@ -4,7 +4,7 @@ import { Product } from '@prisma/client';
 export type ProductFormValues = Omit<
 	Product,
 	'updated_at' | 'created_at' | 'id' | 'price'
-> & { price: number | null };
+> & { price: number | null; images: string[] };
 
 export const DEFAULT_PRODUCT_VALUES: ProductFormValues = {
 	name: '',
@@ -14,6 +14,7 @@ export const DEFAULT_PRODUCT_VALUES: ProductFormValues = {
 	colors: [],
 	sizes: [],
 	price: null,
+	images: [],
 };
 
 export default function useProductForm(product?: ProductFormValues) {

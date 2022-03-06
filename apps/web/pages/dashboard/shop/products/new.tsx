@@ -1,4 +1,4 @@
-import { Input, InputWrapper, LoadingOverlay } from '@mantine/core';
+import { LoadingOverlay } from '@mantine/core';
 import { useBooleanToggle } from '@mantine/hooks';
 import { Product, ProductCategory, ShopSession } from '@prisma/client';
 import axios from 'axios';
@@ -14,7 +14,6 @@ import { useRouter } from 'next/router';
 import prisma from 'prisma/client';
 import { BasePageProps } from 'types/pages';
 import { CheckIcon } from '@modulz/radix-icons';
-import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { useNotifications } from '@mantine/notifications';
 
 interface DashboardShopProductsNewProps extends BasePageProps {
@@ -34,8 +33,10 @@ export default function DashboardShopProductsNew({
 	async function onSubmit(val: ProductFormValues) {
 		toggleOverlay();
 
+		console.log(val);
+
 		const { data } = await axios.post<Product>(
-			`${environment.url}/api/shop/products`,
+			`${environment.url}/api/shop/products/new`,
 			{ product: val },
 			{ withCredentials: true }
 		);

@@ -86,6 +86,7 @@ model Product {
     categoryId    String
     shopSession   ShopSession     @relation(fields: [shopSessionId], references: [id])
     shopSessionId String
+    images        Image[]
 
     updated_at DateTime @updatedAt
     created_at DateTime @default(now())
@@ -110,6 +111,19 @@ model ShopSession {
     end   DateTime
 
     updated_at DateTime @updatedAt
+    created_at DateTime @default(now())
+}
+
+model Image {
+    id String @id @default(cuid())
+
+    name String
+    type String
+    url  String
+
+    products Product[]
+
+    updated_at  DateTime @updatedAt
     created_at DateTime @default(now())
 }
 

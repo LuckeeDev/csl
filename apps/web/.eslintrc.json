@@ -12,7 +12,8 @@
 			"rules": {
 				"@next/next/no-html-link-for-pages": ["error", "apps/web/pages"],
 				"no-nonoctal-decimal-escape": "error",
-				"no-unsafe-optional-chaining": "error"
+				"no-unsafe-optional-chaining": "error",
+				"@next/next/no-img-element": "off"
 			}
 		},
 		{

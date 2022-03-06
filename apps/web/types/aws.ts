@@ -1,9 +1,12 @@
+import { Image } from '@prisma/client';
+
 export interface AWSUploadFile {
 	fileName: string;
 	fileType: string;
 }
 
-export interface SignedAWSUploadFile extends AWSUploadFile {
+export interface SignedAWSUploadFile {
+	image: Image;
 	signedUrl: string;
 }
 

@@ -21,6 +21,7 @@ const postBodySchema = joi.object({
 				.items(joi.string().regex(/^#?([0-9a-f]{6}|[0-9a-f]{3})$/i)),
 			sizes: joi.array().items(joi.string().valid(...PRODUCT_SIZES)),
 			price: joi.number().required(),
+			images: joi.array().items(joi.string()),
 		})
 		.required(),
 });
@@ -73,6 +74,9 @@ handler.post(
 					connect: {
 						id: product.categoryId,
 					},
+				},
+				images: {
+					connect: (product.images as string[]).map((id) => ({ id })),
 				},
 			},
 		});
