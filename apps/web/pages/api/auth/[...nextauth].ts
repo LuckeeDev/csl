@@ -22,6 +22,16 @@ const nextAuthOptions: NextAuthOptions = {
 		}),
 	],
 	callbacks: {
+		async signIn({ user }) {
+			const emailDomain = user.email?.split('@')[1];
+			const isAllowedToSignIn = emailDomain === 'liceolussana.eu';
+
+			if (isAllowedToSignIn) {
+				return true;
+			} else {
+				return '/';
+			}
+		},
 		async jwt(params) {
 			if (params.user) {
 				const user = await prisma.user.findUnique({
