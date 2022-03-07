@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.0.2](https://github.com/LuckeeDev/csl/compare/v2.0.1...v2.0.2) (2022-03-07)
+
+
+### Bug Fixes
+
+* :lock: check email domain before granting access ([7b39fd0](https://github.com/LuckeeDev/csl/commit/7b39fd0963c685c0b9a1542707edcd0bedaad212))
+
+
+
 ## [2.0.1](https://github.com/LuckeeDev/csl/compare/v2.0.0...v2.0.1) (2022-03-07)
 
 
