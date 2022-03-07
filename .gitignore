@@ -43,10 +43,11 @@ Thumbs.db
 
 # Private credentials
 *.credentials.*
-*.env*
+.env
+.env.sh
 
-# Makefile
-Makefile
+# NX Migrations
+migrations.json
 
 # Data and files used to test scripts
 /scripts/data

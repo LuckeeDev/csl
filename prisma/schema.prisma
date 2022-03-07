@@ -1,0 +1,146 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Account {
+    id                 String  @id @default(cuid())
+    userId             String
+    type               String
+    provider           String
+    providerAccountId  String
+    refresh_token      String? @db.Text
+    access_token       String? @db.Text
+    expires_at         Int?
+    token_type         String?
+    scope              String?
+    id_token           String? @db.Text
+    session_state      String?
+    oauth_token_secret String?
+    oauth_token        String?
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([provider, providerAccountId])
+}
+
+model User {
+    id            String    @id @default(cuid())
+    name          String?
+    email         String?   @unique
+    emailVerified DateTime?
+    image         String?
+    accounts      Account[]
+    roles         Role[]
+}
+
+model Role {
+    id    String @id @default(cuid())
+    name  String
+    users User[]
+
+    permissions Permission[]
+
+    updated_at DateTime @updatedAt
+    created_at DateTime @default(now())
+}
+
+model Article {
+    id          String  @id @default(cuid())
+    title       String
+    content     String
+    author      String
+    readingTime Int
+    published   Boolean @default(false)
+
+    category   ArticleCategory? @relation(fields: [categoryId], references: [id])
+    categoryId String?
+
+    updated_at DateTime @updatedAt
+    created_at DateTime @default(now())
+}
+
+model ArticleCategory {
+    id       String    @id @default(cuid())
+    name     String
+    color    String
+    articles Article[]
+
+    updated_at DateTime @updatedAt
+    created_at DateTime @default(now())
+}
+
+model Product {
+    id          String        @id @default(cuid())
+    name        String
+    description String?
+    price       Int
+    sizes       ProductSize[]
+    colors      String[]
+
+    category      ProductCategory @relation(fields: [categoryId], references: [id])
+    categoryId    String
+    shopSession   ShopSession     @relation(fields: [shopSessionId], references: [id])
+    shopSessionId String
+    images        Image[]
+
+    updated_at DateTime @updatedAt
+    created_at DateTime @default(now())
+}
+
+model ProductCategory {
+    id       String    @id @default(cuid())
+    name     String
+    products Product[]
+
+    updated_at DateTime @updatedAt
+    created_at DateTime @default(now())
+}
+
+model ShopSession {
+    id   String @id @default(cuid())
+    name String
+
+    products Product[]
+
+    start DateTime
+    end   DateTime
+
+    updated_at DateTime @updatedAt
+    created_at DateTime @default(now())
+}
+
+model Image {
+    id String @id @default(cuid())
+
+    name String
+    type String
+    url  String
+
+    products Product[]
+
+    updated_at  DateTime @updatedAt
+    created_at DateTime @default(now())
+}
+
+enum Permission {
+    NEWS_EDITOR
+    SHOP_MANAGER
+}
+
+enum ProductSize {
+    U
+    XXXS
+    XXS
+    XS
+    S
+    M
+    L
+    XL
+    XXL
+    XXXL
+}

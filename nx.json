@@ -17,35 +17,28 @@
 		"default": {
 			"runner": "@nrwl/workspace/tasks-runners/default",
 			"options": {
-				"cacheableOperations": ["build", "lint", "test", "e2e"]
+				"cacheableOperations": ["build", "lint", "test", "e2e"],
+				"parallel": 1
 			}
 		}
 	},
-	"projects": {
-		"client": {
-			"tags": []
-		},
-		"client-e2e": {
-			"tags": [],
-			"implicitDependencies": ["client"]
-		},
-		"shared": {
-			"tags": []
-		},
-		"ui": {
-			"tags": []
-		},
-		"maintenance": {
-			"tags": []
-		},
-		"api": {
-			"tags": []
-		},
-		"workspace": {
-			"tags": []
-		},
-		"google": {
-			"tags": []
+	"targetDependencies": {
+		"build": [
+			{
+				"target": "build",
+				"projects": "dependencies"
+			}
+		]
+	},
+	"cli": {
+		"defaultCollection": "@nrwl/next"
+	},
+	"generators": {
+		"@nrwl/next": {
+			"application": {
+				"style": "scss",
+				"linter": "eslint"
+			}
 		}
 	}
 }
