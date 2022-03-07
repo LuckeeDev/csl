@@ -116,8 +116,6 @@ export default function Wrapper({
 									<Image src={Logo} alt="Logo" height={80} width={80} />
 								</a>
 							</Link>
-
-							<TextLink href="/articles">Articoli</TextLink>
 						</div>
 
 						<ButtonLink href="/dashboard">Dashboard</ButtonLink>
