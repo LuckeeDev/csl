@@ -4,10 +4,6 @@ import NextAuth, { LoggerInstance, Session } from 'next-auth';
 import NextAuthJWT, { JWT, JWTOptions, getToken } from 'next-auth/jwt';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import NextAuthReact from 'next-auth/react';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import NextAuthMiddleware, {
-	NextAuthMiddlewareOptions,
-} from 'next-auth/middleware';
 // eslint-disable-next-line @next/next/no-server-import-in-page
 import { NextRequest } from 'next/server';
 import { Permission } from '@prisma/client';
@@ -70,12 +66,4 @@ declare module 'next-auth/react' {
 	declare async function getSession(
 		params?: ExtendedGetSessionParams
 	): Promise<Session | null>;
-}
-
-declare module 'next-auth/middleware' {
-	declare function withAuth(
-		params: NextAuthMiddlewareOptions
-	):
-		| Promise<any>
-		| ((request: NextRequest, event: NextFetchEvent) => Promise<any>);
 }
