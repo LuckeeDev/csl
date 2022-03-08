@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.1.0](https://github.com/LuckeeDev/csl/compare/v2.0.2...v2.1.0) (2022-03-08)
+
+
+### Bug Fixes
+
+* :label: removed middleware ts workaround ([0212980](https://github.com/LuckeeDev/csl/commit/0212980c437728f307176b77b44fcb4bda52d133))
+* :lock: use withAuth in middlewares ([69514ee](https://github.com/LuckeeDev/csl/commit/69514eee3e34c1918a2faf43428b507d9d308e64))
+
+
+
 ## [2.0.2](https://github.com/LuckeeDev/csl/compare/v2.0.1...v2.0.2) (2022-03-07)
 
 
