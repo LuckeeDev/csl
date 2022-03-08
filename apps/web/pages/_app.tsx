@@ -13,17 +13,18 @@ export default function App(props: AppProps) {
 	return (
 		<>
 			<Head>
-				<title>Live your School</title>
+				<title>Comitato Studentesco Lussana</title>
 				<meta
 					name="viewport"
 					content="minimum-scale=1, initial-scale=1, width=device-width"
 				/>
+				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
 			<Providers session={session}>
 				<NormalizeCSS />
 				<GlobalStyles />
-				
+
 				<Wrapper
 					hasSidebar={hasSidebar ?? false}
 					sidebarLinks={sidebarLinks ?? null}
