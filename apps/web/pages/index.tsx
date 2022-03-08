@@ -8,7 +8,7 @@ export default function HomePage() {
 				align="center"
 				mt={100}
 			>
-				Welcome to{' '}
+				Benvenuto su{' '}
 				<Text inherit variant="gradient" component="span">
 					CSL
 				</Text>
