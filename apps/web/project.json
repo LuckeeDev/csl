@@ -10,16 +10,6 @@
 			"options": {
 				"root": "apps/web",
 				"outputPath": "dist/apps/web"
-			},
-			"configurations": {
-				"production": {
-					"fileReplacements": [
-						{
-							"replace": "apps/web/environments/environment.ts",
-							"with": "apps/web/environments/environment.prod.ts"
-						}
-					]
-				}
 			}
 		},
 		"serve": {

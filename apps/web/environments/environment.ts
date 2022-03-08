@@ -1,5 +1,5 @@
 export const environment = {
-	url: 'http://localhost:3000',
+	url: process.env.NEXT_PUBLIC_BASE_URL,
 	aws: {
 		secret: process.env.AWS_SECRET,
 		id: process.env.AWS_ID,
