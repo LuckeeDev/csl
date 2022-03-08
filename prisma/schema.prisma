@@ -4,7 +4,8 @@ datasource db {
 }
 
 generator client {
-    provider = "prisma-client-js"
+    provider        = "prisma-client-js"
+    previewFeatures = ["dataProxy"]
 }
 
 model Account {
@@ -123,7 +124,7 @@ model Image {
 
     products Product[]
 
-    updated_at  DateTime @updatedAt
+    updated_at DateTime @updatedAt
     created_at DateTime @default(now())
 }
 
