@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.2.0](https://github.com/LuckeeDev/csl/compare/v2.1.0...v2.2.0) (2022-03-08)
+
+
+### Bug Fixes
+
+* delete product categories ([a11928d](https://github.com/LuckeeDev/csl/commit/a11928dd6a96ee44bed961911e54e52b381934db))
+
+
+### Features
+
+* create product categories ([5bf606d](https://github.com/LuckeeDev/csl/commit/5bf606dd1fdb0c65b8d2463ce78fe7a83cb80623))
+
+
+
 # [2.1.0](https://github.com/LuckeeDev/csl/compare/v2.0.2...v2.1.0) (2022-03-08)
 
 
