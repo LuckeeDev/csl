@@ -10,6 +10,9 @@
 			"options": {
 				"root": "apps/web",
 				"outputPath": "dist/apps/web"
+			},
+			"configurations": {
+				"production": {}
 			}
 		},
 		"serve": {
