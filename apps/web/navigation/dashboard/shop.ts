@@ -25,6 +25,13 @@ export const SHOP_LINKS: LinkData[] = [
 	{
 		icon: 'list',
 		color: 'yellow',
+		label: 'Categorie',
+		href: '/dashboard/shop/categories',
+		requiredPermissions: [],
+	},
+	{
+		icon: 'list',
+		color: 'yellow',
 		label: 'Prodotti',
 		href: '/dashboard/shop/products',
 		requiredPermissions: [],

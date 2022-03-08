@@ -15,11 +15,7 @@ import {
 import { UseForm } from '@mantine/hooks/lib/use-form/use-form';
 import { ProductFormValues } from 'hooks/useProductForm';
 import { PRODUCT_SIZES } from 'data/productSizes';
-import {
-	ProductCategory,
-	ProductSize,
-	ShopSession,
-} from '@prisma/client';
+import { ProductCategory, ProductSize, ShopSession } from '@prisma/client';
 import { ChangeEvent, useCallback, useState } from 'react';
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { useNotifications } from '@mantine/notifications';
@@ -277,6 +273,8 @@ export default function ProductForm({
 					)}
 				</Dropzone>
 			</InputWrapper>
+
+			<Space h={20} />
 
 			<SimpleGrid cols={4}>
 				{form.values.images.map((imageId, i) => (

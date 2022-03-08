@@ -1,0 +1,158 @@
+import { Button, Collapse, Space, Table } from '@mantine/core';
+import { useNotifications } from '@mantine/notifications';
+import { ProductCategory } from '@prisma/client';
+import axios from 'axios';
+import ProductCategoryForm from 'components/forms/ProductCategoryForm';
+import PageTitle from 'components/head/PageTitle';
+import ProductCategoryRow from 'components/productCategories/ProductCategoryRow';
+import { environment } from 'environments/environment';
+import useProductCategoryForm, {
+	ProductCategoryFormValues,
+} from 'hooks/useProductCategoryForm';
+import { SHOP_LINKS } from 'navigation/dashboard/shop';
+import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
+import prisma from 'prisma/client';
+import { useCallback, useMemo, useState } from 'react';
+import { BasePageProps } from 'types/pages';
+import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
+
+interface DashboardShopCategoriesProps extends BasePageProps {
+	productCategories: Omit<ProductCategory, 'updated_at' | 'created_at'>[];
+}
+
+export default function DashboardShopCategories({
+	productCategories,
+}: DashboardShopCategoriesProps) {
+	const [categories, setCategories] = useState(productCategories);
+	const [open, setOpen] = useState(false);
+	const notifications = useNotifications();
+	const form = useProductCategoryForm();
+
+	const handleDelete = useCallback(
+		async (productCategoryId: ProductCategory['id']) => {
+			try {
+				await axios.delete(
+					`${environment.url}/api/shop/categories/${productCategoryId}`
+				);
+
+				setCategories((elements) => {
+					const index = elements.findIndex((e) => e.id === productCategoryId);
+
+					elements.splice(index, 1);
+
+					return elements;
+				});
+
+				notifications.showNotification({
+					title: 'Operazione completata',
+					message: 'Categoria eliminata correttamente',
+					color: 'teal',
+					icon: <CheckIcon />,
+				});
+			} catch (err) {
+				notifications.showNotification({
+					title: 'Errore',
+					message: 'Non è stato possibile eliminare questa categoria',
+					color: 'red',
+					icon: <Cross1Icon />,
+				});
+			}
+		},
+		[setCategories, notifications]
+	);
+
+	async function onSubmit(val: ProductCategoryFormValues) {
+		try {
+			const { data } = await axios.post<ProductCategory>(
+				`${environment.url}/api/shop/categories`,
+				{ productCategory: val },
+				{ withCredentials: true }
+			);
+
+			setCategories((elements) => {
+				elements.push(data);
+
+				return elements;
+			});
+
+			form.reset();
+
+			notifications.showNotification({
+				title: 'Operazione completata',
+				message: 'Categoria creata correttamente',
+				color: 'teal',
+				icon: <CheckIcon />,
+			});
+		} catch (err) {
+			notifications.showNotification({
+				title: 'Errore',
+				message: 'Non è stato possibile creare questa categoria',
+				color: 'red',
+				icon: <Cross1Icon />,
+			});
+		}
+	}
+
+	const rows = useMemo(
+		() =>
+			categories.map((element) => (
+				<ProductCategoryRow
+					key={element.id}
+					productCategory={element}
+					handleDelete={() => handleDelete(element.id)}
+				/>
+			)),
+		[categories, handleDelete]
+	);
+
+	return (
+		<div>
+			<PageTitle>Categorie | Dashboard</PageTitle>
+
+			<h1>Categorie</h1>
+
+			<Table>
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Azioni</th>
+					</tr>
+				</thead>
+
+				<tbody>{rows}</tbody>
+			</Table>
+
+			<Space h={20} />
+
+			<Button onClick={() => setOpen(!open)}>
+				{open ? 'Chiudi' : 'Crea categoria'}
+			</Button>
+
+			<Space h={20} />
+
+			<Collapse in={open} transitionDuration={0}>
+				<ProductCategoryForm form={form} onSubmit={onSubmit} />
+			</Collapse>
+		</div>
+	);
+}
+
+export const getServerSideProps: GetServerSideProps<
+	DashboardShopCategoriesProps
+> = async (ctx) => {
+	const session = await getSession(ctx);
+
+	const productCategories = await prisma.productCategory.findMany({
+		select: { id: true, name: true },
+	});
+
+	return {
+		props: {
+			session,
+			productCategories,
+			hasSidebar: true,
+			sidebarLinks: SHOP_LINKS,
+		},
+	};
+};
