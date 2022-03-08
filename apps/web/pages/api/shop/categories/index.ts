@@ -9,22 +9,28 @@ import prisma from 'prisma/client';
 
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
 
-const deleteQuerySchema = joi
+const postBodySchema = joi
 	.object({
-		id: joi.string().required(),
+		productCategory: joi
+			.object({
+				name: joi.string().required(),
+			})
+			.required(),
 	})
 	.required();
 
-handler.delete(
+handler.post(
 	session,
 	hasPermission(Permission.SHOP_MANAGER),
-	validate({ query: deleteQuerySchema }),
+	validate({ body: postBodySchema }),
 	async (req, res) => {
-		const categoryId = req.query.id as string;
+		const { productCategory } = req.body;
 
-		await prisma.productCategory.delete({ where: { id: categoryId } });
+		const savedProductCategory = await prisma.productCategory.create({
+			data: productCategory,
+		});
 
-		res.status(204).end();
+		res.status(201).json(savedProductCategory);
 	}
 );
 

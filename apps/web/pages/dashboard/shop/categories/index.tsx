@@ -1,16 +1,21 @@
-import { Table } from '@mantine/core';
+import { Button, Collapse, Space, Table } from '@mantine/core';
 import { useNotifications } from '@mantine/notifications';
 import { ProductCategory } from '@prisma/client';
 import axios from 'axios';
+import ProductCategoryForm from 'components/forms/ProductCategoryForm';
 import PageTitle from 'components/head/PageTitle';
 import ProductCategoryRow from 'components/productCategories/ProductCategoryRow';
 import { environment } from 'environments/environment';
+import useProductCategoryForm, {
+	ProductCategoryFormValues,
+} from 'hooks/useProductCategoryForm';
 import { SHOP_LINKS } from 'navigation/dashboard/shop';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import prisma from 'prisma/client';
 import { useCallback, useMemo, useState } from 'react';
 import { BasePageProps } from 'types/pages';
+import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 
 interface DashboardShopCategoriesProps extends BasePageProps {
 	productCategories: Omit<ProductCategory, 'updated_at' | 'created_at'>[];
@@ -20,7 +25,9 @@ export default function DashboardShopCategories({
 	productCategories,
 }: DashboardShopCategoriesProps) {
 	const [categories, setCategories] = useState(productCategories);
+	const [open, setOpen] = useState(false);
 	const notifications = useNotifications();
+	const form = useProductCategoryForm();
 
 	const handleDelete = useCallback(
 		async (productCategoryId: ProductCategory['id']) => {
@@ -41,17 +48,51 @@ export default function DashboardShopCategories({
 					title: 'Operazione completata',
 					message: 'Categoria eliminata correttamente',
 					color: 'teal',
+					icon: <CheckIcon />,
 				});
 			} catch (err) {
 				notifications.showNotification({
 					title: 'Errore',
 					message: 'Non è stato possibile eliminare questa categoria',
 					color: 'red',
+					icon: <Cross1Icon />,
 				});
 			}
 		},
 		[setCategories, notifications]
 	);
+
+	async function onSubmit(val: ProductCategoryFormValues) {
+		try {
+			const { data } = await axios.post<ProductCategory>(
+				`${environment.url}/api/shop/categories`,
+				{ productCategory: val },
+				{ withCredentials: true }
+			);
+
+			setCategories((elements) => {
+				elements.push(data);
+
+				return elements;
+			});
+
+			form.reset();
+
+			notifications.showNotification({
+				title: 'Operazione completata',
+				message: 'Categoria creata correttamente',
+				color: 'teal',
+				icon: <CheckIcon />,
+			});
+		} catch (err) {
+			notifications.showNotification({
+				title: 'Errore',
+				message: 'Non è stato possibile creare questa categoria',
+				color: 'red',
+				icon: <Cross1Icon />,
+			});
+		}
+	}
 
 	const rows = useMemo(
 		() =>
@@ -81,6 +122,18 @@ export default function DashboardShopCategories({
 
 				<tbody>{rows}</tbody>
 			</Table>
+
+			<Space h={20} />
+
+			<Button onClick={() => setOpen(!open)}>
+				{open ? 'Chiudi' : 'Crea categoria'}
+			</Button>
+
+			<Space h={20} />
+
+			<Collapse in={open} transitionDuration={0}>
+				<ProductCategoryForm form={form} onSubmit={onSubmit} />
+			</Collapse>
 		</div>
 	);
 }
