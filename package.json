@@ -33,7 +33,7 @@
 		"fs-extra": "^9.0.1",
 		"graphql": "^15.6.0",
 		"joi": "^17.6.0",
-		"json2csv": "^5.0.6",
+		"json2csv": "^5.0.7",
 		"jwt-decode": "^3.1.2",
 		"next": "12.1.0",
 		"next-auth": "4.2.1",
