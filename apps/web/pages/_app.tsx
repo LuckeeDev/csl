@@ -42,7 +42,7 @@ export default function App(props: CustomAppProps) {
 
 				<NextNProgress
 					color={theme.colors.blue[5]}
-					height={1}
+					height={2}
 					options={{ showSpinner: false }}
 				/>
 
