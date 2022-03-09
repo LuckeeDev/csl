@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.3.7](https://github.com/LuckeeDev/csl/compare/v2.3.6...v2.3.7) (2022-03-09)
+
+
+### Bug Fixes
+
+* :children_crossing: reload page on sign out ([ef59b3e](https://github.com/LuckeeDev/csl/commit/ef59b3e4b206438847050dc4e188688a28d5fc42))
+
+
+
 ## [2.3.6](https://github.com/LuckeeDev/csl/compare/v2.3.5...v2.3.6) (2022-03-09)
 
 
