@@ -1,16 +1,9 @@
 import { Avatar, Group, Text } from '@mantine/core';
 import LoaderDiv from 'components/loader/LoaderDiv';
-import { WrapperLinkProps } from 'components/wrapper/types';
 import { DASHBOARD_LINKS } from 'navigation/dashboard';
-import { GetServerSideProps } from 'next';
-import { getSession, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 
-interface DashboardIndexProps {
-	hasSidebar: boolean;
-	sidebarLinks: WrapperLinkProps[];
-}
-
-export default function DashboardIndex() {
+function DashboardIndex() {
 	const { data: session, status } = useSession();
 
 	return (
@@ -41,19 +34,7 @@ export default function DashboardIndex() {
 	);
 }
 
-const getServerSideProps: GetServerSideProps<DashboardIndexProps> = async (
-	ctx
-) => {
-	const session = await getSession(ctx);
+DashboardIndex.hasSidebar = true;
+DashboardIndex.sidebarLinks = DASHBOARD_LINKS;
 
-	return {
-		props: {
-			// return the session to allow instant display in client
-			session,
-			hasSidebar: true,
-			sidebarLinks: DASHBOARD_LINKS,
-		},
-	};
-};
-
-export { getServerSideProps };
+export default DashboardIndex;

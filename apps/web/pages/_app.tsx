@@ -3,12 +3,24 @@ import Head from 'next/head';
 import { NormalizeCSS, GlobalStyles } from '@mantine/core';
 import Wrapper from 'components/wrapper/Wrapper';
 import Providers from 'components/providers/Providers';
+import { NextComponentType, NextPageContext } from 'next';
+import { LinkData } from 'navigation/types';
 
-export default function App(props: AppProps) {
+interface CustomAppProps extends AppProps {
+	Component: NextComponentType<NextPageContext, any, any> & {
+		sidebarLinks: LinkData[];
+		hasSidebar: boolean;
+	};
+}
+
+export default function App(props: CustomAppProps) {
 	const {
 		Component,
-		pageProps: { session, hasSidebar, sidebarLinks, ...pageProps },
+		pageProps: { session, ...pageProps },
 	} = props;
+
+	const hasSidebar = Component.hasSidebar ?? false;
+	const sidebarLinks = Component.sidebarLinks ?? null;
 
 	return (
 		<>
@@ -25,10 +37,7 @@ export default function App(props: AppProps) {
 				<NormalizeCSS />
 				<GlobalStyles />
 
-				<Wrapper
-					hasSidebar={hasSidebar ?? false}
-					sidebarLinks={sidebarLinks ?? null}
-				>
+				<Wrapper hasSidebar={hasSidebar} sidebarLinks={sidebarLinks}>
 					<Component {...pageProps} />
 				</Wrapper>
 			</Providers>

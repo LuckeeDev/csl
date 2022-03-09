@@ -10,7 +10,6 @@ import useShopSessionForm, {
 	ShopSessionFormValues,
 } from 'hooks/useShopSessionForm';
 import { SHOP_LINKS } from 'navigation/dashboard/shop';
-import { LinkData } from 'navigation/types';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
@@ -18,19 +17,16 @@ import prisma from 'prisma/client';
 import { CheckIcon } from '@modulz/radix-icons';
 import { LoadingOverlay } from '@mantine/core';
 import BackHeading from 'components/heading/BackHeading';
+import { BasePageProps } from 'types/pages';
 
-interface DashboardShopEditProps {
-	hasSidebar: boolean;
-	sidebarLinks: LinkData[];
+interface DashboardShopEditProps extends BasePageProps {
 	shopSession: Omit<ShopSessionData, 'start' | 'end'> & {
 		start: string;
 		end: string;
 	};
 }
 
-export default function DashboardShopEdit({
-	shopSession,
-}: DashboardShopEditProps) {
+function DashboardShopEdit({ shopSession }: DashboardShopEditProps) {
 	const form = useShopSessionForm({
 		...shopSession,
 		start: new Date(shopSession.start),
@@ -80,9 +76,14 @@ export default function DashboardShopEdit({
 	);
 }
 
-const getServerSideProps: GetServerSideProps<DashboardShopEditProps> = async (
-	ctx
-) => {
+DashboardShopEdit.hasSidebar = true;
+DashboardShopEdit.sidebarLinks = SHOP_LINKS;
+
+export default DashboardShopEdit;
+
+export const getServerSideProps: GetServerSideProps<
+	DashboardShopEditProps
+> = async (ctx) => {
 	const session = await getSession(ctx);
 
 	const sessionID = ctx.params?.id as string;
@@ -105,8 +106,6 @@ const getServerSideProps: GetServerSideProps<DashboardShopEditProps> = async (
 	return {
 		props: {
 			session,
-			hasSidebar: true,
-			sidebarLinks: SHOP_LINKS,
 			shopSession: {
 				name: shopSession.name,
 				start: shopSession.start.toISOString(),
@@ -115,5 +114,3 @@ const getServerSideProps: GetServerSideProps<DashboardShopEditProps> = async (
 		},
 	};
 };
-
-export { getServerSideProps };

@@ -6,7 +6,6 @@ import PageTitle from 'components/head/PageTitle';
 import BackHeading from 'components/heading/BackHeading';
 import { GetServerSideProps } from 'next';
 import prisma from 'prisma/client';
-import { useState } from 'react';
 import { CheckIcon } from '@modulz/radix-icons';
 import axios from 'axios';
 import { environment } from 'environments/environment';
@@ -16,19 +15,15 @@ import useArticleForm, {
 } from 'hooks/useArticleForm';
 import { useRouter } from 'next/router';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
-import { LinkData } from 'navigation/types';
 import { getSession } from 'next-auth/react';
 import { useBooleanToggle } from '@mantine/hooks';
+import { BasePageProps } from 'types/pages';
 
-interface DashboardArticlesEditProps {
-	hasSidebar: boolean;
-	sidebarLinks: LinkData[];
+interface DashboardArticlesEditProps extends BasePageProps {
 	article: ArticleData;
 }
 
-export default function DashboardArticlesEdit({
-	article,
-}: DashboardArticlesEditProps) {
+function DashboardArticlesEdit({ article }: DashboardArticlesEditProps) {
 	const form = useArticleForm(article);
 	const [overlay, toggleOverlay] = useBooleanToggle(false);
 	const notifications = useNotifications();
@@ -75,37 +70,39 @@ export default function DashboardArticlesEdit({
 	);
 }
 
-const getServerSideProps: GetServerSideProps<DashboardArticlesEditProps> =
-	async (ctx) => {
-		const session = await getSession(ctx);
+DashboardArticlesEdit.hasSidebar = true;
+DashboardArticlesEdit.sidebarLinks = ARTICLE_LINKS;
 
-		const articleID = ctx.params?.id as string;
+export default DashboardArticlesEdit;
 
-		const article = await prisma.article.findUnique({
-			where: { id: articleID },
-			select: {
-				title: true,
-				author: true,
-				content: true,
-				readingTime: true,
-				published: true,
-			},
-		});
+export const getServerSideProps: GetServerSideProps<
+	DashboardArticlesEditProps
+> = async (ctx) => {
+	const session = await getSession(ctx);
 
-		if (!article) {
-			return {
-				notFound: true,
-			};
-		}
+	const articleID = ctx.params?.id as string;
 
+	const article = await prisma.article.findUnique({
+		where: { id: articleID },
+		select: {
+			title: true,
+			author: true,
+			content: true,
+			readingTime: true,
+			published: true,
+		},
+	});
+
+	if (!article) {
 		return {
-			props: {
-				session,
-				hasSidebar: true,
-				sidebarLinks: ARTICLE_LINKS,
-				article,
-			},
+			notFound: true,
 		};
-	};
+	}
 
-export { getServerSideProps };
+	return {
+		props: {
+			session,
+			article,
+		},
+	};
+};

@@ -5,7 +5,6 @@ import {
 	MediaQuery,
 	Burger,
 	useMantineTheme,
-	Anchor,
 } from '@mantine/core';
 import { ReactNode, useMemo, useState } from 'react';
 import SideLinks from './SideLinks';
@@ -17,7 +16,6 @@ import { LinkData } from 'navigation/types';
 import Logo from 'public/logo.png';
 import Image from 'next/image';
 import Link from 'next/link';
-import TextLink from 'components/links/TextLink';
 
 interface WrapperProps {
 	children: ReactNode;
@@ -61,7 +59,7 @@ export default function Wrapper({
 			navbarOffsetBreakpoint="sm"
 			fixed
 			navbar={
-				hasSidebar ? (
+				hasSidebar && sidebarLinks ? (
 					<Navbar
 						padding="md"
 						hiddenBreakpoint="sm"

@@ -21,7 +21,7 @@ interface DashboardShopCategoriesProps extends BasePageProps {
 	productCategories: Omit<ProductCategory, 'updated_at' | 'created_at'>[];
 }
 
-export default function DashboardShopCategories({
+function DashboardShopCategories({
 	productCategories,
 }: DashboardShopCategoriesProps) {
 	const [categories, setCategories] = useState(productCategories);
@@ -137,6 +137,11 @@ export default function DashboardShopCategories({
 		</div>
 	);
 }
+
+DashboardShopCategories.hasSidebar = true;
+DashboardShopCategories.sidebarLinks = SHOP_LINKS;
+
+export default DashboardShopCategories;
 
 export const getServerSideProps: GetServerSideProps<
 	DashboardShopCategoriesProps

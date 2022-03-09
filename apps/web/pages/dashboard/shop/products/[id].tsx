@@ -27,7 +27,7 @@ interface DashboardShopProductsEditProps extends BasePageProps {
 	};
 }
 
-export default function DashboardShopProductsEdit({
+function DashboardShopProductsEdit({
 	shopSessions,
 	productCategories,
 	product,
@@ -81,57 +81,61 @@ export default function DashboardShopProductsEdit({
 	);
 }
 
-export const getServerSideProps: GetServerSideProps<DashboardShopProductsEditProps> =
-	async (ctx) => {
-		const session = await getSession(ctx);
+DashboardShopProductsEdit.hasSidebar = true;
+DashboardShopProductsEdit.sidebarLinks = SHOP_LINKS;
 
-		const id = ctx.params?.id as string;
+export default DashboardShopProductsEdit;
 
-		const product = await prisma.product.findUnique({
-			where: { id },
-			select: {
-				name: true,
-				categoryId: true,
-				colors: true,
-				description: true,
-				price: true,
-				shopSessionId: true,
-				sizes: true,
-				images: {
-					select: {
-						id: true,
-						name: true,
-						type: true,
-						url: true,
-					},
+export const getServerSideProps: GetServerSideProps<
+	DashboardShopProductsEditProps
+> = async (ctx) => {
+	const session = await getSession(ctx);
+
+	const id = ctx.params?.id as string;
+
+	const product = await prisma.product.findUnique({
+		where: { id },
+		select: {
+			name: true,
+			categoryId: true,
+			colors: true,
+			description: true,
+			price: true,
+			shopSessionId: true,
+			sizes: true,
+			images: {
+				select: {
+					id: true,
+					name: true,
+					type: true,
+					url: true,
 				},
 			},
-		});
+		},
+	});
 
-		if (!product) {
-			return {
-				notFound: true,
-			};
-		}
-
-		product.price = product.price / 100;
-
-		const shopSessions = await prisma.shopSession.findMany({
-			select: { id: true, name: true },
-		});
-
-		const productCategories = await prisma.productCategory.findMany({
-			select: { id: true, name: true },
-		});
-
+	if (!product) {
 		return {
-			props: {
-				product,
-				shopSessions,
-				productCategories,
-				session,
-				hasSidebar: true,
-				sidebarLinks: SHOP_LINKS,
-			},
+			notFound: true,
 		};
+	}
+
+	product.price = product.price / 100;
+
+	const shopSessions = await prisma.shopSession.findMany({
+		select: { id: true, name: true },
+	});
+
+	const productCategories = await prisma.productCategory.findMany({
+		select: { id: true, name: true },
+	});
+
+	return {
+		props: {
+			product,
+			shopSessions,
+			productCategories,
+			session,
+		},
 	};
+};

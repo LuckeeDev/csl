@@ -9,18 +9,14 @@ import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import { useNotifications } from '@mantine/notifications';
 import { environment } from 'environments/environment';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
-import { LinkData } from 'navigation/types';
 import { getSession } from 'next-auth/react';
+import { BasePageProps } from 'types/pages';
 
-interface DashboardArticlesIndexProps {
-	hasSidebar: boolean;
-	sidebarLinks: LinkData[];
+interface DashboardArticlesIndexProps extends BasePageProps {
 	articles: Omit<Article, 'categoryId' | 'updated_at' | 'created_at'>[];
 }
 
-export default function DashboardArticlesIndex({
-	articles,
-}: DashboardArticlesIndexProps) {
+function DashboardArticlesIndex({ articles }: DashboardArticlesIndexProps) {
 	const notifications = useNotifications();
 
 	async function handlePublishChange(value: boolean, articleID: string) {
@@ -80,32 +76,36 @@ export default function DashboardArticlesIndex({
 	);
 }
 
-const getServerSideProps: GetServerSideProps<DashboardArticlesIndexProps> =
-	async (ctx) => {
-		const session = await getSession(ctx);
+DashboardArticlesIndex.hasSidebar = true;
+DashboardArticlesIndex.sidebarLinks = ARTICLE_LINKS;
 
-		const articles = await prisma.article.findMany({
-			select: {
-				author: true,
-				content: true,
-				readingTime: true,
-				title: true,
-				id: true,
-				published: true,
-			},
-			orderBy: {
-				created_at: 'desc',
-			},
-		});
+export default DashboardArticlesIndex;
 
-		return {
-			props: {
-				session,
-				hasSidebar: true,
-				sidebarLinks: ARTICLE_LINKS,
-				articles,
-			},
-		};
+const getServerSideProps: GetServerSideProps<
+	DashboardArticlesIndexProps
+> = async (ctx) => {
+	const session = await getSession(ctx);
+
+	const articles = await prisma.article.findMany({
+		select: {
+			author: true,
+			content: true,
+			readingTime: true,
+			title: true,
+			id: true,
+			published: true,
+		},
+		orderBy: {
+			created_at: 'desc',
+		},
+	});
+
+	return {
+		props: {
+			session,
+			articles,
+		},
 	};
+};
 
 export { getServerSideProps };
