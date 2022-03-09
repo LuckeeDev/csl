@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.3.1](https://github.com/LuckeeDev/csl/compare/v2.3.0...v2.3.1) (2022-03-09)
+
+
+### Bug Fixes
+
+* :ambulance: fixed type error in next-joi ([5a24e17](https://github.com/LuckeeDev/csl/commit/5a24e1735a57af2d3403a9e2b1d1a148bc520203))
+
+
+
 # [2.3.0](https://github.com/LuckeeDev/csl/compare/v2.2.1...v2.3.0) (2022-03-09)
 
 
