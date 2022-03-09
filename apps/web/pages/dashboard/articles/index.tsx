@@ -11,6 +11,7 @@ import { environment } from 'environments/environment';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
 import { getSession } from 'next-auth/react';
 import { BasePageProps } from 'types/pages';
+import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 
 interface DashboardArticlesIndexProps extends BasePageProps {
 	articles: Omit<Article, 'categoryId' | 'updated_at' | 'created_at'>[];
@@ -54,7 +55,7 @@ function DashboardArticlesIndex({ articles }: DashboardArticlesIndexProps) {
 	));
 
 	return (
-		<div>
+		<DashboardPageContainer>
 			<PageTitle>Dashboard | Articoli</PageTitle>
 
 			<h1>Articoli</h1>
@@ -72,7 +73,7 @@ function DashboardArticlesIndex({ articles }: DashboardArticlesIndexProps) {
 
 				<tbody>{rows}</tbody>
 			</Table>
-		</div>
+		</DashboardPageContainer>
 	);
 }
 

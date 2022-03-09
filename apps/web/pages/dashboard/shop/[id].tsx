@@ -18,6 +18,7 @@ import { CheckIcon } from '@modulz/radix-icons';
 import { LoadingOverlay } from '@mantine/core';
 import BackHeading from 'components/heading/BackHeading';
 import { BasePageProps } from 'types/pages';
+import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 
 interface DashboardShopEditProps extends BasePageProps {
 	shopSession: Omit<ShopSessionData, 'start' | 'end'> & {
@@ -64,7 +65,7 @@ function DashboardShopEdit({ shopSession }: DashboardShopEditProps) {
 	}
 
 	return (
-		<>
+		<DashboardPageContainer>
 			<PageTitle>Modifica sessione | Dashboard</PageTitle>
 
 			<LoadingOverlay visible={overlay} />
@@ -72,7 +73,7 @@ function DashboardShopEdit({ shopSession }: DashboardShopEditProps) {
 			<BackHeading>Modifica sessione</BackHeading>
 
 			<ShopSessionForm form={form} onSubmit={onSubmit} />
-		</>
+		</DashboardPageContainer>
 	);
 }
 

@@ -16,6 +16,7 @@ import prisma from 'prisma/client';
 import { useCallback, useMemo, useState } from 'react';
 import { BasePageProps } from 'types/pages';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
+import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 
 interface DashboardShopCategoriesProps extends BasePageProps {
 	productCategories: Omit<ProductCategory, 'updated_at' | 'created_at'>[];
@@ -107,7 +108,7 @@ function DashboardShopCategories({
 	);
 
 	return (
-		<div>
+		<DashboardPageContainer>
 			<PageTitle>Categorie | Dashboard</PageTitle>
 
 			<h1>Categorie</h1>
@@ -134,7 +135,7 @@ function DashboardShopCategories({
 			<Collapse in={open} transitionDuration={0}>
 				<ProductCategoryForm form={form} onSubmit={onSubmit} />
 			</Collapse>
-		</div>
+		</DashboardPageContainer>
 	);
 }
 

@@ -12,6 +12,7 @@ import { environment } from 'environments/environment';
 import { CheckIcon } from '@modulz/radix-icons';
 import { useRouter } from 'next/router';
 import { LoadingOverlay } from '@mantine/core';
+import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 
 function DashboardShopNew() {
 	const form = useShopSessionForm();
@@ -44,7 +45,7 @@ function DashboardShopNew() {
 	}
 
 	return (
-		<>
+		<DashboardPageContainer>
 			<PageTitle>Nuova sessione | Dashboard</PageTitle>
 
 			<LoadingOverlay visible={overlay} />
@@ -52,7 +53,7 @@ function DashboardShopNew() {
 			<h1>Nuova sessione</h1>
 
 			<ShopSessionForm form={form} onSubmit={onSubmit} />
-		</>
+		</DashboardPageContainer>
 	);
 }
 

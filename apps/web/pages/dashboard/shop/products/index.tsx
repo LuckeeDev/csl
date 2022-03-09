@@ -12,6 +12,7 @@ import prisma from 'prisma/client';
 import { useState } from 'react';
 import { BasePageProps } from 'types/pages';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
+import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 
 interface DashboardShopProductsProps extends BasePageProps {
 	products: Pick<Product, 'id' | 'name' | 'price'>[];
@@ -60,7 +61,7 @@ function DashboardShopProducts({
 	));
 
 	return (
-		<div>
+		<DashboardPageContainer>
 			<PageTitle>Prodotti | Dashboard</PageTitle>
 
 			<h1>Prodotti</h1>
@@ -76,7 +77,7 @@ function DashboardShopProducts({
 
 				<tbody>{rows}</tbody>
 			</Table>
-		</div>
+		</DashboardPageContainer>
 	);
 }
 
