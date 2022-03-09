@@ -36,7 +36,7 @@ export default function DashboardShopProductsNew({
 		console.log(val);
 
 		const { data } = await axios.post<Product>(
-			`${environment.url}/api/shop/products/new`,
+			`${environment.url}/api/shop/products`,
 			{ product: val },
 			{ withCredentials: true }
 		);
