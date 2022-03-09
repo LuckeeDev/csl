@@ -13,6 +13,7 @@ export default function DashboardPageContainer({
 				margin: 0,
 				width: '100%',
 				padding: '0 10px 0 0',
+				position: 'relative',
 			}}
 		>
 			{children}

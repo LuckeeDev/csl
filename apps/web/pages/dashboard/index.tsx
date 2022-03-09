@@ -1,4 +1,5 @@
 import { Avatar, Group, Text } from '@mantine/core';
+import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import LoaderDiv from 'components/loader/LoaderDiv';
 import { DASHBOARD_LINKS } from 'navigation/dashboard';
 import { useSession } from 'next-auth/react';
@@ -7,7 +8,7 @@ function DashboardIndex() {
 	const { data: session, status } = useSession();
 
 	return (
-		<div>
+		<DashboardPageContainer>
 			<h1>Profilo</h1>
 
 			{status === 'loading' ? (
@@ -30,7 +31,7 @@ function DashboardIndex() {
 					</div>
 				</Group>
 			)}
-		</div>
+		</DashboardPageContainer>
 	);
 }
 

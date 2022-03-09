@@ -18,6 +18,7 @@ import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
 import { getSession } from 'next-auth/react';
 import { useBooleanToggle } from '@mantine/hooks';
 import { BasePageProps } from 'types/pages';
+import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 
 interface DashboardArticlesEditProps extends BasePageProps {
 	article: ArticleData;
@@ -58,7 +59,7 @@ function DashboardArticlesEdit({ article }: DashboardArticlesEditProps) {
 	}
 
 	return (
-		<div>
+		<DashboardPageContainer>
 			<PageTitle>Dashboard | Modifica articolo</PageTitle>
 
 			<LoadingOverlay visible={overlay} />
@@ -66,7 +67,7 @@ function DashboardArticlesEdit({ article }: DashboardArticlesEditProps) {
 			<BackHeading>Modifica articolo</BackHeading>
 
 			<ArticleForm form={form} onSubmit={onSubmit} />
-		</div>
+		</DashboardPageContainer>
 	);
 }
 

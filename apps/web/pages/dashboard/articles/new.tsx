@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { Article } from '@prisma/client';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
 import { useBooleanToggle } from '@mantine/hooks';
+import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 
 function DashboardArticlesNew() {
 	const form = useArticleForm();
@@ -42,7 +43,7 @@ function DashboardArticlesNew() {
 	}
 
 	return (
-		<div>
+		<DashboardPageContainer>
 			<PageTitle>Dashboard | Nuovo articolo</PageTitle>
 
 			<LoadingOverlay visible={overlay} />
@@ -50,7 +51,7 @@ function DashboardArticlesNew() {
 			<h1>Nuovo articolo</h1>
 
 			<ArticleForm form={form} onSubmit={onSubmit} />
-		</div>
+		</DashboardPageContainer>
 	);
 }
 

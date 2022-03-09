@@ -7,6 +7,7 @@ import { Table } from '@mantine/core';
 import ShopSessionRow from 'components/shopSessions/ShopSessionRow';
 import { ShopSession } from '@prisma/client';
 import { BasePageProps } from 'types/pages';
+import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 
 interface DashboardShopIndexProps extends BasePageProps {
 	shopSessions: (Omit<
@@ -23,7 +24,7 @@ function DashboardShopIndex({ shopSessions }: DashboardShopIndexProps) {
 		));
 
 	return (
-		<>
+		<DashboardPageContainer>
 			<PageTitle>Sessioni di vendita | Dashboard</PageTitle>
 
 			<h1>Sessioni di vendita</h1>
@@ -40,7 +41,7 @@ function DashboardShopIndex({ shopSessions }: DashboardShopIndexProps) {
 
 				<tbody>{rows}</tbody>
 			</Table>
-		</>
+		</DashboardPageContainer>
 	);
 }
 
