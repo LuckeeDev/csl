@@ -93,15 +93,16 @@ export default function Wrapper({
 						<div
 							style={{ display: 'flex', alignItems: 'center', height: '100%' }}
 						>
-							<MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-								<Burger
-									opened={opened}
-									onClick={() => setOpened((o) => !o)}
-									size="sm"
-									color={theme.colors.gray[6]}
-									mr="xl"
-								/>
-							</MediaQuery>
+							{hasSidebar && sidebarLinks && (
+								<MediaQuery largerThan="sm" styles={{ display: 'none' }}>
+									<Burger
+										opened={opened}
+										onClick={() => setOpened((o) => !o)}
+										size="sm"
+										color={theme.colors.gray[6]}
+									/>
+								</MediaQuery>
+							)}
 
 							<Link href="/" passHref>
 								<a
