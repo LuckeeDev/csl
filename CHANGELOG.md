@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.3.2](https://github.com/LuckeeDev/csl/compare/v2.3.1...v2.3.2) (2022-03-09)
+
+
+### Bug Fixes
+
+* :ambulance: added back data proxy ([fb85ee1](https://github.com/LuckeeDev/csl/commit/fb85ee187096ac0546e0e2baa3819ec938da7239))
+
+
+
 ## [2.3.1](https://github.com/LuckeeDev/csl/compare/v2.3.0...v2.3.1) (2022-03-09)
 
 
