@@ -21,7 +21,7 @@ interface DashboardShopProductsNewProps extends BasePageProps {
 	productCategories: ProductCategory[];
 }
 
-export default function DashboardShopProductsNew({
+function DashboardShopProductsNew({
 	shopSessions,
 	productCategories,
 }: DashboardShopProductsNewProps) {
@@ -71,6 +71,11 @@ export default function DashboardShopProductsNew({
 	);
 }
 
+DashboardShopProductsNew.hasSidebar = true;
+DashboardShopProductsNew.sidebarLinks = SHOP_LINKS;
+
+export default DashboardShopProductsNew;
+
 export const getServerSideProps: GetServerSideProps<BasePageProps> = async (
 	ctx
 ) => {
@@ -89,8 +94,6 @@ export const getServerSideProps: GetServerSideProps<BasePageProps> = async (
 			shopSessions,
 			productCategories,
 			session,
-			hasSidebar: true,
-			sidebarLinks: SHOP_LINKS,
 		},
 	};
 };

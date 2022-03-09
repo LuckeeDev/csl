@@ -1,8 +1,5 @@
-import { WrapperLinkProps } from 'components/wrapper/types';
 import { SHOP_LINKS } from 'navigation/dashboard/shop';
-import { GetServerSideProps } from 'next';
 import PageTitle from 'components/head/PageTitle';
-import { getSession } from 'next-auth/react';
 import useShopSessionForm, {
 	ShopSessionFormValues,
 } from 'hooks/useShopSessionForm';
@@ -16,12 +13,7 @@ import { CheckIcon } from '@modulz/radix-icons';
 import { useRouter } from 'next/router';
 import { LoadingOverlay } from '@mantine/core';
 
-interface DashboardShopNewProps {
-	hasSidebar: boolean;
-	sidebarLinks: WrapperLinkProps[];
-}
-
-export default function DashboardShopNew() {
+function DashboardShopNew() {
 	const form = useShopSessionForm();
 	const [overlay, toggleOverlay] = useBooleanToggle(false);
 	const notifications = useNotifications();
@@ -64,16 +56,7 @@ export default function DashboardShopNew() {
 	);
 }
 
-export const getServerSideProps: GetServerSideProps<DashboardShopNewProps> =
-	async (ctx) => {
-		const session = await getSession(ctx);
+DashboardShopNew.hasSidebar = true;
+DashboardShopNew.sidebarLinks = SHOP_LINKS;
 
-		return {
-			props: {
-				// return the session to allow instant display in client
-				session,
-				sidebarLinks: SHOP_LINKS,
-				hasSidebar: true,
-			},
-		};
-	};
+export default DashboardShopNew;

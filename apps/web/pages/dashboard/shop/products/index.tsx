@@ -17,7 +17,7 @@ interface DashboardShopProductsProps extends BasePageProps {
 	products: Pick<Product, 'id' | 'name' | 'price'>[];
 }
 
-export default function DashboardShopProducts({
+function DashboardShopProducts({
 	products: serverSideProducts,
 }: DashboardShopProductsProps) {
 	const [products, setProducts] = useState(serverSideProducts);
@@ -80,6 +80,11 @@ export default function DashboardShopProducts({
 	);
 }
 
+DashboardShopProducts.hasSidebar = true;
+DashboardShopProducts.sidebarLinks = SHOP_LINKS;
+
+export default DashboardShopProducts;
+
 export const getServerSideProps: GetServerSideProps<
 	DashboardShopProductsProps
 > = async (ctx) => {
@@ -93,8 +98,6 @@ export const getServerSideProps: GetServerSideProps<
 		props: {
 			session,
 			products,
-			hasSidebar: true,
-			sidebarLinks: SHOP_LINKS,
 		},
 	};
 };

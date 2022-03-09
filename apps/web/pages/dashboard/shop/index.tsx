@@ -1,4 +1,3 @@
-import { WrapperLinkProps } from 'components/wrapper/types';
 import { SHOP_LINKS } from 'navigation/dashboard/shop';
 import { GetServerSideProps } from 'next';
 import PageTitle from 'components/head/PageTitle';
@@ -7,19 +6,16 @@ import prisma from 'prisma/client';
 import { Table } from '@mantine/core';
 import ShopSessionRow from 'components/shopSessions/ShopSessionRow';
 import { ShopSession } from '@prisma/client';
+import { BasePageProps } from 'types/pages';
 
-interface DashboardShopIndexProps {
-	hasSidebar: boolean;
-	sidebarLinks: WrapperLinkProps[];
+interface DashboardShopIndexProps extends BasePageProps {
 	shopSessions: (Omit<
 		ShopSession,
 		'start' | 'end' | 'created_at' | 'updated_at'
 	> & { start: string; end: string })[];
 }
 
-export default function DashboardShopIndex({
-	shopSessions,
-}: DashboardShopIndexProps) {
+function DashboardShopIndex({ shopSessions }: DashboardShopIndexProps) {
 	const rows = shopSessions
 		.map((s) => ({ ...s, start: new Date(s.start), end: new Date(s.end) }))
 		.map((element) => (
@@ -48,32 +44,36 @@ export default function DashboardShopIndex({
 	);
 }
 
-export const getServerSideProps: GetServerSideProps<DashboardShopIndexProps> =
-	async (ctx) => {
-		const session = await getSession(ctx);
+DashboardShopIndex.hasSidebar = true;
+DashboardShopIndex.sidebarLinks = SHOP_LINKS;
 
-		const shopSessions = await prisma.shopSession.findMany({
-			select: {
-				id: true,
-				name: true,
-				start: true,
-				end: true,
-			},
-			orderBy: {
-				created_at: 'desc',
-			},
-		});
+export default DashboardShopIndex;
 
-		return {
-			props: {
-				session,
-				hasSidebar: true,
-				sidebarLinks: SHOP_LINKS,
-				shopSessions: shopSessions.map((s) => ({
-					...s,
-					start: s.start.toISOString(),
-					end: s.end.toISOString(),
-				})),
-			},
-		};
+export const getServerSideProps: GetServerSideProps<
+	DashboardShopIndexProps
+> = async (ctx) => {
+	const session = await getSession(ctx);
+
+	const shopSessions = await prisma.shopSession.findMany({
+		select: {
+			id: true,
+			name: true,
+			start: true,
+			end: true,
+		},
+		orderBy: {
+			created_at: 'desc',
+		},
+	});
+
+	return {
+		props: {
+			session,
+			shopSessions: shopSessions.map((s) => ({
+				...s,
+				start: s.start.toISOString(),
+				end: s.end.toISOString(),
+			})),
+		},
 	};
+};

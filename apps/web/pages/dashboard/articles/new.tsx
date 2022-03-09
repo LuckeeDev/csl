@@ -1,4 +1,3 @@
-import { GetServerSideProps } from 'next';
 import { LoadingOverlay } from '@mantine/core';
 import { useNotifications } from '@mantine/notifications';
 import axios from 'axios';
@@ -10,16 +9,9 @@ import useArticleForm, { ArticleFormValues } from 'hooks/useArticleForm';
 import { useRouter } from 'next/router';
 import { Article } from '@prisma/client';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
-import { LinkData } from 'navigation/types';
-import { getSession } from 'next-auth/react';
 import { useBooleanToggle } from '@mantine/hooks';
 
-interface DashboardArticlesNewProps {
-	hasSidebar: boolean;
-	sidebarLinks: LinkData[];
-}
-
-export default function DashboardArticlesNew() {
+function DashboardArticlesNew() {
 	const form = useArticleForm();
 	const [overlay, toggleOverlay] = useBooleanToggle(false);
 	const notifications = useNotifications();
@@ -62,17 +54,7 @@ export default function DashboardArticlesNew() {
 	);
 }
 
-const getServerSideProps: GetServerSideProps<DashboardArticlesNewProps> =
-	async (ctx) => {
-		const session = await getSession(ctx);
+DashboardArticlesNew.hasSidebar = true;
+DashboardArticlesNew.sidebarLinks = ARTICLE_LINKS;
 
-		return {
-			props: {
-				session,
-				hasSidebar: true,
-				sidebarLinks: ARTICLE_LINKS,
-			},
-		};
-	};
-
-export { getServerSideProps };
+export default DashboardArticlesNew;
