@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.3.3](https://github.com/LuckeeDev/csl/compare/v2.3.2...v2.3.3) (2022-03-09)
+
+
+### Bug Fixes
+
+* :ambulance: create new product route ([36893da](https://github.com/LuckeeDev/csl/commit/36893da6cf459d9fa4903b29b70bc2da68d0c26d))
+* removed dataProxy again ([56598d4](https://github.com/LuckeeDev/csl/commit/56598d45bb767d5f49f521525c0558e1b3ffdcae))
+
+
+
 ## [2.3.2](https://github.com/LuckeeDev/csl/compare/v2.3.1...v2.3.2) (2022-03-09)
 
 
