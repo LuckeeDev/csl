@@ -38,6 +38,7 @@
 		"next-auth": "4.2.1",
 		"next-connect": "^0.11.0",
 		"next-joi": "^2.2.1",
+		"nextjs-progressbar": "^0.0.14",
 		"react": "17.0.2",
 		"react-dom": "17.0.2",
 		"react-is": "17.0.2",

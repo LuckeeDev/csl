@@ -13,6 +13,7 @@ export default function HomePage() {
 					CSL
 				</Text>
 			</Title>
+
 			<Text
 				color="dimmed"
 				align="center"
