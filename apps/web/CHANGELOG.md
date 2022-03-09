@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.3.0](https://github.com/LuckeeDev/csl/compare/v2.2.1...v2.3.0) (2022-03-09)
+
+
+### Features
+
+* delete products ([a989f68](https://github.com/LuckeeDev/csl/commit/a989f68e71e7e57a9509c801769fc3f2168bfbab))
+
+
+
 ## [2.2.1](https://github.com/LuckeeDev/csl/compare/v2.2.0...v2.2.1) (2022-03-08)
 
 
