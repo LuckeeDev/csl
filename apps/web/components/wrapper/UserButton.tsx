@@ -10,9 +10,8 @@ import {
 	Menu,
 	MantineTheme,
 } from '@mantine/core';
-import { signIn, useSession } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import { Session } from 'next-auth';
-import useSignOut from 'hooks/useSignOut';
 
 const useStyles = createStyles((theme) => ({
 	user: {
@@ -66,7 +65,6 @@ const LoggedInButton = forwardRef<HTMLButtonElement, LoggedInButtonProps>(
 export default function UserButton() {
 	const { classes, theme } = useStyles();
 	const { data: session } = useSession();
-	const signOut = useSignOut();
 
 	return (
 		<div
@@ -86,7 +84,7 @@ export default function UserButton() {
 						<LoggedInButton session={session} theme={theme} classes={classes} />
 					}
 				>
-					<Menu.Item color="red" onClick={() => signOut()}>
+					<Menu.Item color="red" onClick={() => signOut({ callbackUrl: '/' })}>
 						Logout
 					</Menu.Item>
 				</Menu>
