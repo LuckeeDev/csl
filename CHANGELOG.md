@@ -2,6 +2,18 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.4.0](https://github.com/LuckeeDev/csl/compare/v2.3.7...v2.4.0) (2022-03-10)
+
+
+### Features
+
+* **shop:** add api to create discounts ([e5e76f4](https://github.com/LuckeeDev/csl/commit/e5e76f40b1b49d69b3c8ada44bf1e5da423be439))
+* **shop:** add api to delete discounts ([c296292](https://github.com/LuckeeDev/csl/commit/c296292f55cd768158c537cb65f13dd45c8f24c3))
+* add form to create discounts ([9028c88](https://github.com/LuckeeDev/csl/commit/9028c88189793c54e91a2e8372e2bf6245a6cf9f))
+* **shop:** add product discount model ([54110ee](https://github.com/LuckeeDev/csl/commit/54110ee3a608ff5a0d150ec0dc440a1978be27c7))
+
+
+
 ## [2.3.7](https://github.com/LuckeeDev/csl/compare/v2.3.6...v2.3.7) (2022-03-09)
 
 
