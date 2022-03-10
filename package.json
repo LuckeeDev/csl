@@ -22,7 +22,7 @@
 		"@next-auth/prisma-adapter": "^1.0.1",
 		"@prisma/client": "^3.10.0",
 		"@stripe/stripe-js": "^1.7.0",
-		"aws-sdk": "^2.1079.0",
+		"aws-sdk": "^2.1090.0",
 		"axios": "^0.26.0",
 		"core-js": "^3.6.5",
 		"cors": "^2.8.5",
