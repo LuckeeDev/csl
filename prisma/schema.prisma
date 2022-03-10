@@ -128,14 +128,14 @@ model ShopSession {
     id   String @id @default(cuid())
     name String
 
-    products Product[]
+    products  Product[]
+    discounts ProductDiscount[]
 
     start DateTime
     end   DateTime
 
-    updated_at      DateTime          @updatedAt
-    created_at      DateTime          @default(now())
-    ProductDiscount ProductDiscount[]
+    updated_at DateTime @updatedAt
+    created_at DateTime @default(now())
 }
 
 model Image {

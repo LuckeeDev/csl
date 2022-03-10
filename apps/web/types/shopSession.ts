@@ -5,3 +5,9 @@ export interface ShopSessionAPIData
 	start: string;
 	end: string;
 }
+
+export enum SessionStatus {
+	PAST,
+	ONGOING,
+	UPCOMING,
+}
