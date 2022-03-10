@@ -43,4 +43,11 @@ export const SHOP_LINKS: LinkData[] = [
 		href: '/dashboard/shop/products/new',
 		requiredPermissions: [],
 	},
+	{
+		icon: 'list',
+		color: 'yellow',
+		label: 'Sconti',
+		href: '/dashboard/shop/discounts',
+		requiredPermissions: [],
+	},
 ];

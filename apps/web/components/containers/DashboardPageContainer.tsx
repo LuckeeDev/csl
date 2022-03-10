@@ -14,6 +14,7 @@ export default function DashboardPageContainer({
 				width: '100%',
 				padding: '0 10px 0 0',
 				position: 'relative',
+				marginBottom: '40px',
 			}}
 		>
 			{children}

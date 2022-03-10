@@ -110,6 +110,8 @@ model ProductDiscount {
     shopSession   ShopSession @relation(fields: [shopSessionId], references: [id], onDelete: Cascade)
     shopSessionId String
 
+    discountPercentage Int
+
     requiredCategory   ProductCategory @relation("requiredForDiscounts", fields: [requiredCategoryId], references: [id], onDelete: Cascade)
     requiredCategoryId String
     requiredQuantity   Int
