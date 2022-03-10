@@ -1,4 +1,4 @@
-import { Button, Collapse, Space, Table } from '@mantine/core';
+import { Button, Collapse, LoadingOverlay, Space, Table } from '@mantine/core';
 import { useNotifications } from '@mantine/notifications';
 import { ProductCategory, ProductDiscount, ShopSession } from '@prisma/client';
 import PageTitle from 'components/head/PageTitle';
@@ -14,6 +14,9 @@ import useProductDiscountForm, {
 	ProductDiscountFormValues,
 } from 'hooks/useProductDiscountForm';
 import ProductDiscountRow from 'components/tableRows/ProductDiscountRow';
+import axios from 'axios';
+import { environment } from 'environments/environment';
+import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 
 interface DashboardShopDiscountsProps extends BasePageProps {
 	productDiscounts: Omit<ProductDiscount, 'updated_at' | 'created_at'>[];
@@ -28,6 +31,7 @@ function DashboardShopDiscounts({
 }: DashboardShopDiscountsProps) {
 	const [discounts, setDiscounts] = useState(productDiscounts);
 	const [open, setOpen] = useState(false);
+	const [overlay, setOverlay] = useState(false);
 	const notifications = useNotifications();
 	const form = useProductDiscountForm();
 
@@ -65,7 +69,36 @@ function DashboardShopDiscounts({
 	// );
 
 	async function onSubmit(val: ProductDiscountFormValues) {
-		console.log(val);
+		try {
+			setOverlay(true);
+
+			const { data } = await axios.post<ProductDiscount>(
+				`${environment.url}/api/shop/discounts`,
+				{ productDiscount: val }
+			);
+
+			setDiscounts((elements) => [...elements, data]);
+
+			form.reset();
+
+			notifications.showNotification({
+				title: 'Operazione completata con successo',
+				message: 'Lo sconto è attivo sulla sessione di vendita selezionata',
+				color: 'teal',
+				icon: <CheckIcon />,
+			});
+
+			setOverlay(false);
+		} catch (err) {
+			notifications.showNotification({
+				title: 'Errore',
+				message: 'Non è stato possibile creare questo sconto',
+				color: 'red',
+				icon: <Cross1Icon />,
+			});
+
+			setOverlay(false);
+		}
 	}
 
 	const rows = useMemo(
@@ -79,6 +112,8 @@ function DashboardShopDiscounts({
 	return (
 		<DashboardPageContainer>
 			<PageTitle>Sconti | Dashboard</PageTitle>
+
+			<LoadingOverlay visible={overlay} />
 
 			<h1>Sconti</h1>
 

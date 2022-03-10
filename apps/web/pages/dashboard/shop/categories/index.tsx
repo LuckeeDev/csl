@@ -71,11 +71,7 @@ function DashboardShopCategories({
 				{ withCredentials: true }
 			);
 
-			setCategories((elements) => {
-				elements.push(data);
-
-				return elements;
-			});
+			setCategories((elements) => [...elements, data]);
 
 			form.reset();
 
