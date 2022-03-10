@@ -33,8 +33,6 @@ function DashboardShopProductsNew({
 	async function onSubmit(val: ProductFormValues) {
 		toggleOverlay();
 
-		console.log(val);
-
 		const { data } = await axios.post<Product>(
 			`${environment.url}/api/shop/products`,
 			{ product: val },

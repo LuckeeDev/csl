@@ -6,7 +6,7 @@ import { SHOP_LINKS } from 'navigation/dashboard/shop';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import prisma from 'prisma/client';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { BasePageProps } from 'types/pages';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import ProductDiscountForm from 'components/forms/ProductDiscountForm';
@@ -35,38 +35,44 @@ function DashboardShopDiscounts({
 	const notifications = useNotifications();
 	const form = useProductDiscountForm();
 
-	// const handleDelete = useCallback(
-	// 	async (productCategoryId: ProductCategory['id']) => {
-	// 		try {
-	// 			await axios.delete(
-	// 				`${environment.url}/api/shop/categories/${productCategoryId}`
-	// 			);
+	const handleDelete = useCallback(
+		async (productDiscountId: ProductCategory['id']) => {
+			try {
+				setOverlay(true);
 
-	// 			setCategories((elements) => {
-	// 				const index = elements.findIndex((e) => e.id === productCategoryId);
+				await axios.delete(
+					`${environment.url}/api/shop/discounts/${productDiscountId}`
+				);
 
-	// 				elements.splice(index, 1);
+				setDiscounts((elements) => {
+					const index = elements.findIndex((e) => e.id === productDiscountId);
 
-	// 				return elements;
-	// 			});
+					elements.splice(index, 1);
 
-	// 			notifications.showNotification({
-	// 				title: 'Operazione completata',
-	// 				message: 'Categoria eliminata correttamente',
-	// 				color: 'teal',
-	// 				icon: <CheckIcon />,
-	// 			});
-	// 		} catch (err) {
-	// 			notifications.showNotification({
-	// 				title: 'Errore',
-	// 				message: 'Non è stato possibile eliminare questa categoria',
-	// 				color: 'red',
-	// 				icon: <Cross1Icon />,
-	// 			});
-	// 		}
-	// 	},
-	// 	[setCategories, notifications]
-	// );
+					return elements;
+				});
+
+				notifications.showNotification({
+					title: 'Operazione completata',
+					message: 'Sconto eliminato correttamente',
+					color: 'teal',
+					icon: <CheckIcon />,
+				});
+
+				setOverlay(false);
+			} catch (err) {
+				notifications.showNotification({
+					title: 'Errore',
+					message: 'Non è stato possibile eliminare questo sconto',
+					color: 'red',
+					icon: <Cross1Icon />,
+				});
+
+				setOverlay(false);
+			}
+		},
+		[setDiscounts, notifications]
+	);
 
 	async function onSubmit(val: ProductDiscountFormValues) {
 		try {
@@ -104,9 +110,13 @@ function DashboardShopDiscounts({
 	const rows = useMemo(
 		() =>
 			discounts.map((element) => (
-				<ProductDiscountRow key={element.id} productDiscount={element} />
+				<ProductDiscountRow
+					key={element.id}
+					productDiscount={element}
+					handleDelete={() => handleDelete(element.id)}
+				/>
 			)),
-		[discounts]
+		[discounts, handleDelete]
 	);
 
 	return (
@@ -121,6 +131,7 @@ function DashboardShopDiscounts({
 				<thead>
 					<tr>
 						<th>Nome</th>
+						<th>Sconto</th>
 						<th>Azioni</th>
 					</tr>
 				</thead>
