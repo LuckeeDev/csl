@@ -4,7 +4,7 @@ datasource db {
 }
 
 generator client {
-    provider        = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 model Account {
@@ -97,6 +97,27 @@ model ProductCategory {
     name     String
     products Product[]
 
+    requiredForDiscounts ProductDiscount[] @relation("requiredForDiscounts")
+    applicableDiscounts  ProductDiscount[] @relation("applicableDiscounts")
+
+    updated_at DateTime @updatedAt
+    created_at DateTime @default(now())
+}
+
+model ProductDiscount {
+    id            String      @id @default(cuid())
+    name          String
+    shopSession   ShopSession @relation(fields: [shopSessionId], references: [id], onDelete: Cascade)
+    shopSessionId String
+
+    requiredCategory   ProductCategory @relation("requiredForDiscounts", fields: [requiredCategoryId], references: [id], onDelete: Cascade)
+    requiredCategoryId String
+    requiredQuantity   Int
+
+    discountedCategory   ProductCategory @relation("applicableDiscounts", fields: [discountedCategoryId], references: [id], onDelete: Cascade)
+    discountedCategoryId String
+    discountedQuantity   Int
+
     updated_at DateTime @updatedAt
     created_at DateTime @default(now())
 }
@@ -110,8 +131,9 @@ model ShopSession {
     start DateTime
     end   DateTime
 
-    updated_at DateTime @updatedAt
-    created_at DateTime @default(now())
+    updated_at      DateTime          @updatedAt
+    created_at      DateTime          @default(now())
+    ProductDiscount ProductDiscount[]
 }
 
 model Image {
