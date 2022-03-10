@@ -10,19 +10,29 @@ jobs:
     name: Create release
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout all commits
         uses: actions/checkout@v3
-      - name: Setup
+        with:
+          fetch-depth: 0
+
+      - name: Setup git user to "🤖 CSL Bot"
         shell: bash
-        run: yarn install
+        run: git config user.email "-" && git config user.name "🤖 CSL Bot"
+
+      - name: Install packages
+        shell: bash
+        run: yarn install --frozen-lockfile --non-interactive
+
       - name: Create release
         shell: bash
         run: yarn nx run workspace:version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Tag last-release
         shell: bash
         run: git tag -f last-release
+
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
