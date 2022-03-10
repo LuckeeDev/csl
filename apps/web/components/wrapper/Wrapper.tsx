@@ -16,6 +16,7 @@ import { LinkData } from 'navigation/types';
 import Logo from 'public/logo.png';
 import Image from 'next/image';
 import Link from 'next/link';
+import TextLink from 'components/links/TextLink';
 
 interface WrapperProps {
 	children: ReactNode;
@@ -115,6 +116,8 @@ export default function Wrapper({
 									<Image src={Logo} alt="Logo" height={80} width={80} />
 								</a>
 							</Link>
+
+							<TextLink href="/shop">Negozio</TextLink>
 						</div>
 
 						<ButtonLink href="/dashboard">Dashboard</ButtonLink>
