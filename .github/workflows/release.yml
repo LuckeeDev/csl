@@ -12,6 +12,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Setup
+        shell: bash
+        run: yarn install
       - name: Create release
         shell: bash
         run: yarn nx run workspace:version
