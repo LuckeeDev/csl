@@ -19,15 +19,27 @@ jobs:
         shell: bash
         run: git config user.email "-" && git config user.name "🤖 CSL Bot"
 
-      - name: Install packages
-        shell: bash
-        run: yarn install --frozen-lockfile --non-interactive
-
+      # Old release method
       - name: Create release
-        shell: bash
-        run: yarn nx run workspace:version
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      # New release method. Doesn't work at the moment
+      # - name: Install packages
+      #   shell: bash
+      #   run: yarn install --frozen-lockfile --non-interactive
+
+      # - name: Create release
+      #   shell: bash
+      #   run: yarn nx run workspace:version
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Tag last-release
         shell: bash
