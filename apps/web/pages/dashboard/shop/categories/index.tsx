@@ -1,4 +1,4 @@
-import { Button, Collapse, Space, Table } from '@mantine/core';
+import { Button, Collapse, LoadingOverlay, Space, Table } from '@mantine/core';
 import { useNotifications } from '@mantine/notifications';
 import { ProductCategory } from '@prisma/client';
 import axios from 'axios';
@@ -27,12 +27,15 @@ function DashboardShopCategories({
 }: DashboardShopCategoriesProps) {
 	const [categories, setCategories] = useState(productCategories);
 	const [open, setOpen] = useState(false);
+	const [overlay, setOverlay] = useState(false);
 	const notifications = useNotifications();
 	const form = useProductCategoryForm();
 
 	const handleDelete = useCallback(
 		async (productCategoryId: ProductCategory['id']) => {
 			try {
+				setOverlay(true);
+
 				await axios.delete(
 					`${environment.url}/api/shop/categories/${productCategoryId}`
 				);
@@ -51,6 +54,8 @@ function DashboardShopCategories({
 					color: 'teal',
 					icon: <CheckIcon />,
 				});
+
+				setOverlay(false);
 			} catch (err) {
 				notifications.showNotification({
 					title: 'Errore',
@@ -58,6 +63,8 @@ function DashboardShopCategories({
 					color: 'red',
 					icon: <Cross1Icon />,
 				});
+
+				setOverlay(false);
 			}
 		},
 		[setCategories, notifications]
@@ -65,17 +72,15 @@ function DashboardShopCategories({
 
 	async function onSubmit(val: ProductCategoryFormValues) {
 		try {
+			setOverlay(true);
+
 			const { data } = await axios.post<ProductCategory>(
 				`${environment.url}/api/shop/categories`,
 				{ productCategory: val },
 				{ withCredentials: true }
 			);
 
-			setCategories((elements) => {
-				elements.push(data);
-
-				return elements;
-			});
+			setCategories((elements) => [...elements, data]);
 
 			form.reset();
 
@@ -85,6 +90,8 @@ function DashboardShopCategories({
 				color: 'teal',
 				icon: <CheckIcon />,
 			});
+
+			setOverlay(false);
 		} catch (err) {
 			notifications.showNotification({
 				title: 'Errore',
@@ -92,6 +99,8 @@ function DashboardShopCategories({
 				color: 'red',
 				icon: <Cross1Icon />,
 			});
+
+			setOverlay(false);
 		}
 	}
 
@@ -112,6 +121,8 @@ function DashboardShopCategories({
 			<PageTitle>Categorie | Dashboard</PageTitle>
 
 			<h1>Categorie</h1>
+
+			<LoadingOverlay visible={overlay} />
 
 			<Table>
 				<thead>
