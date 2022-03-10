@@ -7,7 +7,6 @@
 				"push": true,
 				"noVerify": true,
 				"rootChangelog": true,
-				"postTargets": ["workspace:github"],
 				"commitMessageFormat": "release(${projectName}): 🏫 release version ${version}"
 			}
 		},
