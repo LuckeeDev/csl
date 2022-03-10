@@ -1,4 +1,5 @@
 import { Image, Product } from '@prisma/client';
+import Carousel from 'components/carousel/Carousel';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import prisma from 'prisma/client';
 import { OmitDates } from 'types/omit';
@@ -11,6 +12,8 @@ export default function ShopProductPage({ product }: ShopProductPageProps) {
 	return (
 		<>
 			<h1>{product.name}</h1>
+
+			<Carousel images={product.images} />
 		</>
 	);
 }
