@@ -62,7 +62,7 @@ export default function Wrapper({
 			navbar={
 				hasSidebar && sidebarLinks ? (
 					<Navbar
-						padding="md"
+						p="md"
 						hiddenBreakpoint="sm"
 						hidden={!opened}
 						width={{ sm: 300, lg: 400 }}
@@ -82,7 +82,7 @@ export default function Wrapper({
 				) : undefined
 			}
 			header={
-				<Header height={80} padding="md">
+				<Header height={80} p="md">
 					<div
 						style={{
 							display: 'flex',

@@ -55,12 +55,12 @@ export default function ShopIndex({
 				{shopSessions.map((s) =>
 					s.status === SessionStatus.ONGOING ? (
 						<Link href={`/shop/${s.id}`} passHref key={s.id}>
-							<Card padding="sm" component={'a'}>
+							<Card p="sm" component={'a'}>
 								<ShopSessionCardContent shopSession={s} />
 							</Card>
 						</Link>
 					) : (
-						<Card padding="sm" key={s.id}>
+						<Card p="sm" key={s.id}>
 							<ShopSessionCardContent shopSession={s} />
 						</Card>
 					)
