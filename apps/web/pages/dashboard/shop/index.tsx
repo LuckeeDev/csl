@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next';
 import PageTitle from 'components/head/PageTitle';
 import { getSession } from 'next-auth/react';
 import prisma from 'prisma/client';
-import { Table } from '@mantine/core';
+import { ScrollArea, Table } from '@mantine/core';
 import ShopSessionRow from 'components/shopSessions/ShopSessionRow';
 import { ShopSession } from '@prisma/client';
 import { BasePageProps } from 'types/pages';
@@ -29,18 +29,20 @@ function DashboardShopIndex({ shopSessions }: DashboardShopIndexProps) {
 
 			<h1>Sessioni di vendita</h1>
 
-			<Table>
-				<thead>
-					<tr>
-						<th>Nome</th>
-						<th>Data di inizio</th>
-						<th>Data di fine</th>
-						<th>Azioni</th>
-					</tr>
-				</thead>
+			<ScrollArea>
+				<Table sx={{ minWidth: 800 }}>
+					<thead>
+						<tr>
+							<th>Nome</th>
+							<th>Data di inizio</th>
+							<th>Data di fine</th>
+							<th>Azioni</th>
+						</tr>
+					</thead>
 
-				<tbody>{rows}</tbody>
-			</Table>
+					<tbody>{rows}</tbody>
+				</Table>
+			</ScrollArea>
 		</DashboardPageContainer>
 	);
 }

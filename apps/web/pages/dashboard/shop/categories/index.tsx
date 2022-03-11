@@ -1,4 +1,11 @@
-import { Button, Collapse, LoadingOverlay, Space, Table } from '@mantine/core';
+import {
+	Button,
+	Collapse,
+	LoadingOverlay,
+	ScrollArea,
+	Space,
+	Table,
+} from '@mantine/core';
 import { useNotifications } from '@mantine/notifications';
 import { ProductCategory } from '@prisma/client';
 import axios from 'axios';
@@ -124,16 +131,18 @@ function DashboardShopCategories({
 
 			<LoadingOverlay visible={overlay} />
 
-			<Table>
-				<thead>
-					<tr>
-						<th>Nome</th>
-						<th>Azioni</th>
-					</tr>
-				</thead>
+			<ScrollArea>
+				<Table sx={{ minWidth: 400 }}>
+					<thead>
+						<tr>
+							<th>Nome</th>
+							<th>Azioni</th>
+						</tr>
+					</thead>
 
-				<tbody>{rows}</tbody>
-			</Table>
+					<tbody>{rows}</tbody>
+				</Table>
+			</ScrollArea>
 
 			<Space h={20} />
 

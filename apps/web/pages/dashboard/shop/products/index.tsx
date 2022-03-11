@@ -1,4 +1,4 @@
-import { Table } from '@mantine/core';
+import { Table, ScrollArea } from '@mantine/core';
 import { useNotifications } from '@mantine/notifications';
 import { Product } from '@prisma/client';
 import axios from 'axios';
@@ -66,17 +66,19 @@ function DashboardShopProducts({
 
 			<h1>Prodotti</h1>
 
-			<Table>
-				<thead>
-					<tr>
-						<th>Nome</th>
-						<th>Prezzo</th>
-						<th>Azioni</th>
-					</tr>
-				</thead>
+			<ScrollArea>
+				<Table sx={{ minWidth: 800 }}>
+					<thead>
+						<tr>
+							<th>Nome</th>
+							<th>Prezzo</th>
+							<th>Azioni</th>
+						</tr>
+					</thead>
 
-				<tbody>{rows}</tbody>
-			</Table>
+					<tbody>{rows}</tbody>
+				</Table>
+			</ScrollArea>
 		</DashboardPageContainer>
 	);
 }

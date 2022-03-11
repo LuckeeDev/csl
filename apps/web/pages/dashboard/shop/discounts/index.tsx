@@ -1,4 +1,11 @@
-import { Button, Collapse, LoadingOverlay, Space, Table } from '@mantine/core';
+import {
+	Button,
+	Collapse,
+	LoadingOverlay,
+	ScrollArea,
+	Space,
+	Table,
+} from '@mantine/core';
 import { useNotifications } from '@mantine/notifications';
 import { ProductCategory, ProductDiscount, ShopSession } from '@prisma/client';
 import PageTitle from 'components/head/PageTitle';
@@ -127,17 +134,19 @@ function DashboardShopDiscounts({
 
 			<h1>Sconti</h1>
 
-			<Table>
-				<thead>
-					<tr>
-						<th>Nome</th>
-						<th>Sconto</th>
-						<th>Azioni</th>
-					</tr>
-				</thead>
+			<ScrollArea>
+				<Table sx={{ minWidth: 800 }}>
+					<thead>
+						<tr>
+							<th>Nome</th>
+							<th>Sconto</th>
+							<th>Azioni</th>
+						</tr>
+					</thead>
 
-				<tbody>{rows}</tbody>
-			</Table>
+					<tbody>{rows}</tbody>
+				</Table>
+			</ScrollArea>
 
 			<Space h={20} />
 

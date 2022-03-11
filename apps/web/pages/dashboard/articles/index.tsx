@@ -1,4 +1,4 @@
-import { Table } from '@mantine/core';
+import { ScrollArea, Table } from '@mantine/core';
 import { Article } from '@prisma/client';
 import axios from 'axios';
 import ArticleRow from 'components/articles/ArticleRow';
@@ -60,19 +60,21 @@ function DashboardArticlesIndex({ articles }: DashboardArticlesIndexProps) {
 
 			<h1>Articoli</h1>
 
-			<Table>
-				<thead>
-					<tr>
-						<th>Titolo</th>
-						<th>Autore</th>
-						<th>Tempo di lettura</th>
-						<th>Pubblicato</th>
-						<th>Azioni</th>
-					</tr>
-				</thead>
+			<ScrollArea>
+				<Table sx={{ minWidth: 800 }}>
+					<thead>
+						<tr>
+							<th>Titolo</th>
+							<th>Autore</th>
+							<th>Tempo di lettura</th>
+							<th>Pubblicato</th>
+							<th>Azioni</th>
+						</tr>
+					</thead>
 
-				<tbody>{rows}</tbody>
-			</Table>
+					<tbody>{rows}</tbody>
+				</Table>
+			</ScrollArea>
 		</DashboardPageContainer>
 	);
 }
