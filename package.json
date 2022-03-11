@@ -45,7 +45,7 @@
 		"react-markdown": "^7.0.1",
 		"react-pdf": "^5.4.0",
 		"regenerator-runtime": "0.13.9",
-		"stripe": "^8.69.0",
+		"stripe": "^8.208.0",
 		"tslib": "^2.0.0",
 		"uuid": "^8.3.1",
 		"yup": "^0.32.11",
