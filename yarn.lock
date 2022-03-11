@@ -3000,10 +3000,10 @@
     clsx "^1.1.1"
     react-popper "^2.2.5"
 
-"@mantine/dropzone@^3.6.11":
-  version "3.6.11"
-  resolved "https://registry.yarnpkg.com/@mantine/dropzone/-/dropzone-3.6.11.tgz#51b3faad22b8b0896472051f810f013db5f89ee4"
-  integrity sha512-12yBa5GXm3Ta47YCvWzfY92nUzpyyHRALKWN3ykXXa0PFnvcieGL9O62Xu9USRiyR7yIein6184US5FYYOJ+yg==
+"@mantine/dropzone@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@mantine/dropzone/-/dropzone-4.0.0.tgz#701eb2ce63bf1e95a5df16fefac7815d402fc2c5"
+  integrity sha512-ZGginQMnJlEgxpkgSTwQLonB037SLYf4x/Ae6aI7dNgYoIf0hXNzkBxgKuy/SYkIqQzpqVuHOgVi8b19cmgiHQ==
   dependencies:
     react-dropzone "^11.4.2"
 
