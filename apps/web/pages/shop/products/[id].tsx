@@ -1,6 +1,8 @@
 import { Image, Product } from '@prisma/client';
 import Carousel from 'components/carousel/Carousel';
+import FallbackPage from 'components/fallback/FallbackPage';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
 import prisma from 'prisma/client';
 import { OmitDates } from 'types/omit';
 
@@ -9,6 +11,12 @@ interface ShopProductPageProps {
 }
 
 export default function ShopProductPage({ product }: ShopProductPageProps) {
+	const router = useRouter();
+
+	if (router.isFallback) {
+		return <FallbackPage />;
+	}
+
 	return (
 		<>
 			<h1>{product.name}</h1>
