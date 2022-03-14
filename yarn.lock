@@ -2956,12 +2956,12 @@
   resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-4.0.1.tgz#865b361458f0233ced263c836d0f0236b48c0bae"
   integrity sha512-SO1vRNDfINtfZGH9ZKXVqly1uUrlyJMCI1rKXcup1QnpIRrr5EVReSBnmhpAf2islBQy0ljos8v3rqlWdkuI1Q==
 
-"@mantine/next@4.0.1":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@mantine/next/-/next-4.0.1.tgz#233f6258d0e2f62407ff04bdab797f5e4c796776"
-  integrity sha512-t8z6dWFLU6R9uoD230cLkD1AKx+vFwzkpda7xTL9rrSDNQ/B0P6LMV1yJNIXEY14Y5QNZ1XrnpZj/c6q2OZu0w==
+"@mantine/next@4.0.4":
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/@mantine/next/-/next-4.0.4.tgz#92a09c304aa1613ab1158ebd8b8b0c57ca5736bb"
+  integrity sha512-oYDCr2TcuyhyQb7/F2ldbONT4Ujjww7B+SZH8AlrpC8igum/FD+oSRLb+xrnlzCSTKwv0Ljx0SWGFbezpCI43g==
   dependencies:
-    "@mantine/ssr" "4.0.1"
+    "@mantine/ssr" "4.0.4"
 
 "@mantine/notifications@4.0.1":
   version "4.0.1"
@@ -2981,17 +2981,17 @@
     quill-mention "^3.0.8"
     react-quill "2.0.0-beta.4"
 
-"@mantine/ssr@4.0.1":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@mantine/ssr/-/ssr-4.0.1.tgz#320fef47c16534e8e0ac4867d55ef4001ab27e63"
-  integrity sha512-4XvFk1UtY4BMlsz+PNzfqbRH1frOe6AyOf56XkktSi+YY3+XghEI9bHKNUPK+nFNgYa9yxK/CmRGCJV5kBOzqA==
+"@mantine/ssr@4.0.4":
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/@mantine/ssr/-/ssr-4.0.4.tgz#eb2b902aaa90ce5e449aac41485e1b28fcd8b224"
+  integrity sha512-pyw4t38TvkJ1gUmcCElK+fQrQZPlwF5mLkvnqh97k7rW9GErrdauOv4/kMzjimOvsrm/z7zJ998vUH1lq8HxcA==
   dependencies:
     "@emotion/cache" "^11.7.1"
     "@emotion/react" "^11.7.1"
     "@emotion/serialize" "^1.0.2"
     "@emotion/server" "^11.4.0"
     "@emotion/utils" "^1.0.0"
-    "@mantine/styles" "4.0.1"
+    "@mantine/styles" "4.0.4"
     csstype "^3.0.9"
     html-react-parser "^1.3.0"
 
@@ -2999,6 +2999,18 @@
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@mantine/styles/-/styles-4.0.1.tgz#8567579e1fb051b0e57984f6e306999c85ccfd4a"
   integrity sha512-BbwBxDZPFo06nlW15WGCRD5jxxWLoTPV7vDgMRPfIHVMLS8mASoW5dOEjoWrMzWDCQYqZb45Cg4lJTeSrwQopQ==
+  dependencies:
+    "@emotion/cache" "^11.7.1"
+    "@emotion/react" "^11.7.1"
+    "@emotion/serialize" "^1.0.2"
+    "@emotion/utils" "^1.0.0"
+    clsx "^1.1.1"
+    csstype "^3.0.9"
+
+"@mantine/styles@4.0.4":
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/@mantine/styles/-/styles-4.0.4.tgz#dcac61bcfd73d39127212a028a77de018a89ba96"
+  integrity sha512-tQny97sUkoGJQ/fPKEXPR4114qoKm6isMmNtA+0/KtLFvlzFK4orNxV1n0yiW702uiZEegiHjpInheLCWOAedg==
   dependencies:
     "@emotion/cache" "^11.7.1"
     "@emotion/react" "^11.7.1"
@@ -3741,11 +3753,6 @@
     npmlog "^4.1.2"
     pretty-hrtime "^1.0.3"
 
-"@stripe/stripe-js@^1.7.0":
-  version "1.13.2"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.13.2.tgz#bb2f561085b5dd091355df871d432b8e1fd467f6"
-  integrity sha512-fycUk7ECukNc31lD5apcrUgdRC1BfiIacs+CpacoCjOgo3ablolnWCvDQWMmVWtODYa8bBv2dlBla+Edc5OvZg==
-
 "@svgr/babel-plugin-add-jsx-attribute@^6.0.0":
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-add-jsx-attribute/-/babel-plugin-add-jsx-attribute-6.0.0.tgz#bd6d1ff32a31b82b601e73672a789cc41e84fe18"
@@ -4231,7 +4238,7 @@
   resolved "https://registry.yarnpkg.com/@types/ms/-/ms-0.7.31.tgz#31b7ca6407128a3d2bbc27fe2d21b345397f6197"
   integrity sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==
 
-"@types/node@*", "@types/node@17.0.21", "@types/node@>=12", "@types/node@>=8.1.0":
+"@types/node@*", "@types/node@17.0.21", "@types/node@>=12":
   version "17.0.21"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.21.tgz#864b987c0c68d07b4345845c3e63b75edd143644"
   integrity sha512-DBZCJbhII3r90XbQxI8Y9IjjiiOGlZ0Hr32omXIZvwwZ7p4DMMXGrKXVyPfuoBOri9XNtL0UK69jYIBIsRX3QQ==
@@ -4352,18 +4359,6 @@
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-2.0.0.tgz#7036640b4e21cc2f259ae826ce843d277dad8cff"
   integrity sha512-RJJrrySY7A8havqpGObOB4W92QXKJo63/jFLLgpvOtsGUqbQZ9Sbgl35KMm1DjC6j7AvmmU2bIno+3IyEaemaw==
-
-"@types/stripe-checkout@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@types/stripe-checkout/-/stripe-checkout-1.0.3.tgz#fdb8104536501d784deb5b5efd943a1e871f6822"
-  integrity sha512-7JIyo1ou6w6+ee2SETytZocTvYgtGkivv5NVQ53xKv8WbVIYYhNPWwVzg56E47E4S4O55L1UywRR4FC+XgXPWA==
-  dependencies:
-    "@types/stripe-v3" "*"
-
-"@types/stripe-v3@*", "@types/stripe-v3@^3.1.19":
-  version "3.1.23"
-  resolved "https://registry.yarnpkg.com/@types/stripe-v3/-/stripe-v3-3.1.23.tgz#ef8bab5448f610e2d0467bea0a59881e69e2c4e4"
-  integrity sha512-fqCnai832M6o6qH6A+Dqk1I/SXAzx629bknbrDigyvkuAPGZGrjkLCMxfnrtWswHXNPjj/TtuGf4lQnDXc815w==
 
 "@types/unist@*", "@types/unist@^2.0.0":
   version "2.0.6"
@@ -12179,7 +12174,7 @@ qs@6.7.0:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
 
-qs@^6.4.0, qs@^6.6.0:
+qs@^6.4.0:
   version "6.10.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.10.1.tgz#4931482fa8d647a5aab799c5271d2133b981fb6a"
   integrity sha512-M528Hph6wsSVOBiYUnGf+K/7w0hNshs/duGsNXPUCLH5XAqjEtiPGwNONLV0tBH8NoGb0mvD5JubnUTrujKDTg==
@@ -13540,14 +13535,6 @@ strip-json-comments@^3.1.0, strip-json-comments@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-3.1.1.tgz#31f1281b3832630434831c310c01cccda8cbe006"
   integrity sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==
-
-stripe@^8.208.0:
-  version "8.208.0"
-  resolved "https://registry.yarnpkg.com/stripe/-/stripe-8.208.0.tgz#a47ab056f98e3b9b55906dd30d11b8baa51871bd"
-  integrity sha512-CIswCCWvWZgmc85oAvZWcmjt84wq6JowZnxfAAleW+MZihIAWbe8SydHhu+y1nXd39X3e9nxa5HkDmWL/MI/qA==
-  dependencies:
-    "@types/node" ">=8.1.0"
-    qs "^6.6.0"
 
 style-inject@^0.3.0:
   version "0.3.0"
