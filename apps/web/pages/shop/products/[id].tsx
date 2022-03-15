@@ -1,9 +1,12 @@
+import { InputWrapper, MediaQuery, NativeSelect, Text } from '@mantine/core';
 import { Image, Product } from '@prisma/client';
 import Carousel from 'components/carousel/Carousel';
 import FallbackPage from 'components/fallback/FallbackPage';
+import ColorChooser from 'components/forms/ColorChooser';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import prisma from 'prisma/client';
+import { useState } from 'react';
 import { OmitDates } from 'types/omit';
 
 interface ShopProductPageProps {
@@ -12,6 +15,8 @@ interface ShopProductPageProps {
 
 export default function ShopProductPage({ product }: ShopProductPageProps) {
 	const router = useRouter();
+	const [color, setColor] = useState('');
+	const [size, setSize] = useState('');
 
 	if (router.isFallback) {
 		return <FallbackPage />;
@@ -21,7 +26,37 @@ export default function ShopProductPage({ product }: ShopProductPageProps) {
 		<>
 			<h1>{product.name}</h1>
 
-			<Carousel images={product.images} />
+			{product.description && <Text>{product.description}</Text>}
+
+			<MediaQuery smallerThan="md" styles={{ display: 'none' }}>
+				<div style={{ maxWidth: '500px' }}>
+					<Carousel images={product.images} />
+				</div>
+			</MediaQuery>
+
+			<MediaQuery largerThan="md" styles={{ display: 'none' }}>
+				<div style={{ maxWidth: '400px' }}>
+					<Carousel images={product.images} />
+				</div>
+			</MediaQuery>
+
+			{product.colors?.length > 0 && (
+				<ColorChooser
+					colors={product.colors}
+					onChange={setColor}
+					value={color}
+				/>
+			)}
+
+			{product.sizes?.length > 0 && (
+				<InputWrapper required label="Seleziona la taglia per questo capo">
+					<NativeSelect
+						data={product.sizes}
+						value={size}
+						onChange={(e) => setSize(e.currentTarget.value)}
+					/>
+				</InputWrapper>
+			)}
 		</>
 	);
 }
