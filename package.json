@@ -8,7 +8,6 @@
 	},
 	"private": true,
 	"dependencies": {
-		"@apollo/client": "^3.4.15",
 		"@mantine/core": "4.0.4",
 		"@mantine/dates": "4.0.4",
 		"@mantine/dropzone": "4.0.4",
@@ -41,12 +40,10 @@
 		"react-dom": "17.0.2",
 		"react-is": "17.0.2",
 		"react-markdown": "^7.0.1",
-		"react-pdf": "^5.4.0",
 		"regenerator-runtime": "0.13.9",
 		"tslib": "^2.0.0",
 		"uuid": "^8.3.1",
-		"yup": "^0.32.11",
-		"zone.js": "0.11.4"
+		"yup": "^0.32.11"
 	},
 	"devDependencies": {
 		"@babel/core": "7.17.5",
@@ -75,7 +72,6 @@
 		"@types/react": "17.0.39",
 		"@types/react-dom": "17.0.13",
 		"@types/react-is": "17.0.2",
-		"@types/react-pdf": "^5.0.7",
 		"@types/uuid": "^8.3.0",
 		"@typescript-eslint/eslint-plugin": "5.10.2",
 		"@typescript-eslint/parser": "5.10.2",
