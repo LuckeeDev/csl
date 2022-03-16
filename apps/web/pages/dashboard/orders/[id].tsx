@@ -87,12 +87,11 @@ function DashboardManageOrders({
 
 	const total = useMemo(
 		() =>
-			orders.reduce((previous, current) => {
-				const currentTotal = (current.product.price * current.quantity) / 100;
-
-				return previous + currentTotal;
-			}, 0),
-		[orders]
+			discountedOrders.reduce(
+				(previous, current) => previous + current.cost,
+				0
+			),
+		[discountedOrders]
 	);
 
 	return (

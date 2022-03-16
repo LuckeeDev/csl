@@ -6,10 +6,16 @@ export interface DiscountedOrder extends Order {
 	discountPercentage?: number;
 }
 
+export interface CalculateDiscountResult extends OmitDates<DiscountedOrder> {
+	cost: number;
+	oldCost?: number;
+	product: OmitDates<Product>;
+}
+
 export default function calculateDiscount(
 	discounts: OmitDates<ProductDiscount>[],
 	orders: (OmitDates<DiscountedOrder> & { product: OmitDates<Product> })[]
-) {
+): CalculateDiscountResult[] {
 	// Re-order orders in a descending price order. This way, discounts will be applied
 	// to the most expensive items.
 	const descPriceOrders = orders.sort(
@@ -38,22 +44,42 @@ export default function calculateDiscount(
 					(!order.discounts || order.discounts < order.quantity)
 			);
 
-			// Apply all discounts if the quantity is higher than the available discounts
-			if (descPriceOrders[index].quantity >= availableDiscounts) {
-				descPriceOrders[index].discounts = availableDiscounts;
-				descPriceOrders[index].discountPercentage = discount.discountPercentage;
+			if (index !== -1) {
+				// Apply all discounts if the quantity is higher than the available discounts
+				if (descPriceOrders[index].quantity >= availableDiscounts) {
+					descPriceOrders[index].discounts = availableDiscounts;
+					descPriceOrders[index].discountPercentage =
+						discount.discountPercentage;
 
-				availableDiscounts = 0;
-			} else {
-				// Apply discount to all products of this order
-				descPriceOrders[index].discounts = descPriceOrders[index].quantity;
-				descPriceOrders[index].discountPercentage = discount.discountPercentage;
+					availableDiscounts = 0;
+				} else {
+					// Apply discount to all products of this order
+					descPriceOrders[index].discounts = descPriceOrders[index].quantity;
+					descPriceOrders[index].discountPercentage =
+						discount.discountPercentage;
 
-				availableDiscounts =
-					availableDiscounts - descPriceOrders[index].quantity;
+					availableDiscounts =
+						availableDiscounts - descPriceOrders[index].quantity;
+				}
 			}
 		}
 	}
 
-	return descPriceOrders;
+	const result = descPriceOrders.map((order) => {
+		const discounts = order.discounts ?? 0;
+		const discountPercentage = order.discountPercentage ?? 0;
+
+		return {
+			...order,
+			cost:
+				(order.product.price * (order.quantity - discounts)) / 100 +
+				(order.product.price * discounts * (discountPercentage / 100)) / 100,
+			oldCost:
+				discounts !== 0
+					? (order.product.price * order.quantity) / 100
+					: undefined,
+		};
+	});
+
+	return result;
 }
