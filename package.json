@@ -20,7 +20,7 @@
 		"@modulz/radix-icons": "^4.0.0",
 		"@next-auth/prisma-adapter": "1.0.1",
 		"@prisma/client": "^3.11.0",
-		"aws-sdk": "^2.1094.0",
+		"aws-sdk": "^2.1095.0",
 		"axios": "^0.26.1",
 		"core-js": "^3.6.5",
 		"cors": "^2.8.5",
