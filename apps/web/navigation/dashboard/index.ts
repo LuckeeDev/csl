@@ -14,7 +14,6 @@ export const DASHBOARD_LINKS: LinkData[] = [
 		color: 'violet',
 		label: 'Ordini',
 		href: '/dashboard/orders',
-		hasSublinks: true,
 		requiredPermissions: [],
 	},
 	{

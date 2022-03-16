@@ -1,7 +1,7 @@
-import { Badge } from '@mantine/core';
 import { ClockIcon } from '@modulz/radix-icons';
 import { ShopSession } from '@prisma/client';
 import { SessionStatus } from 'types/shopSession';
+import ShopSessionStatusBadge from './ShopSessionStatusBadge';
 
 interface ShopSessionCardProps {
 	shopSession: Omit<ShopSession, 'updated_at' | 'created_at'> & {
@@ -15,25 +15,7 @@ export default function ShopSessionCardContent({
 	return (
 		<>
 			<div style={{ boxSizing: 'border-box', marginBottom: '10px' }}>
-				{s.status === SessionStatus.PAST ? (
-					<Badge variant="gradient" gradient={{ from: 'red', to: 'orange' }}>
-						Terminata
-					</Badge>
-				) : s.status === SessionStatus.UPCOMING ? (
-					<Badge
-						variant="gradient"
-						gradient={{ from: 'teal', to: 'blue', deg: 60 }}
-					>
-						In arrivo
-					</Badge>
-				) : (
-					<Badge
-						variant="gradient"
-						gradient={{ from: 'teal', to: 'lime', deg: 105 }}
-					>
-						In corso
-					</Badge>
-				)}
+				<ShopSessionStatusBadge status={s.status} />
 			</div>
 
 			<h1 style={{ margin: '10px 0' }}>{s.name}</h1>

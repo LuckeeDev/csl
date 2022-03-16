@@ -7,7 +7,7 @@ export interface ShopSessionAPIData
 }
 
 export enum SessionStatus {
-	PAST,
-	ONGOING,
-	UPCOMING,
+	PAST = 'PAST',
+	ONGOING = 'ONGOING',
+	UPCOMING = 'UPCOMING',
 }

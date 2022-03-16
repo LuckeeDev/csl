@@ -5,22 +5,10 @@ import { useMemo } from 'react';
 import { SessionStatus, ShopSessionAPIData } from 'types/shopSession';
 import Link from 'next/link';
 import ShopSessionCardContent from 'components/shopSessions/ShopSessionCardContent';
-import { ShopSession } from '@prisma/client';
+import getSessionStatus from 'utils/shop/getSessionStatus';
 
 interface ShopIndexProps {
 	shopSessions: ShopSessionAPIData[];
-}
-
-function getStatus(session: Omit<ShopSession, 'updated_at' | 'created_at'>) {
-	const now = new Date();
-
-	if (session.end.getTime() < now.getTime()) {
-		return SessionStatus.PAST;
-	} else if (session.start.getTime() > now.getTime()) {
-		return SessionStatus.UPCOMING;
-	} else {
-		return SessionStatus.ONGOING;
-	}
 }
 
 export default function ShopIndex({
@@ -33,7 +21,7 @@ export default function ShopIndex({
 				const endDate = new Date(end);
 				const session = { start: startDate, end: endDate, ...s };
 
-				const status = getStatus(session);
+				const status = getSessionStatus(session);
 
 				return { status, ...session };
 			}),
