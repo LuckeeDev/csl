@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.6.1](https://github.com/LuckeeDev/csl/compare/v2.6.0...v2.6.1) (2022-03-16)
+
+
+### Bug Fixes
+
+* **shop:** :ambulance: check for product existence in order form hook ([bd7cb0a](https://github.com/LuckeeDev/csl/commit/bd7cb0adf47e27f4e6ac2f2aa0e56fdc3bd38a02))
+
+
+
 # [2.6.0](https://github.com/LuckeeDev/csl/compare/v2.5.1...v2.6.0) (2022-03-16)
 
 
