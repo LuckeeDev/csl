@@ -29,7 +29,9 @@ interface ColorButtonProps extends ColorBoxProps {
 function ColorButton({ onClick, ...props }: ColorButtonProps) {
 	const { classes } = useButtonStyles(props);
 
-	return <button className={classes.btn} onClick={onClick}></button>;
+	return (
+		<button type="button" className={classes.btn} onClick={onClick}></button>
+	);
 }
 
 interface ColorChooserProps {
