@@ -1,8 +1,10 @@
 import { MediaQuery, Text } from '@mantine/core';
-import { Image, Product } from '@prisma/client';
+import { Image, Order, Product } from '@prisma/client';
+import axios from 'axios';
 import Carousel from 'components/carousel/Carousel';
 import FallbackPage from 'components/fallback/FallbackPage';
 import OrderForm from 'components/forms/OrderForm';
+import { environment } from 'environments/environment';
 import useOrderForm, { OrderFormValues } from 'hooks/useOrderForm';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
@@ -21,13 +23,20 @@ export default function ShopProductPage({ product }: ShopProductPageProps) {
 		return <FallbackPage />;
 	}
 
-	function onSubmit(val: OrderFormValues) {
-		console.log(val);
+	async function onSubmit(val: OrderFormValues) {
+		const { data } = await axios.post<Order>(`${environment.url}/api/orders`, {
+			productId: product.id,
+			...val,
+		});
+
+		console.log(data);
 	}
 
 	return (
 		<>
-			<h1>{product.name}</h1>
+			<h1>
+				{product.name} - {product.price / 100}€
+			</h1>
 
 			{product.description && <Text>{product.description}</Text>}
 

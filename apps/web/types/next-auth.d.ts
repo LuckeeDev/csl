@@ -14,6 +14,7 @@ export interface SessionUser {
 	name?: string | null;
 	image?: string | null;
 	permissions?: Permission[] | null;
+	id?: string;
 }
 
 interface ExtendedGetSessionParams {
@@ -55,6 +56,7 @@ declare module 'next-auth' {
 declare module 'next-auth/jwt' {
 	interface JWT {
 		permissions?: Permission[] | null;
+		id?: string;
 	}
 
 	declare function getToken<R extends boolean = false>(

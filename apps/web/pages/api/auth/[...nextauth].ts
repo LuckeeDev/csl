@@ -42,14 +42,16 @@ const nextAuthOptions: NextAuthOptions = {
 				const permissions = user?.roles.map((r) => r.permissions).flat();
 
 				params.token.permissions = permissions;
+				params.token.id = user?.id;
 			}
 
 			return params.token;
 		},
 		async session(params) {
-			const { permissions } = params.token;
+			const { permissions, id } = params.token;
 
 			params.session.user.permissions = permissions;
+			params.session.user.id = id;
 
 			return params.session;
 		},
