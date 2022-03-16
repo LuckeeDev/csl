@@ -1,10 +1,10 @@
-import { Title, Text, Anchor } from '@mantine/core';
+import { Title, Text } from '@mantine/core';
 
 export default function HomePage() {
 	return (
 		<>
 			<Title
-				sx={{ fontSize: 100, fontWeight: 900, letterSpacing: -2 }}
+				sx={{ fontSize: 80, fontWeight: 900, letterSpacing: -2 }}
 				align="center"
 				mt={100}
 			>
@@ -22,15 +22,7 @@ export default function HomePage() {
 				mx="auto"
 				mt="xl"
 			>
-				Il sito per la tua scuola. Gratuito,{'  '}
-				<Anchor
-					href="https://github.com/LuckeeDev/csl"
-					size="lg"
-					target="_blank"
-				>
-					open source
-				</Anchor>
-				.
+				Il sito del Comitato Studentesco Lussana.
 			</Text>
 		</>
 	);
