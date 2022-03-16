@@ -10,6 +10,14 @@ export const DASHBOARD_LINKS: LinkData[] = [
 		requiredPermissions: [],
 	},
 	{
+		icon: 'list',
+		color: 'violet',
+		label: 'Ordini',
+		href: '/dashboard/orders',
+		hasSublinks: true,
+		requiredPermissions: [],
+	},
+	{
 		icon: 'write',
 		color: 'teal',
 		label: 'Articoli',

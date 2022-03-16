@@ -6,6 +6,7 @@ import {
 	ProductDiscount,
 } from '@prisma/client';
 import FallbackPage from 'components/fallback/FallbackPage';
+import BackLink from 'components/links/BackLink';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -32,7 +33,9 @@ export default function ShopSessionPage({ shopSession }: ShopSessionPageProps) {
 
 	return (
 		<>
-			<h1>{shopSession.name}</h1>
+			<BackLink>Torna indietro</BackLink>
+
+			<h1 style={{ marginTop: 0 }}>{shopSession.name}</h1>
 
 			<SimpleGrid
 				cols={5}

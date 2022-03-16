@@ -8,6 +8,7 @@ import Carousel from 'components/carousel/Carousel';
 import FallbackPage from 'components/fallback/FallbackPage';
 import OrderForm from 'components/forms/OrderForm';
 import PageTitle from 'components/head/PageTitle';
+import BackLink from 'components/links/BackLink';
 import { environment } from 'environments/environment';
 import useOrderForm, { OrderFormValues } from 'hooks/useOrderForm';
 import { GetStaticPaths, GetStaticProps } from 'next';
@@ -20,9 +21,6 @@ interface ShopProductPageProps {
 }
 
 const useStyles = createStyles((theme) => ({
-	heading: {
-		marginTop: 0,
-	},
 	wrapper: {
 		display: 'flex',
 		flexDirection: 'row',
@@ -89,7 +87,9 @@ export default function ShopProductPage({ product }: ShopProductPageProps) {
 
 			<LoadingOverlay visible={overlay} />
 
-			<h1 className={classes.heading}>
+			<BackLink>Torna indietro</BackLink>
+
+			<h1 style={{ marginTop: 0 }}>
 				{product.name} - {product.price / 100}€
 			</h1>
 

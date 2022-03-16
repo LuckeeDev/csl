@@ -1,4 +1,4 @@
-import { Button, Container } from '@mantine/core';
+import { Button, Container, useMantineTheme } from '@mantine/core';
 import { ChevronLeftIcon, ChevronRightIcon } from '@modulz/radix-icons';
 import { Image } from '@prisma/client';
 import {
@@ -16,6 +16,8 @@ interface CarouselProps {
 }
 
 export default function Carousel({ images }: CarouselProps) {
+	const theme = useMantineTheme();
+
 	return (
 		<CarouselProvider
 			naturalSlideWidth={100}
@@ -35,11 +37,16 @@ export default function Carousel({ images }: CarouselProps) {
 					width: '100%',
 					display: 'flex',
 					justifyContent: 'center',
+					marginTop: theme.spacing.xs,
 				}}
 			>
-				<Button component={ButtonBack}>
+				<Button
+					component={ButtonBack}
+					style={{ marginRight: theme.spacing.xs }}
+				>
 					<ChevronLeftIcon />
 				</Button>
+
 				<Button component={ButtonNext}>
 					<ChevronRightIcon />
 				</Button>
