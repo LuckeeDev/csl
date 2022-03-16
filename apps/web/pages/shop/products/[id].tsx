@@ -1,9 +1,13 @@
-import { MediaQuery, Text } from '@mantine/core';
+import { LoadingOverlay, MediaQuery, Text } from '@mantine/core';
+import { useBooleanToggle } from '@mantine/hooks';
+import { useNotifications } from '@mantine/notifications';
+import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import { Image, Order, Product } from '@prisma/client';
 import axios from 'axios';
 import Carousel from 'components/carousel/Carousel';
 import FallbackPage from 'components/fallback/FallbackPage';
 import OrderForm from 'components/forms/OrderForm';
+import PageTitle from 'components/head/PageTitle';
 import { environment } from 'environments/environment';
 import useOrderForm, { OrderFormValues } from 'hooks/useOrderForm';
 import { GetStaticPaths, GetStaticProps } from 'next';
@@ -18,22 +22,48 @@ interface ShopProductPageProps {
 export default function ShopProductPage({ product }: ShopProductPageProps) {
 	const router = useRouter();
 	const form = useOrderForm();
+	const [overlay, toggleOverlay] = useBooleanToggle(false);
+	const notifications = useNotifications();
 
 	if (router.isFallback) {
 		return <FallbackPage />;
 	}
 
 	async function onSubmit(val: OrderFormValues) {
-		const { data } = await axios.post<Order>(`${environment.url}/api/orders`, {
-			productId: product.id,
-			...val,
-		});
+		try {
+			toggleOverlay(true);
 
-		console.log(data);
+			await axios.post<Order>(`${environment.url}/api/orders`, {
+				productId: product.id,
+				...val,
+			});
+
+			notifications.showNotification({
+				title: 'Prodotto ordinato',
+				message: 'Ora lo puoi gestire dal riepilogo degli ordini',
+				icon: <CheckIcon />,
+				color: 'teal',
+			});
+
+			toggleOverlay(false);
+		} catch (err) {
+			notifications.showNotification({
+				title: 'Errore',
+				message: 'Non è stato possibile creare questo ordine',
+				icon: <Cross1Icon />,
+				color: 'red',
+			});
+
+			toggleOverlay(false);
+		}
 	}
 
 	return (
-		<>
+		<div style={{ position: 'relative' }}>
+			<PageTitle>Negozio | {product.name}</PageTitle>
+
+			<LoadingOverlay visible={overlay} />
+
 			<h1>
 				{product.name} - {product.price / 100}€
 			</h1>
@@ -53,7 +83,7 @@ export default function ShopProductPage({ product }: ShopProductPageProps) {
 			</MediaQuery>
 
 			<OrderForm form={form} onSubmit={onSubmit} product={product} />
-		</>
+		</div>
 	);
 }
 
