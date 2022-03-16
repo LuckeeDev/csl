@@ -1,4 +1,4 @@
-import { LoadingOverlay, MediaQuery, Text } from '@mantine/core';
+import { createStyles, LoadingOverlay, MediaQuery, Text } from '@mantine/core';
 import { useBooleanToggle } from '@mantine/hooks';
 import { useNotifications } from '@mantine/notifications';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
@@ -19,11 +19,36 @@ interface ShopProductPageProps {
 	product: OmitDates<Product> & { images: OmitDates<Image>[] };
 }
 
+const useStyles = createStyles((theme) => ({
+	heading: {
+		marginTop: 0,
+	},
+	wrapper: {
+		display: 'flex',
+		flexDirection: 'row',
+		width: '100%',
+		justifyContent: 'space-between',
+
+		[`@media (max-width: ${theme.breakpoints.md}px)`]: {
+			flexDirection: 'column',
+			justifyContent: 'flex-start',
+		},
+	},
+	child: {
+		width: '50%',
+
+		[`@media (max-width: ${theme.breakpoints.md}px)`]: {
+			width: '100%',
+		},
+	},
+}));
+
 export default function ShopProductPage({ product }: ShopProductPageProps) {
 	const router = useRouter();
 	const form = useOrderForm();
 	const [overlay, toggleOverlay] = useBooleanToggle(false);
 	const notifications = useNotifications();
+	const { classes } = useStyles();
 
 	if (router.isFallback) {
 		return <FallbackPage />;
@@ -64,25 +89,32 @@ export default function ShopProductPage({ product }: ShopProductPageProps) {
 
 			<LoadingOverlay visible={overlay} />
 
-			<h1>
+			<h1 className={classes.heading}>
 				{product.name} - {product.price / 100}€
 			</h1>
 
-			{product.description && <Text>{product.description}</Text>}
+			{product.description && <Text my="xs">{product.description}</Text>}
 
-			<MediaQuery smallerThan="md" styles={{ display: 'none' }}>
-				<div style={{ maxWidth: '500px' }}>
-					<Carousel images={product.images} />
-				</div>
-			</MediaQuery>
+			<div className={classes.wrapper}>
+				<MediaQuery smallerThan="md" styles={{ display: 'none' }}>
+					<div className={classes.child} style={{ maxWidth: '500px' }}>
+						<Carousel images={product.images} />
+					</div>
+				</MediaQuery>
 
-			<MediaQuery largerThan="md" styles={{ display: 'none' }}>
-				<div style={{ maxWidth: '400px' }}>
-					<Carousel images={product.images} />
-				</div>
-			</MediaQuery>
+				<MediaQuery largerThan="md" styles={{ display: 'none' }}>
+					<div className={classes.child} style={{ maxWidth: '400px' }}>
+						<Carousel images={product.images} />
+					</div>
+				</MediaQuery>
 
-			<OrderForm form={form} onSubmit={onSubmit} product={product} />
+				<OrderForm
+					className={classes.child}
+					form={form}
+					onSubmit={onSubmit}
+					product={product}
+				/>
+			</div>
 		</div>
 	);
 }

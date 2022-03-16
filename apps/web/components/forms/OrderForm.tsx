@@ -9,11 +9,17 @@ interface OrderFormProps {
 	form: UseFormReturnType<OrderFormValues>;
 	onSubmit: (val: OrderFormValues) => void;
 	product: OmitDates<Product> & { images: OmitDates<Image>[] };
+	className?: string;
 }
 
-export default function OrderForm({ form, onSubmit, product }: OrderFormProps) {
+export default function OrderForm({
+	form,
+	onSubmit,
+	product,
+	className,
+}: OrderFormProps) {
 	return (
-		<form onSubmit={form.onSubmit(onSubmit)}>
+		<form onSubmit={form.onSubmit(onSubmit)} className={className}>
 			{product.colors?.length > 0 && (
 				<ColorChooser
 					required
