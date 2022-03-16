@@ -1,51 +1,81 @@
-import { Button, Table, Text } from '@mantine/core';
+import { LoadingOverlay, Table, Text } from '@mantine/core';
+import { useBooleanToggle } from '@mantine/hooks';
+import { useNotifications } from '@mantine/notifications';
+import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import { Order, Product } from '@prisma/client';
+import axios from 'axios';
 import PageTitle from 'components/head/PageTitle';
+import OrderRow from 'components/tableRows/OrderRow';
 import { DASHBOARD_LINKS } from 'navigation/dashboard';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import prisma from 'prisma/client';
-import { useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { OmitDates } from 'types/omit';
 import { BasePageProps } from 'types/pages';
+import { SessionStatus } from 'types/shopSession';
+import getSessionStatus from 'utils/shop/getSessionStatus';
 
 interface DashboardManageOrdersProps extends BasePageProps {
 	orders: OmitDates<Order & { product: OmitDates<Product> }>[];
+	sessionStatus: SessionStatus;
 }
 
-interface OrderRowProps {
-	order: OmitDates<Order & { product: OmitDates<Product> }>;
-	onDelete: () => void;
-}
+function DashboardManageOrders({
+	orders: serverSideOrders,
+	sessionStatus,
+}: DashboardManageOrdersProps) {
+	const [orders, setOrders] = useState(serverSideOrders);
+	const [overlay, toggleOverlay] = useBooleanToggle(false);
+	const notifications = useNotifications();
 
-function OrderRow({ order, onDelete }: OrderRowProps) {
-	return (
-		<tr>
-			<td>{order.product.name}</td>
-			<td>{order.quantity}</td>
-			<td>{order.size}</td>
-			<td>{order.color}</td>
-			<td>{(order.product.price * order.quantity) / 100}€</td>
-			<td>
-				<Button color="red" onClick={onDelete}>
-					Rimuovi
-				</Button>
-			</td>
-		</tr>
+	const onDelete = useCallback(
+		async (orderId: string) => {
+			toggleOverlay(true);
+
+			try {
+				await axios.delete(`/api/orders/${orderId}`);
+
+				setOrders((elements) => {
+					const index = elements.findIndex((e) => e.id === orderId);
+					elements.splice(index, 1);
+
+					return elements;
+				});
+
+				notifications.showNotification({
+					title: 'Ordine eliminato',
+					message: "L'ordine è stato eliminato con successo",
+					color: 'teal',
+					icon: <CheckIcon />,
+				});
+
+				toggleOverlay(false);
+			} catch (err) {
+				notifications.showNotification({
+					title: 'Errore',
+					message: 'È stato impossibile eliminare questo ordine',
+					color: 'red',
+					icon: <Cross1Icon />,
+				});
+
+				toggleOverlay(false);
+			}
+		},
+		[toggleOverlay, notifications]
 	);
-}
 
-function DashboardManageOrders({ orders }: DashboardManageOrdersProps) {
 	const rows = useMemo(
 		() =>
 			orders.map((order, index) => (
 				<OrderRow
-					onDelete={() => console.log('delete' + order.id)}
+					onDelete={() => onDelete(order.id)}
 					order={order}
 					key={index}
+					hasActions={sessionStatus === SessionStatus.ONGOING}
 				/>
 			)),
-		[orders]
+		[orders, onDelete, sessionStatus]
 	);
 
 	const total = useMemo(
@@ -59,8 +89,10 @@ function DashboardManageOrders({ orders }: DashboardManageOrdersProps) {
 	);
 
 	return (
-		<>
+		<div style={{ position: 'relative' }}>
 			<PageTitle>Dashboard | Gestione ordini</PageTitle>
+
+			<LoadingOverlay visible={overlay} />
 
 			<h1>Gestione ordini</h1>
 
@@ -72,7 +104,7 @@ function DashboardManageOrders({ orders }: DashboardManageOrdersProps) {
 						<th>Taglia</th>
 						<th>Colore</th>
 						<th>Costo</th>
-						<th>Azioni</th>
+						{sessionStatus === SessionStatus.ONGOING && <th>Azioni</th>}
 					</tr>
 				</thead>
 
@@ -80,7 +112,7 @@ function DashboardManageOrders({ orders }: DashboardManageOrdersProps) {
 			</Table>
 
 			<Text>Totale: {total}€</Text>
-		</>
+		</div>
 	);
 }
 
@@ -94,6 +126,25 @@ export const getServerSideProps: GetServerSideProps<
 > = async (ctx) => {
 	const shopSessionId = ctx.params?.id as string;
 	const session = await getSession(ctx);
+
+	const shopSession = await prisma.shopSession.findUnique({
+		where: { id: shopSessionId },
+		select: {
+			discounts: true,
+			id: true,
+			name: true,
+			end: true,
+			start: true,
+		},
+	});
+
+	if (!shopSession) {
+		return {
+			notFound: true,
+		};
+	}
+
+	const sessionStatus = getSessionStatus(shopSession);
 
 	const savedOrders = await prisma.order.findMany({
 		where: {
@@ -125,6 +176,7 @@ export const getServerSideProps: GetServerSideProps<
 		props: {
 			session,
 			orders,
+			sessionStatus,
 		},
 	};
 };
