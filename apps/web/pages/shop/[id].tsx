@@ -34,7 +34,15 @@ export default function ShopSessionPage({ shopSession }: ShopSessionPageProps) {
 		<>
 			<h1>{shopSession.name}</h1>
 
-			<SimpleGrid cols={6}>
+			<SimpleGrid
+				cols={5}
+				breakpoints={[
+					{ maxWidth: 'lg', cols: 4 },
+					{ maxWidth: 'md', cols: 3 },
+					{ maxWidth: 'sm', cols: 2 },
+					{ maxWidth: 'xs', cols: 1 },
+				]}
+			>
 				{shopSession.products.map((p) => (
 					<Link href={`/shop/products/${p.id}`} passHref key={p.id}>
 						<Card component="a">
