@@ -2,7 +2,7 @@ import { LoadingOverlay, Table, Text } from '@mantine/core';
 import { useBooleanToggle } from '@mantine/hooks';
 import { useNotifications } from '@mantine/notifications';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
-import { Order, Product } from '@prisma/client';
+import { Order, Product, ProductDiscount } from '@prisma/client';
 import axios from 'axios';
 import PageTitle from 'components/head/PageTitle';
 import OrderRow from 'components/tableRows/OrderRow';
@@ -14,20 +14,27 @@ import { useCallback, useMemo, useState } from 'react';
 import { OmitDates } from 'types/omit';
 import { BasePageProps } from 'types/pages';
 import { SessionStatus } from 'types/shopSession';
+import calculateDiscount from 'utils/shop/calculateDiscount';
 import getSessionStatus from 'utils/shop/getSessionStatus';
 
 interface DashboardManageOrdersProps extends BasePageProps {
 	orders: OmitDates<Order & { product: OmitDates<Product> }>[];
 	sessionStatus: SessionStatus;
+	discounts: OmitDates<ProductDiscount>[];
 }
 
 function DashboardManageOrders({
 	orders: serverSideOrders,
 	sessionStatus,
+	discounts,
 }: DashboardManageOrdersProps) {
 	const [orders, setOrders] = useState(serverSideOrders);
 	const [overlay, toggleOverlay] = useBooleanToggle(false);
 	const notifications = useNotifications();
+	const discountedOrders = useMemo(
+		() => calculateDiscount(discounts, orders),
+		[discounts, orders]
+	);
 
 	const onDelete = useCallback(
 		async (orderId: string) => {
@@ -67,7 +74,7 @@ function DashboardManageOrders({
 
 	const rows = useMemo(
 		() =>
-			orders.map((order, index) => (
+			discountedOrders.map((order, index) => (
 				<OrderRow
 					onDelete={() => onDelete(order.id)}
 					order={order}
@@ -75,7 +82,7 @@ function DashboardManageOrders({
 					hasActions={sessionStatus === SessionStatus.ONGOING}
 				/>
 			)),
-		[orders, onDelete, sessionStatus]
+		[discountedOrders, onDelete, sessionStatus]
 	);
 
 	const total = useMemo(
@@ -146,6 +153,14 @@ export const getServerSideProps: GetServerSideProps<
 
 	const sessionStatus = getSessionStatus(shopSession);
 
+	const discounts = await prisma.productDiscount.findMany({
+		where: {
+			shopSession: {
+				id: shopSessionId,
+			},
+		},
+	});
+
 	const savedOrders = await prisma.order.findMany({
 		where: {
 			product: {
@@ -177,6 +192,9 @@ export const getServerSideProps: GetServerSideProps<
 			session,
 			orders,
 			sessionStatus,
+			discounts: discounts.map(
+				({ updated_at, created_at, ...discount }) => discount
+			),
 		},
 	};
 };

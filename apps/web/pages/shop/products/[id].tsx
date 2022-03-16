@@ -43,7 +43,10 @@ const useStyles = createStyles((theme) => ({
 
 export default function ShopProductPage({ product }: ShopProductPageProps) {
 	const router = useRouter();
-	const form = useOrderForm();
+	const form = useOrderForm({
+		size: product.sizes?.length > 0,
+		color: product.colors?.length > 0,
+	});
 	const [overlay, toggleOverlay] = useBooleanToggle(false);
 	const notifications = useNotifications();
 	const { classes } = useStyles();
