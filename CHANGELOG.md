@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.6.0](https://github.com/LuckeeDev/csl/compare/v2.5.1...v2.6.0) (2022-03-16)
+
+
+### Features
+
+* **shop:** apply discounts ([883dd52](https://github.com/LuckeeDev/csl/commit/883dd52c8447ab373d28ae2227b60a563c3a28cb))
+* **shop:** calculate correct total after discounts ([aca6e51](https://github.com/LuckeeDev/csl/commit/aca6e5158456f1807baa8778ce2c960e6364ed7f))
+
+
+
 ## [2.5.1](https://github.com/LuckeeDev/csl/compare/v2.5.0...v2.5.1) (2022-03-16)
 
 
