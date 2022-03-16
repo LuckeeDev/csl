@@ -2,6 +2,32 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.5.0](https://github.com/LuckeeDev/csl/compare/v2.4.0...v2.5.0) (2022-03-16)
+
+
+### Bug Fixes
+
+* **dashboard:** add scroll area for responsiveness ([9d17b16](https://github.com/LuckeeDev/csl/commit/9d17b16cbb1702a652c464d97860733d9723be0f))
+* **dates:** set dates locale to it ([8cc21f4](https://github.com/LuckeeDev/csl/commit/8cc21f4d5ce2f3e4c49e987250eb31bf9eeaef07))
+* **shop:** add fallback page for products ([b142a30](https://github.com/LuckeeDev/csl/commit/b142a30e824e1edf4a460a0d83570ee64ee8d128))
+* **shop:** set color button type to button ([acd10b5](https://github.com/LuckeeDev/csl/commit/acd10b566374d7cbaf2acabd09fc242318b6b691))
+
+
+### Features
+
+* **shop:** add dashboard orders page ([00360c7](https://github.com/LuckeeDev/csl/commit/00360c7c966afebb242fa8a9e3ee101b5671b643))
+* **shop:** add product page ([8850862](https://github.com/LuckeeDev/csl/commit/8850862068913c9ead698c3c8d67ab7b36249e8c))
+* **shop:** add session page and ssg ([c8dd581](https://github.com/LuckeeDev/csl/commit/c8dd581c63d6f9381cc075b50f463c8b54e1a319))
+* **shop:** add very basic carousel ([a3c4af5](https://github.com/LuckeeDev/csl/commit/a3c4af59f55bad61ccc8ce76d31f816ac1012f97))
+* **shop:** create orders ([fc1d0cb](https://github.com/LuckeeDev/csl/commit/fc1d0cb58c4330072a43d3f3aacf379fb3b756ae))
+* **shop:** delete orders ([640cff0](https://github.com/LuckeeDev/csl/commit/640cff0b3a1638d3bd166efdcb75725d5153458f))
+* **shop:** display product form ([50faf0e](https://github.com/LuckeeDev/csl/commit/50faf0eae1c512e72bfcd13aadf0873e48adb725))
+* **shop:** display total ([fe90df5](https://github.com/LuckeeDev/csl/commit/fe90df51776b5ad3b6dd01b38ac4379845d95edc))
+* **shop:** shop index page ([1759f83](https://github.com/LuckeeDev/csl/commit/1759f8374afd80af99defb9e06cf51054f6ff4aa))
+* **shop:** style order form ([a3fc899](https://github.com/LuckeeDev/csl/commit/a3fc899a15e95804b15b5818d7dbaa36bb3221f4))
+
+
+
 # [2.4.0](https://github.com/LuckeeDev/csl/compare/v2.3.7...v2.4.0) (2022-03-10)
 
 
