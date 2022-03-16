@@ -15,7 +15,10 @@ export default function Providers(props: ProvidersProps) {
 			<MantineProvider
 				theme={{
 					colorScheme: 'dark',
+					datesLocale: 'it',
 				}}
+				withGlobalStyles
+				withNormalizeCSS
 			>
 				<NotificationsProvider>{props.children}</NotificationsProvider>
 			</MantineProvider>

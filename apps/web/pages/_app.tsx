@@ -1,11 +1,12 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { NormalizeCSS, GlobalStyles, useMantineTheme } from '@mantine/core';
+import { useMantineTheme } from '@mantine/core';
 import Wrapper from 'components/wrapper/Wrapper';
 import Providers from 'components/providers/Providers';
 import { NextComponentType, NextPageContext } from 'next';
 import { LinkData } from 'navigation/types';
 import NextNProgress from 'nextjs-progressbar';
+import 'dayjs/locale/it';
 
 interface CustomAppProps extends AppProps {
 	Component: NextComponentType<NextPageContext, any, any> & {
@@ -37,9 +38,6 @@ export default function App(props: CustomAppProps) {
 			</Head>
 
 			<Providers session={session}>
-				<NormalizeCSS />
-				<GlobalStyles />
-
 				<NextNProgress
 					color={theme.colors.blue[5]}
 					height={2}
