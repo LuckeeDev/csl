@@ -14,7 +14,8 @@ The first version of the web app was made in Angular, Express, MongoDB and Fireb
 
 For version 2, which will be free and open source for every school in the world, I decided to take a way more flexible approach. The previous version was
 tailor-made for my school, but this one will be different. Students will be able to create school clubs, sell gadgets and yearbooks, order
-at their school cafe, organize events, start loyalty programs for members of the school... all from one web app! The dev branches are prefixed by `v2/` and the main one is currently `v2/dev`.
+at their school cafe, organize events, start loyalty programs for members of the school... all from one web app! Development happens in the `dev` branch,
+which is then merged into the `main` branch when all updates are release-ready.
 
 ## Technology specifications
 
