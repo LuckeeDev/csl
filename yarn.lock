@@ -2892,6 +2892,11 @@
   dependencies:
     react-dropzone "^11.4.2"
 
+"@mantine/form@4.0.5":
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/@mantine/form/-/form-4.0.5.tgz#8c59283186f41e5b163913eb6e9f830fe96f504f"
+  integrity sha512-qnDHDGsIGeRE34JJYdG6Oxj84C2vlToY2ann0qQx9MUiqhte9J5oAMtUOsZSI9F0oJLha7VZndQQZo9ICTXIZw==
+
 "@mantine/hooks@4.0.5":
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-4.0.5.tgz#593b954cea5ffcac8fed193f46bc10e957abd64b"
@@ -2953,10 +2958,10 @@
   resolved "https://registry.yarnpkg.com/@modulz/radix-icons/-/radix-icons-4.0.0.tgz#628a7826a4569dd2e3331e266d8d2e26c7d6753c"
   integrity sha512-d79T4cYvMGMocVC/q1WiMO578FPFfUoxmXIkduc8cUQAPDr7thuEV5HrCHhqqqkoVaYD0QPct180ilcNUyGPrg==
 
-"@next-auth/prisma-adapter@1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@next-auth/prisma-adapter/-/prisma-adapter-1.0.1.tgz#63a55d0c28bbb1f1db1e7823d2fd14eb2856e260"
-  integrity sha512-oZ1yDs5pSz19JvyYkIuf52CHpCc79ND/VYl3sX8Cwy3TaTfGgZWHRJfdcj3ordFNKIPxlV2qBYIX2UjgmSyTqQ==
+"@next-auth/prisma-adapter@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@next-auth/prisma-adapter/-/prisma-adapter-1.0.2.tgz#f4f50f198d6e93732526e2a63a731bf03b3886d1"
+  integrity sha512-uGAn73Rtc6H7EiDmQE0os4GyswGJqC8A2HKM704PFihpUzqdu0fVe9Esdj6z8VPdY+Fq3LKyFd1/p7inVdJghQ==
 
 "@next/env@12.1.0":
   version "12.1.0"

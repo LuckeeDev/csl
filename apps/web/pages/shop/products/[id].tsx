@@ -1,12 +1,12 @@
-import { InputWrapper, MediaQuery, NativeSelect, Text } from '@mantine/core';
+import { MediaQuery, Text } from '@mantine/core';
 import { Image, Product } from '@prisma/client';
 import Carousel from 'components/carousel/Carousel';
 import FallbackPage from 'components/fallback/FallbackPage';
-import ColorChooser from 'components/forms/ColorChooser';
+import OrderForm from 'components/forms/OrderForm';
+import useOrderForm, { OrderFormValues } from 'hooks/useOrderForm';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import prisma from 'prisma/client';
-import { useState } from 'react';
 import { OmitDates } from 'types/omit';
 
 interface ShopProductPageProps {
@@ -15,11 +15,14 @@ interface ShopProductPageProps {
 
 export default function ShopProductPage({ product }: ShopProductPageProps) {
 	const router = useRouter();
-	const [color, setColor] = useState('');
-	const [size, setSize] = useState('');
+	const form = useOrderForm();
 
 	if (router.isFallback) {
 		return <FallbackPage />;
+	}
+
+	function onSubmit(val: OrderFormValues) {
+		console.log(val);
 	}
 
 	return (
@@ -40,23 +43,7 @@ export default function ShopProductPage({ product }: ShopProductPageProps) {
 				</div>
 			</MediaQuery>
 
-			{product.colors?.length > 0 && (
-				<ColorChooser
-					colors={product.colors}
-					onChange={setColor}
-					value={color}
-				/>
-			)}
-
-			{product.sizes?.length > 0 && (
-				<InputWrapper required label="Seleziona la taglia per questo capo">
-					<NativeSelect
-						data={product.sizes}
-						value={size}
-						onChange={(e) => setSize(e.currentTarget.value)}
-					/>
-				</InputWrapper>
-			)}
+			<OrderForm form={form} onSubmit={onSubmit} product={product} />
 		</>
 	);
 }
