@@ -3051,23 +3051,19 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
-"@nrwl/cli@13.8.4":
-  version "13.8.4"
-  resolved "https://registry.yarnpkg.com/@nrwl/cli/-/cli-13.8.4.tgz#0e212ae9501142f3cb6ca10c0df6ae1b9c68e97e"
-  integrity sha512-B+tuY7HJFS2TNMTZ3wWI7mGbXaWa84wznO6ChcOPkAr7GFrlpg+UbH0bspL1ajrCRGoUqbmiifrmoLslNr+HZg==
-  dependencies:
-    "@nrwl/tao" "13.8.4"
-    chalk "4.1.0"
-    enquirer "~2.3.6"
-    v8-compile-cache "2.3.0"
-    yargs-parser "20.0.0"
-
 "@nrwl/cli@13.9.1":
   version "13.9.1"
   resolved "https://registry.yarnpkg.com/@nrwl/cli/-/cli-13.9.1.tgz#342f794092b1b220f974292f351ad2a0c2f95ad4"
   integrity sha512-WLPfp5pj9SgCXd8f165Q4qib3w6LLyWj0CEajCFkc8vBWH30rXOjITpo6magNLwxwa/8c25HF7GIX9vwYm2U1g==
   dependencies:
     nx "13.9.1"
+
+"@nrwl/cli@13.9.2":
+  version "13.9.2"
+  resolved "https://registry.yarnpkg.com/@nrwl/cli/-/cli-13.9.2.tgz#a93f8b30c9610d02eda171a9453e9163dc641e88"
+  integrity sha512-pVfH/Rqlp9KcAbU6hsOPyjC2NAcFANllTstcBbLbW/AeV449etBZdciy3ocaFyYi5ipB7Nr+NATGYjthkxdNnw==
+  dependencies:
+    nx "13.9.2"
 
 "@nrwl/cypress@13.9.1":
   version "13.9.1"
@@ -3100,14 +3096,14 @@
     semver "7.3.4"
     tslib "^2.3.0"
 
-"@nrwl/devkit@^13.0.2":
-  version "13.8.4"
-  resolved "https://registry.yarnpkg.com/@nrwl/devkit/-/devkit-13.8.4.tgz#35120f9d7489d480745512bcc0a480796b86fbf8"
-  integrity sha512-1nlvUromuWTUQstDUTuJ0zCGLPNCkt9As01MR4Lj+1CieDAw6q8AjJeg907Oo444TWjnFJ2ed+vKNdmZVHXstA==
+"@nrwl/devkit@13.9.2", "@nrwl/devkit@^13.0.2":
+  version "13.9.2"
+  resolved "https://registry.yarnpkg.com/@nrwl/devkit/-/devkit-13.9.2.tgz#ef941fcb8757121b6d37b57bbbaf4dbf0e72244a"
+  integrity sha512-H7M/Hms3yByb+1FTrB9/9wy60a/6FZqpXD66n8+RDsE9WXVH+iWsTXmwEN8FynDuUWoGGDqfCyw4KkkzdS+TAA==
   dependencies:
-    "@nrwl/tao" "13.8.4"
     ejs "^3.1.5"
     ignore "^5.0.4"
+    nx "13.9.2"
     rxjs "^6.5.4"
     semver "7.3.4"
     tslib "^2.3.0"
@@ -3131,6 +3127,23 @@
     "@jest/reporters" "27.2.2"
     "@jest/test-result" "27.2.2"
     "@nrwl/devkit" "13.9.1"
+    chalk "4.1.0"
+    identity-obj-proxy "3.0.0"
+    jest-config "27.2.2"
+    jest-resolve "27.2.2"
+    jest-util "27.2.0"
+    resolve.exports "1.1.0"
+    rxjs "^6.5.4"
+    tslib "^2.3.0"
+
+"@nrwl/jest@13.9.2":
+  version "13.9.2"
+  resolved "https://registry.yarnpkg.com/@nrwl/jest/-/jest-13.9.2.tgz#59ca94f21ba818c6d5674ea130f3b19aa5bb0fad"
+  integrity sha512-M/QmpGaTvR2e6wOkveGRZwaEblktVz04fICBbdw8zv7T8PbfzuN6Y+F/vnuQitN+4/iURWLMBQyWDThcGV5ryg==
+  dependencies:
+    "@jest/reporters" "27.2.2"
+    "@jest/test-result" "27.2.2"
+    "@nrwl/devkit" "13.9.2"
     chalk "4.1.0"
     identity-obj-proxy "3.0.0"
     jest-config "27.2.2"
@@ -3166,6 +3179,17 @@
   dependencies:
     "@nrwl/devkit" "13.9.1"
     "@nrwl/jest" "13.9.1"
+    "@phenomnomnominal/tsquery" "4.1.1"
+    tmp "~0.2.1"
+    tslib "^2.3.0"
+
+"@nrwl/linter@13.9.2":
+  version "13.9.2"
+  resolved "https://registry.yarnpkg.com/@nrwl/linter/-/linter-13.9.2.tgz#406d631d7a55f37fa10e3ceffa1ed23e2fad3b39"
+  integrity sha512-98VkaglWitOegTJ+ho1ySwBdoaQiLGRvDnruaVqMHKLpx8iwAYEgesVnS3zo02ldz3brFy/4XRO9IpenJSOIvQ==
+  dependencies:
+    "@nrwl/devkit" "13.9.2"
+    "@nrwl/jest" "13.9.2"
     "@phenomnomnominal/tsquery" "4.1.1"
     tmp "~0.2.1"
     tslib "^2.3.0"
@@ -3278,31 +3302,19 @@
     ts-loader "^9.2.6"
     tsconfig-paths-webpack-plugin "3.5.2"
 
-"@nrwl/tao@13.8.4":
-  version "13.8.4"
-  resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-13.8.4.tgz#aac8ebc00c8b1227188edbc3f5a04b0ba3ad9ff0"
-  integrity sha512-6ER6Zn5s5LVT+4TX1E5rVWY+7ewUpRTfmRa9aIw7fSVkoEqgU+oiTfFuBZtJJ9VdlMRCGMCFQt/ijmG88mJMiw==
-  dependencies:
-    chalk "4.1.0"
-    enquirer "~2.3.6"
-    fast-glob "3.2.7"
-    fs-extra "^9.1.0"
-    ignore "^5.0.4"
-    jsonc-parser "3.0.0"
-    nx "13.8.4"
-    rxjs "^6.5.4"
-    rxjs-for-await "0.0.2"
-    semver "7.3.4"
-    tmp "~0.2.1"
-    tslib "^2.3.0"
-    yargs-parser "20.0.0"
-
 "@nrwl/tao@13.9.1":
   version "13.9.1"
   resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-13.9.1.tgz#21820a164f38c18139be1dd886cf1ed7b38da04d"
   integrity sha512-ywNIQ6Gp76MhfcSW6fl7ol4qAw51r0bKaotTj6+p3JFKTF2DRmNnGqLGxBVXKI3MmAtaNrm+rt+Rv3siBihhow==
   dependencies:
     nx "13.9.1"
+
+"@nrwl/tao@13.9.2":
+  version "13.9.2"
+  resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-13.9.2.tgz#583c473ae14bc9dd54d11c538ac8e4d5e1d6db90"
+  integrity sha512-1lypsbQ1rJZ41si0vPMx8nKn5nP4ZZqw8U+mA727yP4Rz2ejM8jZl6rqpFjz5G/HAe7ZK8GoLGb77wKRv5hx9g==
+  dependencies:
+    nx "13.9.2"
 
 "@nrwl/web@13.9.1":
   version "13.9.1"
@@ -10531,13 +10543,6 @@ nwsapi@^2.2.0:
   resolved "https://registry.yarnpkg.com/nwsapi/-/nwsapi-2.2.0.tgz#204879a9e3d068ff2a55139c2c772780681a38b7"
   integrity sha512-h2AatdwYH+JHiZpv7pt/gSX1XoRGb7L/qSIeuqA6GwYoF9w1vP1cw42TO0aI2pNyshRK5893hNSl+1//vHK7hQ==
 
-nx@13.8.4:
-  version "13.8.4"
-  resolved "https://registry.yarnpkg.com/nx/-/nx-13.8.4.tgz#3d8ae80b0ad3f513df4976d1117cde8feca3dd7d"
-  integrity sha512-+v5RHCVT8oAx65VtMoUdRYol4pMVDrUQbifPdE81+Hz31yaGlhVQAz88IPJ2ZbVD/wZApBVCNejjmch8TPaiqA==
-  dependencies:
-    "@nrwl/cli" "13.8.4"
-
 nx@13.9.1:
   version "13.9.1"
   resolved "https://registry.yarnpkg.com/nx/-/nx-13.9.1.tgz#142c519f870902cc5fe8910f3c5693c4e43422fc"
@@ -10545,6 +10550,30 @@ nx@13.9.1:
   dependencies:
     "@nrwl/cli" "13.9.1"
     "@nrwl/tao" "13.9.1"
+    "@swc-node/register" "^1.4.2"
+    "@swc/core" "^1.2.146"
+    chalk "4.1.0"
+    enquirer "~2.3.6"
+    fast-glob "3.2.7"
+    fs-extra "^9.1.0"
+    ignore "^5.0.4"
+    jsonc-parser "3.0.0"
+    rxjs "^6.5.4"
+    rxjs-for-await "0.0.2"
+    semver "7.3.4"
+    tmp "~0.2.1"
+    tsconfig-paths "^3.9.0"
+    tslib "^2.3.0"
+    v8-compile-cache "2.3.0"
+    yargs-parser "20.0.0"
+
+nx@13.9.2:
+  version "13.9.2"
+  resolved "https://registry.yarnpkg.com/nx/-/nx-13.9.2.tgz#7be0b2df6fdf09907e6bf6d673df710c7a49b584"
+  integrity sha512-Mqng5JVOliDT1J+OUoSouxbBr6Yvq0r4LMakqWF96F33URTFdm9VmGGk/5Bz7ctckGfAgS8DCbWjnByyGUYv0w==
+  dependencies:
+    "@nrwl/cli" "13.9.2"
+    "@nrwl/tao" "13.9.2"
     "@swc-node/register" "^1.4.2"
     "@swc/core" "^1.2.146"
     chalk "4.1.0"

@@ -55,7 +55,7 @@
 		"@nrwl/cypress": "13.9.1",
 		"@nrwl/eslint-plugin-nx": "13.9.1",
 		"@nrwl/jest": "13.9.1",
-		"@nrwl/linter": "13.9.1",
+		"@nrwl/linter": "13.9.2",
 		"@nrwl/next": "13.9.1",
 		"@nrwl/node": "13.9.1",
 		"@nrwl/nx-cloud": "13.1.6",
