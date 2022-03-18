@@ -19,7 +19,27 @@ jobs:
         shell: bash
         run: git config user.email "-" && git config user.name "🤖 CSL Bot"
 
-      # Old release method
+      - name: Install packages
+        shell: bash
+        run: yarn install
+
+      - name: Copy old changelog
+        shell: bash
+        run: cp CHANGELOG.md CHANGELOG_OLD.md
+
+      - name: Bump project version
+        shell: bash
+        run: yarn nx run workspace:version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Output changelog diff
+        uses: ./.github/actions/output-diff
+        with:
+          - before-path: CHANGELOG_OLD.md
+          - after-path: CHANGELOG.md
+          - diff-path: DIFF.md
+
       - name: Create release
         uses: actions/create-release@v1
         env:
@@ -29,17 +49,7 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
-
-      # New release method. Doesn't work at the moment
-      # - name: Install packages
-      #   shell: bash
-      #   run: yarn install --frozen-lockfile --non-interactive
-
-      # - name: Create release
-      #   shell: bash
-      #   run: yarn nx run workspace:version
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          body_path: './DIFF.md'
 
       - name: Tag last-release
         shell: bash
