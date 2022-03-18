@@ -1,4 +1,4 @@
-import { Button } from '@mantine/core';
+import { Button, useMantineTheme } from '@mantine/core';
 import { CalculateDiscountResult } from 'utils/shop/calculateDiscount';
 import ColorBlock from './ColorBlock';
 
@@ -13,15 +13,22 @@ export default function OrderRow({
 	onDelete,
 	hasActions,
 }: OrderRowProps) {
+	const theme = useMantineTheme();
+
 	return (
 		<tr>
 			<td>{order.product.name}</td>
 			<td>{order.quantity}</td>
 			<td>{order.size}</td>
 			<td>{order.color && <ColorBlock color={order.color} />}</td>
-			<td>
+			<td style={{ color: theme.colors.teal[5] }}>
 				{order.oldCost && (
-					<span style={{ textDecoration: 'line-through' }}>
+					<span
+						style={{
+							textDecoration: 'line-through',
+							color: theme.colors.red[5],
+						}}
+					>
 						{order.oldCost}€
 					</span>
 				)}{' '}
