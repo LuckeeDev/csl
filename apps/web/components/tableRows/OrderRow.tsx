@@ -1,5 +1,6 @@
 import { Button } from '@mantine/core';
 import { CalculateDiscountResult } from 'utils/shop/calculateDiscount';
+import ColorBlock from './ColorBlock';
 
 interface OrderRowProps {
 	order: CalculateDiscountResult;
@@ -17,7 +18,7 @@ export default function OrderRow({
 			<td>{order.product.name}</td>
 			<td>{order.quantity}</td>
 			<td>{order.size}</td>
-			<td>{order.color}</td>
+			<td>{order.color && <ColorBlock color={order.color} />}</td>
 			<td>
 				{order.oldCost && (
 					<span style={{ textDecoration: 'line-through' }}>
