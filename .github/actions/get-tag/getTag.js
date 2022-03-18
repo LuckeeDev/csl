@@ -3,7 +3,7 @@ const { readFileSync } = require('fs');
 
 try {
 	const diffPath = __dirname.replace(
-		'.github/actions/output-diff',
+		'.github/actions/get-tag',
 		core.getInput('diff-path')
 	);
 
