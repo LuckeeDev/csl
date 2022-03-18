@@ -1,4 +1,11 @@
-import { Badge, Card, Image as MantineImage, SimpleGrid } from '@mantine/core';
+import {
+	Alert,
+	Badge,
+	Card,
+	Image as MantineImage,
+	SimpleGrid,
+} from '@mantine/core';
+import { InfoCircledIcon } from '@modulz/radix-icons';
 import {
 	Image,
 	Product,
@@ -11,8 +18,10 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import prisma from 'prisma/client';
+import { useMemo } from 'react';
 import { OmitDates } from 'types/omit';
 import { ShopSessionAPIData } from 'types/shopSession';
+import generateDiscountsDescription from 'utils/shop/generateDiscountDescription';
 
 interface ShopSessionPageProps {
 	shopSession: ShopSessionAPIData & {
@@ -20,12 +29,22 @@ interface ShopSessionPageProps {
 			images: Omit<Image, 'updated_at' | 'created_at'>[];
 			category: OmitDates<ProductCategory>;
 		})[];
-		discounts: Omit<ProductDiscount, 'updated_at' | 'created_at'>[];
+		discounts: (OmitDates<ProductDiscount> & {
+			requiredCategory: { name: string };
+			discountedCategory: { name: string };
+		})[];
 	};
 }
 
 export default function ShopSessionPage({ shopSession }: ShopSessionPageProps) {
 	const router = useRouter();
+	const discountsDescription = useMemo(
+		() =>
+			shopSession.discounts
+				? generateDiscountsDescription(shopSession.discounts)
+				: null,
+		[shopSession]
+	);
 
 	if (router.isFallback) {
 		return <FallbackPage />;
@@ -35,7 +54,18 @@ export default function ShopSessionPage({ shopSession }: ShopSessionPageProps) {
 		<>
 			<BackLink>Torna indietro</BackLink>
 
-			<h1 style={{ marginTop: 0 }}>{shopSession.name}</h1>
+			<h1 style={{ margin: 0 }}>{shopSession.name}</h1>
+
+			{shopSession.discounts && (
+				<Alert
+					my="md"
+					title="Sconti!"
+					variant="outline"
+					icon={<InfoCircledIcon />}
+				>
+					{discountsDescription}
+				</Alert>
+			)}
 
 			<SimpleGrid
 				cols={5}
@@ -100,7 +130,20 @@ export const getStaticProps: GetStaticProps<ShopSessionPageProps> = async (
 					category: true,
 				},
 			},
-			discounts: true,
+			discounts: {
+				include: {
+					requiredCategory: {
+						select: {
+							name: true,
+						},
+					},
+					discountedCategory: {
+						select: {
+							name: true,
+						},
+					},
+				},
+			},
 		},
 	});
 
