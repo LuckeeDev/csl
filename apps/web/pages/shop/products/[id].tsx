@@ -99,17 +99,20 @@ export default function ShopProductPage({ product }: ShopProductPageProps) {
 			{product.description && <Text my="xs">{product.description}</Text>}
 
 			<div className={classes.wrapper}>
-				<MediaQuery smallerThan="md" styles={{ display: 'none' }}>
-					<div className={classes.child} style={{ maxWidth: '500px' }}>
-						<Carousel images={product.images} />
-					</div>
-				</MediaQuery>
-
-				<MediaQuery largerThan="md" styles={{ display: 'none' }}>
-					<div className={classes.child} style={{ maxWidth: '400px' }}>
-						<Carousel images={product.images} />
-					</div>
-				</MediaQuery>
+				{product.images?.length > 0 && (
+					<>
+						<MediaQuery smallerThan="md" styles={{ display: 'none' }}>
+							<div className={classes.child} style={{ maxWidth: '500px' }}>
+								<Carousel images={product.images} />
+							</div>
+						</MediaQuery>
+						<MediaQuery largerThan="md" styles={{ display: 'none' }}>
+							<div className={classes.child} style={{ maxWidth: '400px' }}>
+								<Carousel images={product.images} />
+							</div>
+						</MediaQuery>{' '}
+					</>
+				)}
 
 				<OrderForm
 					className={classes.child}
