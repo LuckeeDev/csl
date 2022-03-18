@@ -18,6 +18,11 @@ const nextAuthOptions: NextAuthOptions = {
 			clientId: process.env.GOOGLE_CLIENT_ID!,
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+			authorization: {
+				params: {
+					hd: 'liceolussana.eu',
+				},
+			},
 		}),
 	],
 	callbacks: {
