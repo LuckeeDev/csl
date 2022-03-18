@@ -22,7 +22,13 @@ export default function calculateDiscount(
 		(a, b) => a.product.price - b.product.price
 	);
 
-	for (const discount of discounts) {
+	// Re-order discounts in a descending price order. This way, higher discounts will be
+	// applied to the most expensive items.
+	const descPercentageDiscounts = discounts.sort(
+		(a, b) => a.discountPercentage - b.discountPercentage
+	);
+
+	for (const discount of descPercentageDiscounts) {
 		// Count how many required products the user has ordered
 		const requiredQuantity = orders
 			.filter(
