@@ -2,6 +2,25 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.7.0](https://github.com/LuckeeDev/csl/compare/v2.6.1...v2.7.0) (2022-03-18)
+
+
+### Bug Fixes
+
+* **auth:** add hd in google auth ([9899966](https://github.com/LuckeeDev/csl/commit/9899966ab9dc789c2ea194c55cc15e08052f62dd))
+* **auth:** display auth error message ([6a14ef6](https://github.com/LuckeeDev/csl/commit/6a14ef689345459026eb5308bec7f182486291dd))
+* **shop:** display color block instead of color hex ([5d5923f](https://github.com/LuckeeDev/csl/commit/5d5923f7ad9fa961fe91ef2dbaca57300a9184c1))
+* **shop:** don't display carousel if no image is present ([30f5033](https://github.com/LuckeeDev/csl/commit/30f50330d72b10d40c3586da74ec6875515ffcbb))
+* **shop:** quotes in discount description ([9914a3c](https://github.com/LuckeeDev/csl/commit/9914a3cc1632875a6a1eceb9ebf6d608caa57235))
+* **shop:** reorder discounts from highest to lowest ([cf66274](https://github.com/LuckeeDev/csl/commit/cf6627416077293c4da02811ec74daf671ccb8a1))
+
+
+### Features
+
+* **shop:** display discounts' description ([7f09066](https://github.com/LuckeeDev/csl/commit/7f0906665a07964acec0bb51b277613b75b60d5a))
+
+
+
 ## [2.6.1](https://github.com/LuckeeDev/csl/compare/v2.6.0...v2.6.1) (2022-03-16)
 
 
