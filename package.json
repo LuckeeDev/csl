@@ -4,8 +4,7 @@
 	"license": "GPL-3.0",
 	"scripts": {
 		"dev": "nx serve",
-		"build": "nx build",
-		"release": "nx run workspace:version"
+		"build": "nx build"
 	},
 	"private": true,
 	"dependencies": {
