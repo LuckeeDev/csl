@@ -36,9 +36,9 @@ jobs:
       - name: Output changelog diff
         uses: ./.github/actions/output-diff
         with:
-          - before-path: CHANGELOG_OLD.md
-          - after-path: CHANGELOG.md
-          - diff-path: DIFF.md
+          before-path: CHANGELOG_OLD.md
+          after-path: CHANGELOG.md
+          diff-path: DIFF.md
 
       - name: Create release
         uses: actions/create-release@v1
