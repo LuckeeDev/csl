@@ -40,13 +40,19 @@ jobs:
           after-path: CHANGELOG.md
           diff-path: DIFF.md
 
+      - name: Get release tag
+        id: get-tag
+        uses: ./.github/actions/get-tag
+        with:
+          diff-path: DIFF.md
+
       - name: Create release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: ${{ steps.get-tag.outputs.tag }}
+          release_name: Release ${{ steps.get-tag.outputs.tag }}
           draft: false
           prerelease: false
           body_path: './DIFF.md'
