@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.7.3](https://github.com/LuckeeDev/csl/compare/v2.7.2...v2.7.3) (2022-03-18)
+
+
+### Bug Fixes
+
+* **shop:** optional shopSession when generating discounts description ([3847057](https://github.com/LuckeeDev/csl/commit/38470573dd7a3dfa62a3295a6b490500dbcfd9b4))
+
+
+
 ## [2.7.2](https://github.com/LuckeeDev/csl/compare/v2.7.1...v2.7.2) (2022-03-18)
 
 
