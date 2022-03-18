@@ -40,7 +40,7 @@ export default function ShopSessionPage({ shopSession }: ShopSessionPageProps) {
 	const router = useRouter();
 	const discountsDescription = useMemo(
 		() =>
-			shopSession.discounts
+			shopSession?.discounts
 				? generateDiscountsDescription(shopSession.discounts)
 				: null,
 		[shopSession]
