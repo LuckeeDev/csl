@@ -10,7 +10,7 @@ export default function generateDiscountsDescription(
 ): ReactNode {
 	const listItems = discounts
 		.map((discount) => {
-			return `Acquistando ${discount.requiredQuantity} prodotti della categoria "${discount.requiredCategory.name}", riceverai uno sconto del ${discount.discountPercentage}% su ${discount.discountedQuantity} prodotti della categoria ${discount.discountedCategory.name}.`;
+			return `Acquistando ${discount.requiredQuantity} prodotti della categoria "${discount.requiredCategory.name}", riceverai uno sconto del ${discount.discountPercentage}% su ${discount.discountedQuantity} prodotti della categoria "${discount.discountedCategory.name}".`;
 		})
 		.map((description, index) => (
 			<p style={{ margin: 0 }} key={index}>
