@@ -1,6 +1,6 @@
-import core from '@actions/core';
-import { readFileSync, writeFileSync } from 'fs';
-import { ensureFileSync } from 'fs-extra';
+const core = require('@actions/core');
+const { readFileSync, writeFileSync } = require('fs');
+const { ensureFileSync } = require('fs-extra');
 
 try {
 	const beforePath = __dirname.replace(
