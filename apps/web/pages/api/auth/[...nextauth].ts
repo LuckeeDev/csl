@@ -33,7 +33,7 @@ const nextAuthOptions: NextAuthOptions = {
 			if (isAllowedToSignIn) {
 				return true;
 			} else {
-				return '/';
+				return '/?authError=1';
 			}
 		},
 		async jwt(params) {
