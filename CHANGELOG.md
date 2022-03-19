@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.8.4](https://github.com/LuckeeDev/csl/compare/v2.8.3...v2.8.4) (2022-03-19)
+
+
+### Bug Fixes
+
+* **footer:** mobile padding ([97110ee](https://github.com/LuckeeDev/csl/commit/97110ee0ced7e1489582594f25bb002a6c504102))
+
+
+
 ## [2.8.3](https://github.com/LuckeeDev/csl/compare/v2.8.2...v2.8.3) (2022-03-19)
 
 
