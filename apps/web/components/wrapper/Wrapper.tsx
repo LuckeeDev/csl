@@ -17,6 +17,8 @@ import Logo from 'public/logo.png';
 import Image from 'next/image';
 import Link from 'next/link';
 import TextLink from 'components/links/TextLink';
+import Footer from './Footer';
+import DefaultPageWrapper from './DefaultPageWrapper';
 
 interface WrapperProps {
 	children: ReactNode;
@@ -56,76 +58,95 @@ export default function Wrapper({
 	}, [session, status, sidebarLinks]);
 
 	return (
-		<AppShell
-			navbarOffsetBreakpoint="sm"
-			fixed
-			navbar={
-				hasSidebar && sidebarLinks ? (
-					<Navbar
-						p="md"
-						hiddenBreakpoint="sm"
-						hidden={!opened}
-						width={{ sm: 300, lg: 400 }}
-					>
-						<Navbar.Section grow>
-							{status === 'loading' ? (
-								<LoaderDiv />
-							) : (
-								<SideLinks links={links} />
-							)}
-						</Navbar.Section>
-
-						<Navbar.Section>
-							<UserButton />
-						</Navbar.Section>
-					</Navbar>
-				) : undefined
-			}
-			header={
-				<Header height={80} p="md">
-					<div
-						style={{
-							display: 'flex',
-							alignItems: 'center',
-							justifyContent: 'space-between',
-							height: '100%',
-						}}
-					>
-						<div
-							style={{ display: 'flex', alignItems: 'center', height: '100%' }}
+		<>
+			<AppShell
+				navbarOffsetBreakpoint="sm"
+				fixed
+				styles={() => ({
+					main: {
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'space-between',
+						width: '100%',
+						paddingLeft: 0,
+						paddingRight: 0,
+						paddingBottom: 0,
+					},
+				})}
+				navbar={
+					hasSidebar && sidebarLinks ? (
+						<Navbar
+							p="md"
+							hiddenBreakpoint="sm"
+							hidden={!opened}
+							width={{ sm: 300, lg: 400 }}
 						>
-							{hasSidebar && sidebarLinks && (
-								<MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-									<Burger
-										opened={opened}
-										onClick={() => setOpened((o) => !o)}
-										size="sm"
-										color={theme.colors.gray[6]}
-									/>
-								</MediaQuery>
-							)}
+							<Navbar.Section grow>
+								{status === 'loading' ? (
+									<LoaderDiv />
+								) : (
+									<SideLinks links={links} />
+								)}
+							</Navbar.Section>
 
-							<Link href="/" passHref>
-								<a
-									style={{
-										display: 'flex',
-										alignItems: 'center',
-										justifyContent: 'center',
-									}}
-								>
-									<Image src={Logo} alt="Logo" height={80} width={80} />
-								</a>
-							</Link>
+							<Navbar.Section>
+								<UserButton />
+							</Navbar.Section>
+						</Navbar>
+					) : undefined
+				}
+				header={
+					<Header height={80} p="md">
+						<div
+							style={{
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'space-between',
+								height: '100%',
+							}}
+						>
+							<div
+								style={{
+									display: 'flex',
+									alignItems: 'center',
+									height: '100%',
+								}}
+							>
+								{hasSidebar && sidebarLinks && (
+									<MediaQuery largerThan="sm" styles={{ display: 'none' }}>
+										<Burger
+											opened={opened}
+											onClick={() => setOpened((o) => !o)}
+											size="sm"
+											color={theme.colors.gray[6]}
+										/>
+									</MediaQuery>
+								)}
 
-							<TextLink href="/shop">Negozio</TextLink>
+								<Link href="/" passHref>
+									<a
+										style={{
+											display: 'flex',
+											alignItems: 'center',
+											justifyContent: 'center',
+										}}
+									>
+										<Image src={Logo} alt="Logo" height={80} width={80} />
+									</a>
+								</Link>
+
+								<TextLink href="/shop">Negozio</TextLink>
+							</div>
+
+							<ButtonLink href="/dashboard">Dashboard</ButtonLink>
 						</div>
+					</Header>
+				}
+			>
+				<DefaultPageWrapper>{children}</DefaultPageWrapper>
 
-						<ButtonLink href="/dashboard">Dashboard</ButtonLink>
-					</div>
-				</Header>
-			}
-		>
-			{children}
-		</AppShell>
+				<Footer />
+			</AppShell>
+		</>
 	);
 }
