@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.8.0](https://github.com/LuckeeDev/csl/compare/v2.7.4...v2.8.0) (2022-03-19)
+
+
+### Features
+
+* add privacy and cookies ([0b0bbd6](https://github.com/LuckeeDev/csl/commit/0b0bbd602868e2f09771f15a68ded57f4d1269b8))
+* **app:** add footer ([f76fb52](https://github.com/LuckeeDev/csl/commit/f76fb52b3d11db12c80a429261d39b61eb48734f))
+
+
+
 ## [2.7.4](https://github.com/LuckeeDev/csl/compare/v2.7.3...v2.7.4) (2022-03-18)
 
 
