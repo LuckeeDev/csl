@@ -6,7 +6,7 @@
 				"syncVersions": true,
 				"noVerify": true,
 				"rootChangelog": true,
-				"commitMessageFormat": "release(${projectName}): 🏫 release version ${version}"
+				"commitMessageFormat": "release(csl): 🏫 release version ${version}"
 			}
 		}
 	},
