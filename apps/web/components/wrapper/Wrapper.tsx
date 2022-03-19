@@ -67,10 +67,11 @@ export default function Wrapper({
 						display: 'flex',
 						flexDirection: 'column',
 						justifyContent: 'space-between',
-						width: '100%',
-						paddingLeft: 0,
-						paddingRight: 0,
-						paddingBottom: 0,
+						...(!hasSidebar && {
+							paddingLeft: 0,
+							paddingRight: 0,
+							paddingBottom: 0,
+						}),
 					},
 				})}
 				navbar={
@@ -145,7 +146,7 @@ export default function Wrapper({
 			>
 				<DefaultPageWrapper>{children}</DefaultPageWrapper>
 
-				<Footer />
+				{!hasSidebar && <Footer />}
 			</AppShell>
 		</>
 	);
