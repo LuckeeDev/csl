@@ -62,7 +62,7 @@ export default function Wrapper({
 			<AppShell
 				navbarOffsetBreakpoint="sm"
 				fixed
-				styles={() => ({
+				styles={(theme) => ({
 					main: {
 						display: 'flex',
 						flexDirection: 'column',
@@ -72,6 +72,9 @@ export default function Wrapper({
 							paddingRight: 0,
 							paddingBottom: 0,
 						}),
+						[`@media (max-width: ${theme.breakpoints.sm}px)`]: {
+							paddingLeft: 0,
+						},
 					},
 				})}
 				navbar={
