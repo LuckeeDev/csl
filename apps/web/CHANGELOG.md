@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.8.1](https://github.com/LuckeeDev/csl/compare/v2.8.0...v2.8.1) (2022-03-19)
+
+
+### Bug Fixes
+
+* **dashboard:** hide footer in dashboard ([bec99cb](https://github.com/LuckeeDev/csl/commit/bec99cbf05a3fbe9a8a1ca26b6425593a2f1ee43))
+
+
+
 # [2.8.0](https://github.com/LuckeeDev/csl/compare/v2.7.4...v2.8.0) (2022-03-19)
 
 
