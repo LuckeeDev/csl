@@ -2,6 +2,25 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.9.0](https://github.com/LuckeeDev/csl/compare/v2.8.4...v2.9.0) (2022-03-20)
+
+
+### Bug Fixes
+
+* **invites:** replace url when routing back to home ([ebd9c2f](https://github.com/LuckeeDev/csl/commit/ebd9c2f35e705153c724b563cb0b8cc1f2286186))
+* **tos:** use custom link component in markdown ([289d0f8](https://github.com/LuckeeDev/csl/commit/289d0f8a4415268c84ceeaef8b00f86122412ac9))
+
+
+### Features
+
+* **users:** add user groups ([18e259f](https://github.com/LuckeeDev/csl/commit/18e259faa96467da60a8cc1d10186eb915d77bad))
+* **users:** create groups ([18bccd8](https://github.com/LuckeeDev/csl/commit/18bccd8d2967fe65138f214ce9680f8440427905))
+* **users:** display group name on group page ([7ba1434](https://github.com/LuckeeDev/csl/commit/7ba143485bc73f80ce99962e39b26ca15d45c4b9))
+* **users:** display groups in dashboard ([9200536](https://github.com/LuckeeDev/csl/commit/9200536c3c692a8f3b3392b36be8e8aedefbfd64))
+* **users:** invite to groups ([a828ba0](https://github.com/LuckeeDev/csl/commit/a828ba03393aad31afb451826fd58b46f10ed618))
+
+
+
 ## [2.8.4](https://github.com/LuckeeDev/csl/compare/v2.8.3...v2.8.4) (2022-03-19)
 
 
