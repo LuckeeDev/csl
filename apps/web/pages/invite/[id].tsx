@@ -50,7 +50,7 @@ export default function Invite({ group }: InviteProps) {
 					chiudere questa pagina, le modifiche sono state salvate.
 				</Text>
 
-				<ButtonLink href="/" variant="light" fullWidth>
+				<ButtonLink replace href="/" variant="light" fullWidth>
 					Torna alla home
 				</ButtonLink>
 			</Card>
