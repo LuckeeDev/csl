@@ -21,8 +21,9 @@ import { getSession } from 'next-auth/react';
 import prisma from 'prisma/client';
 import { useMemo, useState } from 'react';
 import { ExtendedGroup } from 'types/groups';
+import { BasePageProps } from 'types/pages';
 
-interface DashboardUsersProps {
+interface DashboardUsersProps extends BasePageProps {
 	groups: ExtendedGroup[];
 	noGroupUsers: number;
 }
@@ -116,7 +117,7 @@ function DashboardUsers({
 											placeholder="Inserisci un nome per il nuovo gruppo"
 											{...form.getInputProps('name')}
 											rightSection={
-												<ActionIcon type="submit" color="teal" variant="filled">
+												<ActionIcon type="submit" color="blue" variant="filled">
 													<CheckIcon />
 												</ActionIcon>
 											}
