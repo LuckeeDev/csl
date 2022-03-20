@@ -1,6 +1,7 @@
 import { Card, createStyles, Text } from '@mantine/core';
 import { CheckCircledIcon } from '@modulz/radix-icons';
 import { Group } from '@prisma/client';
+import PageTitle from 'components/head/PageTitle';
 import ButtonLink from 'components/links/ButtonLink';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
@@ -36,6 +37,8 @@ export default function Invite({ group }: InviteProps) {
 
 	return (
 		<div className={classes.page}>
+			<PageTitle>Invito al gruppo {group.name}</PageTitle>
+
 			<Card shadow="sm" p="lg" className={classes.card}>
 				<div className={classes.iconWrapper}>
 					<CheckCircledIcon height="50px" width="50px" />

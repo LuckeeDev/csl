@@ -32,4 +32,12 @@ export const DASHBOARD_LINKS: LinkData[] = [
 		hasSublinks: true,
 		requiredPermissions: [Permission.SHOP_MANAGER],
 	},
+	{
+		icon: 'profile',
+		color: 'grape',
+		label: 'Utenti',
+		href: '/dashboard/users',
+		hasSublinks: true,
+		requiredPermissions: [Permission.USERS_MANAGER],
+	},
 ];

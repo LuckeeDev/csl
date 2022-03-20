@@ -1,4 +1,4 @@
-import { Table } from '@mantine/core';
+import { ScrollArea, Table } from '@mantine/core';
 import { ShopSession } from '@prisma/client';
 import PageTitle from 'components/head/PageTitle';
 import ButtonLink from 'components/links/ButtonLink';
@@ -38,18 +38,20 @@ function DashboardOrdersIndex({ shopSessions }: DashboardOrdersIndexProps) {
 
 			<h1>Ordini</h1>
 
-			<Table>
-				<thead>
-					<tr>
-						<th>Nome</th>
-						<th>Data di inizio</th>
-						<th>Data di fine</th>
-						<th>Azioni</th>
-					</tr>
-				</thead>
+			<ScrollArea>
+				<Table sx={{ minWidth: '800px' }}>
+					<thead>
+						<tr>
+							<th>Nome</th>
+							<th>Data di inizio</th>
+							<th>Data di fine</th>
+							<th>Azioni</th>
+						</tr>
+					</thead>
 
-				<tbody>{rows}</tbody>
-			</Table>
+					<tbody>{rows}</tbody>
+				</Table>
+			</ScrollArea>
 		</>
 	);
 }

@@ -181,6 +181,7 @@ model Order {
 enum Permission {
     NEWS_EDITOR
     SHOP_MANAGER
+    USERS_MANAGER
 }
 
 enum ProductSize {
