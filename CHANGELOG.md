@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.9.1](https://github.com/LuckeeDev/csl/compare/v2.9.0...v2.9.1) (2022-03-21)
+
+
+### Performance Improvements
+
+* **dashboard:** use swr in dashboard group queries ([96b0407](https://github.com/LuckeeDev/csl/commit/96b0407918a8fc416dd2e5109a5c25dc6d40531a))
+
+
+
 # [2.9.0](https://github.com/LuckeeDev/csl/compare/v2.8.4...v2.9.0) (2022-03-20)
 
 
