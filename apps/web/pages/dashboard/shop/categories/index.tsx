@@ -1,15 +1,14 @@
 import {
-	Button,
-	Collapse,
+	ActionIcon,
+	InputWrapper,
 	LoadingOverlay,
 	ScrollArea,
-	Space,
 	Table,
+	TextInput,
 } from '@mantine/core';
 import { useNotifications } from '@mantine/notifications';
 import { ProductCategory } from '@prisma/client';
 import axios from 'axios';
-import ProductCategoryForm from 'components/forms/ProductCategoryForm';
 import PageTitle from 'components/head/PageTitle';
 import ProductCategoryRow from 'components/productCategories/ProductCategoryRow';
 import { environment } from 'environments/environment';
@@ -33,7 +32,6 @@ function DashboardShopCategories({
 	productCategories,
 }: DashboardShopCategoriesProps) {
 	const [categories, setCategories] = useState(productCategories);
-	const [open, setOpen] = useState(false);
 	const [overlay, setOverlay] = useState(false);
 	const notifications = useNotifications();
 	const form = useProductCategoryForm();
@@ -140,21 +138,28 @@ function DashboardShopCategories({
 						</tr>
 					</thead>
 
-					<tbody>{rows}</tbody>
+					<tbody>
+						{rows}
+						<tr>
+							<td>
+								<form onSubmit={form.onSubmit(onSubmit)}>
+									<InputWrapper label="Nuova categoria">
+										<TextInput
+											placeholder="Inserisci un nome per la nuova categoria"
+											{...form.getInputProps('name')}
+											rightSection={
+												<ActionIcon type="submit" color="blue" variant="filled">
+													<CheckIcon />
+												</ActionIcon>
+											}
+										/>
+									</InputWrapper>
+								</form>
+							</td>
+						</tr>
+					</tbody>
 				</Table>
 			</ScrollArea>
-
-			<Space h={20} />
-
-			<Button onClick={() => setOpen(!open)}>
-				{open ? 'Chiudi' : 'Crea categoria'}
-			</Button>
-
-			<Space h={20} />
-
-			<Collapse in={open} transitionDuration={0}>
-				<ProductCategoryForm form={form} onSubmit={onSubmit} />
-			</Collapse>
 		</DashboardPageContainer>
 	);
 }
