@@ -1,6 +1,6 @@
 import { Button, InputWrapper, Space, TextInput } from '@mantine/core';
 import { UseForm } from '@mantine/hooks/lib/use-form/use-form';
-import { ShopSessionFormValues } from 'hooks/useShopSessionForm';
+import { ShopSessionFormValues } from 'hooks/forms/useShopSessionForm';
 import { DateRangePicker } from '@mantine/dates';
 
 interface ShopSessionFormProps {

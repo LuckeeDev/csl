@@ -15,7 +15,7 @@ import LoaderDiv from 'components/loader/LoaderDiv';
 import GroupRow from 'components/tableRows/GroupRow';
 import { environment } from 'environments/environment';
 import useQueryState from 'hooks/router/useQueryState';
-import useGroupForm, { GroupFormValues } from 'hooks/useGroupForm';
+import useGroupForm, { GroupFormValues } from 'hooks/forms/useGroupForm';
 import { USERS_LINKS } from 'navigation/dashboard/users';
 import { useEffect, useMemo } from 'react';
 import useSWR from 'swr';

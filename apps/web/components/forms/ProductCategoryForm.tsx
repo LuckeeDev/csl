@@ -1,6 +1,6 @@
 import { Button, InputWrapper, Space, TextInput } from '@mantine/core';
 import { UseForm } from '@mantine/hooks/lib/use-form/use-form';
-import { ProductCategoryFormValues } from 'hooks/useProductCategoryForm';
+import { ProductCategoryFormValues } from 'hooks/forms/useProductCategoryForm';
 
 interface ProductCategoryFormProps {
 	form: UseForm<ProductCategoryFormValues>;

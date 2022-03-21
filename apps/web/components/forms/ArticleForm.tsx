@@ -6,7 +6,7 @@ import {
 	TextInput,
 } from '@mantine/core';
 import Editor from 'components/editor/Editor';
-import { ArticleFormValues } from 'hooks/useArticleForm';
+import { ArticleFormValues } from 'hooks/forms/useArticleForm';
 import { UseForm } from '@mantine/hooks/lib/use-form/use-form';
 
 interface ArticleFormProps {

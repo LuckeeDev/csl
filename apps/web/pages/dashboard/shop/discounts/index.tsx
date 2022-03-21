@@ -19,7 +19,7 @@ import DashboardPageContainer from 'components/containers/DashboardPageContainer
 import ProductDiscountForm from 'components/forms/ProductDiscountForm';
 import useProductDiscountForm, {
 	ProductDiscountFormValues,
-} from 'hooks/useProductDiscountForm';
+} from 'hooks/forms/useProductDiscountForm';
 import ProductDiscountRow from 'components/tableRows/ProductDiscountRow';
 import axios from 'axios';
 import { environment } from 'environments/environment';

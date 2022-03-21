@@ -8,7 +8,7 @@ import ProductForm from 'components/forms/ProductForm';
 import PageTitle from 'components/head/PageTitle';
 import BackHeading from 'components/heading/BackHeading';
 import { environment } from 'environments/environment';
-import useProductForm, { ProductFormValues } from 'hooks/useProductForm';
+import useProductForm, { ProductFormValues } from 'hooks/forms/useProductForm';
 import { SHOP_LINKS } from 'navigation/dashboard/shop';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';

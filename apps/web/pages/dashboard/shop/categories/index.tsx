@@ -15,7 +15,7 @@ import ProductCategoryRow from 'components/productCategories/ProductCategoryRow'
 import { environment } from 'environments/environment';
 import useProductCategoryForm, {
 	ProductCategoryFormValues,
-} from 'hooks/useProductCategoryForm';
+} from 'hooks/forms/useProductCategoryForm';
 import { SHOP_LINKS } from 'navigation/dashboard/shop';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';

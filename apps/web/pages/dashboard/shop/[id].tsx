@@ -8,7 +8,7 @@ import { environment } from 'environments/environment';
 import useShopSessionForm, {
 	ShopSessionData,
 	ShopSessionFormValues,
-} from 'hooks/useShopSessionForm';
+} from 'hooks/forms/useShopSessionForm';
 import { SHOP_LINKS } from 'navigation/dashboard/shop';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';

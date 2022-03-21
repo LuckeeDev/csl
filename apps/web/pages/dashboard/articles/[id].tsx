@@ -12,7 +12,7 @@ import { environment } from 'environments/environment';
 import useArticleForm, {
 	ArticleData,
 	ArticleFormValues,
-} from 'hooks/useArticleForm';
+} from 'hooks/forms/useArticleForm';
 import { useRouter } from 'next/router';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
 import { getSession } from 'next-auth/react';

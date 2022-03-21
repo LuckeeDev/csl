@@ -2,7 +2,7 @@ import { SHOP_LINKS } from 'navigation/dashboard/shop';
 import PageTitle from 'components/head/PageTitle';
 import useShopSessionForm, {
 	ShopSessionFormValues,
-} from 'hooks/useShopSessionForm';
+} from 'hooks/forms/useShopSessionForm';
 import ShopSessionForm from 'components/forms/ShopSessionForm';
 import { useBooleanToggle } from '@mantine/hooks';
 import axios from 'axios';

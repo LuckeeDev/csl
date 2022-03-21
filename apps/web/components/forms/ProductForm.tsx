@@ -13,7 +13,7 @@ import {
 	TextInput,
 } from '@mantine/core';
 import { UseForm } from '@mantine/hooks/lib/use-form/use-form';
-import { ProductFormValues } from 'hooks/useProductForm';
+import { ProductFormValues } from 'hooks/forms/useProductForm';
 import { PRODUCT_SIZES } from 'data/productSizes';
 import { ProductCategory, ProductSize, ShopSession } from '@prisma/client';
 import { ChangeEvent, useCallback, useState } from 'react';

@@ -8,7 +8,7 @@ import {
 } from '@mantine/core';
 import { UseForm } from '@mantine/hooks/lib/use-form/use-form';
 import { ProductCategory, ShopSession } from '@prisma/client';
-import { ProductDiscountFormValues } from 'hooks/useProductDiscountForm';
+import { ProductDiscountFormValues } from 'hooks/forms/useProductDiscountForm';
 
 interface ProductDiscountFormProps {
 	form: UseForm<ProductDiscountFormValues>;

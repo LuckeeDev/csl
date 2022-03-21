@@ -1,6 +1,6 @@
 import { InputWrapper, TextInput } from '@mantine/core';
 import { UseFormReturnType } from '@mantine/form/lib/use-form';
-import { GroupFormValues } from 'hooks/useGroupForm';
+import { GroupFormValues } from 'hooks/forms/useGroupForm';
 
 interface GroupFormProps {
 	form: UseFormReturnType<GroupFormValues>;

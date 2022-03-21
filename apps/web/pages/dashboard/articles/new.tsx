@@ -5,7 +5,7 @@ import { environment } from 'environments/environment';
 import { CheckIcon } from '@modulz/radix-icons';
 import PageTitle from 'components/head/PageTitle';
 import ArticleForm from 'components/forms/ArticleForm';
-import useArticleForm, { ArticleFormValues } from 'hooks/useArticleForm';
+import useArticleForm, { ArticleFormValues } from 'hooks/forms/useArticleForm';
 import { useRouter } from 'next/router';
 import { Article } from '@prisma/client';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';

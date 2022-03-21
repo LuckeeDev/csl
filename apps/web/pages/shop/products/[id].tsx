@@ -10,7 +10,7 @@ import OrderForm from 'components/forms/OrderForm';
 import PageTitle from 'components/head/PageTitle';
 import BackLink from 'components/links/BackLink';
 import { environment } from 'environments/environment';
-import useOrderForm, { OrderFormValues } from 'hooks/useOrderForm';
+import useOrderForm, { OrderFormValues } from 'hooks/forms/useOrderForm';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import prisma from 'prisma/client';
