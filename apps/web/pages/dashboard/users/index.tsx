@@ -1,98 +1,103 @@
 import {
 	ActionIcon,
 	InputWrapper,
-	LoadingOverlay,
+	Pagination,
 	ScrollArea,
 	Table,
 	TextInput,
 } from '@mantine/core';
-import { useBooleanToggle } from '@mantine/hooks';
 import { useNotifications } from '@mantine/notifications';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import axios from 'axios';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageTitle from 'components/head/PageTitle';
+import LoaderDiv from 'components/loader/LoaderDiv';
 import GroupRow from 'components/tableRows/GroupRow';
 import { environment } from 'environments/environment';
+import useQueryState from 'hooks/router/useQueryState';
 import useGroupForm, { GroupFormValues } from 'hooks/useGroupForm';
 import { USERS_LINKS } from 'navigation/dashboard/users';
-import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
-import prisma from 'prisma/client';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
+import useSWR from 'swr';
 import { ExtendedGroup } from 'types/groups';
-import { BasePageProps } from 'types/pages';
 
-interface DashboardUsersProps extends BasePageProps {
-	groups: ExtendedGroup[];
-	noGroupUsers: number;
+async function getGroups(url: string) {
+	return (
+		await axios.get<{ groups: ExtendedGroup[]; groupsCount: number }>(url)
+	).data;
 }
 
-function DashboardUsers({
-	groups: serverSideGroups,
-	noGroupUsers,
-}: DashboardUsersProps) {
-	const [groups, setGroups] = useState(serverSideGroups);
+function createGroup(group: GroupFormValues, currentGroups: ExtendedGroup[]) {
+	return async () => {
+		const { data: newGroup } = await axios.post<ExtendedGroup>(
+			`${environment.url}/api/groups`,
+			group
+		);
+
+		const groups = [...currentGroups, newGroup];
+
+		return { groups, groupsCount: currentGroups.length + 1 };
+	};
+}
+
+function DashboardUsers() {
+	const [pageIndex, setPageIndex] = useQueryState<number>('page', 1);
 	const form = useGroupForm();
 	const notifications = useNotifications();
-	const [overlay, toggleOverlay] = useBooleanToggle(false);
+	const { data, mutate, error } = useSWR(
+		`/api/groups?page=${pageIndex}`,
+		getGroups
+	);
 
-	const allGroups: ExtendedGroup[] = useMemo(
-		() => [
-			...groups,
-			{
-				id: 'none',
-				name: 'Utenti senza gruppo',
-				_count: { users: noGroupUsers, managers: 0 },
-			},
-		],
-		[groups, noGroupUsers]
+	const paginationTotal = useMemo(
+		() => Math.ceil((data?.groupsCount ?? 20) / 20),
+		[data?.groupsCount]
 	);
 
 	const rows = useMemo(
 		() =>
-			allGroups.map((group, index) => <GroupRow key={index} group={group} />),
-		[allGroups]
+			data?.groups?.map((group, index) => (
+				<GroupRow key={index} group={group} />
+			)) ?? [],
+		[data?.groups]
 	);
 
-	async function onSubmit(val: GroupFormValues) {
-		try {
-			toggleOverlay(true);
-
-			const { data } = await axios.post<ExtendedGroup>(
-				`${environment.url}/api/groups`,
-				val
-			);
-
-			setGroups((current) => [...current, data]);
-
-			form.reset();
-
-			notifications.showNotification({
-				title: 'Gruppo creato',
-				message: `Il gruppo ${data.name} è stato creato`,
-				color: 'teal',
-				icon: <CheckIcon />,
-			});
-
-			toggleOverlay(false);
-		} catch (err) {
+	useEffect(() => {
+		if (error) {
 			notifications.showNotification({
 				title: 'Errore',
-				message: 'Non è stato possibile creare il gruppo',
+				message: "C'è stato un errore nel caricamento dei dati",
 				color: 'red',
 				icon: <Cross1Icon />,
 			});
-
-			toggleOverlay(false);
 		}
+	}, [error, notifications]);
+
+	function onSubmit(val: GroupFormValues) {
+		mutate(createGroup(val, data?.groups ?? []), {
+			optimisticData: {
+				groups: [
+					...(data?.groups ?? []),
+					{ id: '', name: val.name, _count: { managers: 0, users: 0 } },
+				],
+				groupsCount: (data?.groups?.length ?? 0) + 1,
+			},
+			revalidate: false,
+		});
+
+		form.reset();
+
+		notifications.showNotification({
+			title: 'Gruppo creato',
+			message: `Il gruppo "${val.name}" è stato creato`,
+			color: 'teal',
+			icon: <CheckIcon />,
+		});
 	}
 
 	return (
 		<DashboardPageContainer>
 			<PageTitle>Dashboard | Elenco gruppi</PageTitle>
-
-			<LoadingOverlay visible={overlay} />
 
 			<h1>Elenco gruppi</h1>
 
@@ -128,7 +133,17 @@ function DashboardUsers({
 						</tr>
 					</tbody>
 				</Table>
+
+				{!data?.groups && <LoaderDiv />}
 			</ScrollArea>
+
+			<div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+				<Pagination
+					page={pageIndex}
+					onChange={setPageIndex}
+					total={paginationTotal}
+				/>
+			</div>
 		</DashboardPageContainer>
 	);
 }
@@ -137,26 +152,3 @@ DashboardUsers.hasSidebar = true;
 DashboardUsers.sidebarLinks = USERS_LINKS;
 
 export default DashboardUsers;
-
-export const getServerSideProps: GetServerSideProps<
-	DashboardUsersProps
-> = async (ctx) => {
-	const session = await getSession(ctx);
-
-	const groups = await prisma.group.findMany({
-		include: { _count: { select: { users: true, managers: true } } },
-		orderBy: { name: 'asc' },
-	});
-
-	const noGroupUsers = await prisma.user.count({
-		where: { groups: { none: {} } },
-	});
-
-	return {
-		props: {
-			session,
-			groups,
-			noGroupUsers,
-		},
-	};
-};

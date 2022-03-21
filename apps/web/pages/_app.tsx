@@ -42,6 +42,7 @@ export default function App(props: CustomAppProps) {
 					color={theme.colors.blue[5]}
 					height={2}
 					options={{ showSpinner: false }}
+					showOnShallow={false}
 				/>
 
 				<Wrapper hasSidebar={hasSidebar} sidebarLinks={sidebarLinks}>
