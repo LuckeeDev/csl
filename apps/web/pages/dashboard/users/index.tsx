@@ -1,5 +1,6 @@
 import {
 	ActionIcon,
+	createStyles,
 	InputWrapper,
 	Pagination,
 	ScrollArea,
@@ -10,7 +11,6 @@ import { useNotifications } from '@mantine/notifications';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageTitle from 'components/head/PageTitle';
-import LoaderDiv from 'components/loader/LoaderDiv';
 import GroupRow from 'components/tableRows/GroupRow';
 import useQueryState from 'hooks/router/useQueryState';
 import useGroupForm, { GroupFormValues } from 'hooks/forms/useGroupForm';
@@ -18,8 +18,18 @@ import { USERS_LINKS } from 'navigation/dashboard/users';
 import { useEffect, useMemo } from 'react';
 import useSWR from 'swr';
 import { createGroup, getGroups } from 'data/api/groups';
+import LoaderHeading from 'components/heading/LoaderHeading';
+
+const useStyles = createStyles((theme) => ({
+	textInput: {
+		[`@media (max-width: ${theme.breakpoints.md}px)`]: {
+			maxWidth: '300px',
+		},
+	},
+}));
 
 function DashboardUsers() {
+	const { classes } = useStyles();
 	const [pageIndex, setPageIndex] = useQueryState<number>('page', 1);
 	const form = useGroupForm();
 	const notifications = useNotifications();
@@ -78,7 +88,7 @@ function DashboardUsers() {
 		<DashboardPageContainer>
 			<PageTitle>Dashboard | Elenco gruppi</PageTitle>
 
-			<h1>Elenco gruppi</h1>
+			<LoaderHeading loading={!data?.groups}>Elenco gruppi</LoaderHeading>
 
 			<ScrollArea>
 				<Table sx={{ minWidth: '800px' }}>
@@ -98,6 +108,7 @@ function DashboardUsers() {
 								<form onSubmit={form.onSubmit(onSubmit)}>
 									<InputWrapper label="Nuovo gruppo">
 										<TextInput
+											className={classes.textInput}
 											placeholder="Inserisci un nome per il nuovo gruppo"
 											{...form.getInputProps('name')}
 											rightSection={
@@ -112,8 +123,6 @@ function DashboardUsers() {
 						</tr>
 					</tbody>
 				</Table>
-
-				{!data?.groups && <LoaderDiv />}
 			</ScrollArea>
 
 			<div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>

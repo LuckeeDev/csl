@@ -1,5 +1,6 @@
 import {
 	ActionIcon,
+	createStyles,
 	InputWrapper,
 	LoadingOverlay,
 	ScrollArea,
@@ -28,9 +29,18 @@ interface DashboardShopCategoriesProps extends BasePageProps {
 	productCategories: Omit<ProductCategory, 'updated_at' | 'created_at'>[];
 }
 
+const useStyles = createStyles((theme) => ({
+	textInput: {
+		[`@media (max-width: ${theme.breakpoints.md}px)`]: {
+			maxWidth: '300px',
+		},
+	},
+}));
+
 function DashboardShopCategories({
 	productCategories,
 }: DashboardShopCategoriesProps) {
+	const { classes } = useStyles();
 	const [categories, setCategories] = useState(productCategories);
 	const [overlay, setOverlay] = useState(false);
 	const notifications = useNotifications();
@@ -145,6 +155,7 @@ function DashboardShopCategories({
 								<form onSubmit={form.onSubmit(onSubmit)}>
 									<InputWrapper label="Nuova categoria">
 										<TextInput
+											className={classes.textInput}
 											placeholder="Inserisci un nome per la nuova categoria"
 											{...form.getInputProps('name')}
 											rightSection={
