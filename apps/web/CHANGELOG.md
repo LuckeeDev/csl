@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.9.2](https://github.com/LuckeeDev/csl/compare/v2.9.1...v2.9.2) (2022-03-21)
+
+
+### Performance Improvements
+
+* **dashboard:** show loader next to heading ([30bb265](https://github.com/LuckeeDev/csl/commit/30bb265e690cc0ded38bdeb00a4654edf9a4113d))
+
+
+
 ## [2.9.1](https://github.com/LuckeeDev/csl/compare/v2.9.0...v2.9.1) (2022-03-21)
 
 
