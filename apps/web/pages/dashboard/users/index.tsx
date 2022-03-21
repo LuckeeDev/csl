@@ -8,37 +8,16 @@ import {
 } from '@mantine/core';
 import { useNotifications } from '@mantine/notifications';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
-import axios from 'axios';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageTitle from 'components/head/PageTitle';
 import LoaderDiv from 'components/loader/LoaderDiv';
 import GroupRow from 'components/tableRows/GroupRow';
-import { environment } from 'environments/environment';
 import useQueryState from 'hooks/router/useQueryState';
 import useGroupForm, { GroupFormValues } from 'hooks/forms/useGroupForm';
 import { USERS_LINKS } from 'navigation/dashboard/users';
 import { useEffect, useMemo } from 'react';
 import useSWR from 'swr';
-import { ExtendedGroup } from 'types/groups';
-
-async function getGroups(url: string) {
-	return (
-		await axios.get<{ groups: ExtendedGroup[]; groupsCount: number }>(url)
-	).data;
-}
-
-function createGroup(group: GroupFormValues, currentGroups: ExtendedGroup[]) {
-	return async () => {
-		const { data: newGroup } = await axios.post<ExtendedGroup>(
-			`${environment.url}/api/groups`,
-			group
-		);
-
-		const groups = [...currentGroups, newGroup];
-
-		return { groups, groupsCount: currentGroups.length + 1 };
-	};
-}
+import { createGroup, getGroups } from 'data/api/groups';
 
 function DashboardUsers() {
 	const [pageIndex, setPageIndex] = useQueryState<number>('page', 1);
