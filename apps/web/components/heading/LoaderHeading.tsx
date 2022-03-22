@@ -11,9 +11,9 @@ export default function LoaderHeading({
 	children,
 }: LoaderHeadingProps) {
 	return (
-		<h1 style={{ display: 'flex', alignItems: 'center' }}>
-			{children}
+		<div style={{ display: 'flex', alignItems: 'center' }}>
+			<h1>{children}</h1>
 			{loading && <Loader size="sm" ml="xs" />}
-		</h1>
+		</div>
 	);
 }
