@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.9.3](https://github.com/LuckeeDev/csl/compare/v2.9.2...v2.9.3) (2022-03-22)
+
+
+### Bug Fixes
+
+* **loader:** show loader inside div instead of h1 ([cd40d6d](https://github.com/LuckeeDev/csl/commit/cd40d6d9b84bfe6eb558fd583ab418a67217fc49))
+
+
+### Performance Improvements
+
+* **swr:** use local cache in dashboard ([9c5fcdf](https://github.com/LuckeeDev/csl/commit/9c5fcdf8061ad7e66d219fe8f4356b3486523fb8))
+
+
+
 ## [2.9.2](https://github.com/LuckeeDev/csl/compare/v2.9.1...v2.9.2) (2022-03-21)
 
 
