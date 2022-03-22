@@ -6,14 +6,22 @@ import Providers from 'components/providers/Providers';
 import { NextComponentType, NextPageContext } from 'next';
 import { LinkData } from 'navigation/types';
 import NextNProgress from 'nextjs-progressbar';
+import dynamic from 'next/dynamic';
+import LoaderDiv from 'components/loader/LoaderDiv';
 import 'dayjs/locale/it';
 
 interface CustomAppProps extends AppProps {
 	Component: NextComponentType<NextPageContext, any, any> & {
-		sidebarLinks: LinkData[];
-		hasSidebar: boolean;
+		sidebarLinks?: LinkData[];
+		hasSidebar?: boolean;
+		hasLocalCache?: boolean;
 	};
 }
+
+const SWRLocalCache = dynamic(
+	() => import('../components/providers/SWRLocalCache'),
+	{ ssr: false, loading: () => <LoaderDiv /> }
+);
 
 export default function App(props: CustomAppProps) {
 	const {
@@ -25,6 +33,7 @@ export default function App(props: CustomAppProps) {
 
 	const hasSidebar = Component.hasSidebar ?? false;
 	const sidebarLinks = Component.sidebarLinks ?? null;
+	const hasLocalCache = Component.hasLocalCache ?? false;
 
 	return (
 		<>
@@ -46,7 +55,13 @@ export default function App(props: CustomAppProps) {
 				/>
 
 				<Wrapper hasSidebar={hasSidebar} sidebarLinks={sidebarLinks}>
-					<Component {...pageProps} />
+					{hasLocalCache ? (
+						<SWRLocalCache>
+							<Component {...pageProps} />
+						</SWRLocalCache>
+					) : (
+						<Component {...pageProps} />
+					)}
 				</Wrapper>
 			</Providers>
 		</>

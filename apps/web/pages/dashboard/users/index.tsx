@@ -1,12 +1,4 @@
-import {
-	ActionIcon,
-	createStyles,
-	InputWrapper,
-	Pagination,
-	ScrollArea,
-	Table,
-	TextInput,
-} from '@mantine/core';
+import { createStyles, Pagination, ScrollArea, Table } from '@mantine/core';
 import { useNotifications } from '@mantine/notifications';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
@@ -18,6 +10,7 @@ import { USERS_LINKS } from 'navigation/dashboard/users';
 import { useEffect, useMemo } from 'react';
 import useSWR from 'swr';
 import { createGroup, getGroups } from 'data/api/groups';
+import GroupForm from 'components/forms/GroupForm';
 import LoaderHeading from 'components/heading/LoaderHeading';
 
 const useStyles = createStyles((theme) => ({
@@ -105,20 +98,11 @@ function DashboardUsers() {
 						{rows}
 						<tr>
 							<td>
-								<form onSubmit={form.onSubmit(onSubmit)}>
-									<InputWrapper label="Nuovo gruppo">
-										<TextInput
-											className={classes.textInput}
-											placeholder="Inserisci un nome per il nuovo gruppo"
-											{...form.getInputProps('name')}
-											rightSection={
-												<ActionIcon type="submit" color="blue" variant="filled">
-													<CheckIcon />
-												</ActionIcon>
-											}
-										/>
-									</InputWrapper>
-								</form>
+								<GroupForm
+									className={classes.textInput}
+									form={form}
+									onSubmit={onSubmit}
+								/>
 							</td>
 						</tr>
 					</tbody>
@@ -138,5 +122,6 @@ function DashboardUsers() {
 
 DashboardUsers.hasSidebar = true;
 DashboardUsers.sidebarLinks = USERS_LINKS;
+DashboardUsers.hasLocalCache = true;
 
 export default DashboardUsers;

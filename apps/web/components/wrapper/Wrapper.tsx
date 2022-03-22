@@ -23,7 +23,7 @@ import DefaultPageWrapper from './DefaultPageWrapper';
 interface WrapperProps {
 	children: ReactNode;
 	hasSidebar: boolean;
-	sidebarLinks: LinkData[];
+	sidebarLinks: LinkData[] | null;
 }
 
 export default function Wrapper({
