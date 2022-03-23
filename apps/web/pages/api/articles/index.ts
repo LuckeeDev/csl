@@ -18,15 +18,13 @@ const postBodySchema = Joi.object({
 
 const handler = connect<NextApiRequest, NextApiResponse>();
 
-handler.get(
-	session,
-	hasPermission(Permission.NEWS_EDITOR),
-	async (req, res) => {
-		const articles = await prisma.article.findMany();
+handler.get(session, hasPermission(Permission.NEWS_EDITOR), async (_, res) => {
+	const articles = await prisma.article.findMany({
+		orderBy: { created_at: 'desc' },
+	});
 
-		res.status(200).json(articles);
-	}
-);
+	res.status(200).json({ articles });
+});
 
 handler.post(
 	session,

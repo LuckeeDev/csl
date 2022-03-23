@@ -3,20 +3,20 @@ import { Article } from '@prisma/client';
 import axios from 'axios';
 import ArticleRow from 'components/articles/ArticleRow';
 import PageTitle from 'components/head/PageTitle';
-import { GetServerSideProps } from 'next';
-import prisma from 'prisma/client';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import { useNotifications } from '@mantine/notifications';
 import { environment } from 'environments/environment';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
+import useSWR from 'swr';
+import { getArticles } from 'data/api/articles';
+import { useMemo } from 'react';
+import LoaderHeading from 'components/heading/LoaderHeading';
 
-interface DashboardArticlesIndexProps {
-	articles: Omit<Article, 'categoryId' | 'updated_at' | 'created_at'>[];
-}
-
-function DashboardArticlesIndex({ articles }: DashboardArticlesIndexProps) {
+function DashboardArticlesIndex() {
+	const { data } = useSWR('/api/articles', getArticles);
 	const notifications = useNotifications();
+	const articles = useMemo(() => data?.articles ?? [], [data]);
 
 	async function handlePublishChange(value: boolean, articleID: string) {
 		const {
@@ -56,7 +56,7 @@ function DashboardArticlesIndex({ articles }: DashboardArticlesIndexProps) {
 		<DashboardPageContainer>
 			<PageTitle>Dashboard | Articoli</PageTitle>
 
-			<h1>Articoli</h1>
+			<LoaderHeading loading={!data?.articles}>Articoli</LoaderHeading>
 
 			<ScrollArea>
 				<Table sx={{ minWidth: 800 }}>
@@ -79,31 +79,6 @@ function DashboardArticlesIndex({ articles }: DashboardArticlesIndexProps) {
 
 DashboardArticlesIndex.hasSidebar = true;
 DashboardArticlesIndex.sidebarLinks = ARTICLE_LINKS;
+DashboardArticlesIndex.hasLocalCache = true;
 
 export default DashboardArticlesIndex;
-
-const getServerSideProps: GetServerSideProps<
-	DashboardArticlesIndexProps
-> = async () => {
-	const articles = await prisma.article.findMany({
-		select: {
-			author: true,
-			content: true,
-			readingTime: true,
-			title: true,
-			id: true,
-			published: true,
-		},
-		orderBy: {
-			created_at: 'desc',
-		},
-	});
-
-	return {
-		props: {
-			articles,
-		},
-	};
-};
-
-export { getServerSideProps };
