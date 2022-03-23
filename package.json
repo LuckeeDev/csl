@@ -14,7 +14,7 @@
 		"@mantine/dropzone": "4.0.5",
 		"@mantine/form": "4.0.5",
 		"@mantine/hooks": "4.0.5",
-		"@mantine/next": "4.0.5",
+		"@mantine/next": "4.0.7",
 		"@mantine/notifications": "4.0.5",
 		"@mantine/rte": "4.0.5",
 		"@modulz/radix-icons": "^4.0.0",
