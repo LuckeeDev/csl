@@ -2,11 +2,9 @@ import { Group } from '@prisma/client';
 import BackHeading from 'components/heading/BackHeading';
 import { USERS_LINKS } from 'navigation/dashboard/users';
 import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
 import prisma from 'prisma/client';
-import { BasePageProps } from 'types/pages';
 
-interface DashboardGroupProps extends BasePageProps {
+interface DashboardGroupProps {
 	group: Group;
 }
 
@@ -26,8 +24,6 @@ export default DashboardGroup;
 export const getServerSideProps: GetServerSideProps<
 	DashboardGroupProps
 > = async (ctx) => {
-	const session = await getSession(ctx);
-
 	const groupId = ctx.params?.groupId as string;
 
 	if (groupId === 'none') {
@@ -38,7 +34,6 @@ export const getServerSideProps: GetServerSideProps<
 
 		return {
 			props: {
-				session,
 				group: noGroup,
 			},
 		};
@@ -54,7 +49,6 @@ export const getServerSideProps: GetServerSideProps<
 
 	return {
 		props: {
-			session,
 			group,
 		},
 	};

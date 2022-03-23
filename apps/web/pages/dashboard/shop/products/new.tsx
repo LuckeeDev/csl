@@ -9,16 +9,14 @@ import { environment } from 'environments/environment';
 import useProductForm, { ProductFormValues } from 'hooks/forms/useProductForm';
 import { SHOP_LINKS } from 'navigation/dashboard/shop';
 import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import prisma from 'prisma/client';
-import { BasePageProps } from 'types/pages';
 import { CheckIcon } from '@modulz/radix-icons';
 import { useNotifications } from '@mantine/notifications';
 
-interface DashboardShopProductsNewProps extends BasePageProps {
-	shopSessions: ShopSession[];
-	productCategories: ProductCategory[];
+interface DashboardShopProductsNewProps {
+	shopSessions: Pick<ShopSession, 'id' | 'name'>[];
+	productCategories: Pick<ProductCategory, 'id' | 'name'>[];
 }
 
 function DashboardShopProductsNew({
@@ -74,11 +72,9 @@ DashboardShopProductsNew.sidebarLinks = SHOP_LINKS;
 
 export default DashboardShopProductsNew;
 
-export const getServerSideProps: GetServerSideProps<BasePageProps> = async (
-	ctx
-) => {
-	const session = await getSession(ctx);
-
+export const getServerSideProps: GetServerSideProps<
+	DashboardShopProductsNewProps
+> = async () => {
 	const shopSessions = await prisma.shopSession.findMany({
 		select: { id: true, name: true },
 	});
@@ -91,7 +87,6 @@ export const getServerSideProps: GetServerSideProps<BasePageProps> = async (
 		props: {
 			shopSessions,
 			productCategories,
-			session,
 		},
 	};
 };

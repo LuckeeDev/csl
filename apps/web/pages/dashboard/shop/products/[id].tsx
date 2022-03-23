@@ -11,15 +11,13 @@ import { environment } from 'environments/environment';
 import useProductForm, { ProductFormValues } from 'hooks/forms/useProductForm';
 import { SHOP_LINKS } from 'navigation/dashboard/shop';
 import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import prisma from 'prisma/client';
 import { useMemo } from 'react';
-import { BasePageProps } from 'types/pages';
 import { CheckIcon } from '@modulz/radix-icons';
 import { ImageData } from 'types/image';
 
-interface DashboardShopProductsEditProps extends BasePageProps {
+interface DashboardShopProductsEditProps {
 	shopSessions: Pick<ShopSession, 'id' | 'name'>[];
 	productCategories: Pick<ProductCategory, 'id' | 'name'>[];
 	product: Omit<Product, 'id' | 'updated_at' | 'created_at'> & {
@@ -89,8 +87,6 @@ export default DashboardShopProductsEdit;
 export const getServerSideProps: GetServerSideProps<
 	DashboardShopProductsEditProps
 > = async (ctx) => {
-	const session = await getSession(ctx);
-
 	const id = ctx.params?.id as string;
 
 	const product = await prisma.product.findUnique({
@@ -135,7 +131,6 @@ export const getServerSideProps: GetServerSideProps<
 			product,
 			shopSessions,
 			productCategories,
-			session,
 		},
 	};
 };

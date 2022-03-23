@@ -7,14 +7,12 @@ import ProductRow from 'components/products/ProductRow';
 import { environment } from 'environments/environment';
 import { SHOP_LINKS } from 'navigation/dashboard/shop';
 import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
 import prisma from 'prisma/client';
 import { useState } from 'react';
-import { BasePageProps } from 'types/pages';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 
-interface DashboardShopProductsProps extends BasePageProps {
+interface DashboardShopProductsProps {
 	products: Pick<Product, 'id' | 'name' | 'price'>[];
 }
 
@@ -90,16 +88,13 @@ export default DashboardShopProducts;
 
 export const getServerSideProps: GetServerSideProps<
 	DashboardShopProductsProps
-> = async (ctx) => {
-	const session = await getSession(ctx);
-
+> = async () => {
 	const products = await prisma.product.findMany({
 		select: { id: true, name: true, price: true },
 	});
 
 	return {
 		props: {
-			session,
 			products,
 		},
 	};

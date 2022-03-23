@@ -65,6 +65,7 @@ export const getServerSideProps: GetServerSideProps<InviteProps> = async (
 	ctx
 ) => {
 	const session = await getSession(ctx);
+	const userId = session?.user.id;
 
 	const groupId = ctx.params?.id as string;
 
@@ -80,7 +81,7 @@ export const getServerSideProps: GetServerSideProps<InviteProps> = async (
 	}
 
 	await prisma.user.update({
-		where: { id: session.user.id },
+		where: { id: userId },
 		data: { groups: { connect: { id: groupId } } },
 	});
 

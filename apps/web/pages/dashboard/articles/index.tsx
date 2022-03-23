@@ -9,11 +9,9 @@ import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import { useNotifications } from '@mantine/notifications';
 import { environment } from 'environments/environment';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
-import { getSession } from 'next-auth/react';
-import { BasePageProps } from 'types/pages';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 
-interface DashboardArticlesIndexProps extends BasePageProps {
+interface DashboardArticlesIndexProps {
 	articles: Omit<Article, 'categoryId' | 'updated_at' | 'created_at'>[];
 }
 
@@ -86,9 +84,7 @@ export default DashboardArticlesIndex;
 
 const getServerSideProps: GetServerSideProps<
 	DashboardArticlesIndexProps
-> = async (ctx) => {
-	const session = await getSession(ctx);
-
+> = async () => {
 	const articles = await prisma.article.findMany({
 		select: {
 			author: true,
@@ -105,7 +101,6 @@ const getServerSideProps: GetServerSideProps<
 
 	return {
 		props: {
-			session,
 			articles,
 		},
 	};

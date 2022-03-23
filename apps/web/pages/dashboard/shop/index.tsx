@@ -1,15 +1,13 @@
 import { SHOP_LINKS } from 'navigation/dashboard/shop';
 import { GetServerSideProps } from 'next';
 import PageTitle from 'components/head/PageTitle';
-import { getSession } from 'next-auth/react';
 import prisma from 'prisma/client';
 import { ScrollArea, Table } from '@mantine/core';
 import ShopSessionRow from 'components/shopSessions/ShopSessionRow';
 import { ShopSession } from '@prisma/client';
-import { BasePageProps } from 'types/pages';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 
-interface DashboardShopIndexProps extends BasePageProps {
+interface DashboardShopIndexProps {
 	shopSessions: (Omit<
 		ShopSession,
 		'start' | 'end' | 'created_at' | 'updated_at'
@@ -54,9 +52,7 @@ export default DashboardShopIndex;
 
 export const getServerSideProps: GetServerSideProps<
 	DashboardShopIndexProps
-> = async (ctx) => {
-	const session = await getSession(ctx);
-
+> = async () => {
 	const shopSessions = await prisma.shopSession.findMany({
 		select: {
 			id: true,
@@ -71,7 +67,6 @@ export const getServerSideProps: GetServerSideProps<
 
 	return {
 		props: {
-			session,
 			shopSessions: shopSessions.map((s) => ({
 				...s,
 				start: s.start.toISOString(),

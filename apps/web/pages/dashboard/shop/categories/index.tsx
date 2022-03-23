@@ -18,14 +18,12 @@ import useProductCategoryForm, {
 } from 'hooks/forms/useProductCategoryForm';
 import { SHOP_LINKS } from 'navigation/dashboard/shop';
 import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
 import prisma from 'prisma/client';
 import { useCallback, useMemo, useState } from 'react';
-import { BasePageProps } from 'types/pages';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 
-interface DashboardShopCategoriesProps extends BasePageProps {
+interface DashboardShopCategoriesProps {
 	productCategories: Omit<ProductCategory, 'updated_at' | 'created_at'>[];
 }
 
@@ -182,16 +180,13 @@ export default DashboardShopCategories;
 
 export const getServerSideProps: GetServerSideProps<
 	DashboardShopCategoriesProps
-> = async (ctx) => {
-	const session = await getSession(ctx);
-
+> = async () => {
 	const productCategories = await prisma.productCategory.findMany({
 		select: { id: true, name: true },
 	});
 
 	return {
 		props: {
-			session,
 			productCategories,
 			hasSidebar: true,
 			sidebarLinks: SHOP_LINKS,

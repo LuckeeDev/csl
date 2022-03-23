@@ -7,10 +7,9 @@ import { DASHBOARD_LINKS } from 'navigation/dashboard';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import prisma from 'prisma/client';
-import { BasePageProps } from 'types/pages';
 import getSessionStatus from 'utils/shop/getSessionStatus';
 
-interface DashboardOrdersIndexProps extends BasePageProps {
+interface DashboardOrdersIndexProps {
 	shopSessions: (Omit<
 		ShopSession,
 		'start' | 'end' | 'created_at' | 'updated_at'

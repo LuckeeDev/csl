@@ -11,16 +11,14 @@ import useShopSessionForm, {
 } from 'hooks/forms/useShopSessionForm';
 import { SHOP_LINKS } from 'navigation/dashboard/shop';
 import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import prisma from 'prisma/client';
 import { CheckIcon } from '@modulz/radix-icons';
 import { LoadingOverlay } from '@mantine/core';
 import BackHeading from 'components/heading/BackHeading';
-import { BasePageProps } from 'types/pages';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 
-interface DashboardShopEditProps extends BasePageProps {
+interface DashboardShopEditProps {
 	shopSession: Omit<ShopSessionData, 'start' | 'end'> & {
 		start: string;
 		end: string;
@@ -85,8 +83,6 @@ export default DashboardShopEdit;
 export const getServerSideProps: GetServerSideProps<
 	DashboardShopEditProps
 > = async (ctx) => {
-	const session = await getSession(ctx);
-
 	const sessionID = ctx.params?.id as string;
 
 	const shopSession = await prisma.shopSession.findUnique({
@@ -106,7 +102,6 @@ export const getServerSideProps: GetServerSideProps<
 
 	return {
 		props: {
-			session,
 			shopSession: {
 				name: shopSession.name,
 				start: shopSession.start.toISOString(),

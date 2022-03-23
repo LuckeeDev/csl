@@ -11,10 +11,8 @@ import { ProductCategory, ProductDiscount, ShopSession } from '@prisma/client';
 import PageTitle from 'components/head/PageTitle';
 import { SHOP_LINKS } from 'navigation/dashboard/shop';
 import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
 import prisma from 'prisma/client';
 import { useCallback, useMemo, useState } from 'react';
-import { BasePageProps } from 'types/pages';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import ProductDiscountForm from 'components/forms/ProductDiscountForm';
 import useProductDiscountForm, {
@@ -25,7 +23,7 @@ import axios from 'axios';
 import { environment } from 'environments/environment';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 
-interface DashboardShopDiscountsProps extends BasePageProps {
+interface DashboardShopDiscountsProps {
 	productDiscounts: Omit<ProductDiscount, 'updated_at' | 'created_at'>[];
 	shopSessions: Pick<ShopSession, 'id' | 'name'>[];
 	productCategories: Pick<ProductCategory, 'id' | 'name'>[];
@@ -175,9 +173,7 @@ export default DashboardShopDiscounts;
 
 export const getServerSideProps: GetServerSideProps<
 	DashboardShopDiscountsProps
-> = async (ctx) => {
-	const session = await getSession(ctx);
-
+> = async () => {
 	const productDiscounts = await prisma.productDiscount.findMany();
 
 	const shopSessions = await prisma.shopSession.findMany({
@@ -189,7 +185,6 @@ export const getServerSideProps: GetServerSideProps<
 
 	return {
 		props: {
-			session,
 			productDiscounts: productDiscounts.map(
 				({ updated_at, created_at, ...c }) => c
 			),

@@ -15,12 +15,10 @@ import useArticleForm, {
 } from 'hooks/forms/useArticleForm';
 import { useRouter } from 'next/router';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
-import { getSession } from 'next-auth/react';
 import { useBooleanToggle } from '@mantine/hooks';
-import { BasePageProps } from 'types/pages';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 
-interface DashboardArticlesEditProps extends BasePageProps {
+interface DashboardArticlesEditProps {
 	article: ArticleData;
 }
 
@@ -79,8 +77,6 @@ export default DashboardArticlesEdit;
 export const getServerSideProps: GetServerSideProps<
 	DashboardArticlesEditProps
 > = async (ctx) => {
-	const session = await getSession(ctx);
-
 	const articleID = ctx.params?.id as string;
 
 	const article = await prisma.article.findUnique({
@@ -102,7 +98,6 @@ export const getServerSideProps: GetServerSideProps<
 
 	return {
 		props: {
-			session,
 			article,
 		},
 	};
