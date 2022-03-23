@@ -132,6 +132,7 @@ export const getServerSideProps: GetServerSideProps<
 > = async (ctx) => {
 	const shopSessionId = ctx.params?.id as string;
 	const session = await getSession(ctx);
+	const userId = session?.user.id;
 
 	const shopSession = await prisma.shopSession.findUnique({
 		where: { id: shopSessionId },
@@ -144,7 +145,7 @@ export const getServerSideProps: GetServerSideProps<
 		},
 	});
 
-	if (!shopSession) {
+	if (!shopSession || !session) {
 		return {
 			notFound: true,
 		};
@@ -166,6 +167,9 @@ export const getServerSideProps: GetServerSideProps<
 				shopSession: {
 					id: shopSessionId,
 				},
+			},
+			user: {
+				id: userId,
 			},
 		},
 		include: {
