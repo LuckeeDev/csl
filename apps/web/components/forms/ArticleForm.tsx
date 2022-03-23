@@ -36,10 +36,9 @@ export default function ArticleForm({ form, onSubmit }: ArticleFormProps) {
 				<Editor
 					id="content"
 					controls={[
-						['bold', 'italic', 'underline', 'link', 'image'],
+						['bold', 'italic', 'underline', 'link'],
 						['unorderedList', 'h1', 'h2', 'h3'],
 						['sup', 'sub'],
-						['alignLeft', 'alignCenter', 'alignRight'],
 					]}
 					value={form.values.content}
 					onChange={(val) => form.setFieldValue('content', val)}
