@@ -23,6 +23,21 @@ const patchQuerySchema = Joi.object({
 	articleId: Joi.string().required(),
 });
 
+handler.get(
+	session,
+	hasPermission(Permission.NEWS_EDITOR),
+	validate({ query: patchQuerySchema }),
+	async (req, res) => {
+		const articleId = req.query.articleId as string;
+
+		const article = await prisma.article.findUnique({
+			where: { id: articleId },
+		});
+
+		res.status(200).json(article);
+	}
+);
+
 handler.patch(
 	session,
 	hasPermission(Permission.NEWS_EDITOR),

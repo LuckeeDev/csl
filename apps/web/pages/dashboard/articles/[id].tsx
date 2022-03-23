@@ -1,36 +1,28 @@
-import { LoadingOverlay } from '@mantine/core';
 import { useNotifications } from '@mantine/notifications';
 import { Article } from '@prisma/client';
 import ArticleForm from 'components/forms/ArticleForm';
 import PageTitle from 'components/head/PageTitle';
 import BackHeading from 'components/heading/BackHeading';
-import { GetServerSideProps } from 'next';
-import prisma from 'prisma/client';
 import { CheckIcon } from '@modulz/radix-icons';
 import axios from 'axios';
 import { environment } from 'environments/environment';
-import useArticleForm, {
-	ArticleData,
-	ArticleFormValues,
-} from 'hooks/forms/useArticleForm';
+import useArticleForm, { ArticleFormValues } from 'hooks/forms/useArticleForm';
 import { useRouter } from 'next/router';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
-import { useBooleanToggle } from '@mantine/hooks';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
+import useSWR from 'swr';
+import { getArticle } from 'data/api/articles';
 
-interface DashboardArticlesEditProps {
-	article: ArticleData;
-}
-
-function DashboardArticlesEdit({ article }: DashboardArticlesEditProps) {
-	const form = useArticleForm(article);
-	const [overlay, toggleOverlay] = useBooleanToggle(false);
-	const notifications = useNotifications();
+function DashboardArticlesEdit() {
 	const router = useRouter();
+	const { data: article } = useSWR(
+		`/api/articles/${router.query.id}`,
+		getArticle
+	);
+	const form = useArticleForm(article);
+	const notifications = useNotifications();
 
 	async function onSubmit(val: ArticleFormValues) {
-		toggleOverlay();
-
 		const {
 			data: { title, content, author, readingTime },
 		} = await axios.patch<Article>(
@@ -52,53 +44,21 @@ function DashboardArticlesEdit({ article }: DashboardArticlesEditProps) {
 			icon: <CheckIcon />,
 			color: 'teal',
 		});
-
-		toggleOverlay();
 	}
 
 	return (
 		<DashboardPageContainer>
 			<PageTitle>Dashboard | Modifica articolo</PageTitle>
 
-			<LoadingOverlay visible={overlay} />
-
 			<BackHeading>Modifica articolo</BackHeading>
 
-			<ArticleForm form={form} onSubmit={onSubmit} />
+			{article && <ArticleForm form={form} onSubmit={onSubmit} />}
 		</DashboardPageContainer>
 	);
 }
 
 DashboardArticlesEdit.hasSidebar = true;
 DashboardArticlesEdit.sidebarLinks = ARTICLE_LINKS;
+DashboardArticlesEdit.hasLocalCache = true;
 
 export default DashboardArticlesEdit;
-
-export const getServerSideProps: GetServerSideProps<
-	DashboardArticlesEditProps
-> = async (ctx) => {
-	const articleID = ctx.params?.id as string;
-
-	const article = await prisma.article.findUnique({
-		where: { id: articleID },
-		select: {
-			title: true,
-			author: true,
-			content: true,
-			readingTime: true,
-			published: true,
-		},
-	});
-
-	if (!article) {
-		return {
-			notFound: true,
-		};
-	}
-
-	return {
-		props: {
-			article,
-		},
-	};
-};
