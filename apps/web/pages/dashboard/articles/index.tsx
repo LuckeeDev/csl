@@ -36,6 +36,7 @@ function DashboardArticlesIndex() {
 			optimisticData: {
 				articles: newArticles,
 			},
+			revalidate: false,
 		});
 
 		if (published) {

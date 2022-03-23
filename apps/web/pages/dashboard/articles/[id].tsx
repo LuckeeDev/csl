@@ -1,41 +1,44 @@
 import { useNotifications } from '@mantine/notifications';
-import { Article } from '@prisma/client';
 import ArticleForm from 'components/forms/ArticleForm';
 import PageTitle from 'components/head/PageTitle';
 import BackHeading from 'components/heading/BackHeading';
 import { CheckIcon } from '@modulz/radix-icons';
-import axios from 'axios';
-import { environment } from 'environments/environment';
 import useArticleForm, { ArticleFormValues } from 'hooks/forms/useArticleForm';
 import { useRouter } from 'next/router';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import useSWR from 'swr';
-import { getArticle } from 'data/api/articles';
+import { getArticle, updateSingleArticle } from 'data/api/articles';
+import useDataError from 'hooks/errors/useDataError';
+import { useMemo } from 'react';
 
 function DashboardArticlesEdit() {
 	const router = useRouter();
-	const { data: article } = useSWR(
-		`/api/articles/${router.query.id}`,
-		getArticle
+	const articleId = useMemo(() => router.query.id as string, [router.query]);
+	const {
+		data: article,
+		error,
+		mutate,
+	} = useSWR(`/api/articles/${router.query.id}`, getArticle);
+
+	const articleFormData = useMemo(
+		() =>
+			article && {
+				title: article.title,
+				content: article.content,
+				author: article.author,
+				readingTime: article.readingTime,
+			},
+		[article]
 	);
-	const form = useArticleForm(article);
+	const form = useArticleForm(articleFormData);
 	const notifications = useNotifications();
 
-	async function onSubmit(val: ArticleFormValues) {
-		const {
-			data: { title, content, author, readingTime },
-		} = await axios.patch<Article>(
-			`${environment.url}/api/articles/${router.query.id}`,
-			{ article: val },
-			{ withCredentials: true }
-		);
+	useDataError(error);
 
-		form.setValues({
-			title,
-			content,
-			author,
-			readingTime,
+	async function onSubmit(val: ArticleFormValues) {
+		mutate(updateSingleArticle({ ...val, id: articleId }), {
+			revalidate: false,
 		});
 
 		notifications.showNotification({

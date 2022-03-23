@@ -11,7 +11,7 @@ const DEFAULT_VALUES = {
 
 export type ArticleData = Omit<
 	Article,
-	'categoryId' | 'updated_at' | 'created_at' | 'id'
+	'categoryId' | 'published' | 'updated_at' | 'created_at' | 'id'
 >;
 
 export interface ArticleFormValues {
