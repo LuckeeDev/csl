@@ -5,28 +5,23 @@ import session from 'middlewares/session';
 import hasPermission from 'middlewares/hasPermission';
 import { Permission } from '@prisma/client';
 import { environment } from 'environments/environment';
-import joi from 'joi';
+import Joi from 'joi';
 import validate from 'middlewares/validate';
 import { AWSS3Params, AWSUploadFile, SignedAWSUploadFile } from 'types/aws';
 import prisma from 'prisma/client';
 
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
 
-const postBody = joi
-	.object({
-		files: joi
-			.array()
-			.items(
-				joi
-					.object({
-						fileName: joi.string().required(),
-						fileType: joi.string().required(),
-					})
-					.required()
-			)
-			.required(),
-	})
-	.required();
+const postBody = Joi.object({
+	files: Joi.array()
+		.items(
+			Joi.object({
+				fileName: Joi.string().required(),
+				fileType: Joi.string().required(),
+			}).required()
+		)
+		.required(),
+}).required();
 
 handler.post(
 	session,

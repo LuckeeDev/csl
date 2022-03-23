@@ -1,5 +1,5 @@
 import { Permission } from '@prisma/client';
-import joi from 'joi';
+import Joi from 'joi';
 import hasPermission from 'middlewares/hasPermission';
 import session from 'middlewares/session';
 import validate from 'middlewares/validate';
@@ -7,28 +7,24 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import prisma from 'prisma/client';
 
-const postBodySchema = joi.object({
-	shopSession: joi
-		.object({
-			name: joi.string().required(),
-			start: joi.date().required(),
-			end: joi.date().required(),
-		})
-		.required(),
+const postBodySchema = Joi.object({
+	shopSession: Joi.object({
+		name: Joi.string().required(),
+		start: Joi.date().required(),
+		end: Joi.date().required(),
+	}).required(),
 });
 
-const patchBodySchema = joi.object({
-	shopSession: joi
-		.object({
-			name: joi.string(),
-			start: joi.date(),
-			end: joi.date(),
-		})
-		.required(),
+const patchBodySchema = Joi.object({
+	shopSession: Joi.object({
+		name: Joi.string(),
+		start: Joi.date(),
+		end: Joi.date(),
+	}).required(),
 });
 
-const patchQuerySchema = joi.object({
-	shop: joi.array().length(1).items(joi.string()).required(),
+const patchQuerySchema = Joi.object({
+	shop: Joi.array().length(1).items(Joi.string()).required(),
 });
 
 const handler = nextConnect<NextApiRequest, NextApiResponse>();

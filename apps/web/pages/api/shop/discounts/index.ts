@@ -1,5 +1,5 @@
 import { Permission } from '@prisma/client';
-import joi from 'joi';
+import Joi from 'joi';
 import hasPermission from 'middlewares/hasPermission';
 import session from 'middlewares/session';
 import validate from 'middlewares/validate';
@@ -9,21 +9,17 @@ import prisma from 'prisma/client';
 
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
 
-const postBodySchema = joi
-	.object({
-		productDiscount: joi
-			.object({
-				name: joi.string().required(),
-				shopSessionId: joi.string().required(),
-				discountPercentage: joi.number().integer().required(),
-				requiredCategoryId: joi.string().required(),
-				requiredQuantity: joi.number().integer().required(),
-				discountedCategoryId: joi.string().required(),
-				discountedQuantity: joi.number().integer().required(),
-			})
-			.required(),
-	})
-	.required();
+const postBodySchema = Joi.object({
+	productDiscount: Joi.object({
+		name: Joi.string().required(),
+		shopSessionId: Joi.string().required(),
+		discountPercentage: Joi.number().integer().required(),
+		requiredCategoryId: Joi.string().required(),
+		requiredQuantity: Joi.number().integer().required(),
+		discountedCategoryId: Joi.string().required(),
+		discountedQuantity: Joi.number().integer().required(),
+	}).required(),
+}).required();
 
 handler.post(
 	session,

@@ -1,5 +1,5 @@
 import { Permission } from '@prisma/client';
-import joi from 'joi';
+import Joi from 'joi';
 import hasPermission from 'middlewares/hasPermission';
 import session from 'middlewares/session';
 import validate from 'middlewares/validate';
@@ -9,15 +9,11 @@ import prisma from 'prisma/client';
 
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
 
-const postBodySchema = joi
-	.object({
-		productCategory: joi
-			.object({
-				name: joi.string().required(),
-			})
-			.required(),
-	})
-	.required();
+const postBodySchema = Joi.object({
+	productCategory: Joi.object({
+		name: Joi.string().required(),
+	}).required(),
+}).required();
 
 handler.post(
 	session,

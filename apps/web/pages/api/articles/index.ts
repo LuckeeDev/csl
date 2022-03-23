@@ -1,6 +1,6 @@
 import connect from 'next-connect';
 import { NextApiRequest, NextApiResponse } from 'next';
-import Joi from 'Joi';
+import Joi from 'joi';
 import validate from 'middlewares/validate';
 import prisma from 'prisma/client';
 import session from 'middlewares/session';
