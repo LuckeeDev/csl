@@ -53,7 +53,8 @@ function DashboardUsers() {
 				icon: <Cross1Icon />,
 			});
 		}
-	}, [error, notifications]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [error]);
 
 	function onSubmit(val: GroupFormValues) {
 		mutate(createGroup(val, data?.groups ?? []), {
