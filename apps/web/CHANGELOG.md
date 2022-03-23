@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.9.8](https://github.com/LuckeeDev/csl/compare/v2.9.7...v2.9.8) (2022-03-23)
+
+
+### Bug Fixes
+
+* **swr:** automatically save to cache on unload ([daa5d4c](https://github.com/LuckeeDev/csl/commit/daa5d4c0d37e607fe46725e7b2b9d3992a179542))
+
+
+
 ## [2.9.7](https://github.com/LuckeeDev/csl/compare/v2.9.6...v2.9.7) (2022-03-23)
 
 
