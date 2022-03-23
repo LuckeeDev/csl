@@ -6,7 +6,7 @@ import { useNotifications } from '@mantine/notifications';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import useSWR from 'swr';
-import { getArticles, updateArticle } from 'data/api/articles';
+import { getArticles, setPublished } from 'data/api/articles';
 import { useEffect, useMemo } from 'react';
 import LoaderHeading from 'components/heading/LoaderHeading';
 
@@ -32,7 +32,7 @@ function DashboardArticlesIndex() {
 		const newArticles = [...articles];
 		newArticles[index] = { ...newArticles[index], published };
 
-		mutate(updateArticle({ id: articleId, published }), {
+		mutate(setPublished({ id: articleId, published }), {
 			optimisticData: {
 				articles: newArticles,
 			},

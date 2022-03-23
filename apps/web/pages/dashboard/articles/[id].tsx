@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import useSWR from 'swr';
-import { getArticle, updateSingleArticle } from 'data/api/articles';
+import { getArticle, updateArticle } from 'data/api/articles';
 import useDataError from 'hooks/errors/useDataError';
 import { useMemo } from 'react';
 
@@ -37,7 +37,7 @@ function DashboardArticlesEdit() {
 	useDataError(error);
 
 	async function onSubmit(val: ArticleFormValues) {
-		mutate(updateSingleArticle({ ...val, id: articleId }), {
+		mutate(updateArticle({ ...val, id: articleId }), {
 			revalidate: false,
 		});
 

@@ -10,13 +10,18 @@ export async function getArticles(url: string) {
 	return (await axios.get<{ articles: Article[] }>(url)).data;
 }
 
-export function updateArticle({
+export function setPublished({
 	id,
-	...articleData
-}: Partial<Article> & { id: string }) {
+	published,
+}: {
+	id: string;
+	published: boolean;
+}) {
 	return async (currentData: { articles: Article[] } | undefined) => {
 		const { data } = await axios.patch<Article>(`/api/articles/${id}`, {
-			article: articleData,
+			article: {
+				published,
+			},
 		});
 
 		const currentArticles = currentData?.articles ?? [];
@@ -29,7 +34,7 @@ export function updateArticle({
 	};
 }
 
-export function updateSingleArticle({
+export function updateArticle({
 	id,
 	...articleData
 }: ArticleFormValues & { id: string }) {
