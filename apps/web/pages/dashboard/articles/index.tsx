@@ -1,31 +1,42 @@
 import { ScrollArea, Table } from '@mantine/core';
-import { Article } from '@prisma/client';
-import axios from 'axios';
 import ArticleRow from 'components/articles/ArticleRow';
 import PageTitle from 'components/head/PageTitle';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import { useNotifications } from '@mantine/notifications';
-import { environment } from 'environments/environment';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import useSWR from 'swr';
-import { getArticles } from 'data/api/articles';
-import { useMemo } from 'react';
+import { getArticles, updateArticle } from 'data/api/articles';
+import { useEffect, useMemo } from 'react';
 import LoaderHeading from 'components/heading/LoaderHeading';
 
 function DashboardArticlesIndex() {
-	const { data } = useSWR('/api/articles', getArticles);
+	const { data, mutate, error } = useSWR('/api/articles', getArticles);
 	const notifications = useNotifications();
 	const articles = useMemo(() => data?.articles ?? [], [data]);
 
-	async function handlePublishChange(value: boolean, articleID: string) {
-		const {
-			data: { published },
-		} = await axios.patch<Article>(
-			`${environment.url}/api/articles/${articleID}`,
-			{ article: { published: value } },
-			{ withCredentials: true }
-		);
+	useEffect(() => {
+		if (error) {
+			notifications.showNotification({
+				title: 'Errore',
+				message: "C'è stato un errore nel caricamento dei dati",
+				color: 'red',
+				icon: <Cross1Icon />,
+			});
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [error]);
+
+	async function handlePublishChange(published: boolean, articleId: string) {
+		const index = articles.findIndex((a) => a.id === articleId);
+		const newArticles = [...articles];
+		newArticles[index] = { ...newArticles[index], published };
+
+		mutate(updateArticle({ id: articleId, published }), {
+			optimisticData: {
+				articles: newArticles,
+			},
+		});
 
 		if (published) {
 			notifications.showNotification({
