@@ -2,6 +2,25 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.9.5](https://github.com/LuckeeDev/csl/compare/v2.9.4...v2.9.5) (2022-03-23)
+
+
+### Bug Fixes
+
+* **articles:** remove some options in the rte ([1bda91a](https://github.com/LuckeeDev/csl/commit/1bda91a79c27e5aea550edb2d4892604932115c5))
+* **groups:** update useEffect only on error change ([a661747](https://github.com/LuckeeDev/csl/commit/a6617479551f4045e67d78e4a137e4a85fbcccd3))
+* **orders:** show only user orders ([da66271](https://github.com/LuckeeDev/csl/commit/da66271ed726471a25d6e00582ed05c1737d7bf4))
+
+
+### Performance Improvements
+
+* **articles:** mutate article data with swr ([e914822](https://github.com/LuckeeDev/csl/commit/e9148221593db5aadfcd4b1c9d4f85c58e4f85ee))
+* **articles:** use swr in articles page ([1f8e43b](https://github.com/LuckeeDev/csl/commit/1f8e43b4ab8d10137c84873985d264ebf5320309))
+* **articles:** use swr in edit article page ([56a54e4](https://github.com/LuckeeDev/csl/commit/56a54e4da7d3d18bace3e81a238602fb2b9e204d))
+* **ssr:** remove session check ([f781a92](https://github.com/LuckeeDev/csl/commit/f781a928845aed57fd8aa187a309e04a0e250196))
+
+
+
 ## [2.9.4](https://github.com/LuckeeDev/csl/compare/v2.9.3...v2.9.4) (2022-03-23)
 
 
