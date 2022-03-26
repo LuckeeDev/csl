@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.9.9](https://github.com/LuckeeDev/csl/compare/v2.9.8...v2.9.9) (2022-03-26)
+
+
+### Bug Fixes
+
+* **shop:** revalidate shop sessions every 60 seconds ([47e7983](https://github.com/LuckeeDev/csl/commit/47e7983bdd914b0d0d37446e621a0b855bd22f58))
+* **swr:** automatically save to cache on unload ([40dc303](https://github.com/LuckeeDev/csl/commit/40dc3038dba2299ec3ab90c7bf1d7fc3b73a4942))
+
+
+
 ## [2.9.8](https://github.com/LuckeeDev/csl/compare/v2.9.7...v2.9.8) (2022-03-23)
 
 
