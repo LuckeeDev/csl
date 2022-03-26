@@ -73,5 +73,6 @@ export const getStaticProps: GetStaticProps<ShopIndexProps> = async (ctx) => {
 				})
 			),
 		},
+		revalidate: 60,
 	};
 };
