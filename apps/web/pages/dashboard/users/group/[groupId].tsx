@@ -1,55 +1,90 @@
-import { Group } from '@prisma/client';
+import { ActionIcon, InputWrapper, TextInput } from '@mantine/core';
+import { useDebouncedValue } from '@mantine/hooks';
+import { CheckIcon, PlusIcon } from '@modulz/radix-icons';
+import { User } from '@prisma/client';
 import BackHeading from 'components/heading/BackHeading';
+import LoaderDiv from 'components/loader/LoaderDiv';
+import { getGroup, updateGroup } from 'data/api/groups';
+import { searchUser } from 'data/api/users';
+import useDataError from 'hooks/errors/useDataError';
 import { USERS_LINKS } from 'navigation/dashboard/users';
-import { GetServerSideProps } from 'next';
-import prisma from 'prisma/client';
+import { useRouter } from 'next/router';
+import { useMemo, useState } from 'react';
+import useSWR from 'swr';
 
-interface DashboardGroupProps {
-	group: Group;
-}
+function DashboardGroup() {
+	const router = useRouter();
+	const groupId = useMemo(() => router.query.groupId as string, [router.query]);
+	const [search, setSearch] = useState('');
+	const [debouncedSearchQuery] = useDebouncedValue(search, 500);
+	const { data: searchResult } = useSWR(
+		`/api/users?q=${debouncedSearchQuery}`,
+		searchUser
+	);
+	const { data, mutate, error } = useSWR(`/api/groups/${groupId}`, getGroup);
+	const notifications = useDataError(error);
 
-function DashboardGroup({ group }: DashboardGroupProps) {
+	function addManager(user: User) {
+		if (data?.group) {
+			mutate(updateGroup({ managersIds: [user.id] }, groupId), {
+				optimisticData: {
+					group: {
+						...data?.group,
+						managers: [...(data?.group.managers ?? []), user],
+					},
+				},
+				revalidate: false,
+			});
+
+			notifications.showNotification({
+				color: 'teal',
+				title: 'Gestore aggiunto',
+				message: "L'operazione è stata completata con successo",
+				icon: <CheckIcon />,
+			});
+		}
+	}
+
+	if (!data?.group) {
+		return <LoaderDiv />;
+	}
+
 	return (
 		<>
-			<BackHeading>{group.name}</BackHeading>
+			<BackHeading>{data.group.name}</BackHeading>
+
+			<h2 style={{ margin: 0 }}>Gestori</h2>
+
+			{data.group.managers?.length > 0 && (
+				<ul>
+					{data.group.managers.map((user, index) => (
+						<li key={index}>{user.email ?? user.name ?? user.id}</li>
+					))}
+				</ul>
+			)}
+
+			<InputWrapper label="Aggiungi gestori">
+				<TextInput
+					onChange={(e) => setSearch(e.currentTarget.value)}
+					value={search}
+					placeholder="Cerca un utente da aggiungere come gestore..."
+				/>
+			</InputWrapper>
+
+			{searchResult?.map((user, index) => (
+				<div style={{ display: 'flex', alignItems: 'center' }} key={index}>
+					{user.email ?? user.name ?? user.id}
+					<ActionIcon color="blue" onClick={() => addManager(user)}>
+						<PlusIcon />
+					</ActionIcon>
+				</div>
+			))}
 		</>
 	);
 }
 
 DashboardGroup.hasSidebar = true;
 DashboardGroup.sidebarLinks = USERS_LINKS;
+DashboardGroup.hasLocalCache = true;
 
 export default DashboardGroup;
-
-export const getServerSideProps: GetServerSideProps<
-	DashboardGroupProps
-> = async (ctx) => {
-	const groupId = ctx.params?.groupId as string;
-
-	if (groupId === 'none') {
-		const noGroup: Group = {
-			id: 'none',
-			name: 'Utenti senza gruppo',
-		};
-
-		return {
-			props: {
-				group: noGroup,
-			},
-		};
-	}
-
-	const group = await prisma.group.findUnique({ where: { id: groupId } });
-
-	if (!group) {
-		return {
-			notFound: true,
-		};
-	}
-
-	return {
-		props: {
-			group,
-		},
-	};
-};
