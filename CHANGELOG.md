@@ -2,6 +2,21 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.10.0](https://github.com/LuckeeDev/csl/compare/v2.9.9...v2.10.0) (2022-03-26)
+
+
+### Bug Fixes
+
+* **shop:** revalidate shop sessions every 60 seconds ([0f5cd59](https://github.com/LuckeeDev/csl/commit/0f5cd5965ab12f3271b34980454cd6c51da2e4f3))
+
+
+### Features
+
+* **users:** add managers to groups ([46911b9](https://github.com/LuckeeDev/csl/commit/46911b90e02a2a6467f3914804820b6fd86d5453))
+* **users:** search users in dashboard ([435b7bc](https://github.com/LuckeeDev/csl/commit/435b7bc0df0cebd33d2664b2d61c13ca186592d5))
+
+
+
 ## [2.9.9](https://github.com/LuckeeDev/csl/compare/v2.9.8...v2.9.9) (2022-03-26)
 
 
