@@ -72,7 +72,9 @@ const LoggedInButton = forwardRef<HTMLButtonElement, LoggedInButtonProps>(
 export default function UserButton() {
 	const { classes, theme } = useStyles();
 	const { data: session } = useSession();
-	const showUserImage = useMediaQuery(`(min-width: ${theme.breakpoints.xl}px)`);
+	const showUserImage = useMediaQuery(
+		`(max-width: ${theme.breakpoints.sm}px), (min-width: ${theme.breakpoints.xl}px)`
+	);
 
 	return (
 		<div
