@@ -87,9 +87,12 @@ export default function Wrapper({
 						justifyContent: 'space-between',
 						...(!hasSidebar && {
 							paddingLeft: 0,
-							paddingRight: 0,
-							paddingBottom: 0,
 						}),
+						...(isMobile && {
+							paddingLeft: 0,
+							paddingRight: 0,
+						}),
+						paddingBottom: 0,
 						[`@media (max-width: ${theme.breakpoints.sm}px)`]: {
 							paddingLeft: 0,
 						},
@@ -167,7 +170,7 @@ export default function Wrapper({
 			>
 				<DefaultPageWrapper>{children}</DefaultPageWrapper>
 
-				{!hasSidebar && <Footer />}
+				<Footer />
 			</AppShell>
 		</>
 	);

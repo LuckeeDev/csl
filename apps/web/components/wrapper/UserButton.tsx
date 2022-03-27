@@ -12,6 +12,7 @@ import {
 } from '@mantine/core';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { Session } from 'next-auth';
+import { useMediaQuery } from '@mantine/hooks';
 
 const useStyles = createStyles((theme) => ({
 	user: {
@@ -34,18 +35,24 @@ interface LoggedInButtonProps {
 	session: Session;
 	theme: MantineTheme;
 	classes: Record<'user', string>;
+	showUserImage: boolean;
 }
 
 // eslint-disable-next-line react/display-name
 const LoggedInButton = forwardRef<HTMLButtonElement, LoggedInButtonProps>(
-	({ session, theme, classes, ...others }: LoggedInButtonProps, ref) => (
+	(
+		{ session, theme, classes, showUserImage, ...others }: LoggedInButtonProps,
+		ref
+	) => (
 		<UnstyledButton ref={ref} className={classes.user} {...others}>
 			<Group>
-				<Avatar
-					src={session.user.image ?? undefined}
-					radius="xl"
-					imageProps={{ referrerPolicy: 'no-referrer' }}
-				/>
+				{showUserImage && (
+					<Avatar
+						src={session.user.image ?? undefined}
+						radius="xl"
+						imageProps={{ referrerPolicy: 'no-referrer' }}
+					/>
+				)}
 
 				<div style={{ flex: 1 }}>
 					<Text size="sm" weight={500}>
@@ -65,6 +72,7 @@ const LoggedInButton = forwardRef<HTMLButtonElement, LoggedInButtonProps>(
 export default function UserButton() {
 	const { classes, theme } = useStyles();
 	const { data: session } = useSession();
+	const showUserImage = useMediaQuery(`(min-width: ${theme.breakpoints.xl}px)`);
 
 	return (
 		<div
@@ -81,7 +89,12 @@ export default function UserButton() {
 				<Menu
 					sx={{ width: '100%' }}
 					control={
-						<LoggedInButton session={session} theme={theme} classes={classes} />
+						<LoggedInButton
+							showUserImage={showUserImage}
+							session={session}
+							theme={theme}
+							classes={classes}
+						/>
 					}
 				>
 					<Menu.Item color="red" onClick={() => signOut({ callbackUrl: '/' })}>

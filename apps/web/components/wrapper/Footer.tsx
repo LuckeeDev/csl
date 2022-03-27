@@ -7,7 +7,7 @@ const useStyles = createStyles((theme) => ({
 	footer: {
 		display: 'flex',
 		width: '100%',
-		height: '100px',
+		height: '98px',
 		borderTop: '1px solid #2C2E33',
 		padding: `${theme.spacing.xs}px 20%`,
 		alignItems: 'center',
