@@ -18,10 +18,13 @@ function DashboardGroup() {
 	const [search, setSearch] = useState('');
 	const [debouncedSearchQuery] = useDebouncedValue(search, 500);
 	const { data: searchResult } = useSWR(
-		`/api/users?q=${debouncedSearchQuery}`,
+		debouncedSearchQuery ? `/api/users?q=${debouncedSearchQuery}` : false,
 		searchUser
 	);
-	const { data, mutate, error } = useSWR(`/api/groups/${groupId}`, getGroup);
+	const { data, mutate, error } = useSWR(
+		groupId ? `/api/groups/${groupId}` : false,
+		getGroup
+	);
 	const notifications = useDataError(error);
 
 	function addManager(user: User) {
@@ -48,7 +51,7 @@ function DashboardGroup() {
 	return (
 		<DashboardPageContainer>
 			<PageHeading back loading={!data}>
-				{data?.group.name ?? 'Dettagli gruppo'}
+				{data?.group?.name ?? 'Dettagli gruppo'}
 			</PageHeading>
 
 			{data?.group && (
