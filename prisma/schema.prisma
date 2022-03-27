@@ -157,6 +157,9 @@ model Image {
     type String
     url  String
 
+    nativeWidth  Int?
+    nativeHeight Int?
+
     products Product[]
 
     updated_at DateTime @updatedAt
