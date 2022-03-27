@@ -2,7 +2,7 @@ import { Group, User } from '@prisma/client';
 import axios from 'axios';
 import { environment } from 'environments/environment';
 import { GroupFormValues } from 'hooks/forms/useGroupForm';
-import { ExtendedGroup } from 'types/groups';
+import { ExtendedGroup, UnlinkUser } from 'types/groups';
 
 export async function getGroups(url: string) {
 	return (
@@ -49,6 +49,28 @@ export function updateGroup(group: { managersIds: string[] }, groupId: string) {
 				};
 			};
 		}>(`${environment.url}/api/groups/${groupId}`, group);
+
+		return { group: data.group };
+	};
+}
+
+export function unlinkUsers(
+	type: UnlinkUser,
+	users: string[],
+	groupId: string
+) {
+	return async () => {
+		const { data } = await axios.patch<{
+			group: Group & {
+				managers: User[];
+				_count: {
+					users: number;
+				};
+			};
+		}>(`${environment.url}/api/groups/unlink/${groupId}`, {
+			unlink: type,
+			users,
+		});
 
 		return { group: data.group };
 	};
