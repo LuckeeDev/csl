@@ -1,6 +1,6 @@
 {
 	"name": "csl",
-	"version": "2.11.2",
+	"version": "2.12.0",
 	"license": "GPL-3.0",
 	"scripts": {
 		"dev": "nx serve",

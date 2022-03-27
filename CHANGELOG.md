@@ -2,6 +2,22 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.12.0](https://github.com/LuckeeDev/csl/compare/v2.11.2...v2.12.0) (2022-03-27)
+
+
+### Bug Fixes
+
+* **dashboard:** show user avatar on mobile ([0543aa8](https://github.com/LuckeeDev/csl/commit/0543aa8c0dcaae9918dff2cbf4981232575747b2))
+
+
+### Features
+
+* **articles:** create article categories ([d4bad9b](https://github.com/LuckeeDev/csl/commit/d4bad9b350996f7353726f878e7043f3d28a4fe6))
+* **articles:** delete article categories ([d3c954c](https://github.com/LuckeeDev/csl/commit/d3c954ccc3bbf5f41ed1db26c02b4610fa43ebf3))
+* **articles:** display article categories ([a2257c0](https://github.com/LuckeeDev/csl/commit/a2257c08dbf4f9d9886e65b1961cf0310749b8b2))
+
+
+
 ## [2.11.2](https://github.com/LuckeeDev/csl/compare/v2.11.1...v2.11.2) (2022-03-27)
 
 
