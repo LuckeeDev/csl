@@ -2,30 +2,18 @@ import { ScrollArea, Table } from '@mantine/core';
 import ArticleRow from 'components/articles/ArticleRow';
 import PageTitle from 'components/head/PageTitle';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
-import { useNotifications } from '@mantine/notifications';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import useSWR from 'swr';
 import { getArticles, setPublished } from 'data/api/articles';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import PageHeading from 'components/heading/PageHeading';
+import useDataError from 'hooks/errors/useDataError';
 
 function DashboardArticlesIndex() {
 	const { data, mutate, error } = useSWR('/api/articles', getArticles);
-	const notifications = useNotifications();
+	const notifications = useDataError(error);
 	const articles = useMemo(() => data?.articles ?? [], [data]);
-
-	useEffect(() => {
-		if (error) {
-			notifications.showNotification({
-				title: 'Errore',
-				message: "C'è stato un errore nel caricamento dei dati",
-				color: 'red',
-				icon: <Cross1Icon />,
-			});
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [error]);
 
 	async function handlePublishChange(published: boolean, articleId: string) {
 		const index = articles.findIndex((a) => a.id === articleId);

@@ -1,16 +1,18 @@
-import { ActionIcon, InputWrapper, TextInput } from '@mantine/core';
-import { useDebouncedValue } from '@mantine/hooks';
-import { CheckIcon, PlusIcon } from '@modulz/radix-icons';
-import { User } from '@prisma/client';
+import { ActionIcon, Button, InputWrapper, TextInput } from '@mantine/core';
+import { useClipboard, useDebouncedValue } from '@mantine/hooks';
+import { CheckIcon, Cross1Icon, PlusIcon } from '@modulz/radix-icons';
+import { Group, User } from '@prisma/client';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageHeading from 'components/heading/PageHeading';
-import { getGroup, updateGroup } from 'data/api/groups';
+import { getGroup, unlinkUsers, updateGroup } from 'data/api/groups';
 import { searchUser } from 'data/api/users';
+import { environment } from 'environments/environment';
 import useDataError from 'hooks/errors/useDataError';
 import { USERS_LINKS } from 'navigation/dashboard/users';
 import { useRouter } from 'next/router';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import useSWR from 'swr';
+import { UnlinkUser } from 'types/groups';
 
 function DashboardGroup() {
 	const router = useRouter();
@@ -26,6 +28,43 @@ function DashboardGroup() {
 		getGroup
 	);
 	const notifications = useDataError(error);
+	const clipboard = useClipboard();
+
+	function unlink(type: UnlinkUser, userIds: string[]) {
+		function getOptimisticData(
+			group: Group & { managers: User[]; _count: { users: number } }
+		) {
+			if (type === UnlinkUser.MANAGERS) {
+				const indexes = userIds.map((id) =>
+					group.managers.findIndex((user) => user.id === id)
+				);
+
+				for (const index of indexes) {
+					group.managers.splice(index, 1);
+				}
+			}
+
+			if (type === UnlinkUser.USERS) {
+				group._count.users = group._count.users - userIds.length;
+			}
+
+			return { group };
+		}
+
+		if (data?.group) {
+			mutate(unlinkUsers(type, userIds, groupId), {
+				optimisticData: getOptimisticData(data.group),
+				revalidate: false,
+			});
+
+			notifications.showNotification({
+				color: 'orange',
+				title: 'Gestore rimosso',
+				message: "L'operazione è stata completata con successo",
+				icon: <Cross1Icon />,
+			});
+		}
+	}
 
 	function addManager(user: User) {
 		if (data?.group) {
@@ -48,6 +87,18 @@ function DashboardGroup() {
 		}
 	}
 
+	const copyLinkToClipboard = useCallback(() => {
+		clipboard.copy(`${environment.url}/invite/${groupId}`);
+
+		notifications.showNotification({
+			title: 'Link copiato',
+			message: 'Ora puoi mandare questo link agli altri membri del gruppo',
+			color: 'teal',
+			icon: <CheckIcon />,
+		});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [groupId]);
+
 	return (
 		<DashboardPageContainer>
 			<PageHeading back loading={!data}>
@@ -55,13 +106,26 @@ function DashboardGroup() {
 			</PageHeading>
 
 			{data?.group && (
-				<>
+				<div>
 					<h2 style={{ margin: 0 }}>Gestori</h2>
 
 					{data.group.managers?.length > 0 && (
 						<ul>
 							{data.group.managers.map((user, index) => (
-								<li key={index}>{user.email ?? user.name ?? user.id}</li>
+								<li
+									style={{ display: 'list-item', alignItems: 'center' }}
+									key={index}
+								>
+									{user.email ?? user.name ?? user.id}
+
+									<ActionIcon
+										color="red"
+										onClick={() => unlink(UnlinkUser.MANAGERS, [user.id])}
+										style={{ display: 'inline-block' }}
+									>
+										<Cross1Icon />
+									</ActionIcon>
+								</li>
 							))}
 						</ul>
 					)}
@@ -82,7 +146,15 @@ function DashboardGroup() {
 							</ActionIcon>
 						</div>
 					))}
-				</>
+
+					<h2 style={{ marginBottom: 0 }}>Utenti: {data.group._count.users}</h2>
+
+					{data?.group && (
+						<Button size="xs" onClick={copyLinkToClipboard}>
+							Copia link d&apos;invito
+						</Button>
+					)}
+				</div>
 			)}
 		</DashboardPageContainer>
 	);

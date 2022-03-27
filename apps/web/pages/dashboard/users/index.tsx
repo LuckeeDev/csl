@@ -1,17 +1,17 @@
 import { createStyles, Pagination, ScrollArea, Table } from '@mantine/core';
-import { useNotifications } from '@mantine/notifications';
-import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
+import { CheckIcon } from '@modulz/radix-icons';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageTitle from 'components/head/PageTitle';
 import GroupRow from 'components/tableRows/GroupRow';
 import useQueryState from 'hooks/router/useQueryState';
 import useGroupForm, { GroupFormValues } from 'hooks/forms/useGroupForm';
 import { USERS_LINKS } from 'navigation/dashboard/users';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import useSWR from 'swr';
 import { createGroup, getGroups } from 'data/api/groups';
 import GroupForm from 'components/forms/GroupForm';
 import PageHeading from 'components/heading/PageHeading';
+import useDataError from 'hooks/errors/useDataError';
 
 const useStyles = createStyles((theme) => ({
 	textInput: {
@@ -25,11 +25,11 @@ function DashboardUsers() {
 	const { classes } = useStyles();
 	const [pageIndex, setPageIndex] = useQueryState<number>('page', 1);
 	const form = useGroupForm();
-	const notifications = useNotifications();
 	const { data, mutate, error } = useSWR(
 		`/api/groups?page=${pageIndex}`,
 		getGroups
 	);
+	const notifications = useDataError(error);
 
 	const paginationTotal = useMemo(
 		() => Math.ceil((data?.groupsCount ?? 20) / 20),
@@ -43,18 +43,6 @@ function DashboardUsers() {
 			)) ?? [],
 		[data?.groups]
 	);
-
-	useEffect(() => {
-		if (error) {
-			notifications.showNotification({
-				title: 'Errore',
-				message: "C'è stato un errore nel caricamento dei dati",
-				color: 'red',
-				icon: <Cross1Icon />,
-			});
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [error]);
 
 	function onSubmit(val: GroupFormValues) {
 		mutate(createGroup(val, data?.groups ?? []), {
