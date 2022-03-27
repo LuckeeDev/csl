@@ -4,10 +4,12 @@ import ColorBlock from './ColorBlock';
 
 interface ArticleCategoryRowProps {
 	articleCategory: ArticleCategory & { _count: { articles: number } };
+	onDelete: (id: string) => void;
 }
 
 export default function ArticleCategoryRow({
 	articleCategory,
+	onDelete,
 }: ArticleCategoryRowProps) {
 	return (
 		<tr>
@@ -17,7 +19,9 @@ export default function ArticleCategoryRow({
 			</td>
 			<td>{articleCategory._count.articles}</td>
 			<td>
-				<Button color="red">Elimina</Button>
+				<Button color="red" onClick={() => onDelete(articleCategory.id)}>
+					Elimina
+				</Button>
 			</td>
 		</tr>
 	);

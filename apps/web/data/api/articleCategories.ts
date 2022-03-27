@@ -35,3 +35,18 @@ export function createArticleCategory(data: NewCategoryFormValues) {
 		return currentData;
 	};
 }
+
+export function deleteArticleCategory(
+	id: string,
+	currentData: (ArticleCategory & { _count: { articles: number } })[]
+) {
+	return async () => {
+		await axios.delete(`${environment.url}/api/article-categories/${id}`);
+
+		const index = currentData.findIndex((c) => c.id === id);
+
+		currentData.splice(index, 1);
+
+		return currentData;
+	};
+}

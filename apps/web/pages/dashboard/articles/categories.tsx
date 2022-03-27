@@ -6,13 +6,14 @@ import {
 	TextInput,
 } from '@mantine/core';
 import { joiResolver, useForm } from '@mantine/form';
-import { CheckIcon } from '@modulz/radix-icons';
+import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageTitle from 'components/head/PageTitle';
 import PageHeading from 'components/heading/PageHeading';
 import ArticleCategoryRow from 'components/tableRows/ArticleCategoryRow';
 import {
 	createArticleCategory,
+	deleteArticleCategory,
 	getArticleCategories,
 } from 'data/api/articleCategories';
 import useDataError from 'hooks/errors/useDataError';
@@ -70,11 +71,36 @@ function DashboardArticlesCategories() {
 		});
 	}
 
+	function handleDelete(id: string) {
+		const optimisticData = [...(data ?? [])];
+
+		const index = optimisticData.findIndex((c) => c.id === id);
+
+		optimisticData.splice(index, 1);
+
+		mutate(deleteArticleCategory(id, data ?? []), {
+			optimisticData,
+			revalidate: false,
+		});
+
+		notifications.showNotification({
+			color: 'orange',
+			icon: <Cross1Icon />,
+			title: 'Categoria eliminata',
+			message: 'La categoria e gli articoli connessi sono stati eliminati',
+		});
+	}
+
 	const rows = useMemo(
 		() =>
 			data?.map((c, index) => (
-				<ArticleCategoryRow key={index} articleCategory={c} />
+				<ArticleCategoryRow
+					onDelete={handleDelete}
+					key={index}
+					articleCategory={c}
+				/>
 			)) ?? [],
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[data]
 	);
 

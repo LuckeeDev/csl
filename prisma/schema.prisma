@@ -68,7 +68,7 @@ model Article {
     readingTime Int
     published   Boolean @default(false)
 
-    category   ArticleCategory? @relation(fields: [categoryId], references: [id])
+    category   ArticleCategory? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
     categoryId String?
 
     updated_at DateTime @updatedAt
