@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.11.2](https://github.com/LuckeeDev/csl/compare/v2.11.1...v2.11.2) (2022-03-27)
+
+
+### Bug Fixes
+
+* **products:** fetch image dimensions ([185399c](https://github.com/LuckeeDev/csl/commit/185399c9886361ca81a3162d3f59025494d71d3b))
+
+
+
 ## [2.11.1](https://github.com/LuckeeDev/csl/compare/v2.11.0...v2.11.1) (2022-03-27)
 
 
