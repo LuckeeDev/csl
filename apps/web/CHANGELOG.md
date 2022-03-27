@@ -2,6 +2,22 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.11.0](https://github.com/LuckeeDev/csl/compare/v2.10.1...v2.11.0) (2022-03-27)
+
+
+### Bug Fixes
+
+* **dashboard:** close sidebar on mobile navigation ([1b2315a](https://github.com/LuckeeDev/csl/commit/1b2315a1f8b5f2892c4b47682dcb93b75fe10504))
+* **users:** display user count ([e1a09bd](https://github.com/LuckeeDev/csl/commit/e1a09bd02b1897726bbebae24e48e14a63c5c526))
+
+
+### Features
+
+* **users:** create invite link ([7b9eeaa](https://github.com/LuckeeDev/csl/commit/7b9eeaa641b779afdeaf3fbfbeeca46292943563))
+* **users:** unlink manager from group ([827bd25](https://github.com/LuckeeDev/csl/commit/827bd253339dd0950b2769435cc7f0a12a1ef7d8))
+
+
+
 ## [2.10.1](https://github.com/LuckeeDev/csl/compare/v2.10.0...v2.10.1) (2022-03-27)
 
 
