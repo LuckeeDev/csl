@@ -105,6 +105,8 @@ export const getServerSideProps: GetServerSideProps<
 					name: true,
 					type: true,
 					url: true,
+					nativeHeight: true,
+					nativeWidth: true,
 				},
 			},
 		},

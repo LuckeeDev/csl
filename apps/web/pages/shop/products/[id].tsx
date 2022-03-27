@@ -161,6 +161,8 @@ export const getStaticProps: GetStaticProps<ShopProductPageProps> = async (
 					name: true,
 					type: true,
 					url: true,
+					nativeHeight: true,
+					nativeWidth: true,
 				},
 			},
 			category: {
