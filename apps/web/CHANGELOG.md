@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.11.1](https://github.com/LuckeeDev/csl/compare/v2.11.0...v2.11.1) (2022-03-27)
+
+
+### Bug Fixes
+
+* **dashboard:** show footer in dashboard ([2f006b8](https://github.com/LuckeeDev/csl/commit/2f006b8b0a43b74e95b9952f7f3556330a5a7e76))
+
+
+
 # [2.11.0](https://github.com/LuckeeDev/csl/compare/v2.10.1...v2.11.0) (2022-03-27)
 
 
