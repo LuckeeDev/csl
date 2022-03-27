@@ -1,10 +1,10 @@
-import BackHeading from 'components/heading/BackHeading';
+import PageHeading from 'components/heading/PageHeading';
 import { USERS_LINKS } from 'navigation/dashboard/users';
 
 function DashboardGroup() {
 	return (
 		<>
-			<BackHeading>Dettagli utente</BackHeading>
+			<PageHeading back>Dettagli utente</PageHeading>
 		</>
 	);
 }

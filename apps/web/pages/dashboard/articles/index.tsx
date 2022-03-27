@@ -8,7 +8,7 @@ import DashboardPageContainer from 'components/containers/DashboardPageContainer
 import useSWR from 'swr';
 import { getArticles, setPublished } from 'data/api/articles';
 import { useEffect, useMemo } from 'react';
-import LoaderHeading from 'components/heading/LoaderHeading';
+import PageHeading from 'components/heading/PageHeading';
 
 function DashboardArticlesIndex() {
 	const { data, mutate, error } = useSWR('/api/articles', getArticles);
@@ -68,7 +68,7 @@ function DashboardArticlesIndex() {
 		<DashboardPageContainer>
 			<PageTitle>Dashboard | Articoli</PageTitle>
 
-			<LoaderHeading loading={!data?.articles}>Articoli</LoaderHeading>
+			<PageHeading loading={!data?.articles}>Articoli</PageHeading>
 
 			<ScrollArea>
 				<Table sx={{ minWidth: 800 }}>

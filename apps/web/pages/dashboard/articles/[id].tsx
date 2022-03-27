@@ -1,7 +1,6 @@
 import { useNotifications } from '@mantine/notifications';
 import ArticleForm from 'components/forms/ArticleForm';
 import PageTitle from 'components/head/PageTitle';
-import BackHeading from 'components/heading/BackHeading';
 import { CheckIcon } from '@modulz/radix-icons';
 import useArticleForm, { ArticleFormValues } from 'hooks/forms/useArticleForm';
 import { useRouter } from 'next/router';
@@ -11,6 +10,7 @@ import useSWR from 'swr';
 import { getArticle, updateArticle } from 'data/api/articles';
 import useDataError from 'hooks/errors/useDataError';
 import { useMemo } from 'react';
+import PageHeading from 'components/heading/PageHeading';
 
 function DashboardArticlesEdit() {
 	const router = useRouter();
@@ -53,7 +53,7 @@ function DashboardArticlesEdit() {
 		<DashboardPageContainer>
 			<PageTitle>Dashboard | Modifica articolo</PageTitle>
 
-			<BackHeading>Modifica articolo</BackHeading>
+			<PageHeading back>Modifica articolo</PageHeading>
 
 			{article && <ArticleForm form={form} onSubmit={onSubmit} />}
 		</DashboardPageContainer>

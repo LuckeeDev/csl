@@ -12,9 +12,11 @@ export default function GroupRow({ group }: GroupRowProps) {
 			<td>{group._count.users}</td>
 			<td>{group._count.managers}</td>
 			<td>
-				<ButtonLink href={`/dashboard/users/group/${group.id}`}>
-					Gestisci
-				</ButtonLink>
+				{group.id !== 'none' && (
+					<ButtonLink href={`/dashboard/users/group/${group.id}`}>
+						Gestisci
+					</ButtonLink>
+				)}
 			</td>
 		</tr>
 	);

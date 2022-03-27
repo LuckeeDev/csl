@@ -2,8 +2,8 @@ import { ActionIcon, InputWrapper, TextInput } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 import { CheckIcon, PlusIcon } from '@modulz/radix-icons';
 import { User } from '@prisma/client';
-import BackHeading from 'components/heading/BackHeading';
-import LoaderDiv from 'components/loader/LoaderDiv';
+import DashboardPageContainer from 'components/containers/DashboardPageContainer';
+import PageHeading from 'components/heading/PageHeading';
 import { getGroup, updateGroup } from 'data/api/groups';
 import { searchUser } from 'data/api/users';
 import useDataError from 'hooks/errors/useDataError';
@@ -45,41 +45,43 @@ function DashboardGroup() {
 		}
 	}
 
-	if (!data?.group) {
-		return <LoaderDiv />;
-	}
-
 	return (
-		<>
-			<BackHeading>{data.group.name}</BackHeading>
+		<DashboardPageContainer>
+			<PageHeading back loading={!data}>
+				{data?.group.name ?? 'Dettagli gruppo'}
+			</PageHeading>
 
-			<h2 style={{ margin: 0 }}>Gestori</h2>
+			{data?.group && (
+				<>
+					<h2 style={{ margin: 0 }}>Gestori</h2>
 
-			{data.group.managers?.length > 0 && (
-				<ul>
-					{data.group.managers.map((user, index) => (
-						<li key={index}>{user.email ?? user.name ?? user.id}</li>
+					{data.group.managers?.length > 0 && (
+						<ul>
+							{data.group.managers.map((user, index) => (
+								<li key={index}>{user.email ?? user.name ?? user.id}</li>
+							))}
+						</ul>
+					)}
+
+					<InputWrapper label="Aggiungi gestori">
+						<TextInput
+							onChange={(e) => setSearch(e.currentTarget.value)}
+							value={search}
+							placeholder="Cerca un utente da aggiungere come gestore..."
+						/>
+					</InputWrapper>
+
+					{searchResult?.map((user, index) => (
+						<div style={{ display: 'flex', alignItems: 'center' }} key={index}>
+							{user.email ?? user.name ?? user.id}
+							<ActionIcon color="blue" onClick={() => addManager(user)}>
+								<PlusIcon />
+							</ActionIcon>
+						</div>
 					))}
-				</ul>
+				</>
 			)}
-
-			<InputWrapper label="Aggiungi gestori">
-				<TextInput
-					onChange={(e) => setSearch(e.currentTarget.value)}
-					value={search}
-					placeholder="Cerca un utente da aggiungere come gestore..."
-				/>
-			</InputWrapper>
-
-			{searchResult?.map((user, index) => (
-				<div style={{ display: 'flex', alignItems: 'center' }} key={index}>
-					{user.email ?? user.name ?? user.id}
-					<ActionIcon color="blue" onClick={() => addManager(user)}>
-						<PlusIcon />
-					</ActionIcon>
-				</div>
-			))}
-		</>
+		</DashboardPageContainer>
 	);
 }
 

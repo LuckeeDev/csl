@@ -6,7 +6,6 @@ import axios from 'axios';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import ProductForm from 'components/forms/ProductForm';
 import PageTitle from 'components/head/PageTitle';
-import BackHeading from 'components/heading/BackHeading';
 import { environment } from 'environments/environment';
 import useProductForm, { ProductFormValues } from 'hooks/forms/useProductForm';
 import { SHOP_LINKS } from 'navigation/dashboard/shop';
@@ -16,6 +15,7 @@ import prisma from 'prisma/client';
 import { useMemo } from 'react';
 import { CheckIcon } from '@modulz/radix-icons';
 import { ImageData } from 'types/image';
+import PageHeading from 'components/heading/PageHeading';
 
 interface DashboardShopProductsEditProps {
 	shopSessions: Pick<ShopSession, 'id' | 'name'>[];
@@ -66,7 +66,7 @@ function DashboardShopProductsEdit({
 
 			<LoadingOverlay visible={overlay} />
 
-			<BackHeading>Modifica prodotto</BackHeading>
+			<PageHeading back>Modifica prodotto</PageHeading>
 
 			<ProductForm
 				existingImages={existingImages}

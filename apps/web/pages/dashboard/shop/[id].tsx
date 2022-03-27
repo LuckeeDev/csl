@@ -15,8 +15,8 @@ import { useRouter } from 'next/router';
 import prisma from 'prisma/client';
 import { CheckIcon } from '@modulz/radix-icons';
 import { LoadingOverlay } from '@mantine/core';
-import BackHeading from 'components/heading/BackHeading';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
+import PageHeading from 'components/heading/PageHeading';
 
 interface DashboardShopEditProps {
 	shopSession: Omit<ShopSessionData, 'start' | 'end'> & {
@@ -68,7 +68,7 @@ function DashboardShopEdit({ shopSession }: DashboardShopEditProps) {
 
 			<LoadingOverlay visible={overlay} />
 
-			<BackHeading>Modifica sessione</BackHeading>
+			<PageHeading back>Modifica sessione</PageHeading>
 
 			<ShopSessionForm form={form} onSubmit={onSubmit} />
 		</DashboardPageContainer>

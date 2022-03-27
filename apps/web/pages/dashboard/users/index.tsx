@@ -11,7 +11,7 @@ import { useEffect, useMemo } from 'react';
 import useSWR from 'swr';
 import { createGroup, getGroups } from 'data/api/groups';
 import GroupForm from 'components/forms/GroupForm';
-import LoaderHeading from 'components/heading/LoaderHeading';
+import PageHeading from 'components/heading/PageHeading';
 
 const useStyles = createStyles((theme) => ({
 	textInput: {
@@ -82,7 +82,7 @@ function DashboardUsers() {
 		<DashboardPageContainer>
 			<PageTitle>Dashboard | Elenco gruppi</PageTitle>
 
-			<LoaderHeading loading={!data?.groups}>Elenco gruppi</LoaderHeading>
+			<PageHeading loading={!data?.groups}>Elenco gruppi</PageHeading>
 
 			<ScrollArea>
 				<Table sx={{ minWidth: '800px' }}>
