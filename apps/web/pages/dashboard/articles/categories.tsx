@@ -6,17 +6,22 @@ import {
 	TextInput,
 } from '@mantine/core';
 import { joiResolver, useForm } from '@mantine/form';
+import { CheckIcon } from '@modulz/radix-icons';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageTitle from 'components/head/PageTitle';
 import PageHeading from 'components/heading/PageHeading';
 import ArticleCategoryRow from 'components/tableRows/ArticleCategoryRow';
-import { getArticleCategories } from 'data/api/articles';
+import {
+	createArticleCategory,
+	getArticleCategories,
+} from 'data/api/articleCategories';
+import useDataError from 'hooks/errors/useDataError';
 import Joi from 'joi';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
 import { useMemo } from 'react';
 import useSWR from 'swr';
 
-interface NewCategoryFormValues {
+export interface NewCategoryFormValues {
 	name: string;
 	color: string;
 }
@@ -29,7 +34,11 @@ const newCategoryFormSchema = Joi.object({
 });
 
 function DashboardArticlesCategories() {
-	const { data } = useSWR('/api/article-categories', getArticleCategories);
+	const { data, mutate, error } = useSWR(
+		'/api/article-categories',
+		getArticleCategories
+	);
+	const notifications = useDataError(error);
 	const form = useForm<NewCategoryFormValues>({
 		initialValues: {
 			name: '',
@@ -39,7 +48,26 @@ function DashboardArticlesCategories() {
 	});
 
 	function handleSubmit(val: NewCategoryFormValues) {
-		console.log(val);
+		mutate(createArticleCategory(val), {
+			optimisticData: [
+				...(data ?? []),
+				{
+					...val,
+					_count: { articles: 0 },
+					id: 'new',
+					updated_at: new Date(),
+					created_at: new Date(),
+				},
+			],
+			revalidate: false,
+		});
+
+		notifications.showNotification({
+			color: 'teal',
+			title: 'Categoria creata',
+			message: "L'operazione è stata completata con successo",
+			icon: <CheckIcon />,
+		});
 	}
 
 	const rows = useMemo(
