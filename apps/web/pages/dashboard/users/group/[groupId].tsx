@@ -1,15 +1,16 @@
-import { ActionIcon, InputWrapper, TextInput } from '@mantine/core';
-import { useDebouncedValue } from '@mantine/hooks';
+import { ActionIcon, Button, InputWrapper, TextInput } from '@mantine/core';
+import { useClipboard, useDebouncedValue } from '@mantine/hooks';
 import { CheckIcon, Cross1Icon, PlusIcon } from '@modulz/radix-icons';
 import { Group, User } from '@prisma/client';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageHeading from 'components/heading/PageHeading';
 import { getGroup, unlinkUsers, updateGroup } from 'data/api/groups';
 import { searchUser } from 'data/api/users';
+import { environment } from 'environments/environment';
 import useDataError from 'hooks/errors/useDataError';
 import { USERS_LINKS } from 'navigation/dashboard/users';
 import { useRouter } from 'next/router';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import useSWR from 'swr';
 import { UnlinkUser } from 'types/groups';
 
@@ -27,6 +28,7 @@ function DashboardGroup() {
 		getGroup
 	);
 	const notifications = useDataError(error);
+	const clipboard = useClipboard();
 
 	function unlink(type: UnlinkUser, userIds: string[]) {
 		function getOptimisticData(
@@ -85,6 +87,18 @@ function DashboardGroup() {
 		}
 	}
 
+	const copyLinkToClipboard = useCallback(() => {
+		clipboard.copy(`${environment.url}/invite/${groupId}`);
+
+		notifications.showNotification({
+			title: 'Link copiato',
+			message: 'Ora puoi mandare questo link agli altri membri del gruppo',
+			color: 'teal',
+			icon: <CheckIcon />,
+		});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [groupId]);
+
 	return (
 		<DashboardPageContainer>
 			<PageHeading back loading={!data}>
@@ -92,7 +106,7 @@ function DashboardGroup() {
 			</PageHeading>
 
 			{data?.group && (
-				<>
+				<div>
 					<h2 style={{ margin: 0 }}>Gestori</h2>
 
 					{data.group.managers?.length > 0 && (
@@ -133,8 +147,14 @@ function DashboardGroup() {
 						</div>
 					))}
 
-					<h2>Utenti: {data.group._count.users}</h2>
-				</>
+					<h2 style={{ marginBottom: 0 }}>Utenti: {data.group._count.users}</h2>
+
+					{data?.group && (
+						<Button size="xs" onClick={copyLinkToClipboard}>
+							Copia link d&apos;invito
+						</Button>
+					)}
+				</div>
 			)}
 		</DashboardPageContainer>
 	);
