@@ -132,6 +132,8 @@ function DashboardGroup() {
 							</ActionIcon>
 						</div>
 					))}
+
+					<h2>Utenti: {data.group._count.users}</h2>
 				</>
 			)}
 		</DashboardPageContainer>
