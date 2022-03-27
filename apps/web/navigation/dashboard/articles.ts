@@ -22,4 +22,11 @@ export const ARTICLE_LINKS: LinkData[] = [
 		href: '/dashboard/articles/new',
 		requiredPermissions: [],
 	},
+	{
+		icon: 'list',
+		color: 'teal',
+		label: 'Categorie',
+		href: '/dashboard/articles/categories',
+		requiredPermissions: [],
+	},
 ];

@@ -1,4 +1,3 @@
-import { useNotifications } from '@mantine/notifications';
 import ArticleForm from 'components/forms/ArticleForm';
 import PageTitle from 'components/head/PageTitle';
 import { CheckIcon } from '@modulz/radix-icons';
@@ -19,7 +18,10 @@ function DashboardArticlesEdit() {
 		data: article,
 		error,
 		mutate,
-	} = useSWR(`/api/articles/${router.query.id}`, getArticle);
+	} = useSWR(
+		router.query.id ? `/api/articles/${router.query.id}` : false,
+		getArticle
+	);
 
 	const articleFormData = useMemo(
 		() =>
@@ -32,9 +34,7 @@ function DashboardArticlesEdit() {
 		[article]
 	);
 	const form = useArticleForm(articleFormData);
-	const notifications = useNotifications();
-
-	useDataError(error);
+	const notifications = useDataError(error);
 
 	async function onSubmit(val: ArticleFormValues) {
 		mutate(updateArticle({ ...val, id: articleId }), {

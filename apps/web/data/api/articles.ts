@@ -1,4 +1,4 @@
-import { Article } from '@prisma/client';
+import { Article, ArticleCategory } from '@prisma/client';
 import axios from 'axios';
 import { ArticleFormValues } from 'hooks/forms/useArticleForm';
 
@@ -45,4 +45,10 @@ export function updateArticle({
 
 		return data;
 	};
+}
+
+export async function getArticleCategories(url: string) {
+	return (
+		await axios.get<(ArticleCategory & { _count: { articles: number } })[]>(url)
+	).data;
 }
