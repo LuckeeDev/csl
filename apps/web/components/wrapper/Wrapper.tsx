@@ -6,7 +6,7 @@ import {
 	Burger,
 	useMantineTheme,
 } from '@mantine/core';
-import { ReactNode, useMemo, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 import SideLinks from './SideLinks';
 import UserButton from './UserButton';
 import ButtonLink from 'components/links/ButtonLink';
@@ -19,6 +19,8 @@ import Link from 'next/link';
 import TextLink from 'components/links/TextLink';
 import Footer from './Footer';
 import DefaultPageWrapper from './DefaultPageWrapper';
+import { useMediaQuery } from '@mantine/hooks';
+import { useRouter } from 'next/router';
 
 interface WrapperProps {
 	children: ReactNode;
@@ -31,9 +33,25 @@ export default function Wrapper({
 	hasSidebar,
 	sidebarLinks,
 }: WrapperProps) {
-	const [opened, setOpened] = useState(false);
+	const [open, setOpen] = useState(false);
 	const theme = useMantineTheme();
 	const { data: session, status } = useSession();
+	const router = useRouter();
+	const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px)`);
+
+	useEffect(() => {
+		function handleNavClose() {
+			if (isMobile && open) {
+				setOpen(false);
+			}
+		}
+
+		router.events.on('routeChangeComplete', handleNavClose);
+
+		return () => {
+			router.events.off('routeChangeComplete', handleNavClose);
+		};
+	}, [router, isMobile, open]);
 
 	const links: LinkData[] = useMemo(() => {
 		if (!sidebarLinks || status === 'loading') {
@@ -82,7 +100,7 @@ export default function Wrapper({
 						<Navbar
 							p="md"
 							hiddenBreakpoint="sm"
-							hidden={!opened}
+							hidden={!open}
 							width={{ sm: 300, lg: 400 }}
 						>
 							<Navbar.Section grow>
@@ -119,8 +137,8 @@ export default function Wrapper({
 								{hasSidebar && sidebarLinks && (
 									<MediaQuery largerThan="sm" styles={{ display: 'none' }}>
 										<Burger
-											opened={opened}
-											onClick={() => setOpened((o) => !o)}
+											opened={open}
+											onClick={() => setOpen((o) => !o)}
 											size="sm"
 											color={theme.colors.gray[6]}
 										/>
