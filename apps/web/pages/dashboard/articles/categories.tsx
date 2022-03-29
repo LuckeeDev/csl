@@ -2,6 +2,7 @@ import {
 	Button,
 	ColorInput,
 	InputWrapper,
+	ScrollArea,
 	Table,
 	TextInput,
 } from '@mantine/core';
@@ -110,49 +111,51 @@ function DashboardArticlesCategories() {
 
 			<PageHeading>Categorie</PageHeading>
 
-			<Table>
-				<thead>
-					<tr>
-						<th>Nome</th>
-						<th>Colore</th>
-						<th>Articoli</th>
-						<th>Azioni</th>
-					</tr>
-				</thead>
+			<ScrollArea>
+				<Table style={{ minWidth: '800px' }}>
+					<thead>
+						<tr>
+							<th>Nome</th>
+							<th>Colore</th>
+							<th>Articoli</th>
+							<th>Azioni</th>
+						</tr>
+					</thead>
 
-				<tbody>
-					{rows}
-					<tr>
-						<td>
-							<InputWrapper label="Nuova categoria" required>
-								<TextInput
-									form="article-category-form"
-									placeholder="Inserisci il nome della nuova categoria..."
-									{...form.getInputProps('name')}
-								/>
-							</InputWrapper>
-						</td>
+					<tbody>
+						{rows}
+						<tr>
+							<td>
+								<InputWrapper label="Nuova categoria" required>
+									<TextInput
+										form="article-category-form"
+										placeholder="Inserisci il nome della nuova categoria..."
+										{...form.getInputProps('name')}
+									/>
+								</InputWrapper>
+							</td>
 
-						<td>
-							<InputWrapper label="Colore" required>
-								<ColorInput
-									form="article-category-form"
-									placeholder="Scegli un colore per la nuova categoria..."
-									{...form.getInputProps('color')}
-								/>
-							</InputWrapper>
-						</td>
+							<td>
+								<InputWrapper label="Colore" required>
+									<ColorInput
+										form="article-category-form"
+										placeholder="Scegli un colore per la nuova categoria..."
+										{...form.getInputProps('color')}
+									/>
+								</InputWrapper>
+							</td>
 
-						<td></td>
+							<td></td>
 
-						<td>
-							<Button type="submit" form="article-category-form">
-								Crea
-							</Button>
-						</td>
-					</tr>
-				</tbody>
-			</Table>
+							<td>
+								<Button type="submit" form="article-category-form">
+									Crea
+								</Button>
+							</td>
+						</tr>
+					</tbody>
+				</Table>
+			</ScrollArea>
 
 			<form
 				id="article-category-form"
