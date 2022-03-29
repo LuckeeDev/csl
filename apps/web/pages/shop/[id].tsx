@@ -14,6 +14,7 @@ import {
 } from '@prisma/client';
 import FallbackPage from 'components/fallback/FallbackPage';
 import BackLink from 'components/links/BackLink';
+import ButtonLink from 'components/links/ButtonLink';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -54,9 +55,25 @@ export default function ShopSessionPage({ shopSession }: ShopSessionPageProps) {
 		<>
 			<BackLink>Torna indietro</BackLink>
 
-			<h1 style={{ margin: 0 }}>{shopSession.name}</h1>
+			<div
+				style={{
+					display: 'flex',
+					justifyContent: 'space-between',
+					alignItems: 'center',
+				}}
+			>
+				<h1 style={{ margin: 0 }}>{shopSession.name}</h1>
 
-			{shopSession.discounts && (
+				<ButtonLink
+					size="xs"
+					variant="light"
+					href={`/dashboard/orders/${shopSession.id}`}
+				>
+					Riepilogo ordini
+				</ButtonLink>
+			</div>
+
+			{shopSession.discounts?.length > 0 && (
 				<Alert
 					my="md"
 					title="Sconti!"
