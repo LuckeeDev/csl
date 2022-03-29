@@ -15,4 +15,11 @@ export const EVENT_LINKS: LinkData[] = [
 		href: '/dashboard/events',
 		requiredPermissions: [],
 	},
+	{
+		icon: 'list',
+		color: 'indigo',
+		label: 'Fasce orarie',
+		href: '/dashboard/events/slots',
+		requiredPermissions: [],
+	},
 ];
