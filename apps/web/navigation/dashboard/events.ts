@@ -22,4 +22,11 @@ export const EVENT_LINKS: LinkData[] = [
 		href: '/dashboard/events/slots',
 		requiredPermissions: [],
 	},
+	{
+		icon: 'write',
+		color: 'indigo',
+		label: 'Nuova fascia oraria',
+		href: '/dashboard/events/slots/new',
+		requiredPermissions: [],
+	},
 ];
