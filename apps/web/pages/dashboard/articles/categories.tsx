@@ -90,6 +90,8 @@ function DashboardArticlesCategories() {
 			title: 'Categoria eliminata',
 			message: 'La categoria e gli articoli connessi sono stati eliminati',
 		});
+
+		form.reset();
 	}
 
 	const rows = useMemo(
