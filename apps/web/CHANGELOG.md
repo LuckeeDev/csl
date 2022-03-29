@@ -2,6 +2,17 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.12.1](https://github.com/LuckeeDev/csl/compare/v2.12.0...v2.12.1) (2022-03-29)
+
+
+### Bug Fixes
+
+* **dashboard:** add scroll area in article categories ([61810e3](https://github.com/LuckeeDev/csl/commit/61810e3513c557394e9c019ffcf97bdd9563df3b))
+* **dashboard:** reset article category form on submission ([296e08c](https://github.com/LuckeeDev/csl/commit/296e08cbe54eded61acc31086d29cd45edb78007))
+* **shop:** add order recap button ([6e54417](https://github.com/LuckeeDev/csl/commit/6e5441787a92d2105bf03de19894aa10c2c3489e))
+
+
+
 # [2.12.0](https://github.com/LuckeeDev/csl/compare/v2.11.2...v2.12.0) (2022-03-27)
 
 
