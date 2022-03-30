@@ -33,6 +33,14 @@ export const DASHBOARD_LINKS: LinkData[] = [
 		requiredPermissions: [Permission.SHOP_MANAGER],
 	},
 	{
+		icon: 'calendar',
+		color: 'indigo',
+		label: 'Eventi',
+		href: '/dashboard/events',
+		hasSublinks: true,
+		requiredPermissions: [Permission.EVENTS_MANAGER],
+	},
+	{
 		icon: 'profile',
 		color: 'grape',
 		label: 'Utenti',

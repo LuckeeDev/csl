@@ -181,10 +181,50 @@ model Order {
     created_at DateTime @default(now())
 }
 
+model Event {
+    id   String @id @default(cuid())
+    name String
+
+    timeSlots TimeSlot[]
+
+    updated_at DateTime @updatedAt
+    created_at DateTime @default(now())
+}
+
+model TimeSlot {
+    id   String @id @default(cuid())
+    name String
+
+    event   Event?  @relation(fields: [eventId], references: [id])
+    eventId String?
+
+    seminars Seminar[]
+
+    start DateTime
+    end   DateTime
+
+    updated_at DateTime @updatedAt
+    created_at DateTime @default(now())
+}
+
+model Seminar {
+    id          String @id @default(cuid())
+    name        String
+    description String
+    location    String
+
+    timeSlot   TimeSlot? @relation(fields: [timeSlotId], references: [id])
+    timeSlotId String?
+
+    updated_at DateTime @updatedAt
+    created_at DateTime @default(now())
+}
+
 enum Permission {
     NEWS_EDITOR
     SHOP_MANAGER
     USERS_MANAGER
+    EVENTS_MANAGER
 }
 
 enum ProductSize {
