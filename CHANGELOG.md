@@ -2,6 +2,26 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.13.0](https://github.com/LuckeeDev/csl/compare/v2.12.1...v2.13.0) (2022-03-30)
+
+
+### Bug Fixes
+
+* **dashboard:** add scroll area in article categories ([e178e5e](https://github.com/LuckeeDev/csl/commit/e178e5e2833abcece2046d4cb4f15001541e51da))
+* **dashboard:** reset article category form on submission ([22d9994](https://github.com/LuckeeDev/csl/commit/22d999414fa6ec96d4eb2355e2c46c6e4c1ce9eb))
+* **shop:** add order recap button ([ac4c443](https://github.com/LuckeeDev/csl/commit/ac4c443af683a928db1e8deaa1d50f46b4ca1f99))
+
+
+### Features
+
+* **events:** create event db model ([0da449e](https://github.com/LuckeeDev/csl/commit/0da449e1f625049ff51ac4862a934e0c75df04b7))
+* **events:** create time slot form ([93c3f87](https://github.com/LuckeeDev/csl/commit/93c3f87cce0d00a2376260c7cb02947a78bc07cd))
+* **events:** create time slots ([cd47bd4](https://github.com/LuckeeDev/csl/commit/cd47bd455f47475ec6bf59934acd19ed967d3105))
+* **events:** list and create events ([011e3fb](https://github.com/LuckeeDev/csl/commit/011e3fb359ef0e1978f7b0e95d9ba97608901b70))
+* **events:** list time slots ([f8e39db](https://github.com/LuckeeDev/csl/commit/f8e39db67aba3b19d37078dc3e047c4697d3c7ba))
+
+
+
 ## [2.12.1](https://github.com/LuckeeDev/csl/compare/v2.12.0...v2.12.1) (2022-03-29)
 
 
