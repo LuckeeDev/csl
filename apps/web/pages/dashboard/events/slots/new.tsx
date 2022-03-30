@@ -15,7 +15,7 @@ import useSWR from 'swr';
 function DashboardTimeSlotsNew() {
 	const form = useTimeSlotForm();
 	const { data: timeSlots, mutate } = useSWR<TimeSlot[]>('/api/time-slots');
-	const { data: events } = useSWR('/api/events', getEndpoint<Event[]>());
+	const { data: events } = useSWR<Event[]>('/api/events', getEndpoint);
 
 	async function onSubmit({ startTime, endTime, ...data }: TimeSlotFormValues) {
 		showNotification({

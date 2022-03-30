@@ -9,11 +9,11 @@ import { useMemo } from 'react';
 import useSWR from 'swr';
 
 function DashboardEventsSlots() {
-	const { data: timeSlots } = useSWR(
+	const { data: timeSlots } = useSWR<TimeSlot[]>(
 		'/api/time-slots',
-		getEndpoint<TimeSlot[]>()
+		getEndpoint
 	);
-	const { data: events } = useSWR('/api/events', getEndpoint<Event[]>());
+	const { data: events } = useSWR<Event[]>('/api/events', getEndpoint);
 	const rows = useMemo(
 		() =>
 			timeSlots?.map((t) => (
