@@ -2,6 +2,7 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import prisma from 'prisma/client';
 import GoogleProvider from 'next-auth/providers/google';
+import { environment } from 'environments/environment';
 
 const nextAuthOptions: NextAuthOptions = {
 	session: {
@@ -14,10 +15,8 @@ const nextAuthOptions: NextAuthOptions = {
 	},
 	providers: [
 		GoogleProvider({
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			clientId: process.env.GOOGLE_CLIENT_ID!,
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+			clientId: environment.google.clientId,
+			clientSecret: environment.google.secret,
 			authorization: {
 				params: {
 					hd: 'liceolussana.eu',

@@ -6,4 +6,8 @@ export const environment = {
 		id: process.env.AWS_ID!,
 		bucket: process.env.AWS_BUCKET!,
 	},
+	google: {
+		clientId: process.env.GOOGLE_CLIENT_ID!,
+		secret: process.env.GOOGLE_CLIENT_SECRET!,
+	},
 };
