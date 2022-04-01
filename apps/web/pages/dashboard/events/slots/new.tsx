@@ -4,6 +4,7 @@ import { Event, TimeSlot } from '@prisma/client';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import TimeSlotForm from 'components/forms/TimeSlotForm';
 import PageTitle from 'components/head/PageTitle';
+import PageHeading from 'components/heading/PageHeading';
 import getEndpoint from 'data/api/getEndpoint';
 import { createTimeSlot } from 'data/api/timeSlots';
 import useTimeSlotForm, {
@@ -14,7 +15,10 @@ import useSWR from 'swr';
 
 function DashboardTimeSlotsNew() {
 	const form = useTimeSlotForm();
-	const { data: timeSlots, mutate } = useSWR<TimeSlot[]>('/api/time-slots');
+	const { data: timeSlots, mutate } = useSWR<TimeSlot[]>(
+		'/api/time-slots',
+		getEndpoint
+	);
 	const { data: events } = useSWR<Event[]>('/api/events', getEndpoint);
 
 	async function onSubmit({ startTime, endTime, ...data }: TimeSlotFormValues) {
@@ -70,7 +74,9 @@ function DashboardTimeSlotsNew() {
 		<DashboardPageContainer>
 			<PageTitle>Dashboard | Nuova fascia oraria</PageTitle>
 
-			<h1>Nuova fascia oraria</h1>
+			<PageHeading loading={!timeSlots || !events}>
+				Nuova fascia oraria
+			</PageHeading>
 
 			<TimeSlotForm onSubmit={onSubmit} events={events ?? []} form={form} />
 		</DashboardPageContainer>

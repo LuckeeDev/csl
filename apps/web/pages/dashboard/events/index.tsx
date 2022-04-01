@@ -16,6 +16,7 @@ import Joi from 'joi';
 import { CheckIcon } from '@modulz/radix-icons';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import { showNotification, updateNotification } from '@mantine/notifications';
+import PageHeading from 'components/heading/PageHeading';
 
 export interface NewEventFormValues {
 	name: string;
@@ -75,7 +76,7 @@ function DashboardEventsIndex() {
 		<DashboardPageContainer>
 			<PageTitle>Dashboard | Eventi</PageTitle>
 
-			<h1>Eventi</h1>
+			<PageHeading loading={!data}>Eventi</PageHeading>
 
 			<ScrollArea>
 				<Table style={{ minWidth: '600px' }}>

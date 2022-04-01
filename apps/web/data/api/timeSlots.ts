@@ -12,8 +12,20 @@ export function createTimeSlot(timeSlot: TimeSlotPostData) {
 	return async (timeSlots: TimeSlot[] | undefined) => {
 		const { data } = await axios.post<TimeSlot>('/api/time-slots', timeSlot);
 
-		const result = timeSlots ? [...timeSlots, data] : [data];
+		if (timeSlots) {
+			const index = timeSlots.findIndex((v) => v.id === 'new');
 
-		return result;
+			if (index !== -1) {
+				timeSlots[index] = data;
+
+				return timeSlots;
+			}
+
+			timeSlots.push(data);
+
+			return timeSlots;
+		}
+
+		return [data];
 	};
 }
