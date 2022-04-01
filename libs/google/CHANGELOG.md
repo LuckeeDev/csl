@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.14.1](https://github.com/LuckeeDev/csl/compare/v2.14.0...v2.14.1) (2022-04-01)
+
+
+### Bug Fixes
+
+* :ambulance: fix google lib type issues ([b10c84b](https://github.com/LuckeeDev/csl/commit/b10c84b02d1bbe0177f53691753a1585334d4f34))
+
+
+
 # [2.14.0](https://github.com/LuckeeDev/csl/compare/v2.13.0...v2.14.0) (2022-04-01)
 
 
