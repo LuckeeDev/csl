@@ -2,6 +2,24 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.14.0](https://github.com/LuckeeDev/csl/compare/v2.13.0...v2.14.0) (2022-04-01)
+
+
+### Bug Fixes
+
+* **events:** add loader headings ([37faaf2](https://github.com/LuckeeDev/csl/commit/37faaf2c5ac61baea8c4ca15d3b12ed9839bca67))
+* **events:** fix time slots optimistic data ([0e10c6a](https://github.com/LuckeeDev/csl/commit/0e10c6a46fb2745db4b222a4004183bc55719a0a))
+
+
+### Features
+
+* **events:** create seminar form ([f1ec8ea](https://github.com/LuckeeDev/csl/commit/f1ec8eae1ee2199a8ae362ae1850a11bfb1431c1))
+* **events:** full service account flow ([91aa9bd](https://github.com/LuckeeDev/csl/commit/91aa9bd705189e137371d8786e041c978491946b))
+* **events:** import old google library ([a0030cc](https://github.com/LuckeeDev/csl/commit/a0030ccef04603ab2ecf48d997372e8ef7c72b3d))
+* **seminars:** show seminars ([4a56c71](https://github.com/LuckeeDev/csl/commit/4a56c7140869832f0af8d2ee02df1d67cf641aa8))
+
+
+
 # [2.13.0](https://github.com/LuckeeDev/csl/compare/v2.12.1...v2.13.0) (2022-03-30)
 
 
