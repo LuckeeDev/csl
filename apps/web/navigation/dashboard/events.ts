@@ -29,4 +29,18 @@ export const EVENT_LINKS: LinkData[] = [
 		href: '/dashboard/events/slots/new',
 		requiredPermissions: [],
 	},
+	{
+		icon: 'list',
+		color: 'indigo',
+		label: 'Seminari',
+		href: '/dashboard/events/seminars',
+		requiredPermissions: [],
+	},
+	{
+		icon: 'write',
+		color: 'indigo',
+		label: 'Nuovo seminario',
+		href: '/dashboard/events/seminars/new',
+		requiredPermissions: [],
+	},
 ];

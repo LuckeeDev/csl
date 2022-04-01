@@ -1,4 +1,4 @@
-import { Table } from '@mantine/core';
+import { ScrollArea, Table } from '@mantine/core';
 import { Event, TimeSlot } from '@prisma/client';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageTitle from 'components/head/PageTitle';
@@ -33,19 +33,21 @@ function DashboardEventsSlots() {
 
 			<PageHeading loading={!timeSlots || !events}>Fasce orarie</PageHeading>
 
-			<Table>
-				<thead>
-					<tr>
-						<th>Nome</th>
-						<th>Inizio</th>
-						<th>Fine</th>
-						<th>Evento</th>
-						<th>Azioni</th>
-					</tr>
-				</thead>
+			<ScrollArea>
+				<Table style={{ minWidth: '800px' }}>
+					<thead>
+						<tr>
+							<th>Nome</th>
+							<th>Inizio</th>
+							<th>Fine</th>
+							<th>Evento</th>
+							<th>Azioni</th>
+						</tr>
+					</thead>
 
-				<tbody>{rows}</tbody>
-			</Table>
+					<tbody>{rows}</tbody>
+				</Table>
+			</ScrollArea>
 		</DashboardPageContainer>
 	);
 }
