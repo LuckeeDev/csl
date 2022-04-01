@@ -38,6 +38,7 @@ model User {
     accounts      Account[]
     roles         Role[]
     orders        Order[]
+    bookings      Booking[]
     groups        Group[]   @relation("groups")
     managedGroups Group[]   @relation("groupManagers")
 }
@@ -167,14 +168,15 @@ model Image {
 }
 
 model Order {
-    id        String       @id @default(cuid())
-    product   Product      @relation(fields: [productId], references: [id])
+    id String @id @default(cuid())
+
+    product   Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
     productId String
     quantity  Int
     size      ProductSize?
     color     String?
 
-    user   User   @relation(fields: [userId], references: [id])
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId String
 
     updated_at DateTime @updatedAt
@@ -195,7 +197,7 @@ model TimeSlot {
     id   String @id @default(cuid())
     name String
 
-    event   Event?  @relation(fields: [eventId], references: [id])
+    event   Event?  @relation(fields: [eventId], references: [id], onDelete: Cascade)
     eventId String?
 
     seminars Seminar[]
@@ -213,11 +215,27 @@ model Seminar {
     description String
     location    String
 
-    timeSlot   TimeSlot? @relation(fields: [timeSlotId], references: [id])
-    timeSlotId String?
+    timeSlot    TimeSlot? @relation(fields: [timeSlotId], references: [id], onDelete: Cascade)
+    timeSlotId  String?
+    maxBookings Int
+    bookings    Booking[]
 
     updated_at DateTime @updatedAt
     created_at DateTime @default(now())
+}
+
+model Booking {
+    id String @id @default(cuid())
+
+    seminar   Seminar @relation(fields: [seminarId], references: [id], onDelete: Cascade)
+    seminarId String
+    user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    String
+
+    updated_at DateTime @updatedAt
+    created_at DateTime @default(now())
+
+    @@unique([seminarId, userId])
 }
 
 enum Permission {
