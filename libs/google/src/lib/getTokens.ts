@@ -36,9 +36,6 @@ export async function getTokens(
 		})
 		.then((res) => {
 			return res.data;
-		})
-		.catch(() => {
-			return null;
 		});
 
 	return response;
