@@ -69,8 +69,8 @@ model Article {
     readingTime Int
     published   Boolean @default(false)
 
-    category   ArticleCategory? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-    categoryId String?
+    category   ArticleCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+    categoryId String
 
     updated_at DateTime @updatedAt
     created_at DateTime @default(now())
@@ -197,8 +197,8 @@ model TimeSlot {
     id   String @id @default(cuid())
     name String
 
-    event   Event?  @relation(fields: [eventId], references: [id], onDelete: Cascade)
-    eventId String?
+    event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+    eventId String
 
     seminars Seminar[]
 
@@ -215,8 +215,8 @@ model Seminar {
     description String
     location    String
 
-    timeSlot    TimeSlot? @relation(fields: [timeSlotId], references: [id], onDelete: Cascade)
-    timeSlotId  String?
+    timeSlot    TimeSlot  @relation(fields: [timeSlotId], references: [id], onDelete: Cascade)
+    timeSlotId  String
     maxBookings Int
     bookings    Booking[]
 
