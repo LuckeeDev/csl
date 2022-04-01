@@ -1852,10 +1852,10 @@
   dependencies:
     react-dropzone "^11.4.2"
 
-"@mantine/form@4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@mantine/form/-/form-4.1.0.tgz#38890558134499b6ffd2040302f4b3438d2cd49d"
-  integrity sha512-vL9aL9/qNOTwlaV+gcqUUqAbe3YyzrKmTh8d97VowHtSbpZlyakKQjf+mE9FBzk8MBwZzzwv89bcYm1zKqRc7Q==
+"@mantine/form@4.1.1":
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/@mantine/form/-/form-4.1.1.tgz#7beacf4b59e3ac25e1df3b0eb379ca444a74630c"
+  integrity sha512-Kh7lJ+JcLynCxpqUDmc5zpj/Jd/ZLpHCKnGM4TnfhV45lRlGhDQQtteKJ99XneYu2s23EhsLXfBIhD4RadHZ8g==
 
 "@mantine/hooks@4.1.0":
   version "4.1.0"
