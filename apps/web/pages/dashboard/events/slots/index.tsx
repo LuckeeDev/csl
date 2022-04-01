@@ -2,6 +2,7 @@ import { Table } from '@mantine/core';
 import { Event, TimeSlot } from '@prisma/client';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageTitle from 'components/head/PageTitle';
+import PageHeading from 'components/heading/PageHeading';
 import TimeSlotRow from 'components/tableRows/TimeSlotRow';
 import getEndpoint from 'data/api/getEndpoint';
 import { EVENT_LINKS } from 'navigation/dashboard/events';
@@ -30,7 +31,7 @@ function DashboardEventsSlots() {
 		<DashboardPageContainer>
 			<PageTitle>Dashboard | Fasce orarie</PageTitle>
 
-			<h1>Fasce orarie</h1>
+			<PageHeading loading={!timeSlots || !events}>Fasce orarie</PageHeading>
 
 			<Table>
 				<thead>
