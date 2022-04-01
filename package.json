@@ -37,7 +37,7 @@
 		"react": "18.0.0",
 		"react-dom": "18.0.0",
 		"react-is": "18.0.0",
-		"react-markdown": "^8.0.1",
+		"react-markdown": "^8.0.2",
 		"regenerator-runtime": "0.13.9",
 		"swr": "^1.2.2",
 		"tslib": "^2.3.1",
