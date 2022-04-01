@@ -43,4 +43,11 @@ export const EVENT_LINKS: LinkData[] = [
 		href: '/dashboard/events/seminars/new',
 		requiredPermissions: [],
 	},
+	{
+		icon: 'profile',
+		color: 'indigo',
+		label: 'Account di servizio',
+		href: '/dashboard/events/service-account',
+		requiredPermissions: [],
+	},
 ];
