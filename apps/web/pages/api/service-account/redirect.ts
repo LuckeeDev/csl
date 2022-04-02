@@ -36,9 +36,7 @@ handler.get(
 		);
 
 		if (!tokens.refresh_token) {
-			res.redirect('https://cslussana.com?authError=1');
-
-			return;
+			return res.redirect(`${environment.url}?authError=1`);
 		}
 
 		const profile = getProfile(tokens.id_token);
