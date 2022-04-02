@@ -19,13 +19,13 @@ export default function calculateDiscount(
 	// Re-order orders in a descending price order. This way, discounts will be applied
 	// to the most expensive items.
 	const descPriceOrders = orders.sort(
-		(a, b) => a.product.price - b.product.price
+		(a, b) => b.product.price - a.product.price
 	);
 
 	// Re-order discounts in a descending price order. This way, higher discounts will be
 	// applied to the most expensive items.
 	const descPercentageDiscounts = discounts.sort(
-		(a, b) => a.discountPercentage - b.discountPercentage
+		(a, b) => b.discountPercentage - a.discountPercentage
 	);
 
 	for (const discount of descPercentageDiscounts) {

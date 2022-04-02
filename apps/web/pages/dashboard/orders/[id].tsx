@@ -1,6 +1,6 @@
 import { LoadingOverlay, Table, Text } from '@mantine/core';
 import { useBooleanToggle } from '@mantine/hooks';
-import { useNotifications } from '@mantine/notifications';
+import { showNotification } from '@mantine/notifications';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import { Order, Product, ProductDiscount } from '@prisma/client';
 import axios from 'axios';
@@ -30,7 +30,6 @@ function DashboardManageOrders({
 }: DashboardManageOrdersProps) {
 	const [orders, setOrders] = useState(serverSideOrders);
 	const [overlay, toggleOverlay] = useBooleanToggle(false);
-	const notifications = useNotifications();
 	const discountedOrders = useMemo(
 		() => calculateDiscount(discounts, orders),
 		[discounts, orders]
@@ -50,7 +49,7 @@ function DashboardManageOrders({
 					return elements;
 				});
 
-				notifications.showNotification({
+				showNotification({
 					title: 'Ordine eliminato',
 					message: "L'ordine è stato eliminato con successo",
 					color: 'teal',
@@ -59,7 +58,7 @@ function DashboardManageOrders({
 
 				toggleOverlay(false);
 			} catch (err) {
-				notifications.showNotification({
+				showNotification({
 					title: 'Errore',
 					message: 'È stato impossibile eliminare questo ordine',
 					color: 'red',
@@ -69,7 +68,7 @@ function DashboardManageOrders({
 				toggleOverlay(false);
 			}
 		},
-		[toggleOverlay, notifications]
+		[toggleOverlay]
 	);
 
 	const rows = useMemo(
