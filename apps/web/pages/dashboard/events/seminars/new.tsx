@@ -1,27 +1,96 @@
 import { Alert } from '@mantine/core';
-import { ExclamationTriangleIcon } from '@modulz/radix-icons';
-import { ServiceAccount, TimeSlot } from '@prisma/client';
+import { showNotification, updateNotification } from '@mantine/notifications';
+import {
+	CheckIcon,
+	Cross1Icon,
+	ExclamationTriangleIcon,
+} from '@modulz/radix-icons';
+import { Seminar, TimeSlot } from '@prisma/client';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import SeminarForm from 'components/forms/SeminarForm';
 import PageHeading from 'components/heading/PageHeading';
 import getEndpoint from 'data/api/getEndpoint';
+import { createSeminar } from 'data/api/seminars';
+import useServiceAccount from 'hooks/accounts/useServiceAccount';
 import useSeminarForm, { SeminarFormValues } from 'hooks/forms/useSeminarForm';
 import { EVENT_LINKS } from 'navigation/dashboard/events';
 import useSWR from 'swr';
+import getLocation from 'utils/events/getLocation';
 
 function DashboardSeminarsNew() {
-	const { data: serviceAccount } = useSWR<ServiceAccount>(
-		'/api/service-account',
-		getEndpoint
-	);
 	const { data: timeSlots } = useSWR<TimeSlot[]>(
 		'/api/time-slots',
 		getEndpoint
 	);
+	const { data: seminarsData, mutate } = useSWR<{
+		seminars: Seminar[];
+		seminarsCount: number;
+	}>('/api/seminars?page=1', getEndpoint);
 	const form = useSeminarForm();
+	const { serviceAccount } = useServiceAccount();
 
-	function onSubmit(val: SeminarFormValues) {
-		console.log(val);
+	async function onSubmit(val: SeminarFormValues) {
+		if (!serviceAccount || !timeSlots) {
+			showNotification({
+				color: 'red',
+				icon: <Cross1Icon />,
+				message:
+					'Devi collegare un account di servizio prima di creare un seminario!',
+				title: 'Errore',
+			});
+		} else {
+			showNotification({
+				id: 'create-seminar',
+				message: `Creazione ${
+					val.location ? 'del seminario' : 'della riunione Meet'
+				} in corso...`,
+				loading: true,
+			});
+
+			const location = await getLocation(
+				val,
+				timeSlots,
+				serviceAccount.accessToken
+			);
+
+			if (!val.location) {
+				updateNotification({
+					id: 'create-seminar',
+					message: 'Riunione creata, creazione del seminario in corso...',
+					loading: true,
+				});
+			}
+
+			const postData: SeminarFormValues = { ...val, location };
+
+			await mutate(createSeminar(postData), {
+				optimisticData: {
+					seminars: [
+						...(seminarsData?.seminars ?? []),
+						{
+							...postData,
+							created_at: new Date(),
+							updated_at: new Date(),
+							id: 'new',
+						},
+					],
+					seminarsCount: seminarsData?.seminarsCount ?? 0,
+				},
+				revalidate: false,
+			});
+
+			updateNotification({
+				id: 'create-seminar',
+				title: 'Seminario creato',
+				message:
+					'Il seminario è stato creato ed è ora disponibile nella pagina degli eventi',
+				loading: false,
+				color: 'teal',
+				icon: <CheckIcon />,
+			});
+
+			form.reset();
+		}
 	}
 
 	if (!serviceAccount) {

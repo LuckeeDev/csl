@@ -1,4 +1,5 @@
 import { Permission } from '@prisma/client';
+import { SeminarFormValues } from 'hooks/forms/useSeminarForm';
 import Joi from 'joi';
 import hasPermission from 'middlewares/hasPermission';
 import session from 'middlewares/session';
@@ -11,6 +12,14 @@ const handler = nextConnect<NextApiRequest, NextApiResponse>();
 
 const getQuerySchema = Joi.object({
 	page: Joi.number().integer(),
+});
+
+const postBodySchema = Joi.object({
+	name: Joi.string().required(),
+	description: Joi.string().required(),
+	location: Joi.string(),
+	maxBookings: Joi.number().integer().required(),
+	timeSlotId: Joi.string().required(),
 });
 
 handler.get(
@@ -34,6 +43,21 @@ handler.get(
 		const seminarsCount = await prisma.seminar.count();
 
 		res.status(200).json({ seminars, seminarsCount });
+	}
+);
+
+handler.post(
+	session,
+	hasPermission(Permission.EVENTS_MANAGER),
+	validate({ body: postBodySchema }),
+	async (req, res) => {
+		const { timeSlotId, ...data } = req.body as SeminarFormValues;
+
+		const seminar = await prisma.seminar.create({
+			data: { ...data, timeSlot: { connect: { id: timeSlotId } } },
+		});
+
+		res.status(201).json(seminar);
 	}
 );
 

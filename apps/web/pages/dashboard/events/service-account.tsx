@@ -1,46 +1,77 @@
-import { Avatar, Group, Text } from '@mantine/core';
-import { ServiceAccount } from '@prisma/client';
+import { Alert, Avatar, Group, Text } from '@mantine/core';
+import { InfoCircledIcon } from '@modulz/radix-icons';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageHeading from 'components/heading/PageHeading';
 import ButtonLink from 'components/links/ButtonLink';
-import getEndpoint from 'data/api/getEndpoint';
 import { environment } from 'environments/environment';
+import useServiceAccount from 'hooks/accounts/useServiceAccount';
 import { EVENT_LINKS } from 'navigation/dashboard/events';
-import useSWR from 'swr';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { getProfile } from '@csl/google';
 
 function DashboardServiceAccount() {
-	const { data } = useSWR<ServiceAccount>('/api/service-account', getEndpoint);
+	const router = useRouter();
+	const { serviceAccount, updateServiceAccount } = useServiceAccount();
+
+	useEffect(() => {
+		if (router.isReady && router.query.accessToken && router.query.idToken) {
+			const accessToken = router.query.accessToken as string;
+			const idToken = router.query.idToken as string;
+
+			const profile = getProfile(idToken);
+
+			updateServiceAccount({
+				accessToken,
+				email: profile.email,
+				image: profile.picture,
+				name: profile.name,
+			});
+
+			router.push({ query: {} }, undefined, { shallow: true });
+		}
+	}, [router, updateServiceAccount]);
 
 	return (
 		<DashboardPageContainer>
-			<PageHeading loading={data === undefined}>
-				Account di servizio
-			</PageHeading>
+			<PageHeading>Account di servizio</PageHeading>
 
-			{data && (
+			<Alert
+				mb="md"
+				title="Informazioni sull'account di servizio"
+				variant="outline"
+				icon={<InfoCircledIcon />}
+			>
+				Nessun dato sull&apos;account di servizio viene salvato nel database
+				della piattaforma per ragioni di sicurezza. Per questo motivo, a ogni
+				sessione sarà necessario rieffettuare il login per poter usufruire dei
+				servizi che richiedono questo account.
+			</Alert>
+
+			{serviceAccount && (
 				<Group mb="md">
 					<Avatar
 						size="lg"
-						src={data.image ?? undefined}
+						src={serviceAccount.image ?? undefined}
 						imageProps={{ referrerPolicy: 'no-referrer' }}
 					/>
 
 					<div style={{ flex: 1 }}>
 						<Text size="sm" weight={500}>
-							{data.name}
+							{serviceAccount.name}
 						</Text>
 						<Text color="dimmed" size="xs">
-							{data.email}
+							{serviceAccount.email}
 						</Text>
 					</div>
 				</Group>
 			)}
 
 			<ButtonLink
-				variant={data ? 'outline' : 'filled'}
+				variant={serviceAccount ? 'outline' : 'filled'}
 				href={`/api/service-account/sign-in?redirectUri=${environment.url}/dashboard/events/service-account`}
 			>
-				{data ? 'Cambia' : 'Collega'} account di servizio
+				{serviceAccount ? 'Cambia' : 'Collega'} account di servizio
 			</ButtonLink>
 		</DashboardPageContainer>
 	);
@@ -48,6 +79,5 @@ function DashboardServiceAccount() {
 
 DashboardServiceAccount.hasSidebar = true;
 DashboardServiceAccount.sidebarLinks = EVENT_LINKS;
-DashboardServiceAccount.hasLocalCache = true;
 
 export default DashboardServiceAccount;
