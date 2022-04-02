@@ -13,19 +13,24 @@ export interface CalculateDiscountResult extends OmitDates<DiscountedOrder> {
 }
 
 export default function calculateDiscount(
-	discounts: OmitDates<ProductDiscount>[],
-	orders: (OmitDates<DiscountedOrder> & { product: OmitDates<Product> })[]
+	appliedDiscounts: OmitDates<ProductDiscount>[],
+	existingOrders: (OmitDates<DiscountedOrder> & {
+		product: OmitDates<Product>;
+	})[]
 ): CalculateDiscountResult[] {
+	const discounts = [...appliedDiscounts];
+	const orders = [...existingOrders];
+
 	// Re-order orders in a descending price order. This way, discounts will be applied
 	// to the most expensive items.
 	const descPriceOrders = orders.sort(
-		(a, b) => a.product.price - b.product.price
+		(a, b) => b.product.price - a.product.price
 	);
 
 	// Re-order discounts in a descending price order. This way, higher discounts will be
 	// applied to the most expensive items.
 	const descPercentageDiscounts = discounts.sort(
-		(a, b) => a.discountPercentage - b.discountPercentage
+		(a, b) => b.discountPercentage - a.discountPercentage
 	);
 
 	for (const discount of descPercentageDiscounts) {
@@ -41,7 +46,7 @@ export default function calculateDiscount(
 			requiredQuantity / discount.requiredQuantity
 		);
 
-		for (let x = 0; x < availableDiscounts; x++) {
+		while (availableDiscounts > 0) {
 			// Find the first element of the array that belongs to the discounted category
 			// and that has less discounts than its total quantity
 			const index = descPriceOrders.findIndex(
@@ -53,20 +58,26 @@ export default function calculateDiscount(
 			if (index !== -1) {
 				// Apply all discounts if the quantity is higher than the available discounts
 				if (descPriceOrders[index].quantity >= availableDiscounts) {
-					descPriceOrders[index].discounts = availableDiscounts;
-					descPriceOrders[index].discountPercentage =
-						discount.discountPercentage;
+					descPriceOrders[index] = {
+						...descPriceOrders[index],
+						discounts: availableDiscounts,
+						discountPercentage: discount.discountPercentage,
+					};
 
 					availableDiscounts = 0;
 				} else {
 					// Apply discount to all products of this order
-					descPriceOrders[index].discounts = descPriceOrders[index].quantity;
-					descPriceOrders[index].discountPercentage =
-						discount.discountPercentage;
+					descPriceOrders[index] = {
+						...descPriceOrders[index],
+						discounts: descPriceOrders[index].quantity,
+						discountPercentage: discount.discountPercentage,
+					};
 
 					availableDiscounts =
 						availableDiscounts - descPriceOrders[index].quantity;
 				}
+			} else {
+				availableDiscounts = 0;
 			}
 		}
 	}

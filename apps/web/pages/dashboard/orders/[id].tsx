@@ -1,6 +1,6 @@
 import { LoadingOverlay, Table, Text } from '@mantine/core';
 import { useBooleanToggle } from '@mantine/hooks';
-import { useNotifications } from '@mantine/notifications';
+import { showNotification } from '@mantine/notifications';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import { Order, Product, ProductDiscount } from '@prisma/client';
 import axios from 'axios';
@@ -12,12 +12,11 @@ import { getSession } from 'next-auth/react';
 import prisma from 'prisma/client';
 import { useCallback, useMemo, useState } from 'react';
 import { OmitDates } from 'types/omit';
-import { BasePageProps } from 'types/pages';
 import { SessionStatus } from 'types/shopSession';
 import calculateDiscount from 'utils/shop/calculateDiscount';
 import getSessionStatus from 'utils/shop/getSessionStatus';
 
-interface DashboardManageOrdersProps extends BasePageProps {
+interface DashboardManageOrdersProps {
 	orders: OmitDates<Order & { product: OmitDates<Product> }>[];
 	sessionStatus: SessionStatus;
 	discounts: OmitDates<ProductDiscount>[];
@@ -30,7 +29,6 @@ function DashboardManageOrders({
 }: DashboardManageOrdersProps) {
 	const [orders, setOrders] = useState(serverSideOrders);
 	const [overlay, toggleOverlay] = useBooleanToggle(false);
-	const notifications = useNotifications();
 	const discountedOrders = useMemo(
 		() => calculateDiscount(discounts, orders),
 		[discounts, orders]
@@ -50,7 +48,7 @@ function DashboardManageOrders({
 					return elements;
 				});
 
-				notifications.showNotification({
+				showNotification({
 					title: 'Ordine eliminato',
 					message: "L'ordine è stato eliminato con successo",
 					color: 'teal',
@@ -59,7 +57,7 @@ function DashboardManageOrders({
 
 				toggleOverlay(false);
 			} catch (err) {
-				notifications.showNotification({
+				showNotification({
 					title: 'Errore',
 					message: 'È stato impossibile eliminare questo ordine',
 					color: 'red',
@@ -69,7 +67,7 @@ function DashboardManageOrders({
 				toggleOverlay(false);
 			}
 		},
-		[toggleOverlay, notifications]
+		[toggleOverlay]
 	);
 
 	const rows = useMemo(
@@ -192,7 +190,6 @@ export const getServerSideProps: GetServerSideProps<
 
 	return {
 		props: {
-			session,
 			orders,
 			sessionStatus,
 			discounts: discounts.map(
