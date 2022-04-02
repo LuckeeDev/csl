@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.15.0](https://github.com/LuckeeDev/csl/compare/v2.14.2...v2.15.0) (2022-04-02)
+
+
+### Bug Fixes
+
+* redirect to current host on service account error ([284202c](https://github.com/LuckeeDev/csl/commit/284202c8abf39f31af63e4c554d81f09690a4cf3))
+
+
+### Features
+
+* **events:** :sparkles: create events and google meet links ([7a35703](https://github.com/LuckeeDev/csl/commit/7a357031b48a4982efa5f437f373ad946806a3d0))
+
+
+
 ## [2.14.2](https://github.com/LuckeeDev/csl/compare/v2.14.1...v2.14.2) (2022-04-02)
 
 
