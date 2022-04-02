@@ -12,12 +12,11 @@ import { getSession } from 'next-auth/react';
 import prisma from 'prisma/client';
 import { useCallback, useMemo, useState } from 'react';
 import { OmitDates } from 'types/omit';
-import { BasePageProps } from 'types/pages';
 import { SessionStatus } from 'types/shopSession';
 import calculateDiscount from 'utils/shop/calculateDiscount';
 import getSessionStatus from 'utils/shop/getSessionStatus';
 
-interface DashboardManageOrdersProps extends BasePageProps {
+interface DashboardManageOrdersProps {
 	orders: OmitDates<Order & { product: OmitDates<Product> }>[];
 	sessionStatus: SessionStatus;
 	discounts: OmitDates<ProductDiscount>[];
@@ -191,7 +190,6 @@ export const getServerSideProps: GetServerSideProps<
 
 	return {
 		props: {
-			session,
 			orders,
 			sessionStatus,
 			discounts: discounts.map(
