@@ -9,9 +9,13 @@ export default function useQueryState<T extends string | number>(
 
 	useEffect(() => {
 		if (!router.query[key]) {
-			router.push({ query: { [key]: defaultValue } }, undefined, {
-				shallow: true,
-			});
+			router.push(
+				{ query: { ...router.query, [key]: defaultValue } },
+				undefined,
+				{
+					shallow: true,
+				}
+			);
 		}
 		// Only run on first render
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -27,7 +31,9 @@ export default function useQueryState<T extends string | number>(
 
 	const setValue = useCallback(
 		(newValue: T) =>
-			router.push({ query: { [key]: newValue } }, undefined, { shallow: true }),
+			router.push({ query: { ...router.query, [key]: newValue } }, undefined, {
+				shallow: true,
+			}),
 		[router, key]
 	);
 
