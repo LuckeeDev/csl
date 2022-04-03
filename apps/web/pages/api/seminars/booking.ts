@@ -30,6 +30,27 @@ handler.post(
 		const timeSlotId = req.body.timeSlotId as string;
 		const userId = req.user?.id;
 
+		const seminar = await prisma.seminar.findUnique({
+			where: {
+				id: seminarId,
+			},
+			include: {
+				_count: {
+					select: { bookings: true },
+				},
+			},
+		});
+
+		if (!seminar) {
+			return res.status(400).end();
+		}
+
+		const hasFreePlaces = seminar._count.bookings < seminar.maxBookings;
+
+		if (!hasFreePlaces) {
+			return res.status(400).end();
+		}
+
 		const existingBooking = await prisma.booking.findFirst({
 			where: {
 				seminar: { timeSlot: { id: timeSlotId } },

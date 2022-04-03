@@ -36,13 +36,15 @@ export default function SeminarClientRow({
 						Sei iscritto
 					</Text>
 				) : (
-					<Button
-						size="xs"
-						loading={loading}
-						onClick={() => onSignup(seminar.id, timeSlot.id)}
-					>
-						Iscriviti
-					</Button>
+					seminar._count.bookings < seminar.maxBookings && (
+						<Button
+							size="xs"
+							loading={loading}
+							onClick={() => onSignup(seminar.id, timeSlot.id)}
+						>
+							Iscriviti
+						</Button>
+					)
 				)}
 			</td>
 		</tr>

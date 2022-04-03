@@ -13,7 +13,7 @@ import getEndpoint from 'data/api/getEndpoint';
 import { useMemo } from 'react';
 import axios from 'axios';
 import { showNotification, updateNotification } from '@mantine/notifications';
-import { CheckIcon } from '@modulz/radix-icons';
+import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import { useSession } from 'next-auth/react';
 
 export interface StaticTimeSlot extends Omit<TimeSlot, 'start' | 'end'> {
@@ -48,42 +48,53 @@ export default function EventPage({ event }: EventPageProps) {
 			loading: true,
 		});
 
-		await mutate(
-			async () => {
-				const { data: newData } = await axios.post<Booking[]>(
-					'/api/seminars/booking',
-					{
-						seminarId,
-						timeSlotId,
-					}
-				);
+		try {
+			await mutate(
+				async () => {
+					const { data: newData } = await axios.post<Booking[]>(
+						'/api/seminars/booking',
+						{
+							seminarId,
+							timeSlotId,
+						}
+					);
 
-				return newData;
-			},
-			{
-				optimisticData: [
-					...(bookings ?? []),
-					{
-						id: 'new',
-						created_at: new Date(),
-						updated_at: new Date(),
-						seminarId,
-						userId: session?.user.id ?? 'you',
-					},
-				],
-				revalidate: false,
-			}
-		);
+					return newData;
+				},
+				{
+					optimisticData: [
+						...(bookings ?? []),
+						{
+							id: 'new',
+							created_at: new Date(),
+							updated_at: new Date(),
+							seminarId,
+							userId: session?.user.id ?? 'you',
+						},
+					],
+					revalidate: false,
+				}
+			);
 
-		updateNotification({
-			id: 'book-seminar',
-			title: 'Seminario prenotato',
-			message:
-				"Torna il giorno del seminario per visualizzare il link tramite cui accedere all'evento!",
-			color: 'teal',
-			icon: <CheckIcon />,
-			loading: false,
-		});
+			updateNotification({
+				id: 'book-seminar',
+				title: 'Seminario prenotato',
+				message:
+					"Torna il giorno del seminario per visualizzare il link tramite cui accedere all'evento!",
+				color: 'teal',
+				icon: <CheckIcon />,
+				loading: false,
+			});
+		} catch (err) {
+			updateNotification({
+				id: 'book-seminar',
+				title: 'Errore',
+				message: 'Non è stato possibile prenotare questo seminario',
+				color: 'red',
+				icon: <Cross1Icon />,
+				loading: false,
+			});
+		}
 	}
 
 	if (router.isFallback) {
