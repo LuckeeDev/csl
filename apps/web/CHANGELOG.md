@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.16.1](https://github.com/LuckeeDev/csl/compare/v2.16.0...v2.16.1) (2022-04-03)
+
+
+### Bug Fixes
+
+* replace url in useQueryState ([a14d34d](https://github.com/LuckeeDev/csl/commit/a14d34d24661ab68c5b01d5b0bfaa83cc010531c))
+
+
+
 # [2.16.0](https://github.com/LuckeeDev/csl/compare/v2.15.0...v2.16.0) (2022-04-03)
 
 
