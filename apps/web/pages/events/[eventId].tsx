@@ -104,5 +104,6 @@ export const getStaticProps: GetStaticProps<EventPageProps> = async (ctx) => {
 		props: {
 			event: result,
 		},
+		revalidate: 60,
 	};
 };
