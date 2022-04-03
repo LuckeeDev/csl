@@ -38,37 +38,50 @@ handler.post(
 		});
 
 		if (existingBooking) {
-			const newBooking = await prisma.booking.update({
+			const updatedUser = await prisma.user.update({
 				where: {
-					id: existingBooking.id,
+					id: userId,
 				},
 				data: {
-					seminar: {
-						connect: {
-							id: seminarId,
+					bookings: {
+						update: {
+							where: { id: existingBooking.id },
+							data: {
+								seminar: {
+									connect: {
+										id: seminarId,
+									},
+								},
+							},
 						},
 					},
 				},
+				include: {
+					bookings: true,
+				},
 			});
 
-			res.status(201).json(newBooking);
+			res.status(201).json(updatedUser.bookings);
 		} else {
-			const newBooking = await prisma.booking.create({
+			const updatedUser = await prisma.user.update({
+				where: {
+					id: userId,
+				},
 				data: {
-					seminar: {
-						connect: {
-							id: seminarId,
-						},
-					},
-					user: {
-						connect: {
-							id: userId,
+					bookings: {
+						create: {
+							seminar: {
+								connect: { id: seminarId },
+							},
 						},
 					},
 				},
+				include: {
+					bookings: true,
+				},
 			});
 
-			res.status(201).json(newBooking);
+			res.status(201).json(updatedUser.bookings);
 		}
 	}
 );

@@ -1,4 +1,4 @@
-import { Seminar } from '@prisma/client';
+import { Booking, Seminar } from '@prisma/client';
 import axios from 'axios';
 import { SeminarFormValues } from 'hooks/forms/useSeminarForm';
 
@@ -23,5 +23,16 @@ export function createSeminar(data: SeminarFormValues) {
 		}
 
 		return { seminars, seminarsCount: seminarsCount + 1 };
+	};
+}
+
+export function bookSeminar(seminarId: string, userId: string) {
+	return async () => {
+		const { data } = await axios.post<Booking[]>('/api/seminars/booking', {
+			seminarId,
+			userId,
+		});
+
+		return data;
 	};
 }

@@ -5,12 +5,16 @@ import FallbackPage from 'components/fallback/FallbackPage';
 import BackLink from 'components/links/BackLink';
 import { Booking, Event, Seminar, TimeSlot } from '@prisma/client';
 import { OmitDates } from 'types/omit';
-import { Table, Tabs } from '@mantine/core';
+import { ScrollArea, Table, Tabs } from '@mantine/core';
 import useQueryState from 'hooks/router/useQueryState';
 import SeminarClientRow from 'components/tableRows/SeminarClientRow';
 import useSWR from 'swr';
 import getEndpoint from 'data/api/getEndpoint';
 import { useMemo } from 'react';
+import axios from 'axios';
+import { showNotification, updateNotification } from '@mantine/notifications';
+import { CheckIcon } from '@modulz/radix-icons';
+import { useSession } from 'next-auth/react';
 
 export interface StaticTimeSlot extends Omit<TimeSlot, 'start' | 'end'> {
 	start: string;
@@ -27,7 +31,7 @@ interface EventPageProps {
 export default function EventPage({ event }: EventPageProps) {
 	const router = useRouter();
 	const [activeTab, setActiveTab] = useQueryState<number>('page', 1);
-	const { data: bookings } = useSWR<Booking[]>(
+	const { data: bookings, mutate } = useSWR<Booking[]>(
 		'/api/seminars/booking',
 		getEndpoint
 	);
@@ -35,9 +39,51 @@ export default function EventPage({ event }: EventPageProps) {
 		() => bookings?.map((b) => b.seminarId) ?? [],
 		[bookings]
 	);
+	const { data: session } = useSession();
 
-	function onSignup(seminarId: string, timeSlotId: string) {
-		console.log(seminarId, timeSlotId);
+	async function onSignup(seminarId: string, timeSlotId: string) {
+		showNotification({
+			id: 'book-seminar',
+			message: 'Iscrizione in corso...',
+			loading: true,
+		});
+
+		await mutate(
+			async () => {
+				const { data: newData } = await axios.post<Booking[]>(
+					'/api/seminars/booking',
+					{
+						seminarId,
+						timeSlotId,
+					}
+				);
+
+				return newData;
+			},
+			{
+				optimisticData: [
+					...(bookings ?? []),
+					{
+						id: 'new',
+						created_at: new Date(),
+						updated_at: new Date(),
+						seminarId,
+						userId: session?.user.id ?? 'you',
+					},
+				],
+				revalidate: false,
+			}
+		);
+
+		updateNotification({
+			id: 'book-seminar',
+			title: 'Seminario prenotato',
+			message:
+				"Torna il giorno del seminario per visualizzare il link tramite cui accedere all'evento!",
+			color: 'teal',
+			icon: <CheckIcon />,
+			loading: false,
+		});
 	}
 
 	if (router.isFallback) {
@@ -51,33 +97,37 @@ export default function EventPage({ event }: EventPageProps) {
 			<h1 style={{ margin: 0 }}>Evento</h1>
 
 			<Tabs
+				grow
 				active={activeTab - 1}
 				onTabChange={(newTab) => setActiveTab(newTab + 1)}
 			>
 				{event.timeSlots.map((slot) => (
 					<Tabs.Tab label={slot.name} key={slot.id}>
-						<Table striped>
-							<thead>
-								<tr>
-									<th>Seminario</th>
-									<th>Dettagli</th>
-									<th>Iscritti</th>
-									<th>Iscriviti</th>
-								</tr>
-							</thead>
+						<ScrollArea>
+							<Table style={{ minWidth: '600px' }} striped>
+								<thead>
+									<tr>
+										<th>Seminario</th>
+										<th>Dettagli</th>
+										<th>Iscritti</th>
+										<th>Iscriviti</th>
+									</tr>
+								</thead>
 
-							<tbody>
-								{slot.seminars.map((seminar) => (
-									<SeminarClientRow
-										timeSlot={slot}
-										onSignup={onSignup}
-										key={seminar.id}
-										seminar={seminar}
-										isSignedUp={bookedSeminarIds.includes(seminar.id)}
-									/>
-								))}
-							</tbody>
-						</Table>
+								<tbody>
+									{slot.seminars.map((seminar) => (
+										<SeminarClientRow
+											timeSlot={slot}
+											onSignup={onSignup}
+											key={seminar.id}
+											seminar={seminar}
+											isSignedUp={bookedSeminarIds.includes(seminar.id)}
+											loading={!bookings}
+										/>
+									))}
+								</tbody>
+							</Table>
+						</ScrollArea>
 					</Tabs.Tab>
 				))}
 			</Tabs>
@@ -102,7 +152,10 @@ export const getStaticProps: GetStaticProps<EventPageProps> = async (ctx) => {
 		include: {
 			timeSlots: {
 				include: {
-					seminars: { include: { _count: { select: { bookings: true } } } },
+					seminars: {
+						orderBy: { name: 'asc' },
+						include: { _count: { select: { bookings: true } } },
+					},
 				},
 				orderBy: { start: 'asc' },
 			},

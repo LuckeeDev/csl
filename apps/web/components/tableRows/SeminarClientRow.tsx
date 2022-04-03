@@ -9,6 +9,7 @@ export interface SeminarClientRowProps {
 	onSignup: (seminarId: string, timeSlotId: string) => void;
 	timeSlot: OmitDates<StaticTimeSlot>;
 	isSignedUp: boolean;
+	loading: boolean;
 }
 
 export default function SeminarClientRow({
@@ -16,6 +17,7 @@ export default function SeminarClientRow({
 	onSignup,
 	timeSlot,
 	isSignedUp,
+	loading,
 }: SeminarClientRowProps) {
 	return (
 		<tr>
@@ -34,7 +36,11 @@ export default function SeminarClientRow({
 						Sei iscritto
 					</Text>
 				) : (
-					<Button size="xs" onClick={() => onSignup(seminar.id, timeSlot.id)}>
+					<Button
+						size="xs"
+						loading={loading}
+						onClick={() => onSignup(seminar.id, timeSlot.id)}
+					>
 						Iscriviti
 					</Button>
 				)}
