@@ -9,7 +9,7 @@ export default function useQueryState<T extends string | number>(
 
 	useEffect(() => {
 		if (!router.query[key]) {
-			router.push(
+			router.replace(
 				{ query: { ...router.query, [key]: defaultValue } },
 				undefined,
 				{
@@ -31,9 +31,13 @@ export default function useQueryState<T extends string | number>(
 
 	const setValue = useCallback(
 		(newValue: T) =>
-			router.push({ query: { ...router.query, [key]: newValue } }, undefined, {
-				shallow: true,
-			}),
+			router.replace(
+				{ query: { ...router.query, [key]: newValue } },
+				undefined,
+				{
+					shallow: true,
+				}
+			),
 		[router, key]
 	);
 
