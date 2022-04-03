@@ -2,6 +2,24 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.16.0](https://github.com/LuckeeDev/csl/compare/v2.15.0...v2.16.0) (2022-04-03)
+
+
+### Bug Fixes
+
+* **events:** better seminars display ([367481a](https://github.com/LuckeeDev/csl/commit/367481adb0fc674ccc4673f0facb0546e3c97c78))
+* **events:** check that event is not full ([0fe86e8](https://github.com/LuckeeDev/csl/commit/0fe86e8a5f5dc10744a082708bb03e7d01c147de))
+* **events:** protect event pages ([d340899](https://github.com/LuckeeDev/csl/commit/d340899b7b8e3e0e3a34224e9a25950b1c0096c8))
+
+
+### Features
+
+* **events:** :sparkles: book seminars ([6ffd6ff](https://github.com/LuckeeDev/csl/commit/6ffd6ff35a07021347de06be2b25a1d6f94ed522))
+* **events:** display events ([0ae944f](https://github.com/LuckeeDev/csl/commit/0ae944f3173bf0f5a3e77340ed7e9f3357bbddbd))
+* **events:** display events in client ([54031c3](https://github.com/LuckeeDev/csl/commit/54031c3d9dcd6e569f4cccf7610eaeeec0e808ee))
+
+
+
 # [2.15.0](https://github.com/LuckeeDev/csl/compare/v2.14.2...v2.15.0) (2022-04-02)
 
 
