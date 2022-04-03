@@ -161,6 +161,10 @@ export default function Wrapper({
 								</Link>
 
 								<TextLink href="/shop">Negozio</TextLink>
+
+								<TextLink href="/events" ml="xs">
+									Eventi
+								</TextLink>
 							</div>
 
 							<ButtonLink href="/dashboard">Dashboard</ButtonLink>
