@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.16.3](https://github.com/LuckeeDev/csl/compare/v2.16.2...v2.16.3) (2022-04-04)
+
+
+### Bug Fixes
+
+* **seo:** add seo meta tags ([523bde2](https://github.com/LuckeeDev/csl/commit/523bde2f66e1f1f201587800a5c7d85b920aa896))
+
+
+
 ## [2.16.2](https://github.com/LuckeeDev/csl/compare/v2.16.1...v2.16.2) (2022-04-04)
 
 
