@@ -14,7 +14,7 @@ export default function PageTitle(props: PageTitleProps) {
 				return props.children;
 			case 'object':
 				if (Array.isArray(props.children)) {
-					return props.children.join('');
+					return (props.children as string[]).join('');
 				} else {
 					return DEFAULT_TITLE;
 				}
