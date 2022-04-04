@@ -10,7 +10,6 @@ const handler = nextConnect<NextApiRequest, NextApiResponse>();
 
 const postBodySchema = Joi.object({
 	seminarId: Joi.string().required(),
-	timeSlotId: Joi.string().required(),
 });
 
 handler.get(session, isLoggedIn, async (req, res) => {
@@ -27,7 +26,6 @@ handler.post(
 	validate({ body: postBodySchema }),
 	async (req, res) => {
 		const seminarId = req.body.seminarId as string;
-		const timeSlotId = req.body.timeSlotId as string;
 		const userId = req.user?.id;
 
 		const seminar = await prisma.seminar.findUnique({
@@ -53,7 +51,7 @@ handler.post(
 
 		const existingBooking = await prisma.booking.findFirst({
 			where: {
-				seminar: { timeSlot: { id: timeSlotId } },
+				seminar: { timeSlot: { id: seminar.timeSlotId } },
 				user: { id: userId },
 			},
 		});

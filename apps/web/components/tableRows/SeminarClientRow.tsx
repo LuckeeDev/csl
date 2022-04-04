@@ -1,13 +1,11 @@
 import { Button, Text } from '@mantine/core';
 import { CheckIcon } from '@modulz/radix-icons';
 import { Seminar } from '@prisma/client';
-import { StaticTimeSlot } from 'pages/events/[eventId]';
 import { OmitDates } from 'types/omit';
 
 export interface SeminarClientRowProps {
 	seminar: OmitDates<Seminar & { _count: { bookings: number } }>;
-	onSignup: (seminarId: string, timeSlotId: string) => void;
-	timeSlot: OmitDates<StaticTimeSlot>;
+	onSignup: (seminarId: string) => void;
 	isSignedUp: boolean;
 	loading: boolean;
 }
@@ -15,7 +13,6 @@ export interface SeminarClientRowProps {
 export default function SeminarClientRow({
 	seminar,
 	onSignup,
-	timeSlot,
 	isSignedUp,
 	loading,
 }: SeminarClientRowProps) {
@@ -40,7 +37,7 @@ export default function SeminarClientRow({
 						<Button
 							size="xs"
 							loading={loading}
-							onClick={() => onSignup(seminar.id, timeSlot.id)}
+							onClick={() => onSignup(seminar.id)}
 						>
 							Iscriviti
 						</Button>

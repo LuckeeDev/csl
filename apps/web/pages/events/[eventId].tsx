@@ -11,10 +11,10 @@ import SeminarClientRow from 'components/tableRows/SeminarClientRow';
 import useSWR from 'swr';
 import getEndpoint from 'data/api/getEndpoint';
 import { useMemo } from 'react';
-import axios from 'axios';
 import { showNotification, updateNotification } from '@mantine/notifications';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import { useSession } from 'next-auth/react';
+import { createBooking } from 'data/api/booking';
 
 export interface StaticTimeSlot extends Omit<TimeSlot, 'start' | 'end'> {
 	start: string;
@@ -41,7 +41,7 @@ export default function EventPage({ event }: EventPageProps) {
 	);
 	const { data: session } = useSession();
 
-	async function onSignup(seminarId: string, timeSlotId: string) {
+	async function onSignup(seminarId: string) {
 		showNotification({
 			id: 'book-seminar',
 			message: 'Iscrizione in corso...',
@@ -49,32 +49,19 @@ export default function EventPage({ event }: EventPageProps) {
 		});
 
 		try {
-			await mutate(
-				async () => {
-					const { data: newData } = await axios.post<Booking[]>(
-						'/api/seminars/booking',
-						{
-							seminarId,
-							timeSlotId,
-						}
-					);
-
-					return newData;
-				},
-				{
-					optimisticData: [
-						...(bookings ?? []),
-						{
-							id: 'new',
-							created_at: new Date(),
-							updated_at: new Date(),
-							seminarId,
-							userId: session?.user.id ?? 'you',
-						},
-					],
-					revalidate: false,
-				}
-			);
+			await mutate(createBooking(seminarId), {
+				optimisticData: [
+					...(bookings ?? []),
+					{
+						id: 'new',
+						created_at: new Date(),
+						updated_at: new Date(),
+						seminarId,
+						userId: session?.user.id ?? 'you',
+					},
+				],
+				revalidate: false,
+			});
 
 			updateNotification({
 				id: 'book-seminar',
@@ -128,7 +115,6 @@ export default function EventPage({ event }: EventPageProps) {
 								<tbody>
 									{slot.seminars.map((seminar) => (
 										<SeminarClientRow
-											timeSlot={slot}
 											onSignup={onSignup}
 											key={seminar.id}
 											seminar={seminar}
