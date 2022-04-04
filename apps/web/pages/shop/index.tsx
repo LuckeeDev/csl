@@ -6,6 +6,7 @@ import { SessionStatus, ShopSessionAPIData } from 'types/shopSession';
 import Link from 'next/link';
 import ShopSessionCardContent from 'components/shopSessions/ShopSessionCardContent';
 import getSessionStatus from 'utils/shop/getSessionStatus';
+import PageTitle from 'components/head/PageTitle';
 
 interface ShopIndexProps {
 	shopSessions: ShopSessionAPIData[];
@@ -30,6 +31,8 @@ export default function ShopIndex({
 
 	return (
 		<div style={{ padding: '0 15px 0 0' }}>
+			<PageTitle>Negozio</PageTitle>
+
 			<h1>Negozio</h1>
 
 			<SimpleGrid
