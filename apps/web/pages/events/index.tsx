@@ -1,6 +1,7 @@
 import { Card, SimpleGrid } from '@mantine/core';
 import { CalendarIcon, ClockIcon } from '@modulz/radix-icons';
 import { Event } from '@prisma/client';
+import PageTitle from 'components/head/PageTitle';
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import prisma from 'prisma/client';
@@ -71,7 +72,10 @@ export default function EventsIndex({
 
 	return (
 		<>
+			<PageTitle>Eventi</PageTitle>
+
 			<h1>Eventi</h1>
+
 			<SimpleGrid
 				cols={4}
 				breakpoints={[
