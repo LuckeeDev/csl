@@ -87,7 +87,7 @@
 		"husky": "^7.0.4",
 		"jest": "27.5.1",
 		"nx": "13.9.6",
-		"prettier": "2.6.1",
+		"prettier": "2.6.2",
 		"prisma": "^3.11.1",
 		"react-test-renderer": "17.0.2",
 		"sass": "1.49.10",
