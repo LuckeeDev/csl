@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.16.2](https://github.com/LuckeeDev/csl/compare/v2.16.1...v2.16.2) (2022-04-04)
+
+
+### Bug Fixes
+
+* **events:** :ambulance: check server side for time slot id ([337c685](https://github.com/LuckeeDev/csl/commit/337c6850790af67ff5daab4c76595b0e6737769c))
+
+
+
 ## [2.16.1](https://github.com/LuckeeDev/csl/compare/v2.16.0...v2.16.1) (2022-04-03)
 
 
