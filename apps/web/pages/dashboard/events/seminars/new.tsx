@@ -16,6 +16,7 @@ import useSeminarForm, { SeminarFormValues } from 'hooks/forms/useSeminarForm';
 import { EVENT_LINKS } from 'navigation/dashboard/events';
 import useSWR from 'swr';
 import getLocation from 'utils/events/getLocation';
+import { v4 } from 'uuid';
 
 function DashboardSeminarsNew() {
 	const { data: timeSlots } = useSWR<TimeSlot[]>(
@@ -30,6 +31,8 @@ function DashboardSeminarsNew() {
 	const { serviceAccount } = useServiceAccount();
 
 	async function onSubmit(val: SeminarFormValues) {
+		const id = v4();
+
 		if (!serviceAccount || !timeSlots) {
 			showNotification({
 				color: 'red',
@@ -40,7 +43,7 @@ function DashboardSeminarsNew() {
 			});
 		} else {
 			showNotification({
-				id: 'create-seminar',
+				id: `create-seminar-${id}`,
 				message: `Creazione ${
 					val.location ? 'del seminario' : 'della riunione Meet'
 				} in corso...`,
@@ -55,7 +58,7 @@ function DashboardSeminarsNew() {
 
 			if (!val.location) {
 				updateNotification({
-					id: 'create-seminar',
+					id: `create-seminar-${id}`,
 					message: 'Riunione creata, creazione del seminario in corso...',
 					loading: true,
 				});
@@ -80,7 +83,7 @@ function DashboardSeminarsNew() {
 			});
 
 			updateNotification({
-				id: 'create-seminar',
+				id: `create-seminar-${id}`,
 				title: 'Seminario creato',
 				message:
 					'Il seminario è stato creato ed è ora disponibile nella pagina degli eventi',
