@@ -17,6 +17,7 @@ import { CheckIcon } from '@modulz/radix-icons';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import { showNotification, updateNotification } from '@mantine/notifications';
 import PageHeading from 'components/heading/PageHeading';
+import { v4 } from 'uuid';
 
 export interface NewEventFormValues {
 	name: string;
@@ -41,6 +42,8 @@ function DashboardEventsIndex() {
 	);
 
 	async function onSubmit(val: NewEventFormValues) {
+		const id = v4();
+
 		const optimisticData = {
 			...val,
 			id: 'new',
@@ -49,7 +52,7 @@ function DashboardEventsIndex() {
 		};
 
 		showNotification({
-			id: 'create-event',
+			id: `create-event-${id}`,
 			loading: true,
 			message: 'Operazione in corso...',
 		});
@@ -60,7 +63,7 @@ function DashboardEventsIndex() {
 		});
 
 		updateNotification({
-			id: 'create-event',
+			id: `create-event-${id}`,
 			color: 'teal',
 			icon: <CheckIcon />,
 			loading: false,

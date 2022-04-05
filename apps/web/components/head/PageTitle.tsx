@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { ReactNode, useMemo } from 'react';
 
 interface PageTitleProps {
-	children: ReactNode;
+	children: string;
 }
 
 const DEFAULT_TITLE = 'Comitato Studentesco Lussana';
@@ -14,7 +14,7 @@ export default function PageTitle(props: PageTitleProps) {
 				return props.children;
 			case 'object':
 				if (Array.isArray(props.children)) {
-					return props.children.join('');
+					return (props.children as string[]).join('');
 				} else {
 					return DEFAULT_TITLE;
 				}

@@ -15,6 +15,7 @@ import { showNotification, updateNotification } from '@mantine/notifications';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import { useSession } from 'next-auth/react';
 import { createBooking } from 'data/api/booking';
+import { v4 } from 'uuid';
 
 export interface StaticTimeSlot extends Omit<TimeSlot, 'start' | 'end'> {
 	start: string;
@@ -42,8 +43,10 @@ export default function EventPage({ event }: EventPageProps) {
 	const { data: session } = useSession();
 
 	async function onSignup(seminarId: string) {
+		const id = v4();
+
 		showNotification({
-			id: 'book-seminar',
+			id: `book-seminar-${id}`,
 			message: 'Iscrizione in corso...',
 			loading: true,
 		});
@@ -64,7 +67,7 @@ export default function EventPage({ event }: EventPageProps) {
 			});
 
 			updateNotification({
-				id: 'book-seminar',
+				id: `book-seminar-${id}`,
 				title: 'Seminario prenotato',
 				message:
 					"Torna il giorno del seminario per visualizzare il link tramite cui accedere all'evento!",
@@ -74,7 +77,7 @@ export default function EventPage({ event }: EventPageProps) {
 			});
 		} catch (err) {
 			updateNotification({
-				id: 'book-seminar',
+				id: `book-seminar-${id}`,
 				title: 'Errore',
 				message: 'Non è stato possibile prenotare questo seminario',
 				color: 'red',

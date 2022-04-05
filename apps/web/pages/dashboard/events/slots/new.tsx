@@ -12,6 +12,7 @@ import useTimeSlotForm, {
 } from 'hooks/forms/useTimeSlotForm';
 import { EVENT_LINKS } from 'navigation/dashboard/events';
 import useSWR from 'swr';
+import { v4 } from 'uuid';
 
 function DashboardTimeSlotsNew() {
 	const form = useTimeSlotForm();
@@ -22,8 +23,10 @@ function DashboardTimeSlotsNew() {
 	const { data: events } = useSWR<Event[]>('/api/events', getEndpoint);
 
 	async function onSubmit({ startTime, endTime, ...data }: TimeSlotFormValues) {
+		const id = v4();
+
 		showNotification({
-			id: 'create-time-slot',
+			id: `create-time-slot-${id}`,
 			loading: true,
 			message: 'Operazione in corso...',
 		});
@@ -58,7 +61,7 @@ function DashboardTimeSlotsNew() {
 		await mutate(createTimeSlot(data), { revalidate: false, optimisticData });
 
 		updateNotification({
-			id: 'create-time-slot',
+			id: `create-time-slot-${id}`,
 			color: 'teal',
 			icon: <CheckIcon />,
 			loading: false,
