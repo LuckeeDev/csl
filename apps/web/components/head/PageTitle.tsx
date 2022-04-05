@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { ReactNode, useMemo } from 'react';
 
 interface PageTitleProps {
-	children: string;
+	children: ReactNode;
 }
 
 const DEFAULT_TITLE = 'Comitato Studentesco Lussana';
