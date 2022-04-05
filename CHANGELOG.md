@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.16.5](https://github.com/LuckeeDev/csl/compare/v2.16.4...v2.16.5) (2022-04-05)
+
+
+### Bug Fixes
+
+* **head:** correct type for title ([34a5838](https://github.com/LuckeeDev/csl/commit/34a5838c244208d72075cab53319b6bbcfe95a1b))
+
+
+
 ## [2.16.4](https://github.com/LuckeeDev/csl/compare/v2.16.3...v2.16.4) (2022-04-05)
 
 
