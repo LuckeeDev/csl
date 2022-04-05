@@ -2,6 +2,18 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.16.4](https://github.com/LuckeeDev/csl/compare/v2.16.3...v2.16.4) (2022-04-05)
+
+
+### Bug Fixes
+
+* **notifications:** use new id for every new notification ([7dba521](https://github.com/LuckeeDev/csl/commit/7dba521c228186f803ac5777c3a165309a9b4dc8))
+* type PageTitle children ([d37bea8](https://github.com/LuckeeDev/csl/commit/d37bea87f49d7e86f1ebb583d5deeb6fd8a439b1))
+* **seo:** add seo meta tags ([3d274d3](https://github.com/LuckeeDev/csl/commit/3d274d3133bbc8bb360002558a1b3bc3c92ae3db))
+* **seo:** add seo meta tags ([ea17e03](https://github.com/LuckeeDev/csl/commit/ea17e03486c9e4f4f3cfdfa7f9fe898cefd5ea9b))
+
+
+
 ## [2.16.3](https://github.com/LuckeeDev/csl/compare/v2.16.2...v2.16.3) (2022-04-04)
 
 
