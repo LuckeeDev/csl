@@ -28,3 +28,5 @@ The repo uses some of the most advanced tools available in web development today
 ## How can I get involved?
 
 I would love to get some help on this project! If you want to get involved, play around with some of the code and feel free to open a pull request with new changes. You can contact me here on GitHub through the Issues tab or via email at [luca@luckee.dev](mailto:luca@luckee.dev).
+
+[![https://vercel.com?utm_source=liveyourschool&utm_campaign=oss](./assets/powered-by-vercel.svg)](https://vercel.com?utm_source=liveyourschool&utm_campaign=oss)
