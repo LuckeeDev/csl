@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.16.7](https://github.com/LuckeeDev/csl/compare/v2.16.6...v2.16.7) (2022-04-06)
+
+
+### Bug Fixes
+
+* add vercel logo to footer ([61137af](https://github.com/LuckeeDev/csl/commit/61137af9eb21d238f0fda9ba9b32cd1c134d863e))
+
+
+
 ## [2.16.6](https://github.com/LuckeeDev/csl/compare/v2.16.5...v2.16.6) (2022-04-06)
 
 
