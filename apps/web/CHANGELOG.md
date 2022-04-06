@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.16.6](https://github.com/LuckeeDev/csl/compare/v2.16.5...v2.16.6) (2022-04-06)
+
+
+### Bug Fixes
+
+* revalidate shop session 404 ([1ddd5eb](https://github.com/LuckeeDev/csl/commit/1ddd5ebe09f20ca3f4dc8755896c6fc82605c0dd))
+
+
+
 ## [2.16.5](https://github.com/LuckeeDev/csl/compare/v2.16.4...v2.16.5) (2022-04-05)
 
 
