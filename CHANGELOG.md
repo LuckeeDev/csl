@@ -2,6 +2,19 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.16.9](https://github.com/LuckeeDev/csl/compare/v2.16.8...v2.16.9) (2022-04-06)
+
+
+### Bug Fixes
+
+* **home:** change title ([009b6fb](https://github.com/LuckeeDev/csl/commit/009b6fbb36a040ae60c39e6ff2210a7fcbda2dce))
+* **styles:** remove padding right from footer ([3eebba7](https://github.com/LuckeeDev/csl/commit/3eebba70b932ec5d1c55d7861e73f1f74f446da0))
+* add vercel logo to footer ([be57fe9](https://github.com/LuckeeDev/csl/commit/be57fe9d49baca2fd397290d5fe48fcb16473297))
+* change footer grid display ([618ba6c](https://github.com/LuckeeDev/csl/commit/618ba6c3ed3357a7e51f552c3e3270beac6e173d))
+* revalidate shop session 404 ([c62f0c9](https://github.com/LuckeeDev/csl/commit/c62f0c999cd102400234e2e263eaf5d905219f69))
+
+
+
 ## [2.16.8](https://github.com/LuckeeDev/csl/compare/v2.16.7...v2.16.8) (2022-04-06)
 
 
