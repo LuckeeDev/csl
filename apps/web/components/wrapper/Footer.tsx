@@ -20,10 +20,10 @@ const useStyles = createStyles((theme) => ({
 			height: '152px',
 			padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
 			gridTemplateColumns: 'auto auto',
-			gridTemplateRows: 'auto 80px',
+			gridTemplateRows: '80px auto',
 			gridTemplateAreas: `
-			  "vercel vercel"
 			  "left right"
+			  "vercel vercel"
 			`,
 		},
 	},
