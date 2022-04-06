@@ -1,20 +1,30 @@
 import { Anchor, createStyles } from '@mantine/core';
 import { ExternalLinkIcon, GitHubLogoIcon } from '@modulz/radix-icons';
 import TextLink from 'components/links/TextLink';
+import VercelLogo from 'components/vercel/VercelLogo';
 import PackageJSON from '../../../../package.json';
 
 const useStyles = createStyles((theme) => ({
 	footer: {
-		display: 'flex',
+		display: 'grid',
 		width: '100%',
 		height: '98px',
 		borderTop: '1px solid #2C2E33',
 		padding: `${theme.spacing.xs}px 20%`,
+		gridTemplateColumns: '1fr 1fr 1fr',
+		gridTemplateAreas: '"left vercel right"',
 		alignItems: 'center',
-		justifyContent: 'space-between',
+		gap: 0,
 
 		[`@media (max-width: ${theme.breakpoints.md}px)`]: {
+			height: '152px',
 			padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
+			gridTemplateColumns: 'auto auto',
+			gridTemplateRows: 'auto 80px',
+			gridTemplateAreas: `
+			  "vercel vercel"
+			  "left right"
+			`,
 		},
 	},
 	anchor: {
@@ -29,6 +39,26 @@ const useStyles = createStyles((theme) => ({
 	icon: {
 		marginRight: theme.spacing.xs,
 	},
+	leftDiv: {
+		gridArea: 'left',
+	},
+	vercelDiv: {
+		justifySelf: 'center',
+		width: '212px',
+		height: '44px',
+
+		gridArea: 'vercel',
+	},
+	vercelLink: {
+		width: '212px',
+		height: '44px',
+	},
+	rightDiv: {
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'flex-end',
+		gridArea: 'right',
+	},
 }));
 
 export default function Footer() {
@@ -36,7 +66,7 @@ export default function Footer() {
 
 	return (
 		<div className={classes.footer}>
-			<div>
+			<div className={classes.leftDiv}>
 				<Anchor
 					className={classes.anchor}
 					href="https://github.com/LuckeeDev/csl"
@@ -50,13 +80,17 @@ export default function Footer() {
 				<span>v{PackageJSON.version}</span>
 			</div>
 
-			<div
-				style={{
-					display: 'flex',
-					flexDirection: 'column',
-					alignItems: 'flex-end',
-				}}
-			>
+			<div className={classes.vercelDiv}>
+				<a
+					className={classes.vercelLink}
+					target="_blank"
+					href="https://vercel.com?utm_source=liveyourschool&utm_campaign=oss"
+				>
+					<VercelLogo backgroundColor="transparent" />
+				</a>
+			</div>
+
+			<div className={classes.rightDiv}>
 				<span>Comitato Studentesco Lussana</span>
 
 				<span>
