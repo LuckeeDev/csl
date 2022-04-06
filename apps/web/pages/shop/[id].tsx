@@ -171,6 +171,8 @@ export const getStaticProps: GetStaticProps<ShopSessionPageProps> = async (
 	) {
 		return {
 			notFound: true,
+		        // revalidate every 60 seconds
+		        revalidate: 60,
 		};
 	}
 
