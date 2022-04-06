@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.16.8](https://github.com/LuckeeDev/csl/compare/v2.16.7...v2.16.8) (2022-04-06)
+
+
+### Bug Fixes
+
+* change footer grid display ([74fe0e6](https://github.com/LuckeeDev/csl/commit/74fe0e6ef8c52884d3081ecde9d500407f3779a8))
+
+
+
 ## [2.16.7](https://github.com/LuckeeDev/csl/compare/v2.16.6...v2.16.7) (2022-04-06)
 
 
