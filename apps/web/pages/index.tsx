@@ -25,13 +25,12 @@ export default function HomePage() {
 	}, [router, notifications]);
 
 	return (
-		<>
+		<div>
 			<Title
 				sx={{ fontSize: 80, fontWeight: 900, letterSpacing: -2 }}
 				align="center"
 				mt={100}
 			>
-				Benvenuto su{' '}
 				<Text inherit variant="gradient" component="span">
 					CSL
 				</Text>
@@ -47,6 +46,6 @@ export default function HomePage() {
 			>
 				Il sito del Comitato Studentesco Lussana.
 			</Text>
-		</>
+		</div>
 	);
 }

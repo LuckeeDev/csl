@@ -9,6 +9,7 @@ import NextNProgress from 'nextjs-progressbar';
 import dynamic from 'next/dynamic';
 import LoaderDiv from 'components/loader/LoaderDiv';
 import 'dayjs/locale/it';
+import './styles.scss';
 
 interface CustomAppProps extends AppProps {
 	Component: NextComponentType<NextPageContext, any, any> & {
