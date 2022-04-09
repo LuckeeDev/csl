@@ -37,7 +37,8 @@ export default function EventPage({ event }: EventPageProps) {
 		getEndpoint
 	);
 	const bookedSeminarIds = useMemo(
-		() => bookings?.map((b) => b.seminarId) ?? [],
+		() =>
+			bookings && bookings.length > 0 ? bookings.map((b) => b.seminarId) : [],
 		[bookings]
 	);
 	const { data: session } = useSession();
