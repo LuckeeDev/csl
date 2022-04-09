@@ -33,6 +33,10 @@ export default function EventsIndex({
 				}));
 
 				const firstStart = timeSlots.reduce<Date>((previous, current) => {
+					if (previous.getTime() === 0) {
+						return current.start;
+					}
+
 					const currentTime = current.start.getTime();
 					const previousTime = previous.getTime();
 
@@ -41,7 +45,7 @@ export default function EventsIndex({
 					} else {
 						return previous;
 					}
-				}, new Date());
+				}, new Date(0));
 
 				const lastEnd = timeSlots.reduce<Date>((previous, current) => {
 					const currentTime = current.end.getTime();
