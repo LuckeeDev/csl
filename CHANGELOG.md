@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.16.12](https://github.com/LuckeeDev/csl/compare/v2.16.11...v2.16.12) (2022-04-09)
+
+
+### Bug Fixes
+
+* **events:** show correct event start date ([09accab](https://github.com/LuckeeDev/csl/commit/09accabade69054616c87b8d5d097bc82913bbc4))
+
+
+
 ## [2.16.11](https://github.com/LuckeeDev/csl/compare/v2.16.10...v2.16.11) (2022-04-09)
 
 
