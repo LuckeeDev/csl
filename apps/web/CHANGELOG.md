@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.16.11](https://github.com/LuckeeDev/csl/compare/v2.16.10...v2.16.11) (2022-04-09)
+
+
+### Bug Fixes
+
+* **events:** return empty array if undefined user requests bookings ([5b6164a](https://github.com/LuckeeDev/csl/commit/5b6164a64500f12b27155efddd97e241b22a1e66))
+
+
+
 ## [2.16.10](https://github.com/LuckeeDev/csl/compare/v2.16.9...v2.16.10) (2022-04-09)
 
 
