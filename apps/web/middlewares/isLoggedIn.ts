@@ -9,6 +9,6 @@ export default async function isLoggedIn(
 	if (req.user) {
 		next();
 	} else {
-		res.status(401).end();
+		return res.status(401).end();
 	}
 }

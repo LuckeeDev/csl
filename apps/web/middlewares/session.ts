@@ -4,7 +4,7 @@ import { NextHandler } from 'next-connect';
 
 export default async function session(
 	req: NextApiRequest,
-	res: NextApiResponse,
+	_: NextApiResponse,
 	next: NextHandler
 ) {
 	const session = await getSession({ req });

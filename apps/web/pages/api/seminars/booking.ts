@@ -15,6 +15,10 @@ const postBodySchema = Joi.object({
 handler.get(session, isLoggedIn, async (req, res) => {
 	const userId = req.user?.id;
 
+	if (!userId) {
+		return res.status(401).json([]);
+	}
+
 	const bookings = await prisma.booking.findMany({ where: { userId } });
 
 	res.status(200).json(bookings);
