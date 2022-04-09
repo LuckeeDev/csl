@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.16.10](https://github.com/LuckeeDev/csl/compare/v2.16.9...v2.16.10) (2022-04-09)
+
+
+### Bug Fixes
+
+* **events:** :ambulance: don't map to array of undefined in bookingIds ([60e5801](https://github.com/LuckeeDev/csl/commit/60e58012b4446240d3c867d28805a6cf26960d74))
+
+
+
 ## [2.16.9](https://github.com/LuckeeDev/csl/compare/v2.16.8...v2.16.9) (2022-04-06)
 
 
