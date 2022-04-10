@@ -44,14 +44,17 @@ export default function EventPage({ event: serverSideEvent }: EventPageProps) {
 	);
 	const { data: session } = useSession();
 	const event = useMemo(
-		() => ({
-			...serverSideEvent,
-			timeSlots: serverSideEvent.timeSlots.map((e) => ({
-				...e,
-				start: new Date(e.start),
-				end: new Date(e.end),
-			})),
-		}),
+		() =>
+			serverSideEvent
+				? {
+						...serverSideEvent,
+						timeSlots: serverSideEvent.timeSlots.map((e) => ({
+							...e,
+							start: new Date(e.start),
+							end: new Date(e.end),
+						})),
+				  }
+				: null,
 		[serverSideEvent]
 	);
 
@@ -126,7 +129,7 @@ export default function EventPage({ event: serverSideEvent }: EventPageProps) {
 				active={activeTab - 1}
 				onTabChange={(newTab) => setActiveTab(newTab + 1)}
 			>
-				{event.timeSlots.map((slot) => (
+				{event?.timeSlots.map((slot) => (
 					<Tabs.Tab label={slot.name} key={slot.id}>
 						{slot.start.getTime() - 1000 * 60 * 15 < new Date().getTime() ? (
 							<>
