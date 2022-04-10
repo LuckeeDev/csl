@@ -11932,11 +11932,6 @@ sisteransi@^1.0.5:
   resolved "https://registry.yarnpkg.com/sisteransi/-/sisteransi-1.0.5.tgz#134d681297756437cc05ca01370d3a7a571075ed"
   integrity sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==
 
-skip-postinstall@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/skip-postinstall/-/skip-postinstall-1.0.0.tgz#939d49b09ddae9816f089c0b892a8e4bb7bc7747"
-  integrity sha512-IUVEmm4v7Ubzrp9JDG15oTzMB+abJdHcduXMRzBlHnHRrmpQ/QoPtYCRaorP+abAULTGEh87gPPyyMK5H1X1Dg==
-
 slash@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
