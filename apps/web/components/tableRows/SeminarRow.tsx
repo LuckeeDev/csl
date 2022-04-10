@@ -3,16 +3,19 @@ import { ExtendedSeminar } from 'types/seminars';
 
 interface SeminarRowProps {
 	seminar: ExtendedSeminar;
+	onDelete: (seminarId: string) => void;
 }
 
-export default function SeminarRow({ seminar }: SeminarRowProps) {
+export default function SeminarRow({ seminar, onDelete }: SeminarRowProps) {
 	return (
 		<tr>
 			<td>{seminar.name}</td>
 			<td>{seminar.timeSlot.event.name}</td>
 			<td>{seminar.timeSlot.name}</td>
 			<td>
-				<Button color="red">Elimina</Button>
+				<Button color="red" onClick={() => onDelete(seminar.id)}>
+					Elimina
+				</Button>
 			</td>
 		</tr>
 	);

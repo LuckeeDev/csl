@@ -1,6 +1,7 @@
 import { Booking, Seminar } from '@prisma/client';
 import axios from 'axios';
 import { SeminarFormValues } from 'hooks/forms/useSeminarForm';
+import { ExtendedSeminar } from 'types/seminars';
 
 export function createSeminar(data: SeminarFormValues) {
 	return async (
@@ -23,6 +24,24 @@ export function createSeminar(data: SeminarFormValues) {
 		}
 
 		return { seminars, seminarsCount: seminarsCount + 1 };
+	};
+}
+
+export function deleteSeminar(seminarId: string) {
+	return async (
+		currentData:
+			| { seminars: ExtendedSeminar[]; seminarsCount: number }
+			| undefined
+	) => {
+		await axios.delete(`/api/seminars/${seminarId}`);
+
+		const index = currentData?.seminars.findIndex((s) => s.id === seminarId);
+
+		if (index && index !== -1) {
+			currentData?.seminars.splice(index, 1);
+		}
+
+		return currentData;
 	};
 }
 

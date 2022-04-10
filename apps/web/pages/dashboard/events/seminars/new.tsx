@@ -9,8 +9,10 @@ import { Seminar, TimeSlot } from '@prisma/client';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import SeminarForm from 'components/forms/SeminarForm';
 import PageHeading from 'components/heading/PageHeading';
+import ButtonLink from 'components/links/ButtonLink';
 import getEndpoint from 'data/api/getEndpoint';
 import { createSeminar } from 'data/api/seminars';
+import { environment } from 'environments/environment';
 import useServiceAccount from 'hooks/accounts/useServiceAccount';
 import useSeminarForm, { SeminarFormValues } from 'hooks/forms/useSeminarForm';
 import { EVENT_LINKS } from 'navigation/dashboard/events';
@@ -107,6 +109,15 @@ function DashboardSeminarsNew() {
 					icon={<ExclamationTriangleIcon />}
 				>
 					Prima di poter creare seminari devi collegare un account di servizio!
+					<br />
+					<ButtonLink
+						mt="xs"
+						size="xs"
+						variant={serviceAccount ? 'outline' : 'filled'}
+						href={`/api/service-account/sign-in?redirectUri=${environment.url}/dashboard/events/service-account`}
+					>
+						{serviceAccount ? 'Cambia' : 'Collega'} account di servizio
+					</ButtonLink>
 				</Alert>
 			</DashboardPageContainer>
 		);
