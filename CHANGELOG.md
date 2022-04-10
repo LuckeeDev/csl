@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.17.2](https://github.com/LuckeeDev/csl/compare/v2.17.1...v2.17.2) (2022-04-10)
+
+
+### Bug Fixes
+
+* **events:** delete events ([ecf772a](https://github.com/LuckeeDev/csl/commit/ecf772a72a9c3b45aa3eb7a56f2165e4b13b379d))
+* **events:** delete seminars ([4a77852](https://github.com/LuckeeDev/csl/commit/4a77852376c1400ed54048ac59117bb4873d0c9a))
+
+
+
 ## [2.17.1](https://github.com/LuckeeDev/csl/compare/v2.17.0...v2.17.1) (2022-04-10)
 
 
