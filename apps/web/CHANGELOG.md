@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.17.0](https://github.com/LuckeeDev/csl/compare/v2.16.12...v2.17.0) (2022-04-10)
+
+
+### Features
+
+* **events:** show link on event day ([34a2390](https://github.com/LuckeeDev/csl/commit/34a239002158d4af0caa40a7857bda1a1f217210))
+
+
+
 ## [2.16.12](https://github.com/LuckeeDev/csl/compare/v2.16.11...v2.16.12) (2022-04-09)
 
 
