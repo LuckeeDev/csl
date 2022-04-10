@@ -26,52 +26,52 @@ function DashboardSeminars() {
 	);
 	const modals = useModals();
 
-	async function handleDelete(seminarId: string) {
-		try {
-			showNotification({
-				id: `delete-seminar-${seminarId}`,
-				message: 'Operazione in corso...',
-				loading: true,
-			});
-
-			const newSeminars = [...(data?.seminars ?? [])];
-
-			const index = newSeminars.findIndex((s) => s.id === seminarId);
-
-			if (index !== -1) {
-				newSeminars.splice(index, 1);
-			}
-
-			await mutate(deleteSeminar(seminarId), {
-				optimisticData: {
-					seminarsCount: data?.seminarsCount ?? 0,
-					seminars: newSeminars,
-				},
-				revalidate: false,
-			});
-
-			updateNotification({
-				id: `delete-seminar-${seminarId}`,
-				loading: false,
-				color: 'teal',
-				title: 'Seminario rimosso',
-				message:
-					'Il seminario, con tutte le prenotazioni collegato, è stato eliminato',
-				icon: <CheckIcon />,
-			});
-		} catch (err) {
-			updateNotification({
-				id: `delete-seminar-${seminarId}`,
-				loading: false,
-				color: 'red',
-				title: 'Errore',
-				message: "C'è stato un errore nella rimozione del corso",
-				icon: <Cross1Icon />,
-			});
-		}
-	}
-
 	function onDelete(seminarId: string) {
+		async function confirmDelete(seminarId: string) {
+			try {
+				showNotification({
+					id: `delete-seminar-${seminarId}`,
+					message: 'Operazione in corso...',
+					loading: true,
+				});
+
+				const newSeminars = [...(data?.seminars ?? [])];
+
+				const index = newSeminars.findIndex((s) => s.id === seminarId);
+
+				if (index !== -1) {
+					newSeminars.splice(index, 1);
+				}
+
+				await mutate(deleteSeminar(seminarId), {
+					optimisticData: {
+						seminarsCount: data?.seminarsCount ?? 0,
+						seminars: newSeminars,
+					},
+					revalidate: false,
+				});
+
+				updateNotification({
+					id: `delete-seminar-${seminarId}`,
+					loading: false,
+					color: 'teal',
+					title: 'Seminario rimosso',
+					message:
+						'Il seminario, con tutte le prenotazioni collegate, è stato eliminato',
+					icon: <CheckIcon />,
+				});
+			} catch (err) {
+				updateNotification({
+					id: `delete-seminar-${seminarId}`,
+					loading: false,
+					color: 'red',
+					title: 'Errore',
+					message: "C'è stato un errore nella rimozione del seminario",
+					icon: <Cross1Icon />,
+				});
+			}
+		}
+
 		modals.openConfirmModal({
 			title: 'Eliminazione seminario',
 			children: (
@@ -83,7 +83,7 @@ function DashboardSeminars() {
 			labels: { confirm: 'Conferma', cancel: 'Annulla' },
 			confirmProps: { color: 'red' },
 			centered: true,
-			onConfirm: () => handleDelete(seminarId),
+			onConfirm: () => confirmDelete(seminarId),
 		});
 	}
 

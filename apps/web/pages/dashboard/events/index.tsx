@@ -5,19 +5,21 @@ import {
 	InputWrapper,
 	ScrollArea,
 	Table,
+	Text,
 	TextInput,
 } from '@mantine/core';
 import useSWR from 'swr';
-import { createEvent, getEvents } from 'data/api/events';
+import { createEvent, deleteEvent, getEvents } from 'data/api/events';
 import { useMemo } from 'react';
 import EventRow from 'components/tableRows/EventRow';
 import { joiResolver, useForm } from '@mantine/form';
 import Joi from 'joi';
-import { CheckIcon } from '@modulz/radix-icons';
+import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import { showNotification, updateNotification } from '@mantine/notifications';
 import PageHeading from 'components/heading/PageHeading';
 import { v4 } from 'uuid';
+import { useModals } from '@mantine/modals';
 
 export interface NewEventFormValues {
 	name: string;
@@ -35,9 +37,70 @@ function DashboardEventsIndex() {
 			name: '',
 		},
 	});
+	const modals = useModals();
+
+	function onDelete(eventId: string) {
+		async function confirmDelete(eventId: string) {
+			try {
+				showNotification({
+					id: `delete-event-${eventId}`,
+					message: 'Operazione in corso...',
+					loading: true,
+				});
+
+				const newEvents = [...(data ?? [])];
+
+				const index = newEvents.findIndex((s) => s.id === eventId);
+
+				if (index !== -1) {
+					newEvents.splice(index, 1);
+				}
+
+				await mutate(deleteEvent(eventId), {
+					optimisticData: newEvents,
+					revalidate: false,
+				});
+
+				updateNotification({
+					id: `delete-event-${eventId}`,
+					loading: false,
+					color: 'teal',
+					title: 'Evento rimosso',
+					message: "L'evento, con tutti i dati collegati, è stato eliminato",
+					icon: <CheckIcon />,
+				});
+			} catch (err) {
+				updateNotification({
+					id: `delete-event-${eventId}`,
+					loading: false,
+					color: 'red',
+					title: 'Errore',
+					message: "C'è stato un errore nella rimozione del corso",
+					icon: <Cross1Icon />,
+				});
+			}
+		}
+
+		modals.openConfirmModal({
+			title: 'Eliminazione evento',
+			children: (
+				<Text size="sm">
+					Eliminando questo evento eliminerai anche tutti i dati associati,
+					comprese le fasce orarie, i seminari e le prenotazioni.
+				</Text>
+			),
+			labels: { confirm: 'Conferma', cancel: 'Annulla' },
+			confirmProps: { color: 'red' },
+			centered: true,
+			onConfirm: () => confirmDelete(eventId),
+		});
+	}
+
 	const rows = useMemo(
 		() =>
-			data?.map((event, index) => <EventRow event={event} key={index} />) ?? [],
+			data?.map((event, index) => (
+				<EventRow onDelete={onDelete} event={event} key={index} />
+			)) ?? [],
 		[data]
 	);
 

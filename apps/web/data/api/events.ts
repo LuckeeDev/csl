@@ -23,3 +23,17 @@ export function createEvent(event: NewEventFormValues) {
 		return events;
 	};
 }
+
+export function deleteEvent(eventId: string) {
+	return async (currentData: Event[] | undefined) => {
+		await axios.delete(`/api/events/${eventId}`);
+
+		const index = currentData?.findIndex((e) => e.id === eventId);
+
+		if (index && index !== -1) {
+			currentData?.splice(index, 1);
+		}
+
+		return currentData;
+	};
+}
