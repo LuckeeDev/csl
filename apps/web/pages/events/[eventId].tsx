@@ -5,17 +5,18 @@ import FallbackPage from 'components/fallback/FallbackPage';
 import BackLink from 'components/links/BackLink';
 import { Booking, Event, Seminar, TimeSlot } from '@prisma/client';
 import { OmitDates } from 'types/omit';
-import { ScrollArea, Table, Tabs } from '@mantine/core';
+import { Anchor, ScrollArea, Table, Tabs } from '@mantine/core';
 import useQueryState from 'hooks/router/useQueryState';
 import SeminarClientRow from 'components/tableRows/SeminarClientRow';
 import useSWR from 'swr';
 import getEndpoint from 'data/api/getEndpoint';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { showNotification, updateNotification } from '@mantine/notifications';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import { useSession } from 'next-auth/react';
 import { createBooking } from 'data/api/booking';
 import { v4 } from 'uuid';
+import PageHeading from 'components/heading/PageHeading';
 
 export interface StaticTimeSlot extends Omit<TimeSlot, 'start' | 'end'> {
 	start: string;
@@ -29,7 +30,7 @@ interface EventPageProps {
 	};
 }
 
-export default function EventPage({ event }: EventPageProps) {
+export default function EventPage({ event: serverSideEvent }: EventPageProps) {
 	const router = useRouter();
 	const [activeTab, setActiveTab] = useQueryState<number>('page', 1);
 	const { data: bookings, mutate } = useSWR<Booking[]>(
@@ -42,6 +43,28 @@ export default function EventPage({ event }: EventPageProps) {
 		[bookings]
 	);
 	const { data: session } = useSession();
+	const event = useMemo(
+		() => ({
+			...serverSideEvent,
+			timeSlots: serverSideEvent.timeSlots.map((e) => ({
+				...e,
+				start: new Date(e.start),
+				end: new Date(e.end),
+			})),
+		}),
+		[serverSideEvent]
+	);
+
+	const getSlotSeminar = useCallback(
+		(timeSlot: OmitDates<TimeSlot & { seminars: OmitDates<Seminar>[] }>) => {
+			const bookedSeminar = timeSlot.seminars.find((s) =>
+				bookedSeminarIds.includes(s.id)
+			);
+
+			return bookedSeminar;
+		},
+		[bookedSeminarIds]
+	);
 
 	async function onSignup(seminarId: string) {
 		const id = v4();
@@ -105,30 +128,42 @@ export default function EventPage({ event }: EventPageProps) {
 			>
 				{event.timeSlots.map((slot) => (
 					<Tabs.Tab label={slot.name} key={slot.id}>
-						<ScrollArea>
-							<Table style={{ minWidth: '600px' }} striped>
-								<thead>
-									<tr>
-										<th>Seminario</th>
-										<th>Dettagli</th>
-										<th>Iscritti</th>
-										<th>Iscriviti</th>
-									</tr>
-								</thead>
+						{slot.start.getTime() - 1000 * 60 * 15 < new Date().getTime() ? (
+							<>
+								<PageHeading type="h2" loading={!bookings}>
+									Le iscrizioni per questa fascia sono terminate
+								</PageHeading>
 
-								<tbody>
-									{slot.seminars.map((seminar) => (
-										<SeminarClientRow
-											onSignup={onSignup}
-											key={seminar.id}
-											seminar={seminar}
-											isSignedUp={bookedSeminarIds.includes(seminar.id)}
-											loading={!bookings}
-										/>
-									))}
-								</tbody>
-							</Table>
-						</ScrollArea>
+								<Anchor href={getSlotSeminar(slot)?.location} target="_blank">
+									{getSlotSeminar(slot)?.name}
+								</Anchor>
+							</>
+						) : (
+							<ScrollArea>
+								<Table style={{ minWidth: '600px' }} striped>
+									<thead>
+										<tr>
+											<th>Seminario</th>
+											<th>Dettagli</th>
+											<th>Iscritti</th>
+											<th>Iscriviti</th>
+										</tr>
+									</thead>
+
+									<tbody>
+										{slot.seminars.map((seminar) => (
+											<SeminarClientRow
+												onSignup={onSignup}
+												key={seminar.id}
+												seminar={seminar}
+												isSignedUp={bookedSeminarIds.includes(seminar.id)}
+												loading={!bookings}
+											/>
+										))}
+									</tbody>
+								</Table>
+							</ScrollArea>
+						)}
 					</Tabs.Tab>
 				))}
 			</Tabs>
