@@ -71,7 +71,7 @@
 		"@types/react-dom": "17.0.14",
 		"@types/react-is": "17.0.3",
 		"@types/uuid": "^8.3.4",
-		"@typescript-eslint/eslint-plugin": "5.18.0",
+		"@typescript-eslint/eslint-plugin": "5.19.0",
 		"@typescript-eslint/parser": "5.18.0",
 		"babel-jest": "27.5.1",
 		"cypress": "^9.5.3",
