@@ -62,7 +62,7 @@
 		"@nrwl/web": "13.10.1",
 		"@nrwl/workspace": "13.10.1",
 		"@testing-library/react": "12.1.4",
-		"@testing-library/react-hooks": "7.0.2",
+		"@testing-library/react-hooks": "8.0.0",
 		"@types/cors": "^2.8.12",
 		"@types/dotenv": "^8.2.0",
 		"@types/jest": "27.4.1",
