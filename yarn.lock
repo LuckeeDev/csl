@@ -4086,10 +4086,10 @@ autoprefixer@^10.2.5:
     normalize-range "^0.1.2"
     postcss-value-parser "^4.1.0"
 
-aws-sdk@^2.1112.0:
-  version "2.1112.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1112.0.tgz#7e6f60df562ebd909a9435b01673ed7685e10ffd"
-  integrity sha512-8FKr3zwD2bHZQLmxJ7d1VwvDkW9kKx4YPdNXawV+CqNUzQC/9ZmSmHyx8mZCv6J722tqxIZh5c567499QawuZw==
+aws-sdk@^2.1117.0:
+  version "2.1117.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1117.0.tgz#9565fbf39caebd51c7822ab78fb3c07876e811d4"
+  integrity sha512-MBSEiLLlj8ULr8na118m44M2VvTlkyaw13J3rcHOlMSbuB2DpXBZTs2dJylFWv2szaOOSsUTo8vmc+pRJHC+Aw==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
