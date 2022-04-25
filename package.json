@@ -21,7 +21,7 @@
     "@modulz/radix-icons": "^4.0.0",
     "@next-auth/prisma-adapter": "1.0.3",
     "@prisma/client": "3.12.0",
-    "aws-sdk": "^2.1112.0",
+    "aws-sdk": "^2.1120.0",
     "axios": "^0.26.1",
     "dayjs": "1.11.0",
     "document-register-element": "1.14.10",
