@@ -126,10 +126,12 @@ export default function ShopProductPage({ product }: ShopProductPageProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
+	const now = new Date();
+
 	// Only fetch products for which there's an active shop session
 	const products = await prisma.product.findMany({
 		where: {
-			shopSession: { start: { lte: new Date() }, end: { gte: new Date() } },
+			shopSession: { start: { lte: now }, end: { gte: now } },
 		},
 	});
 
@@ -143,6 +145,7 @@ export const getStaticProps: GetStaticProps<ShopProductPageProps> = async (
 	ctx
 ) => {
 	const id = ctx.params?.id as string;
+	const now = new Date();
 
 	const product = await prisma.product.findUnique({
 		where: { id },
@@ -181,14 +184,15 @@ export const getStaticProps: GetStaticProps<ShopProductPageProps> = async (
 		},
 	});
 
-	// Return not found if the product does not exist or if the session has ended
+	// Return not found if the product does not exist or if the session is not running
 	if (
 		!product ||
-		product.shopSession.end.getTime() < new Date().getTime() ||
-		product.shopSession.start.getTime() > new Date().getTime()
+		product.shopSession.end.getTime() < now.getTime() ||
+		product.shopSession.start.getTime() > now.getTime()
 	) {
 		return {
 			notFound: true,
+			revalidate: 60,
 		};
 	}
 
@@ -198,5 +202,6 @@ export const getStaticProps: GetStaticProps<ShopProductPageProps> = async (
 		props: {
 			product: savedProduct,
 		},
+		revalidate: 60,
 	};
 };
