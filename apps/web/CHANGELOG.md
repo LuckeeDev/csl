@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.17.4](https://github.com/LuckeeDev/csl/compare/v2.17.3...v2.17.4) (2022-04-26)
+
+
+### Bug Fixes
+
+* **shop:** revalidate product page ([6851b69](https://github.com/LuckeeDev/csl/commit/6851b692bea1f451f4eb06ff0672d2d3fefb9dc3))
+
+
+
 ## [2.17.3](https://github.com/LuckeeDev/csl/compare/v2.17.2...v2.17.3) (2022-04-11)
 
 
