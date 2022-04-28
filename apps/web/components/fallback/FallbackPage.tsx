@@ -7,6 +7,7 @@ export default function FallbackPage() {
 				height: '100%',
 				alignItems: 'center',
 				justifyContent: 'center',
+				flexDirection: 'column',
 			}}
 		>
 			<h1>Attendi un attimo...</h1>
