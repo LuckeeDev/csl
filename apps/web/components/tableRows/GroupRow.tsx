@@ -13,7 +13,7 @@ export default function GroupRow({ group }: GroupRowProps) {
 			<td>{group._count.managers}</td>
 			<td>
 				{group.id !== 'none' && (
-					<ButtonLink href={`/dashboard/users/group/${group.id}`}>
+					<ButtonLink href={`/dashboard/groups/${group.id}`}>
 						Gestisci
 					</ButtonLink>
 				)}

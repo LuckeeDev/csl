@@ -8,7 +8,7 @@ import { getGroup, unlinkUsers, updateGroup } from 'data/api/groups';
 import { searchUser } from 'data/api/users';
 import { environment } from 'environments/environment';
 import useDataError from 'hooks/errors/useDataError';
-import { USERS_LINKS } from 'navigation/dashboard/users';
+import { GROUPS_LINKS } from 'navigation/dashboard/groups';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo, useState } from 'react';
 import useSWR from 'swr';
@@ -161,7 +161,7 @@ function DashboardGroup() {
 }
 
 DashboardGroup.hasSidebar = true;
-DashboardGroup.sidebarLinks = USERS_LINKS;
+DashboardGroup.sidebarLinks = GROUPS_LINKS;
 DashboardGroup.hasLocalCache = true;
 
 export default DashboardGroup;

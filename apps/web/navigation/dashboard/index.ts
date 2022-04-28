@@ -43,9 +43,9 @@ export const DASHBOARD_LINKS: LinkData[] = [
 	{
 		icon: 'profile',
 		color: 'grape',
-		label: 'Utenti',
-		href: '/dashboard/users',
+		label: 'Gruppi',
+		href: '/dashboard/groups',
 		hasSublinks: true,
-		requiredPermissions: [Permission.USERS_MANAGER],
+		requiredPermissions: [],
 	},
 ];

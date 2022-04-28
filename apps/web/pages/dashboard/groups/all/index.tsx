@@ -5,7 +5,7 @@ import PageTitle from 'components/head/PageTitle';
 import GroupRow from 'components/tableRows/GroupRow';
 import useQueryState from 'hooks/router/useQueryState';
 import useGroupForm, { GroupFormValues } from 'hooks/forms/useGroupForm';
-import { USERS_LINKS } from 'navigation/dashboard/users';
+import { GROUPS_LINKS } from 'navigation/dashboard/groups';
 import { useMemo } from 'react';
 import useSWR from 'swr';
 import { createGroup, getGroups } from 'data/api/groups';
@@ -34,14 +34,6 @@ function DashboardUsers() {
 	const paginationTotal = useMemo(
 		() => Math.ceil((data?.groupsCount ?? 20) / 20),
 		[data?.groupsCount]
-	);
-
-	const rows = useMemo(
-		() =>
-			data?.groups?.map((group, index) => (
-				<GroupRow key={index} group={group} />
-			)) ?? [],
-		[data?.groups]
 	);
 
 	function onSubmit(val: GroupFormValues) {
@@ -84,7 +76,9 @@ function DashboardUsers() {
 					</thead>
 
 					<tbody>
-						{rows}
+						{data?.groups?.map((group, index) => (
+							<GroupRow key={index} group={group} />
+						)) ?? []}
 						<tr>
 							<td>
 								<GroupForm
@@ -110,7 +104,7 @@ function DashboardUsers() {
 }
 
 DashboardUsers.hasSidebar = true;
-DashboardUsers.sidebarLinks = USERS_LINKS;
+DashboardUsers.sidebarLinks = GROUPS_LINKS;
 DashboardUsers.hasLocalCache = true;
 
 export default DashboardUsers;
