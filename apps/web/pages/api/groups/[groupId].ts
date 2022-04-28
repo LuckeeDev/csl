@@ -1,6 +1,5 @@
-import { Permission } from '@prisma/client';
 import Joi from 'joi';
-import hasPermission from 'middlewares/hasPermission';
+import isGroupManager from 'middlewares/isGroupManager';
 import session from 'middlewares/session';
 import validate from 'middlewares/validate';
 import { NextApiRequest, NextApiResponse } from 'next';
@@ -19,8 +18,8 @@ const patchBodySchema = Joi.object({
 
 handler.get(
 	session,
-	hasPermission(Permission.USERS_MANAGER),
 	validate({ query: getQuerySchema }),
+	isGroupManager,
 	async (req, res) => {
 		const groupId = req.query.groupId as string;
 
@@ -35,8 +34,8 @@ handler.get(
 
 handler.patch(
 	session,
-	hasPermission(Permission.USERS_MANAGER),
 	validate({ body: patchBodySchema, query: getQuerySchema }),
+	isGroupManager,
 	async (req, res) => {
 		const groupId = req.query.groupId as string;
 		const managersIds = req.body.managersIds as string[];
