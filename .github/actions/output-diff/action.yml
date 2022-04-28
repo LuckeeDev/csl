@@ -1,0 +1,15 @@
+name: 'Output diff'
+description: 'Output a file containing differences between two files'
+inputs:
+  before-path:
+    description: 'The path of the first file, relative to the working directory'
+    required: true
+  after-path:
+    description: 'The path of the second file, relative to the working directory'
+    required: true
+  diff-path:
+    description: 'The path of the diff file, relative to the working directory'
+    required: true
+runs:
+  using: 'node16'
+  main: 'outputDiff.js'

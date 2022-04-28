@@ -1,0 +1,12 @@
+name: 'Get tag'
+description: 'Get release tag from a diff file'
+inputs:
+  diff-path:
+    description: 'The path of the diff file, relative to the working directory'
+    required: true
+outputs:
+  tag:
+    description: 'The release tag'
+runs:
+  using: 'node16'
+  main: 'getTag.js'
