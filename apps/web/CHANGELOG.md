@@ -2,6 +2,21 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.18.0](https://github.com/LuckeeDev/csl/compare/v2.17.5...v2.18.0) (2022-04-28)
+
+
+### Bug Fixes
+
+* allow only one group ([6f119d3](https://github.com/LuckeeDev/csl/commit/6f119d39a8bee66d6b00db969b6b6560e90a9421))
+* check if user is group manager in api ([bdb107c](https://github.com/LuckeeDev/csl/commit/bdb107cbe49bf435598acb325bff86cb960a7dec))
+
+
+### Features
+
+* show managed groups ([fa16db3](https://github.com/LuckeeDev/csl/commit/fa16db3db3254a3033b4ebaed48384ee09f13e21))
+
+
+
 ## [2.17.5](https://github.com/LuckeeDev/csl/compare/v2.17.4...v2.17.5) (2022-04-26)
 
 
