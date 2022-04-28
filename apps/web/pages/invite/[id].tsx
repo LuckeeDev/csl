@@ -82,7 +82,7 @@ export const getServerSideProps: GetServerSideProps<InviteProps> = async (
 
 	await prisma.user.update({
 		where: { id: userId },
-		data: { groups: { connect: { id: groupId } } },
+		data: { group: { connect: { id: groupId } } },
 	});
 
 	return {

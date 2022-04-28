@@ -39,14 +39,15 @@ model User {
     roles         Role[]
     orders        Order[]
     bookings      Booking[]
-    groups        Group[]   @relation("groups")
+    group         Group?    @relation("group", fields: [groupId], references: [id])
+    groupId       String?
     managedGroups Group[]   @relation("groupManagers")
 }
 
 model Group {
     id       String @id @default(cuid())
     name     String
-    users    User[] @relation("groups")
+    users    User[] @relation("group")
     managers User[] @relation("groupManagers")
 }
 

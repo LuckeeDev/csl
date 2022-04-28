@@ -39,7 +39,7 @@ handler.get(
 
 		if (page === 1) {
 			const noGroupUsers = await prisma.user.count({
-				where: { groups: { none: {} } },
+				where: { groupId: null },
 			});
 
 			const noGroup: ExtendedGroup = {
