@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.18.2](https://github.com/LuckeeDev/csl/compare/v2.18.1...v2.18.2) (2022-04-30)
+
+
+### Bug Fixes
+
+* show loader on groups page ([c83ab9f](https://github.com/LuckeeDev/csl/commit/c83ab9f2d3ba487cde0d809535be0eb82fdf6a66))
+
+
+
 ## [2.18.1](https://github.com/LuckeeDev/csl/compare/v2.18.0...v2.18.1) (2022-04-28)
 
 
