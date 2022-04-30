@@ -10,9 +10,6 @@ function useLocalStorageProvider() {
 		localStorage.setItem('app-cache', appCache);
 	}
 
-	// Automatically save to cache on unload
-	window.addEventListener('beforeunload', saveToCache);
-
 	// We still use the map for write & read for performance.
 	return { provider: () => map, saveToCache };
 }
@@ -22,7 +19,13 @@ export default function SWRLocalCache({ children }: { children: ReactNode }) {
 
 	// Manually save to cache when the SWR cache component is destroyed
 	useEffect(() => {
-		return () => saveToCache();
+		// Automatically save to cache on unload
+		window.addEventListener('beforeunload', saveToCache);
+
+		return () => {
+			saveToCache();
+			window.removeEventListener('beforeunload', saveToCache);
+		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
