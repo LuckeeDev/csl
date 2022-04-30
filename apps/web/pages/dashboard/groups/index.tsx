@@ -22,12 +22,12 @@ export default function DashboardGroups() {
 		<>
 			<PageTitle>Dashboard | I miei gruppi</PageTitle>
 
-			<PageHeading>I miei gruppi</PageHeading>
+			<PageHeading loading={!data}>I miei gruppi</PageHeading>
 
 			{data?.group ? (
 				<p style={{ margin: 0 }}>Fai parte del gruppo {data.group.name}.</p>
 			) : (
-				<p>
+				<p style={{ margin: 0 }}>
 					Non fai ancora parte di alcun gruppo, chiedi al tuo gestore di
 					inviarti il link d&apos;invito
 				</p>
