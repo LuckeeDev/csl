@@ -1799,10 +1799,10 @@
     source-map "^0.6.1"
     write-file-atomic "^3.0.0"
 
-"@jest/transform@^28.0.2":
-  version "28.0.2"
-  resolved "https://registry.yarnpkg.com/@jest/transform/-/transform-28.0.2.tgz#2b33d93fdf5827309cbd332bf968fa0dd049e7b2"
-  integrity sha512-PgvB/DEwVY+vJAGTRSFhdmorytx54aXKK1+VQIxVtdFVAe0mJ2fUIRWQuGimveEJWT4ELJImZAIYOgs8z2L0eg==
+"@jest/transform@^28.0.3":
+  version "28.0.3"
+  resolved "https://registry.yarnpkg.com/@jest/transform/-/transform-28.0.3.tgz#591fb5ebc1d84db5c5f21e1225c7406c35f5eb1e"
+  integrity sha512-+Y0ikI7SwoW/YbK8t9oKwC70h4X2Gd0OVuz5tctRvSV/EDQU00AAkoqevXgPSSFimUmp/sp7Yl8s/1bExDqOIg==
   dependencies:
     "@babel/core" "^7.11.6"
     "@jest/types" "^28.0.2"
@@ -1869,13 +1869,13 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@jscutlery/semver@2.23.2":
-  version "2.23.2"
-  resolved "https://registry.yarnpkg.com/@jscutlery/semver/-/semver-2.23.2.tgz#9070461f62b36c4a4a7db6bcd56b9d0607fa0ab8"
-  integrity sha512-4s0Afr5SYdPW/Uhu73e3bvVTV9Vri3AOOCOk0WjQQAXwbS65i/KxsxA+huUInFHjohqSG+Ie0f7/VMUlmAAEiQ==
+"@jscutlery/semver@2.23.3":
+  version "2.23.3"
+  resolved "https://registry.yarnpkg.com/@jscutlery/semver/-/semver-2.23.3.tgz#9b3b00005c805943227973e83e7724668f5a2a25"
+  integrity sha512-oBbDDsymte6wTgQTRCDqozO5ggIxvA20h6wQelCqH6c5G7zPyINrqFkc3jG2YUZpBsdGvoE+8EqdodTS0vePfQ==
   dependencies:
     "@nrwl/devkit" "14.0.3"
-    inquirer "8.2.3"
+    inquirer "8.2.4"
     rxjs "7.5.5"
     standard-version "9.3.2"
 
@@ -4129,12 +4129,12 @@ axobject-query@^2.2.0:
   resolved "https://registry.yarnpkg.com/axobject-query/-/axobject-query-2.2.0.tgz#943d47e10c0b704aa42275e20edf3722648989be"
   integrity sha512-Td525n+iPOOyUQIeBfcASuG6uJsDOITl7Mds5gFyerkWiX7qhUTdYUBlSgNMyVqtSJqwpt1kXGLdUt6SykLMRA==
 
-babel-jest@28.0.2:
-  version "28.0.2"
-  resolved "https://registry.yarnpkg.com/babel-jest/-/babel-jest-28.0.2.tgz#72c050b4fbd108e561f9d9c7bad4893b20399b12"
-  integrity sha512-OlbfoOpHmU3jzAWoiT98bBuAhjrSZMxSVk5ALkCL/8ocb8dyx8F4H9NlBjH2xd08MI5306Yxa0+y87cjY55Eqw==
+babel-jest@28.0.3:
+  version "28.0.3"
+  resolved "https://registry.yarnpkg.com/babel-jest/-/babel-jest-28.0.3.tgz#843dc170da5b9671d4054ada9fdcd28f85f92a6e"
+  integrity sha512-S0ADyYdcrt5fp9YldRYWCUHdk1BKt9AkvBkLWBoNAEV9NoWZPIj5+MYhPcGgTS65mfv3a+Ymf2UqgWoAVd41cA==
   dependencies:
-    "@jest/transform" "^28.0.2"
+    "@jest/transform" "^28.0.3"
     "@types/babel__core" "^7.1.14"
     babel-plugin-istanbul "^6.1.1"
     babel-preset-jest "^28.0.2"
@@ -7558,10 +7558,10 @@ inline-style-parser@0.1.1:
   resolved "https://registry.yarnpkg.com/inline-style-parser/-/inline-style-parser-0.1.1.tgz#ec8a3b429274e9c0a1f1c4ffa9453a7fef72cea1"
   integrity sha512-7NXolsK4CAS5+xvdj5OMMbI962hU/wvwoxk+LWR9Ek9bVtyuuYScDN6eS0rUm6TxApFpw7CX1o4uJzcd4AyD3Q==
 
-inquirer@8.2.3:
-  version "8.2.3"
-  resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-8.2.3.tgz#9c0b8a3fda91fdb00590557ec8530160e908c6e7"
-  integrity sha512-jmoBlmWUChXgVi1wGDZsD7pWCaibJKmL+8+E2jaiWiRj8OlJLwQdQQS2CIjgvdg8UUHX+oyagQKicVVcqwxi9Q==
+inquirer@8.2.4:
+  version "8.2.4"
+  resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-8.2.4.tgz#ddbfe86ca2f67649a67daa6f1051c128f684f0b4"
+  integrity sha512-nn4F01dxU8VeKfq192IjLsxu0/OmMZ4Lg3xKAns148rCaXP6ntAoEkVYZThWjwON8AlzdZZi6oqnhNbxUG9hVg==
   dependencies:
     ansi-escapes "^4.2.1"
     chalk "^4.1.1"
@@ -13007,10 +13007,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@4.6.3, typescript@^4.4.3, typescript@^4.5.3:
-  version "4.6.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.6.3.tgz#eefeafa6afdd31d725584c67a0eaba80f6fc6c6c"
-  integrity sha512-yNIatDa5iaofVozS/uQJEl3JRWLKKGJKh6Yaiv0GLGSuhpFJe7P3SbHZ8/yjAHRQwKRoA6YZqlfjXWmVzoVSMw==
+typescript@4.6.4, typescript@^4.4.3, typescript@^4.5.3:
+  version "4.6.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.6.4.tgz#caa78bbc3a59e6a5c510d35703f6a09877ce45e9"
+  integrity sha512-9ia/jWHIEbo49HfjrLGfKbZSuWo9iTMwXO+Ca3pRsSpbsMbc7/IU8NKdCZVRRBafVPGnoJeFL76ZOAA84I9fEg==
 
 uglify-js@^3.1.4:
   version "3.13.2"
