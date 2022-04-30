@@ -1869,13 +1869,13 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@jscutlery/semver@2.23.2":
-  version "2.23.2"
-  resolved "https://registry.yarnpkg.com/@jscutlery/semver/-/semver-2.23.2.tgz#9070461f62b36c4a4a7db6bcd56b9d0607fa0ab8"
-  integrity sha512-4s0Afr5SYdPW/Uhu73e3bvVTV9Vri3AOOCOk0WjQQAXwbS65i/KxsxA+huUInFHjohqSG+Ie0f7/VMUlmAAEiQ==
+"@jscutlery/semver@2.23.3":
+  version "2.23.3"
+  resolved "https://registry.yarnpkg.com/@jscutlery/semver/-/semver-2.23.3.tgz#9b3b00005c805943227973e83e7724668f5a2a25"
+  integrity sha512-oBbDDsymte6wTgQTRCDqozO5ggIxvA20h6wQelCqH6c5G7zPyINrqFkc3jG2YUZpBsdGvoE+8EqdodTS0vePfQ==
   dependencies:
     "@nrwl/devkit" "14.0.3"
-    inquirer "8.2.3"
+    inquirer "8.2.4"
     rxjs "7.5.5"
     standard-version "9.3.2"
 
@@ -7558,10 +7558,10 @@ inline-style-parser@0.1.1:
   resolved "https://registry.yarnpkg.com/inline-style-parser/-/inline-style-parser-0.1.1.tgz#ec8a3b429274e9c0a1f1c4ffa9453a7fef72cea1"
   integrity sha512-7NXolsK4CAS5+xvdj5OMMbI962hU/wvwoxk+LWR9Ek9bVtyuuYScDN6eS0rUm6TxApFpw7CX1o4uJzcd4AyD3Q==
 
-inquirer@8.2.3:
-  version "8.2.3"
-  resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-8.2.3.tgz#9c0b8a3fda91fdb00590557ec8530160e908c6e7"
-  integrity sha512-jmoBlmWUChXgVi1wGDZsD7pWCaibJKmL+8+E2jaiWiRj8OlJLwQdQQS2CIjgvdg8UUHX+oyagQKicVVcqwxi9Q==
+inquirer@8.2.4:
+  version "8.2.4"
+  resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-8.2.4.tgz#ddbfe86ca2f67649a67daa6f1051c128f684f0b4"
+  integrity sha512-nn4F01dxU8VeKfq192IjLsxu0/OmMZ4Lg3xKAns148rCaXP6ntAoEkVYZThWjwON8AlzdZZi6oqnhNbxUG9hVg==
   dependencies:
     ansi-escapes "^4.2.1"
     chalk "^4.1.1"
