@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.18.4](https://github.com/LuckeeDev/csl/compare/v2.18.3...v2.18.4) (2022-04-30)
+
+
+
 ## [2.18.3](https://github.com/LuckeeDev/csl/compare/v2.18.2...v2.18.3) (2022-04-30)
 
 
