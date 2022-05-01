@@ -9,10 +9,13 @@ import Editor from 'components/editor/Editor';
 import { ArticleFormValues } from 'hooks/forms/useArticleForm';
 import { UseForm } from '@mantine/hooks/lib/use-form/use-form';
 import { Dropzone } from '@mantine/dropzone';
-import { UploadIcon } from '@modulz/radix-icons';
+import { CheckIcon, Cross1Icon, UploadIcon } from '@modulz/radix-icons';
 import axios from 'axios';
 import { SignedAWSUploadFile } from 'types/aws';
 import { useState } from 'react';
+import { getImageDimensions } from 'utils/images/getImageDimensions';
+import { showNotification } from '@mantine/notifications';
+import { v4 } from 'uuid';
 
 interface ArticleFormProps {
 	form: UseForm<ArticleFormValues>;
@@ -23,29 +26,64 @@ export default function ArticleForm({ form, onSubmit }: ArticleFormProps) {
 	const [imageUrl, setImageUrl] = useState<string>();
 
 	async function onDrop(files: File[]) {
-		const file = files[0];
+		const notificationId = v4();
 
-		const {
-			data: { signedFiles },
-		} = await axios.post<{ signedFiles: SignedAWSUploadFile[] }>(
-			'/api/aws/signed-url',
-			{
-				files: [{ fileName: file.name, fileType: file.type }],
-				folder: 'articles',
-			},
-			{ withCredentials: true }
-		);
+		try {
+			showNotification({
+				id: notificationId,
+				message: 'Caricamento immagini in corso...',
+				loading: true,
+			});
 
-		const signedFile = signedFiles[0];
+			const file = files[0];
 
-		await axios.put(signedFile.signedUrl, file, {
-			headers: {
-				'Content-Type': signedFile.image.type,
-			},
-		});
+			const dimensions = await getImageDimensions(file);
 
-		form.setFieldValue('imageId', signedFile.image.id);
-		setImageUrl(signedFile.image.url);
+			const {
+				data: { signedFiles },
+			} = await axios.post<{ signedFiles: SignedAWSUploadFile[] }>(
+				'/api/aws/signed-url',
+				{
+					files: [
+						{
+							fileName: file.name,
+							fileType: file.type,
+							nativeHeight: dimensions.height,
+							nativeWidth: dimensions.width,
+						},
+					],
+					folder: 'articles',
+				},
+				{ withCredentials: true }
+			);
+
+			const signedFile = signedFiles[0];
+
+			await axios.put(signedFile.signedUrl, file, {
+				headers: {
+					'Content-Type': signedFile.image.type,
+				},
+			});
+
+			form.setFieldValue('imageId', signedFile.image.id);
+			setImageUrl(signedFile.image.url);
+
+			showNotification({
+				id: notificationId,
+				title: 'Caricamento completato',
+				color: 'teal',
+				icon: <CheckIcon />,
+				message: 'La copertina è stata caricata con successo',
+			});
+		} catch (err) {
+			showNotification({
+				id: notificationId,
+				title: 'Errore',
+				message: "C'è stato un errore durante il caricamento della copertina",
+				color: 'red',
+				icon: <Cross1Icon />,
+			});
+		}
 	}
 
 	return (

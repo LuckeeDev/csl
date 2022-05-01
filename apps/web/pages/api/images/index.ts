@@ -7,14 +7,10 @@ import prisma from 'prisma/client';
 
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
 
-handler.get(
-	session,
-	hasPermission(Permission.NEWS_EDITOR),
-	async (req, res) => {
-		const images = await prisma.image.findMany();
+handler.get(session, hasPermission(Permission.NEWS_EDITOR), async (_, res) => {
+	const images = await prisma.image.findMany();
 
-		res.json(images);
-	}
-);
+	res.json(images);
+});
 
 export default handler;
