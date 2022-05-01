@@ -15,7 +15,7 @@
     "@mantine/form": "4.2.1",
     "@mantine/hooks": "4.2.1",
     "@mantine/modals": "4.2.1",
-    "@mantine/next": "4.2.1",
+    "@mantine/next": "4.2.2",
     "@mantine/notifications": "4.2.1",
     "@mantine/rte": "4.2.1",
     "@modulz/radix-icons": "^4.0.0",
