@@ -8,6 +8,11 @@ import {
 import Editor from 'components/editor/Editor';
 import { ArticleFormValues } from 'hooks/forms/useArticleForm';
 import { UseForm } from '@mantine/hooks/lib/use-form/use-form';
+import { Dropzone } from '@mantine/dropzone';
+import { UploadIcon } from '@modulz/radix-icons';
+import axios from 'axios';
+import { SignedAWSUploadFile } from 'types/aws';
+import { useState } from 'react';
 
 interface ArticleFormProps {
 	form: UseForm<ArticleFormValues>;
@@ -15,8 +20,53 @@ interface ArticleFormProps {
 }
 
 export default function ArticleForm({ form, onSubmit }: ArticleFormProps) {
+	const [imageUrl, setImageUrl] = useState<string>();
+
+	async function onDrop(files: File[]) {
+		const file = files[0];
+
+		const {
+			data: { signedFiles },
+		} = await axios.post<{ signedFiles: SignedAWSUploadFile[] }>(
+			'/api/aws/signed-url',
+			{
+				files: [{ fileName: file.name, fileType: file.type }],
+				folder: 'articles',
+			},
+			{ withCredentials: true }
+		);
+
+		const signedFile = signedFiles[0];
+
+		await axios.put(signedFile.signedUrl, file, {
+			headers: {
+				'Content-Type': signedFile.image.type,
+			},
+		});
+
+		form.setFieldValue('imageId', signedFile.image.id);
+		setImageUrl(signedFile.image.url);
+	}
+
 	return (
 		<form onSubmit={form.onSubmit(onSubmit)}>
+			{imageUrl ? (
+				<img
+					src={imageUrl}
+					alt="La copertina dell'articolo"
+					style={{ maxHeight: '300px' }}
+				/>
+			) : (
+				<Dropzone multiple={false} onDrop={onDrop} mb="md">
+					{() => (
+						<>
+							<UploadIcon />
+							Scegli una copertina per l'articolo.
+						</>
+					)}
+				</Dropzone>
+			)}
+
 			<InputWrapper id="title" required label="Titolo">
 				<TextInput
 					id="title"

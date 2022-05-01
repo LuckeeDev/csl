@@ -103,7 +103,7 @@ export default function ProductForm({
 				data: { signedFiles },
 			} = await axios.post<{ signedFiles: SignedAWSUploadFile[] }>(
 				'/api/aws/signed-url',
-				{ files },
+				{ files, folder: 'products' },
 				{ withCredentials: true }
 			);
 
