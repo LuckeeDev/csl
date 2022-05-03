@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.19.0](https://github.com/LuckeeDev/csl/compare/v2.18.4...v2.19.0) (2022-05-03)
+
+
+### Bug Fixes
+
+* store native height and width ([1abba3f](https://github.com/LuckeeDev/csl/commit/1abba3f1fa885cd68fb261619838208996764391))
+
+
+### Features
+
+* upload article cover ([848e087](https://github.com/LuckeeDev/csl/commit/848e0876eca664795a1a3feaf62fd8cd7fd08787))
+
+
+
 ## [2.18.4](https://github.com/LuckeeDev/csl/compare/v2.18.3...v2.18.4) (2022-04-30)
 
 
