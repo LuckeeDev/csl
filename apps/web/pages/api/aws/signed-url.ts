@@ -18,9 +18,12 @@ const postBody = Joi.object({
 			Joi.object({
 				fileName: Joi.string().required(),
 				fileType: Joi.string().required(),
+				nativeHeight: Joi.number().integer().required(),
+				nativeWidth: Joi.number().integer().required(),
 			}).required()
 		)
 		.required(),
+	folder: Joi.string().valid('products', 'articles').required(),
 }).required();
 
 handler.post(
@@ -28,6 +31,8 @@ handler.post(
 	hasPermission(Permission.SHOP_MANAGER),
 	validate({ body: postBody }),
 	async (req, res) => {
+		const folder = req.body.folder as 'products' | 'articles';
+
 		aws.config.update({
 			region: 'eu-south-1',
 			accessKeyId: environment.aws.id,
@@ -37,8 +42,6 @@ handler.post(
 		const s3Bucket = environment.aws.bucket;
 
 		const s3 = new aws.S3();
-
-		const folder = 'products';
 
 		function getSignedUrl(s3Params: AWSS3Params) {
 			return new Promise<string>((resolve, reject) => {
@@ -70,6 +73,8 @@ handler.post(
 							name: file.fileName,
 							type: file.fileType,
 							url: `https://${s3Bucket}/${folder}/${file.fileName}`,
+							nativeHeight: file.nativeHeight,
+							nativeWidth: file.nativeWidth,
 						},
 					});
 

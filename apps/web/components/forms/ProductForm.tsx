@@ -23,6 +23,7 @@ import { Cross1Icon, CheckIcon, UploadIcon } from '@modulz/radix-icons';
 import axios from 'axios';
 import { SignedAWSUploadFile } from 'types/aws';
 import { ImageData } from 'types/image';
+import { getImageDimensions } from 'utils/images/getImageDimensions';
 
 interface ProductFormProps {
 	form: UseForm<ProductFormValues>;
@@ -94,16 +95,24 @@ export default function ProductForm({
 
 	async function handleFileDrop(droppedFiles: File[]) {
 		try {
-			const files = droppedFiles.map((f) => ({
-				fileName: f.name,
-				fileType: f.type,
-			}));
+			const files = await Promise.all(
+				droppedFiles.map(async (f) => {
+					const dimensions = await getImageDimensions(f);
+
+					return {
+						fileName: f.name,
+						fileType: f.type,
+						nativeHeight: dimensions.height,
+						nativeWidth: dimensions.width,
+					};
+				})
+			);
 
 			const {
 				data: { signedFiles },
 			} = await axios.post<{ signedFiles: SignedAWSUploadFile[] }>(
 				'/api/aws/signed-url',
-				{ files },
+				{ files, folder: 'products' },
 				{ withCredentials: true }
 			);
 

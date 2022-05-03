@@ -11,6 +11,7 @@ import { Article } from '@prisma/client';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
 import { useBooleanToggle } from '@mantine/hooks';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
+import PageHeading from 'components/heading/PageHeading';
 
 function DashboardArticlesNew() {
 	const form = useArticleForm();
@@ -48,7 +49,7 @@ function DashboardArticlesNew() {
 
 			<LoadingOverlay visible={overlay} />
 
-			<h1>Nuovo articolo</h1>
+			<PageHeading>Nuovo articolo</PageHeading>
 
 			<ArticleForm form={form} onSubmit={onSubmit} />
 		</DashboardPageContainer>
@@ -57,5 +58,6 @@ function DashboardArticlesNew() {
 
 DashboardArticlesNew.hasSidebar = true;
 DashboardArticlesNew.sidebarLinks = ARTICLE_LINKS;
+DashboardArticlesNew.hasLocalCache = true;
 
 export default DashboardArticlesNew;

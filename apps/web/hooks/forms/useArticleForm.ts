@@ -7,6 +7,7 @@ const DEFAULT_VALUES = {
 	content: '',
 	author: '',
 	readingTime: null,
+	imageId: '',
 };
 
 export type ArticleData = Omit<
@@ -19,6 +20,7 @@ export interface ArticleFormValues {
 	content: string;
 	author: string;
 	readingTime: number | null;
+	imageId: string;
 }
 
 export default function useArticleForm(article?: ArticleData) {
