@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.19.1](https://github.com/LuckeeDev/csl/compare/v2.19.0...v2.19.1) (2022-05-03)
+
+
+### Bug Fixes
+
+* add imageId in dashboard article page ([ea03be2](https://github.com/LuckeeDev/csl/commit/ea03be24ac4e7d6575a102671855ecb0fa426576))
+
+
+
 # [2.19.0](https://github.com/LuckeeDev/csl/compare/v2.18.4...v2.19.0) (2022-05-03)
 
 
