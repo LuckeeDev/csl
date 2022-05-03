@@ -30,6 +30,7 @@ function DashboardArticlesEdit() {
 				content: article.content,
 				author: article.author,
 				readingTime: article.readingTime,
+				imageId: article.imageId,
 			},
 		[article]
 	);
