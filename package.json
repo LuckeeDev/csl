@@ -59,7 +59,7 @@
     "@nrwl/next": "13.10.3",
     "@nrwl/node": "13.10.3",
     "@nrwl/react": "13.10.3",
-    "@nrwl/web": "13.10.3",
+    "@nrwl/web": "14.1.4",
     "@nrwl/workspace": "13.10.3",
     "@testing-library/react": "12.1.5",
     "@testing-library/react-hooks": "8.0.0",
