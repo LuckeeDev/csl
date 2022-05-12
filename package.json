@@ -8,7 +8,7 @@
   },
   "private": true,
   "dependencies": {
-    "@actions/core": "^1.7.0",
+    "@actions/core": "^1.8.0",
     "@mantine/core": "4.2.4",
     "@mantine/dates": "4.2.4",
     "@mantine/dropzone": "4.2.4",
