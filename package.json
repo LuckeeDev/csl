@@ -60,7 +60,7 @@
     "@nrwl/node": "13.10.3",
     "@nrwl/react": "13.10.3",
     "@nrwl/web": "13.10.3",
-    "@nrwl/workspace": "13.10.3",
+    "@nrwl/workspace": "14.6.4",
     "@testing-library/react": "12.1.5",
     "@testing-library/react-hooks": "8.0.0",
     "@types/cors": "^2.8.12",
