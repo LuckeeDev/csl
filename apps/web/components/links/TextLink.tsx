@@ -7,8 +7,8 @@ interface TextLinkProps extends AnchorProps<'a'> {
 
 export default function TextLink({ href, children, ...props }: TextLinkProps) {
 	return (
-		<Link href={href} passHref>
+        <Link href={href} passHref legacyBehavior>
 			<Anchor {...props}>{children}</Anchor>
 		</Link>
-	);
+    );
 }

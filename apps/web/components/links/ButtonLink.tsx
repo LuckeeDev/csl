@@ -13,10 +13,10 @@ export default function ButtonLink({
 	...props
 }: ButtonLinkProps) {
 	return (
-		<Link href={href} passHref replace={replace}>
+        <Link href={href} passHref replace={replace} legacyBehavior>
 			<Button {...props} component="a">
 				{children}
 			</Button>
 		</Link>
-	);
+    );
 }
