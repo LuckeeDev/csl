@@ -1,5 +1,5 @@
 {
-	"root": "libs/google",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
 	"sourceRoot": "libs/google/src",
 	"projectType": "library",
 	"targets": {
@@ -12,9 +12,9 @@
 		},
 		"test": {
 			"executor": "@nrwl/jest:jest",
-			"outputs": ["coverage/libs/google"],
+			"outputs": ["{workspaceRoot}/coverage/libs/google"],
 			"options": {
-				"jestConfig": "libs/google/jest.config.js",
+				"jestConfig": "libs/google/jest.config.ts",
 				"passWithNoTests": true
 			}
 		}

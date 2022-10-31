@@ -51,3 +51,6 @@ migrations.json
 
 # Data and files used to test scripts
 /scripts/data
+
+# Next.js
+.next

@@ -37,9 +37,9 @@ export default function SideLinks({ links }: SideLinksProps) {
 		})) ?? [];
 
 	return (
-		<div>
+        <div>
 			{iconLinks.map(({ href, color, icon, label, hasSublinks }) => (
-				<Link href={href} passHref key={href}>
+				<Link href={href} passHref key={href} legacyBehavior>
 					<Anchor className={classes.button}>
 						<Group>
 							<ThemeIcon color={color} variant="light">
@@ -56,5 +56,5 @@ export default function SideLinks({ links }: SideLinksProps) {
 				</Link>
 			))}
 		</div>
-	);
+    );
 }

@@ -1,5 +1,5 @@
 {
-	"root": "apps/web",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
 	"sourceRoot": "apps/web",
 	"projectType": "application",
 	"targets": {
@@ -12,7 +12,10 @@
 				"outputPath": "dist/apps/web"
 			},
 			"configurations": {
-				"production": {}
+				"production": {},
+				"development": {
+					"outputPath": "apps/web"
+				}
 			}
 		},
 		"serve": {
@@ -27,8 +30,13 @@
 				"production": {
 					"buildTarget": "web:build:production",
 					"dev": false
+				},
+				"development": {
+					"buildTarget": "web:build:development",
+					"dev": true
 				}
-			}
+			},
+			"defaultConfiguration": "development"
 		},
 		"export": {
 			"executor": "@nrwl/next:export",
@@ -38,9 +46,9 @@
 		},
 		"test": {
 			"executor": "@nrwl/jest:jest",
-			"outputs": ["coverage/apps/web"],
+			"outputs": ["{workspaceRoot}/coverage/apps/web"],
 			"options": {
-				"jestConfig": "apps/web/jest.config.js",
+				"jestConfig": "apps/web/jest.config.ts",
 				"passWithNoTests": true
 			}
 		},

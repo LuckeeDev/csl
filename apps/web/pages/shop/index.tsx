@@ -30,7 +30,7 @@ export default function ShopIndex({
 	);
 
 	return (
-		<div style={{ padding: '0 15px 0 0' }}>
+        <div style={{ padding: '0 15px 0 0' }}>
 			<PageTitle>Negozio</PageTitle>
 
 			<h1>Negozio</h1>
@@ -45,7 +45,7 @@ export default function ShopIndex({
 			>
 				{shopSessions.map((s) =>
 					s.status === SessionStatus.ONGOING ? (
-						<Link href={`/shop/${s.id}`} passHref key={s.id}>
+						<Link href={`/shop/${s.id}`} passHref key={s.id} legacyBehavior>
 							<Card p="sm" component={'a'}>
 								<ShopSessionCardContent shopSession={s} />
 							</Card>
@@ -58,7 +58,7 @@ export default function ShopIndex({
 				)}
 			</SimpleGrid>
 		</div>
-	);
+    );
 }
 
 export const getStaticProps: GetStaticProps<ShopIndexProps> = async (ctx) => {
