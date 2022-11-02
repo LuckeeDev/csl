@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.19.9](https://github.com/LuckeeDev/csl/compare/v2.19.8...v2.19.9) (2022-11-02)
+
+
+### Bug Fixes
+
+* migrate to root middleware ([68dbeac](https://github.com/LuckeeDev/csl/commit/68dbeac434aa0a291fc105337487dcb84ff2a68b))
+* type error ([8f721b3](https://github.com/LuckeeDev/csl/commit/8f721b379b8cf71d64d5007cd148dbfdad89c1c2))
+
+
+
 ## [2.19.8](https://github.com/LuckeeDev/csl/compare/v2.19.7...v2.19.8) (2022-10-31)
 
 
