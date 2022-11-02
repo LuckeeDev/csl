@@ -2,8 +2,8 @@ import { Permission } from '@prisma/client';
 import { JWT } from 'next-auth/jwt';
 
 /**
- * @param data jwt token.
- * @param permission the `Permission`(s) to check.
+ * @param token jwt token.
+ * @param permissions the `Permission`(s) to check.
  */
 export default function checkPermissions(
 	token: JWT | null,

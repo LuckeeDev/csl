@@ -47,7 +47,7 @@ handler.patch(
 	hasPermission(Permission.SHOP_MANAGER),
 	validate({ body: patchBodySchema, query: patchQuerySchema }),
 	async (req, res) => {
-		const shopSessionID = req.query.shop[0];
+		const shopSessionID = (req.query as { shop: string[] }).shop[0];
 
 		const { shopSession } = req.body;
 
