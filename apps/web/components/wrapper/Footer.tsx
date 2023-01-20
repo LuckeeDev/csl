@@ -1,7 +1,6 @@
 import { Anchor, createStyles } from '@mantine/core';
 import { ExternalLinkIcon, GitHubLogoIcon } from '@modulz/radix-icons';
 import TextLink from 'components/links/TextLink';
-import VercelLogo from 'components/vercel/VercelLogo';
 import PackageJSON from '../../../../package.json';
 
 const useStyles = createStyles((theme) => ({
@@ -17,14 +16,10 @@ const useStyles = createStyles((theme) => ({
 		gap: 0,
 
 		[`@media (max-width: ${theme.breakpoints.md}px)`]: {
-			height: '152px',
+			height: 'auto',
 			padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
 			gridTemplateColumns: 'auto auto',
-			gridTemplateRows: '80px auto',
-			gridTemplateAreas: `
-			  "left right"
-			  "vercel vercel"
-			`,
+			gridTemplateRows: '80px',
 		},
 	},
 	anchor: {
@@ -41,17 +36,6 @@ const useStyles = createStyles((theme) => ({
 	},
 	leftDiv: {
 		gridArea: 'left',
-	},
-	vercelDiv: {
-		justifySelf: 'center',
-		width: '212px',
-		height: '44px',
-
-		gridArea: 'vercel',
-	},
-	vercelLink: {
-		width: '212px',
-		height: '44px',
 	},
 	rightDiv: {
 		display: 'flex',
@@ -78,16 +62,6 @@ export default function Footer() {
 				</Anchor>
 
 				<span>v{PackageJSON.version}</span>
-			</div>
-
-			<div className={classes.vercelDiv}>
-				<a
-					className={classes.vercelLink}
-					target="_blank"
-					href="https://vercel.com?utm_source=liveyourschool&utm_campaign=oss"
-				>
-					<VercelLogo backgroundColor="transparent" />
-				</a>
 			</div>
 
 			<div className={classes.rightDiv}>
