@@ -14,7 +14,7 @@ import { useSession } from 'next-auth/react';
 import LoaderDiv from 'components/loader/LoaderDiv';
 import { LinkData } from 'navigation/types';
 import Logo from 'public/logo.png';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import Link from 'next/link';
 import TextLink from 'components/links/TextLink';
 import Footer from './Footer';
