@@ -17,17 +17,13 @@ const nextAuthOptions: NextAuthOptions = {
 		GoogleProvider({
 			clientId: environment.google.clientId,
 			clientSecret: environment.google.secret,
-			authorization: {
-				params: {
-					hd: 'liceolussana.eu',
-				},
-			},
 		}),
 	],
 	callbacks: {
 		async signIn({ user }) {
 			const emailDomain = user.email?.split('@')[1];
-			const isAllowedToSignIn = emailDomain === 'liceolussana.eu';
+			const isAllowedToSignIn =
+				emailDomain && environment.allowedEmailDomains.includes(emailDomain);
 
 			if (isAllowedToSignIn) {
 				return true;
