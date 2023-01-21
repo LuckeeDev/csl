@@ -156,7 +156,8 @@ export default function Wrapper({
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                }}>
+                                }}
+                                legacyBehavior>
 
                                 <Image src={Logo} alt="Logo" height={80} width={80} />
 
