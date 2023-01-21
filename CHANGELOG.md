@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.19.15](https://github.com/LuckeeDev/csl/compare/v2.19.14...v2.19.15) (2023-01-21)
+
+
+### Bug Fixes
+
+* allow multiple email domains ([387c4ca](https://github.com/LuckeeDev/csl/commit/387c4caa0c0923710b19779322f52e207893f645))
+* logo link accessibility ([68a77f8](https://github.com/LuckeeDev/csl/commit/68a77f8cf1b7310885e7fb37145361f579a80691))
+
+
+
 ## [2.19.14](https://github.com/LuckeeDev/csl/compare/v2.19.13...v2.19.14) (2023-01-20)
 
 
