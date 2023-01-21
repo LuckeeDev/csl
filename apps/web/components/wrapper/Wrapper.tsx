@@ -14,7 +14,7 @@ import { useSession } from 'next-auth/react';
 import LoaderDiv from 'components/loader/LoaderDiv';
 import { LinkData } from 'navigation/types';
 import Logo from 'public/logo.png';
-import Image from "next/legacy/image";
+import Image from 'next/legacy/image';
 import Link from 'next/link';
 import TextLink from 'components/links/TextLink';
 import Footer from './Footer';
@@ -75,109 +75,108 @@ export default function Wrapper({
 		});
 	}, [session, status, sidebarLinks]);
 
-	return <>
-        <AppShell
-            navbarOffsetBreakpoint="sm"
-            fixed
-            styles={(theme) => ({
-                main: {
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    ...(!hasSidebar && {
-                        paddingLeft: 0,
-                        paddingRight: 0,
-                    }),
-                    ...(isMobile && {
-                        paddingLeft: 0,
-                        paddingRight: 0,
-                    }),
-                    paddingBottom: 0,
-                    [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
-                        paddingLeft: 0,
-                        paddingRight: 0,
-                    },
-                },
-            })}
-            navbar={
-                hasSidebar && sidebarLinks ? (
-                    <Navbar
-                        p="md"
-                        hiddenBreakpoint="sm"
-                        hidden={!open}
-                        width={{ sm: 300, lg: 400 }}
-                    >
-                        <Navbar.Section grow>
-                            {status === 'loading' ? (
-                                <LoaderDiv />
-                            ) : (
-                                <SideLinks links={links} />
-                            )}
-                        </Navbar.Section>
+	return (
+		<>
+			<AppShell
+				navbarOffsetBreakpoint="sm"
+				fixed
+				styles={(theme) => ({
+					main: {
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'space-between',
+						...(!hasSidebar && {
+							paddingLeft: 0,
+							paddingRight: 0,
+						}),
+						...(isMobile && {
+							paddingLeft: 0,
+							paddingRight: 0,
+						}),
+						paddingBottom: 0,
+						[`@media (max-width: ${theme.breakpoints.sm}px)`]: {
+							paddingLeft: 0,
+							paddingRight: 0,
+						},
+					},
+				})}
+				navbar={
+					hasSidebar && sidebarLinks ? (
+						<Navbar
+							p="md"
+							hiddenBreakpoint="sm"
+							hidden={!open}
+							width={{ sm: 300, lg: 400 }}
+						>
+							<Navbar.Section grow>
+								{status === 'loading' ? (
+									<LoaderDiv />
+								) : (
+									<SideLinks links={links} />
+								)}
+							</Navbar.Section>
 
-                        <Navbar.Section>
-                            <UserButton />
-                        </Navbar.Section>
-                    </Navbar>
-                ) : undefined
-            }
-            header={
-                <Header height={80} p="md">
-                    <div
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            height: '100%',
-                        }}
-                    >
-                        <div
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                height: '100%',
-                            }}
-                        >
-                            {hasSidebar && sidebarLinks && (
-                                <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-                                    <Burger
-                                        opened={open}
-                                        onClick={() => setOpen((o) => !o)}
-                                        size="sm"
-                                        color={theme.colors.gray[6]}
-                                    />
-                                </MediaQuery>
-                            )}
+							<Navbar.Section>
+								<UserButton />
+							</Navbar.Section>
+						</Navbar>
+					) : undefined
+				}
+				header={
+					<Header height={80} p="md">
+						<div
+							style={{
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'space-between',
+								height: '100%',
+							}}
+						>
+							<div
+								style={{
+									display: 'flex',
+									alignItems: 'center',
+									height: '100%',
+								}}
+							>
+								{hasSidebar && sidebarLinks && (
+									<MediaQuery largerThan="sm" styles={{ display: 'none' }}>
+										<Burger
+											opened={open}
+											onClick={() => setOpen((o) => !o)}
+											size="sm"
+											color={theme.colors.gray[6]}
+										/>
+									</MediaQuery>
+								)}
 
-                            <Link
-                                href="/"
-                                passHref
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                }}
-                                legacyBehavior>
+								<Link
+									href="/"
+									style={{
+										display: 'flex',
+										alignItems: 'center',
+										justifyContent: 'center',
+									}}
+								>
+									<Image src={Logo} alt="Logo" height={80} width={80} />
+								</Link>
 
-                                <Image src={Logo} alt="Logo" height={80} width={80} />
+								<TextLink href="/shop">Negozio</TextLink>
 
-                            </Link>
+								<TextLink href="/events" ml="xs">
+									Eventi
+								</TextLink>
+							</div>
 
-                            <TextLink href="/shop">Negozio</TextLink>
+							<ButtonLink href="/dashboard">Dashboard</ButtonLink>
+						</div>
+					</Header>
+				}
+			>
+				<DefaultPageWrapper>{children}</DefaultPageWrapper>
 
-                            <TextLink href="/events" ml="xs">
-                                Eventi
-                            </TextLink>
-                        </div>
-
-                        <ButtonLink href="/dashboard">Dashboard</ButtonLink>
-                    </div>
-                </Header>
-            }
-        >
-            <DefaultPageWrapper>{children}</DefaultPageWrapper>
-
-            <Footer />
-        </AppShell>
-    </>;
+				<Footer />
+			</AppShell>
+		</>
+	);
 }
