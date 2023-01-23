@@ -1,7 +1,7 @@
 import {
 	Button,
 	ColorInput,
-	InputWrapper,
+	Input,
 	ScrollArea,
 	Table,
 	TextInput,
@@ -128,23 +128,23 @@ function DashboardArticlesCategories() {
 						{rows}
 						<tr>
 							<td>
-								<InputWrapper label="Nuova categoria" required>
+								<Input.Wrapper label="Nuova categoria" required>
 									<TextInput
 										form="article-category-form"
 										placeholder="Inserisci il nome della nuova categoria..."
 										{...form.getInputProps('name')}
 									/>
-								</InputWrapper>
+								</Input.Wrapper>
 							</td>
 
 							<td>
-								<InputWrapper label="Colore" required>
+								<Input.Wrapper label="Colore" required>
 									<ColorInput
 										form="article-category-form"
 										placeholder="Scegli un colore per la nuova categoria..."
 										{...form.getInputProps('color')}
 									/>
-								</InputWrapper>
+								</Input.Wrapper>
 							</td>
 
 							<td></td>

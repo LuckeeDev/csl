@@ -1,4 +1,4 @@
-import { ActionIcon, Button, InputWrapper, TextInput } from '@mantine/core';
+import { ActionIcon, Button, Input, TextInput } from '@mantine/core';
 import { useClipboard, useDebouncedValue } from '@mantine/hooks';
 import { CheckIcon, Cross1Icon, PlusIcon } from '@modulz/radix-icons';
 import { Group, User } from '@prisma/client';
@@ -130,13 +130,13 @@ function DashboardGroup() {
 						</ul>
 					)}
 
-					<InputWrapper label="Aggiungi gestori">
+					<Input.Wrapper label="Aggiungi gestori">
 						<TextInput
 							onChange={(e) => setSearch(e.currentTarget.value)}
 							value={search}
 							placeholder="Cerca un utente da aggiungere come gestore..."
 						/>
-					</InputWrapper>
+					</Input.Wrapper>
 
 					{searchResult?.map((user, index) => (
 						<div style={{ display: 'flex', alignItems: 'center' }} key={index}>

@@ -1,6 +1,6 @@
 import {
 	Button,
-	InputWrapper,
+	Input,
 	NativeSelect,
 	NumberInput,
 	Space,
@@ -25,28 +25,28 @@ export default function ProductDiscountForm({
 }: ProductDiscountFormProps) {
 	return (
 		<form onSubmit={form.onSubmit(onSubmit)}>
-			<InputWrapper id="name" required label="Nome">
+			<Input.Wrapper id="name" required label="Nome">
 				<TextInput
 					id="name"
 					placeholder="Il nome di questa offerta di sconto"
 					{...form.getInputProps('name')}
 				/>
-			</InputWrapper>
+			</Input.Wrapper>
 
 			<Space h={20} />
 
-			<InputWrapper id="shopSessionId" label="Sessione di vendita" required>
+			<Input.Wrapper id="shopSessionId" label="Sessione di vendita" required>
 				<NativeSelect
 					data={shopSessions.map((s) => ({ value: s.id, label: s.name }))}
 					id="shopSessionId"
 					placeholder="Seleziona una sessione"
 					{...form.getInputProps('shopSessionId')}
 				/>
-			</InputWrapper>
+			</Input.Wrapper>
 
 			<Space h={20} />
 
-			<InputWrapper
+			<Input.Wrapper
 				id="discountPercentage"
 				label="Percentuale di sconto"
 				required
@@ -60,11 +60,11 @@ export default function ProductDiscountForm({
 					placeholder="La percentuale di sconto da applicare alla categoria scontata"
 					{...form.getInputProps('discountPercentage')}
 				/>
-			</InputWrapper>
+			</Input.Wrapper>
 
 			<Space h={20} />
 
-			<InputWrapper
+			<Input.Wrapper
 				id="requiredCategoryId"
 				label="Categoria richiesta"
 				required
@@ -75,11 +75,11 @@ export default function ProductDiscountForm({
 					placeholder="Categoria necessaria per applicare lo sconto"
 					{...form.getInputProps('requiredCategoryId')}
 				/>
-			</InputWrapper>
+			</Input.Wrapper>
 
 			<Space h={20} />
 
-			<InputWrapper
+			<Input.Wrapper
 				id="requiredQuantity"
 				label="Quantità di prodotti della categoria richiesta"
 				required
@@ -90,11 +90,11 @@ export default function ProductDiscountForm({
 					placeholder="Il numero di prodotti necessari per poter applicare lo sconto"
 					{...form.getInputProps('requiredQuantity')}
 				/>
-			</InputWrapper>
+			</Input.Wrapper>
 
 			<Space h={20} />
 
-			<InputWrapper
+			<Input.Wrapper
 				id="discountedCategoryId"
 				label="Categoria scontata"
 				description="N.B: può essere uguale alla 'Categoria richiesta'"
@@ -106,11 +106,11 @@ export default function ProductDiscountForm({
 					placeholder="Categoria a cui viene applicato lo sconto"
 					{...form.getInputProps('discountedCategoryId')}
 				/>
-			</InputWrapper>
+			</Input.Wrapper>
 
 			<Space h={20} />
 
-			<InputWrapper
+			<Input.Wrapper
 				id="discountedQuantity"
 				label="Quantità di prodotti della categoria scontata"
 				required
@@ -121,7 +121,7 @@ export default function ProductDiscountForm({
 					placeholder="Il numero di prodotti a cui viene applicato lo sconto"
 					{...form.getInputProps('discountedQuantity')}
 				/>
-			</InputWrapper>
+			</Input.Wrapper>
 
 			<Space h={20} />
 

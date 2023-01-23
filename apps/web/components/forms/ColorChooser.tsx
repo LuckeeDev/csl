@@ -1,4 +1,4 @@
-import { createStyles, InputWrapper } from '@mantine/core';
+import { createStyles, Input } from '@mantine/core';
 import { ReactNode } from 'react';
 
 interface ColorBoxProps {
@@ -50,7 +50,7 @@ export default function ColorChooser({
 	required,
 }: ColorChooserProps) {
 	return (
-		<InputWrapper label="Colore" error={error} required={required}>
+		<Input.Wrapper label="Colore" error={error} required={required}>
 			<div>
 				{colors.map((color, index) => (
 					<ColorButton
@@ -61,6 +61,6 @@ export default function ColorChooser({
 					/>
 				))}
 			</div>
-		</InputWrapper>
+		</Input.Wrapper>
 	);
 }

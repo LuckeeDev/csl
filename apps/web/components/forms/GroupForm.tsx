@@ -1,4 +1,4 @@
-import { ActionIcon, InputWrapper, TextInput } from '@mantine/core';
+import { ActionIcon, Input, TextInput } from '@mantine/core';
 import { UseFormReturnType } from '@mantine/form/lib/use-form';
 import { CheckIcon } from '@modulz/radix-icons';
 import { GroupFormValues } from 'hooks/forms/useGroupForm';
@@ -16,7 +16,7 @@ export default function GroupForm({
 }: GroupFormProps) {
 	return (
 		<form onSubmit={form.onSubmit(onSubmit)} className={className}>
-			<InputWrapper label="Nuovo gruppo">
+			<Input.Wrapper label="Nuovo gruppo">
 				<TextInput
 					placeholder="Inserisci il nome del nuovo gruppo"
 					{...form.getInputProps('name')}
@@ -26,7 +26,7 @@ export default function GroupForm({
 						</ActionIcon>
 					}
 				/>
-			</InputWrapper>
+			</Input.Wrapper>
 		</form>
 	);
 }

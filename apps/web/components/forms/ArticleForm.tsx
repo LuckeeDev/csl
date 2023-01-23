@@ -1,8 +1,9 @@
 import {
 	Button,
-	InputWrapper,
+	Input,
 	NumberInput,
 	Space,
+	Text,
 	TextInput,
 } from '@mantine/core';
 import Editor from 'components/editor/Editor';
@@ -96,26 +97,27 @@ export default function ArticleForm({ form, onSubmit }: ArticleFormProps) {
 				/>
 			) : (
 				<Dropzone multiple={false} onDrop={onDrop} mb="md">
-					{() => (
-						<>
-							<UploadIcon />
+					<div>
+						<UploadIcon />
+
+						<Text size="xl" inline>
 							Scegli una copertina per l'articolo.
-						</>
-					)}
+						</Text>
+					</div>
 				</Dropzone>
 			)}
 
-			<InputWrapper id="title" required label="Titolo">
-				<TextInput
-					id="title"
-					placeholder="Il titolo del tuo articolo"
-					{...form.getInputProps('title')}
-				/>
-			</InputWrapper>
+			<TextInput
+				id="title"
+				placeholder="Il titolo del tuo articolo"
+				{...form.getInputProps('title')}
+				required
+				label="Titolo"
+			/>
 
 			<Space h={20} />
 
-			<InputWrapper
+			<Input.Wrapper
 				id="content"
 				required
 				label="Contenuto"
@@ -131,27 +133,27 @@ export default function ArticleForm({ form, onSubmit }: ArticleFormProps) {
 					value={form.values.content}
 					onChange={(val) => form.setFieldValue('content', val)}
 				/>
-			</InputWrapper>
+			</Input.Wrapper>
 
 			<Space h={20} />
 
-			<InputWrapper id="author" required label="Autore">
-				<TextInput
-					id="author"
-					placeholder="Chi ha scritto questo articolo"
-					{...form.getInputProps('author')}
-				/>
-			</InputWrapper>
+			<TextInput
+				id="author"
+				placeholder="Chi ha scritto questo articolo"
+				{...form.getInputProps('author')}
+				required
+				label="Autore"
+			/>
 
 			<Space h={20} />
 
-			<InputWrapper id="readingTime" required label="Tempo di lettura">
-				<NumberInput
-					id="readingTime"
-					placeholder="Quanto dura questo articolo? (in minuti)"
-					{...form.getInputProps('readingTime')}
-				/>
-			</InputWrapper>
+			<NumberInput
+				id="readingTime"
+				placeholder="Quanto dura questo articolo? (in minuti)"
+				{...form.getInputProps('readingTime')}
+				required
+				label="Tempo di lettura"
+			/>
 
 			<Space h={20} />
 

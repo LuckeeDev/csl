@@ -5,11 +5,12 @@ import {
 	ColorInput,
 	Grid,
 	Group,
-	InputWrapper,
+	Input,
 	NativeSelect,
 	NumberInput,
 	SimpleGrid,
 	Space,
+	Text,
 	TextInput,
 } from '@mantine/core';
 import { UseForm } from '@mantine/hooks/lib/use-form/use-form';
@@ -173,27 +174,27 @@ export default function ProductForm({
 
 	return (
 		<form onSubmit={form.onSubmit(onSubmit)} style={{ width: '100%' }}>
-			<InputWrapper id="name" required label="Nome">
+			<Input.Wrapper id="name" required label="Nome">
 				<TextInput
 					id="name"
 					placeholder="Il nome del prodotto"
 					{...form.getInputProps('name')}
 				/>
-			</InputWrapper>
+			</Input.Wrapper>
 
 			<Space h={20} />
 
-			<InputWrapper id="description" label="Descrizione">
+			<Input.Wrapper id="description" label="Descrizione">
 				<TextInput
 					id="description"
 					placeholder="Descrizione del prodotto"
 					{...form.getInputProps('description')}
 				/>
-			</InputWrapper>
+			</Input.Wrapper>
 
 			<Space h={20} />
 
-			<InputWrapper id="price" label="Prezzo" required>
+			<Input.Wrapper id="price" label="Prezzo" required>
 				<NumberInput
 					precision={2}
 					icon={'€'}
@@ -201,33 +202,33 @@ export default function ProductForm({
 					placeholder="Prezzo del prodotto"
 					{...form.getInputProps('price')}
 				/>
-			</InputWrapper>
+			</Input.Wrapper>
 
 			<Space h={20} />
 
-			<InputWrapper id="shopSessionId" label="Sessione di vendita" required>
+			<Input.Wrapper id="shopSessionId" label="Sessione di vendita" required>
 				<NativeSelect
 					data={shopSessions.map((s) => ({ value: s.id, label: s.name }))}
 					id="shopSessionId"
 					placeholder="Seleziona una sessione"
 					{...form.getInputProps('shopSessionId')}
 				/>
-			</InputWrapper>
+			</Input.Wrapper>
 
 			<Space h={20} />
 
-			<InputWrapper id="categoryId" label="Categoria" required>
+			<Input.Wrapper id="categoryId" label="Categoria" required>
 				<NativeSelect
 					data={productCategories.map((s) => ({ value: s.id, label: s.name }))}
 					id="categoryId"
 					placeholder="Seleziona una categoria"
 					{...form.getInputProps('categoryId')}
 				/>
-			</InputWrapper>
+			</Input.Wrapper>
 
 			<Space h={20} />
 
-			<InputWrapper id="sizes" label="Taglie">
+			<Input.Wrapper id="sizes" label="Taglie">
 				<Group>
 					{PRODUCT_SIZES.map((s, i) => (
 						<Checkbox
@@ -238,11 +239,11 @@ export default function ProductForm({
 						/>
 					))}
 				</Group>
-			</InputWrapper>
+			</Input.Wrapper>
 
 			<Space h={20} />
 
-			<InputWrapper id="colors" label="Colori">
+			<Input.Wrapper id="colors" label="Colori">
 				<Grid gutter="sm">
 					<Grid.Col span={3}>
 						<Button fullWidth onClick={addColor}>
@@ -264,24 +265,25 @@ export default function ProductForm({
 						</Grid.Col>
 					))}
 				</Grid>
-			</InputWrapper>
+			</Input.Wrapper>
 
 			<Space h={20} />
 
-			<InputWrapper label="Immagini">
+			<Input.Wrapper label="Immagini">
 				<Dropzone
 					accept={IMAGE_MIME_TYPE}
 					onDrop={handleFileDrop}
 					onReject={imageError}
 				>
-					{() => (
-						<>
-							<UploadIcon />
+					<div>
+						<UploadIcon />
+
+						<Text size="xl" inline>
 							Trascina qui le immagini per questo prodotto.
-						</>
-					)}
+						</Text>
+					</div>
 				</Dropzone>
-			</InputWrapper>
+			</Input.Wrapper>
 
 			<Space h={20} />
 

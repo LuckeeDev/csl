@@ -1,4 +1,4 @@
-import { Button, InputWrapper, Space, TextInput } from '@mantine/core';
+import { Button, Input, Space, TextInput } from '@mantine/core';
 import { UseForm } from '@mantine/hooks/lib/use-form/use-form';
 import { ShopSessionFormValues } from 'hooks/forms/useShopSessionForm';
 import { DateRangePicker } from '@mantine/dates';
@@ -19,24 +19,24 @@ export default function ShopSessionForm({
 
 	return (
 		<form onSubmit={form.onSubmit(onSubmit)}>
-			<InputWrapper id="name" required label="Nome">
+			<Input.Wrapper id="name" required label="Nome">
 				<TextInput
 					id="name"
 					placeholder="Il nome della sessione"
 					{...form.getInputProps('name')}
 				/>
-			</InputWrapper>
+			</Input.Wrapper>
 
 			<Space h={20} />
 
-			<InputWrapper id="dates" required label="Date">
+			<Input.Wrapper id="dates" required label="Date">
 				<DateRangePicker
 					id="dates"
 					amountOfMonths={2}
 					value={[form.values.start, form.values.end]}
 					onChange={handleDateChange}
 				/>
-			</InputWrapper>
+			</Input.Wrapper>
 
 			<Space h={20} />
 

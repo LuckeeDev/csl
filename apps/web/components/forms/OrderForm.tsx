@@ -1,4 +1,4 @@
-import { Button, InputWrapper, NativeSelect, NumberInput } from '@mantine/core';
+import { Button, Input, NativeSelect, NumberInput } from '@mantine/core';
 import { UseFormReturnType } from '@mantine/form/lib/use-form';
 import { Image, Product } from '@prisma/client';
 import { OrderFormValues } from 'hooks/forms/useOrderForm';
@@ -29,21 +29,21 @@ export default function OrderForm({
 			)}
 
 			{product.sizes?.length > 0 && (
-				<InputWrapper required label="Taglia">
+				<Input.Wrapper required label="Taglia">
 					<NativeSelect
 						data={product.sizes}
 						placeholder="Seleziona la taglia per questo capo"
 						{...form.getInputProps('size')}
 					/>
-				</InputWrapper>
+				</Input.Wrapper>
 			)}
 
-			<InputWrapper required label="Quantità">
+			<Input.Wrapper required label="Quantità">
 				<NumberInput
 					placeholder="Inserire la quantità che si vuole acquistare"
 					{...form.getInputProps('quantity')}
 				/>
-			</InputWrapper>
+			</Input.Wrapper>
 
 			<Button mt="md" type="submit">
 				Ordina

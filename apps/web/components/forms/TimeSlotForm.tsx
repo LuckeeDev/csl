@@ -1,6 +1,6 @@
 import {
 	Button,
-	InputWrapper,
+	Input,
 	NativeSelect,
 	SimpleGrid,
 	TextInput,
@@ -23,52 +23,52 @@ export default function TimeSlotForm({
 }: TimeSlotFormProps) {
 	return (
 		<form onSubmit={form.onSubmit(onSubmit)}>
-			<InputWrapper required label="Nome">
+			<Input.Wrapper required label="Nome">
 				<TextInput
 					placeholder="Inserisci un nome per la nuova fascia"
 					{...form.getInputProps('name')}
 				/>
-			</InputWrapper>
+			</Input.Wrapper>
 
 			<SimpleGrid cols={2}>
-				<InputWrapper required label="Orario di inizio">
+				<Input.Wrapper required label="Orario di inizio">
 					<TimeInput
 						placeholder="Seleziona un orario di inizio"
 						{...form.getInputProps('startTime')}
 					/>
-				</InputWrapper>
+				</Input.Wrapper>
 
-				<InputWrapper required label="Data di inizio">
+				<Input.Wrapper required label="Data di inizio">
 					<DatePicker
 						placeholder="Seleziona una data di inizio"
 						{...form.getInputProps('startDate')}
 					/>
-				</InputWrapper>
+				</Input.Wrapper>
 			</SimpleGrid>
 
 			<SimpleGrid cols={2}>
-				<InputWrapper required label="Orario di fine">
+				<Input.Wrapper required label="Orario di fine">
 					<TimeInput
 						placeholder="Seleziona un orario di fine"
 						{...form.getInputProps('endTime')}
 					/>
-				</InputWrapper>
+				</Input.Wrapper>
 
-				<InputWrapper required label="Data di fine">
+				<Input.Wrapper required label="Data di fine">
 					<DatePicker
 						placeholder="Seleziona una data di fine"
 						{...form.getInputProps('endDate')}
 					/>
-				</InputWrapper>
+				</Input.Wrapper>
 			</SimpleGrid>
 
-			<InputWrapper required label="Evento">
+			<Input.Wrapper required label="Evento">
 				<NativeSelect
 					placeholder="Seleziona l'evento a cui collegare questa fascia oraria"
 					data={events.map((e) => ({ value: e.id, label: e.name }))}
 					{...form.getInputProps('eventId')}
 				/>
-			</InputWrapper>
+			</Input.Wrapper>
 
 			<Button mt="md" type="submit">
 				Crea

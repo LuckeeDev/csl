@@ -2,7 +2,7 @@ import { EVENT_LINKS } from 'navigation/dashboard/events';
 import PageTitle from 'components/head/PageTitle';
 import {
 	ActionIcon,
-	InputWrapper,
+	Input,
 	ScrollArea,
 	Table,
 	Text,
@@ -158,7 +158,7 @@ function DashboardEventsIndex() {
 
 						<tr>
 							<td>
-								<InputWrapper
+								<Input.Wrapper
 									label="Nuovo evento"
 									style={{ maxWidth: '400px' }}
 								>
@@ -177,7 +177,7 @@ function DashboardEventsIndex() {
 											</ActionIcon>
 										}
 									/>
-								</InputWrapper>
+								</Input.Wrapper>
 							</td>
 						</tr>
 					</tbody>

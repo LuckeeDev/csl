@@ -1,7 +1,7 @@
 import {
 	ActionIcon,
 	createStyles,
-	InputWrapper,
+	Input,
 	LoadingOverlay,
 	ScrollArea,
 	Table,
@@ -151,7 +151,7 @@ function DashboardShopCategories({
 						<tr>
 							<td>
 								<form onSubmit={form.onSubmit(onSubmit)}>
-									<InputWrapper label="Nuova categoria">
+									<Input.Wrapper label="Nuova categoria">
 										<TextInput
 											className={classes.textInput}
 											placeholder="Inserisci un nome per la nuova categoria"
@@ -162,7 +162,7 @@ function DashboardShopCategories({
 												</ActionIcon>
 											}
 										/>
-									</InputWrapper>
+									</Input.Wrapper>
 								</form>
 							</td>
 						</tr>
