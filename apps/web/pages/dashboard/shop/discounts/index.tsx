@@ -6,7 +6,6 @@ import {
 	Space,
 	Table,
 } from '@mantine/core';
-import { useNotifications } from '@mantine/notifications';
 import { ProductCategory, ProductDiscount, ShopSession } from '@prisma/client';
 import PageTitle from 'components/head/PageTitle';
 import { SHOP_LINKS } from 'navigation/dashboard/shop';
@@ -22,6 +21,7 @@ import ProductDiscountRow from 'components/tableRows/ProductDiscountRow';
 import axios from 'axios';
 import { environment } from 'environments/environment';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
+import { showNotification } from '@mantine/notifications';
 
 interface DashboardShopDiscountsProps {
 	productDiscounts: Omit<ProductDiscount, 'updated_at' | 'created_at'>[];
@@ -37,7 +37,6 @@ function DashboardShopDiscounts({
 	const [discounts, setDiscounts] = useState(productDiscounts);
 	const [open, setOpen] = useState(false);
 	const [overlay, setOverlay] = useState(false);
-	const notifications = useNotifications();
 	const form = useProductDiscountForm();
 
 	const handleDelete = useCallback(
@@ -57,7 +56,7 @@ function DashboardShopDiscounts({
 					return elements;
 				});
 
-				notifications.showNotification({
+				showNotification({
 					title: 'Operazione completata',
 					message: 'Sconto eliminato correttamente',
 					color: 'teal',
@@ -66,7 +65,7 @@ function DashboardShopDiscounts({
 
 				setOverlay(false);
 			} catch (err) {
-				notifications.showNotification({
+				showNotification({
 					title: 'Errore',
 					message: 'Non è stato possibile eliminare questo sconto',
 					color: 'red',
@@ -76,7 +75,7 @@ function DashboardShopDiscounts({
 				setOverlay(false);
 			}
 		},
-		[setDiscounts, notifications]
+		[setDiscounts]
 	);
 
 	async function onSubmit(val: ProductDiscountFormValues) {
@@ -92,7 +91,7 @@ function DashboardShopDiscounts({
 
 			form.reset();
 
-			notifications.showNotification({
+			showNotification({
 				title: 'Operazione completata con successo',
 				message: 'Lo sconto è attivo sulla sessione di vendita selezionata',
 				color: 'teal',
@@ -101,7 +100,7 @@ function DashboardShopDiscounts({
 
 			setOverlay(false);
 		} catch (err) {
-			notifications.showNotification({
+			showNotification({
 				title: 'Errore',
 				message: 'Non è stato possibile creare questo sconto',
 				color: 'red',

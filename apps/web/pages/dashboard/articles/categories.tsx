@@ -7,6 +7,7 @@ import {
 	TextInput,
 } from '@mantine/core';
 import { joiResolver, useForm } from '@mantine/form';
+import { showNotification } from '@mantine/notifications';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageTitle from 'components/head/PageTitle';
@@ -40,7 +41,8 @@ function DashboardArticlesCategories() {
 		'/api/article-categories',
 		getArticleCategories
 	);
-	const notifications = useDataError(error);
+	useDataError(error);
+
 	const form = useForm<NewCategoryFormValues>({
 		initialValues: {
 			name: '',
@@ -64,7 +66,7 @@ function DashboardArticlesCategories() {
 			revalidate: false,
 		});
 
-		notifications.showNotification({
+		showNotification({
 			color: 'teal',
 			title: 'Categoria creata',
 			message: "L'operazione è stata completata con successo",
@@ -84,7 +86,7 @@ function DashboardArticlesCategories() {
 			revalidate: false,
 		});
 
-		notifications.showNotification({
+		showNotification({
 			color: 'orange',
 			icon: <Cross1Icon />,
 			title: 'Categoria eliminata',

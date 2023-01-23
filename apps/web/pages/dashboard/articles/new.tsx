@@ -1,5 +1,5 @@
 import { LoadingOverlay } from '@mantine/core';
-import { useNotifications } from '@mantine/notifications';
+import { showNotification } from '@mantine/notifications';
 import axios from 'axios';
 import { environment } from 'environments/environment';
 import { CheckIcon } from '@modulz/radix-icons';
@@ -16,7 +16,6 @@ import PageHeading from 'components/heading/PageHeading';
 function DashboardArticlesNew() {
 	const form = useArticleForm();
 	const [overlay, toggleOverlay] = useBooleanToggle(false);
-	const notifications = useNotifications();
 	const router = useRouter();
 
 	async function onSubmit(val: ArticleFormValues) {
@@ -31,7 +30,7 @@ function DashboardArticlesNew() {
 			{ withCredentials: true }
 		);
 
-		notifications.showNotification({
+		showNotification({
 			title: 'Articolo salvato',
 			message: 'Torna alla pagina degli articoli per pubblicarlo!',
 			icon: <CheckIcon />,

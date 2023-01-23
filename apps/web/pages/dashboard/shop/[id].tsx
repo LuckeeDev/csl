@@ -1,5 +1,5 @@
 import { useBooleanToggle } from '@mantine/hooks';
-import { useNotifications } from '@mantine/notifications';
+import { showNotification } from '@mantine/notifications';
 import { ShopSession } from '@prisma/client';
 import axios from 'axios';
 import ShopSessionForm from 'components/forms/ShopSessionForm';
@@ -33,7 +33,6 @@ function DashboardShopEdit({ shopSession }: DashboardShopEditProps) {
 	});
 	const [overlay, toggleOverlay] = useBooleanToggle(false);
 	const router = useRouter();
-	const notifications = useNotifications();
 
 	async function onSubmit(val: ShopSessionFormValues) {
 		toggleOverlay();
@@ -52,7 +51,7 @@ function DashboardShopEdit({ shopSession }: DashboardShopEditProps) {
 			end: new Date(end),
 		});
 
-		notifications.showNotification({
+		showNotification({
 			title: 'Sessione modificata',
 			message: 'Le modifiche sono attive a partire da ora',
 			icon: <CheckIcon />,

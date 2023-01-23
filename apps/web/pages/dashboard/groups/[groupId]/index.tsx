@@ -1,5 +1,6 @@
 import { ActionIcon, Button, Input, TextInput } from '@mantine/core';
 import { useClipboard, useDebouncedValue } from '@mantine/hooks';
+import { showNotification } from '@mantine/notifications';
 import { CheckIcon, Cross1Icon, PlusIcon } from '@modulz/radix-icons';
 import { Group, User } from '@prisma/client';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
@@ -27,7 +28,8 @@ function DashboardGroup() {
 		groupId ? `/api/groups/${groupId}` : false,
 		getGroup
 	);
-	const notifications = useDataError(error);
+	useDataError(error);
+
 	const clipboard = useClipboard();
 
 	function unlink(type: UnlinkUser, userIds: string[]) {
@@ -57,7 +59,7 @@ function DashboardGroup() {
 				revalidate: false,
 			});
 
-			notifications.showNotification({
+			showNotification({
 				color: 'orange',
 				title: 'Gestore rimosso',
 				message: "L'operazione è stata completata con successo",
@@ -78,7 +80,7 @@ function DashboardGroup() {
 				revalidate: false,
 			});
 
-			notifications.showNotification({
+			showNotification({
 				color: 'teal',
 				title: 'Gestore aggiunto',
 				message: "L'operazione è stata completata con successo",
@@ -90,7 +92,7 @@ function DashboardGroup() {
 	const copyLinkToClipboard = useCallback(() => {
 		clipboard.copy(`${environment.url}/invite/${groupId}`);
 
-		notifications.showNotification({
+		showNotification({
 			title: 'Link copiato',
 			message: 'Ora puoi mandare questo link agli altri membri del gruppo',
 			color: 'teal',

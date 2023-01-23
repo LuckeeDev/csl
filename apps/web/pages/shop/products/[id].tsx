@@ -1,6 +1,6 @@
 import { createStyles, LoadingOverlay, MediaQuery, Text } from '@mantine/core';
 import { useBooleanToggle } from '@mantine/hooks';
-import { useNotifications } from '@mantine/notifications';
+import { showNotification } from '@mantine/notifications';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import { Image, Order, Product } from '@prisma/client';
 import axios from 'axios';
@@ -48,7 +48,6 @@ export default function ShopProductPage({ product }: ShopProductPageProps) {
 		color: product?.colors?.length > 0,
 	});
 	const [overlay, toggleOverlay] = useBooleanToggle(false);
-	const notifications = useNotifications();
 	const { classes } = useStyles();
 
 	if (router.isFallback) {
@@ -64,7 +63,7 @@ export default function ShopProductPage({ product }: ShopProductPageProps) {
 				...val,
 			});
 
-			notifications.showNotification({
+			showNotification({
 				title: 'Prodotto ordinato',
 				message: 'Ora lo puoi gestire dal riepilogo degli ordini',
 				icon: <CheckIcon />,
@@ -73,7 +72,7 @@ export default function ShopProductPage({ product }: ShopProductPageProps) {
 
 			toggleOverlay(false);
 		} catch (err) {
-			notifications.showNotification({
+			showNotification({
 				title: 'Errore',
 				message: 'Non è stato possibile creare questo ordine',
 				icon: <Cross1Icon />,

@@ -10,6 +10,7 @@ import { getArticle, updateArticle } from 'data/api/articles';
 import useDataError from 'hooks/errors/useDataError';
 import { useMemo } from 'react';
 import PageHeading from 'components/heading/PageHeading';
+import { showNotification } from '@mantine/notifications';
 
 function DashboardArticlesEdit() {
 	const router = useRouter();
@@ -35,14 +36,14 @@ function DashboardArticlesEdit() {
 		[article]
 	);
 	const form = useArticleForm(articleFormData);
-	const notifications = useDataError(error);
+	useDataError(error);
 
 	async function onSubmit(val: ArticleFormValues) {
 		mutate(updateArticle({ ...val, id: articleId }), {
 			revalidate: false,
 		});
 
-		notifications.showNotification({
+		showNotification({
 			title: 'Articolo salvato',
 			message: 'Torna alla pagina degli articoli per pubblicarlo!',
 			icon: <CheckIcon />,

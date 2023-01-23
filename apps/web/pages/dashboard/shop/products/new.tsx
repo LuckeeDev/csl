@@ -12,7 +12,7 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import prisma from 'prisma/client';
 import { CheckIcon } from '@modulz/radix-icons';
-import { useNotifications } from '@mantine/notifications';
+import { showNotification } from '@mantine/notifications';
 
 interface DashboardShopProductsNewProps {
 	shopSessions: Pick<ShopSession, 'id' | 'name'>[];
@@ -26,7 +26,6 @@ function DashboardShopProductsNew({
 	const form = useProductForm();
 	const [overlay, toggleOverlay] = useBooleanToggle(false);
 	const router = useRouter();
-	const notifications = useNotifications();
 
 	async function onSubmit(val: ProductFormValues) {
 		toggleOverlay();
@@ -39,7 +38,7 @@ function DashboardShopProductsNew({
 
 		toggleOverlay();
 
-		notifications.showNotification({
+		showNotification({
 			title: 'Prodotto salvato',
 			message: 'Sarà disponibile da subito nella pagina del negozio!',
 			icon: <CheckIcon />,

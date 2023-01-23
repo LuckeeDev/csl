@@ -6,7 +6,7 @@ import useShopSessionForm, {
 import ShopSessionForm from 'components/forms/ShopSessionForm';
 import { useBooleanToggle } from '@mantine/hooks';
 import axios from 'axios';
-import { useNotifications } from '@mantine/notifications';
+import { showNotification } from '@mantine/notifications';
 import { ShopSession } from '@prisma/client';
 import { environment } from 'environments/environment';
 import { CheckIcon } from '@modulz/radix-icons';
@@ -17,7 +17,6 @@ import DashboardPageContainer from 'components/containers/DashboardPageContainer
 function DashboardShopNew() {
 	const form = useShopSessionForm();
 	const [overlay, toggleOverlay] = useBooleanToggle(false);
-	const notifications = useNotifications();
 	const router = useRouter();
 
 	async function onSubmit(val: ShopSessionFormValues) {
@@ -32,7 +31,7 @@ function DashboardShopNew() {
 			{ withCredentials: true }
 		);
 
-		notifications.showNotification({
+		showNotification({
 			title: 'Sessione creata',
 			message: 'Ora gli studenti potranno ordinare prodotti in questo periodo!',
 			icon: <CheckIcon />,

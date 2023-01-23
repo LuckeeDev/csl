@@ -9,10 +9,12 @@ import { getArticles, setPublished } from 'data/api/articles';
 import { useMemo } from 'react';
 import PageHeading from 'components/heading/PageHeading';
 import useDataError from 'hooks/errors/useDataError';
+import { showNotification } from '@mantine/notifications';
 
 function DashboardArticlesIndex() {
 	const { data, mutate, error } = useSWR('/api/articles', getArticles);
-	const notifications = useDataError(error);
+	useDataError(error);
+
 	const articles = useMemo(() => data?.articles ?? [], [data]);
 
 	async function handlePublishChange(published: boolean, articleId: string) {
@@ -28,14 +30,14 @@ function DashboardArticlesIndex() {
 		});
 
 		if (published) {
-			notifications.showNotification({
+			showNotification({
 				title: 'Articolo pubblicato',
 				message: "L'articolo è ora visibile nella pagina degli articoli!",
 				icon: <CheckIcon />,
 				color: 'teal',
 			});
 		} else {
-			notifications.showNotification({
+			showNotification({
 				title: 'Articolo rimosso',
 				message: "L'articolo non è più visibile sulla pagina degli articoli",
 				icon: <Cross1Icon />,

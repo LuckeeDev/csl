@@ -19,7 +19,7 @@ import { PRODUCT_SIZES } from 'data/productSizes';
 import { ProductCategory, ProductSize, ShopSession } from '@prisma/client';
 import { ChangeEvent, useCallback, useState } from 'react';
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
-import { useNotifications } from '@mantine/notifications';
+import { showNotification } from '@mantine/notifications';
 import { Cross1Icon, CheckIcon, UploadIcon } from '@modulz/radix-icons';
 import axios from 'axios';
 import { SignedAWSUploadFile } from 'types/aws';
@@ -48,7 +48,6 @@ export default function ProductForm({
 	const [images, setImages] = useState<Map<string, ImageData>>(
 		new Map(startingImages)
 	);
-	const notifications = useNotifications();
 
 	const randomColor = () =>
 		`#${Math.floor(Math.random() * 16777215).toString(16)}`;
@@ -146,7 +145,7 @@ export default function ProductForm({
 				...signedFiles.map((f) => f.image.id),
 			]);
 
-			notifications.showNotification({
+			showNotification({
 				title: 'Immagini caricate correttamente',
 				message:
 					'Le immagini sono state caricate correttamente e possono ora essere collegate a questo prodotto.',
@@ -154,7 +153,7 @@ export default function ProductForm({
 				color: 'teal',
 			});
 		} catch (err) {
-			notifications.showNotification({
+			showNotification({
 				title: 'Errore',
 				message: "C'è stato un errore durante il caricamento delle immagini!",
 				icon: <Cross1Icon />,
@@ -164,7 +163,7 @@ export default function ProductForm({
 	}
 
 	function imageError() {
-		notifications.showNotification({
+		showNotification({
 			title: 'Formato non accettato',
 			message: "Devi caricare un'immagine per questo prodotto!",
 			icon: <Cross1Icon />,

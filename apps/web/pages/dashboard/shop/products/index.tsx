@@ -1,5 +1,5 @@
 import { Table, ScrollArea } from '@mantine/core';
-import { useNotifications } from '@mantine/notifications';
+import { showNotification } from '@mantine/notifications';
 import { Product } from '@prisma/client';
 import axios from 'axios';
 import PageTitle from 'components/head/PageTitle';
@@ -20,7 +20,6 @@ function DashboardShopProducts({
 	products: serverSideProducts,
 }: DashboardShopProductsProps) {
 	const [products, setProducts] = useState(serverSideProducts);
-	const notifications = useNotifications();
 
 	async function handleDelete(productId: Product['id']) {
 		try {
@@ -34,14 +33,14 @@ function DashboardShopProducts({
 				return elements;
 			});
 
-			notifications.showNotification({
+			showNotification({
 				title: 'Operazione completata',
 				message: 'Prodotto eliminato correttamente',
 				color: 'teal',
 				icon: <CheckIcon />,
 			});
 		} catch (err) {
-			notifications.showNotification({
+			showNotification({
 				title: 'Errore',
 				message: 'Non è stato possibile eliminare questo prodotto',
 				color: 'red',

@@ -1,6 +1,5 @@
 import { LoadingOverlay } from '@mantine/core';
 import { useBooleanToggle } from '@mantine/hooks';
-import { useNotifications } from '@mantine/notifications';
 import { Product, ProductCategory, ShopSession } from '@prisma/client';
 import axios from 'axios';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
@@ -16,6 +15,7 @@ import { useMemo } from 'react';
 import { CheckIcon } from '@modulz/radix-icons';
 import { ImageData } from 'types/image';
 import PageHeading from 'components/heading/PageHeading';
+import { showNotification } from '@mantine/notifications';
 
 interface DashboardShopProductsEditProps {
 	shopSessions: Pick<ShopSession, 'id' | 'name'>[];
@@ -39,7 +39,6 @@ function DashboardShopProductsEdit({
 	const [overlay, toggleOverlay] = useBooleanToggle(false);
 	const router = useRouter();
 	const productId = useMemo(() => router.query.id as string, [router.query]);
-	const notifications = useNotifications();
 
 	async function onSubmit(val: ProductFormValues) {
 		toggleOverlay();
@@ -50,7 +49,7 @@ function DashboardShopProductsEdit({
 			{ withCredentials: true }
 		);
 
-		notifications.showNotification({
+		showNotification({
 			title: 'Prodotto salvato',
 			message: 'Sarà disponibile da subito nella pagina del negozio!',
 			icon: <CheckIcon />,

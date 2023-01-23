@@ -12,6 +12,7 @@ import { createGroup, getGroups } from 'data/api/groups';
 import GroupForm from 'components/forms/GroupForm';
 import PageHeading from 'components/heading/PageHeading';
 import useDataError from 'hooks/errors/useDataError';
+import { showNotification } from '@mantine/notifications';
 
 const useStyles = createStyles((theme) => ({
 	textInput: {
@@ -29,7 +30,7 @@ function DashboardUsers() {
 		`/api/groups?page=${pageIndex}`,
 		getGroups
 	);
-	const notifications = useDataError(error);
+	useDataError(error);
 
 	const paginationTotal = useMemo(
 		() => Math.ceil((data?.groupsCount ?? 20) / 20),
@@ -50,7 +51,7 @@ function DashboardUsers() {
 
 		form.reset();
 
-		notifications.showNotification({
+		showNotification({
 			title: 'Gruppo creato',
 			message: `Il gruppo "${val.name}" è stato creato`,
 			color: 'teal',

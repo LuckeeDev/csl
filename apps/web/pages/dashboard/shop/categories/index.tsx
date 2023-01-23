@@ -7,7 +7,6 @@ import {
 	Table,
 	TextInput,
 } from '@mantine/core';
-import { useNotifications } from '@mantine/notifications';
 import { ProductCategory } from '@prisma/client';
 import axios from 'axios';
 import PageTitle from 'components/head/PageTitle';
@@ -22,6 +21,7 @@ import prisma from 'prisma/client';
 import { useCallback, useMemo, useState } from 'react';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
+import { showNotification } from '@mantine/notifications';
 
 interface DashboardShopCategoriesProps {
 	productCategories: Omit<ProductCategory, 'updated_at' | 'created_at'>[];
@@ -41,7 +41,6 @@ function DashboardShopCategories({
 	const { classes } = useStyles();
 	const [categories, setCategories] = useState(productCategories);
 	const [overlay, setOverlay] = useState(false);
-	const notifications = useNotifications();
 	const form = useProductCategoryForm();
 
 	const handleDelete = useCallback(
@@ -61,7 +60,7 @@ function DashboardShopCategories({
 					return elements;
 				});
 
-				notifications.showNotification({
+				showNotification({
 					title: 'Operazione completata',
 					message: 'Categoria eliminata correttamente',
 					color: 'teal',
@@ -70,7 +69,7 @@ function DashboardShopCategories({
 
 				setOverlay(false);
 			} catch (err) {
-				notifications.showNotification({
+				showNotification({
 					title: 'Errore',
 					message: 'Non è stato possibile eliminare questa categoria',
 					color: 'red',
@@ -80,7 +79,7 @@ function DashboardShopCategories({
 				setOverlay(false);
 			}
 		},
-		[setCategories, notifications]
+		[setCategories]
 	);
 
 	async function onSubmit(val: ProductCategoryFormValues) {
@@ -97,7 +96,7 @@ function DashboardShopCategories({
 
 			form.reset();
 
-			notifications.showNotification({
+			showNotification({
 				title: 'Operazione completata',
 				message: 'Categoria creata correttamente',
 				color: 'teal',
@@ -106,7 +105,7 @@ function DashboardShopCategories({
 
 			setOverlay(false);
 		} catch (err) {
-			notifications.showNotification({
+			showNotification({
 				title: 'Errore',
 				message: 'Non è stato possibile creare questa categoria',
 				color: 'red',
