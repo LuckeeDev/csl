@@ -61,7 +61,7 @@
 		"@nrwl/node": "15.5.2",
 		"@nrwl/react": "15.5.2",
 		"@nrwl/web": "15.5.2",
-		"@nrwl/workspace": "15.5.2",
+		"@nrwl/workspace": "15.5.3",
 		"@testing-library/react": "13.4.0",
 		"@types/cors": "^2.8.12",
 		"@types/dotenv": "^8.2.0",
