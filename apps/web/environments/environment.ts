@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-const ALLOWED_EMAIL_DOMAINS: string = process.env.ALLOWED_EMAIL_DOMAINS!;
-
 export const environment = {
 	url: process.env.NEXT_PUBLIC_BASE_URL!,
 	aws: {
@@ -12,5 +10,5 @@ export const environment = {
 		clientId: process.env.GOOGLE_CLIENT_ID!,
 		secret: process.env.GOOGLE_CLIENT_SECRET!,
 	},
-	allowedEmailDomains: ALLOWED_EMAIL_DOMAINS.split(','),
+	allowedEmailDomains: process.env.ALLOWED_EMAIL_DOMAINS?.split(',') ?? [],
 };
