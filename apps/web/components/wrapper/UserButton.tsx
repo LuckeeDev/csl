@@ -88,17 +88,16 @@ export default function UserButton() {
 			}}
 		>
 			{session ? (
-				<Menu
-					sx={{ width: '100%' }}
-					control={
+				<Menu>
+					<Menu.Target>
 						<LoggedInButton
 							showUserImage={showUserImage}
 							session={session}
 							theme={theme}
 							classes={classes}
 						/>
-					}
-				>
+					</Menu.Target>
+
 					<Menu.Item color="red" onClick={() => signOut({ callbackUrl: '/' })}>
 						Logout
 					</Menu.Item>

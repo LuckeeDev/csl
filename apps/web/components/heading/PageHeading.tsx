@@ -40,7 +40,7 @@ export default function PageHeading({
 			{back && (
 				<ActionIcon
 					size="lg"
-					variant="hover"
+					variant="subtle"
 					color="primary"
 					sx={{ marginRight: '5px' }}
 					onClick={() => goBack()}

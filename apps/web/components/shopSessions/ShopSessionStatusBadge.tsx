@@ -1,7 +1,7 @@
 import { Badge, BadgeProps } from '@mantine/core';
 import { SessionStatus } from 'types/shopSession';
 
-interface ShopSessionStatusBadgeProps extends BadgeProps<'div'> {
+interface ShopSessionStatusBadgeProps extends BadgeProps {
 	status: SessionStatus;
 }
 
