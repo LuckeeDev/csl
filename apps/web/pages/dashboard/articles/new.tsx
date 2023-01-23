@@ -9,13 +9,13 @@ import useArticleForm, { ArticleFormValues } from 'hooks/forms/useArticleForm';
 import { useRouter } from 'next/router';
 import { Article } from '@prisma/client';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
-import { useBooleanToggle } from '@mantine/hooks';
+import { useToggle } from '@mantine/hooks';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageHeading from 'components/heading/PageHeading';
 
 function DashboardArticlesNew() {
 	const form = useArticleForm();
-	const [overlay, toggleOverlay] = useBooleanToggle(false);
+	const [overlay, toggleOverlay] = useToggle();
 	const router = useRouter();
 
 	async function onSubmit(val: ArticleFormValues) {

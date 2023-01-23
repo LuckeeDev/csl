@@ -1,4 +1,4 @@
-import { useBooleanToggle } from '@mantine/hooks';
+import { useToggle } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
 import { ShopSession } from '@prisma/client';
 import axios from 'axios';
@@ -31,7 +31,7 @@ function DashboardShopEdit({ shopSession }: DashboardShopEditProps) {
 		start: new Date(shopSession.start),
 		end: new Date(shopSession.end),
 	});
-	const [overlay, toggleOverlay] = useBooleanToggle(false);
+	const [overlay, toggleOverlay] = useToggle();
 	const router = useRouter();
 
 	async function onSubmit(val: ShopSessionFormValues) {

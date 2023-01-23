@@ -1,5 +1,5 @@
 import { createStyles, LoadingOverlay, MediaQuery, Text } from '@mantine/core';
-import { useBooleanToggle } from '@mantine/hooks';
+import { useToggle } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import { Image, Order, Product } from '@prisma/client';
@@ -47,7 +47,7 @@ export default function ShopProductPage({ product }: ShopProductPageProps) {
 		size: product?.sizes?.length > 0,
 		color: product?.colors?.length > 0,
 	});
-	const [overlay, toggleOverlay] = useBooleanToggle(false);
+	const [overlay, toggleOverlay] = useToggle();
 	const { classes } = useStyles();
 
 	if (router.isFallback) {

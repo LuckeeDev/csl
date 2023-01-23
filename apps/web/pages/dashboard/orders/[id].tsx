@@ -1,5 +1,5 @@
 import { LoadingOverlay, Table, Text } from '@mantine/core';
-import { useBooleanToggle } from '@mantine/hooks';
+import { useToggle } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
 import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
 import { Order, Product, ProductDiscount } from '@prisma/client';
@@ -28,7 +28,7 @@ function DashboardManageOrders({
 	discounts,
 }: DashboardManageOrdersProps) {
 	const [orders, setOrders] = useState(serverSideOrders);
-	const [overlay, toggleOverlay] = useBooleanToggle(false);
+	const [overlay, toggleOverlay] = useToggle();
 	const discountedOrders = useMemo(
 		() => calculateDiscount(discounts, orders),
 		[discounts, orders]

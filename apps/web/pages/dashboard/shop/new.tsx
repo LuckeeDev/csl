@@ -4,7 +4,7 @@ import useShopSessionForm, {
 	ShopSessionFormValues,
 } from 'hooks/forms/useShopSessionForm';
 import ShopSessionForm from 'components/forms/ShopSessionForm';
-import { useBooleanToggle } from '@mantine/hooks';
+import { useToggle } from '@mantine/hooks';
 import axios from 'axios';
 import { showNotification } from '@mantine/notifications';
 import { ShopSession } from '@prisma/client';
@@ -16,7 +16,7 @@ import DashboardPageContainer from 'components/containers/DashboardPageContainer
 
 function DashboardShopNew() {
 	const form = useShopSessionForm();
-	const [overlay, toggleOverlay] = useBooleanToggle(false);
+	const [overlay, toggleOverlay] = useToggle();
 	const router = useRouter();
 
 	async function onSubmit(val: ShopSessionFormValues) {

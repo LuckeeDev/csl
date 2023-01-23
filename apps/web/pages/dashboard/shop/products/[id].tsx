@@ -1,5 +1,5 @@
 import { LoadingOverlay } from '@mantine/core';
-import { useBooleanToggle } from '@mantine/hooks';
+import { useToggle } from '@mantine/hooks';
 import { Product, ProductCategory, ShopSession } from '@prisma/client';
 import axios from 'axios';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
@@ -36,7 +36,7 @@ function DashboardShopProductsEdit({
 		...product,
 		images: product.images.map((image) => image.id),
 	});
-	const [overlay, toggleOverlay] = useBooleanToggle(false);
+	const [overlay, toggleOverlay] = useToggle();
 	const router = useRouter();
 	const productId = useMemo(() => router.query.id as string, [router.query]);
 
