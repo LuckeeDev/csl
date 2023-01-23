@@ -1,4 +1,4 @@
-import { useForm } from '@mantine/hooks';
+import { useForm } from '@mantine/form';
 import { Article } from '@prisma/client';
 import { useEffect, useRef } from 'react';
 
@@ -30,17 +30,11 @@ export default function useArticleForm(article?: ArticleData) {
 	const form = useForm<ArticleFormValues>({
 		initialValues: article ? article : DEFAULT_VALUES,
 
-		errorMessages: {
-			title: 'Questo campo è necessario',
-			content: 'Questo campo è necessario',
-			author: 'Questo campo è necessario',
-			readingTime: 'Questo campo è necessario',
-		},
-		validationRules: {
-			title: (val) => (val ? true : false),
-			content: (val) => (val ? true : false),
-			author: (val) => (val ? true : false),
-			readingTime: (val) => (val ? true : false),
+		validate: {
+			title: (val) => (val ? null : 'Questo campo è necessario'),
+			content: (val) => (val ? null : 'Questo campo è necessario'),
+			author: (val) => (val ? null : 'Questo campo è necessario'),
+			readingTime: (val) => (val ? null : 'Questo campo è necessario'),
 		},
 	});
 

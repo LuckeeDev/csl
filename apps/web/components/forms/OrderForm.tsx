@@ -1,5 +1,5 @@
 import { Button, Input, NativeSelect, NumberInput } from '@mantine/core';
-import { UseFormReturnType } from '@mantine/form/lib/use-form';
+import { UseFormReturnType } from '@mantine/form';
 import { Image, Product } from '@prisma/client';
 import { OrderFormValues } from 'hooks/forms/useOrderForm';
 import { OmitDates } from 'types/omit';

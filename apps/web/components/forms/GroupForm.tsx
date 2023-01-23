@@ -1,5 +1,5 @@
 import { ActionIcon, Input, TextInput } from '@mantine/core';
-import { UseFormReturnType } from '@mantine/form/lib/use-form';
+import { UseFormReturnType } from '@mantine/form';
 import { CheckIcon } from '@modulz/radix-icons';
 import { GroupFormValues } from 'hooks/forms/useGroupForm';
 

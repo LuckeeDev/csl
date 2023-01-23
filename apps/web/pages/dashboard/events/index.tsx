@@ -32,7 +32,7 @@ const newEventSchema = Joi.object({
 function DashboardEventsIndex() {
 	const { data, mutate } = useSWR('/api/events', getEvents);
 	const form = useForm<NewEventFormValues>({
-		schema: joiResolver(newEventSchema),
+		validate: joiResolver(newEventSchema),
 		initialValues: {
 			name: '',
 		},

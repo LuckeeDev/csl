@@ -6,12 +6,12 @@ import {
 	Space,
 	TextInput,
 } from '@mantine/core';
-import { UseForm } from '@mantine/hooks/lib/use-form/use-form';
+import { UseFormReturnType } from '@mantine/form';
 import { ProductCategory, ShopSession } from '@prisma/client';
 import { ProductDiscountFormValues } from 'hooks/forms/useProductDiscountForm';
 
 interface ProductDiscountFormProps {
-	form: UseForm<ProductDiscountFormValues>;
+	form: UseFormReturnType<ProductDiscountFormValues>;
 	onSubmit: (val: ProductDiscountFormValues) => void;
 	shopSessions: Pick<ShopSession, 'id' | 'name'>[];
 	productCategories: Pick<ProductCategory, 'id' | 'name'>[];

@@ -48,7 +48,7 @@ function DashboardArticlesCategories() {
 			name: '',
 			color: '',
 		},
-		schema: joiResolver(newCategoryFormSchema),
+		validate: joiResolver(newCategoryFormSchema),
 	});
 
 	function handleSubmit(val: NewCategoryFormValues) {

@@ -1,4 +1,4 @@
-import { useForm } from '@mantine/hooks';
+import { useForm } from '@mantine/form';
 
 export interface ProductDiscountFormValues {
 	name: string;
@@ -32,23 +32,14 @@ export default function useProductDiscountForm(
 	const form = useForm<ProductDiscountFormValues>({
 		initialValues: productDiscount ? productDiscount : DEFAULT_VALUES,
 
-		errorMessages: {
-			name: 'Questo campo è necessario',
-			shopSessionId: 'Questo campo è necessario',
-			discountPercentage: 'Questo campo è necessario',
-			requiredCategoryId: 'Questo campo è necessario',
-			requiredQuantity: 'Questo campo è necessario',
-			discountedCategoryId: 'Questo campo è necessario',
-			discountedQuantity: 'Questo campo è necessario',
-		},
-		validationRules: {
-			name: (val) => (val ? true : false),
-			shopSessionId: (val) => (val ? true : false),
-			discountPercentage: (val) => (val ? true : false),
-			requiredCategoryId: (val) => (val ? true : false),
-			requiredQuantity: (val) => (val ? true : false),
-			discountedCategoryId: (val) => (val ? true : false),
-			discountedQuantity: (val) => (val ? true : false),
+		validate: {
+			name: (val) => (val ? null : 'Questo campo è necessario'),
+			shopSessionId: (val) => (val ? null : 'Questo campo è necessario'),
+			discountPercentage: (val) => (val ? null : 'Questo campo è necessario'),
+			requiredCategoryId: (val) => (val ? null : 'Questo campo è necessario'),
+			requiredQuantity: (val) => (val ? null : 'Questo campo è necessario'),
+			discountedCategoryId: (val) => (val ? null : 'Questo campo è necessario'),
+			discountedQuantity: (val) => (val ? null : 'Questo campo è necessario'),
 		},
 	});
 

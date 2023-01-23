@@ -5,7 +5,7 @@ import {
 	Textarea,
 	TextInput,
 } from '@mantine/core';
-import { UseFormReturnType } from '@mantine/form/lib/use-form';
+import { UseFormReturnType } from '@mantine/form';
 import { TimeSlot } from '@prisma/client';
 import { SeminarFormValues } from 'hooks/forms/useSeminarForm';
 

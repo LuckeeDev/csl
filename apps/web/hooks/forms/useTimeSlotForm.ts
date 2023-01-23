@@ -23,7 +23,7 @@ export default function useTimeSlotForm() {
 	const now = new Date();
 
 	const form = useForm<TimeSlotFormValues>({
-		schema: joiResolver(timeSlotFormSchema),
+		validate: joiResolver(timeSlotFormSchema),
 		initialValues: {
 			name: '',
 			startTime: now,

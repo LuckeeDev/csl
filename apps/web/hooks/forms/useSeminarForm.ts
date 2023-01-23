@@ -26,7 +26,7 @@ export default function useSeminarForm() {
 			maxBookings: 100,
 			timeSlotId: '',
 		},
-		schema: joiResolver(seminarFormSchema),
+		validate: joiResolver(seminarFormSchema),
 	});
 
 	return form;

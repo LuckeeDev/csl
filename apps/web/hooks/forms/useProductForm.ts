@@ -1,4 +1,4 @@
-import { useForm } from '@mantine/hooks';
+import { useForm } from '@mantine/form';
 import { Product } from '@prisma/client';
 
 export type ProductFormValues = Omit<
@@ -21,17 +21,11 @@ export default function useProductForm(product?: ProductFormValues) {
 	const form = useForm<ProductFormValues>({
 		initialValues: product ? product : DEFAULT_PRODUCT_VALUES,
 
-		errorMessages: {
-			name: 'Questo campo è necessario',
-			price: 'Questo campo è necessario',
-			shopSessionId: 'Questo campo è necessario',
-			categoryId: 'Questo campo è necessario',
-		},
-		validationRules: {
-			name: (val) => (val ? true : false),
-			price: (val) => (val ? true : false),
-			shopSessionId: (val) => (val ? true : false),
-			categoryId: (val) => (val ? true : false),
+		validate: {
+			name: (val) => (val ? null : 'Questo campo è necessario'),
+			price: (val) => (val ? null : 'Questo campo è necessario'),
+			shopSessionId: (val) => (val ? null : 'Questo campo è necessario'),
+			categoryId: (val) => (val ? null : 'Questo campo è necessario'),
 		},
 	});
 

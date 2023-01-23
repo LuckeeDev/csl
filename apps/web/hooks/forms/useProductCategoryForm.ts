@@ -1,4 +1,4 @@
-import { useForm } from '@mantine/hooks';
+import { useForm } from '@mantine/form';
 
 export interface ProductCategoryFormValues {
 	name: string;
@@ -14,11 +14,8 @@ export default function useProductCategoryForm(
 	const form = useForm<ProductCategoryFormValues>({
 		initialValues: productCategory ? productCategory : DEFAULT_VALUES,
 
-		errorMessages: {
-			name: 'Questo campo è necessario',
-		},
-		validationRules: {
-			name: (val) => (val ? true : false),
+		validate: {
+			name: (val) => (val ? null : 'Questo campo è necessario'),
 		},
 	});
 

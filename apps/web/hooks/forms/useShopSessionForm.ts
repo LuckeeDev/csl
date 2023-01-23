@@ -1,4 +1,4 @@
-import { useForm } from '@mantine/hooks';
+import { useForm } from '@mantine/form';
 import { ShopSession } from '@prisma/client';
 
 const START_DEFAULT_VALUE = new Date();
@@ -27,15 +27,10 @@ export default function useShopSessionForm(shopSession?: ShopSessionData) {
 	const form = useForm<ShopSessionFormValues>({
 		initialValues: shopSession ? shopSession : DEFAULT_VALUES,
 
-		errorMessages: {
-			name: 'Questo campo è necessario',
-			start: 'Questo campo è necessario',
-			end: 'Questo campo è necessario',
-		},
-		validationRules: {
-			name: (val) => (val ? true : false),
-			start: (val) => (val ? true : false),
-			end: (val) => (val ? true : false),
+		validate: {
+			name: (val) => (val ? null : 'Questo campo è necessario'),
+			start: (val) => (val ? null : 'Questo campo è necessario'),
+			end: (val) => (val ? null : 'Questo campo è necessario'),
 		},
 	});
 

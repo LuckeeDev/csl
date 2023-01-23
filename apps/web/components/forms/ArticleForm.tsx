@@ -8,7 +8,7 @@ import {
 } from '@mantine/core';
 import Editor from 'components/editor/Editor';
 import { ArticleFormValues } from 'hooks/forms/useArticleForm';
-import { UseForm } from '@mantine/hooks/lib/use-form/use-form';
+import { UseFormReturnType } from '@mantine/form';
 import { Dropzone } from '@mantine/dropzone';
 import { CheckIcon, Cross1Icon, UploadIcon } from '@modulz/radix-icons';
 import axios from 'axios';
@@ -19,7 +19,7 @@ import { showNotification } from '@mantine/notifications';
 import { v4 } from 'uuid';
 
 interface ArticleFormProps {
-	form: UseForm<ArticleFormValues>;
+	form: UseFormReturnType<ArticleFormValues>;
 	onSubmit: (val: ArticleFormValues) => void;
 }
 

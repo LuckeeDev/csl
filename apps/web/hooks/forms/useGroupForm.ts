@@ -11,7 +11,7 @@ const groupFormSchema = Joi.object<GroupFormValues>({
 
 export default function useGroupForm() {
 	const form = useForm<GroupFormValues>({
-		schema: joiResolver(groupFormSchema),
+		validate: joiResolver(groupFormSchema),
 		initialValues: {
 			name: '',
 		},

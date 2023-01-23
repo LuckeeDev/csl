@@ -6,7 +6,7 @@ import {
 	TextInput,
 } from '@mantine/core';
 import { TimeInput, DatePicker } from '@mantine/dates';
-import { UseFormReturnType } from '@mantine/form/lib/use-form';
+import { UseFormReturnType } from '@mantine/form';
 import { Event } from '@prisma/client';
 import { TimeSlotFormValues } from 'hooks/forms/useTimeSlotForm';
 

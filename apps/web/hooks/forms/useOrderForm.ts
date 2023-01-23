@@ -34,7 +34,7 @@ export default function useOrderForm(requiredValues: RequiredOrderFormValues) {
 	const orderFormSchema = generateSchema(requiredValues);
 
 	const form = useForm<OrderFormValues>({
-		schema: joiResolver(orderFormSchema),
+		validate: joiResolver(orderFormSchema),
 		initialValues: {
 			quantity: null,
 			...(requiredValues.color && { color: null }),

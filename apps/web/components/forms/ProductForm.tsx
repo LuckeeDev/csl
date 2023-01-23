@@ -13,7 +13,7 @@ import {
 	Text,
 	TextInput,
 } from '@mantine/core';
-import { UseForm } from '@mantine/hooks/lib/use-form/use-form';
+import { UseFormReturnType } from '@mantine/form';
 import { ProductFormValues } from 'hooks/forms/useProductForm';
 import { PRODUCT_SIZES } from 'data/productSizes';
 import { ProductCategory, ProductSize, ShopSession } from '@prisma/client';
@@ -27,7 +27,7 @@ import { ImageData } from 'types/image';
 import { getImageDimensions } from 'utils/images/getImageDimensions';
 
 interface ProductFormProps {
-	form: UseForm<ProductFormValues>;
+	form: UseFormReturnType<ProductFormValues>;
 	onSubmit: (val: ProductFormValues) => void;
 	shopSessions: Pick<ShopSession, 'id' | 'name'>[];
 	productCategories: Pick<ProductCategory, 'id' | 'name'>[];
