@@ -2,6 +2,22 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.19.16](https://github.com/LuckeeDev/csl/compare/v2.19.15...v2.19.16) (2023-01-27)
+
+
+### Bug Fixes
+
+* allowed email domains bug ([ba34c23](https://github.com/LuckeeDev/csl/commit/ba34c23b19ba7823d14d7384ae60a862f607f197))
+* form changes ([6cdb820](https://github.com/LuckeeDev/csl/commit/6cdb820e4c0b8f33d14baf8927b377c39f76e6ae))
+* InputWrapper changes ([ac55eab](https://github.com/LuckeeDev/csl/commit/ac55eabd3c8718e2197dfabeb56f33b734b8ea51))
+* Mantine type errors ([7dcc0ce](https://github.com/LuckeeDev/csl/commit/7dcc0cecae4ef2929616d807b6274b9c00afdfbb))
+* notifications changes ([888e8e1](https://github.com/LuckeeDev/csl/commit/888e8e1d779ea7ff69cc53590e2579eaca45ad03))
+* refactor tabs ([f6c7f47](https://github.com/LuckeeDev/csl/commit/f6c7f47c4e96b88ab9f60ea58acc6547d4b0b31e))
+* remove generic component typing ([7d401d3](https://github.com/LuckeeDev/csl/commit/7d401d32e3378d0fcc154bb84ff14472cb6516c7))
+* useToggle changes ([8772a0e](https://github.com/LuckeeDev/csl/commit/8772a0ed7cda74ccdad77c8494f22d64933d68e4))
+
+
+
 ## [2.19.15](https://github.com/LuckeeDev/csl/compare/v2.19.14...v2.19.15) (2023-01-21)
 
 
