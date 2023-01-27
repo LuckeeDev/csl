@@ -32,7 +32,8 @@ interface EventPageProps {
 
 export default function EventPage({ event: serverSideEvent }: EventPageProps) {
 	const router = useRouter();
-	const [activeTab, setActiveTab] = useQueryState<number>('page', 1);
+	const [page, setPage] = useQueryState<number>('page', 1);
+
 	const { data: bookings, mutate } = useSWR<Booking[]>(
 		'/api/seminars/booking',
 		getEndpoint
@@ -56,6 +57,15 @@ export default function EventPage({ event: serverSideEvent }: EventPageProps) {
 				  }
 				: null,
 		[serverSideEvent]
+	);
+
+	// Hack used to refactor when Mantine changed how tabs work
+	// See https://mantine.dev/changelog/5-0-0/#tabs
+	const activeTab = useMemo(() => event?.timeSlots[page - 1].id, [event, page]);
+	const setActiveTab = useCallback(
+		(slotId: string | null) =>
+			setPage((event?.timeSlots.findIndex((x) => x.id === slotId) ?? 0) + 1),
+		[setPage, event]
 	);
 
 	const getSlotSeminar = useCallback(
@@ -124,13 +134,17 @@ export default function EventPage({ event: serverSideEvent }: EventPageProps) {
 
 			<h1 style={{ margin: 0 }}>Evento</h1>
 
-			<Tabs
-				grow
-				active={activeTab - 1}
-				onTabChange={(newTab) => setActiveTab(newTab + 1)}
-			>
+			<Tabs value={activeTab} onTabChange={(newTab) => setActiveTab(newTab)}>
+				<Tabs.List grow>
+					{event?.timeSlots.map((slot) => (
+						<Tabs.Tab value={slot.id} key={slot.id}>
+							{slot.name}
+						</Tabs.Tab>
+					))}
+				</Tabs.List>
+
 				{event?.timeSlots.map((slot) => (
-					<Tabs.Tab label={slot.name} key={slot.id}>
+					<Tabs.Panel value={slot.id} key={slot.id}>
 						{slot.start.getTime() - 1000 * 60 * 15 < new Date().getTime() ? (
 							<>
 								<PageHeading type="h2" loading={!bookings}>
@@ -167,7 +181,7 @@ export default function EventPage({ event: serverSideEvent }: EventPageProps) {
 								</Table>
 							</ScrollArea>
 						)}
-					</Tabs.Tab>
+					</Tabs.Panel>
 				))}
 			</Tabs>
 		</>
