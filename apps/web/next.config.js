@@ -13,6 +13,9 @@ const nextConfig = {
 	images: {
 		domains: ['cdn.cslussana.com'],
 	},
+	experimental: {
+		appDir: true,
+	},
 };
 
 module.exports = withNx(nextConfig);
