@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 interface TextLinkProps extends AnchorProps {
 	href: string;
+	target?: string;
 }
 
 export default function TextLink({ href, children, ...props }: TextLinkProps) {
