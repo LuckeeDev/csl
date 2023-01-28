@@ -1,6 +1,5 @@
 import { forwardRef } from 'react';
 import { ChevronRightIcon, PersonIcon } from '@modulz/radix-icons';
-import { createStyles } from '@mantine/styles';
 import {
 	UnstyledButton,
 	Group,
@@ -8,14 +7,15 @@ import {
 	Text,
 	ThemeIcon,
 	Menu,
+	useMantineTheme,
 	MantineTheme,
 } from '@mantine/core';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { Session } from 'next-auth';
 import { useMediaQuery } from '@mantine/hooks';
 
-const useStyles = createStyles((theme) => ({
-	user: {
+function userButtonStyles(theme: MantineTheme) {
+	return {
 		display: 'block',
 		width: '100%',
 		padding: theme.spacing.xs,
@@ -28,23 +28,18 @@ const useStyles = createStyles((theme) => ({
 					? theme.colors.dark[6]
 					: theme.colors.gray[0],
 		},
-	},
-}));
+	};
+}
 
 interface LoggedInButtonProps {
 	session: Session;
-	theme: MantineTheme;
-	classes: Record<'user', string>;
 	showUserImage: boolean;
 }
 
 // eslint-disable-next-line react/display-name
 const LoggedInButton = forwardRef<HTMLButtonElement, LoggedInButtonProps>(
-	(
-		{ session, theme, classes, showUserImage, ...others }: LoggedInButtonProps,
-		ref
-	) => (
-		<UnstyledButton ref={ref} className={classes.user} {...others}>
+	({ session, showUserImage, ...others }: LoggedInButtonProps, ref) => (
+		<UnstyledButton ref={ref} sx={userButtonStyles} {...others}>
 			<Group>
 				{showUserImage && (
 					<Avatar
@@ -70,7 +65,7 @@ const LoggedInButton = forwardRef<HTMLButtonElement, LoggedInButtonProps>(
 );
 
 export default function UserButton() {
-	const { classes, theme } = useStyles();
+	const theme = useMantineTheme();
 	const { data: session } = useSession();
 	const showUserImage = useMediaQuery(
 		`(max-width: ${theme.breakpoints.sm}px), (min-width: ${theme.breakpoints.xl}px)`
@@ -85,25 +80,26 @@ export default function UserButton() {
 						? theme.colors.dark[4]
 						: theme.colors.gray[2]
 				}`,
+				width: '100%',
 			}}
 		>
 			{session ? (
-				<Menu>
+				<Menu width="target">
 					<Menu.Target>
-						<LoggedInButton
-							showUserImage={showUserImage}
-							session={session}
-							theme={theme}
-							classes={classes}
-						/>
+						<LoggedInButton showUserImage={showUserImage} session={session} />
 					</Menu.Target>
 
-					<Menu.Item color="red" onClick={() => signOut({ callbackUrl: '/' })}>
-						Logout
-					</Menu.Item>
+					<Menu.Dropdown>
+						<Menu.Item
+							color="red"
+							onClick={() => signOut({ callbackUrl: '/' })}
+						>
+							Logout
+						</Menu.Item>
+					</Menu.Dropdown>
 				</Menu>
 			) : (
-				<UnstyledButton className={classes.user}>
+				<UnstyledButton sx={userButtonStyles}>
 					<Group onClick={() => signIn()}>
 						<ThemeIcon color="blue" variant="light">
 							<PersonIcon />
