@@ -1,7 +1,7 @@
 import { ScrollArea, Table } from '@mantine/core';
 import ArticleRow from 'components/articles/ArticleRow';
 import PageTitle from 'components/head/PageTitle';
-import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
+import { IconCheck, IconX } from '@tabler/icons';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import useSWR from 'swr';
@@ -33,14 +33,14 @@ function DashboardArticlesIndex() {
 			showNotification({
 				title: 'Articolo pubblicato',
 				message: "L'articolo è ora visibile nella pagina degli articoli!",
-				icon: <CheckIcon />,
+				icon: <IconCheck />,
 				color: 'teal',
 			});
 		} else {
 			showNotification({
 				title: 'Articolo rimosso',
 				message: "L'articolo non è più visibile sulla pagina degli articoli",
-				icon: <Cross1Icon />,
+				icon: <IconX />,
 				color: 'orange',
 			});
 		}

@@ -2,7 +2,7 @@ import { LoadingOverlay } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import axios from 'axios';
 import { environment } from 'environments/environment';
-import { CheckIcon } from '@modulz/radix-icons';
+import { IconCheck } from '@tabler/icons';
 import PageTitle from 'components/head/PageTitle';
 import ArticleForm from 'components/forms/ArticleForm';
 import useArticleForm, { ArticleFormValues } from 'hooks/forms/useArticleForm';
@@ -33,7 +33,7 @@ function DashboardArticlesNew() {
 		showNotification({
 			title: 'Articolo salvato',
 			message: 'Torna alla pagina degli articoli per pubblicarlo!',
-			icon: <CheckIcon />,
+			icon: <IconCheck />,
 			color: 'teal',
 		});
 

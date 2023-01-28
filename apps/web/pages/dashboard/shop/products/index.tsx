@@ -9,7 +9,7 @@ import { SHOP_LINKS } from 'navigation/dashboard/shop';
 import { GetServerSideProps } from 'next';
 import prisma from 'prisma/client';
 import { useState } from 'react';
-import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
+import { IconCheck, IconX } from '@tabler/icons';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 
 interface DashboardShopProductsProps {
@@ -37,14 +37,14 @@ function DashboardShopProducts({
 				title: 'Operazione completata',
 				message: 'Prodotto eliminato correttamente',
 				color: 'teal',
-				icon: <CheckIcon />,
+				icon: <IconCheck />,
 			});
 		} catch (err) {
 			showNotification({
 				title: 'Errore',
 				message: 'Non è stato possibile eliminare questo prodotto',
 				color: 'red',
-				icon: <Cross1Icon />,
+				icon: <IconX />,
 			});
 		}
 	}

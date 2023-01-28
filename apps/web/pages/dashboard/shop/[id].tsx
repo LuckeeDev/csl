@@ -13,7 +13,7 @@ import { SHOP_LINKS } from 'navigation/dashboard/shop';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import prisma from 'prisma/client';
-import { CheckIcon } from '@modulz/radix-icons';
+import { IconCheck } from '@tabler/icons';
 import { LoadingOverlay } from '@mantine/core';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageHeading from 'components/heading/PageHeading';
@@ -54,7 +54,7 @@ function DashboardShopEdit({ shopSession }: DashboardShopEditProps) {
 		showNotification({
 			title: 'Sessione modificata',
 			message: 'Le modifiche sono attive a partire da ora',
-			icon: <CheckIcon />,
+			icon: <IconCheck />,
 			color: 'teal',
 		});
 

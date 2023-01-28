@@ -1,5 +1,5 @@
 import { Anchor, createStyles } from '@mantine/core';
-import { ExternalLinkIcon, GitHubLogoIcon } from '@modulz/radix-icons';
+import { IconExternalLink, IconBrandGithub } from '@tabler/icons';
 import TextLink from 'components/links/TextLink';
 import PackageJSON from '../../../../package.json';
 
@@ -56,9 +56,9 @@ export default function Footer() {
 					href="https://github.com/LuckeeDev/csl"
 					target="_blank"
 				>
-					<GitHubLogoIcon className={classes.icon} />
+					<IconBrandGithub className={classes.icon} />
 					GitHub
-					<ExternalLinkIcon />
+					<IconExternalLink />
 				</Anchor>
 
 				<span>v{PackageJSON.version}</span>

@@ -2,7 +2,7 @@ import { createStyles } from '@mantine/styles';
 import { ThemeIcon, Group, Text, Anchor } from '@mantine/core';
 import Link from 'next/link';
 import { WrapperLinkProps } from './types';
-import { ChevronRightIcon } from '@modulz/radix-icons';
+import { IconChevronRight } from '@tabler/icons';
 import Icons from 'utils/Icons';
 
 const useStyles = createStyles((theme) => ({
@@ -37,7 +37,7 @@ export default function SideLinks({ links }: SideLinksProps) {
 		})) ?? [];
 
 	return (
-        <div>
+		<div>
 			{iconLinks.map(({ href, color, icon, label, hasSublinks }) => (
 				<Link href={href} passHref key={href} legacyBehavior>
 					<Anchor className={classes.button}>
@@ -50,11 +50,11 @@ export default function SideLinks({ links }: SideLinksProps) {
 								{label}
 							</Text>
 
-							{hasSublinks && <ChevronRightIcon width={18} height={18} />}
+							{hasSublinks && <IconChevronRight width={18} height={18} />}
 						</Group>
 					</Anchor>
 				</Link>
 			))}
 		</div>
-    );
+	);
 }

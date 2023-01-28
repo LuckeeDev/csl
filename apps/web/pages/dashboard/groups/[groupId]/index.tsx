@@ -1,7 +1,7 @@
 import { ActionIcon, Button, Input, TextInput } from '@mantine/core';
 import { useClipboard, useDebouncedValue } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
-import { CheckIcon, Cross1Icon, PlusIcon } from '@modulz/radix-icons';
+import { IconCheck, IconX, IconPlus } from '@tabler/icons';
 import { Group, User } from '@prisma/client';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageHeading from 'components/heading/PageHeading';
@@ -63,7 +63,7 @@ function DashboardGroup() {
 				color: 'orange',
 				title: 'Gestore rimosso',
 				message: "L'operazione è stata completata con successo",
-				icon: <Cross1Icon />,
+				icon: <IconX />,
 			});
 		}
 	}
@@ -84,7 +84,7 @@ function DashboardGroup() {
 				color: 'teal',
 				title: 'Gestore aggiunto',
 				message: "L'operazione è stata completata con successo",
-				icon: <CheckIcon />,
+				icon: <IconCheck />,
 			});
 		}
 	}
@@ -96,7 +96,7 @@ function DashboardGroup() {
 			title: 'Link copiato',
 			message: 'Ora puoi mandare questo link agli altri membri del gruppo',
 			color: 'teal',
-			icon: <CheckIcon />,
+			icon: <IconCheck />,
 		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [groupId]);
@@ -125,7 +125,7 @@ function DashboardGroup() {
 										onClick={() => unlink(UnlinkUser.MANAGERS, [user.id])}
 										style={{ display: 'inline-block' }}
 									>
-										<Cross1Icon />
+										<IconX />
 									</ActionIcon>
 								</li>
 							))}
@@ -144,7 +144,7 @@ function DashboardGroup() {
 						<div style={{ display: 'flex', alignItems: 'center' }} key={index}>
 							{user.email ?? user.name ?? user.id}
 							<ActionIcon color="blue" onClick={() => addManager(user)}>
-								<PlusIcon />
+								<IconPlus />
 							</ActionIcon>
 						</div>
 					))}

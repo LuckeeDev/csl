@@ -12,7 +12,7 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import prisma from 'prisma/client';
 import { useMemo } from 'react';
-import { CheckIcon } from '@modulz/radix-icons';
+import { IconCheck } from '@tabler/icons';
 import { ImageData } from 'types/image';
 import PageHeading from 'components/heading/PageHeading';
 import { showNotification } from '@mantine/notifications';
@@ -52,7 +52,7 @@ function DashboardShopProductsEdit({
 		showNotification({
 			title: 'Prodotto salvato',
 			message: 'Sarà disponibile da subito nella pagina del negozio!',
-			icon: <CheckIcon />,
+			icon: <IconCheck />,
 			color: 'teal',
 		});
 

@@ -1,4 +1,4 @@
-import { ClockIcon } from '@modulz/radix-icons';
+import { IconClock } from '@tabler/icons';
 import { ShopSession } from '@prisma/client';
 import { SessionStatus } from 'types/shopSession';
 import ShopSessionStatusBadge from './ShopSessionStatusBadge';
@@ -21,7 +21,7 @@ export default function ShopSessionCardContent({
 			<h1 style={{ margin: '10px 0' }}>{s.name}</h1>
 
 			<div style={{ display: 'flex', alignItems: 'center' }}>
-				<ClockIcon style={{ marginRight: '10px' }} />
+				<IconClock style={{ marginRight: '10px' }} />
 				{s.start.toLocaleDateString('it')} - {s.end.toLocaleDateString('it')}
 			</div>
 		</>

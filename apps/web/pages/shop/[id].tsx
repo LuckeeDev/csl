@@ -5,7 +5,7 @@ import {
 	Image as MantineImage,
 	SimpleGrid,
 } from '@mantine/core';
-import { InfoCircledIcon } from '@modulz/radix-icons';
+import { IconInfoCircle } from '@tabler/icons';
 import {
 	Image,
 	Product,
@@ -51,70 +51,77 @@ export default function ShopSessionPage({ shopSession }: ShopSessionPageProps) {
 		return <FallbackPage />;
 	}
 
-	return <>
-        <BackLink>Torna indietro</BackLink>
+	return (
+		<>
+			<BackLink>Torna indietro</BackLink>
 
-        <div
-            style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-            }}
-        >
-            <h1 style={{ margin: 0 }}>{shopSession.name}</h1>
+			<div
+				style={{
+					display: 'flex',
+					justifyContent: 'space-between',
+					alignItems: 'center',
+				}}
+			>
+				<h1 style={{ margin: 0 }}>{shopSession.name}</h1>
 
-            <ButtonLink
-                size="xs"
-                variant="light"
-                href={`/dashboard/orders/${shopSession.id}`}
-            >
-                Riepilogo ordini
-            </ButtonLink>
-        </div>
+				<ButtonLink
+					size="xs"
+					variant="light"
+					href={`/dashboard/orders/${shopSession.id}`}
+				>
+					Riepilogo ordini
+				</ButtonLink>
+			</div>
 
-        {shopSession.discounts?.length > 0 && (
-            <Alert
-                my="md"
-                title="Sconti!"
-                variant="outline"
-                icon={<InfoCircledIcon />}
-            >
-                {discountsDescription}
-            </Alert>
-        )}
+			{shopSession.discounts?.length > 0 && (
+				<Alert
+					my="md"
+					title="Sconti!"
+					variant="outline"
+					icon={<IconInfoCircle />}
+				>
+					{discountsDescription}
+				</Alert>
+			)}
 
-        <SimpleGrid
-            cols={5}
-            breakpoints={[
-                { maxWidth: 'lg', cols: 4 },
-                { maxWidth: 'md', cols: 3 },
-                { maxWidth: 'sm', cols: 2 },
-                { maxWidth: 'xs', cols: 1 },
-            ]}
-        >
-            {shopSession.products.map((p) => (
-                <Link href={`/shop/products/${p.id}`} passHref key={p.id} legacyBehavior>
-                    <Card component="a">
-                        <Card.Section>
-                            <MantineImage
-                                width="100%"
-                                src={p.images[0]?.url ?? null}
-                                height={300}
-                                alt={p.name}
-                                withPlaceholder={p.images.length === 0}
-                            />
-                        </Card.Section>
+			<SimpleGrid
+				cols={5}
+				breakpoints={[
+					{ maxWidth: 'lg', cols: 4 },
+					{ maxWidth: 'md', cols: 3 },
+					{ maxWidth: 'sm', cols: 2 },
+					{ maxWidth: 'xs', cols: 1 },
+				]}
+			>
+				{shopSession.products.map((p) => (
+					<Link
+						href={`/shop/products/${p.id}`}
+						passHref
+						key={p.id}
+						legacyBehavior
+					>
+						<Card component="a">
+							<Card.Section>
+								<MantineImage
+									width="100%"
+									src={p.images[0]?.url ?? null}
+									height={300}
+									alt={p.name}
+									withPlaceholder={p.images.length === 0}
+								/>
+							</Card.Section>
 
-                        <Badge style={{ marginTop: '10px' }}>{p.category.name}</Badge>
+							<Badge style={{ marginTop: '10px' }}>{p.category.name}</Badge>
 
-                        <h2 style={{ margin: '5px 0' }}>{p.name}</h2>
-                        {p.description && <p>{p.description}</p>}
-                        <p>{p.price / 100}€</p>
-                    </Card>
-                </Link>
-            ))}
-        </SimpleGrid>
-    </>;
+							<h2 style={{ margin: '5px 0' }}>{p.name}</h2>
+							{p.description && <p>{p.description}</p>}
+							<p>{p.price / 100}€</p>
+						</Card>
+					</Link>
+				))}
+			</SimpleGrid>
+		</>
+	);
 }
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
@@ -169,8 +176,8 @@ export const getStaticProps: GetStaticProps<ShopSessionPageProps> = async (
 	) {
 		return {
 			notFound: true,
-		        // revalidate every 60 seconds
-		        revalidate: 60,
+			// revalidate every 60 seconds
+			revalidate: 60,
 		};
 	}
 

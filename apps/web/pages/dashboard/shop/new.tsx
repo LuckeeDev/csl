@@ -9,7 +9,7 @@ import axios from 'axios';
 import { showNotification } from '@mantine/notifications';
 import { ShopSession } from '@prisma/client';
 import { environment } from 'environments/environment';
-import { CheckIcon } from '@modulz/radix-icons';
+import { IconCheck } from '@tabler/icons';
 import { useRouter } from 'next/router';
 import { LoadingOverlay } from '@mantine/core';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
@@ -34,7 +34,7 @@ function DashboardShopNew() {
 		showNotification({
 			title: 'Sessione creata',
 			message: 'Ora gli studenti potranno ordinare prodotti in questo periodo!',
-			icon: <CheckIcon />,
+			icon: <IconCheck />,
 			color: 'teal',
 		});
 

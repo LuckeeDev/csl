@@ -10,7 +10,7 @@ import Editor from 'components/editor/Editor';
 import { ArticleFormValues } from 'hooks/forms/useArticleForm';
 import { UseFormReturnType } from '@mantine/form';
 import { Dropzone } from '@mantine/dropzone';
-import { CheckIcon, Cross1Icon, UploadIcon } from '@modulz/radix-icons';
+import { IconCheck, IconX, IconUpload } from '@tabler/icons';
 import axios from 'axios';
 import { SignedAWSUploadFile } from 'types/aws';
 import { useState } from 'react';
@@ -73,7 +73,7 @@ export default function ArticleForm({ form, onSubmit }: ArticleFormProps) {
 				id: notificationId,
 				title: 'Caricamento completato',
 				color: 'teal',
-				icon: <CheckIcon />,
+				icon: <IconCheck />,
 				message: 'La copertina è stata caricata con successo',
 			});
 		} catch (err) {
@@ -82,7 +82,7 @@ export default function ArticleForm({ form, onSubmit }: ArticleFormProps) {
 				title: 'Errore',
 				message: "C'è stato un errore durante il caricamento della copertina",
 				color: 'red',
-				icon: <Cross1Icon />,
+				icon: <IconX />,
 			});
 		}
 	}
@@ -98,7 +98,7 @@ export default function ArticleForm({ form, onSubmit }: ArticleFormProps) {
 			) : (
 				<Dropzone multiple={false} onDrop={onDrop} mb="md">
 					<div>
-						<UploadIcon />
+						<IconUpload />
 
 						<Text size="xl" inline>
 							Scegli una copertina per l'articolo.

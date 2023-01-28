@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Cross1Icon } from '@modulz/radix-icons';
+import { IconX } from '@tabler/icons';
 import { showNotification } from '@mantine/notifications';
 
 export default function useDataError(error: any) {
@@ -9,7 +9,7 @@ export default function useDataError(error: any) {
 				title: 'Errore',
 				message: "C'è stato un errore nel caricamento dei dati",
 				color: 'red',
-				icon: <Cross1Icon />,
+				icon: <IconX />,
 			});
 		}
 	}, [error]);

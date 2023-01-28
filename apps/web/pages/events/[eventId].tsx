@@ -12,7 +12,7 @@ import useSWR from 'swr';
 import getEndpoint from 'data/api/getEndpoint';
 import { useCallback, useMemo } from 'react';
 import { showNotification, updateNotification } from '@mantine/notifications';
-import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
+import { IconCheck, IconX } from '@tabler/icons';
 import { useSession } from 'next-auth/react';
 import { createBooking } from 'data/api/booking';
 import { v4 } from 'uuid';
@@ -109,7 +109,7 @@ export default function EventPage({ event: serverSideEvent }: EventPageProps) {
 				message:
 					"Torna il giorno del seminario per visualizzare il link tramite cui accedere all'evento!",
 				color: 'teal',
-				icon: <CheckIcon />,
+				icon: <IconCheck />,
 				loading: false,
 			});
 		} catch (err) {
@@ -118,7 +118,7 @@ export default function EventPage({ event: serverSideEvent }: EventPageProps) {
 				title: 'Errore',
 				message: 'Non è stato possibile prenotare questo seminario',
 				color: 'red',
-				icon: <Cross1Icon />,
+				icon: <IconX />,
 				loading: false,
 			});
 		}

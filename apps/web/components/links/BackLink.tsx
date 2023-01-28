@@ -1,5 +1,5 @@
 import { Anchor, AnchorProps, useMantineTheme } from '@mantine/core';
-import { ArrowLeftIcon } from '@modulz/radix-icons';
+import { IconArrowLeft } from '@tabler/icons';
 import { useRouter } from 'next/router';
 
 export default function BackLink({ children, ...props }: AnchorProps) {
@@ -12,7 +12,7 @@ export default function BackLink({ children, ...props }: AnchorProps) {
 			{...props}
 			onClick={() => router.back()}
 		>
-			<ArrowLeftIcon style={{ marginRight: theme.spacing.xs }} />
+			<IconArrowLeft style={{ marginRight: theme.spacing.xs }} />
 
 			{children}
 		</Anchor>

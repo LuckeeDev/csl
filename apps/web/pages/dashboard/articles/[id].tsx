@@ -1,6 +1,6 @@
 import ArticleForm from 'components/forms/ArticleForm';
 import PageTitle from 'components/head/PageTitle';
-import { CheckIcon } from '@modulz/radix-icons';
+import { IconCheck } from '@tabler/icons';
 import useArticleForm, { ArticleFormValues } from 'hooks/forms/useArticleForm';
 import { useRouter } from 'next/router';
 import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
@@ -46,7 +46,7 @@ function DashboardArticlesEdit() {
 		showNotification({
 			title: 'Articolo salvato',
 			message: 'Torna alla pagina degli articoli per pubblicarlo!',
-			icon: <CheckIcon />,
+			icon: <IconCheck />,
 			color: 'teal',
 		});
 	}

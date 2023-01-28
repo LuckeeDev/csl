@@ -1,5 +1,5 @@
 import { createStyles } from '@mantine/core';
-import { ExternalLinkIcon } from '@modulz/radix-icons';
+import { IconExternalLink } from '@tabler/icons';
 import TextLink from 'components/links/TextLink';
 import { environment } from 'environments/environment';
 import { readFileSync } from 'fs';
@@ -47,7 +47,7 @@ function CustomMarkdownLink(props: CustomMarkdownLinkProps) {
 		>
 			{props.children}
 
-			{external && <ExternalLinkIcon />}
+			{external && <IconExternalLink />}
 		</TextLink>
 	);
 }

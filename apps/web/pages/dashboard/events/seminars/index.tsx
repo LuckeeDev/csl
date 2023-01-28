@@ -11,7 +11,7 @@ import { ExtendedSeminar } from 'types/seminars';
 import { useModals } from '@mantine/modals';
 import { deleteSeminar } from 'data/api/seminars';
 import { showNotification, updateNotification } from '@mantine/notifications';
-import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
+import { IconCheck, IconX } from '@tabler/icons';
 
 function DashboardSeminars() {
 	const [pageIndex, setPageIndex] = useQueryState<number>('page', 1);
@@ -58,7 +58,7 @@ function DashboardSeminars() {
 					title: 'Seminario rimosso',
 					message:
 						'Il seminario, con tutte le prenotazioni collegate, è stato eliminato',
-					icon: <CheckIcon />,
+					icon: <IconCheck />,
 				});
 			} catch (err) {
 				updateNotification({
@@ -67,7 +67,7 @@ function DashboardSeminars() {
 					color: 'red',
 					title: 'Errore',
 					message: "C'è stato un errore nella rimozione del seminario",
-					icon: <Cross1Icon />,
+					icon: <IconX />,
 				});
 			}
 		}

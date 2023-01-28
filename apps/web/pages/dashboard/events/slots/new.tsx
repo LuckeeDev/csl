@@ -1,5 +1,5 @@
 import { showNotification, updateNotification } from '@mantine/notifications';
-import { CheckIcon } from '@modulz/radix-icons';
+import { IconCheck } from '@tabler/icons';
 import { Event, TimeSlot } from '@prisma/client';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import TimeSlotForm from 'components/forms/TimeSlotForm';
@@ -63,7 +63,7 @@ function DashboardTimeSlotsNew() {
 		updateNotification({
 			id: `create-time-slot-${id}`,
 			color: 'teal',
-			icon: <CheckIcon />,
+			icon: <IconCheck />,
 			loading: false,
 			message:
 				'Operazione completata con successo, ora puoi collegare dei seminari',

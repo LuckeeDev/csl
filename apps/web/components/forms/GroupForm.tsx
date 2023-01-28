@@ -1,6 +1,6 @@
 import { ActionIcon, Input, TextInput } from '@mantine/core';
 import { UseFormReturnType } from '@mantine/form';
-import { CheckIcon } from '@modulz/radix-icons';
+import { IconCheck } from '@tabler/icons';
 import { GroupFormValues } from 'hooks/forms/useGroupForm';
 
 interface GroupFormProps {
@@ -22,7 +22,7 @@ export default function GroupForm({
 					{...form.getInputProps('name')}
 					rightSection={
 						<ActionIcon type="submit" color="blue" variant="filled">
-							<CheckIcon />
+							<IconCheck />
 						</ActionIcon>
 					}
 				/>

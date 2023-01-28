@@ -1,5 +1,5 @@
 import { ActionIcon, Loader } from '@mantine/core';
-import { ArrowLeftIcon } from '@modulz/radix-icons';
+import { IconArrowLeft } from '@tabler/icons';
 import { useRouter } from 'next/router';
 import { ReactNode, useMemo } from 'react';
 
@@ -45,7 +45,7 @@ export default function PageHeading({
 					sx={{ marginRight: '5px' }}
 					onClick={() => goBack()}
 				>
-					<ArrowLeftIcon />
+					<IconArrowLeft />
 				</ActionIcon>
 			)}
 

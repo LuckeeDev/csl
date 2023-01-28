@@ -1,5 +1,4 @@
 import { forwardRef } from 'react';
-import { ChevronRightIcon, PersonIcon } from '@modulz/radix-icons';
 import {
 	UnstyledButton,
 	Group,
@@ -13,6 +12,7 @@ import {
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { Session } from 'next-auth';
 import { useMediaQuery } from '@mantine/hooks';
+import { IconChevronRight, IconUser } from '@tabler/icons';
 
 function userButtonStyles(theme: MantineTheme) {
 	return {
@@ -58,7 +58,7 @@ const LoggedInButton = forwardRef<HTMLButtonElement, LoggedInButtonProps>(
 					</Text>
 				</div>
 
-				<ChevronRightIcon width={18} height={18} />
+				<IconChevronRight width={18} height={18} />
 			</Group>
 		</UnstyledButton>
 	)
@@ -102,7 +102,7 @@ export default function UserButton() {
 				<UnstyledButton sx={userButtonStyles}>
 					<Group onClick={() => signIn()}>
 						<ThemeIcon color="blue" variant="light">
-							<PersonIcon />
+							<IconUser />
 						</ThemeIcon>
 
 						<Text size="sm">Login</Text>

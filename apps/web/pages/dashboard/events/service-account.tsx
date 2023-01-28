@@ -1,5 +1,5 @@
 import { Alert, Avatar, Group, Text } from '@mantine/core';
-import { InfoCircledIcon } from '@modulz/radix-icons';
+import { IconInfoCircle } from '@tabler/icons';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageHeading from 'components/heading/PageHeading';
 import ButtonLink from 'components/links/ButtonLink';
@@ -40,7 +40,7 @@ function DashboardServiceAccount() {
 				mb="md"
 				title="Informazioni sull'account di servizio"
 				variant="outline"
-				icon={<InfoCircledIcon />}
+				icon={<IconInfoCircle />}
 			>
 				Nessun dato sull&apos;account di servizio viene salvato nel database
 				della piattaforma per ragioni di sicurezza. Per questo motivo, a ogni

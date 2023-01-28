@@ -20,7 +20,7 @@ import useProductDiscountForm, {
 import ProductDiscountRow from 'components/tableRows/ProductDiscountRow';
 import axios from 'axios';
 import { environment } from 'environments/environment';
-import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
+import { IconCheck, IconX } from '@tabler/icons';
 import { showNotification } from '@mantine/notifications';
 
 interface DashboardShopDiscountsProps {
@@ -60,7 +60,7 @@ function DashboardShopDiscounts({
 					title: 'Operazione completata',
 					message: 'Sconto eliminato correttamente',
 					color: 'teal',
-					icon: <CheckIcon />,
+					icon: <IconCheck />,
 				});
 
 				setOverlay(false);
@@ -69,7 +69,7 @@ function DashboardShopDiscounts({
 					title: 'Errore',
 					message: 'Non è stato possibile eliminare questo sconto',
 					color: 'red',
-					icon: <Cross1Icon />,
+					icon: <IconX />,
 				});
 
 				setOverlay(false);
@@ -95,7 +95,7 @@ function DashboardShopDiscounts({
 				title: 'Operazione completata con successo',
 				message: 'Lo sconto è attivo sulla sessione di vendita selezionata',
 				color: 'teal',
-				icon: <CheckIcon />,
+				icon: <IconCheck />,
 			});
 
 			setOverlay(false);
@@ -104,7 +104,7 @@ function DashboardShopDiscounts({
 				title: 'Errore',
 				message: 'Non è stato possibile creare questo sconto',
 				color: 'red',
-				icon: <Cross1Icon />,
+				icon: <IconX />,
 			});
 
 			setOverlay(false);

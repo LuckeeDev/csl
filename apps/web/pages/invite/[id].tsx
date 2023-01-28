@@ -1,5 +1,5 @@
 import { Card, createStyles, Text } from '@mantine/core';
-import { CheckCircledIcon } from '@modulz/radix-icons';
+import { IconCircleCheck } from '@tabler/icons';
 import { Group } from '@prisma/client';
 import PageTitle from 'components/head/PageTitle';
 import ButtonLink from 'components/links/ButtonLink';
@@ -41,7 +41,7 @@ export default function Invite({ group }: InviteProps) {
 
 			<Card shadow="sm" p="lg" className={classes.card}>
 				<div className={classes.iconWrapper}>
-					<CheckCircledIcon height="50px" width="50px" />
+					<IconCircleCheck height="50px" width="50px" />
 				</div>
 
 				<Text weight={500} mb="xs">

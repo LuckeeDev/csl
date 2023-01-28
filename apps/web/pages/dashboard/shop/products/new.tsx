@@ -11,7 +11,7 @@ import { SHOP_LINKS } from 'navigation/dashboard/shop';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import prisma from 'prisma/client';
-import { CheckIcon } from '@modulz/radix-icons';
+import { IconCheck } from '@tabler/icons';
 import { showNotification } from '@mantine/notifications';
 
 interface DashboardShopProductsNewProps {
@@ -41,7 +41,7 @@ function DashboardShopProductsNew({
 		showNotification({
 			title: 'Prodotto salvato',
 			message: 'Sarà disponibile da subito nella pagina del negozio!',
-			icon: <CheckIcon />,
+			icon: <IconCheck />,
 			color: 'teal',
 		});
 

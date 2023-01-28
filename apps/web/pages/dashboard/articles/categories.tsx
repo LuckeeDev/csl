@@ -8,7 +8,7 @@ import {
 } from '@mantine/core';
 import { joiResolver, useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
-import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
+import { IconCheck, IconX } from '@tabler/icons';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageTitle from 'components/head/PageTitle';
 import PageHeading from 'components/heading/PageHeading';
@@ -70,7 +70,7 @@ function DashboardArticlesCategories() {
 			color: 'teal',
 			title: 'Categoria creata',
 			message: "L'operazione è stata completata con successo",
-			icon: <CheckIcon />,
+			icon: <IconCheck />,
 		});
 	}
 
@@ -88,7 +88,7 @@ function DashboardArticlesCategories() {
 
 		showNotification({
 			color: 'orange',
-			icon: <Cross1Icon />,
+			icon: <IconX />,
 			title: 'Categoria eliminata',
 			message: 'La categoria e gli articoli connessi sono stati eliminati',
 		});

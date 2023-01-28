@@ -1,7 +1,7 @@
 import { createStyles, LoadingOverlay, MediaQuery, Text } from '@mantine/core';
 import { useToggle } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
-import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
+import { IconCheck, IconX } from '@tabler/icons';
 import { Image, Order, Product } from '@prisma/client';
 import axios from 'axios';
 import Carousel from 'components/carousel/Carousel';
@@ -66,7 +66,7 @@ export default function ShopProductPage({ product }: ShopProductPageProps) {
 			showNotification({
 				title: 'Prodotto ordinato',
 				message: 'Ora lo puoi gestire dal riepilogo degli ordini',
-				icon: <CheckIcon />,
+				icon: <IconCheck />,
 				color: 'teal',
 			});
 
@@ -75,7 +75,7 @@ export default function ShopProductPage({ product }: ShopProductPageProps) {
 			showNotification({
 				title: 'Errore',
 				message: 'Non è stato possibile creare questo ordine',
-				icon: <Cross1Icon />,
+				icon: <IconX />,
 				color: 'red',
 			});
 

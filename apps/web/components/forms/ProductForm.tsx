@@ -20,7 +20,7 @@ import { ProductCategory, ProductSize, ShopSession } from '@prisma/client';
 import { ChangeEvent, useCallback, useState } from 'react';
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { showNotification } from '@mantine/notifications';
-import { Cross1Icon, CheckIcon, UploadIcon } from '@modulz/radix-icons';
+import { IconX, IconCheck, IconUpload } from '@tabler/icons';
 import axios from 'axios';
 import { SignedAWSUploadFile } from 'types/aws';
 import { ImageData } from 'types/image';
@@ -149,14 +149,14 @@ export default function ProductForm({
 				title: 'Immagini caricate correttamente',
 				message:
 					'Le immagini sono state caricate correttamente e possono ora essere collegate a questo prodotto.',
-				icon: <CheckIcon />,
+				icon: <IconCheck />,
 				color: 'teal',
 			});
 		} catch (err) {
 			showNotification({
 				title: 'Errore',
 				message: "C'è stato un errore durante il caricamento delle immagini!",
-				icon: <Cross1Icon />,
+				icon: <IconX />,
 				color: 'red',
 			});
 		}
@@ -166,7 +166,7 @@ export default function ProductForm({
 		showNotification({
 			title: 'Formato non accettato',
 			message: "Devi caricare un'immagine per questo prodotto!",
-			icon: <Cross1Icon />,
+			icon: <IconX />,
 			color: 'red',
 		});
 	}
@@ -257,7 +257,7 @@ export default function ProductForm({
 								onChange={(val) => handleColorChange(val, i)}
 								rightSection={
 									<ActionIcon color="red" onClick={() => removeColor(i)}>
-										<Cross1Icon />
+										<IconX />
 									</ActionIcon>
 								}
 							/>
@@ -275,7 +275,7 @@ export default function ProductForm({
 					onReject={imageError}
 				>
 					<div>
-						<UploadIcon />
+						<IconUpload />
 
 						<Text size="xl" inline>
 							Trascina qui le immagini per questo prodotto.

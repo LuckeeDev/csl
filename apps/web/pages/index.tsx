@@ -1,6 +1,6 @@
 import { Title, Text } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
-import { Cross1Icon } from '@modulz/radix-icons';
+import { IconX } from '@tabler/icons';
 import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
 
@@ -15,7 +15,7 @@ export default function HomePage() {
 			showNotification({
 				title: 'Errore',
 				message: "Questo account non è autorizzato all'accesso",
-				icon: <Cross1Icon />,
+				icon: <IconX />,
 				color: 'red',
 			});
 

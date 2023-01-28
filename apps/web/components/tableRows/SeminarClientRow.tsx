@@ -1,5 +1,5 @@
 import { Button, Text } from '@mantine/core';
-import { CheckIcon } from '@modulz/radix-icons';
+import { IconCheck } from '@tabler/icons';
 import { Seminar } from '@prisma/client';
 import { OmitDates } from 'types/omit';
 
@@ -29,7 +29,7 @@ export default function SeminarClientRow({
 			<td>
 				{isSignedUp ? (
 					<Text color="teal" style={{ display: 'flex', alignItems: 'center' }}>
-						<CheckIcon />
+						<IconCheck />
 						Sei iscritto
 					</Text>
 				) : (

@@ -19,7 +19,7 @@ import { SHOP_LINKS } from 'navigation/dashboard/shop';
 import { GetServerSideProps } from 'next';
 import prisma from 'prisma/client';
 import { useCallback, useMemo, useState } from 'react';
-import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
+import { IconCheck, IconX } from '@tabler/icons';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import { showNotification } from '@mantine/notifications';
 
@@ -64,7 +64,7 @@ function DashboardShopCategories({
 					title: 'Operazione completata',
 					message: 'Categoria eliminata correttamente',
 					color: 'teal',
-					icon: <CheckIcon />,
+					icon: <IconCheck />,
 				});
 
 				setOverlay(false);
@@ -73,7 +73,7 @@ function DashboardShopCategories({
 					title: 'Errore',
 					message: 'Non è stato possibile eliminare questa categoria',
 					color: 'red',
-					icon: <Cross1Icon />,
+					icon: <IconX />,
 				});
 
 				setOverlay(false);
@@ -100,7 +100,7 @@ function DashboardShopCategories({
 				title: 'Operazione completata',
 				message: 'Categoria creata correttamente',
 				color: 'teal',
-				icon: <CheckIcon />,
+				icon: <IconCheck />,
 			});
 
 			setOverlay(false);
@@ -109,7 +109,7 @@ function DashboardShopCategories({
 				title: 'Errore',
 				message: 'Non è stato possibile creare questa categoria',
 				color: 'red',
-				icon: <Cross1Icon />,
+				icon: <IconX />,
 			});
 
 			setOverlay(false);
@@ -157,7 +157,7 @@ function DashboardShopCategories({
 											{...form.getInputProps('name')}
 											rightSection={
 												<ActionIcon type="submit" color="blue" variant="filled">
-													<CheckIcon />
+													<IconCheck />
 												</ActionIcon>
 											}
 										/>

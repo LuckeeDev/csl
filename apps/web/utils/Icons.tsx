@@ -1,21 +1,21 @@
 import {
-	PersonIcon,
-	Pencil1Icon,
-	ChevronLeftIcon,
-	ListBulletIcon,
-	RocketIcon,
-	CalendarIcon,
-} from '@modulz/radix-icons';
+	IconUser,
+	IconPencil,
+	IconChevronLeft,
+	IconList,
+	IconRocket,
+	IconCalendar,
+} from '@tabler/icons';
 import { AvailableIcons } from 'components/wrapper/types';
 import { ReactNode } from 'react';
 
 const Icons: Record<AvailableIcons, ReactNode> = {
-	profile: <PersonIcon />,
-	write: <Pencil1Icon />,
-	back: <ChevronLeftIcon />,
-	list: <ListBulletIcon />,
-	rocket: <RocketIcon />,
-	calendar: <CalendarIcon />,
+	profile: <IconUser />,
+	write: <IconPencil />,
+	back: <IconChevronLeft />,
+	list: <IconList />,
+	rocket: <IconRocket />,
+	calendar: <IconCalendar />,
 };
 
 export default Icons;

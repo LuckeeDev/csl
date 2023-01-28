@@ -1,5 +1,5 @@
 import { Card, SimpleGrid } from '@mantine/core';
-import { CalendarIcon, ClockIcon } from '@modulz/radix-icons';
+import { IconCalendar, IconClock } from '@tabler/icons';
 import { Event } from '@prisma/client';
 import PageTitle from 'components/head/PageTitle';
 import { GetStaticProps } from 'next';
@@ -74,44 +74,46 @@ export default function EventsIndex({
 		[serverSideEvents]
 	);
 
-	return <>
-        <PageTitle>Eventi</PageTitle>
+	return (
+		<>
+			<PageTitle>Eventi</PageTitle>
 
-        <h1>Eventi</h1>
+			<h1>Eventi</h1>
 
-        <SimpleGrid
-            cols={4}
-            breakpoints={[
-                { maxWidth: 980, cols: 3 },
-                { maxWidth: 755, cols: 2 },
-                { maxWidth: 600, cols: 1 },
-            ]}
-        >
-            {events.map((e) => (
-                <Link href={`/events/${e.id}`} passHref key={e.id} legacyBehavior>
-                    <Card p="sm" component={'a'}>
-                        <h1 style={{ margin: '10px 0' }}>{e.name}</h1>
+			<SimpleGrid
+				cols={4}
+				breakpoints={[
+					{ maxWidth: 980, cols: 3 },
+					{ maxWidth: 755, cols: 2 },
+					{ maxWidth: 600, cols: 1 },
+				]}
+			>
+				{events.map((e) => (
+					<Link href={`/events/${e.id}`} passHref key={e.id} legacyBehavior>
+						<Card p="sm" component={'a'}>
+							<h1 style={{ margin: '10px 0' }}>{e.name}</h1>
 
-                        <div
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <ClockIcon style={{ marginRight: '10px' }} />
-                            {e.firstStart.toLocaleDateString('it')} -{' '}
-                            {e.lastEnd.toLocaleDateString('it')}
-                        </div>
+							<div
+								style={{
+									display: 'flex',
+									alignItems: 'center',
+								}}
+							>
+								<IconClock style={{ marginRight: '10px' }} />
+								{e.firstStart.toLocaleDateString('it')} -{' '}
+								{e.lastEnd.toLocaleDateString('it')}
+							</div>
 
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <CalendarIcon style={{ marginRight: '10px' }} />
-                            {e.seminarsCount} seminari
-                        </div>
-                    </Card>
-                </Link>
-            ))}
-        </SimpleGrid>
-    </>;
+							<div style={{ display: 'flex', alignItems: 'center' }}>
+								<IconCalendar style={{ marginRight: '10px' }} />
+								{e.seminarsCount} seminari
+							</div>
+						</Card>
+					</Link>
+				))}
+			</SimpleGrid>
+		</>
+	);
 }
 
 export const getStaticProps: GetStaticProps<EventsIndexProps> = async (ctx) => {

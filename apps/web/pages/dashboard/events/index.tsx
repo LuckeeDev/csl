@@ -14,7 +14,7 @@ import { useMemo } from 'react';
 import EventRow from 'components/tableRows/EventRow';
 import { joiResolver, useForm } from '@mantine/form';
 import Joi from 'joi';
-import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
+import { IconCheck, IconX } from '@tabler/icons';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import { showNotification, updateNotification } from '@mantine/notifications';
 import PageHeading from 'components/heading/PageHeading';
@@ -67,7 +67,7 @@ function DashboardEventsIndex() {
 					color: 'teal',
 					title: 'Evento rimosso',
 					message: "L'evento, con tutti i dati collegati, è stato eliminato",
-					icon: <CheckIcon />,
+					icon: <IconCheck />,
 				});
 			} catch (err) {
 				updateNotification({
@@ -76,7 +76,7 @@ function DashboardEventsIndex() {
 					color: 'red',
 					title: 'Errore',
 					message: "C'è stato un errore nella rimozione del corso",
-					icon: <Cross1Icon />,
+					icon: <IconX />,
 				});
 			}
 		}
@@ -128,7 +128,7 @@ function DashboardEventsIndex() {
 		updateNotification({
 			id: `create-event-${id}`,
 			color: 'teal',
-			icon: <CheckIcon />,
+			icon: <IconCheck />,
 			loading: false,
 			message:
 				'Operazione completata con successo, ora puoi aggiungere orari e seminari',
@@ -173,7 +173,7 @@ function DashboardEventsIndex() {
 												type="submit"
 												variant="filled"
 											>
-												<CheckIcon />
+												<IconCheck />
 											</ActionIcon>
 										}
 									/>

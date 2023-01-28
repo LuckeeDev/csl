@@ -1,5 +1,5 @@
 import { createStyles, Pagination, ScrollArea, Table } from '@mantine/core';
-import { CheckIcon } from '@modulz/radix-icons';
+import { IconCheck } from '@tabler/icons';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageTitle from 'components/head/PageTitle';
 import GroupRow from 'components/tableRows/GroupRow';
@@ -55,7 +55,7 @@ function DashboardUsers() {
 			title: 'Gruppo creato',
 			message: `Il gruppo "${val.name}" è stato creato`,
 			color: 'teal',
-			icon: <CheckIcon />,
+			icon: <IconCheck />,
 		});
 	}
 

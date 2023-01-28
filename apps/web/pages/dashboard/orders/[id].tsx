@@ -1,7 +1,7 @@
 import { LoadingOverlay, Table, Text } from '@mantine/core';
 import { useToggle } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
-import { CheckIcon, Cross1Icon } from '@modulz/radix-icons';
+import { IconCheck, IconX } from '@tabler/icons';
 import { Order, Product, ProductDiscount } from '@prisma/client';
 import axios from 'axios';
 import PageTitle from 'components/head/PageTitle';
@@ -52,7 +52,7 @@ function DashboardManageOrders({
 					title: 'Ordine eliminato',
 					message: "L'ordine è stato eliminato con successo",
 					color: 'teal',
-					icon: <CheckIcon />,
+					icon: <IconCheck />,
 				});
 
 				toggleOverlay(false);
@@ -61,7 +61,7 @@ function DashboardManageOrders({
 					title: 'Errore',
 					message: 'È stato impossibile eliminare questo ordine',
 					color: 'red',
-					icon: <Cross1Icon />,
+					icon: <IconX />,
 				});
 
 				toggleOverlay(false);

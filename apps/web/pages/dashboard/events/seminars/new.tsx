@@ -1,10 +1,6 @@
 import { Alert } from '@mantine/core';
 import { showNotification, updateNotification } from '@mantine/notifications';
-import {
-	CheckIcon,
-	Cross1Icon,
-	ExclamationTriangleIcon,
-} from '@modulz/radix-icons';
+import { IconCheck, IconX, IconAlertTriangle } from '@tabler/icons';
 import { Seminar, TimeSlot } from '@prisma/client';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import SeminarForm from 'components/forms/SeminarForm';
@@ -38,7 +34,7 @@ function DashboardSeminarsNew() {
 		if (!serviceAccount || !timeSlots) {
 			showNotification({
 				color: 'red',
-				icon: <Cross1Icon />,
+				icon: <IconX />,
 				message:
 					'Devi collegare un account di servizio prima di creare un seminario!',
 				title: 'Errore',
@@ -91,7 +87,7 @@ function DashboardSeminarsNew() {
 					'Il seminario è stato creato ed è ora disponibile nella pagina degli eventi',
 				loading: false,
 				color: 'teal',
-				icon: <CheckIcon />,
+				icon: <IconCheck />,
 			});
 
 			form.reset();
@@ -103,11 +99,7 @@ function DashboardSeminarsNew() {
 			<DashboardPageContainer>
 				<PageHeading>Nuovo seminario</PageHeading>
 
-				<Alert
-					color="red"
-					title="Importante"
-					icon={<ExclamationTriangleIcon />}
-				>
+				<Alert color="red" title="Importante" icon={<IconAlertTriangle />}>
 					Prima di poter creare seminari devi collegare un account di servizio!
 					<br />
 					<ButtonLink
