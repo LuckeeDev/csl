@@ -63,7 +63,7 @@
 		"@nrwl/next": "15.6.2",
 		"@nrwl/node": "15.6.2",
 		"@nrwl/react": "15.6.2",
-		"@nrwl/web": "15.6.2",
+		"@nrwl/web": "15.6.3",
 		"@nrwl/workspace": "15.6.2",
 		"@testing-library/react": "13.4.0",
 		"@types/cors": "^2.8.12",
