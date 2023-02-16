@@ -88,6 +88,11 @@ function DashboardUsers() {
 									onSubmit={onSubmit}
 								/>
 							</td>
+
+							{/* Added these table data to show a full line above the group form */}
+							<td></td>
+							<td></td>
+							<td></td>
 						</tr>
 					</tbody>
 				</Table>
