@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.19.17](https://github.com/LuckeeDev/csl/compare/v2.19.16...v2.19.17) (2023-02-16)
+
+
+### Bug Fixes
+
+* dashboard user menu ([d047bd6](https://github.com/LuckeeDev/csl/commit/d047bd6f81b2d4cdfd29b0a9d8dcea2f0223ee66))
+* setup app dir ([d8b8555](https://github.com/LuckeeDev/csl/commit/d8b85557798128897c2f93b4978c415db2853d1b))
+
+
+
 ## [2.19.16](https://github.com/LuckeeDev/csl/compare/v2.19.15...v2.19.16) (2023-01-27)
 
 
