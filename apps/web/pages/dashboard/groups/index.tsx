@@ -10,7 +10,7 @@ import useSWR from 'swr';
 export default function DashboardGroups() {
 	const { data } = useSWR<{
 		group: Group | null;
-		managedGroups: (Group & {
+		managedGroups?: (Group & {
 			_count: {
 				users: number;
 				managers: number;
@@ -33,7 +33,7 @@ export default function DashboardGroups() {
 				</p>
 			)}
 
-			{data && data.managedGroups.length > 0 && (
+			{data?.managedGroups && data.managedGroups.length > 0 && (
 				<>
 					<h3>I gruppi che gestisco</h3>
 
