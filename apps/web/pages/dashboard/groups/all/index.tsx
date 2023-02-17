@@ -22,7 +22,7 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
-function DashboardUsers() {
+function DashboardGroupsAll() {
 	const { classes } = useStyles();
 	const [pageIndex, setPageIndex] = useQueryState<number>('page', 1);
 	const form = useGroupForm();
@@ -109,8 +109,8 @@ function DashboardUsers() {
 	);
 }
 
-DashboardUsers.hasSidebar = true;
-DashboardUsers.sidebarLinks = GROUPS_LINKS;
-DashboardUsers.hasLocalCache = true;
+DashboardGroupsAll.hasSidebar = true;
+DashboardGroupsAll.sidebarLinks = GROUPS_LINKS;
+DashboardGroupsAll.hasLocalCache = true;
 
-export default DashboardUsers;
+export default DashboardGroupsAll;

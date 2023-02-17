@@ -10,7 +10,7 @@ export const DASHBOARD_LINKS: LinkData[] = [
 		requiredPermissions: [],
 	},
 	{
-		icon: 'list',
+		icon: 'shop',
 		color: 'violet',
 		label: 'Ordini',
 		href: '/dashboard/orders',
@@ -41,11 +41,19 @@ export const DASHBOARD_LINKS: LinkData[] = [
 		requiredPermissions: [Permission.EVENTS_MANAGER],
 	},
 	{
-		icon: 'profile',
+		icon: 'apps',
 		color: 'grape',
 		label: 'Gruppi',
 		href: '/dashboard/groups',
 		hasSublinks: true,
 		requiredPermissions: [],
+	},
+	{
+		icon: 'users',
+		color: 'grape',
+		label: 'Utenti e ruoli',
+		href: '/dashboard/users',
+		hasSublinks: true,
+		requiredPermissions: [Permission.USERS_MANAGER],
 	},
 ];

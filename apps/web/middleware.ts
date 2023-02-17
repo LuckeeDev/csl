@@ -9,7 +9,10 @@ export default withAuth({
 				return checkPermissions(token, [Permission.SHOP_MANAGER]);
 			}
 
-			if (req.nextUrl.pathname.startsWith('/dashboard/groups/all')) {
+			if (
+				req.nextUrl.pathname.startsWith('/dashboard/groups/all') ||
+				req.nextUrl.pathname.startsWith('/dashboard/users')
+			) {
 				return checkPermissions(token, [Permission.USERS_MANAGER]);
 			}
 

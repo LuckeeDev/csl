@@ -1,12 +1,16 @@
 import { MantineColor } from '@mantine/core';
 
 export type AvailableIcons =
+	| 'users'
 	| 'profile'
 	| 'write'
 	| 'back'
 	| 'list'
 	| 'rocket'
-	| 'calendar';
+	| 'calendar'
+	| 'apps'
+	| 'shop'
+	| 'lock-access';
 
 export interface WrapperLinkProps {
 	icon: AvailableIcons;
