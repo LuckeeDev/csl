@@ -1,12 +1,4 @@
-import {
-	ActionIcon,
-	Button,
-	Collapse,
-	MultiSelect,
-	Table,
-	TextInput,
-	Title,
-} from '@mantine/core';
+import { ActionIcon, Button, Collapse, Table } from '@mantine/core';
 import getEndpoint from 'data/api/getEndpoint';
 import useDataError from 'hooks/errors/useDataError';
 import { USERS_LINKS } from 'navigation/dashboard/users';
@@ -14,33 +6,28 @@ import useSWR from 'swr';
 import { Role } from '@prisma/client';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageHeading from 'components/heading/PageHeading';
-import { PERMISSION_ARRAY } from 'utils/auth/PERMISSION_ARRAY';
 import useRoleForm, { RoleFormValues } from 'hooks/forms/useRoleForm';
 import { IconCheck, IconTrash } from '@tabler/icons';
-import { createRole } from 'data/api/roles';
+import { createRole, deleteRole } from 'data/api/roles';
 import { showNotification } from '@mantine/notifications';
 import PageTitle from 'components/head/PageTitle';
 import { useToggle } from '@mantine/hooks';
+import RoleForm from 'components/forms/RoleForm';
 
 export default function DashboardUsersRoles() {
 	const [isFormOpen, toggleIsFormOpen] = useToggle();
 
-	const { data, mutate, error } = useSWR<{ roles: Role[] }>(
-		'/api/roles',
-		getEndpoint
-	);
+	const { data, mutate, error } = useSWR<Role[]>('/api/roles', getEndpoint);
 	useDataError(error);
 
 	const form = useRoleForm();
 
 	function handleSubmit(val: RoleFormValues) {
-		mutate(createRole(val, data?.roles ?? []), {
-			optimisticData: {
-				roles: [
-					...(data?.roles ?? []),
-					{ id: '', ...val, created_at: new Date(), updated_at: new Date() },
-				],
-			},
+		mutate(createRole(val), {
+			optimisticData: [
+				...(data ?? []),
+				{ id: 'new', ...val, created_at: new Date(), updated_at: new Date() },
+			],
 			revalidate: false,
 		});
 
@@ -49,6 +36,28 @@ export default function DashboardUsersRoles() {
 		showNotification({
 			title: 'Ruolo creato',
 			message: `Il ruolo "${val.name}" è stato creato`,
+			color: 'teal',
+			icon: <IconCheck />,
+		});
+	}
+
+	function handleDelete(role: Role) {
+		const newData = [...(data ?? [])];
+
+		const index = newData?.findIndex((r) => r.id === role.id);
+
+		if (index && index !== -1) {
+			newData?.splice(index, 1);
+		}
+
+		mutate(deleteRole(role.id), {
+			optimisticData: newData,
+			revalidate: false,
+		});
+
+		showNotification({
+			title: 'Ruolo eliminato',
+			message: `Il ruolo "${role.name}" è stato eliminato`,
 			color: 'teal',
 			icon: <IconCheck />,
 		});
@@ -70,12 +79,12 @@ export default function DashboardUsersRoles() {
 				</thead>
 
 				<tbody>
-					{data?.roles?.map((role, i) => (
+					{data?.map((role, i) => (
 						<tr key={i}>
 							<td>{role.name}</td>
 							<td>{role.permissions.join(', ')}</td>
 							<td>
-								<ActionIcon color="red">
+								<ActionIcon color="red" onClick={() => handleDelete(role)}>
 									<IconTrash />
 								</ActionIcon>
 							</td>
@@ -89,24 +98,7 @@ export default function DashboardUsersRoles() {
 			</Button>
 
 			<Collapse in={isFormOpen} transitionDuration={0}>
-				<form
-					onSubmit={form.onSubmit(handleSubmit)}
-					style={{ maxWidth: '500px' }}
-				>
-					<TextInput label="Nome" required {...form.getInputProps('name')} />
-
-					<MultiSelect
-						label="Permessi"
-						required
-						data={PERMISSION_ARRAY}
-						searchable
-						{...form.getInputProps('permissions')}
-					/>
-
-					<Button mt="sm" type="submit">
-						Crea ruolo
-					</Button>
-				</form>
+				<RoleForm onSubmit={handleSubmit} form={form} />
 			</Collapse>
 		</DashboardPageContainer>
 	);

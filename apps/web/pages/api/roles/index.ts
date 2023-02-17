@@ -24,7 +24,7 @@ handler.get(
 	async (_, res) => {
 		const roles = await prisma.role.findMany();
 
-		res.status(200).json({ roles });
+		res.status(200).json(roles);
 	}
 );
 
