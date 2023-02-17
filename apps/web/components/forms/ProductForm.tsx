@@ -274,12 +274,10 @@ export default function ProductForm({
 					onDrop={handleFileDrop}
 					onReject={imageError}
 				>
-					<div>
+					<div style={{ display: 'flex' }}>
 						<IconUpload />
 
-						<Text size="xl" inline>
-							Trascina qui le immagini per questo prodotto.
-						</Text>
+						<Text>Trascina qui le immagini per questo prodotto.</Text>
 					</div>
 				</Dropzone>
 			</Input.Wrapper>

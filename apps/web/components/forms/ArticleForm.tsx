@@ -97,12 +97,10 @@ export default function ArticleForm({ form, onSubmit }: ArticleFormProps) {
 				/>
 			) : (
 				<Dropzone multiple={false} onDrop={onDrop} mb="md">
-					<div>
+					<div style={{ display: 'flex' }}>
 						<IconUpload />
 
-						<Text size="xl" inline>
-							Scegli una copertina per l'articolo.
-						</Text>
+						<Text>Scegli una copertina per l'articolo.</Text>
 					</div>
 				</Dropzone>
 			)}
