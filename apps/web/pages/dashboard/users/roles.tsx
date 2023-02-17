@@ -1,6 +1,7 @@
 import {
 	ActionIcon,
 	Button,
+	Collapse,
 	MultiSelect,
 	Table,
 	TextInput,
@@ -15,9 +16,15 @@ import DashboardPageContainer from 'components/containers/DashboardPageContainer
 import PageHeading from 'components/heading/PageHeading';
 import { PERMISSION_ARRAY } from 'utils/auth/PERMISSION_ARRAY';
 import useRoleForm, { RoleFormValues } from 'hooks/forms/useRoleForm';
-import { IconTrash } from '@tabler/icons';
+import { IconCheck, IconTrash } from '@tabler/icons';
+import { createRole } from 'data/api/roles';
+import { showNotification } from '@mantine/notifications';
+import PageTitle from 'components/head/PageTitle';
+import { useToggle } from '@mantine/hooks';
 
 export default function DashboardUsersRoles() {
+	const [isFormOpen, toggleIsFormOpen] = useToggle();
+
 	const { data, mutate, error } = useSWR<{ roles: Role[] }>(
 		'/api/roles',
 		getEndpoint
@@ -26,17 +33,32 @@ export default function DashboardUsersRoles() {
 
 	const form = useRoleForm();
 
-	function handleSubmit(data: RoleFormValues) {
-		console.log(data);
+	function handleSubmit(val: RoleFormValues) {
+		mutate(createRole(val, data?.roles ?? []), {
+			optimisticData: {
+				roles: [
+					...(data?.roles ?? []),
+					{ id: '', ...val, created_at: new Date(), updated_at: new Date() },
+				],
+			},
+			revalidate: false,
+		});
+
+		form.reset();
+
+		showNotification({
+			title: 'Ruolo creato',
+			message: `Il ruolo "${val.name}" è stato creato`,
+			color: 'teal',
+			icon: <IconCheck />,
+		});
 	}
 
 	return (
 		<DashboardPageContainer>
-			<PageHeading loading={!data}>Ruoli</PageHeading>
+			<PageTitle>Dashboard | Ruoli</PageTitle>
 
-			<Title order={2} my={0}>
-				Ruoli esistenti
-			</Title>
+			<PageHeading loading={!data}>Ruoli</PageHeading>
 
 			<Table sx={{ minWidth: '800px' }}>
 				<thead>
@@ -53,7 +75,7 @@ export default function DashboardUsersRoles() {
 							<td>{role.name}</td>
 							<td>{role.permissions.join(', ')}</td>
 							<td>
-								<ActionIcon color="red" variant="filled">
+								<ActionIcon color="red">
 									<IconTrash />
 								</ActionIcon>
 							</td>
@@ -62,28 +84,30 @@ export default function DashboardUsersRoles() {
 				</tbody>
 			</Table>
 
-			<Title order={2} mt="md" mb={0}>
-				Crea un nuovo ruolo
-			</Title>
+			<Button onClick={() => toggleIsFormOpen()}>
+				{isFormOpen ? 'Chiudi' : 'Crea ruolo'}
+			</Button>
 
-			<form
-				onSubmit={form.onSubmit(handleSubmit)}
-				style={{ maxWidth: '500px' }}
-			>
-				<TextInput label="Nome" required {...form.getInputProps('name')} />
+			<Collapse in={isFormOpen} transitionDuration={0}>
+				<form
+					onSubmit={form.onSubmit(handleSubmit)}
+					style={{ maxWidth: '500px' }}
+				>
+					<TextInput label="Nome" required {...form.getInputProps('name')} />
 
-				<MultiSelect
-					label="Permessi"
-					required
-					data={PERMISSION_ARRAY}
-					searchable
-					{...form.getInputProps('permissions')}
-				/>
+					<MultiSelect
+						label="Permessi"
+						required
+						data={PERMISSION_ARRAY}
+						searchable
+						{...form.getInputProps('permissions')}
+					/>
 
-				<Button mt="sm" type="submit">
-					Crea ruolo
-				</Button>
-			</form>
+					<Button mt="sm" type="submit">
+						Crea ruolo
+					</Button>
+				</form>
+			</Collapse>
 		</DashboardPageContainer>
 	);
 }
