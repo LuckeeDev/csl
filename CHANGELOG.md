@@ -2,6 +2,25 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.20.0](https://github.com/LuckeeDev/csl/compare/v2.19.17...v2.20.0) (2023-02-17)
+
+
+### Bug Fixes
+
+* dropzone appearance ([39a099d](https://github.com/LuckeeDev/csl/commit/39a099d1ff74eb3759aa0500da954a8a3af592d0))
+* **groups:** display full line above group form ([1bc8b8e](https://github.com/LuckeeDev/csl/commit/1bc8b8ef7ec9ec4c0fcf2a94436de1fc3e25c631))
+* missing managed groups from data ([e810332](https://github.com/LuckeeDev/csl/commit/e810332897e378167c49b968baeac10580dcffa3))
+
+
+### Features
+
+* **roles:** add roles frontend ([c489376](https://github.com/LuckeeDev/csl/commit/c4893762180adf743d1c4d1099ecf041df7b368c))
+* **roles:** create roles ([a6b9f36](https://github.com/LuckeeDev/csl/commit/a6b9f36c0ac3f65884745b024953037632a240f5))
+* **roles:** create users and roles page ([277e1f4](https://github.com/LuckeeDev/csl/commit/277e1f474beac7ace5e7dbf938c99ac29174dab7))
+* **roles:** delete roles ([f3c0e0e](https://github.com/LuckeeDev/csl/commit/f3c0e0e57e04d3bd14f9a1e6d00c4b1c363f147f))
+
+
+
 ## [2.19.17](https://github.com/LuckeeDev/csl/compare/v2.19.16...v2.19.17) (2023-02-16)
 
 
