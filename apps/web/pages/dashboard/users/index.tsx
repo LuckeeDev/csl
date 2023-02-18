@@ -1,24 +1,64 @@
-import { TextInput } from '@mantine/core';
+import { Table, TextInput } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
+import { showNotification } from '@mantine/notifications';
+import { Role, User } from '@prisma/client';
+import { IconCheck } from '@tabler/icons';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageTitle from 'components/head/PageTitle';
 import PageHeading from 'components/heading/PageHeading';
-import { searchUser } from 'data/api/users';
+import UserRow from 'components/tableRows/UserRow';
+import getEndpoint from 'data/api/getEndpoint';
+import { updateUser } from 'data/api/users';
 import useDataError from 'hooks/errors/useDataError';
 import { USERS_LINKS } from 'navigation/dashboard/users';
-import { useState } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import useSWR from 'swr';
 
 export default function DashboardUsers() {
 	const [search, setSearch] = useState('');
 	const [debouncedSearchQuery] = useDebouncedValue(search, 500);
-	const { data: searchResult, error } = useSWR(
+	const {
+		data: searchResult,
+		mutate,
+		error: searchError,
+	} = useSWR<(User & { roles: Role[] })[]>(
 		debouncedSearchQuery
 			? `/api/users?q=${debouncedSearchQuery}&include=roles`
 			: false,
-		searchUser
+		getEndpoint
 	);
-	useDataError(error);
+	useDataError(searchError);
+
+	const { data: availableRoles, error: rolesError } = useSWR<Role[]>(
+		'/api/roles',
+		getEndpoint
+	);
+	useDataError(rolesError);
+
+	const selectData = useMemo(
+		() => availableRoles?.map((r) => ({ value: r.id, label: r.name })) ?? [],
+		[availableRoles]
+	);
+
+	function updateRoles(userId: User['id'], roles: string[]) {
+		// const optimisticData = [...(searchResult ?? [])];
+
+		// const optimisticRoles =
+		// 	availableRoles?.filter((r) => roles.includes(r.id)) ?? [];
+
+		// const index = optimisticData.findIndex((u) => u.id === userId);
+
+		// optimisticData[index].roles = optimisticRoles;
+
+		mutate(updateUser(userId, roles));
+
+		showNotification({
+			title: 'Ruoli aggiornati',
+			message: "I ruoli sono stati collegati correttamente all'utente",
+			icon: <IconCheck />,
+			color: 'teal',
+		});
+	}
 
 	return (
 		<DashboardPageContainer>
@@ -32,6 +72,28 @@ export default function DashboardUsers() {
 				placeholder="utente@example.com"
 				label="Ricerca utenti"
 			/>
+
+			<Table>
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Email</th>
+						<th>Ruoli</th>
+						<th>Azioni</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					{searchResult?.map((user, index) => (
+						<UserRow
+							key={index}
+							user={user}
+							selectData={selectData}
+							updateRoles={updateRoles}
+						/>
+					))}
+				</tbody>
+			</Table>
 		</DashboardPageContainer>
 	);
 }
