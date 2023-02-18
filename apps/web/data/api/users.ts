@@ -14,7 +14,7 @@ export function updateUser(userId: User['id'], roles: Role['id'][]) {
 			}
 		);
 
-		const newData = currentData ?? [];
+		const newData = [...(currentData ?? [])];
 
 		const index = newData.findIndex((u) => u.id === userId);
 

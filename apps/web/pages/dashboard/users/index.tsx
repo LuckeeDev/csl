@@ -11,7 +11,7 @@ import getEndpoint from 'data/api/getEndpoint';
 import { updateUser } from 'data/api/users';
 import useDataError from 'hooks/errors/useDataError';
 import { USERS_LINKS } from 'navigation/dashboard/users';
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo } from 'react';
 import useSWR from 'swr';
 
 export default function DashboardUsers() {
@@ -40,17 +40,20 @@ export default function DashboardUsers() {
 		[availableRoles]
 	);
 
-	function updateRoles(userId: User['id'], roles: string[]) {
-		// const optimisticData = [...(searchResult ?? [])];
+	async function updateRoles(userId: User['id'], roles: string[]) {
+		const optimisticData = [...(searchResult ?? [])];
 
-		// const optimisticRoles =
-		// 	availableRoles?.filter((r) => roles.includes(r.id)) ?? [];
+		const optimisticRoles = [...(availableRoles ?? [])].filter((r) =>
+			roles.includes(r.id)
+		);
 
-		// const index = optimisticData.findIndex((u) => u.id === userId);
+		const index = optimisticData.findIndex((u) => u.id === userId);
 
-		// optimisticData[index].roles = optimisticRoles;
+		optimisticData[index].roles = optimisticRoles;
 
-		mutate(updateUser(userId, roles));
+		console.log(optimisticData);
+
+		mutate(updateUser(userId, roles), { optimisticData, revalidate: false });
 
 		showNotification({
 			title: 'Ruoli aggiornati',
