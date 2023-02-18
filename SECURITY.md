@@ -11,4 +11,4 @@ Version 2 is the WIP version and the only supported one. Version 1 was specifica
 
 ## Reporting a Vulnerability
 
-Please email me at [luca@luckee.dev](mailto:luca@luckee.dev) instead of opening an issue to report a security vulnerability.
+Please email me at [luckeedev@gmail.com](mailto:luckeedev@gmail.com) to report any security vulnerability.
