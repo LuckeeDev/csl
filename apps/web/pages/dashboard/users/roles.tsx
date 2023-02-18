@@ -46,7 +46,7 @@ export default function DashboardUsersRoles() {
 
 		const index = newData?.findIndex((r) => r.id === role.id);
 
-		if (index && index !== -1) {
+		if (index !== -1) {
 			newData?.splice(index, 1);
 		}
 
