@@ -2,6 +2,21 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.21.0](https://github.com/LuckeeDev/csl/compare/v2.20.0...v2.21.0) (2023-02-18)
+
+
+### Bug Fixes
+
+* **roles:** correctly delete first role in table ([5f349ac](https://github.com/LuckeeDev/csl/commit/5f349ac6ba8fd425241a78d6e4cb30df61cc6e6e))
+
+
+### Features
+
+* **roles:** connect roles to users ([3ce10a7](https://github.com/LuckeeDev/csl/commit/3ce10a7b6ab92d809da4ba4f5caef5e107375223))
+* **users:** add search feature for users ([1216c2f](https://github.com/LuckeeDev/csl/commit/1216c2f8bb68d9d1ffc41ebb5fc3bf38bc31349c))
+
+
+
 # [2.20.0](https://github.com/LuckeeDev/csl/compare/v2.19.17...v2.20.0) (2023-02-17)
 
 
