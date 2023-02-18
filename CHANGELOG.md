@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.21.1](https://github.com/LuckeeDev/csl/compare/v2.21.0...v2.21.1) (2023-02-18)
+
+
+### Bug Fixes
+
+* optimistic update on role assignment ([24c5e17](https://github.com/LuckeeDev/csl/commit/24c5e17c671761c283843d3ea236ba7040d9c93c))
+
+
+
 # [2.21.0](https://github.com/LuckeeDev/csl/compare/v2.20.0...v2.21.0) (2023-02-18)
 
 
