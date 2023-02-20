@@ -29,7 +29,7 @@
 		"document-register-element": "1.14.10",
 		"dotenv": "16.0.3",
 		"fs-extra": "^11.1.0",
-		"joi": "^17.7.0",
+		"joi": "^17.8.1",
 		"jwt-decode": "^3.1.2",
 		"next": "13.1.1",
 		"next-auth": "4.18.8",
