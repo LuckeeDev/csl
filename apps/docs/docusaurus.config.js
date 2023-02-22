@@ -58,6 +58,10 @@ const config = {
 						label: 'GitHub',
 						position: 'right',
 					},
+					{
+						type: 'search',
+						position: 'right',
+					},
 				],
 			},
 			footer: {
@@ -90,6 +94,13 @@ const config = {
 			prism: {
 				theme: lightCodeTheme,
 				darkTheme: darkCodeTheme,
+			},
+			algolia: {
+				appId: 'JG82WYMTTD',
+				apiKey: '7cbd81becc221d42148bd371dc358036',
+				indexName: 'cslussana',
+				contextualSearch: true,
+				searchPagePath: 'search',
 			},
 		}),
 };
