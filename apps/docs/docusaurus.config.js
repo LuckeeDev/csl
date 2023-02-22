@@ -13,8 +13,8 @@ const config = {
 	onBrokenLinks: 'throw',
 	onBrokenMarkdownLinks: 'warn',
 	favicon: 'img/favicon.ico',
-	organizationName: 'LuckeeDev', // Usually your GitHub org/user name.
-	projectName: 'csl', // Usually your repo name.
+	organizationName: 'LuckeeDev',
+	projectName: 'csl',
 
 	presets: [
 		[
@@ -23,13 +23,11 @@ const config = {
 			({
 				docs: {
 					sidebarPath: require.resolve('./sidebars.js'),
-					// Please change this to your repo.
-					editUrl: 'https://github.com/LuckeeDev/csl/edit/main/apps/docs/docs',
+					editUrl: 'https://github.com/LuckeeDev/csl/edit/main/apps/docs',
 				},
 				blog: {
 					showReadingTime: true,
-					// Please change this to your repo.
-					editUrl: 'https://github.com/LuckeeDev/csl/edit/main/apps/docs/blog',
+					editUrl: 'https://github.com/LuckeeDev/csl/edit/main/apps/docs',
 				},
 				theme: {
 					customCss: require.resolve('./src/css/custom.css'),
@@ -58,6 +56,10 @@ const config = {
 					{
 						href: 'https://github.com/LuckeeDev/csl',
 						label: 'GitHub',
+						position: 'right',
+					},
+					{
+						type: 'search',
 						position: 'right',
 					},
 				],
@@ -92,6 +94,13 @@ const config = {
 			prism: {
 				theme: lightCodeTheme,
 				darkTheme: darkCodeTheme,
+			},
+			algolia: {
+				appId: 'JG82WYMTTD',
+				apiKey: '7cbd81becc221d42148bd371dc358036',
+				indexName: 'cslussana',
+				contextualSearch: true,
+				searchPagePath: 'search',
 			},
 		}),
 };
