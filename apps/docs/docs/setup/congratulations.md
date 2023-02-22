@@ -4,7 +4,7 @@ sidebar_position: 4
 
 # Congratulations!
 
-You have a full set up to start working on CSL. You can launc the project with the following command:
+You are ready to start working on CSL. You can launch the project with the following command:
 
 ```
 yarn dev web
