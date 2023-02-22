@@ -102,6 +102,9 @@ const config = {
 				contextualSearch: true,
 				searchPagePath: 'search',
 			},
+			colorMode: {
+				respectPrefersColorScheme: true,
+			},
 		}),
 };
 
