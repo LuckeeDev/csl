@@ -54,3 +54,7 @@ migrations.json
 
 # Next.js
 .next
+
+# Generated Docusaurus files
+.docusaurus/
+.cache-loader/
