@@ -6,15 +6,15 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-	title: 'My Site',
-	tagline: 'Dinosaurs are cool',
-	url: 'https://your-docusaurus-test-site.com',
+	title: 'CSL Docs',
+	tagline: 'All you need to get started',
+	url: 'https://docs.cslussana.com',
 	baseUrl: '/',
 	onBrokenLinks: 'throw',
 	onBrokenMarkdownLinks: 'warn',
 	favicon: 'img/favicon.ico',
-	organizationName: 'facebook', // Usually your GitHub org/user name.
-	projectName: 'docusaurus', // Usually your repo name.
+	organizationName: 'LuckeeDev', // Usually your GitHub org/user name.
+	projectName: 'csl', // Usually your repo name.
 
 	presets: [
 		[
@@ -24,13 +24,12 @@ const config = {
 				docs: {
 					sidebarPath: require.resolve('./sidebars.js'),
 					// Please change this to your repo.
-					editUrl: 'https://github.com/facebook/docusaurus/edit/main/website/',
+					editUrl: 'https://github.com/LuckeeDev/csl/edit/main/apps/docs/docs',
 				},
 				blog: {
 					showReadingTime: true,
 					// Please change this to your repo.
-					editUrl:
-						'https://github.com/facebook/docusaurus/edit/main/website/blog/',
+					editUrl: 'https://github.com/LuckeeDev/csl/edit/main/apps/docs/blog',
 				},
 				theme: {
 					customCss: require.resolve('./src/css/custom.css'),
@@ -43,10 +42,10 @@ const config = {
 		/** @type {import('@docusaurus/preset-classic').ThemeConfig} */
 		({
 			navbar: {
-				title: 'My Site',
+				title: 'Home',
 				logo: {
-					alt: 'My Site Logo',
-					src: 'img/logo.svg',
+					alt: 'CSL Logo',
+					src: 'img/logo.png',
 				},
 				items: [
 					{
@@ -57,14 +56,13 @@ const config = {
 					},
 					{ to: '/blog', label: 'Blog', position: 'left' },
 					{
-						href: 'https://github.com/facebook/docusaurus',
+						href: 'https://github.com/LuckeeDev/csl',
 						label: 'GitHub',
 						position: 'right',
 					},
 				],
 			},
 			footer: {
-				style: 'dark',
 				links: [
 					{
 						title: 'Docs',
@@ -72,23 +70,6 @@ const config = {
 							{
 								label: 'Tutorial',
 								to: '/docs/intro',
-							},
-						],
-					},
-					{
-						title: 'Community',
-						items: [
-							{
-								label: 'Stack Overflow',
-								href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-							},
-							{
-								label: 'Discord',
-								href: 'https://discordapp.com/invite/docusaurus',
-							},
-							{
-								label: 'Twitter',
-								href: 'https://twitter.com/docusaurus',
 							},
 						],
 					},
@@ -101,12 +82,12 @@ const config = {
 							},
 							{
 								label: 'GitHub',
-								href: 'https://github.com/facebook/docusaurus',
+								href: 'https://github.com/LuckeeDev/csl',
 							},
 						],
 					},
 				],
-				copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+				copyright: `Copyright © ${new Date().getFullYear()}, CSL.`,
 			},
 			prism: {
 				theme: lightCodeTheme,
