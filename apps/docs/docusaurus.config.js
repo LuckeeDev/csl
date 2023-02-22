@@ -89,7 +89,7 @@ const config = {
 						],
 					},
 				],
-				copyright: `Copyright © ${new Date().getFullYear()}, CSL.`,
+				copyright: 'Built with ❤️ for all students in the world.',
 			},
 			prism: {
 				theme: lightCodeTheme,
