@@ -41,7 +41,7 @@ collections:
     label: 'Docs'
     label_singular: 'Doc'
     folder: apps/docs/docs
-    summary: '{{category | lower}}/{{fields.slug}}'
+    identifier_field: slug
     extension: md
     create: true
     path: '{{category}}/{{slug}}'
