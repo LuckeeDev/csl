@@ -1,8 +1,11 @@
 backend:
   name: git-gateway
   branch: main
-
-publish_mode: editorial_workflow
+  create: Create {{collection}} “{{slug}}”
+  update: Update {{collection}} “{{slug}}”
+  delete: Delete {{collection}} “{{slug}}”
+  uploadMedia: Upload “{{path}}”
+  deleteMedia: Delete “{{path}}”
 
 logo_url: https://docs.cslussana.com/img/logo.png
 
@@ -11,7 +14,8 @@ public_folder: '/img/' # The src attribute for uploaded media will begin with /i
 
 collections:
   - name: blog
-    label: 'Blog'
+    label: 'Posts'
+    label_singular: 'Post'
     folder: blog
     identifier_field: title
     extension: md
@@ -35,13 +39,42 @@ collections:
           - { name: image_url, label: Image URL, widget: string }
   - name: docs
     label: 'Docs'
+    label_singular: 'Doc'
     folder: docs
     identifier_field: slug
     extension: md
     create: true
+    path: '{{category}}/{{slug}}'
     fields:
+      - name: 'category'
+        label: 'Category'
+        widget: 'relation'
+        - collection: 'category'
+        - value_field: 'label'
+        - search_fields: [label]
       - { name: body, label: Body, widget: markdown, modes: [raw] }
-      - { name: slug, label: Slug, widget: string }
       - label: 'Sidebar position'
         name: 'sidebar_position'
         widget: 'number'
+  - name: category
+    label: 'Categories'
+    label_singular: 'Category'
+    folder: docs
+    extension: json
+    create: true
+    identifier_field: label
+    path: '{{label}}/_category_'
+    fields:
+      - { name: label, label: Label, widget: string }
+      - { name: position, label: Label, widget: string }
+      - name: 'link'
+        label: 'Link'
+        widget: 'object'
+        fields:
+          - name: 'type'
+            label: 'Type'
+            widget: 'string'
+            default: 'generated-index'
+          - name: 'description'
+            label: 'Description'
+            widget: 'string'
