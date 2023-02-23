@@ -25,7 +25,6 @@ collections:
       - name: 'label'
         label: 'Label'
         widget: 'string'
-        comment: 'Please use a lower case category label.'
       - { name: position, label: Position, widget: number }
       - name: 'link'
         label: 'Link'
@@ -53,6 +52,9 @@ collections:
         collection: 'category'
         value_field: 'label'
         search_fields: [label]
+      - label: 'Slug'
+        name: 'slug'
+        widget: 'string'
       - { name: body, label: Body, widget: markdown, modes: [raw] }
       - label: 'Sidebar position'
         name: 'sidebar_position'
@@ -61,7 +63,7 @@ collections:
     label: 'Posts'
     label_singular: 'Post'
     folder: apps/docs/blog
-    identifier_field: title
+    identifier_field: slug
     extension: md
     widget: 'list'
     create: true
