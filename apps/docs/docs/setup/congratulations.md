@@ -3,7 +3,7 @@ category: Setup
 slug: congratulations
 sidebar_position: 4
 ---
-https://nx.dev/getting-started/intro# Congratulations!
+# Congratulations!
 
 You are ready to start working on CSL. You can launch the project with the following command:
 
@@ -17,6 +17,7 @@ The app is live at `http://localhost:3000` and refreshes every time you save a c
 
 You can learn more about the technologies used in the project with the following resources:
 
-- [NextJS documentation](https://nextjs.org/docs), a React framework built for performant websites;
-- [Prisma documentation](https://www.prisma.io/docs), a ORM with great TypeScript support;
-- [Mantine documentation](https://mantine.dev), our styling framework.
+- [NextJS](https://nextjs.org/docs), a React framework built for performant websites;
+- [Prisma](https://www.prisma.io/docs), a ORM with great TypeScript support;
+- [NX](https://nx.dev/getting-started/intro), a modern toolset to manage complex monorepos;
+- [Mantine](https://mantine.dev), a styling framework.
