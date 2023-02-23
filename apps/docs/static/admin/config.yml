@@ -20,14 +20,12 @@ collections:
     extension: json
     create: true
     identifier_field: label
-    path: 'apps/docs/docs/{{label}}/_category_'
+    path: '{{label}}/_category_'
     fields:
-      - {
-          name: label,
-          label: Label,
-          widget: string,
-          description: 'Please use a lower case category label.',
-        }
+      - name: 'label'
+        label: 'Label'
+        widget: 'string'
+        comment: 'Please use a lower case category label.'
       - { name: position, label: Position, widget: number }
       - name: 'link'
         label: 'Link'
