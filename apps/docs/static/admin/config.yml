@@ -36,13 +36,11 @@ collections:
   - name: docs
     label: 'Docs'
     folder: docs
-    identifier_field: title
+    identifier_field: slug
     extension: md
     create: true
-    slug: '{{slug}}'
     fields:
-      - { name: title, label: Title, widget: string }
-      - { name: body, label: Body, widget: markdown }
+      - { name: body, label: Body, widget: markdown, modes: [raw] }
       - { name: slug, label: Slug, widget: string }
       - label: 'Sidebar position'
         name: 'sidebar_position'
