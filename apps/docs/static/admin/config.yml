@@ -41,7 +41,7 @@ collections:
     label: 'Docs'
     label_singular: 'Doc'
     folder: apps/docs/docs
-    identifier_field: slug
+    summary: '{{category}}/{{slug}}'
     extension: md
     create: true
     path: '{{category}}/{{slug}}'
@@ -63,7 +63,7 @@ collections:
     label: 'Posts'
     label_singular: 'Post'
     folder: apps/docs/blog
-    identifier_field: slug
+    summary: '{{title}}'
     extension: md
     widget: 'list'
     create: true
