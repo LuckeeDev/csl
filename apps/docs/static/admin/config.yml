@@ -63,7 +63,7 @@ collections:
     label: 'Posts'
     label_singular: 'Post'
     folder: apps/docs/blog
-    summary: '{{title}} - {{day}}/{{month}}/{{year}}'
+    identifier_field: title
     extension: md
     widget: 'list'
     create: true
