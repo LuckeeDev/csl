@@ -46,8 +46,8 @@ collections:
     create: true
     path: '{{category}}/{{slug}}'
     fields:
-      - name: 'category'
-        label: 'Category'
+      - label: 'Category'
+        name: 'category'
         widget: 'relation'
         - collection: 'category'
         - value_field: 'label'
