@@ -16,13 +16,18 @@ collections:
   - name: category
     label: 'Categories'
     label_singular: 'Category'
-    folder: docs
+    folder: apps/docs/docs
     extension: json
     create: true
     identifier_field: label
-    path: '{{label}}/_category_'
+    path: 'apps/docs/docs/{{label}}/_category_'
     fields:
-      - { name: label, label: Label, widget: string }
+      - {
+          name: label,
+          label: Label,
+          widget: string,
+          description: 'Please use a lower case category label.',
+        }
       - { name: position, label: Position, widget: number }
       - name: 'link'
         label: 'Link'
@@ -38,7 +43,7 @@ collections:
   - name: docs
     label: 'Docs'
     label_singular: 'Doc'
-    folder: docs
+    folder: apps/docs/docs
     identifier_field: slug
     extension: md
     create: true
@@ -57,7 +62,7 @@ collections:
   - name: blog
     label: 'Posts'
     label_singular: 'Post'
-    folder: blog
+    folder: apps/docs/blog
     identifier_field: title
     extension: md
     widget: 'list'
