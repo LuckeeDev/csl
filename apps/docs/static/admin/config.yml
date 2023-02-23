@@ -4,12 +4,14 @@ backend:
 
 publish_mode: editorial_workflow
 
+logo_url: https://docs.cslussana.com/img/logo.png
+
 media_folder: 'apps/docs/static/img' # Media files will be stored in the repo under apps/docs/static/img
 public_folder: '/img/' # The src attribute for uploaded media will begin with /img/
 
 collections:
   - name: blog
-    label: 'blog'
+    label: 'Blog'
     folder: blog
     identifier_field: title
     extension: md
@@ -30,4 +32,4 @@ collections:
           - { name: name, label: Name, widget: string }
           - { name: title, label: Title, widget: string }
           - { name: url, label: URL, widget: string }
-          - { name: imageUrl, label: ImageURL, widget: string }
+          - { name: image_url, label: Image URL, widget: string }
