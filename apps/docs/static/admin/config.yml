@@ -36,7 +36,6 @@ collections:
   - name: docs
     label: 'Docs'
     folder: docs
-    identifier_field:
     identifier_field: title
     extension: md
     create: true
