@@ -3,7 +3,7 @@ category: Setup
 slug: congratulations
 sidebar_position: 4
 ---
-# Congratulations!
+https://nx.dev/getting-started/intro# Congratulations!
 
 You are ready to start working on CSL. You can launch the project with the following command:
 
