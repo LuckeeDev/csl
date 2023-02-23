@@ -49,9 +49,9 @@ collections:
       - label: 'Category'
         name: 'category'
         widget: 'relation'
-        - collection: 'category'
-        - value_field: 'label'
-        - search_fields: [label]
+        collection: 'category'
+        value_field: 'label'
+        search_fields: [label]
       - { name: body, label: Body, widget: markdown, modes: [raw] }
       - label: 'Sidebar position'
         name: 'sidebar_position'
