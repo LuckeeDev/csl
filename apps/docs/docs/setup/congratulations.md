@@ -1,8 +1,9 @@
 ---
 category: Setup
-slug: congratulations
+filename: congratulations
 sidebar_position: 4
 ---
+
 # Congratulations!
 
 You are ready to start working on CSL. You can launch the project with the following command:

@@ -1,8 +1,9 @@
 ---
-category: setup
-slug: repo
+category: Setup
+filename: repo
 sidebar_position: 1
 ---
+
 # Set up the repo
 
 ## System requirements
