@@ -1,5 +1,5 @@
 import { Card, SimpleGrid } from '@mantine/core';
-import { IconCalendar, IconClock } from '@tabler/icons';
+import { IconCalendar, IconClock } from '@tabler/icons-react';
 import { Event } from '@prisma/client';
 import PageTitle from 'components/head/PageTitle';
 import { GetStaticProps } from 'next';

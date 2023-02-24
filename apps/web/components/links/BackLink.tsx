@@ -1,5 +1,5 @@
 import { Anchor, AnchorProps, useMantineTheme } from '@mantine/core';
-import { IconArrowLeft } from '@tabler/icons';
+import { IconArrowLeft } from '@tabler/icons-react';
 import { useRouter } from 'next/router';
 
 export default function BackLink({ children, ...props }: AnchorProps) {

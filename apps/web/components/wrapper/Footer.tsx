@@ -1,5 +1,5 @@
 import { Anchor, createStyles } from '@mantine/core';
-import { IconExternalLink, IconBrandGithub } from '@tabler/icons';
+import { IconExternalLink, IconBrandGithub } from '@tabler/icons-react';
 import TextLink from 'components/links/TextLink';
 import PackageJSON from '../../../../package.json';
 

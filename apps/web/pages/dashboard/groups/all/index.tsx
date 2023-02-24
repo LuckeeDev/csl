@@ -1,5 +1,5 @@
 import { createStyles, Pagination, ScrollArea, Table } from '@mantine/core';
-import { IconCheck } from '@tabler/icons';
+import { IconCheck } from '@tabler/icons-react';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageTitle from 'components/head/PageTitle';
 import GroupRow from 'components/tableRows/GroupRow';

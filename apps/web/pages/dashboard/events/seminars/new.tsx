@@ -1,6 +1,6 @@
 import { Alert } from '@mantine/core';
 import { showNotification, updateNotification } from '@mantine/notifications';
-import { IconCheck, IconX, IconAlertTriangle } from '@tabler/icons';
+import { IconCheck, IconX, IconAlertTriangle } from '@tabler/icons-react';
 import { Seminar, TimeSlot } from '@prisma/client';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import SeminarForm from 'components/forms/SeminarForm';

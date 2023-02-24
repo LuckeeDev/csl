@@ -8,7 +8,7 @@ import {
 } from '@mantine/core';
 import { joiResolver, useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
-import { IconCheck, IconX } from '@tabler/icons';
+import { IconCheck, IconX } from '@tabler/icons-react';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageTitle from 'components/head/PageTitle';
 import PageHeading from 'components/heading/PageHeading';

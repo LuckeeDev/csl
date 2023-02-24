@@ -20,7 +20,7 @@ import { ProductCategory, ProductSize, ShopSession } from '@prisma/client';
 import { ChangeEvent, useCallback, useState } from 'react';
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { showNotification } from '@mantine/notifications';
-import { IconX, IconCheck, IconUpload } from '@tabler/icons';
+import { IconX, IconCheck, IconUpload } from '@tabler/icons-react';
 import axios from 'axios';
 import { SignedAWSUploadFile } from 'types/aws';
 import { ImageData } from 'types/image';

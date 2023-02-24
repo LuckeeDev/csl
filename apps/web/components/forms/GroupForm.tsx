@@ -1,6 +1,6 @@
 import { ActionIcon, Input, TextInput } from '@mantine/core';
 import { UseFormReturnType } from '@mantine/form';
-import { IconCheck } from '@tabler/icons';
+import { IconCheck } from '@tabler/icons-react';
 import { GroupFormValues } from 'hooks/forms/useGroupForm';
 
 interface GroupFormProps {

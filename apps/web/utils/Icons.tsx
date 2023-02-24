@@ -10,7 +10,7 @@ import {
 	IconShoppingCart,
 	IconKey,
 	IconLockAccess,
-} from '@tabler/icons';
+} from '@tabler/icons-react';
 import { AvailableIcons } from 'components/wrapper/types';
 import { ReactNode } from 'react';
 

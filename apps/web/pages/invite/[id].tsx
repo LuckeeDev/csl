@@ -1,5 +1,5 @@
 import { Card, createStyles, Text } from '@mantine/core';
-import { IconCircleCheck } from '@tabler/icons';
+import { IconCircleCheck } from '@tabler/icons-react';
 import { Group } from '@prisma/client';
 import PageTitle from 'components/head/PageTitle';
 import ButtonLink from 'components/links/ButtonLink';

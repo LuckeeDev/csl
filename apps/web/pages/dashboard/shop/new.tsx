@@ -9,7 +9,7 @@ import axios from 'axios';
 import { showNotification } from '@mantine/notifications';
 import { ShopSession } from '@prisma/client';
 import { environment } from 'environments/environment';
-import { IconCheck } from '@tabler/icons';
+import { IconCheck } from '@tabler/icons-react';
 import { useRouter } from 'next/router';
 import { LoadingOverlay } from '@mantine/core';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';

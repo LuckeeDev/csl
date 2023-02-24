@@ -1,4 +1,4 @@
-import { IconClock } from '@tabler/icons';
+import { IconClock } from '@tabler/icons-react';
 import { ShopSession } from '@prisma/client';
 import { SessionStatus } from 'types/shopSession';
 import ShopSessionStatusBadge from './ShopSessionStatusBadge';

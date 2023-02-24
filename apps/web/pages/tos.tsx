@@ -1,5 +1,5 @@
 import { createStyles } from '@mantine/core';
-import { IconExternalLink } from '@tabler/icons';
+import { IconExternalLink } from '@tabler/icons-react';
 import TextLink from 'components/links/TextLink';
 import { environment } from 'environments/environment';
 import { readFileSync } from 'fs';

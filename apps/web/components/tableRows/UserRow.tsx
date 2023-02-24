@@ -1,7 +1,7 @@
 import { ActionIcon, MultiSelect } from '@mantine/core';
 import { useToggle } from '@mantine/hooks';
 import { Role, User } from '@prisma/client';
-import { IconCheck, IconPencil } from '@tabler/icons';
+import { IconCheck, IconPencil } from '@tabler/icons-react';
 import { useState, useEffect, useRef } from 'react';
 
 interface UserRowProps {

@@ -10,7 +10,7 @@ import Editor from 'components/editor/Editor';
 import { ArticleFormValues } from 'hooks/forms/useArticleForm';
 import { UseFormReturnType } from '@mantine/form';
 import { Dropzone } from '@mantine/dropzone';
-import { IconCheck, IconX, IconUpload } from '@tabler/icons';
+import { IconCheck, IconX, IconUpload } from '@tabler/icons-react';
 import axios from 'axios';
 import { SignedAWSUploadFile } from 'types/aws';
 import { useState } from 'react';

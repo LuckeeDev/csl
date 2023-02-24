@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { IconX } from '@tabler/icons';
+import { IconX } from '@tabler/icons-react';
 import { showNotification } from '@mantine/notifications';
 
 export default function useDataError(error: any) {

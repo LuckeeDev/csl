@@ -1,5 +1,5 @@
 import { Button, Container, useMantineTheme } from '@mantine/core';
-import { IconChevronLeft, IconChevronRight } from '@tabler/icons';
+import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 import { Image } from '@prisma/client';
 import {
 	CarouselProvider,
