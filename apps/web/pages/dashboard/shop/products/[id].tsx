@@ -12,7 +12,7 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import prisma from 'prisma/client';
 import { useMemo } from 'react';
-import { IconCheck } from '@tabler/icons';
+import { IconCheck } from '@tabler/icons-react';
 import { ImageData } from 'types/image';
 import PageHeading from 'components/heading/PageHeading';
 import { showNotification } from '@mantine/notifications';

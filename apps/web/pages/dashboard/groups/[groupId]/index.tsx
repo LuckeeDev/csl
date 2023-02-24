@@ -1,7 +1,7 @@
 import { ActionIcon, Button, Input, TextInput } from '@mantine/core';
 import { useClipboard, useDebouncedValue } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
-import { IconCheck, IconX, IconPlus } from '@tabler/icons';
+import { IconCheck, IconX, IconPlus } from '@tabler/icons-react';
 import { Group, User } from '@prisma/client';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageHeading from 'components/heading/PageHeading';

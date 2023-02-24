@@ -1,5 +1,5 @@
 import { Alert, Avatar, Group, Text } from '@mantine/core';
-import { IconInfoCircle } from '@tabler/icons';
+import { IconInfoCircle } from '@tabler/icons-react';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageHeading from 'components/heading/PageHeading';
 import ButtonLink from 'components/links/ButtonLink';

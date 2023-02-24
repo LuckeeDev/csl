@@ -12,7 +12,7 @@ import useSWR from 'swr';
 import getEndpoint from 'data/api/getEndpoint';
 import { useCallback, useMemo } from 'react';
 import { showNotification, updateNotification } from '@mantine/notifications';
-import { IconCheck, IconX } from '@tabler/icons';
+import { IconCheck, IconX } from '@tabler/icons-react';
 import { useSession } from 'next-auth/react';
 import { createBooking } from 'data/api/booking';
 import { v4 } from 'uuid';

@@ -2,7 +2,7 @@ import { createStyles } from '@mantine/styles';
 import { ThemeIcon, Group, Text, Anchor } from '@mantine/core';
 import Link from 'next/link';
 import { WrapperLinkProps } from './types';
-import { IconChevronRight } from '@tabler/icons';
+import { IconChevronRight } from '@tabler/icons-react';
 import Icons from 'utils/Icons';
 
 const useStyles = createStyles((theme) => ({

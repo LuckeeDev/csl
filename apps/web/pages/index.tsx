@@ -1,6 +1,6 @@
 import { Title, Text } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
-import { IconX } from '@tabler/icons';
+import { IconX } from '@tabler/icons-react';
 import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
 

@@ -7,7 +7,7 @@ import { Role } from '@prisma/client';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageHeading from 'components/heading/PageHeading';
 import useRoleForm, { RoleFormValues } from 'hooks/forms/useRoleForm';
-import { IconCheck, IconTrash } from '@tabler/icons';
+import { IconCheck, IconTrash } from '@tabler/icons-react';
 import { createRole, deleteRole } from 'data/api/roles';
 import { showNotification } from '@mantine/notifications';
 import PageTitle from 'components/head/PageTitle';

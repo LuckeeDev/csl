@@ -1,7 +1,7 @@
 import { LoadingOverlay, Table, Text } from '@mantine/core';
 import { useToggle } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
-import { IconCheck, IconX } from '@tabler/icons';
+import { IconCheck, IconX } from '@tabler/icons-react';
 import { Order, Product, ProductDiscount } from '@prisma/client';
 import axios from 'axios';
 import PageTitle from 'components/head/PageTitle';

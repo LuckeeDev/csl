@@ -1,5 +1,5 @@
 import { Button, Text } from '@mantine/core';
-import { IconCheck } from '@tabler/icons';
+import { IconCheck } from '@tabler/icons-react';
 import { Seminar } from '@prisma/client';
 import { OmitDates } from 'types/omit';
 

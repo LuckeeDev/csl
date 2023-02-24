@@ -20,7 +20,7 @@ import useProductDiscountForm, {
 import ProductDiscountRow from 'components/tableRows/ProductDiscountRow';
 import axios from 'axios';
 import { environment } from 'environments/environment';
-import { IconCheck, IconX } from '@tabler/icons';
+import { IconCheck, IconX } from '@tabler/icons-react';
 import { showNotification } from '@mantine/notifications';
 
 interface DashboardShopDiscountsProps {

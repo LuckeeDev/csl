@@ -5,7 +5,7 @@ import {
 	Image as MantineImage,
 	SimpleGrid,
 } from '@mantine/core';
-import { IconInfoCircle } from '@tabler/icons';
+import { IconInfoCircle } from '@tabler/icons-react';
 import {
 	Image,
 	Product,

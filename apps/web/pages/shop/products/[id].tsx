@@ -1,7 +1,7 @@
 import { createStyles, LoadingOverlay, MediaQuery, Text } from '@mantine/core';
 import { useToggle } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
-import { IconCheck, IconX } from '@tabler/icons';
+import { IconCheck, IconX } from '@tabler/icons-react';
 import { Image, Order, Product } from '@prisma/client';
 import axios from 'axios';
 import Carousel from 'components/carousel/Carousel';

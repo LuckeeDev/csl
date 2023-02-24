@@ -11,7 +11,7 @@ import { ExtendedSeminar } from 'types/seminars';
 import { useModals } from '@mantine/modals';
 import { deleteSeminar } from 'data/api/seminars';
 import { showNotification, updateNotification } from '@mantine/notifications';
-import { IconCheck, IconX } from '@tabler/icons';
+import { IconCheck, IconX } from '@tabler/icons-react';
 
 function DashboardSeminars() {
 	const [pageIndex, setPageIndex] = useQueryState<number>('page', 1);

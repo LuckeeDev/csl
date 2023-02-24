@@ -12,7 +12,7 @@ import {
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { Session } from 'next-auth';
 import { useMediaQuery } from '@mantine/hooks';
-import { IconChevronRight, IconUser } from '@tabler/icons';
+import { IconChevronRight, IconUser } from '@tabler/icons-react';
 
 function userButtonStyles(theme: MantineTheme) {
 	return {

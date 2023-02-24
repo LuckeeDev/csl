@@ -14,7 +14,7 @@ import { useMemo } from 'react';
 import EventRow from 'components/tableRows/EventRow';
 import { joiResolver, useForm } from '@mantine/form';
 import Joi from 'joi';
-import { IconCheck, IconX } from '@tabler/icons';
+import { IconCheck, IconX } from '@tabler/icons-react';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import { showNotification, updateNotification } from '@mantine/notifications';
 import PageHeading from 'components/heading/PageHeading';
