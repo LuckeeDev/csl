@@ -14,6 +14,9 @@ logo_url: https://docs.cslussana.com/img/logo.png
 media_folder: 'apps/docs/static/img' # Media files will be stored in the repo under apps/docs/static/img
 public_folder: '/img/' # The src attribute for uploaded media will begin with /img/
 
+editor:
+  preview: false
+
 collections:
   - name: category
     label: 'Categories'
@@ -22,9 +25,9 @@ collections:
     extension: json
     create: true
     identifier_field: label
-    path: '{{label}}/_category_'
-    editor:
-      preview: false
+    nested:
+      depth: 100
+      summary: '{{label}}'
     fields:
       - name: 'label'
         label: 'Label'
@@ -45,36 +48,31 @@ collections:
             label: 'Description'
             widget: 'string'
             hint: Description shown in the category page.
+    meta: { path: { widget: string, label: 'Path', index_file: '_category_' } }
 
   - name: docs
     label: 'Docs'
     label_singular: 'Doc'
     folder: apps/docs/docs
-    summary: '{{dirname}}/{{filename}}'
+    identifier_field: title
     extension: md
     create: true
-    path: '{{category}}/{{filename}}'
     sortable_fields: ['filename', 'category', 'sidebar_position']
+    nested:
+      depth: 100
+      summary: '{{title}}'
     fields:
-      - label: 'Category'
-        name: 'category'
-        widget: 'relation'
-        collection: 'category'
-        value_field: 'label'
-        search_fields: [label]
-        required: false
-      - label: File name
-        name: filename
+      - name: title
+        label: Title
         widget: string
-        hint: This is the name of the new file, without the extension. If category is set, its path will be "CATEGORY/FILENAME.md."
       - name: body
         label: Body
         widget: markdown
-        modes: [raw]
       - label: 'Sidebar position'
         name: 'sidebar_position'
         widget: 'number'
         hint: 'This value controls the order in which docs appear in the sidebar and in category pages.'
+    meta: { path: { widget: string, label: 'Path', index_file: 'index' } }
 
   - name: blog
     label: 'Posts'
@@ -87,7 +85,7 @@ collections:
     slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
     fields:
       - { name: title, label: Title, widget: string }
-      - { name: body, label: Body, widget: markdown, modes: [raw] }
+      - { name: body, label: Body, widget: markdown }
       - { name: slug, label: Slug, widget: string }
       - label: 'Tags'
         name: 'tags'
