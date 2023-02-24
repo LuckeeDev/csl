@@ -1,11 +1,11 @@
 backend:
   name: git-gateway
   branch: main
-  create: Create {{collection}} “{{slug}}”
-  update: Update {{collection}} “{{slug}}”
-  delete: Delete {{collection}} “{{slug}}”
-  uploadMedia: Upload “{{path}}”
-  deleteMedia: Delete “{{path}}”
+  create: docs({{collection}}): create “{{slug}}”
+  update: docs({{collection}}): update “{{slug}}”
+  delete: docs({{collection}}): delete “{{slug}}”
+  uploadMedia: docs(media): upload “{{path}}”
+  deleteMedia: docs(media): delete “{{path}}”
 
 local_backend: true
 
