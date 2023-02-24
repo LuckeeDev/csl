@@ -7,10 +7,15 @@ backend:
   uploadMedia: Upload “{{path}}”
   deleteMedia: Delete “{{path}}”
 
+local_backend: true
+
 logo_url: https://docs.cslussana.com/img/logo.png
 
 media_folder: 'apps/docs/static/img' # Media files will be stored in the repo under apps/docs/static/img
 public_folder: '/img/' # The src attribute for uploaded media will begin with /img/
+
+editor:
+  preview: false
 
 collections:
   - name: category
@@ -20,45 +25,56 @@ collections:
     extension: json
     create: true
     identifier_field: label
-    path: '{{label}}/_category_'
+    nested:
+      depth: 100
+      summary: '{{label}}'
     fields:
       - name: 'label'
         label: 'Label'
         widget: 'string'
-      - { name: position, label: Position, widget: number }
+        hint: 'The title at the top of the category page and the label in the sidebar.'
+      - name: position
+        label: Position
+        widget: number
+        hint: 'Use this to control the position of the category in the sidebar.'
       - name: 'link'
         label: 'Link'
         widget: 'object'
         fields:
           - name: 'type'
             label: 'Type'
-            widget: 'string'
+            widget: 'hidden'
             default: 'generated-index'
           - name: 'description'
             label: 'Description'
             widget: 'string'
+            hint: Description shown in the category page.
+    meta: { path: { widget: string, label: 'Path', index_file: '_category_' } }
+
   - name: docs
     label: 'Docs'
     label_singular: 'Doc'
     folder: apps/docs/docs
-    identifier_field: slug
+    identifier_field: title
     extension: md
     create: true
-    path: '{{category}}/{{slug}}'
+    sortable_fields: ['filename', 'category', 'sidebar_position']
+    nested:
+      depth: 100
+      summary: '{{title}}'
     fields:
-      - label: 'Category'
-        name: 'category'
-        widget: 'relation'
-        collection: 'category'
-        value_field: 'label'
-        search_fields: [label]
-      - label: 'Slug'
-        name: 'slug'
-        widget: 'string'
-      - { name: body, label: Body, widget: markdown, modes: [raw] }
+      - name: title
+        label: Title
+        widget: string
+      - name: body
+        label: Body
+        widget: markdown
       - label: 'Sidebar position'
         name: 'sidebar_position'
         widget: 'number'
+        hint: 'This value controls the order in which docs appear in the sidebar and in category pages.'
+    meta: { path: { widget: string, label: 'Path', index_file: 'index' } }
+
   - name: blog
     label: 'Posts'
     label_singular: 'Post'
@@ -70,7 +86,7 @@ collections:
     slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
     fields:
       - { name: title, label: Title, widget: string }
-      - { name: body, label: Body, widget: markdown, modes: [raw] }
+      - { name: body, label: Body, widget: markdown }
       - { name: slug, label: Slug, widget: string }
       - label: 'Tags'
         name: 'tags'
@@ -79,7 +95,25 @@ collections:
         name: 'authors'
         widget: 'list'
         fields:
-          - { name: name, label: Name, widget: string }
-          - { name: title, label: Title, widget: string }
-          - { name: url, label: URL, widget: string }
-          - { name: image_url, label: Image URL, widget: string }
+          - name: key
+            label: Author key
+            widget: select
+            options: [luca]
+            required: false
+            hint: You can select one of the pre-existing authors.
+          - name: name
+            label: Name
+            widget: string
+            required: false
+          - name: title
+            label: Title
+            widget: string
+            required: false
+          - name: url
+            label: URL
+            widget: string
+            required: false
+          - name: image_url
+            label: Image URL
+            widget: string
+            required: false

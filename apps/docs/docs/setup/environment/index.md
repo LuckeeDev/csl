@@ -1,10 +1,7 @@
 ---
-category: Setup
-slug: environment
+title: Configure environment variables
 sidebar_position: 2
 ---
-# Configure environment variables
-
 Both the root of the project and the `apps/web` folder contain a `.env.example` file. Please make a copy of this file and save it as `.env` in the same location of the `.env.example` file. Here is where you should write the environment variables you want to be loaded when the project launches.
 
 ## Root environment
