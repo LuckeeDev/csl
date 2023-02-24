@@ -1,3 +1,6 @@
+[![CodeQL](https://github.com/LuckeeDev/csl/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/LuckeeDev/csl/actions/workflows/codeql-analysis.yml)
+![GitHub deployments](https://img.shields.io/github/deployments/LuckeeDev/csl/production?label=vercel&logo=vercel&logoColor=white&style=plastic)
+
 # CSL
 
 ## What's this?
