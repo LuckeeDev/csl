@@ -36,6 +36,7 @@ collections:
       - name: position
         label: Position
         widget: number
+        hint: 'Use this to control the position of the category in the sidebar.'
       - name: 'link'
         label: 'Link'
         widget: 'object'
