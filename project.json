@@ -10,7 +10,15 @@
 				"rootChangelog": true,
 				"push": true,
 				"postTargets": ["workspace:github"],
-				"skipCommitTypes": ["build", "ci", "docs", "style", "refactor", "test"],
+				"skipCommitTypes": [
+					"build",
+					"ci",
+					"docs",
+					"style",
+					"refactor",
+					"test",
+					"chore"
+				],
 				"commitMessageFormat": "release(csl): 🏫 release version ${version}"
 			}
 		},
@@ -18,7 +26,8 @@
 			"executor": "@jscutlery/semver:github",
 			"options": {
 				"tag": "${tag}",
-				"notes": "${notes}"
+				"notes": "${notes}",
+				"title": "Release ${tag}"
 			}
 		}
 	},
