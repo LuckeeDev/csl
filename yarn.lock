@@ -5749,7 +5749,7 @@ cli-spinners@^2.5.0:
   resolved "https://registry.yarnpkg.com/cli-spinners/-/cli-spinners-2.6.0.tgz#36c7dc98fb6a9a76bd6238ec3f77e2425627e939"
   integrity sha512-t+4/y50K/+4xcCRosKkA7W4gTr1MySvLV0q+PxmG7FJ5g+66ChKurYjxBCjHggHH3HA5Hh9cy+lcUGWDqVH+4Q==
 
-cli-table3@^0.6.2:
+cli-table3@^0.6.2, cli-table3@~0.6.1:
   version "0.6.3"
   resolved "https://registry.yarnpkg.com/cli-table3/-/cli-table3-0.6.3.tgz#61ab765aac156b52f222954ffc607a6f01dbeeb2"
   integrity sha512-w5Jac5SykAeZJKntOxJCrm63Eg5/4dhMWIcuTbo9rpE+brgaSZo0RuNJZeOyMgsUdhDeojvgyQLmjI+K50ZGyg==
@@ -5757,15 +5757,6 @@ cli-table3@^0.6.2:
     string-width "^4.2.0"
   optionalDependencies:
     "@colors/colors" "1.5.0"
-
-cli-table3@~0.6.1:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/cli-table3/-/cli-table3-0.6.1.tgz#36ce9b7af4847f288d3cdd081fbd09bf7bd237b8"
-  integrity sha512-w0q/enDHhPLq44ovMGdQeeDLvwxwavsJX7oQGYt/LrBlYsyaxyDnp6z3QzFut/6kLLKnlcUVJLrpB7KBfgG/RA==
-  dependencies:
-    string-width "^4.2.0"
-  optionalDependencies:
-    colors "1.4.0"
 
 cli-truncate@^2.1.0:
   version "2.1.0"
@@ -5913,11 +5904,6 @@ colorette@^2.0.10, colorette@^2.0.16:
   version "2.0.16"
   resolved "https://registry.yarnpkg.com/colorette/-/colorette-2.0.16.tgz#713b9af84fdb000139f04546bd4a93f62a5085da"
   integrity sha512-hUewv7oMjCp+wkBv5Rm0v87eJhq4woh5rSR+42YSQJKecCqgIqNkZ6lAlQms/BwHPJA5NKMRlpxPRv0n8HQW6g==
-
-colors@1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/colors/-/colors-1.4.0.tgz#c50491479d4c1bdaed2c9ced32cf7c7dc2360f78"
-  integrity sha512-a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==
 
 combine-promises@^1.1.0:
   version "1.1.0"
@@ -6671,10 +6657,10 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-cypress@^12.4.1:
-  version "12.4.1"
-  resolved "https://registry.yarnpkg.com/cypress/-/cypress-12.4.1.tgz#6121b49fd7d833d1f4a0f486034f063467f433af"
-  integrity sha512-IFMPzc1RJ22Fac+YbdqywtpcuqZXqQJh+JqZDXn+A15zG/dw99njfv8f0bTvD+WAHhP118+xWG/VwilkFg1rnA==
+cypress@^12.7.0:
+  version "12.7.0"
+  resolved "https://registry.yarnpkg.com/cypress/-/cypress-12.7.0.tgz#69900f82af76cf3ba0ddb9b59ec3b0d38222ab22"
+  integrity sha512-7rq+nmhzz0u6yabCFyPtADU2OOrYt6pvUau9qV7xyifJ/hnsaw/vkr0tnLlcuuQKUAOC1v1M1e4Z0zG7S0IAvA==
   dependencies:
     "@cypress/request" "^2.88.10"
     "@cypress/xvfb" "^1.2.4"
@@ -6693,7 +6679,7 @@ cypress@^12.4.1:
     commander "^5.1.0"
     common-tags "^1.8.0"
     dayjs "^1.10.4"
-    debug "^4.3.2"
+    debug "^4.3.4"
     enquirer "^2.3.6"
     eventemitter2 "6.4.7"
     execa "4.1.0"
