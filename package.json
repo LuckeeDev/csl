@@ -37,7 +37,7 @@
 		"joi": "^17.8.3",
 		"jwt-decode": "^3.1.2",
 		"next": "13.1.6",
-		"next-auth": "4.18.8",
+		"next-auth": "4.19.2",
 		"next-connect": "0.13.0",
 		"next-joi": "^2.2.1",
 		"nextjs-progressbar": "^0.0.16",
