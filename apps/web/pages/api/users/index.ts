@@ -30,9 +30,9 @@ handler.get(
 			res.status(200).json([]);
 		}
 
-		const includeQuery = req.query.include as AllowedInclude[];
+		const includeQuery = req.query.include as AllowedInclude[] | undefined;
 
-		const include: IncludeRecord = includeQuery.reduce(
+		const include: IncludeRecord | undefined = includeQuery?.reduce(
 			(acc, current) => ((acc = { ...acc, [current]: true }), acc),
 			{}
 		);
@@ -41,7 +41,7 @@ handler.get(
 			where: {
 				OR: [{ email: { contains: query } }, { name: { contains: query } }],
 			},
-			include,
+			...(include ? { include } : {}),
 		});
 
 		res.status(200).json(users);
