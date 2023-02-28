@@ -1,4 +1,6 @@
 [![CodeQL](https://github.com/LuckeeDev/csl/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/LuckeeDev/csl/actions/workflows/codeql-analysis.yml)
+[![All Contributors](https://img.shields.io/github/all-contributors/LuckeeDev/csl?color=ee8449&style=flat)](#contributors)
+[![Deployment](https://img.shields.io/github/deployments/LuckeeDev/csl/production?label=vercel&logo=vercel)](https://cslussana.com)
 
 # CSL
 
@@ -26,3 +28,14 @@ The repo uses some of the most advanced tools available in web development today
 ## How can I get involved?
 
 I would love to get some help on this project! If you want to get involved, play around with some of the code and feel free to open a pull request with new changes.
+
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
