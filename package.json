@@ -29,7 +29,6 @@
 		"@tabler/icons-react": "^2.6.0",
 		"aws-sdk": "^2.1324.0",
 		"axios": "^0.27.2",
-		"clsx": "^1.2.1",
 		"dayjs": "1.11.7",
 		"document-register-element": "1.14.10",
 		"dotenv": "16.0.3",
