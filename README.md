@@ -1,4 +1,7 @@
 [![CodeQL](https://github.com/LuckeeDev/csl/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/LuckeeDev/csl/actions/workflows/codeql-analysis.yml)
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![All Contributors](https://img.shields.io/github/all-contributors/LuckeeDev/csl?color=ee8449&style=flat)](#contributors)
 [![Deployment](https://img.shields.io/github/deployments/LuckeeDev/csl/production?label=vercel&logo=vercel)](https://cslussana.com)
 
@@ -32,6 +35,20 @@ I would love to get some help on this project! If you want to get involved, play
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/LuckeeDev"><img src="https://avatars.githubusercontent.com/u/61506420?v=4?s=100" width="100px;" alt="Luca Zoppetti"/><br /><sub><b>Luca Zoppetti</b></sub></a><br /><a href="https://github.com/LuckeeDev/csl/commits?author=LuckeeDev" title="Code">💻</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 
