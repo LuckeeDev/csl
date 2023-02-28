@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.21.12](https://github.com/LuckeeDev/csl/compare/v2.21.11...v2.21.12) (2023-02-28)
+
+
+### Reverts
+
+* **ci:** :rewind: tag last-release ([0620d5a](https://github.com/LuckeeDev/csl/commit/0620d5a0c621cee71375123dac009ed8b3fa706b))
+
+
+
 ## [2.21.10](https://github.com/LuckeeDev/csl/compare/v2.21.9...v2.21.10) (2023-02-28)
 
 
