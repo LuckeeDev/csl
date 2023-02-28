@@ -2,6 +2,21 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.21.10](https://github.com/LuckeeDev/csl/compare/v2.21.9...v2.21.10) (2023-02-28)
+
+
+### Bug Fixes
+
+* :bug: correctly fetch users without include query ([e833f19](https://github.com/LuckeeDev/csl/commit/e833f19e4dba4dbde5f78803cdabb96c372837ce))
+
+
+### Reverts
+
+* **deps:** :rewind: bump @mdx-js/react from 1.6.22 to 2.3.0 ([edc9281](https://github.com/LuckeeDev/csl/commit/edc9281fcbce18809aa0d80d900ba1359e06f8ee))
+* **deps:** :rewind: remove sharp ([7291380](https://github.com/LuckeeDev/csl/commit/72913802db17f0d3c66e8a75b483bcfb8a8198a4))
+
+
+
 ## [2.21.9](https://github.com/LuckeeDev/csl/compare/v2.21.8...v2.21.9) (2023-02-24)
 
 

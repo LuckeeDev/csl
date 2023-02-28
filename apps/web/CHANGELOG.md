@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.21.10](https://github.com/LuckeeDev/csl/compare/v2.21.9...v2.21.10) (2023-02-28)
+
+
+### Bug Fixes
+
+* :bug: correctly fetch users without include query ([e833f19](https://github.com/LuckeeDev/csl/commit/e833f19e4dba4dbde5f78803cdabb96c372837ce))
+
+
+
 ## [2.21.9](https://github.com/LuckeeDev/csl/compare/v2.21.8...v2.21.9) (2023-02-24)
 
 
