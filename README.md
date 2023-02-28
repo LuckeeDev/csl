@@ -1,9 +1,8 @@
 [![CodeQL](https://github.com/LuckeeDev/csl/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/LuckeeDev/csl/actions/workflows/codeql-analysis.yml)
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-[![All Contributors](https://img.shields.io/github/all-contributors/LuckeeDev/csl?color=ee8449&style=flat)](#contributors)
 [![Deployment](https://img.shields.io/github/deployments/LuckeeDev/csl/production?label=vercel&logo=vercel)](https://cslussana.com)
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat)](#contributors)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # CSL
 
