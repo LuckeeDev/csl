@@ -10,14 +10,15 @@
 				"rootChangelog": true,
 				"push": true,
 				"postTargets": ["workspace:github"],
+				"skipProjectChangelog": true,
 				"skipCommitTypes": [
 					"build",
+					"chore",
 					"ci",
 					"docs",
 					"style",
 					"refactor",
-					"test",
-					"chore"
+					"test"
 				],
 				"commitMessageFormat": "release(csl): 🏫 release version ${version}"
 			}

@@ -32,3 +32,9 @@ jobs:
         run: yarn nx run workspace:version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Tag last-release
+        shell: bash
+        run: |
+          git tag -f last-release
+          git push origin last-release --force
