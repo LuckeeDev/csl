@@ -2785,7 +2785,7 @@
     dotenv "~10.0.0"
     semver "7.3.4"
 
-"@nrwl/devkit@15.7.2", "@nrwl/devkit@^15.0.0":
+"@nrwl/devkit@15.7.2":
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/@nrwl/devkit/-/devkit-15.7.2.tgz#079d30898bf7ddf374e2aaa9f2c52b31447b84ce"
   integrity sha512-HMGi7L6w2g4IrYwhb04snD8Zr24Z/gzau5i9WUNkwzrjeR1xAm0Cc9WRre221zaeohtK11gyBt7BerT1tgkNwA==
@@ -2796,12 +2796,24 @@
     semver "7.3.4"
     tslib "^2.3.0"
 
-"@nrwl/eslint-plugin-nx@15.7.2":
-  version "15.7.2"
-  resolved "https://registry.yarnpkg.com/@nrwl/eslint-plugin-nx/-/eslint-plugin-nx-15.7.2.tgz#a126f0f1d976d9429897100ed8f76d5d8ffbe3ec"
-  integrity sha512-+lMVkLa8eiGsqMx/Jwf3KKTWes9Ha3jhImiJHEEqaCYTMQaR1BbNT6m5hcYb/xwx8zvtkbrsa1khBsuAEQvezg==
+"@nrwl/devkit@15.8.1", "@nrwl/devkit@^15.0.0":
+  version "15.8.1"
+  resolved "https://registry.yarnpkg.com/@nrwl/devkit/-/devkit-15.8.1.tgz#edb8fce962e1a98cdf370bd5853b56889bd1ba5c"
+  integrity sha512-DT7DF5ls63ngR5G1nGHbiMApCBPj1ZkI1y6p5GbLGqSMSyiIO6GcehzYnGmY0W9nqpW7U/8kD7WuHmObI/pUTw==
   dependencies:
-    "@nrwl/devkit" "15.7.2"
+    "@phenomnomnominal/tsquery" "4.1.1"
+    ejs "^3.1.7"
+    ignore "^5.0.4"
+    semver "7.3.4"
+    tmp "~0.2.1"
+    tslib "^2.3.0"
+
+"@nrwl/eslint-plugin-nx@15.8.1":
+  version "15.8.1"
+  resolved "https://registry.yarnpkg.com/@nrwl/eslint-plugin-nx/-/eslint-plugin-nx-15.8.1.tgz#8440b0e127fd42336e3d1f293137b93dcda88abe"
+  integrity sha512-iaGwzQmkphti+dt7wU6uZpHitXz9A8eT4vCHdevA5k6vFvLUTiRYUJe5JXvx5QiiXAZy9/aYb0PDOjqqwF9JjQ==
+  dependencies:
+    "@nrwl/devkit" "15.8.1"
     "@typescript-eslint/utils" "^5.36.1"
     chalk "^4.1.0"
     confusing-browser-globals "^1.0.9"
