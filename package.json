@@ -68,7 +68,7 @@
 		"@nrwl/next": "15.8.1",
 		"@nrwl/node": "15.8.1",
 		"@nrwl/react": "15.8.1",
-		"@nrwl/web": "15.8.1",
+		"@nrwl/web": "15.8.3",
 		"@nrwl/workspace": "15.8.1",
 		"@testing-library/react": "14.0.0",
 		"@types/cors": "^2.8.13",
