@@ -41,6 +41,7 @@ export default function OrderForm({
 			<Input.Wrapper required label="Quantità">
 				<NumberInput
 					placeholder="Inserire la quantità che si vuole acquistare"
+					min={1}
 					{...form.getInputProps('quantity')}
 				/>
 			</Input.Wrapper>
