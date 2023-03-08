@@ -16,7 +16,7 @@ export interface OrderFormValues {
 
 function generateSchema(requiredValues: RequiredOrderFormValues) {
 	return Joi.object<OrderFormValues>({
-		quantity: Joi.number().integer().required(),
+		quantity: Joi.number().integer().min(1).required(),
 		...(requiredValues.color && {
 			color: Joi.string()
 				.regex(/^#?([0-9a-f]{6}|[0-9a-f]{3})$/i)

@@ -11,7 +11,7 @@ const handler = nextConnect<NextApiRequest, NextApiResponse>();
 
 const postBodySchema = Joi.object({
 	productId: Joi.string().required(),
-	quantity: Joi.number().integer().required(),
+	quantity: Joi.number().integer().min(1).required(),
 	color: Joi.string().regex(/^#?([0-9a-f]{6}|[0-9a-f]{3})$/i),
 	size: Joi.string().valid(...PRODUCT_SIZES),
 }).required();
