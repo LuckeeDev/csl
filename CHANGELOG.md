@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.21.13](https://github.com/LuckeeDev/csl/compare/v2.21.12...v2.21.13) (2023-03-08)
+
+
+### Bug Fixes
+
+* :bug: don't allow negative order values ([12abb46](https://github.com/LuckeeDev/csl/commit/12abb46fae9a42872f66822ec33a1b872bd7d1b4))
+
+
+
 ## [2.21.12](https://github.com/LuckeeDev/csl/compare/v2.21.11...v2.21.12) (2023-02-28)
 
 
