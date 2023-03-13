@@ -65,7 +65,7 @@
 		"@nrwl/jest": "15.8.5",
 		"@nrwl/js": "15.8.5",
 		"@nrwl/linter": "15.8.5",
-		"@nrwl/next": "15.8.5",
+		"@nrwl/next": "15.8.6",
 		"@nrwl/node": "15.8.5",
 		"@nrwl/react": "15.8.5",
 		"@nrwl/web": "15.8.5",
