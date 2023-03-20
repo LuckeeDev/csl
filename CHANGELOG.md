@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.21.14](https://github.com/LuckeeDev/csl/compare/v2.21.13...v2.21.14) (2023-03-20)
+
+
+### Bug Fixes
+
+* :bug: update next to 13.2.4 and avoid breaking the build ([4520cff](https://github.com/LuckeeDev/csl/commit/4520cff798168a196b75b95f7ce14eb1fe6772f6))
+
+
+
 ## [2.21.13](https://github.com/LuckeeDev/csl/compare/v2.21.12...v2.21.13) (2023-03-08)
 
 
