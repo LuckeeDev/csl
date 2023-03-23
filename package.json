@@ -27,7 +27,7 @@
     "@nx-plus/docusaurus": "^15.0.0-rc.0",
     "@prisma/client": "^4.11.0",
     "@tabler/icons-react": "^2.11.0",
-    "aws-sdk": "^2.1340.0",
+    "aws-sdk": "^2.1341.0",
     "axios": "^0.27.2",
     "dayjs": "1.11.7",
     "document-register-element": "1.14.10",
