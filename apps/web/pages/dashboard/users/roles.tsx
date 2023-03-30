@@ -1,4 +1,4 @@
-import { ActionIcon, Button, Collapse, Table } from '@mantine/core';
+import { ActionIcon, Button, Collapse, ScrollArea, Table } from '@mantine/core';
 import getEndpoint from 'data/api/getEndpoint';
 import useDataError from 'hooks/errors/useDataError';
 import { USERS_LINKS } from 'navigation/dashboard/users';
@@ -69,29 +69,31 @@ export default function DashboardUsersRoles() {
 
 			<PageHeading loading={!data}>Ruoli</PageHeading>
 
-			<Table sx={{ minWidth: '800px' }}>
-				<thead>
-					<tr>
-						<th>Ruolo</th>
-						<th>Permessi</th>
-						<th>Azioni</th>
-					</tr>
-				</thead>
-
-				<tbody>
-					{data?.map((role, i) => (
-						<tr key={i}>
-							<td>{role.name}</td>
-							<td>{role.permissions.join(', ')}</td>
-							<td>
-								<ActionIcon color="red" onClick={() => handleDelete(role)}>
-									<IconTrash />
-								</ActionIcon>
-							</td>
+			<ScrollArea>
+				<Table sx={{ minWidth: '800px' }}>
+					<thead>
+						<tr>
+							<th>Ruolo</th>
+							<th>Permessi</th>
+							<th>Azioni</th>
 						</tr>
-					)) ?? []}
-				</tbody>
-			</Table>
+					</thead>
+
+					<tbody>
+						{data?.map((role, i) => (
+							<tr key={i}>
+								<td>{role.name}</td>
+								<td>{role.permissions.join(', ')}</td>
+								<td>
+									<ActionIcon color="red" onClick={() => handleDelete(role)}>
+										<IconTrash />
+									</ActionIcon>
+								</td>
+							</tr>
+						)) ?? []}
+					</tbody>
+				</Table>
+			</ScrollArea>
 
 			<Button onClick={() => toggleIsFormOpen()}>
 				{isFormOpen ? 'Chiudi' : 'Crea ruolo'}

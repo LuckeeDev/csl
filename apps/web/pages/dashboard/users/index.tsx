@@ -1,4 +1,4 @@
-import { Table, TextInput } from '@mantine/core';
+import { ScrollArea, Table, TextInput } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
 import { Role, User } from '@prisma/client';
@@ -76,27 +76,29 @@ export default function DashboardUsers() {
 				label="Ricerca utenti"
 			/>
 
-			<Table>
-				<thead>
-					<tr>
-						<th>Nome</th>
-						<th>Email</th>
-						<th>Ruoli</th>
-						<th>Azioni</th>
-					</tr>
-				</thead>
+			<ScrollArea>
+				<Table>
+					<thead>
+						<tr>
+							<th>Nome</th>
+							<th>Email</th>
+							<th>Ruoli</th>
+							<th>Azioni</th>
+						</tr>
+					</thead>
 
-				<tbody>
-					{searchResult?.map((user, index) => (
-						<UserRow
-							key={index}
-							user={user}
-							selectData={selectData}
-							updateRoles={updateRoles}
-						/>
-					))}
-				</tbody>
-			</Table>
+					<tbody>
+						{searchResult?.map((user, index) => (
+							<UserRow
+								key={index}
+								user={user}
+								selectData={selectData}
+								updateRoles={updateRoles}
+							/>
+						))}
+					</tbody>
+				</Table>
+			</ScrollArea>
 		</DashboardPageContainer>
 	);
 }
