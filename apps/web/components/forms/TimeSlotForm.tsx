@@ -1,14 +1,9 @@
-import {
-	Button,
-	Input,
-	NativeSelect,
-	SimpleGrid,
-	TextInput,
-} from '@mantine/core';
+import { Button, Input, Select, SimpleGrid, TextInput } from '@mantine/core';
 import { TimeInput, DatePicker } from '@mantine/dates';
 import { UseFormReturnType } from '@mantine/form';
 import { Event } from '@prisma/client';
 import { TimeSlotFormValues } from 'hooks/forms/useTimeSlotForm';
+import { useEffect } from 'react';
 
 interface TimeSlotFormProps {
 	form: UseFormReturnType<TimeSlotFormValues>;
@@ -21,6 +16,8 @@ export default function TimeSlotForm({
 	events,
 	onSubmit,
 }: TimeSlotFormProps) {
+	useEffect(() => console.log(events), [events]);
+
 	return (
 		<form onSubmit={form.onSubmit(onSubmit)}>
 			<Input.Wrapper required label="Nome">
@@ -63,7 +60,7 @@ export default function TimeSlotForm({
 			</SimpleGrid>
 
 			<Input.Wrapper required label="Evento">
-				<NativeSelect
+				<Select
 					placeholder="Seleziona l'evento a cui collegare questa fascia oraria"
 					data={events.map((e) => ({ value: e.id, label: e.name }))}
 					{...form.getInputProps('eventId')}

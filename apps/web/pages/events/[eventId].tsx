@@ -5,7 +5,7 @@ import FallbackPage from 'components/fallback/FallbackPage';
 import BackLink from 'components/links/BackLink';
 import { Booking, Event, Seminar, TimeSlot } from '@prisma/client';
 import { OmitDates } from 'types/omit';
-import { Anchor, ScrollArea, Table, Tabs } from '@mantine/core';
+import { Anchor, ScrollArea, Table, Tabs, Text } from '@mantine/core';
 import useQueryState from 'hooks/router/useQueryState';
 import SeminarClientRow from 'components/tableRows/SeminarClientRow';
 import useSWR from 'swr';
@@ -17,6 +17,7 @@ import { useSession } from 'next-auth/react';
 import { createBooking } from 'data/api/booking';
 import { v4 } from 'uuid';
 import PageHeading from 'components/heading/PageHeading';
+import { URL_REGEXP } from '../../utils/regex/url';
 
 export interface StaticTimeSlot extends Omit<TimeSlot, 'start' | 'end'> {
 	start: string;
@@ -70,11 +71,9 @@ export default function EventPage({ event: serverSideEvent }: EventPageProps) {
 
 	const getSlotSeminar = useCallback(
 		(timeSlot: OmitDates<TimeSlot & { seminars: OmitDates<Seminar>[] }>) => {
-			const bookedSeminar = timeSlot.seminars.find((s) =>
-				bookedSeminarIds.includes(s.id)
+			return (
+				timeSlot.seminars.find((s) => bookedSeminarIds.includes(s.id)) ?? null
 			);
-
-			return bookedSeminar;
 		},
 		[bookedSeminarIds]
 	);
@@ -145,15 +144,31 @@ export default function EventPage({ event: serverSideEvent }: EventPageProps) {
 
 				{event?.timeSlots.map((slot) => (
 					<Tabs.Panel value={slot.id} key={slot.id}>
-						{slot.start.getTime() - 1000 * 60 * 15 < new Date().getTime() ? (
+						{/*Show page if the event is in less than 1 day*/}
+						{slot.start.getTime() - 1000 * 60 * 60 * 24 <
+						new Date().getTime() ? (
 							<>
 								<PageHeading type="h2" loading={!bookings}>
 									Le iscrizioni per questa fascia sono terminate
 								</PageHeading>
 
-								<Anchor href={getSlotSeminar(slot)?.location} target="_blank">
-									{getSlotSeminar(slot)?.name}
-								</Anchor>
+								{getSlotSeminar(slot) !== null && (
+									<>
+										{getSlotSeminar(slot)?.location.match(URL_REGEXP) ? (
+											<Anchor
+												href={getSlotSeminar(slot)?.location}
+												target="_blank"
+											>
+												{getSlotSeminar(slot)?.name}
+											</Anchor>
+										) : (
+											<Text>
+												{getSlotSeminar(slot)?.name} -{' '}
+												{getSlotSeminar(slot)?.location}
+											</Text>
+										)}
+									</>
+								)}
 							</>
 						) : (
 							<ScrollArea>

@@ -22,7 +22,7 @@ const timeSlotFormSchema = Joi.object({
 export default function useTimeSlotForm() {
 	const now = new Date();
 
-	const form = useForm<TimeSlotFormValues>({
+	return useForm<TimeSlotFormValues>({
 		validate: joiResolver(timeSlotFormSchema),
 		initialValues: {
 			name: '',
@@ -33,6 +33,4 @@ export default function useTimeSlotForm() {
 			eventId: '',
 		},
 	});
-
-	return form;
 }

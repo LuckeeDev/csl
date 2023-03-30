@@ -1,7 +1,7 @@
 import {
 	Button,
-	NativeSelect,
 	NumberInput,
+	Select,
 	Textarea,
 	TextInput,
 } from '@mantine/core';
@@ -54,7 +54,7 @@ export default function SeminarForm({
 				mb="sm"
 			/>
 
-			<NativeSelect
+			<Select
 				label="Fascia oraria"
 				required
 				description="Selezionare la fascia oraria selezionerà anche automaticamente l'evento collegato"
