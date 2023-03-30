@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.21.15](https://github.com/LuckeeDev/csl/compare/v2.21.14...v2.21.15) (2023-03-30)
+
+
+### Bug Fixes
+
+* :adhesive_bandage: show event location one day before the event ([0091da5](https://github.com/LuckeeDev/csl/commit/0091da53ea64d700e637169a03ef959f7f2e493e))
+* :lipstick: add scroll area to dashboard/users tables ([49cbc2c](https://github.com/LuckeeDev/csl/commit/49cbc2c9fababb114dbb92588bf395af3a7875a8))
+
+
+
 ## [2.21.14](https://github.com/LuckeeDev/csl/compare/v2.21.13...v2.21.14) (2023-03-20)
 
 
