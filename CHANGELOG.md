@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.21.16](https://github.com/LuckeeDev/csl/compare/v2.21.15...v2.21.16) (2023-04-01)
+
+
+### Performance Improvements
+
+* **events:** :zap: reduce getSlotSeminar function calls ([eedf757](https://github.com/LuckeeDev/csl/commit/eedf757a17ca85f60e489c00faceb262d1061746))
+
+
+
 ## [2.21.15](https://github.com/LuckeeDev/csl/compare/v2.21.14...v2.21.15) (2023-03-30)
 
 
