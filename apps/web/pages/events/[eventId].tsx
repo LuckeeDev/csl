@@ -142,62 +142,64 @@ export default function EventPage({ event: serverSideEvent }: EventPageProps) {
 					))}
 				</Tabs.List>
 
-				{event?.timeSlots.map((slot) => (
-					<Tabs.Panel value={slot.id} key={slot.id}>
-						{/*Show page if the event is in less than 1 day*/}
-						{slot.start.getTime() - 1000 * 60 * 60 * 24 <
-						new Date().getTime() ? (
-							<>
-								<PageHeading type="h2" loading={!bookings}>
-									Le iscrizioni per questa fascia sono terminate
-								</PageHeading>
+				{event?.timeSlots.map((slot) => {
+					const registrationClosed =
+						slot.start.getTime() - 1000 * 60 * 60 * 24 < new Date().getTime();
 
-								{getSlotSeminar(slot) !== null && (
-									<>
-										{getSlotSeminar(slot)?.location.match(URL_REGEXP) ? (
-											<Anchor
-												href={getSlotSeminar(slot)?.location}
-												target="_blank"
-											>
-												{getSlotSeminar(slot)?.name}
-											</Anchor>
-										) : (
-											<Text>
-												{getSlotSeminar(slot)?.name} -{' '}
-												{getSlotSeminar(slot)?.location}
-											</Text>
-										)}
-									</>
-								)}
-							</>
-						) : (
-							<ScrollArea>
-								<Table style={{ minWidth: '600px' }} striped>
-									<thead>
-										<tr>
-											<th>Seminario</th>
-											<th>Dettagli</th>
-											<th>Iscritti</th>
-											<th>Iscriviti</th>
-										</tr>
-									</thead>
+					const slotSeminar = getSlotSeminar(slot);
 
-									<tbody>
-										{slot.seminars.map((seminar) => (
-											<SeminarClientRow
-												onSignup={onSignup}
-												key={seminar.id}
-												seminar={seminar}
-												isSignedUp={bookedSeminarIds.includes(seminar.id)}
-												loading={!bookings}
-											/>
-										))}
-									</tbody>
-								</Table>
-							</ScrollArea>
-						)}
-					</Tabs.Panel>
-				))}
+					return (
+						<Tabs.Panel value={slot.id} key={slot.id}>
+							{/*Show page if the event is in less than 1 day*/}
+							{registrationClosed ? (
+								<>
+									<PageHeading type="h2" loading={!bookings}>
+										Le iscrizioni per questa fascia sono terminate
+									</PageHeading>
+
+									{slotSeminar !== null && (
+										<>
+											{slotSeminar?.location.match(URL_REGEXP) ? (
+												<Anchor href={slotSeminar?.location} target="_blank">
+													{slotSeminar?.name}
+												</Anchor>
+											) : (
+												<Text>
+													{slotSeminar?.name} - {slotSeminar?.location}
+												</Text>
+											)}
+										</>
+									)}
+								</>
+							) : (
+								<ScrollArea>
+									<Table style={{ minWidth: '600px' }} striped>
+										<thead>
+											<tr>
+												<th>Seminario</th>
+												<th>Dettagli</th>
+												<th>Iscritti</th>
+												<th>Iscriviti</th>
+											</tr>
+										</thead>
+
+										<tbody>
+											{slot.seminars.map((seminar) => (
+												<SeminarClientRow
+													onSignup={onSignup}
+													key={seminar.id}
+													seminar={seminar}
+													isSignedUp={bookedSeminarIds.includes(seminar.id)}
+													loading={!bookings}
+												/>
+											))}
+										</tbody>
+									</Table>
+								</ScrollArea>
+							)}
+						</Tabs.Panel>
+					);
+				})}
 			</Tabs>
 		</>
 	);
