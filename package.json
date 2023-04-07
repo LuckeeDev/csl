@@ -35,7 +35,7 @@
     "fs-extra": "^11.1.1",
     "joi": "^17.9.1",
     "jwt-decode": "^3.1.2",
-    "next": "13.2.4",
+    "next": "13.3.0",
     "next-auth": "4.21.1",
     "next-connect": "0.13.0",
     "next-joi": "^2.2.1",
