@@ -2,6 +2,21 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.21.17](https://github.com/LuckeeDev/csl/compare/v2.21.16...v2.21.17) (2023-04-12)
+
+
+### Performance Improvements
+
+* **app:** :zap: remove experimental app dir ([da5e46f](https://github.com/LuckeeDev/csl/commit/da5e46f96294d7795f7e16ad1de96ca6922037cb))
+
+
+### Reverts
+
+* **deps:** bump next-auth from 4.20.1 to 4.21.1 ([aefe824](https://github.com/LuckeeDev/csl/commit/aefe82421512cf9dbc3f35245c740c5f82d3f568))
+* **deps:** bump next-auth from 4.21.1 to 4.22.0 ([785bdcf](https://github.com/LuckeeDev/csl/commit/785bdcfba3ffa939dd3baa8dcac5c53f53e60326))
+
+
+
 ## [2.21.16](https://github.com/LuckeeDev/csl/compare/v2.21.15...v2.21.16) (2023-04-01)
 
 
