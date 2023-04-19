@@ -1,6 +1,6 @@
 import { MantineProvider } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
-import { NotificationsProvider } from '@mantine/notifications';
+import { Notifications } from '@mantine/notifications';
 import { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
 import { ReactNode } from 'react';
@@ -22,7 +22,9 @@ export default function Providers(props: ProvidersProps) {
 				withNormalizeCSS
 			>
 				<ModalsProvider>
-					<NotificationsProvider>{props.children}</NotificationsProvider>
+					<Notifications />
+
+					{props.children}
 				</ModalsProvider>
 			</MantineProvider>
 		</SessionProvider>
