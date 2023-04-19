@@ -1,26 +1,27 @@
 import {
 	AppShell,
-	Navbar,
+	Burger,
 	Header,
 	MediaQuery,
-	Burger,
+	Navbar,
 	useMantineTheme,
 } from '@mantine/core';
-import { ReactNode, useEffect, useMemo, useState } from 'react';
-import SideLinks from './SideLinks';
-import UserButton from './UserButton';
+import { useMediaQuery } from '@mantine/hooks';
 import ButtonLink from 'components/links/ButtonLink';
-import { useSession } from 'next-auth/react';
+import TextLink from 'components/links/TextLink';
 import LoaderDiv from 'components/loader/LoaderDiv';
 import { LinkData } from 'navigation/types';
-import Logo from 'public/logo.png';
+import { useSession } from 'next-auth/react';
 import Image from 'next/legacy/image';
 import Link from 'next/link';
-import TextLink from 'components/links/TextLink';
-import Footer from './Footer';
-import DefaultPageWrapper from './DefaultPageWrapper';
-import { useMediaQuery } from '@mantine/hooks';
 import { useRouter } from 'next/router';
+import Logo from 'public/logo.png';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
+
+import DefaultPageWrapper from './DefaultPageWrapper';
+import Footer from './Footer';
+import SideLinks from './SideLinks';
+import UserButton from './UserButton';
 
 interface WrapperProps {
 	children: ReactNode;
@@ -37,7 +38,7 @@ export default function Wrapper({
 	const theme = useMantineTheme();
 	const { data: session, status } = useSession();
 	const router = useRouter();
-	const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px)`);
+	const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
 	useEffect(() => {
 		function handleNavClose() {
@@ -94,7 +95,7 @@ export default function Wrapper({
 							paddingRight: 0,
 						}),
 						paddingBottom: 0,
-						[`@media (max-width: ${theme.breakpoints.sm}px)`]: {
+						[`@media (max-width: ${theme.breakpoints.sm})`]: {
 							paddingLeft: 0,
 							paddingRight: 0,
 						},

@@ -1,14 +1,17 @@
 import {
 	ActionIcon,
-	createStyles,
 	Input,
 	LoadingOverlay,
 	ScrollArea,
 	Table,
 	TextInput,
+	createStyles,
 } from '@mantine/core';
+import { showNotification } from '@mantine/notifications';
 import { ProductCategory } from '@prisma/client';
+import { IconCheck, IconX } from '@tabler/icons-react';
 import axios from 'axios';
+import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageTitle from 'components/head/PageTitle';
 import ProductCategoryRow from 'components/productCategories/ProductCategoryRow';
 import { environment } from 'environments/environment';
@@ -19,9 +22,6 @@ import { SHOP_LINKS } from 'navigation/dashboard/shop';
 import { GetServerSideProps } from 'next';
 import prisma from 'prisma/client';
 import { useCallback, useMemo, useState } from 'react';
-import { IconCheck, IconX } from '@tabler/icons-react';
-import DashboardPageContainer from 'components/containers/DashboardPageContainer';
-import { showNotification } from '@mantine/notifications';
 
 interface DashboardShopCategoriesProps {
 	productCategories: Omit<ProductCategory, 'updated_at' | 'created_at'>[];
@@ -29,7 +29,7 @@ interface DashboardShopCategoriesProps {
 
 const useStyles = createStyles((theme) => ({
 	textInput: {
-		[`@media (max-width: ${theme.breakpoints.md}px)`]: {
+		[`@media (max-width: ${theme.breakpoints.md})`]: {
 			maxWidth: '300px',
 		},
 	},
