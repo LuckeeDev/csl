@@ -21,7 +21,7 @@ interface CustomMarkdownLinkProps {
 const useStyles = createStyles((theme) => ({
 	markdown: {
 		p: {
-			margin: `${theme.spacing.xs}px 0`,
+			margin: `${theme.spacing.xs} 0`,
 		},
 	},
 	link: {

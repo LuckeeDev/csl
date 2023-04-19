@@ -1,18 +1,18 @@
-import { forwardRef } from 'react';
 import {
-	UnstyledButton,
-	Group,
 	Avatar,
+	Group,
+	MantineTheme,
+	Menu,
 	Text,
 	ThemeIcon,
-	Menu,
+	UnstyledButton,
 	useMantineTheme,
-	MantineTheme,
 } from '@mantine/core';
-import { signIn, signOut, useSession } from 'next-auth/react';
-import { Session } from 'next-auth';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconChevronRight, IconUser } from '@tabler/icons-react';
+import { Session } from 'next-auth';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import { forwardRef } from 'react';
 
 function userButtonStyles(theme: MantineTheme) {
 	return {
@@ -68,7 +68,7 @@ export default function UserButton() {
 	const theme = useMantineTheme();
 	const { data: session } = useSession();
 	const showUserImage = useMediaQuery(
-		`(max-width: ${theme.breakpoints.sm}px), (min-width: ${theme.breakpoints.xl}px)`
+		`(max-width: ${theme.breakpoints.sm}), (min-width: ${theme.breakpoints.xl})`
 	);
 
 	return (
