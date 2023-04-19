@@ -38,11 +38,11 @@ export default function SideLinks({ links }: SideLinksProps) {
 
 	return (
 		<div>
-			{iconLinks.map(({ href, color, icon, label, hasSublinks }) => (
+			{iconLinks.map(({ href, icon, label, hasSublinks }) => (
 				<Link href={href} passHref key={href} legacyBehavior>
 					<Anchor className={classes.button}>
 						<Group>
-							<ThemeIcon color={color} variant="light">
+							<ThemeIcon color="blue" variant="light">
 								{icon}
 							</ThemeIcon>
 

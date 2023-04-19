@@ -14,7 +14,10 @@ export type AvailableIcons =
 
 export interface WrapperLinkProps {
 	icon: AvailableIcons;
-	color: MantineColor;
+	/**
+	 * @deprecated you cannot specify a color for the links anymore.
+	 */
+	color?: MantineColor;
 	label: string;
 	href: string;
 	hasSublinks?: boolean;
