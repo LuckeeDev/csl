@@ -1,8 +1,8 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import NextAuth, { NextAuthOptions } from 'next-auth';
-import prisma from 'prisma/client';
-import GoogleProvider from 'next-auth/providers/google';
 import { environment } from 'environments/environment';
+import NextAuth, { NextAuthOptions } from 'next-auth';
+import GoogleProvider from 'next-auth/providers/google';
+import prisma from 'prisma/client';
 
 const nextAuthOptions: NextAuthOptions = {
 	session: {
@@ -57,5 +57,7 @@ const nextAuthOptions: NextAuthOptions = {
 		},
 	},
 };
+
+export { nextAuthOptions };
 
 export default NextAuth(nextAuthOptions);

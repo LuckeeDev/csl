@@ -6,25 +6,49 @@ import {
 	Text,
 	TextInput,
 } from '@mantine/core';
+import { Dropzone } from '@mantine/dropzone';
+import { UseFormReturnType } from '@mantine/form';
+import { showNotification } from '@mantine/notifications';
+import { IconCheck, IconUpload, IconX } from '@tabler/icons-react';
+import { Editor as UseEditorReturnType } from '@tiptap/react';
+import axios from 'axios';
 import Editor from 'components/editor/Editor';
 import { ArticleFormValues } from 'hooks/forms/useArticleForm';
-import { UseFormReturnType } from '@mantine/form';
-import { Dropzone } from '@mantine/dropzone';
-import { IconCheck, IconX, IconUpload } from '@tabler/icons-react';
-import axios from 'axios';
-import { SignedAWSUploadFile } from 'types/aws';
 import { useState } from 'react';
+import { SignedAWSUploadFile } from 'types/aws';
 import { getImageDimensions } from 'utils/images/getImageDimensions';
-import { showNotification } from '@mantine/notifications';
 import { v4 } from 'uuid';
 
 interface ArticleFormProps {
 	form: UseFormReturnType<ArticleFormValues>;
-	onSubmit: (val: ArticleFormValues) => void;
+	onSubmit: (val: ArticleFormValues & { content: string }) => void;
+	editor: UseEditorReturnType;
 }
 
-export default function ArticleForm({ form, onSubmit }: ArticleFormProps) {
+export default function ArticleForm({
+	form,
+	onSubmit,
+	editor,
+}: ArticleFormProps) {
 	const [imageUrl, setImageUrl] = useState<string>();
+	const [contentError, setContentError] = useState('');
+
+	function handleSubmit(val: ArticleFormValues) {
+		console.log('called1');
+		if (editor !== null && editor.getText() !== '') {
+			const content = editor.getHTML();
+
+			onSubmit({ ...val, content });
+		}
+	}
+
+	function handleEditorBlur() {
+		if (editor !== null && editor.getText() !== '') {
+			setContentError('');
+		} else {
+			setContentError('Questo campo è necessario');
+		}
+	}
 
 	async function onDrop(files: File[]) {
 		const notificationId = v4();
@@ -88,7 +112,7 @@ export default function ArticleForm({ form, onSubmit }: ArticleFormProps) {
 	}
 
 	return (
-		<form onSubmit={form.onSubmit(onSubmit)}>
+		<form onSubmit={form.onSubmit(handleSubmit)}>
 			{imageUrl ? (
 				<img
 					src={imageUrl}
@@ -96,13 +120,15 @@ export default function ArticleForm({ form, onSubmit }: ArticleFormProps) {
 					style={{ maxHeight: '300px' }}
 				/>
 			) : (
-				<Dropzone multiple={false} onDrop={onDrop} mb="md">
-					<div style={{ display: 'flex' }}>
-						<IconUpload />
+				<Input.Wrapper error={form.getInputProps('imageId').error}>
+					<Dropzone multiple={false} onDrop={onDrop} mb="md">
+						<div style={{ display: 'flex' }}>
+							<IconUpload />
 
-						<Text>Scegli una copertina per l'articolo.</Text>
-					</div>
-				</Dropzone>
+							<Text>Scegli una copertina per l'articolo.</Text>
+						</div>
+					</Dropzone>
+				</Input.Wrapper>
 			)}
 
 			<TextInput
@@ -119,18 +145,10 @@ export default function ArticleForm({ form, onSubmit }: ArticleFormProps) {
 				id="content"
 				required
 				label="Contenuto"
-				error={form.errors.content}
+				error={contentError}
+				onBlur={handleEditorBlur}
 			>
-				<Editor
-					id="content"
-					controls={[
-						['bold', 'italic', 'underline', 'link'],
-						['unorderedList', 'h1', 'h2', 'h3'],
-						['sup', 'sub'],
-					]}
-					value={form.values.content}
-					onChange={(val) => form.setFieldValue('content', val)}
-				/>
+				<Editor editor={editor} />
 			</Input.Wrapper>
 
 			<Space h={20} />
@@ -151,6 +169,7 @@ export default function ArticleForm({ form, onSubmit }: ArticleFormProps) {
 				{...form.getInputProps('readingTime')}
 				required
 				label="Tempo di lettura"
+				min={1}
 			/>
 
 			<Space h={20} />

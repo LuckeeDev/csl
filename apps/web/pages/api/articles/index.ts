@@ -1,11 +1,11 @@
-import connect from 'next-connect';
-import { NextApiRequest, NextApiResponse } from 'next';
-import Joi from 'joi';
-import validate from 'middlewares/validate';
-import prisma from 'prisma/client';
-import session from 'middlewares/session';
-import hasPermission from 'middlewares/hasPermission';
 import { Permission } from '@prisma/client';
+import Joi from 'joi';
+import hasPermission from 'middlewares/hasPermission';
+import session from 'middlewares/session';
+import validate from 'middlewares/validate';
+import { NextApiRequest, NextApiResponse } from 'next';
+import connect from 'next-connect';
+import prisma from 'prisma/client';
 
 const postBodySchema = Joi.object({
 	article: Joi.object({
@@ -13,7 +13,8 @@ const postBodySchema = Joi.object({
 		content: Joi.string().required(),
 		author: Joi.string().required(),
 		readingTime: Joi.number().required(),
-	}).required(),
+		imageId: Joi.string().required(),
+	}),
 });
 
 const handler = connect<NextApiRequest, NextApiResponse>();
