@@ -1,8 +1,8 @@
-import { createStyles, LoadingOverlay, MediaQuery, Text } from '@mantine/core';
+import { LoadingOverlay, MediaQuery, Text, createStyles } from '@mantine/core';
 import { useToggle } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
-import { IconCheck, IconX } from '@tabler/icons-react';
 import { Image, Order, Product } from '@prisma/client';
+import { IconCheck, IconX } from '@tabler/icons-react';
 import axios from 'axios';
 import Carousel from 'components/carousel/Carousel';
 import FallbackPage from 'components/fallback/FallbackPage';
@@ -27,7 +27,7 @@ const useStyles = createStyles((theme) => ({
 		width: '100%',
 		justifyContent: 'space-between',
 
-		[`@media (max-width: ${theme.breakpoints.md}px)`]: {
+		[`@media (max-width: ${theme.breakpoints.md})`]: {
 			flexDirection: 'column',
 			justifyContent: 'flex-start',
 		},
@@ -35,7 +35,7 @@ const useStyles = createStyles((theme) => ({
 	child: {
 		width: '50%',
 
-		[`@media (max-width: ${theme.breakpoints.md}px)`]: {
+		[`@media (max-width: ${theme.breakpoints.md})`]: {
 			width: '100%',
 		},
 	},

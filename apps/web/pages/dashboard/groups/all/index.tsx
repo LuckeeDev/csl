@@ -1,22 +1,22 @@
-import { createStyles, Pagination, ScrollArea, Table } from '@mantine/core';
+import { Pagination, ScrollArea, Table, createStyles } from '@mantine/core';
+import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
+import GroupForm from 'components/forms/GroupForm';
 import PageTitle from 'components/head/PageTitle';
+import PageHeading from 'components/heading/PageHeading';
 import GroupRow from 'components/tableRows/GroupRow';
-import useQueryState from 'hooks/router/useQueryState';
+import { createGroup, getGroups } from 'data/api/groups';
+import useDataError from 'hooks/errors/useDataError';
 import useGroupForm, { GroupFormValues } from 'hooks/forms/useGroupForm';
+import useQueryState from 'hooks/router/useQueryState';
 import { GROUPS_LINKS } from 'navigation/dashboard/groups';
 import { useMemo } from 'react';
 import useSWR from 'swr';
-import { createGroup, getGroups } from 'data/api/groups';
-import GroupForm from 'components/forms/GroupForm';
-import PageHeading from 'components/heading/PageHeading';
-import useDataError from 'hooks/errors/useDataError';
-import { showNotification } from '@mantine/notifications';
 
 const useStyles = createStyles((theme) => ({
 	textInput: {
-		[`@media (max-width: ${theme.breakpoints.md}px)`]: {
+		[`@media (max-width: ${theme.breakpoints.md})`]: {
 			maxWidth: '300px',
 		},
 	},
@@ -100,7 +100,7 @@ function DashboardGroupsAll() {
 
 			<div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
 				<Pagination
-					page={pageIndex}
+					value={pageIndex}
 					onChange={setPageIndex}
 					total={paginationTotal}
 				/>

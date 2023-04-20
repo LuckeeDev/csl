@@ -1,7 +1,7 @@
 import { Button, Input, Space, TextInput } from '@mantine/core';
+import { DatePicker } from '@mantine/dates';
 import { UseFormReturnType } from '@mantine/form';
 import { ShopSessionFormValues } from 'hooks/forms/useShopSessionForm';
-import { DateRangePicker } from '@mantine/dates';
 
 interface ShopSessionFormProps {
 	form: UseFormReturnType<ShopSessionFormValues>;
@@ -30,9 +30,10 @@ export default function ShopSessionForm({
 			<Space h={20} />
 
 			<Input.Wrapper id="dates" required label="Date">
-				<DateRangePicker
+				<DatePicker
 					id="dates"
-					amountOfMonths={2}
+					numberOfColumns={2}
+					type="range"
 					value={[form.values.start, form.values.end]}
 					onChange={handleDateChange}
 				/>

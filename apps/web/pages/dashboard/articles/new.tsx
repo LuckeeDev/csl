@@ -1,31 +1,41 @@
 import { LoadingOverlay } from '@mantine/core';
-import { showNotification } from '@mantine/notifications';
-import axios from 'axios';
-import { environment } from 'environments/environment';
-import { IconCheck } from '@tabler/icons-react';
-import PageTitle from 'components/head/PageTitle';
-import ArticleForm from 'components/forms/ArticleForm';
-import useArticleForm, { ArticleFormValues } from 'hooks/forms/useArticleForm';
-import { useRouter } from 'next/router';
-import { Article } from '@prisma/client';
-import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
 import { useToggle } from '@mantine/hooks';
+import { showNotification } from '@mantine/notifications';
+import { Link } from '@mantine/tiptap';
+import { Article } from '@prisma/client';
+import { IconCheck } from '@tabler/icons-react';
+import SubScript from '@tiptap/extension-subscript';
+import Superscript from '@tiptap/extension-superscript';
+import Underline from '@tiptap/extension-underline';
+import { useEditor } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import axios from 'axios';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
+import ArticleForm from 'components/forms/ArticleForm';
+import PageTitle from 'components/head/PageTitle';
 import PageHeading from 'components/heading/PageHeading';
+import { environment } from 'environments/environment';
+import useArticleForm, { ArticleFormValues } from 'hooks/forms/useArticleForm';
+import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
+import { useRouter } from 'next/router';
 
 function DashboardArticlesNew() {
 	const form = useArticleForm();
 	const [overlay, toggleOverlay] = useToggle();
 	const router = useRouter();
 
-	async function onSubmit(val: ArticleFormValues) {
+	const editor = useEditor({
+		extensions: [StarterKit, Underline, Link, Superscript, SubScript],
+		content: '',
+	});
+
+	async function onSubmit(val: ArticleFormValues & { content: string }) {
 		toggleOverlay();
 
 		const {
 			data: { id },
 		} = await axios.post<Article>(
-			// /new is needed because of how Next API routing works
-			`${environment.url}/api/articles/new`,
+			`${environment.url}/api/articles`,
 			{ article: val },
 			{ withCredentials: true }
 		);
@@ -50,7 +60,9 @@ function DashboardArticlesNew() {
 
 			<PageHeading>Nuovo articolo</PageHeading>
 
-			<ArticleForm form={form} onSubmit={onSubmit} />
+			{editor && (
+				<ArticleForm editor={editor} form={form} onSubmit={onSubmit} />
+			)}
 		</DashboardPageContainer>
 	);
 }

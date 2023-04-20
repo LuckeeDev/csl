@@ -37,7 +37,7 @@ export function setPublished({
 export function updateArticle({
 	id,
 	...articleData
-}: ArticleFormValues & { id: string }) {
+}: ArticleFormValues & { id: string; content: string }) {
 	return async () => {
 		const { data } = await axios.patch<Article>(`/api/articles/${id}`, {
 			article: articleData,

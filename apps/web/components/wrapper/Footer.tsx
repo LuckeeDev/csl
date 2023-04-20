@@ -1,25 +1,26 @@
-import { Anchor, createStyles } from '@mantine/core';
-import { IconExternalLink, IconBrandGithub } from '@tabler/icons-react';
+import { Anchor, createStyles, px } from '@mantine/core';
+import { IconBrandGithub, IconExternalLink } from '@tabler/icons-react';
 import TextLink from 'components/links/TextLink';
+
 import PackageJSON from '../../../../package.json';
 
 const useStyles = createStyles((theme) => ({
 	footer: {
 		display: 'grid',
 		width: '100%',
-		height: '98px',
+		height: px(98),
 		borderTop: '1px solid #2C2E33',
-		padding: `${theme.spacing.xs}px 20%`,
+		padding: `${theme.spacing.xs} 20%`,
 		gridTemplateColumns: '1fr 1fr 1fr',
 		gridTemplateAreas: '"left vercel right"',
 		alignItems: 'center',
 		gap: 0,
 
-		[`@media (max-width: ${theme.breakpoints.md}px)`]: {
+		[`@media (max-width: ${theme.breakpoints.md})`]: {
 			height: 'auto',
-			padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
+			padding: `${theme.spacing.xs} ${theme.spacing.md}`,
 			gridTemplateColumns: 'auto auto',
-			gridTemplateRows: '80px',
+			gridTemplateRows: px(80),
 		},
 	},
 	anchor: {

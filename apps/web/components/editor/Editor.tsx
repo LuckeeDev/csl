@@ -1,15 +1,44 @@
-import { RichTextEditorProps } from '@mantine/rte';
-import LoaderDiv from 'components/loader/LoaderDiv';
-import dynamic from 'next/dynamic';
+import { RichTextEditor } from '@mantine/tiptap';
+import { Editor as UseEditorReturnType } from '@tiptap/react';
 
-// dynamic is needed because Quill relies on browser APIs
-const Editor = dynamic<RichTextEditorProps>(
-	() => import('@mantine/rte').then((m) => m.RichTextEditor),
-	{
-		ssr: false,
+interface EditorProps {
+	editor: UseEditorReturnType;
+}
 
-		loading: () => <LoaderDiv />,
-	}
-);
+export default function Editor({ editor }: EditorProps) {
+	return (
+		<RichTextEditor editor={editor}>
+			<RichTextEditor.Toolbar sticky stickyOffset={60}>
+				<RichTextEditor.ControlsGroup>
+					<RichTextEditor.Bold />
+					<RichTextEditor.Italic />
+					<RichTextEditor.Underline />
+					<RichTextEditor.Strikethrough />
+					<RichTextEditor.ClearFormatting />
+				</RichTextEditor.ControlsGroup>
 
-export default Editor;
+				<RichTextEditor.ControlsGroup>
+					<RichTextEditor.H1 />
+					<RichTextEditor.H2 />
+					<RichTextEditor.H3 />
+					<RichTextEditor.H4 />
+				</RichTextEditor.ControlsGroup>
+
+				<RichTextEditor.ControlsGroup>
+					<RichTextEditor.Blockquote />
+					<RichTextEditor.BulletList />
+					<RichTextEditor.OrderedList />
+					<RichTextEditor.Subscript />
+					<RichTextEditor.Superscript />
+				</RichTextEditor.ControlsGroup>
+
+				<RichTextEditor.ControlsGroup>
+					<RichTextEditor.Link />
+					<RichTextEditor.Unlink />
+				</RichTextEditor.ControlsGroup>
+			</RichTextEditor.Toolbar>
+
+			<RichTextEditor.Content />
+		</RichTextEditor>
+	);
+}
