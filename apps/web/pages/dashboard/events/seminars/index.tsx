@@ -1,17 +1,17 @@
 import { Pagination, Table, Text } from '@mantine/core';
+import { useModals } from '@mantine/modals';
+import { showNotification, updateNotification } from '@mantine/notifications';
+import { IconCheck, IconX } from '@tabler/icons-react';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageHeading from 'components/heading/PageHeading';
 import SeminarRow from 'components/tableRows/SeminarRow';
 import getEndpoint from 'data/api/getEndpoint';
+import { deleteSeminar } from 'data/api/seminars';
 import useQueryState from 'hooks/router/useQueryState';
 import { EVENT_LINKS } from 'navigation/dashboard/events';
 import { useMemo } from 'react';
 import useSWR from 'swr';
 import { ExtendedSeminar } from 'types/seminars';
-import { useModals } from '@mantine/modals';
-import { deleteSeminar } from 'data/api/seminars';
-import { showNotification, updateNotification } from '@mantine/notifications';
-import { IconCheck, IconX } from '@tabler/icons-react';
 
 function DashboardSeminars() {
 	const [pageIndex, setPageIndex] = useQueryState<number>('page', 1);
@@ -114,7 +114,7 @@ function DashboardSeminars() {
 
 			<div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
 				<Pagination
-					page={pageIndex}
+					value={pageIndex}
 					onChange={setPageIndex}
 					total={paginationTotal}
 				/>
