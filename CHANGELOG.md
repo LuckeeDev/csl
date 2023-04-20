@@ -2,6 +2,21 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.21.18](https://github.com/LuckeeDev/csl/compare/v2.21.17...v2.21.18) (2023-04-20)
+
+
+### Bug Fixes
+
+* :bug: migrate dates and pagination ([47011a9](https://github.com/LuckeeDev/csl/commit/47011a9ed15e3d6571fc237c45d6100e012f14c3))
+* remove deprecated NotificationsProvider ([64f1a69](https://github.com/LuckeeDev/csl/commit/64f1a69c44a23666a184e7ff80171eec16e67f22))
+
+
+### Performance Improvements
+
+* **articles:** :zap: migrate to tiptap editor ([f614e93](https://github.com/LuckeeDev/csl/commit/f614e930780cd8086434c0c304009712162d3aeb))
+
+
+
 ## [2.21.17](https://github.com/LuckeeDev/csl/compare/v2.21.16...v2.21.17) (2023-04-12)
 
 
