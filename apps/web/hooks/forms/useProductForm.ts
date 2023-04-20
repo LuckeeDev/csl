@@ -4,7 +4,7 @@ import { Product } from '@prisma/client';
 export type ProductFormValues = Omit<
 	Product,
 	'updated_at' | 'created_at' | 'id' | 'price'
-> & { price: number | null; images: string[] };
+> & { price: number | ''; images: string[] };
 
 export const DEFAULT_PRODUCT_VALUES: ProductFormValues = {
 	name: '',
@@ -13,7 +13,7 @@ export const DEFAULT_PRODUCT_VALUES: ProductFormValues = {
 	categoryId: '',
 	colors: [],
 	sizes: [],
-	price: null,
+	price: '',
 	images: [],
 };
 

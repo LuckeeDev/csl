@@ -9,9 +9,9 @@ interface RequiredOrderFormValues {
 }
 
 export interface OrderFormValues {
-	quantity: number | null;
-	color?: string | null;
-	size?: ProductSize | null;
+	quantity: number | '';
+	color?: string | '';
+	size?: ProductSize | '';
 }
 
 function generateSchema(requiredValues: RequiredOrderFormValues) {
@@ -36,9 +36,9 @@ export default function useOrderForm(requiredValues: RequiredOrderFormValues) {
 	const form = useForm<OrderFormValues>({
 		validate: joiResolver(orderFormSchema),
 		initialValues: {
-			quantity: null,
-			...(requiredValues.color && { color: null }),
-			...(requiredValues.size && { size: null }),
+			quantity: '',
+			...(requiredValues.color && { color: '' }),
+			...(requiredValues.size && { size: '' }),
 		},
 	});
 

@@ -2,10 +2,17 @@ import { useForm } from '@mantine/form';
 import { Article } from '@prisma/client';
 import { useEffect, useRef } from 'react';
 
-const DEFAULT_VALUES = {
+export interface ArticleFormValues {
+	title: string;
+	author: string;
+	readingTime: number | '';
+	imageId: string;
+}
+
+const DEFAULT_VALUES: ArticleFormValues = {
 	title: '',
 	author: '',
-	readingTime: 1,
+	readingTime: '',
 	imageId: '',
 };
 
@@ -13,13 +20,6 @@ export type ArticleData = Omit<
 	Article,
 	'categoryId' | 'published' | 'updated_at' | 'created_at' | 'id' | 'content'
 >;
-
-export interface ArticleFormValues {
-	title: string;
-	author: string;
-	readingTime: number;
-	imageId: string;
-}
 
 export default function useArticleForm(article?: ArticleData) {
 	// Keep track if the hook is being called for the first time
