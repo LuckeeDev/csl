@@ -4,22 +4,20 @@ import { useEffect, useRef } from 'react';
 
 const DEFAULT_VALUES = {
 	title: '',
-	content: '',
 	author: '',
-	readingTime: null,
+	readingTime: 1,
 	imageId: '',
 };
 
 export type ArticleData = Omit<
 	Article,
-	'categoryId' | 'published' | 'updated_at' | 'created_at' | 'id'
+	'categoryId' | 'published' | 'updated_at' | 'created_at' | 'id' | 'content'
 >;
 
 export interface ArticleFormValues {
 	title: string;
-	content: string;
 	author: string;
-	readingTime: number | null;
+	readingTime: number;
 	imageId: string;
 }
 
@@ -32,9 +30,9 @@ export default function useArticleForm(article?: ArticleData) {
 
 		validate: {
 			title: (val) => (val ? null : 'Questo campo è necessario'),
-			content: (val) => (val ? null : 'Questo campo è necessario'),
 			author: (val) => (val ? null : 'Questo campo è necessario'),
 			readingTime: (val) => (val ? null : 'Questo campo è necessario'),
+			imageId: (val) => (val ? null : 'Questo campo è necessario'),
 		},
 	});
 
