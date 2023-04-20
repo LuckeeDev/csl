@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.21.19](https://github.com/LuckeeDev/csl/compare/v2.21.18...v2.21.19) (2023-04-20)
+
+
+### Bug Fixes
+
+* **forms:** :bug: change null initial number to empty string ([631b5b6](https://github.com/LuckeeDev/csl/commit/631b5b6bed48e26bcef797d78e776d9b25488e1d))
+
+
+
 ## [2.21.18](https://github.com/LuckeeDev/csl/compare/v2.21.17...v2.21.18) (2023-04-20)
 
 
