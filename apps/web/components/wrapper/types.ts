@@ -1,24 +1,12 @@
-import { MantineColor } from '@mantine/core';
-
-export type AvailableIcons =
-	| 'users'
-	| 'profile'
-	| 'write'
-	| 'back'
-	| 'list'
-	| 'rocket'
-	| 'calendar'
-	| 'apps'
-	| 'shop'
-	| 'lock-access';
+import { Permission } from '@prisma/client';
 
 export interface WrapperLinkProps {
-	icon: AvailableIcons;
-	/**
-	 * @deprecated you cannot specify a color for the links anymore.
-	 */
-	color?: MantineColor;
+	icon: React.FC<{ size: string | number }>;
 	label: string;
 	href: string;
-	hasSublinks?: boolean;
+	sublinks?: Omit<
+		WrapperLinkProps,
+		'sublinks' | 'icon' | 'requiredPermissions'
+	>[];
+	requiredPermissions: Permission[];
 }

@@ -1,59 +1,67 @@
 import { Permission } from '@prisma/client';
-import { LinkData } from 'navigation/types';
+import {
+	IconApps,
+	IconCalendar,
+	IconPencil,
+	IconRocket,
+	IconShoppingCart,
+	IconUser,
+	IconUsers,
+} from '@tabler/icons-react';
+import { WrapperLinkProps } from 'components/wrapper/types';
 
-export const DASHBOARD_LINKS: LinkData[] = [
+import { ARTICLE_LINKS } from './articles';
+import { EVENT_LINKS } from './events';
+import { GROUPS_LINKS } from './groups';
+import { SHOP_LINKS } from './shop';
+import { USERS_LINKS } from './users';
+
+export const DASHBOARD_LINKS: WrapperLinkProps[] = [
 	{
-		icon: 'profile',
-		color: 'blue',
+		icon: IconUser,
 		label: 'Profilo',
 		href: '/dashboard',
 		requiredPermissions: [],
 	},
 	{
-		icon: 'shop',
-		color: 'violet',
+		icon: IconShoppingCart,
 		label: 'Ordini',
 		href: '/dashboard/orders',
 		requiredPermissions: [],
 	},
 	{
-		icon: 'write',
-		color: 'teal',
+		icon: IconPencil,
 		label: 'Articoli',
 		href: '/dashboard/articles',
-		hasSublinks: true,
+		sublinks: ARTICLE_LINKS,
 		requiredPermissions: [Permission.NEWS_EDITOR],
 	},
 	{
-		icon: 'rocket',
-		color: 'yellow',
+		icon: IconRocket,
 		label: 'Negozio',
 		href: '/dashboard/shop',
-		hasSublinks: true,
+		sublinks: SHOP_LINKS,
 		requiredPermissions: [Permission.SHOP_MANAGER],
 	},
 	{
-		icon: 'calendar',
-		color: 'indigo',
+		icon: IconCalendar,
 		label: 'Eventi',
 		href: '/dashboard/events',
-		hasSublinks: true,
+		sublinks: EVENT_LINKS,
 		requiredPermissions: [Permission.EVENTS_MANAGER],
 	},
 	{
-		icon: 'apps',
-		color: 'grape',
+		icon: IconApps,
 		label: 'Gruppi',
 		href: '/dashboard/groups',
-		hasSublinks: true,
+		sublinks: GROUPS_LINKS,
 		requiredPermissions: [],
 	},
 	{
-		icon: 'users',
-		color: 'grape',
+		icon: IconUsers,
 		label: 'Utenti e ruoli',
 		href: '/dashboard/users',
-		hasSublinks: true,
+		sublinks: USERS_LINKS,
 		requiredPermissions: [Permission.USERS_MANAGER],
 	},
 ];

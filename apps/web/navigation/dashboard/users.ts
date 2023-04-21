@@ -1,25 +1,16 @@
-import { LinkData } from 'navigation/types';
+import { WrapperLinkProps } from 'components/wrapper/types';
 
-export const USERS_LINKS: LinkData[] = [
+export const USERS_LINKS: WrapperLinkProps['sublinks'] = [
 	{
-		icon: 'back',
-		color: 'transparent',
-		label: 'Torna indietro',
-		href: '/dashboard',
-		requiredPermissions: [],
-	},
-	{
-		icon: 'users',
-		color: 'grape',
 		label: 'Utenti',
 		href: '/dashboard/users',
-		requiredPermissions: [],
 	},
 	{
-		icon: 'lock-access',
-		color: 'grape',
+		label: 'Tutti i gruppi',
+		href: '/dashboard/groups/all',
+	},
+	{
 		label: 'Ruoli',
 		href: '/dashboard/users/roles',
-		requiredPermissions: [],
 	},
 ];
