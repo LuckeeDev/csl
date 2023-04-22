@@ -89,7 +89,7 @@ function LinksControl({ icon: Icon, label, ...props }: WrapperLinkProps) {
 				<Group position="apart" spacing={0}>
 					<Box sx={{ display: 'flex', alignItems: 'center' }}>
 						<ThemeIcon variant="light" size={30}>
-							<Icon size="1.1rem" />
+							<Icon size={20} />
 						</ThemeIcon>
 						<Box ml="md">{label}</Box>
 					</Box>
@@ -97,12 +97,10 @@ function LinksControl({ icon: Icon, label, ...props }: WrapperLinkProps) {
 					{hasLinks && (
 						<IconChevronRight
 							className={classes.chevron}
-							size="1rem"
+							size={20}
 							stroke={1.5}
 							style={{
-								transform: opened
-									? `rotate(${theme.dir === 'rtl' ? -90 : 90}deg)`
-									: 'none',
+								transform: opened ? `rotate(90deg)` : 'none',
 							}}
 						/>
 					)}

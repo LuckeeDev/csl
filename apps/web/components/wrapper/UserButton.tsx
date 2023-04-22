@@ -12,7 +12,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import { IconChevronRight, IconUser } from '@tabler/icons-react';
 import { Session } from 'next-auth';
 import { signIn, signOut, useSession } from 'next-auth/react';
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 
 function userButtonStyles(theme: MantineTheme) {
 	return {
@@ -34,11 +34,16 @@ function userButtonStyles(theme: MantineTheme) {
 interface LoggedInButtonProps {
 	session: Session;
 	showUserImage: boolean;
+	opened: boolean;
+	theme: MantineTheme;
 }
 
 // eslint-disable-next-line react/display-name
 const LoggedInButton = forwardRef<HTMLButtonElement, LoggedInButtonProps>(
-	({ session, showUserImage, ...others }: LoggedInButtonProps, ref) => (
+	(
+		{ session, showUserImage, opened, theme, ...others }: LoggedInButtonProps,
+		ref
+	) => (
 		<UnstyledButton ref={ref} sx={userButtonStyles} {...others}>
 			<Group>
 				{showUserImage && (
@@ -58,7 +63,13 @@ const LoggedInButton = forwardRef<HTMLButtonElement, LoggedInButtonProps>(
 					</Text>
 				</div>
 
-				<IconChevronRight width={18} height={18} />
+				<IconChevronRight
+					size={20}
+					style={{
+						transform: opened ? `rotate(-90deg)` : 'none',
+						transition: 'transform 200ms ease',
+					}}
+				/>
 			</Group>
 		</UnstyledButton>
 	)
@@ -70,6 +81,8 @@ export default function UserButton() {
 	const showUserImage = useMediaQuery(
 		`(max-width: ${theme.breakpoints.sm}), (min-width: ${theme.breakpoints.xl})`
 	);
+
+	const [opened, setOpened] = useState(false);
 
 	return (
 		<div
@@ -84,9 +97,14 @@ export default function UserButton() {
 			}}
 		>
 			{session ? (
-				<Menu width="target">
+				<Menu width="target" opened={opened} onChange={setOpened}>
 					<Menu.Target>
-						<LoggedInButton showUserImage={showUserImage} session={session} />
+						<LoggedInButton
+							showUserImage={showUserImage}
+							session={session}
+							opened={opened}
+							theme={theme}
+						/>
 					</Menu.Target>
 
 					<Menu.Dropdown>

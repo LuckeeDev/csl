@@ -8,8 +8,8 @@ interface SideLinksProps {
 export default function SideLinks({ links }: SideLinksProps) {
 	return (
 		<div>
-			{links.map((link) => (
-				<LinksGroup {...link} />
+			{links.map((link, i) => (
+				<LinksGroup {...link} key={i} />
 			))}
 		</div>
 	);

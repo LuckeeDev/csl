@@ -1,7 +1,7 @@
 import { Permission } from '@prisma/client';
 
 interface BaseLinkProps {
-	icon: React.FC<{ size: string | number }>;
+	icon: React.FC<{ size?: number }>;
 	label: string;
 	/**
 	 * `href: null` indicates that the link should have sublinks
