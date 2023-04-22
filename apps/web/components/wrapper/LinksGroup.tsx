@@ -4,14 +4,14 @@ import {
 	Box,
 	Collapse,
 	Group,
-	Text,
 	ThemeIcon,
 	UnstyledButton,
 	createStyles,
 	rem,
 } from '@mantine/core';
-import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
-import { useState } from 'react';
+import { IconChevronRight } from '@tabler/icons-react';
+import Link from 'next/link';
+import { useMemo, useState } from 'react';
 
 import { WrapperLinkProps } from './types';
 
@@ -63,29 +63,25 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
-export default function LinksGroup({
-	icon: Icon,
-	label,
-	sublinks,
-}: WrapperLinkProps) {
+function LinksControl({ icon: Icon, label, ...props }: WrapperLinkProps) {
 	const { classes, theme } = useStyles();
-	const hasLinks = Array.isArray(sublinks);
 	const [opened, setOpened] = useState(false);
-	const ChevronIcon = theme.dir === 'ltr' ? IconChevronRight : IconChevronLeft;
-	const items = (hasLinks ? sublinks : []).map((link) => (
-		<Text<'a'>
-			component="a"
-			className={classes.link}
-			href={link.href}
-			key={link.label}
-			onClick={(event) => event.preventDefault()}
-		>
-			{link.label}
-		</Text>
-	));
+
+	const hasLinks = props.href === null;
+	const items = useMemo(
+		() =>
+			hasLinks
+				? props.sublinks.map((link) => (
+						<Link className={classes.link} href={link.href} key={link.label}>
+							{link.label}
+						</Link>
+				  ))
+				: [],
+		[props.href]
+	);
 
 	return (
-		<div>
+		<>
 			<UnstyledButton
 				onClick={() => setOpened((o) => !o)}
 				className={classes.control}
@@ -97,8 +93,9 @@ export default function LinksGroup({
 						</ThemeIcon>
 						<Box ml="md">{label}</Box>
 					</Box>
+
 					{hasLinks && (
-						<ChevronIcon
+						<IconChevronRight
 							className={classes.chevron}
 							size="1rem"
 							stroke={1.5}
@@ -113,6 +110,21 @@ export default function LinksGroup({
 			</UnstyledButton>
 
 			{hasLinks ? <Collapse in={opened}>{items}</Collapse> : null}
-		</div>
+		</>
 	);
+}
+
+export default function LinksGroup(props: WrapperLinkProps) {
+	if (props.href === null) {
+		return <LinksControl {...props} />;
+	} else {
+		return (
+			<Link
+				href={props.href}
+				style={{ color: 'unset', textDecoration: 'none' }}
+			>
+				<LinksControl {...props} />
+			</Link>
+		);
+	}
 }

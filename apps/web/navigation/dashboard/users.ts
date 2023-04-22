@@ -1,6 +1,6 @@
-import { WrapperLinkProps } from 'components/wrapper/types';
+import { WrapperSublink } from 'components/wrapper/types';
 
-export const USERS_LINKS: WrapperLinkProps['sublinks'] = [
+export const USERS_LINKS: WrapperSublink[] = [
 	{
 		label: 'Utenti',
 		href: '/dashboard/users',

@@ -1,6 +1,6 @@
-import { WrapperLinkProps } from 'components/wrapper/types';
+import { WrapperSublink } from 'components/wrapper/types';
 
-export const EVENT_LINKS: WrapperLinkProps['sublinks'] = [
+export const EVENT_LINKS: WrapperSublink[] = [
 	{
 		label: 'Eventi',
 		href: '/dashboard/events',

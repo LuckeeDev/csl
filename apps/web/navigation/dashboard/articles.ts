@@ -1,6 +1,6 @@
-import { WrapperLinkProps } from 'components/wrapper/types';
+import { WrapperSublink } from 'components/wrapper/types';
 
-export const ARTICLE_LINKS: WrapperLinkProps['sublinks'] = [
+export const ARTICLE_LINKS: WrapperSublink[] = [
 	{
 		label: 'Articoli',
 		href: '/dashboard/articles',

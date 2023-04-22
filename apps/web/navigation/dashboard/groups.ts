@@ -1,6 +1,6 @@
-import { WrapperLinkProps } from 'components/wrapper/types';
+import { WrapperSublink } from 'components/wrapper/types';
 
-export const GROUPS_LINKS: WrapperLinkProps['sublinks'] = [
+export const GROUPS_LINKS: WrapperSublink[] = [
 	{
 		label: 'I miei gruppi',
 		href: '/dashboard/groups',

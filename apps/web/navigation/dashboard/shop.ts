@@ -1,6 +1,6 @@
-import { WrapperLinkProps } from 'components/wrapper/types';
+import { WrapperSublink } from 'components/wrapper/types';
 
-export const SHOP_LINKS: WrapperLinkProps['sublinks'] = [
+export const SHOP_LINKS: WrapperSublink[] = [
 	{
 		label: 'Sessioni di vendita',
 		href: '/dashboard/shop',
