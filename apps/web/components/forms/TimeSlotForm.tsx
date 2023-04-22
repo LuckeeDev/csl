@@ -1,5 +1,5 @@
 import { Button, Input, Select, SimpleGrid, TextInput } from '@mantine/core';
-import { TimeInput, DatePicker } from '@mantine/dates';
+import { DatePickerInput, TimeInput } from '@mantine/dates';
 import { UseFormReturnType } from '@mantine/form';
 import { Event } from '@prisma/client';
 import { TimeSlotFormValues } from 'hooks/forms/useTimeSlotForm';
@@ -36,7 +36,7 @@ export default function TimeSlotForm({
 				</Input.Wrapper>
 
 				<Input.Wrapper required label="Data di inizio">
-					<DatePicker
+					<DatePickerInput
 						placeholder="Seleziona una data di inizio"
 						{...form.getInputProps('startDate')}
 					/>
@@ -52,7 +52,7 @@ export default function TimeSlotForm({
 				</Input.Wrapper>
 
 				<Input.Wrapper required label="Data di fine">
-					<DatePicker
+					<DatePickerInput
 						placeholder="Seleziona una data di fine"
 						{...form.getInputProps('endDate')}
 					/>

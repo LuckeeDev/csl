@@ -1,21 +1,31 @@
-import { MantineColor } from '@mantine/core';
+import { Permission } from '@prisma/client';
 
-export type AvailableIcons =
-	| 'users'
-	| 'profile'
-	| 'write'
-	| 'back'
-	| 'list'
-	| 'rocket'
-	| 'calendar'
-	| 'apps'
-	| 'shop'
-	| 'lock-access';
-
-export interface WrapperLinkProps {
-	icon: AvailableIcons;
-	color: MantineColor;
+interface BaseLinkProps {
+	icon: React.FC<{ size: string | number }>;
 	label: string;
+	/**
+	 * `href: null` indicates that the link should have sublinks
+	 * `href: string` cannot have sublinks
+	 */
+	href: string | null;
+	requiredPermissions: Permission[];
+}
+
+interface WithSublinks extends BaseLinkProps {
+	sublinks: WrapperSublink[];
+	/**
+	 * `href: null` indicates that the link should have sublinks
+	 */
+	href: null;
+}
+
+interface WithoutSublinks extends BaseLinkProps {
 	href: string;
-	hasSublinks?: boolean;
+}
+
+export type WrapperLinkProps = WithSublinks | WithoutSublinks;
+
+export interface WrapperSublink
+	extends Omit<BaseLinkProps, 'icon' | 'requiredPermissions'> {
+	href: string;
 }

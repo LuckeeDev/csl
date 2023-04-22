@@ -1,32 +1,16 @@
-import { LinkData } from 'navigation/types';
+import { WrapperSublink } from 'components/wrapper/types';
 
-export const ARTICLE_LINKS: LinkData[] = [
+export const ARTICLE_LINKS: WrapperSublink[] = [
 	{
-		icon: 'back',
-		color: 'transparent',
-		label: 'Torna indietro',
-		href: '/dashboard',
-		requiredPermissions: [],
-	},
-	{
-		icon: 'list',
-		color: 'teal',
 		label: 'Articoli',
 		href: '/dashboard/articles',
-		requiredPermissions: [],
 	},
 	{
-		icon: 'write',
-		color: 'teal',
 		label: 'Nuovo articolo',
 		href: '/dashboard/articles/new',
-		requiredPermissions: [],
 	},
 	{
-		icon: 'list',
-		color: 'teal',
 		label: 'Categorie',
 		href: '/dashboard/articles/categories',
-		requiredPermissions: [],
 	},
 ];

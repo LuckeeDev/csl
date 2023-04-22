@@ -4,13 +4,14 @@ import {
 	Header,
 	MediaQuery,
 	Navbar,
+	ScrollArea,
 	useMantineTheme,
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import ButtonLink from 'components/links/ButtonLink';
 import TextLink from 'components/links/TextLink';
 import LoaderDiv from 'components/loader/LoaderDiv';
-import { LinkData } from 'navigation/types';
+import { DASHBOARD_LINKS } from 'navigation/dashboard';
 import { useSession } from 'next-auth/react';
 import Image from 'next/legacy/image';
 import Link from 'next/link';
@@ -22,18 +23,14 @@ import DefaultPageWrapper from './DefaultPageWrapper';
 import Footer from './Footer';
 import SideLinks from './SideLinks';
 import UserButton from './UserButton';
+import { WrapperLinkProps } from './types';
 
 interface WrapperProps {
 	children: ReactNode;
 	hasSidebar: boolean;
-	sidebarLinks: LinkData[] | null;
 }
 
-export default function Wrapper({
-	children,
-	hasSidebar,
-	sidebarLinks,
-}: WrapperProps) {
+export default function Wrapper({ children, hasSidebar }: WrapperProps) {
 	const [open, setOpen] = useState(false);
 	const theme = useMantineTheme();
 	const { data: session, status } = useSession();
@@ -54,15 +51,15 @@ export default function Wrapper({
 		};
 	}, [router, isMobile, open]);
 
-	const links: LinkData[] = useMemo(() => {
-		if (!sidebarLinks || status === 'loading') {
+	const links: WrapperLinkProps[] = useMemo(() => {
+		if (status === 'loading') {
 			return [];
 		}
 
 		// Check if links need any special permission
-		return sidebarLinks.filter((link) => {
+		return DASHBOARD_LINKS.filter((link) => {
 			// Create an array of booleans indicating if the user matches required permissions
-			const matchesPermissions = link.requiredPermissions.map(
+			const matchesPermissions = link.requiredPermissions?.map(
 				(p) => session?.user.permissions?.includes(p) ?? false
 			);
 
@@ -74,7 +71,7 @@ export default function Wrapper({
 			// ...otherwise, return true
 			return true;
 		});
-	}, [session, status, sidebarLinks]);
+	}, [session, status]);
 
 	return (
 		<>
@@ -102,14 +99,14 @@ export default function Wrapper({
 					},
 				})}
 				navbar={
-					hasSidebar && sidebarLinks ? (
+					hasSidebar ? (
 						<Navbar
 							p="md"
 							hiddenBreakpoint="sm"
 							hidden={!open}
 							width={{ sm: 300, lg: 400 }}
 						>
-							<Navbar.Section grow>
+							<Navbar.Section grow component={ScrollArea}>
 								{status === 'loading' ? (
 									<LoaderDiv />
 								) : (
@@ -140,7 +137,7 @@ export default function Wrapper({
 									height: '100%',
 								}}
 							>
-								{hasSidebar && sidebarLinks && (
+								{hasSidebar && (
 									<MediaQuery largerThan="sm" styles={{ display: 'none' }}>
 										<Burger
 											opened={open}

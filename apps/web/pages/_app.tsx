@@ -1,19 +1,18 @@
-import { AppProps } from 'next/app';
-import Head from 'next/head';
 import { useMantineTheme } from '@mantine/core';
-import Wrapper from 'components/wrapper/Wrapper';
-import Providers from 'components/providers/Providers';
-import { NextComponentType, NextPageContext } from 'next';
-import { LinkData } from 'navigation/types';
-import NextNProgress from 'nextjs-progressbar';
-import dynamic from 'next/dynamic';
 import LoaderDiv from 'components/loader/LoaderDiv';
+import Providers from 'components/providers/Providers';
+import Wrapper from 'components/wrapper/Wrapper';
 import 'dayjs/locale/it';
+import { NextComponentType, NextPageContext } from 'next';
+import { AppProps } from 'next/app';
+import dynamic from 'next/dynamic';
+import Head from 'next/head';
+import NextNProgress from 'nextjs-progressbar';
+
 import './styles.css';
 
 interface CustomAppProps extends AppProps {
 	Component: NextComponentType<NextPageContext, any, any> & {
-		sidebarLinks?: LinkData[];
 		hasSidebar?: boolean;
 		hasLocalCache?: boolean;
 	};
@@ -33,7 +32,6 @@ export default function App(props: CustomAppProps) {
 	const theme = useMantineTheme();
 
 	const hasSidebar = Component.hasSidebar ?? false;
-	const sidebarLinks = Component.sidebarLinks ?? null;
 	const hasLocalCache = Component.hasLocalCache ?? false;
 
 	return (
@@ -71,7 +69,7 @@ export default function App(props: CustomAppProps) {
 					showOnShallow={false}
 				/>
 
-				<Wrapper hasSidebar={hasSidebar} sidebarLinks={sidebarLinks}>
+				<Wrapper hasSidebar={hasSidebar}>
 					{hasLocalCache ? (
 						<SWRLocalCache>
 							<Component {...pageProps} />
