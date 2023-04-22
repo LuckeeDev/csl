@@ -2,6 +2,29 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.22.0](https://github.com/LuckeeDev/csl/compare/v2.21.19...v2.22.0) (2023-04-22)
+
+
+### Bug Fixes
+
+* **dashboard:** :adhesive_bandage: turn navbar buttons into links ([ca37da1](https://github.com/LuckeeDev/csl/commit/ca37da1f90bcda9486716b12f9f1feba619d2d9d))
+* :lipstick: change DatePicker to DatePickerInput ([885cddd](https://github.com/LuckeeDev/csl/commit/885cddd06d4ee0d69a5cd467095b66745839cb36))
+* **forms:** :bug: change null initial number to empty string ([a727b74](https://github.com/LuckeeDev/csl/commit/a727b74e08efdcf0e51f2034fe7491ff461b0704))
+* :bug: migrate dates and pagination ([c209c40](https://github.com/LuckeeDev/csl/commit/c209c40efaf22e24053d47fb61751b5ee9f123c1))
+* remove deprecated NotificationsProvider ([716ddc0](https://github.com/LuckeeDev/csl/commit/716ddc0ab09660ac19f11e5e51e9ea69137cb5a7))
+
+
+### Features
+
+* **dashboard:** :sparkles: rework navbar to be expandable ([9b23494](https://github.com/LuckeeDev/csl/commit/9b23494e46a011f6417c6f9a89b9d834b57cc591))
+
+
+### Performance Improvements
+
+* **articles:** :zap: migrate to tiptap editor ([b4efb12](https://github.com/LuckeeDev/csl/commit/b4efb12f58e26c29dbfde2a52c38938fa05c5d72))
+
+
+
 ## [2.21.19](https://github.com/LuckeeDev/csl/compare/v2.21.18...v2.21.19) (2023-04-20)
 
 
