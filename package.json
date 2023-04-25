@@ -15,7 +15,7 @@
 		"@mantine/core": "6.0.8",
 		"@mantine/dates": "6.0.8",
 		"@mantine/dropzone": "6.0.8",
-		"@mantine/form": "6.0.8",
+		"@mantine/form": "6.0.9",
 		"@mantine/hooks": "6.0.8",
 		"@mantine/modals": "6.0.8",
 		"@mantine/next": "6.0.8",
