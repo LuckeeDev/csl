@@ -73,7 +73,7 @@
 		"@nrwl/node": "15.9.2",
 		"@nrwl/react": "15.9.2",
 		"@nrwl/web": "15.9.2",
-		"@nrwl/workspace": "15.9.2",
+		"@nrwl/workspace": "15.9.3",
 		"@testing-library/react": "14.0.0",
 		"@trivago/prettier-plugin-sort-imports": "^4.1.1",
 		"@types/dotenv": "^8.2.0",
