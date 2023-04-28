@@ -71,7 +71,7 @@
 		"@nrwl/linter": "15.9.2",
 		"@nrwl/next": "15.9.2",
 		"@nrwl/node": "15.9.2",
-		"@nrwl/react": "15.9.2",
+		"@nrwl/react": "16.0.0",
 		"@nrwl/web": "15.9.2",
 		"@nrwl/workspace": "15.9.2",
 		"@testing-library/react": "14.0.0",
