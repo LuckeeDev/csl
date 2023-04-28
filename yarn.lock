@@ -2876,12 +2876,11 @@
     tmp "~0.2.1"
     tslib "^2.3.0"
 
-"@nrwl/devkit@^15.0.0":
-  version "15.8.8"
-  resolved "https://registry.yarnpkg.com/@nrwl/devkit/-/devkit-15.8.8.tgz#fdce53d9cc116fb2453d3ed83817475451faf74d"
-  integrity sha512-4cm1ZGb0AY+l1TvtSHupCwVKk7OGEsTTFQ1KrZ/6hSngIZ/F7ixrzq2N0ASri29g18f05mWtnYd2TvETq9yYnw==
+"@nrwl/devkit@15.9.3", "@nrwl/devkit@^15.0.0":
+  version "15.9.3"
+  resolved "https://registry.yarnpkg.com/@nrwl/devkit/-/devkit-15.9.3.tgz#8150fcac88efece7a9054a2b5290e71750bb763f"
+  integrity sha512-WdPuaJ0zi04gMwAIRXUfbQLxOnA9Mw0D8tbPoHPd5ARlnGndqIKk666za+qbV0jD+jmsGWJoXViVJ9H5xpSWLw==
   dependencies:
-    "@phenomnomnominal/tsquery" "4.1.1"
     ejs "^3.1.7"
     ignore "^5.0.4"
     semver "7.3.4"
