@@ -2467,17 +2467,17 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@jscutlery/semver@2.30.1":
-  version "2.30.1"
-  resolved "https://registry.yarnpkg.com/@jscutlery/semver/-/semver-2.30.1.tgz#daaaf223a6536a339ad98bee92c872205a5c0191"
-  integrity sha512-Adnlu/kEOaikxNJLi3Ll4UfgEW4VG0dvf5zm7Ere7vT/udHhPs6CTO6B7PCFLzKsLgM0vqSrVk/nKYFWri83Ww==
+"@jscutlery/semver@3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@jscutlery/semver/-/semver-3.0.0.tgz#af9d52132402de5db470b3d351e05cc199fe93a0"
+  integrity sha512-HihMZSDZRxXm9j9uKyV791Hm1BpIS55NrQx5H0yuc2/GHtWaKm86/Cpqp74q98f47XL7aZgRiYdS5+J1Vh1hww==
   dependencies:
     chalk "4.1.2"
     conventional-changelog "^3.1.25"
     conventional-recommended-bump "^6.1.0"
     detect-indent "6.1.0"
     inquirer "8.2.5"
-    rxjs "7.8.0"
+    rxjs "7.8.1"
 
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"
@@ -12812,10 +12812,10 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
-rxjs@7.8.0, rxjs@^7.5.4:
-  version "7.8.0"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-7.8.0.tgz#90a938862a82888ff4c7359811a595e14e1e09a4"
-  integrity sha512-F2+gxDshqmIub1KdvZkaEfGDwLNpPvk9Fs6LD/MyQxNgMds/WH9OdDDXOmxUZpME+iSK3rQCctkL0DYyytUqMg==
+rxjs@7.8.1, rxjs@^7.5.4, rxjs@^7.5.5:
+  version "7.8.1"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-7.8.1.tgz#6f6f3d99ea8044291efd92e7c7fcf562c4057543"
+  integrity sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==
   dependencies:
     tslib "^2.1.0"
 
@@ -12825,13 +12825,6 @@ rxjs@^6.5.4:
   integrity sha512-/oTwee4N4iWzAMAL9xdGKjkEHmIwupR3oXbQjCKywF1BeFohswF3vZdogbmEF6pZkOsXTzWkrZszrWpQTByYVg==
   dependencies:
     tslib "^1.9.0"
-
-rxjs@^7.5.5:
-  version "7.5.5"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-7.5.5.tgz#2ebad89af0f560f460ad5cc4213219e1f7dd4e9f"
-  integrity sha512-sy+H0pQofO95VDmFLzyaw9xNJU4KTRSwQIGM6+iG3SypAtCiLDzpeG8sJrNCWn2Up9km+KhkvTdbkrdy+yzZdw==
-  dependencies:
-    tslib "^2.1.0"
 
 sade@^1.7.3:
   version "1.8.1"
