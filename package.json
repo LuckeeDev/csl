@@ -8,7 +8,7 @@
 	},
 	"private": true,
 	"dependencies": {
-		"@docusaurus/core": "2.4.0",
+		"@docusaurus/core": "2.4.1",
 		"@docusaurus/preset-classic": "2.4.0",
 		"@emotion/react": "^11.10.8",
 		"@emotion/server": "^11.11.0",
