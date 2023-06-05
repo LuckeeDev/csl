@@ -25,7 +25,7 @@
 		"@next-auth/prisma-adapter": "1.0.7",
 		"@nx-plus/docusaurus": "^15.0.0-rc.0",
 		"@prisma/client": "4.15.0",
-		"@tabler/icons-react": "^2.20.0",
+		"@tabler/icons-react": "^2.21.0",
 		"@tiptap/extension-link": "^2.0.3",
 		"@tiptap/extension-subscript": "^2.0.3",
 		"@tiptap/extension-superscript": "^2.0.3",
