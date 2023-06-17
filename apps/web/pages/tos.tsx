@@ -72,7 +72,7 @@ export default function Tos({ tosContents }: TosProps) {
 }
 
 export const getStaticProps: GetStaticProps<TosProps> = async (ctx) => {
-	const filePath = join(process.cwd(), 'assets', 'tos.md');
+	const filePath = join(process.cwd(), 'public', 'tos.md');
 
 	const tosContents = readFileSync(filePath, 'utf-8');
 
