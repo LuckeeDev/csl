@@ -34,7 +34,7 @@
 		"@tiptap/pm": "^2.0.3",
 		"@tiptap/react": "^2.0.3",
 		"@tiptap/starter-kit": "^2.0.3",
-		"aws-sdk": "^2.1400.0",
+		"aws-sdk": "^2.1402.0",
 		"axios": "^1.4.0",
 		"dayjs": "1.11.8",
 		"dotenv": "16.3.1",
