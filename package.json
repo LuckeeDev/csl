@@ -40,7 +40,7 @@
 		"dotenv": "16.3.1",
 		"joi": "^17.9.2",
 		"jwt-decode": "^3.1.2",
-		"next": "13.4.6",
+		"next": "13.4.11",
 		"next-auth": "4.22.1",
 		"next-connect": "0.13.0",
 		"next-joi": "^2.2.1",
