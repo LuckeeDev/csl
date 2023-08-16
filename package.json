@@ -74,7 +74,7 @@
 		"@nx/node": "16.3.2",
 		"@nx/react": "16.3.2",
 		"@nx/web": "16.3.2",
-		"@nx/workspace": "16.3.2",
+		"@nx/workspace": "16.7.0",
 		"@testing-library/react": "14.0.0",
 		"@trivago/prettier-plugin-sort-imports": "^4.1.1",
 		"@types/dotenv": "^8.2.0",
