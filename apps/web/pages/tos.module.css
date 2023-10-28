@@ -1,0 +1,13 @@
+.markdown {
+	p {
+		margin: var(--mantine-spacing-xs) 0;
+	}
+}
+
+.link {
+	color: var(--mantine-color-dark-0);
+	&:hover {
+		color: var(--mantine-color-blue-4);
+	}
+	text-decoration: underline;
+}

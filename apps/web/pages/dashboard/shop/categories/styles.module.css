@@ -1,0 +1,5 @@
+@media (max-width: var(--mantine-breakpoints-md)) {
+	.textInput {
+		max-width: 300px;
+	}
+}

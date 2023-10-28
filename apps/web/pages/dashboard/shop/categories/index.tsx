@@ -5,7 +5,6 @@ import {
 	ScrollArea,
 	Table,
 	TextInput,
-	createStyles,
 } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { ProductCategory } from '@prisma/client';
@@ -23,22 +22,15 @@ import { GetServerSideProps } from 'next';
 import prisma from 'prisma/client';
 import { useCallback, useMemo, useState } from 'react';
 
+import styles from './styles.module.css';
+
 interface DashboardShopCategoriesProps {
 	productCategories: Omit<ProductCategory, 'updated_at' | 'created_at'>[];
 }
 
-const useStyles = createStyles((theme) => ({
-	textInput: {
-		[`@media (max-width: ${theme.breakpoints.md})`]: {
-			maxWidth: '300px',
-		},
-	},
-}));
-
 function DashboardShopCategories({
 	productCategories,
 }: DashboardShopCategoriesProps) {
-	const { classes } = useStyles();
 	const [categories, setCategories] = useState(productCategories);
 	const [overlay, setOverlay] = useState(false);
 	const form = useProductCategoryForm();
@@ -137,7 +129,7 @@ function DashboardShopCategories({
 			<LoadingOverlay visible={overlay} />
 
 			<ScrollArea>
-				<Table sx={{ minWidth: 400 }}>
+				<Table style={{ minWidth: 400 }}>
 					<thead>
 						<tr>
 							<th>Nome</th>
@@ -152,7 +144,7 @@ function DashboardShopCategories({
 								<form onSubmit={form.onSubmit(onSubmit)}>
 									<Input.Wrapper label="Nuova categoria">
 										<TextInput
-											className={classes.textInput}
+											className={styles.textInput}
 											placeholder="Inserisci un nome per la nuova categoria"
 											{...form.getInputProps('name')}
 											rightSection={

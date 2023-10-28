@@ -1,4 +1,3 @@
-import { createStyles } from '@mantine/core';
 import { IconExternalLink } from '@tabler/icons-react';
 import TextLink from 'components/links/TextLink';
 import { environment } from 'environments/environment';
@@ -7,6 +6,7 @@ import { GetStaticProps } from 'next';
 import { join } from 'path';
 import { ReactNode, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
+import styles from './tos.module.css';
 
 interface TosProps {
 	tosContents: string;
@@ -17,19 +17,6 @@ interface CustomMarkdownLinkProps {
 	children: ReactNode;
 	className?: string;
 }
-
-const useStyles = createStyles((theme) => ({
-	markdown: {
-		p: {
-			margin: `${theme.spacing.xs} 0`,
-		},
-	},
-	link: {
-		color: theme.colors.dark[0],
-		':hover': { color: theme.colors.blue[4] },
-		textDecoration: 'underline',
-	},
-}));
 
 function CustomMarkdownLink(props: CustomMarkdownLinkProps) {
 	const external = useMemo(
@@ -53,18 +40,16 @@ function CustomMarkdownLink(props: CustomMarkdownLinkProps) {
 }
 
 export default function Tos({ tosContents }: TosProps) {
-	const { classes } = useStyles();
-
 	return (
 		<ReactMarkdown
 			components={{
 				a: (props) => (
-					<CustomMarkdownLink href={props.href ?? ''} className={classes.link}>
+					<CustomMarkdownLink href={props.href ?? ''} className={styles.link}>
 						{props.children}
 					</CustomMarkdownLink>
 				),
 			}}
-			className={classes.markdown}
+			className={styles.markdown}
 		>
 			{tosContents}
 		</ReactMarkdown>

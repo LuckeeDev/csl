@@ -1,0 +1,11 @@
+.btn {
+	width: 50px;
+	height: 40px;
+	border-radius: var(--mantine-radius-sm);
+	border: 0;
+	outline: 0;
+	margin-right: var(--mantine-spacing-xs);
+	cursor: pointer;
+
+	transition: 0.2s all ease-in-out;
+}

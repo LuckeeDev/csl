@@ -1,4 +1,4 @@
-import { Pagination, ScrollArea, Table, createStyles } from '@mantine/core';
+import { Pagination, ScrollArea, Table } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
@@ -14,16 +14,9 @@ import { GROUPS_LINKS } from 'navigation/dashboard/groups';
 import { useMemo } from 'react';
 import useSWR from 'swr';
 
-const useStyles = createStyles((theme) => ({
-	textInput: {
-		[`@media (max-width: ${theme.breakpoints.md})`]: {
-			maxWidth: '300px',
-		},
-	},
-}));
+import styles from './styles.module.css';
 
 function DashboardGroupsAll() {
-	const { classes } = useStyles();
 	const [pageIndex, setPageIndex] = useQueryState<number>('page', 1);
 	const form = useGroupForm();
 	const { data, mutate, error } = useSWR(
@@ -66,7 +59,7 @@ function DashboardGroupsAll() {
 			<PageHeading loading={!data?.groups}>Elenco gruppi</PageHeading>
 
 			<ScrollArea>
-				<Table sx={{ minWidth: '800px' }}>
+				<Table style={{ minWidth: '800px' }}>
 					<thead>
 						<tr>
 							<th>Gruppo</th>
@@ -83,7 +76,7 @@ function DashboardGroupsAll() {
 						<tr>
 							<td>
 								<GroupForm
-									className={classes.textInput}
+									className={styles.textInput}
 									form={form}
 									onSubmit={onSubmit}
 								/>

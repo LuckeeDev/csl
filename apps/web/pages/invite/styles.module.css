@@ -1,0 +1,19 @@
+.page {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
+
+.card {
+	max-width: 450px;
+}
+
+.iconWrapper {
+	height: 50px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	color: var(--mantine-color-teal-5);
+	margin-bottom: var(--mantine-spacing-sm);
+}

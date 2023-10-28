@@ -1,4 +1,4 @@
-import { Card, createStyles, Text } from '@mantine/core';
+import { Card, Text } from '@mantine/core';
 import { IconCircleCheck } from '@tabler/icons-react';
 import { Group } from '@prisma/client';
 import PageTitle from 'components/head/PageTitle';
@@ -8,43 +8,23 @@ import { getSession } from 'next-auth/react';
 import prisma from 'prisma/client';
 import { BasePageProps } from 'types/pages';
 
+import styles from './styles.module.css';
+
 interface InviteProps extends BasePageProps {
 	group: Omit<Group, 'id'>;
 }
 
-const useStyles = createStyles((theme) => ({
-	page: {
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
-		height: '100%',
-	},
-	card: {
-		maxWidth: '450px',
-	},
-	iconWrapper: {
-		height: '50px',
-		width: '100%',
-		display: 'flex',
-		justifyContent: 'center',
-		color: theme.colors.teal[5],
-		marginBottom: theme.spacing.sm,
-	},
-}));
-
 export default function Invite({ group }: InviteProps) {
-	const { classes } = useStyles();
-
 	return (
-		<div className={classes.page}>
+		<div className={styles.page}>
 			<PageTitle>Invito al gruppo {group.name}</PageTitle>
 
-			<Card shadow="sm" p="lg" className={classes.card}>
-				<div className={classes.iconWrapper}>
+			<Card shadow="sm" p="lg" className={styles.card}>
+				<div className={styles.iconWrapper}>
 					<IconCircleCheck height="50px" width="50px" />
 				</div>
 
-				<Text weight={500} mb="xs">
+				<Text style={{fontWeight: 500}} mb="xs">
 					Invito al gruppo
 				</Text>
 

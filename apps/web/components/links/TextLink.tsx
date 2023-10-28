@@ -1,15 +1,13 @@
 import { Anchor, AnchorProps } from '@mantine/core';
 import Link from 'next/link';
+import {ReactNode} from 'react';
 
 interface TextLinkProps extends AnchorProps {
 	href: string;
 	target?: string;
+	children?: ReactNode;
 }
 
 export default function TextLink({ href, children, ...props }: TextLinkProps) {
-	return (
-		<Link href={href} passHref legacyBehavior>
-			<Anchor {...props}>{children}</Anchor>
-		</Link>
-	);
+	return <Anchor component={Link} href={href} {...props}>{children}</Anchor>;
 }

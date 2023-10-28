@@ -1,0 +1,45 @@
+.footer {
+	display: grid;
+	width: 100%;
+	height: 98px;
+	border-top: 1px solid #2c2e33;
+	padding: var(--mantine-spacing-xs) 20%;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-areas: 'left vercel right';
+	align-items: center;
+	gap: 0;
+}
+
+@media (max-width: var(--mantine-breakpoints-md)) {
+	.footer {
+		height: auto;
+		padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
+		gridtemplatecolumns: auto auto;
+		gridtemplaterows: 80px;
+	}
+}
+
+.anchor {
+	display: flex;
+	align-items: center;
+	color: var(--mantine-color-dark-0);
+
+	&:hover {
+		color: var(--mantine-color-blue-4);
+	}
+}
+
+.icon {
+	margin-right: var(--mantine-spacing-xs);
+}
+
+.leftDiv {
+	grid-area: left;
+}
+
+.rightDiv {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	grid-area: right;
+}

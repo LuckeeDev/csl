@@ -1,0 +1,39 @@
+.wrapper {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	justify-content: space-between;
+}
+
+.child {
+	width: 50%;
+}
+
+.carouselSmall {
+	@apply .child;
+}
+
+.carouselBig {
+	@apply .child;
+}
+
+@media (max-width: var(--mantine-breakpoints-md)) {
+	.wrapper {
+		flex-direction: column;
+		justify-content: flex-start;
+	}
+
+	.child {
+		width: 100%;
+	}
+
+	.carouselBig {
+		display: none;
+	}
+}
+
+@media (min-width: var(--mantine-breakpoints-md)) {
+	.carouselSmall {
+		display: none;
+	}
+}
