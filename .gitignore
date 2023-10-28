@@ -48,6 +48,7 @@ Thumbs.db
 
 # NX Migrations
 migrations.json
+.nx
 
 # Data and files used to test scripts
 /scripts/data
