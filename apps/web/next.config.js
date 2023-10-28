@@ -11,7 +11,12 @@ const nextConfig = {
 		svgr: false,
 	},
 	images: {
-		domains: ['cdn.cslussana.com'],
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'cdn.cslussana.com',
+			},
+		],
 	},
 };
 
