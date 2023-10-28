@@ -28,7 +28,7 @@ function DashboardShopIndex({ shopSessions }: DashboardShopIndexProps) {
 			<h1>Sessioni di vendita</h1>
 
 			<ScrollArea>
-				<Table sx={{ minWidth: 800 }}>
+				<Table style={{ minWidth: 800 }}>
 					<thead>
 						<tr>
 							<th>Nome</th>

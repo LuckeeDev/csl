@@ -44,7 +44,7 @@ const LoggedInButton = forwardRef<HTMLButtonElement, LoggedInButtonProps>(
 		{ session, showUserImage, opened, theme, ...others }: LoggedInButtonProps,
 		ref
 	) => (
-		<UnstyledButton ref={ref} sx={userButtonStyles} {...others}>
+		<UnstyledButton ref={ref} style={userButtonStyles} {...others}>
 			<Group>
 				{showUserImage && (
 					<Avatar
@@ -117,7 +117,7 @@ export default function UserButton() {
 					</Menu.Dropdown>
 				</Menu>
 			) : (
-				<UnstyledButton sx={userButtonStyles}>
+				<UnstyledButton style={userButtonStyles}>
 					<Group onClick={() => signIn()}>
 						<ThemeIcon color="blue" variant="light">
 							<IconUser />

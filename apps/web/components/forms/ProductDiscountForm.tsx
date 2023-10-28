@@ -54,7 +54,7 @@ export default function ProductDiscountForm({
 				<NumberInput
 					id="discountPercentage"
 					step={1}
-					precision={0}
+					decimalScale={0}
 					max={100}
 					min={0}
 					placeholder="La percentuale di sconto da applicare alla categoria scontata"
@@ -86,7 +86,7 @@ export default function ProductDiscountForm({
 			>
 				<NumberInput
 					step={1}
-					precision={0}
+					decimalScale={0}
 					placeholder="Il numero di prodotti necessari per poter applicare lo sconto"
 					{...form.getInputProps('requiredQuantity')}
 				/>
@@ -117,7 +117,7 @@ export default function ProductDiscountForm({
 			>
 				<NumberInput
 					step={1}
-					precision={0}
+					decimalScale={0}
 					placeholder="Il numero di prodotti a cui viene applicato lo sconto"
 					{...form.getInputProps('discountedQuantity')}
 				/>

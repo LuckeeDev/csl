@@ -26,7 +26,7 @@ export default function HomePage() {
 	return (
 		<div>
 			<Title
-				sx={{ fontSize: 80, fontWeight: 900, letterSpacing: -2 }}
+				style={{ fontSize: 80, fontWeight: 900, letterSpacing: -2 }}
 				align="center"
 				mt={100}
 			>
@@ -39,7 +39,7 @@ export default function HomePage() {
 				color="dimmed"
 				align="center"
 				size="lg"
-				sx={{ maxWidth: 580 }}
+				style={{ maxWidth: 580 }}
 				mx="auto"
 				mt="xl"
 			>

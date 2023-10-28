@@ -1,4 +1,5 @@
 import { MantineProvider } from '@mantine/core';
+import { DatesProvider } from '@mantine/dates';
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 import { Session } from 'next-auth';
@@ -13,19 +14,14 @@ interface ProvidersProps {
 export default function Providers(props: ProvidersProps) {
 	return (
 		<SessionProvider session={props.session}>
-			<MantineProvider
-				theme={{
-					colorScheme: 'dark',
-					datesLocale: 'it',
-				}}
-				withGlobalStyles
-				withNormalizeCSS
-			>
-				<ModalsProvider>
-					<Notifications />
+			<MantineProvider>
+				<DatesProvider settings={{ locale: 'it'}}>
+					<ModalsProvider>
+						<Notifications />
 
-					{props.children}
-				</ModalsProvider>
+						{props.children}
+					</ModalsProvider>
+				</DatesProvider>
 			</MantineProvider>
 		</SessionProvider>
 	);

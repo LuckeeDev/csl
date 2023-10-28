@@ -64,7 +64,7 @@ function DashboardShopProducts({
 			<h1>Prodotti</h1>
 
 			<ScrollArea>
-				<Table sx={{ minWidth: 800 }}>
+				<Table style={{ minWidth: 800 }}>
 					<thead>
 						<tr>
 							<th>Nome</th>

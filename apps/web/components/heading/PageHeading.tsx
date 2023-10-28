@@ -42,7 +42,7 @@ export default function PageHeading({
 					size="lg"
 					variant="subtle"
 					color="primary"
-					sx={{ marginRight: '5px' }}
+					style={{ marginRight: '5px' }}
 					onClick={() => goBack()}
 				>
 					<IconArrowLeft />

@@ -38,7 +38,7 @@ export default function DashboardGroups() {
 					<h3>I gruppi che gestisco</h3>
 
 					<ScrollArea>
-						<Table sx={{ minWidth: '800px' }}>
+						<Table style={{ minWidth: '800px' }}>
 							<thead>
 								<tr>
 									<th>Gruppo</th>

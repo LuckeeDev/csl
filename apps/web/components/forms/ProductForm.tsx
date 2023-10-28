@@ -195,8 +195,8 @@ export default function ProductForm({
 
 			<Input.Wrapper id="price" label="Prezzo" required>
 				<NumberInput
-					precision={2}
-					icon={'€'}
+					decimalScale={2}
+					rightSection={'€'}
 					id="price"
 					placeholder="Prezzo del prodotto"
 					{...form.getInputProps('price')}

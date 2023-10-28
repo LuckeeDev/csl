@@ -10,6 +10,7 @@ import Head from 'next/head';
 import NextNProgress from 'nextjs-progressbar';
 
 import './styles.css';
+import '@mantine/core/styles.css';
 
 interface CustomAppProps extends AppProps {
 	Component: NextComponentType<NextPageContext, any, any> & {

@@ -61,7 +61,7 @@ function DashboardArticlesIndex() {
 			<PageHeading loading={!data?.articles}>Articoli</PageHeading>
 
 			<ScrollArea>
-				<Table sx={{ minWidth: 800 }}>
+				<Table style={{ minWidth: 800 }}>
 					<thead>
 						<tr>
 							<th>Titolo</th>

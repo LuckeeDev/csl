@@ -70,7 +70,7 @@ export default function DashboardUsersRoles() {
 			<PageHeading loading={!data}>Ruoli</PageHeading>
 
 			<ScrollArea>
-				<Table sx={{ minWidth: '800px' }}>
+				<Table style={{ minWidth: '800px' }}>
 					<thead>
 						<tr>
 							<th>Ruolo</th>

@@ -38,7 +38,7 @@ function DashboardOrdersIndex({ shopSessions }: DashboardOrdersIndexProps) {
 			<h1>Ordini</h1>
 
 			<ScrollArea>
-				<Table sx={{ minWidth: '800px' }}>
+				<Table style={{ minWidth: '800px' }}>
 					<thead>
 						<tr>
 							<th>Nome</th>
