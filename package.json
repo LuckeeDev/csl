@@ -63,7 +63,7 @@
     "@babel/preset-typescript": "7.22.5",
     "@commitlint/cli": "^17.6.6",
     "@commitlint/config-conventional": "^18.1.0",
-    "@docusaurus/module-type-aliases": "2.4.1",
+    "@docusaurus/module-type-aliases": "2.4.3",
     "@jscutlery/semver": "^4.0.0",
     "@nx/devkit": "17.0.2",
     "@nx/eslint-plugin": "17.0.2",
