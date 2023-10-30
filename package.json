@@ -89,7 +89,7 @@
     "babel-jest": "29.5.0",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.7",
-    "eslint-config-prettier": "8.8.0",
+    "eslint-config-prettier": "9.0.0",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-jsdoc": "46.4.2",
     "eslint-plugin-jsx-a11y": "6.7.1",
