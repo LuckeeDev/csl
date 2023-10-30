@@ -1,8 +1,8 @@
 import { LoadingOverlay, Table, Text } from '@mantine/core';
 import { useToggle } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
-import { IconCheck, IconX } from '@tabler/icons-react';
 import { Order, Product, ProductDiscount } from '@prisma/client';
+import { IconCheck, IconX } from '@tabler/icons-react';
 import axios from 'axios';
 import PageTitle from 'components/head/PageTitle';
 import OrderRow from 'components/tableRows/OrderRow';
@@ -101,18 +101,18 @@ function DashboardManageOrders({
 			<h1>Gestione ordini</h1>
 
 			<Table>
-				<thead>
-					<tr>
-						<th>Prodotto</th>
-						<th>Quantità</th>
-						<th>Taglia</th>
-						<th>Colore</th>
-						<th>Costo</th>
+				<Table.Thead>
+					<Table.Tr>
+						<Table.Th>Prodotto</Table.Th>
+						<Table.Th>Quantità</Table.Th>
+						<Table.Th>Taglia</Table.Th>
+						<Table.Th>Colore</Table.Th>
+						<Table.Th>Costo</Table.Th>
 						{sessionStatus === SessionStatus.ONGOING && <th>Azioni</th>}
-					</tr>
-				</thead>
+					</Table.Tr>
+				</Table.Thead>
 
-				<tbody>{rows}</tbody>
+				<Table.Tbody>{rows}</Table.Tbody>
 			</Table>
 
 			<Text>Totale: {total}€</Text>

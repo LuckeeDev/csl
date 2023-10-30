@@ -175,16 +175,16 @@ export default function EventPage({ event: serverSideEvent }: EventPageProps) {
 							) : (
 								<ScrollArea>
 									<Table style={{ minWidth: '600px' }} striped>
-										<thead>
-											<tr>
-												<th>Seminario</th>
-												<th>Dettagli</th>
-												<th>Iscritti</th>
-												<th>Iscriviti</th>
-											</tr>
-										</thead>
+										<Table.Thead>
+											<Table.Tr>
+												<Table.Th>Seminario</Table.Th>
+												<Table.Th>Dettagli</Table.Th>
+												<Table.Th>Iscritti</Table.Th>
+												<Table.Th>Iscriviti</Table.Th>
+											</Table.Tr>
+										</Table.Thead>
 
-										<tbody>
+										<Table.Tbody>
 											{slot.seminars.map((seminar) => (
 												<SeminarClientRow
 													onSignup={onSignup}
@@ -194,7 +194,7 @@ export default function EventPage({ event: serverSideEvent }: EventPageProps) {
 													loading={!bookings}
 												/>
 											))}
-										</tbody>
+										</Table.Tbody>
 									</Table>
 								</ScrollArea>
 							)}

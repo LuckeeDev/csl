@@ -39,16 +39,16 @@ function DashboardOrdersIndex({ shopSessions }: DashboardOrdersIndexProps) {
 
 			<ScrollArea>
 				<Table style={{ minWidth: '800px' }}>
-					<thead>
-						<tr>
-							<th>Nome</th>
-							<th>Data di inizio</th>
-							<th>Data di fine</th>
-							<th>Azioni</th>
-						</tr>
-					</thead>
+					<Table.Thead>
+						<Table.Tr>
+							<Table.Th>Nome</Table.Th>
+							<Table.Th>Data di inizio</Table.Th>
+							<Table.Th>Data di fine</Table.Th>
+							<Table.Th>Azioni</Table.Th>
+						</Table.Tr>
+					</Table.Thead>
 
-					<tbody>{rows}</tbody>
+					<Table.Tbody>{rows}</Table.Tbody>
 				</Table>
 			</ScrollArea>
 		</>

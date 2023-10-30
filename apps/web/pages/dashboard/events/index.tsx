@@ -1,5 +1,3 @@
-import { EVENT_LINKS } from 'navigation/dashboard/events';
-import PageTitle from 'components/head/PageTitle';
 import {
 	ActionIcon,
 	Input,
@@ -8,18 +6,20 @@ import {
 	Text,
 	TextInput,
 } from '@mantine/core';
-import useSWR from 'swr';
-import { createEvent, deleteEvent, getEvents } from 'data/api/events';
-import { useMemo } from 'react';
-import EventRow from 'components/tableRows/EventRow';
 import { joiResolver, useForm } from '@mantine/form';
-import Joi from 'joi';
+import { useModals } from '@mantine/modals';
+import { showNotification, updateNotification } from '@mantine/notifications';
 import { IconCheck, IconX } from '@tabler/icons-react';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
-import { showNotification, updateNotification } from '@mantine/notifications';
+import PageTitle from 'components/head/PageTitle';
 import PageHeading from 'components/heading/PageHeading';
+import EventRow from 'components/tableRows/EventRow';
+import { createEvent, deleteEvent, getEvents } from 'data/api/events';
+import Joi from 'joi';
+import { EVENT_LINKS } from 'navigation/dashboard/events';
+import { useMemo } from 'react';
+import useSWR from 'swr';
 import { v4 } from 'uuid';
-import { useModals } from '@mantine/modals';
 
 export interface NewEventFormValues {
 	name: string;
@@ -146,18 +146,18 @@ function DashboardEventsIndex() {
 
 			<ScrollArea>
 				<Table style={{ minWidth: '600px' }}>
-					<thead>
-						<tr>
-							<th>Nome</th>
-							<th>Azioni</th>
-						</tr>
-					</thead>
+					<Table.Thead>
+						<Table.Tr>
+							<Table.Th>Nome</Table.Th>
+							<Table.Th>Azioni</Table.Th>
+						</Table.Tr>
+					</Table.Thead>
 
-					<tbody>
+					<Table.Tbody>
 						{rows}
 
-						<tr>
-							<td>
+						<Table.Tr>
+							<Table.Td>
 								<Input.Wrapper
 									label="Nuovo evento"
 									style={{ maxWidth: '400px' }}
@@ -178,9 +178,9 @@ function DashboardEventsIndex() {
 										}
 									/>
 								</Input.Wrapper>
-							</td>
-						</tr>
-					</tbody>
+							</Table.Td>
+						</Table.Tr>
+					</Table.Tbody>
 				</Table>
 			</ScrollArea>
 

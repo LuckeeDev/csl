@@ -1,7 +1,9 @@
-import { Table, ScrollArea } from '@mantine/core';
+import { ScrollArea, Table } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { Product } from '@prisma/client';
+import { IconCheck, IconX } from '@tabler/icons-react';
 import axios from 'axios';
+import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 import PageTitle from 'components/head/PageTitle';
 import ProductRow from 'components/products/ProductRow';
 import { environment } from 'environments/environment';
@@ -9,8 +11,6 @@ import { SHOP_LINKS } from 'navigation/dashboard/shop';
 import { GetServerSideProps } from 'next';
 import prisma from 'prisma/client';
 import { useState } from 'react';
-import { IconCheck, IconX } from '@tabler/icons-react';
-import DashboardPageContainer from 'components/containers/DashboardPageContainer';
 
 interface DashboardShopProductsProps {
 	products: Pick<Product, 'id' | 'name' | 'price'>[];
@@ -65,15 +65,15 @@ function DashboardShopProducts({
 
 			<ScrollArea>
 				<Table style={{ minWidth: 800 }}>
-					<thead>
-						<tr>
-							<th>Nome</th>
-							<th>Prezzo</th>
-							<th>Azioni</th>
-						</tr>
-					</thead>
+					<Table.Thead>
+						<Table.Tr>
+							<Table.Th>Nome</Table.Th>
+							<Table.Th>Prezzo</Table.Th>
+							<Table.Th>Azioni</Table.Th>
+						</Table.Tr>
+					</Table.Thead>
 
-					<tbody>{rows}</tbody>
+					<Table.Tbody>{rows}</Table.Tbody>
 				</Table>
 			</ScrollArea>
 		</DashboardPageContainer>

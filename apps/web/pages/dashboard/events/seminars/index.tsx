@@ -100,16 +100,16 @@ function DashboardSeminars() {
 			<PageHeading loading={!data}>Seminari</PageHeading>
 
 			<Table>
-				<thead>
-					<tr>
-						<th>Nome</th>
-						<th>Evento</th>
-						<th>Fascia oraria</th>
-						<th>Azioni</th>
-					</tr>
-				</thead>
+				<Table.Thead>
+					<Table.Tr>
+						<Table.Th>Nome</Table.Th>
+						<Table.Th>Evento</Table.Th>
+						<Table.Th>Fascia oraria</Table.Th>
+						<Table.Th>Azioni</Table.Th>
+					</Table.Tr>
+				</Table.Thead>
 
-				<tbody>{rows}</tbody>
+				<Table.Tbody>{rows}</Table.Tbody>
 			</Table>
 
 			<div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>

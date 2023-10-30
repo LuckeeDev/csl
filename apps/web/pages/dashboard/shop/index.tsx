@@ -1,11 +1,11 @@
-import { SHOP_LINKS } from 'navigation/dashboard/shop';
-import { GetServerSideProps } from 'next';
-import PageTitle from 'components/head/PageTitle';
-import prisma from 'prisma/client';
 import { ScrollArea, Table } from '@mantine/core';
-import ShopSessionRow from 'components/shopSessions/ShopSessionRow';
 import { ShopSession } from '@prisma/client';
 import DashboardPageContainer from 'components/containers/DashboardPageContainer';
+import PageTitle from 'components/head/PageTitle';
+import ShopSessionRow from 'components/shopSessions/ShopSessionRow';
+import { SHOP_LINKS } from 'navigation/dashboard/shop';
+import { GetServerSideProps } from 'next';
+import prisma from 'prisma/client';
 
 interface DashboardShopIndexProps {
 	shopSessions: (Omit<
@@ -29,16 +29,16 @@ function DashboardShopIndex({ shopSessions }: DashboardShopIndexProps) {
 
 			<ScrollArea>
 				<Table style={{ minWidth: 800 }}>
-					<thead>
-						<tr>
-							<th>Nome</th>
-							<th>Data di inizio</th>
-							<th>Data di fine</th>
-							<th>Azioni</th>
-						</tr>
-					</thead>
+					<Table.Thead>
+						<Table.Tr>
+							<Table.Th>Nome</Table.Th>
+							<Table.Th>Data di inizio</Table.Th>
+							<Table.Th>Data di fine</Table.Th>
+							<Table.Th>Azioni</Table.Th>
+						</Table.Tr>
+					</Table.Thead>
 
-					<tbody>{rows}</tbody>
+					<Table.Tbody>{rows}</Table.Tbody>
 				</Table>
 			</ScrollArea>
 		</DashboardPageContainer>

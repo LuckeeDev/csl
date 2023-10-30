@@ -1,15 +1,15 @@
 import { ScrollArea, Table } from '@mantine/core';
-import ArticleRow from 'components/articles/ArticleRow';
-import PageTitle from 'components/head/PageTitle';
-import { IconCheck, IconX } from '@tabler/icons-react';
-import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
-import DashboardPageContainer from 'components/containers/DashboardPageContainer';
-import useSWR from 'swr';
-import { getArticles, setPublished } from 'data/api/articles';
-import { useMemo } from 'react';
-import PageHeading from 'components/heading/PageHeading';
-import useDataError from 'hooks/errors/useDataError';
 import { showNotification } from '@mantine/notifications';
+import { IconCheck, IconX } from '@tabler/icons-react';
+import ArticleRow from 'components/articles/ArticleRow';
+import DashboardPageContainer from 'components/containers/DashboardPageContainer';
+import PageTitle from 'components/head/PageTitle';
+import PageHeading from 'components/heading/PageHeading';
+import { getArticles, setPublished } from 'data/api/articles';
+import useDataError from 'hooks/errors/useDataError';
+import { ARTICLE_LINKS } from 'navigation/dashboard/articles';
+import { useMemo } from 'react';
+import useSWR from 'swr';
 
 function DashboardArticlesIndex() {
 	const { data, mutate, error } = useSWR('/api/articles', getArticles);
@@ -62,17 +62,17 @@ function DashboardArticlesIndex() {
 
 			<ScrollArea>
 				<Table style={{ minWidth: 800 }}>
-					<thead>
-						<tr>
-							<th>Titolo</th>
-							<th>Autore</th>
-							<th>Tempo di lettura</th>
-							<th>Pubblicato</th>
-							<th>Azioni</th>
-						</tr>
-					</thead>
+					<Table.Thead>
+						<Table.Tr>
+							<Table.Th>Titolo</Table.Th>
+							<Table.Th>Autore</Table.Th>
+							<Table.Th>Tempo di lettura</Table.Th>
+							<Table.Th>Pubblicato</Table.Th>
+							<Table.Th>Azioni</Table.Th>
+						</Table.Tr>
+					</Table.Thead>
 
-					<tbody>{rows}</tbody>
+					<Table.Tbody>{rows}</Table.Tbody>
 				</Table>
 			</ScrollArea>
 		</DashboardPageContainer>

@@ -11,7 +11,7 @@ import getEndpoint from 'data/api/getEndpoint';
 import { updateUser } from 'data/api/users';
 import useDataError from 'hooks/errors/useDataError';
 import { USERS_LINKS } from 'navigation/dashboard/users';
-import { useState, useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import useSWR from 'swr';
 
 export default function DashboardUsers() {
@@ -78,16 +78,16 @@ export default function DashboardUsers() {
 
 			<ScrollArea>
 				<Table>
-					<thead>
-						<tr>
-							<th>Nome</th>
-							<th>Email</th>
-							<th>Ruoli</th>
-							<th>Azioni</th>
-						</tr>
-					</thead>
+					<Table.Thead>
+						<Table.Tr>
+							<Table.Th>Nome</Table.Th>
+							<Table.Th>Email</Table.Th>
+							<Table.Th>Ruoli</Table.Th>
+							<Table.Th>Azioni</Table.Th>
+						</Table.Tr>
+					</Table.Thead>
 
-					<tbody>
+					<Table.Tbody>
 						{searchResult?.map((user, index) => (
 							<UserRow
 								key={index}
@@ -96,7 +96,7 @@ export default function DashboardUsers() {
 								updateRoles={updateRoles}
 							/>
 						))}
-					</tbody>
+					</Table.Tbody>
 				</Table>
 			</ScrollArea>
 		</DashboardPageContainer>

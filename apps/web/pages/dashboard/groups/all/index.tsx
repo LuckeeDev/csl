@@ -60,34 +60,34 @@ function DashboardGroupsAll() {
 
 			<ScrollArea>
 				<Table style={{ minWidth: '800px' }}>
-					<thead>
-						<tr>
-							<th>Gruppo</th>
-							<th>Utenti</th>
-							<th>Gestori</th>
-							<th>Azioni</th>
-						</tr>
-					</thead>
+					<Table.Thead>
+						<Table.Tr>
+							<Table.Th>Gruppo</Table.Th>
+							<Table.Th>Utenti</Table.Th>
+							<Table.Th>Gestori</Table.Th>
+							<Table.Th>Azioni</Table.Th>
+						</Table.Tr>
+					</Table.Thead>
 
-					<tbody>
+					<Table.Tbody>
 						{data?.groups?.map((group, index) => (
 							<GroupRow key={index} group={group} />
 						)) ?? []}
-						<tr>
-							<td>
+						<Table.Tr>
+							<Table.Td>
 								<GroupForm
 									className={styles.textInput}
 									form={form}
 									onSubmit={onSubmit}
 								/>
-							</td>
+							</Table.Td>
 
 							{/* Added these table data to show a full line above the group form */}
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</tbody>
+							<Table.Td></Table.Td>
+							<Table.Td></Table.Td>
+							<Table.Td></Table.Td>
+						</Table.Tr>
+					</Table.Tbody>
 				</Table>
 			</ScrollArea>
 

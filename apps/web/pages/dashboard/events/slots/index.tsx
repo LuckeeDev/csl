@@ -35,17 +35,17 @@ function DashboardEventsSlots() {
 
 			<ScrollArea>
 				<Table style={{ minWidth: '800px' }}>
-					<thead>
-						<tr>
-							<th>Nome</th>
-							<th>Inizio</th>
-							<th>Fine</th>
-							<th>Evento</th>
-							<th>Azioni</th>
-						</tr>
-					</thead>
+					<Table.Thead>
+						<Table.Tr>
+							<Table.Th>Nome</Table.Th>
+							<Table.Th>Inizio</Table.Th>
+							<Table.Th>Fine</Table.Th>
+							<Table.Th>Evento</Table.Th>
+							<Table.Th>Azioni</Table.Th>
+						</Table.Tr>
+					</Table.Thead>
 
-					<tbody>{rows}</tbody>
+					<Table.Tbody>{rows}</Table.Tbody>
 				</Table>
 			</ScrollArea>
 		</DashboardPageContainer>

@@ -130,17 +130,17 @@ function DashboardShopCategories({
 
 			<ScrollArea>
 				<Table style={{ minWidth: 400 }}>
-					<thead>
-						<tr>
-							<th>Nome</th>
-							<th>Azioni</th>
-						</tr>
-					</thead>
+					<Table.Thead>
+						<Table.Tr>
+							<Table.Th>Nome</Table.Th>
+							<Table.Th>Azioni</Table.Th>
+						</Table.Tr>
+					</Table.Thead>
 
-					<tbody>
+					<Table.Tbody>
 						{rows}
-						<tr>
-							<td>
+						<Table.Tr>
+							<Table.Td>
 								<form onSubmit={form.onSubmit(onSubmit)}>
 									<Input.Wrapper label="Nuova categoria">
 										<TextInput
@@ -155,9 +155,9 @@ function DashboardShopCategories({
 										/>
 									</Input.Wrapper>
 								</form>
-							</td>
-						</tr>
-					</tbody>
+							</Table.Td>
+						</Table.Tr>
+					</Table.Tbody>
 				</Table>
 			</ScrollArea>
 		</DashboardPageContainer>

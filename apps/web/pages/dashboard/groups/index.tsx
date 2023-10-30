@@ -39,20 +39,20 @@ export default function DashboardGroups() {
 
 					<ScrollArea>
 						<Table style={{ minWidth: '800px' }}>
-							<thead>
-								<tr>
-									<th>Gruppo</th>
-									<th>Utenti</th>
-									<th>Gestori</th>
-									<th>Azioni</th>
-								</tr>
-							</thead>
+							<Table.Thead>
+								<Table.Tr>
+									<Table.Th>Gruppo</Table.Th>
+									<Table.Th>Utenti</Table.Th>
+									<Table.Th>Gestori</Table.Th>
+									<Table.Th>Azioni</Table.Th>
+								</Table.Tr>
+							</Table.Thead>
 
-							<tbody>
+							<Table.Tbody>
 								{data.managedGroups?.map((group, index) => (
 									<GroupRow key={index} group={group} />
 								)) ?? []}
-							</tbody>
+							</Table.Tbody>
 						</Table>
 					</ScrollArea>
 				</>

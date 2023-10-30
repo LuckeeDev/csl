@@ -6,22 +6,22 @@ import {
 	Space,
 	Table,
 } from '@mantine/core';
+import { showNotification } from '@mantine/notifications';
 import { ProductCategory, ProductDiscount, ShopSession } from '@prisma/client';
+import { IconCheck, IconX } from '@tabler/icons-react';
+import axios from 'axios';
+import DashboardPageContainer from 'components/containers/DashboardPageContainer';
+import ProductDiscountForm from 'components/forms/ProductDiscountForm';
 import PageTitle from 'components/head/PageTitle';
+import ProductDiscountRow from 'components/tableRows/ProductDiscountRow';
+import { environment } from 'environments/environment';
+import useProductDiscountForm, {
+	ProductDiscountFormValues,
+} from 'hooks/forms/useProductDiscountForm';
 import { SHOP_LINKS } from 'navigation/dashboard/shop';
 import { GetServerSideProps } from 'next';
 import prisma from 'prisma/client';
 import { useCallback, useMemo, useState } from 'react';
-import DashboardPageContainer from 'components/containers/DashboardPageContainer';
-import ProductDiscountForm from 'components/forms/ProductDiscountForm';
-import useProductDiscountForm, {
-	ProductDiscountFormValues,
-} from 'hooks/forms/useProductDiscountForm';
-import ProductDiscountRow from 'components/tableRows/ProductDiscountRow';
-import axios from 'axios';
-import { environment } from 'environments/environment';
-import { IconCheck, IconX } from '@tabler/icons-react';
-import { showNotification } from '@mantine/notifications';
 
 interface DashboardShopDiscountsProps {
 	productDiscounts: Omit<ProductDiscount, 'updated_at' | 'created_at'>[];
@@ -133,15 +133,15 @@ function DashboardShopDiscounts({
 
 			<ScrollArea>
 				<Table style={{ minWidth: 800 }}>
-					<thead>
-						<tr>
-							<th>Nome</th>
-							<th>Sconto</th>
-							<th>Azioni</th>
-						</tr>
-					</thead>
+					<Table.Thead>
+						<Table.Tr>
+							<Table.Th>Nome</Table.Th>
+							<Table.Th>Sconto</Table.Th>
+							<Table.Th>Azioni</Table.Th>
+						</Table.Tr>
+					</Table.Thead>
 
-					<tbody>{rows}</tbody>
+					<Table.Tbody>{rows}</Table.Tbody>
 				</Table>
 			</ScrollArea>
 

@@ -117,19 +117,19 @@ function DashboardArticlesCategories() {
 
 			<ScrollArea>
 				<Table style={{ minWidth: '800px' }}>
-					<thead>
-						<tr>
-							<th>Nome</th>
-							<th>Colore</th>
-							<th>Articoli</th>
-							<th>Azioni</th>
-						</tr>
-					</thead>
+					<Table.Thead>
+						<Table.Tr>
+							<Table.Th>Nome</Table.Th>
+							<Table.Th>Colore</Table.Th>
+							<Table.Th>Articoli</Table.Th>
+							<Table.Th>Azioni</Table.Th>
+						</Table.Tr>
+					</Table.Thead>
 
-					<tbody>
+					<Table.Tbody>
 						{rows}
-						<tr>
-							<td>
+						<Table.Tr>
+							<Table.Td>
 								<Input.Wrapper label="Nuova categoria" required>
 									<TextInput
 										form="article-category-form"
@@ -137,9 +137,9 @@ function DashboardArticlesCategories() {
 										{...form.getInputProps('name')}
 									/>
 								</Input.Wrapper>
-							</td>
+							</Table.Td>
 
-							<td>
+							<Table.Td>
 								<Input.Wrapper label="Colore" required>
 									<ColorInput
 										form="article-category-form"
@@ -147,17 +147,17 @@ function DashboardArticlesCategories() {
 										{...form.getInputProps('color')}
 									/>
 								</Input.Wrapper>
-							</td>
+							</Table.Td>
 
-							<td></td>
+							<Table.Td></Table.Td>
 
-							<td>
+							<Table.Td>
 								<Button type="submit" form="article-category-form">
 									Crea
 								</Button>
-							</td>
-						</tr>
-					</tbody>
+							</Table.Td>
+						</Table.Tr>
+					</Table.Tbody>
 				</Table>
 			</ScrollArea>
 
