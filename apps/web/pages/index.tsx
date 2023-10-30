@@ -1,4 +1,4 @@
-import { Title, Text } from '@mantine/core';
+import { Text, Title } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { IconX } from '@tabler/icons-react';
 import { useRouter } from 'next/router';
@@ -24,10 +24,17 @@ export default function HomePage() {
 	}, [router]);
 
 	return (
-		<div>
+		<div
+			style={{
+				display: 'flex',
+				flexDirection: 'column',
+				justifyContent: 'center',
+				alignItems: 'center',
+				height: '100%',
+			}}
+		>
 			<Title
 				style={{ fontSize: 80, fontWeight: 900, letterSpacing: -2 }}
-				align="center"
 				mt={100}
 			>
 				<Text inherit variant="gradient" component="span">
@@ -35,14 +42,7 @@ export default function HomePage() {
 				</Text>
 			</Title>
 
-			<Text
-				color="dimmed"
-				align="center"
-				size="lg"
-				style={{ maxWidth: 580 }}
-				mx="auto"
-				mt="xl"
-			>
+			<Text c="dimmed" size="lg" style={{ maxWidth: 580 }} mx="auto" mt="xl">
 				Il sito del Comitato Studentesco Lussana.
 			</Text>
 		</div>

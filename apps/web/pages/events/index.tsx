@@ -1,6 +1,6 @@
 import { Card, SimpleGrid } from '@mantine/core';
-import { IconCalendar, IconClock } from '@tabler/icons-react';
 import { Event } from '@prisma/client';
+import { IconCalendar, IconClock } from '@tabler/icons-react';
 import PageTitle from 'components/head/PageTitle';
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
@@ -81,12 +81,12 @@ export default function EventsIndex({
 			<h1>Eventi</h1>
 
 			<SimpleGrid
-				cols={4}
-				breakpoints={[
-					{ maxWidth: 980, cols: 3 },
-					{ maxWidth: 755, cols: 2 },
-					{ maxWidth: 600, cols: 1 },
-				]}
+				cols={{
+					sm: 1,
+					md: 2,
+					lg: 3,
+					xl: 4,
+				}}
 			>
 				{events.map((e) => (
 					<Link href={`/events/${e.id}`} passHref key={e.id} legacyBehavior>

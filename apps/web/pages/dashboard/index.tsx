@@ -22,10 +22,10 @@ function DashboardIndex() {
 					/>
 
 					<div style={{ flex: 1 }}>
-						<Text size="sm" weight={500}>
+						<Text size="sm" style={{ fontWeight: 500 }}>
 							{session?.user.name}
 						</Text>
-						<Text color="dimmed" size="xs">
+						<Text c="dimmed" size="xs">
 							{session?.user.email}
 						</Text>
 					</div>

@@ -17,7 +17,7 @@
 	@apply .child;
 }
 
-@media (max-width: var(--mantine-breakpoints-md)) {
+@media (max-width: $mantine-breakpoint-md) {
 	.wrapper {
 		flex-direction: column;
 		justify-content: flex-start;
@@ -32,7 +32,7 @@
 	}
 }
 
-@media (min-width: var(--mantine-breakpoints-md)) {
+@media (min-width: $mantine-breakpoint-md) {
 	.carouselSmall {
 		display: none;
 	}

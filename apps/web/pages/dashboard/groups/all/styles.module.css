@@ -1,4 +1,4 @@
-@media (max-width: var(--mantine-breakpoints-md)) {
+@media (max-width: $mantine-breakpoint-md) {
 	.textInput {
 		max-width: 300px;
 	}

@@ -5,13 +5,13 @@ import {
 	Image as MantineImage,
 	SimpleGrid,
 } from '@mantine/core';
-import { IconInfoCircle } from '@tabler/icons-react';
 import {
 	Image,
 	Product,
 	ProductCategory,
 	ProductDiscount,
 } from '@prisma/client';
+import { IconInfoCircle } from '@tabler/icons-react';
 import FallbackPage from 'components/fallback/FallbackPage';
 import BackLink from 'components/links/BackLink';
 import ButtonLink from 'components/links/ButtonLink';
@@ -85,13 +85,13 @@ export default function ShopSessionPage({ shopSession }: ShopSessionPageProps) {
 			)}
 
 			<SimpleGrid
-				cols={5}
-				breakpoints={[
-					{ maxWidth: 'lg', cols: 4 },
-					{ maxWidth: 'md', cols: 3 },
-					{ maxWidth: 'sm', cols: 2 },
-					{ maxWidth: 'xs', cols: 1 },
-				]}
+				cols={{
+					xl: 5,
+					lg: 4,
+					md: 3,
+					sm: 2,
+					xs: 1,
+				}}
 			>
 				{shopSession.products.map((p) => (
 					<Link
@@ -107,7 +107,6 @@ export default function ShopSessionPage({ shopSession }: ShopSessionPageProps) {
 									src={p.images[0]?.url ?? null}
 									height={300}
 									alt={p.name}
-									withPlaceholder={p.images.length === 0}
 								/>
 							</Card.Section>
 

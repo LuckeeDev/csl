@@ -1,12 +1,12 @@
 import { Card, SimpleGrid } from '@mantine/core';
+import PageTitle from 'components/head/PageTitle';
+import ShopSessionCardContent from 'components/shopSessions/ShopSessionCardContent';
 import { GetStaticProps } from 'next';
+import Link from 'next/link';
 import prisma from 'prisma/client';
 import { useMemo } from 'react';
 import { SessionStatus, ShopSessionAPIData } from 'types/shopSession';
-import Link from 'next/link';
-import ShopSessionCardContent from 'components/shopSessions/ShopSessionCardContent';
 import getSessionStatus from 'utils/shop/getSessionStatus';
-import PageTitle from 'components/head/PageTitle';
 
 interface ShopIndexProps {
 	shopSessions: ShopSessionAPIData[];
@@ -30,18 +30,18 @@ export default function ShopIndex({
 	);
 
 	return (
-        <div style={{ padding: '0 15px 0 0' }}>
+		<div style={{ padding: '0 15px 0 0' }}>
 			<PageTitle>Negozio</PageTitle>
 
 			<h1>Negozio</h1>
 
 			<SimpleGrid
-				cols={4}
-				breakpoints={[
-					{ maxWidth: 980, cols: 3 },
-					{ maxWidth: 755, cols: 2 },
-					{ maxWidth: 600, cols: 1 },
-				]}
+				cols={{
+					sm: 1,
+					md: 2,
+					lg: 3,
+					xl: 4,
+				}}
 			>
 				{shopSessions.map((s) =>
 					s.status === SessionStatus.ONGOING ? (
@@ -58,7 +58,7 @@ export default function ShopIndex({
 				)}
 			</SimpleGrid>
 		</div>
-    );
+	);
 }
 
 export const getStaticProps: GetStaticProps<ShopIndexProps> = async (ctx) => {

@@ -20,13 +20,10 @@ function userButtonStyles(theme: MantineTheme) {
 		width: '100%',
 		padding: theme.spacing.xs,
 		borderRadius: theme.radius.sm,
-		color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
+		color: theme.colors.dark[0],
 
 		'&:hover': {
-			backgroundColor:
-				theme.colorScheme === 'dark'
-					? theme.colors.dark[6]
-					: theme.colors.gray[0],
+			backgroundColor: theme.colors.dark[6],
 		},
 	};
 }
@@ -55,10 +52,10 @@ const LoggedInButton = forwardRef<HTMLButtonElement, LoggedInButtonProps>(
 				)}
 
 				<div style={{ flex: 1 }}>
-					<Text size="sm" weight={500}>
+					<Text size="sm" style={{ fontWeight: 500 }}>
 						{session.user.name}
 					</Text>
-					<Text color="dimmed" size="xs">
+					<Text c="dimmed" size="xs">
 						{session.user.email}
 					</Text>
 				</div>
@@ -88,19 +85,20 @@ export default function UserButton() {
 		<div
 			style={{
 				paddingTop: theme.spacing.sm,
-				borderTop: `1px solid ${
-					theme.colorScheme === 'dark'
-						? theme.colors.dark[4]
-						: theme.colors.gray[2]
-				}`,
+				borderTop: `1px solid ${theme.colors.dark[4]}`,
 				width: '100%',
 			}}
 		>
 			{session ? (
-				<Menu width="target" opened={opened} onChange={setOpened}>
+				<Menu
+					width="target"
+					opened={opened}
+					onChange={setOpened}
+					position="top"
+				>
 					<Menu.Target>
 						<LoggedInButton
-							showUserImage={showUserImage}
+							showUserImage={showUserImage ? true : false}
 							session={session}
 							opened={opened}
 							theme={theme}

@@ -14,8 +14,8 @@ interface ProvidersProps {
 export default function Providers(props: ProvidersProps) {
 	return (
 		<SessionProvider session={props.session}>
-			<MantineProvider>
-				<DatesProvider settings={{ locale: 'it'}}>
+			<MantineProvider forceColorScheme="dark">
+				<DatesProvider settings={{ locale: 'it' }}>
 					<ModalsProvider>
 						<Notifications />
 

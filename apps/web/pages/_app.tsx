@@ -1,4 +1,8 @@
-import { useMantineTheme } from '@mantine/core';
+import '@mantine/core/styles.css';
+import '@mantine/dates/styles.css';
+import '@mantine/dropzone/styles.css';
+import '@mantine/notifications/styles.css';
+import '@mantine/tiptap/styles.css';
 import LoaderDiv from 'components/loader/LoaderDiv';
 import Providers from 'components/providers/Providers';
 import Wrapper from 'components/wrapper/Wrapper';
@@ -7,10 +11,8 @@ import { NextComponentType, NextPageContext } from 'next';
 import { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import NextNProgress from 'nextjs-progressbar';
 
 import './styles.css';
-import '@mantine/core/styles.css';
 
 interface CustomAppProps extends AppProps {
 	Component: NextComponentType<NextPageContext, any, any> & {
@@ -29,8 +31,6 @@ export default function App(props: CustomAppProps) {
 		Component,
 		pageProps: { session, ...pageProps },
 	} = props;
-
-	const theme = useMantineTheme();
 
 	const hasSidebar = Component.hasSidebar ?? false;
 	const hasLocalCache = Component.hasLocalCache ?? false;
@@ -63,13 +63,6 @@ export default function App(props: CustomAppProps) {
 			</Head>
 
 			<Providers session={session}>
-				<NextNProgress
-					color={theme.colors.blue[5]}
-					height={2}
-					options={{ showSpinner: false }}
-					showOnShallow={false}
-				/>
-
 				<Wrapper hasSidebar={hasSidebar}>
 					{hasLocalCache ? (
 						<SWRLocalCache>

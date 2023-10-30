@@ -1,22 +1,23 @@
+import { Anchor, ScrollArea, Table, Tabs, Text } from '@mantine/core';
+import { showNotification, updateNotification } from '@mantine/notifications';
+import { Booking, Event, Seminar, TimeSlot } from '@prisma/client';
+import { IconCheck, IconX } from '@tabler/icons-react';
+import FallbackPage from 'components/fallback/FallbackPage';
+import PageHeading from 'components/heading/PageHeading';
+import BackLink from 'components/links/BackLink';
+import SeminarClientRow from 'components/tableRows/SeminarClientRow';
+import { createBooking } from 'data/api/booking';
+import getEndpoint from 'data/api/getEndpoint';
+import useQueryState from 'hooks/router/useQueryState';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import prisma from 'prisma/client';
-import FallbackPage from 'components/fallback/FallbackPage';
-import BackLink from 'components/links/BackLink';
-import { Booking, Event, Seminar, TimeSlot } from '@prisma/client';
-import { OmitDates } from 'types/omit';
-import { Anchor, ScrollArea, Table, Tabs, Text } from '@mantine/core';
-import useQueryState from 'hooks/router/useQueryState';
-import SeminarClientRow from 'components/tableRows/SeminarClientRow';
-import useSWR from 'swr';
-import getEndpoint from 'data/api/getEndpoint';
 import { useCallback, useMemo } from 'react';
-import { showNotification, updateNotification } from '@mantine/notifications';
-import { IconCheck, IconX } from '@tabler/icons-react';
-import { useSession } from 'next-auth/react';
-import { createBooking } from 'data/api/booking';
+import useSWR from 'swr';
+import { OmitDates } from 'types/omit';
 import { v4 } from 'uuid';
-import PageHeading from 'components/heading/PageHeading';
+
 import { URL_REGEXP } from '../../utils/regex/url';
 
 export interface StaticTimeSlot extends Omit<TimeSlot, 'start' | 'end'> {
@@ -133,7 +134,7 @@ export default function EventPage({ event: serverSideEvent }: EventPageProps) {
 
 			<h1 style={{ margin: 0 }}>Evento</h1>
 
-			<Tabs value={activeTab} onTabChange={(newTab) => setActiveTab(newTab)}>
+			<Tabs value={activeTab} onChange={(newTab) => setActiveTab(newTab)}>
 				<Tabs.List grow>
 					{event?.timeSlots.map((slot) => (
 						<Tabs.Tab value={slot.id} key={slot.id}>

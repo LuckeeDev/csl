@@ -6,7 +6,12 @@ export default function DefaultPageWrapper({
 	children: ReactNode;
 }) {
 	return (
-		<div style={{ padding: '0 16px 16px 16px', height: '100%' }}>
+		<div
+			style={{
+				padding: '0 16px 16px 16px',
+				height: '100%',
+			}}
+		>
 			{children}
 		</div>
 	);

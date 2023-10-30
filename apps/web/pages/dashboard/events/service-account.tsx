@@ -8,6 +8,7 @@ import useServiceAccount from 'hooks/accounts/useServiceAccount';
 import { EVENT_LINKS } from 'navigation/dashboard/events';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+
 import { getProfile } from '@csl/google';
 
 function DashboardServiceAccount() {
@@ -57,10 +58,10 @@ function DashboardServiceAccount() {
 					/>
 
 					<div style={{ flex: 1 }}>
-						<Text size="sm" weight={500}>
+						<Text size="sm" style={{ fontWeight: 500 }}>
 							{serviceAccount.name}
 						</Text>
-						<Text color="dimmed" size="xs">
+						<Text c="dimmed" size="xs">
 							{serviceAccount.email}
 						</Text>
 					</div>
