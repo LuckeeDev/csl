@@ -11,6 +11,7 @@
 		"baseUrl": ".",
 		"paths": {
 			"@csl/google": ["../../libs/google/src/index.ts"],
+			"@csl/*": ["../../*"],
 			"*": ["./*"]
 		},
 		"strict": true,

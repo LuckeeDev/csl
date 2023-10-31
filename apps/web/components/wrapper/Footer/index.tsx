@@ -2,7 +2,8 @@ import { Anchor } from '@mantine/core';
 import { IconBrandGithub, IconExternalLink } from '@tabler/icons-react';
 import TextLink from 'components/links/TextLink';
 
-import PackageJSON from '../../../../../package.json';
+import PackageJSON from '@csl/package.json';
+
 import styles from './styles.module.css';
 
 export default function Footer() {
