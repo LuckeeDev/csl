@@ -4258,10 +4258,10 @@
   resolved "https://registry.yarnpkg.com/@tiptap/extension-subscript/-/extension-subscript-2.0.3.tgz#26be9609b52dcdc1ff0f0f00e9e3bc01dd464f78"
   integrity sha512-XFAEUaKxWRmTq7ePEF4aj7knelJPr2fTz0y/iSXydtS094LKwBHBzxatIZY3phrgfpDc+f51ycwarsgz27UJfg==
 
-"@tiptap/extension-superscript@^2.0.3":
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/@tiptap/extension-superscript/-/extension-superscript-2.0.3.tgz#7d57b2517a2f2e1ffb603edba5f05c6631bfe3a7"
-  integrity sha512-5EBjUvkw2SXL1e8C1i0UF26/GBNHxEbiNQKw7Shy88omVa4HTY+D8KWC/j29ZW/IomUbGPlbpXp1z+1TETzmyw==
+"@tiptap/extension-superscript@^2.1.12":
+  version "2.1.12"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-superscript/-/extension-superscript-2.1.12.tgz#6964d9c9b7591101bdc8e7058e88a75fe164d0a9"
+  integrity sha512-ek6L+DNsrjiJieArlgTvQt1VfJ56d8V19WAPW/ciRhq88YRlTEY9nSO3QuUCSUO1nGmE5OWQpgrsiW/XZbONVw==
 
 "@tiptap/extension-text@^2.1.12":
   version "2.1.12"
