@@ -1,5 +1,5 @@
-[![CodeQL](https://github.com/LuckeeDev/csl/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/LuckeeDev/csl/actions/workflows/codeql-analysis.yml)
-[![Deployment](https://img.shields.io/github/deployments/LuckeeDev/csl/production?label=vercel&logo=vercel)](https://cslussana.com)
+> :warning: This project is archived and is now in read-only mode.
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat)](#contributors)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
